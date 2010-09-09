@@ -1,13 +1,21 @@
 #labels Phase-Requirements
 = Table of Contents =
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 = Introduction =
 
 
 = Repository =
+For the project we use a Google Code Subversion repository. Google Code is absolutely free of charge and comes with a downloads section, a Wiki and a Bug tracker.
 
+Use the following URL to reach the project start page:  [http://code.google.com/p/opendecisionrepository/]
+
+
+Read access to the Subversion repository is available using the following URL: [http://opendecisionrepository.googlecode.com/svn/]
+
+
+For read and write access use the https protocol instead: [https://opendecisionrepository.googlecode.com/svn/]
 
 == Recommended file types ==
 The following file types are recommended.
@@ -59,6 +67,9 @@ bochs.out
 = Naming schemes =
 
 
+
+= Documentation =
+Written documentation should not be stored in the repository. Every written documentation should be placed in the Wiki to keep it easily accessible and encourage change. Diagrams and graphics may still be placed in the repository.
 
 
 = Text review / correction =
