@@ -1,6 +1,4 @@
 #labels Phase-Requirements
-#sidebar Documents
-
 = Documents =
 
 Add your content here.
