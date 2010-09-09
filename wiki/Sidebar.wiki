@@ -1,4 +1,4 @@
-[http://code.google.com/p/opendecisionrepository/wiki/Start *Start*]
+*[http://code.google.com/p/opendecisionrepository/wiki/Start Start]*
 
 *Documents*
   * [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan Project Plan]
