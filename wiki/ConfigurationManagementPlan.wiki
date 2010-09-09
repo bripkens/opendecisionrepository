@@ -17,6 +17,17 @@ Read access to the Subversion repository is available using the following URL: [
 
 For read and write access use the https protocol instead: [https://opendecisionrepository.googlecode.com/svn/]
 
+== Naming schemes ==
+File and folder names should not contain any special characters nor spaces. Some examples for allowed file and folder names:
+ * design
+ * project-plan
+ * domain-model
+
+Some examples for disallowed file and folder names:
+ * -design (starts with a dash)
+ * überprüfung (contains vowel mutation)
+ * project plan (contains a space)
+
 == Recommended file types ==
 The following file types are recommended.
 
@@ -64,7 +75,6 @@ bochs.out
 *.o
 }}}
 
-= Naming schemes =
 
 
 
