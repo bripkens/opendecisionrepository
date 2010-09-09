@@ -1,5 +1,5 @@
-#summary this page gives an overview about all project documents
 #labels Phase-Requirements
+#sidebar Documents
 
 = Documents =
 
