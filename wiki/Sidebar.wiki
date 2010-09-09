@@ -1,5 +1,5 @@
 === Documents ===
   * [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan Project Plan]
-  * [http://code.google.com/p/opendecisionrepository/wiki/Requirements Software Requirements Specification]
   * [http://code.google.com/p/opendecisionrepository/wiki/ConfigurationManagementPlan Configuration Management Plan]
+  * [http://code.google.com/p/opendecisionrepository/wiki/Requirements Software Requirements Specification]
   * [http://code.google.com/p/opendecisionrepository/wiki/Architecture Architecture]
