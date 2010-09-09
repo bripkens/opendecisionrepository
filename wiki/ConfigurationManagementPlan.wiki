@@ -4,7 +4,7 @@
 <wiki:toc max_depth="2" />
 
 = Introduction =
-
+This document gives an overview about the project conventions we established.
 
 = Repository =
 For the project we use a Google Code Subversion repository. Google Code is absolutely free of charge and comes with a downloads section, a Wiki and a Bug tracker.
