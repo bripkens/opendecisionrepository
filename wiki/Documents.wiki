@@ -1,8 +1,5 @@
 #labels Phase-Requirements
-Add your content here.
-
-
-== List of documents ==
+= List of documents =
 
 The following documents are available.
 
