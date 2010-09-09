@@ -1,2 +1,22 @@
 #labels Phase-Requirements
-todo
+= Introduction =
+
+
+= Repository =
+
+
+
+= Naming schemes =
+
+
+
+
+= Text Review =
+Use Bracket Notation when reviewing a text that is not version controlled. Also use it if you are uncertain about the changes you want to apply or if you simply want to add a comment. You can read about Bracket Notation in [http://www.azarask.in/blog/post/collaboration_made_simple_with_bracket_notation/ Aza Raskins Blog].
+
+Bracket Notation is used in the following way (excerpt from the blog entry):
+ {{{the[ir][y're]}}}: “their” was used when “they’re” was meant. To fix this problem the editor suggestions deleting “ir” and replacing it with “y’re”.
+
+ {{{a[n]}}}: “An” should only be used before a word that begins with a vowel-like sound. The editor suggests removing the “n” of “an”.
+
+ {{{[][][Be careful...]}}}: The editor is reprimanding the author for forgetting the rules of English. Notice the two sets of empty brackets that prefix the comment. They are needed to make sure that comment cannot be confused for an addition or deletion.
