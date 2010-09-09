@@ -3,4 +3,7 @@
 
 The following documents are available.
 
-  * -
+  * [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan Project Plan]
+  * [http://code.google.com/p/opendecisionrepository/wiki/Requirements Requirements]
+  * [http://code.google.com/p/opendecisionrepository/wiki/ConfigurationManagementPlan Configuration Management Plan]
+  * [http://code.google.com/p/opendecisionrepository/wiki/Architecture Architecture]
