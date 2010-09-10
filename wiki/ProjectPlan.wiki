@@ -2,7 +2,7 @@
 =Introduction=
 This document describes the Open Decision Repository (ODR) project, which is commissioned by the Software Engineering and Architecture group (SEARCH) of the University of Groningen. The goal of this project is to develop a freely available decision repository, which allows the user to document their architectural decisions in software projects. This project will be realized as an internship project by two students from the Fontys University of Applied Sciences in Venlo.  As a result, no budget is needed and the estimated time for the realization is set to 100 working days. 
 The ODR is an online repository, which provides the functionality to document all architectural decisions. This enables a chronological view of every architectural decision, which allows you to reconstruct architectural decisions in an easy and fast way. In addition, you can see which stakeholder is responsible for every architectural step in the project and the dependencies of all decisions. 
-=2Project Resources=
+=2 Project Resources=
  == 2.1 People==
  The project team is divided in three different parts. 
   * Software Engineers  (Ben Ripkens, Stefan Arians)
