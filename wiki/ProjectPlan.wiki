@@ -16,7 +16,7 @@ The ODR is an online repository, which provides the functionality to document al
  == Hardware requirements ==
  It is necessary that booth of the developer have an own computer with internet connection. 
  == Software requirements ==
- At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode™ platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
+ At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
 =Risk Management =
 It’s very important to give some thought to the risk about a project. This project will be realized by only two software engineers that means, the risk of big problems have to be handled seriously.
 
