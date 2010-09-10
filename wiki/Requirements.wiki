@@ -1,2 +1,22 @@
 #labels Phase-Requirements
-todo
+= Introduction =
+
+== Purpose ==
+
+== References ==
+glossary, stakeholder document, bibliography
+
+== Overview ==
+
+
+= High level view =
+
+== Product scope ==
+
+== User characteristics ==
+
+== Product functionality ==
+
+= Low level view =
+
+= Traceability matrix =
