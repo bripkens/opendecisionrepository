@@ -1,6 +1,5 @@
  * *[http://code.google.com/p/opendecisionrepository/wiki/Start Start]*
  * *[http://code.google.com/p/opendecisionrepository/wiki/Glossary Glossary]*
-
  * *Documents*
   * [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan Project Plan]
   * [http://code.google.com/p/opendecisionrepository/wiki/ConfigurationManagementPlan Configuration Management Plan]
