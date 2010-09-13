@@ -7,6 +7,25 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
+    <application>
+
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.common</base-name>
+            <var>common</var>
+        </resource-bundle>
+
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.form</base-name>
+            <var>form</var>
+        </resource-bundle>
+
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+
+    </application>
+
     <managed-bean>
         <managed-bean-name>indexBean</managed-bean-name>
         <managed-bean-class>nl.rug.search.odr.IndexBackingBean</managed-bean-class>
