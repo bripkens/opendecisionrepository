@@ -11,23 +11,23 @@ The ODR is an online repository, which provides the functionality to document al
 =Project resources=
 
 
- == People==
- The project team is divided in three different parts. 
-  * Software Engineers  (Ben Ripkens, Stefan Arians)
-  * The customer ( Uwe van Heesch)
-  * The stakeholder (Prof. dr. ir Paris Avgeriou)
- The customer and the stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform the customer about big problems during the project.
+== People==
+The project team is divided in three different parts. 
+ * Software Engineers  (Ben Ripkens, Stefan Arians)
+ * The customer ( Uwe van Heesch)
+ * The stakeholder (Prof. dr. ir Paris Avgeriou)
+The customer and the stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform the customer about big problems during the project.
 
 
  == Hardware requirements ==
- It is necessary that booth of the developer have an own computer with internet connection. 
+It is necessary that booth of the developer have an own computer with internet connection. 
 
 
 
 
 
  == Software requirements ==
- At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
+At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
 
 
 
