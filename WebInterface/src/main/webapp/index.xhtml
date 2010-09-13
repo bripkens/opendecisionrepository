@@ -5,31 +5,41 @@
     Author     : Ben Ripkens <bripkens.dev@gmail.com>
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ice="http://www.icesoft.com/icefaces/component">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
     <head>
         <title>
-	        <ui:insert name="title">ICEfaces Facelets</ui:insert>
+            <ui:insert name="title">ICEfaces Facelets</ui:insert>
         </title>
     </head>
     <body>
         <div id="header">
-           <!--
-           <ui:include src="/header.xhtml" >
+            <!--
+            <ui:include src="/header.xhtml" >
 	          <ui:param name="param_name" value="param_value" />
-           </ui:include>
-           -->
+            </ui:include>
+            -->
         </div>
-         <div id="content">
-             <ice:form>
-                <ice:outputText value="Add ICEfaces components now!!!"/>
-                <ice:outputText value="#{indexBean.get}"/>
-             <!--
-             drop ICEfaces components here
-             -->
-             </ice:form>
-         </div>
+        <div id="content">
+            <ice:form>
+
+                <table>
+                    <tr>
+                        <td><ice:outputText value="#{common['page.title']} "/></td>
+                    <td><ice:inputText id="inUsername" size="25" maxlength="25" value=""/></td>
+                    </tr>
+                    <tr>
+<!--                        <td><ice:outputText value="#{form.registration.user.pw}"/></td>
+                    <td><ice:inputText id="inPassword" size="25" maxlength="25" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><ice:outputText value="#{form.registration.user.email}"/></td>
+                    <td><ice:inputText id="inEmailaddress" size="25" maxlength="25" value="" /></td>-->
+                    </tr>
+                </table>
+            </ice:form>
+        </div>
     </body>
 </html>
