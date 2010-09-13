@@ -11,20 +11,13 @@ import nl.rug.search.odr.entities.Person;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class SimpleBean implements SimpleBeanLocal {
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+public class User implements UserLocal {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public String getText() {
-        Person u = new Person();
-        u.setName("Peter");
-        entityManager.persist(u);
-
-        return "42";
+    public void registerPerson(Person p) {
+        entityManager.persist(p);
     }
- 
+
 }
