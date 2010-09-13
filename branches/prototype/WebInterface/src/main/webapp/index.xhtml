@@ -15,28 +15,21 @@
         </title>
     </head>
     <body>
-        <div id="header">
-            <!--
-            <ui:include src="/header.xhtml" >
-	          <ui:param name="param_name" value="param_value" />
-            </ui:include>
-            -->
-        </div>
         <div id="content">
             <ice:form>
 
                 <table>
                     <tr>
                         <td><ice:outputText value="#{common['page.title']} "/></td>
-                    <td><ice:inputText id="inUsername" size="25" maxlength="25" value=""/></td>
+                        <td><ice:inputText id="inUsername" size="25" maxlength="25" value=""/></td>
                     </tr>
                     <tr>
-<!--                        <td><ice:outputText value="#{form.registration.user.pw}"/></td>
-                    <td><ice:inputText id="inPassword" size="25" maxlength="25" value=""/></td>
+                        <td><ice:outputText value="#{form['registration.user.pw']}"/></td>
+                    <td><ice:inputSecret id="inPassword" size="25" maxlength="25" value=""/></td>
                     </tr>
                     <tr>
-                        <td><ice:outputText value="#{form.registration.user.email}"/></td>
-                    <td><ice:inputText id="inEmailaddress" size="25" maxlength="25" value="" /></td>-->
+                        <td><ice:outputText value="#{form['registration.user.email']}"/></td>
+                    <td><ice:inputText id="inEmailAddress" size="25" maxlength="25" value="" /></td>
                     </tr>
                 </table>
             </ice:form>

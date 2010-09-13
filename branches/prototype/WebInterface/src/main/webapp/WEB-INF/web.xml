@@ -92,6 +92,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>forward.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

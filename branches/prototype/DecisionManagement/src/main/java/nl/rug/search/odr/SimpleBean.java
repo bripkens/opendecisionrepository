@@ -4,7 +4,7 @@ package nl.rug.search.odr;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import nl.rug.search.odr.entities.SystemUser;
+import nl.rug.search.odr.entities.Person;
 
 /**
  *
@@ -20,7 +20,7 @@ public class SimpleBean implements SimpleBeanLocal {
     private EntityManager entityManager;
 
     public String getText() {
-        SystemUser u = new SystemUser();
+        Person u = new Person();
         u.setName("Peter");
         entityManager.persist(u);
 
