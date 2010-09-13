@@ -6,28 +6,56 @@
 =Introduction=
 This document describes the Open Decision Repository (ODR) project, which is commissioned by the Software Engineering and Architecture group (SEARCH) of the University of Groningen. The goal of this project is to develop a freely available decision repository, which allows the user to document their architectural decisions in software projects. This project will be realized as an internship project by two students from the Fontys University of Applied Sciences in Venlo.  As a result, no budget is needed and the estimated time for the realization is set to 100 working days. 
 The ODR is an online repository, which provides the functionality to document all architectural decisions. This enables a chronological view of every architectural decision, which allows you to reconstruct architectural decisions in an easy and fast way. In addition, you can see which stakeholder is responsible for every architectural step in the project and the dependencies of all decisions. 
-=Project Resources=
+
+
+=Project resources=
+
+
  == People==
  The project team is divided in three different parts. 
   * Software Engineers  (Ben Ripkens, Stefan Arians)
   * The customer ( Uwe van Heesch)
   * The stakeholder (Prof. dr. ir Paris Avgeriou)
  The customer and the stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform the customer about big problems during the project.
+
+
  == Hardware requirements ==
  It is necessary that booth of the developer have an own computer with internet connection. 
+
+
+
+
+
  == Software requirements ==
  At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
-=Risk Management =
+
+
+
+
+
+=Risk management =
 It’s very important to give some thought to the risk about a project. This project will be realized by only two software engineers that means, the risk of big problems have to be handled seriously.
 
-*Sickness:* If one member in the project team becomes seriously ill, the project schedule will change.
+== Sickness ==
+Since the team only consists of two members, a serious sickness is dangerous.
 
-*Late requirement changes:* 
 
-*Wrong time estimation / big goals:* 
+== Late requirement changes ==
+Visualizations of architectural decisions are part of a paper by Mr. Uwe van Heesch and Prof. dr. ir Paris Avgeriou. Since it is yet to be released requirement changes are likely to occur.
+
+
+== Wrong time estimation ==
+Correct time estimation is difficult since both team members have only limited knowledge. Managing this risk isn't easy, one solution is the development process. Scrum helps to improve time estimation since small work packages are chosen in every iteration. At the end of each sprint the retrospective allows to adapt the work load for the next sprint.
+
+
  == Risk tables ==
+||*Risk*||*Probability*||*Effect*||
+||Sickness||Moderate||Catastrophic||
+||Late requirement changes||Likely||Serious||
+||Wrong time estimation||Likely||Serious||
 
-=Project Scheduling =
+
+=Project schedule =
  In this Project, Scrum will be used. Scrum is an agile software development method for project management. The entire project time is divided by 10 sprints. One sprint takes 2 weeks and after every sprint, the customer will be informed about the project and get a delivery. In the following picture you can see a detailed view about the schedule.
 
 http://opendecisionrepository.googlecode.com/svn/wiki/schedule.PNG
