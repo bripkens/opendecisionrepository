@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : index
+    Created on : Sep 9, 2010, 6:33:09 PM
+    Author     : Ben Ripkens <bripkens.dev@gmail.com>
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+    <head>
+        <title>
+	        <ui:insert name="title">ICEfaces Facelets</ui:insert>
+        </title>
+    </head>
+    <body>
+        <div id="header">
+           <!--
+           <ui:include src="/header.xhtml" >
+	          <ui:param name="param_name" value="param_value" />
+           </ui:include>
+           -->
+        </div>
+         <div id="content">
+             <ice:form>
+                <ice:outputText value="Add ICEfaces components now!"/>
+                <ice:outputText value="#{indexBean.get}"/>
+             <!--
+             drop ICEfaces components here
+             -->
+             </ice:form>
+         </div>
+    </body>
+</html>
