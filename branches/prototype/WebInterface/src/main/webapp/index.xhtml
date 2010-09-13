@@ -18,20 +18,26 @@
         <div id="content">
             <ice:form>
 
-                <table>
-                    <tr>
-                        <td><ice:outputText value="#{common['page.title']} "/></td>
-                        <td><ice:inputText id="inUsername" size="25" maxlength="25" value=""/></td>
-                    </tr>
-                    <tr>
-                        <td><ice:outputText value="#{form['registration.user.pw']}"/></td>
-                    <td><ice:inputSecret id="inPassword" size="25" maxlength="25" value=""/></td>
-                    </tr>
-                    <tr>
-                        <td><ice:outputText value="#{form['registration.user.email']}"/></td>
-                    <td><ice:inputText id="inEmailAddress" size="25" maxlength="25" value="" /></td>
-                    </tr>
-                </table>
+                <fieldset>
+                    <legend>Registration</legend>
+
+                    <table>
+                        <tr>
+                            <td><ice:outputText value="#{form['registration.user.name']} "/></td>
+                        <td><ice:inputText id="inUsername" size="25" maxlength="25" value="#{registerBean.username}"/></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputText value="#{form['registration.user.pw']}"/></td>
+                        <td><ice:inputSecret id="inPassword" size="25" maxlength="25" value="#{registerBean.password}"/></td>
+                        </tr>
+                        <tr>
+                            <td><ice:outputText value="#{form['registration.user.email']}"/></td>
+                        <td><ice:inputText id="inEmailAddress" size="25" maxlength="25" value="#{registerBean.emailAddress}" required="true"
+                            /></td>
+                        </tr>
+                    </table>
+                    <ice:commandButton id="addUser" value="addUser" action="#{registerBean.register}" />
+                </fieldset>
             </ice:form>
         </div>
     </body>
