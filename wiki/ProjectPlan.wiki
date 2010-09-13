@@ -49,7 +49,7 @@ Correct time estimation is difficult since both team members have only limited k
 
 
  == Risk tables ==
-||*Risk*||*Probability*||*Effect*||
+|| *Risk* || *Probability* || *Effect* ||
 ||Sickness||Moderate||Catastrophic||
 ||Late requirement changes||Likely||Serious||
 ||Wrong time estimation||Likely||Serious||
