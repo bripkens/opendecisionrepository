@@ -3,7 +3,9 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
         xml:lang="en">
+
     <ice:outputDeclaration
         doctypeRoot="html"
         doctypePublic="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -12,9 +14,14 @@
     <html xmlns="http://www.w3.org/1999/xhtml"
           xml:lang="en">
         <head profile="http://gmpg.org/xfn/11">
-            <!--            <base href="{baseCtrl.baseHREF}" />-->
+
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title><ice:outputText value="#{common['page.title']} " nospan="true" /> <ui:insert name="pagetitle">PAGETITLE</ui:insert></title>
+
+            <title>
+                <ice:outputText value="#{common['page.title']} " nospan="true" />
+                -
+                <ui:insert name="pagetitle">page title</ui:insert>
+            </title>
 
             <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
 
@@ -23,69 +30,88 @@
             <script type="text/javascript" src="resources/js/common.js"></script>
             <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
 
-            <ui:insert name="head"></ui:insert>
+        <ui:insert name="head" />
         </head>
         <body>
 
-        <ice:form>
-            <ice:panelPopup id="rejectDecisionBox"
-                            draggable="true"
-                            modal="true"
-                            rendered="{viewDecisionCtrl.rejectBox}"
-                            visible="{viewDecisionCtrl.rejectBox}"
-                            autoCentre="auto"
-                            style="position:absolute;z-index: 99; background-color: lightgray;border: 1px solid #48a659;">
-                <f:facet name="header">
-                    <ice:panelGroup styleClass="popupHeaderWrapper" style="text-align: center; background-color: gray; margin-bottom: 10px; color: white;font: 12px/1.5em erdama, sans-serif; padding: 1px;width: 100%;">
-                        <ice:outputText style="text-align: inherit;" value="{help['decision.view.reject.text']}" escape="false" />
-                    </ice:panelGroup>
-                </f:facet>
-                <f:facet name="body">
+            <!--        <ice:form>
+                        <ice:panelPopup id="rejectDecisionBox"
+                                        draggable="true"
+                                        modal="true"
+                                        rendered="{viewDecisionCtrl.rejectBox}"
+                                        visible="{viewDecisionCtrl.rejectBox}"
+                                        autoCentre="auto"
+                                        style="position:absolute;z-index: 99; background-color: lightgray;border: 1px solid #48a659;">
+                            <f:facet name="header">
+                                <ice:panelGroup styleClass="popupHeaderWrapper" style="text-align: center; background-color: gray; margin-bottom: 10px; color: white;font: 12px/1.5em erdama, sans-serif; padding: 1px;width: 100%;">
+                                    <ice:outputText style="text-align: inherit;" value="{help['decision.view.reject.text']}" escape="false" />
+                                </ice:panelGroup>
+                            </f:facet>
+                            <f:facet name="body">
 
-                    <ice:panelGroup styleClass="popupBody center" style="text-align: center;">
-                        &#160;&#160;
-                        <ice:commandButton
-                            actionListener="{viewDecisionCtrl.reject}"
-                            value="Yes" >
-                            <f:attribute name="rejectDecision" value="true" />
-                        </ice:commandButton>
-                        &#160;
-                        <ice:commandButton
-                            actionListener="{viewDecisionCtrl.reject}"
-                            value="No" >
-                            <f:attribute name="rejectDecision" value="false" />
-                        </ice:commandButton>
-                        &#160;&#160;
-                        <br /><br />
-                    </ice:panelGroup>
+                                <ice:panelGroup styleClass="popupBody center" style="text-align: center;">
+                                    &#160;&#160;
+                                    <ice:commandButton
+                                        actionListener="{viewDecisionCtrl.reject}"
+                                        value="Yes" >
+                                        <f:attribute name="rejectDecision" value="true" />
+                                    </ice:commandButton>
+                                    &#160;
+                                    <ice:commandButton
+                                        actionListener="{viewDecisionCtrl.reject}"
+                                        value="No" >
+                                        <f:attribute name="rejectDecision" value="false" />
+                                    </ice:commandButton>
+                                    &#160;&#160;
+                                    <br /><br />
+                                </ice:panelGroup>
 
-                </f:facet>
-            </ice:panelPopup>
-        </ice:form>
+                            </f:facet>
+                        </ice:panelPopup>
+                    </ice:form>-->
 
-        <div id="header">
-            <div class="hseperator"></div>
-            <div id="logo">
-                <img src="resources/images/logo.png" alt="Open Pattern Repository" title="Logo of the Open Pattern Repository" />
+            <div id="header">
+                <div class="hseperator"></div>
+                <div id="logo">
+                    <img src="resources/images/logo.png" alt="#{common['page.logo.description']}" width="78" height="56"/>
+                </div>
+                <div id="navigation">
+                    <div>
+                        <h:form>
+                            <ul>
+                                <li class="current">
+                                    <a href="#"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><h:outputText value="#{common['page.mainMenu.projects.text']}" title="#{common['page.mainMenu.projects.title']}" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><h:outputText value="#{common['page.mainMenu.search.text']}" title="#{common['page.mainMenu.search.title']}" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><h:outputText value="#{common['page.mainMenu.learnMore.text']}" title="#{common['page.mainMenu.learnMore.title']}" /></a>
+                                </li>
+                            </ul>
+                        </h:form>
+                    </div>
+                </div>
+<!--                <ul id="shortlinks">
+                    <li>
+                        <img src="resources/images/search.png" id="toggle_quicksearch" alt="Search" />
+                    </li>
+                    <li>
+                        <img src="resources/images/archiv.png" id="toggle_archiv" alt="Archiv" />
+                    </li>
+                    <li>
+                        <img src="resources/images/rss.png" alt="Stay up-to-date" />
+                    </li>
+                </ul>-->
             </div>
-            <div id="navigation">
-                <ui:include src="menu.xhtml" />
-            </div>
-            <ul id="shortlinks">
-                <li>
-                    <a href="search.iface"><img src="resources/images/search.png" id="toggle_quicksearch" alt="Search" /></a>
-                </li>
-                <li>
-                    <img src="resources/images/archiv.png" id="toggle_archiv" alt="Archiv" />
-                </li>
-                <li>
-                    <a href=""><img src="resources/images/rss.png" alt="Stay up-to-date" /></a>
-                </li>
-            </ul>
-        </div>
-        <div id="page">
-            <ui:insert name="page">
+            <div id="page">
                 <div id="content">
+                    <ui:insert name="content">content</ui:insert>
+                </div>
+                <!--
                     <div id="toc">
                         <div class="hideArrow" ></div>
                         <span class="title">Contents</span>
@@ -115,88 +141,90 @@
                         Unfortunate the solution for integrating the ‘shop’ principle into a web based environment is far from easy. The entire process of purchasing a service or a product via the Internet is often time consuming and difficult. This is mainly due to the fact that it is a complex task to make a complete transaction regarding a service or product. Presenting the user with the entire task at once makes the process of completing the task difficult and more error prone. To avoid making any errors the process often becomes unnecessarily time consuming.</p><p>
                         Next to user related issues one has to deal with domain specific concerns like security, stateless connections and data integrity. Although security and data integrity aren’t really domain specific the constraint of stateless connections makes them specific to the domain of web based applications.
                         The wizard pattern describes how such a complex task can be decomposed into smaller – more simpler – subtasks. The user is only confronted with the currently relevant subtask. Since such a task contains only a small portion of the actual tasks data it is less complex and therefore less error prone, making it easier to successfully complete the subtask. Next to this a user can also (when implemented correctly) view its progress with respect to the other subtasks. Thereby giving the user an idea of how far they are from completing the entire task. </p>
-                </div>                
+                </div>-->
                 <div id="sidebar">
-                    <ul class="info">
-                        <li>
-                            <div class="header"><img src="resources/images/info.png" alt="Information" /></div>
-                            <div class="text">
-                                <table>
-                                    <tr>
-                                        <td colspan="2"><b>Wizard pattern</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 8em;"><b>Version</b></td><td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Published</b></td><td>10-15-2009</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Publisher</b></td><td>anonymous</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>License</b></td><td>Creative Commons 2.0 <img src="resources/images/creativeCommons.png" alt="nc by sa" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Source</b></td><td>Michel de Jong<br />Departement of Computer Science<br />University of Groningen</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="header"><img src="resources/images/categories.png" alt="Information" /></div>
-                            <div class="text">RUG > Web-patterns > Creational Patterns</div>
-                        </li>
-                        <li>
-                            <div class="header"><img src="resources/images/tags.png" alt="Information" /></div>
-                            <div class="text"></div>
-                        </li>
-                        <li>
-                            <div class="header"><img src="resources/images/impact.png" alt="Information" /></div>
-                            <div class="text"></div>
-                        </li>
-                    </ul>
-
-                    <h2>Comments</h2>
-
-                    <ul class="comments">
-                        <li>
-                            <div class="header">
-								cm<br />
-                                <span class="date">12-2-09</span>
-                            </div>
-                            <div class="text">Adding and replacing of steps is easy. It merely requires defining a class that inherits from the ParentalStep class and implementing the enter() method. Other methods can also be overridden but it isn’t required since the ParentalStep already defines default behavior for those methods. Thus newly defined classes work automatically with existing structures. This increases the modifiability of the system.</div>
-                        </li>
-                        <li  class="children">
-                            <div class="header">
-				                someone<br />
-                                <span class="date">12-2-09</span>
-                            </div>
-                            <div class="text">It separates the implementation of the pattern from the rest of the system. This increases maintainability of the system.</div>
-                        </li>
-                        <li class="children">
-                            <div class="header">
-				                someoneelse<br />
-                                <span class="date">12-2-09</span>
-                            </div>
-                            <div class="text">ack.</div>
-                        </li>
-                        <li>
-                            <div class="header">
-								anonymous<br />
-                                <span class="date">12-2-09</span>
-                            </div>
-                            <div class="text">The steps invoke default functionality from the ParentalStep. Invocation of a method of the ParentalStep can also come directly from the wizard, since some steps don’t require additional implementation for a method.</div>
-                        </li>
-                    </ul>
-
+                    <ui:insert name="sidebar">sidebar</ui:insert>
                 </div>
-            </ui:insert>
-        </div>
-        <div id="footer">
-            <hr style="height: 1px; border-top: 1px;"/>
-            If you have questions or comments regarding the Open Pattern Repository, please address them to uwe@vanheesch.net. Also visit our group-website at http://www.cs.rug.nl/search/.
-        </div>
+                <!--<ul class="info">
+                    <li>
+                        <div class="header"><img src="resources/images/info.png" alt="Information" /></div>
+                        <div class="text">
+                            <table>
+                                <tr>
+                                    <td colspan="2"><b>Wizard pattern</b></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 8em;"><b>Version</b></td><td>2</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Published</b></td><td>10-15-2009</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Publisher</b></td><td>anonymous</td>
+                                </tr>
+                                <tr>
+                                    <td><b>License</b></td><td>Creative Commons 2.0 <img src="resources/images/creativeCommons.png" alt="nc by sa" /></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Source</b></td><td>Michel de Jong<br />Departement of Computer Science<br />University of Groningen</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="header"><img src="resources/images/categories.png" alt="Information" /></div>
+                        <div class="text">RUG > Web-patterns > Creational Patterns</div>
+                    </li>
+                    <li>
+                        <div class="header"><img src="resources/images/tags.png" alt="Information" /></div>
+                        <div class="text"></div>
+                    </li>
+                    <li>
+                        <div class="header"><img src="resources/images/impact.png" alt="Information" /></div>
+                        <div class="text"></div>
+                    </li>
+                </ul>
+
+                <h2>Comments</h2>
+
+                <ul class="comments">
+                    <li>
+                        <div class="header">
+								cm<br />
+                            <span class="date">12-2-09</span>
+                        </div>
+                        <div class="text">Adding and replacing of steps is easy. It merely requires defining a class that inherits from the ParentalStep class and implementing the enter() method. Other methods can also be overridden but it isn’t required since the ParentalStep already defines default behavior for those methods. Thus newly defined classes work automatically with existing structures. This increases the modifiability of the system.</div>
+                    </li>
+                    <li  class="children">
+                        <div class="header">
+				                someone<br />
+                            <span class="date">12-2-09</span>
+                        </div>
+                        <div class="text">It separates the implementation of the pattern from the rest of the system. This increases maintainability of the system.</div>
+                    </li>
+                    <li class="children">
+                        <div class="header">
+				                someoneelse<br />
+                            <span class="date">12-2-09</span>
+                        </div>
+                        <div class="text">ack.</div>
+                    </li>
+                    <li>
+                        <div class="header">
+								anonymous<br />
+                            <span class="date">12-2-09</span>
+                        </div>
+                        <div class="text">The steps invoke default functionality from the ParentalStep. Invocation of a method of the ParentalStep can also come directly from the wizard, since some steps don’t require additional implementation for a method.</div>
+                    </li>
+                </ul>
+                -->
+
+
+            </div>
+            <div id="footer">
+                <hr style="height: 1px; border-top: 1px;"/>
+                If you have questions or comments regarding the Open Decision Repository, please address them to uwe@vanheesch.net. Also visit our group-website at http://www.cs.rug.nl/search/.
+            </div>
         </body>
     </html>
 </f:view>
