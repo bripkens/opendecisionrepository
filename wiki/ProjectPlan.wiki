@@ -19,14 +19,14 @@ The project team is divided in three different parts.
 The customer and the stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform the customer about big problems during the project.
 
 
- == Hardware requirements ==
+== Hardware requirements ==
 It is necessary that booth of the developer have an own computer with internet connection. 
 
 
 
 
 
- == Software requirements ==
+== Software requirements ==
 At first we decided to use a versioning server. It helps to jump between different versions of the project. Furthermore we want to share our project documents using a wiki. Because of that we defined to use the GoogleCode platform.  This offers a Subversion server and a wiki and it is free accessible, so we can share our project with everyone. 
 
 
@@ -34,7 +34,7 @@ At first we decided to use a versioning server. It helps to jump between differe
 
 
 =Risk management =
-It’s very important to give some thought to the risk about a project. This project will be realized by only two software engineers that means, the risk of big problems have to be handled seriously.
+It’s very important to spend some thought on project risks. This project will be realized by only two software engineers that means, probable risks have to be taken into account.
 
 == Sickness ==
 Since the team only consists of two members, a serious sickness is dangerous. This risk can't be managed.
