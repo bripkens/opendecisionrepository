@@ -14,13 +14,13 @@ The ODR is an online repository, which provides the functionality to document al
 == People==
 The project team is divided in three different parts. 
  * Software Engineers  (Ben Ripkens, Stefan Arians)
- * The customer ( Uwe van Heesch)
- * The stakeholder (Prof. dr. ir Paris Avgeriou)
-The customer and the stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform the customer about big problems during the project.
+ * Customer ( Uwe van Heesch)
+ * Stakeholder (Prof. dr. ir Paris Avgeriou)
+Customer and stakeholder are interested in the project, to support their white paper about ‘Viewpoints for Architectural Decisions’, so it’s very important to inform them about problems and evolution of the project.
 
 
 == Hardware requirements ==
-It is necessary that booth of the developer have an own computer with internet connection. 
+It is necessary that both of the developer have a computer with internet connection. 
 
 
 
