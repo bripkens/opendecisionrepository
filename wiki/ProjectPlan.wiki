@@ -48,7 +48,7 @@ Visualizations of architectural decisions are part of a paper by Mr. Uwe van Hee
 Correct time estimation is difficult since both team members have only limited knowledge. Managing this risk isn't easy, one solution is the development process. Scrum helps to improve time estimation since small work packages are chosen in every iteration. At the end of each sprint the retrospective allows to adapt the work load for the next sprint.
 
 
- == Risk table ==
+== Risk table ==
 || *Risk* || *Probability* || *Effect* ||
 ||Sickness||Moderate||Catastrophic||
 ||Late requirement changes||Likely||Serious||
