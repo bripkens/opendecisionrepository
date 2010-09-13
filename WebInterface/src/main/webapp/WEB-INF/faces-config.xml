@@ -29,9 +29,9 @@
     </application>
 
     <managed-bean>
-        <managed-bean-name>indexBean</managed-bean-name>
-        <managed-bean-class>nl.rug.search.odr.IndexBackingBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-name>registerBean</managed-bean-name>
+        <managed-bean-class>nl.rug.search.odr.backing.RegisterUserBackingBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
 </faces-config>
