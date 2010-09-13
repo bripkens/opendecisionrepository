@@ -9,11 +9,13 @@
 
     <application>
 
+        <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
+
         <resource-bundle>
             <base-name>nl.rug.search.odr.localization.common</base-name>
             <var>common</var>
         </resource-bundle>
-
         <resource-bundle>
             <base-name>nl.rug.search.odr.localization.form</base-name>
             <var>form</var>
