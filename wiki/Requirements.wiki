@@ -21,6 +21,8 @@ glossary, stakeholder document, bibliography
 
 == Product functionality ==
 
+http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
+
 <table border="1" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
