@@ -21,6 +21,7 @@
                 <ice:outputText value="#{common['page.title']} " nospan="true" /> - <ui:insert name="pagetitle">page title</ui:insert>
             </title>
 
+            <link rel="stylesheet" type="text/css" href="resources/css/odr.css" />
             <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
 
             <link rel="icon" href="resources/images/icon.png" type="image/png" />
@@ -71,17 +72,17 @@
             <div id="header">
                 <div class="hseperator"></div>
                 <div id="logo">
-                    <img src="resources/images/logo.png" alt="#{common['page.logo.description']}" width="78" height="56"/>
+                    <img src="resources/images/odr_logo.png" alt="#{common['page.logo.description']}" width="45" height="45"/>
                 </div>
                 <div id="navigation">
                     <div>
                         <h:form>
                             <ul>
                                 <li class="current">
-                                    <a href="#"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
+                                    <a href="index.html"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
                                 </li>
                                 <li>
-                                    <a href="#"><h:outputText value="#{common['page.mainMenu.projects.text']}" title="#{common['page.mainMenu.projects.title']}" /></a>
+                                    <a href="createProject.html"><h:outputText value="#{common['page.mainMenu.projects.text']}" title="#{common['page.mainMenu.projects.title']}" /></a>
                                 </li>
                                 <li>
                                     <a href="#"><h:outputText value="#{common['page.mainMenu.search.text']}" title="#{common['page.mainMenu.search.title']}" /></a>

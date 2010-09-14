@@ -90,9 +90,9 @@ div#logo {
 }
 
 div#logo img {
-    width:  4.88em;
-    height: 3.50em;
-    margin: 0.9em;
+    width:  45px;
+    height: 45px;
+    margin: 1em;
 }
 
 div#navigation{
@@ -255,6 +255,7 @@ div#help {
 
 #help  ul.info {
     background: transparent url(../images/boxbg.png) repeat-y;
+    /*background-position: -1px 0px; fix for chrome*/
 }
 
 #help  ul > li > div.header {
