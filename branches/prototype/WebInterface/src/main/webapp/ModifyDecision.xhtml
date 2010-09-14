@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        new decision
+    </ui:define>
+
+    <ui:define name="content">
+            New Decision:
+            <ice:form>
+            <table>
+                <tr>
+                    <td><ice:outputText value="#{form['decision.name']} "/></td>
+                    <td><ice:inputText id="inName" size="25" maxlength="25" value="#{createDecisonBean.name}"/></td>
+                </tr>
+                <tr>
+                    <td><ice:outputText value="#{form['decision.problem']}"/></td>
+                    <td><ice:inputTextarea id="inProblme" value="#{createDecisonBean.problem}"/></td>
+                </tr>
+                <tr>
+                    <td><ice:outputText value="#{form['label.description']}"/></td>
+                    <td><ice:inputText id="inDecision" size="25" maxlength="25" value="#{createDecisonBean.decision}"
+                                   /></td>
+                </tr>
+                <tr>
+                    <td><ice:outputText value="#{form['decision.argments']}"/></td>
+                    <td><ice:inputTextarea id="inArguments"  value="#{createDecisonBean.arguments}"
+                        /></td>
+                </tr>
+                <tr>
+                    <td><ice:outputText value="#{form['decision.patterRepoId']}"/></td>
+                    <td><ice:inputText id="inOPRId"  value="#{createDecisonBean.pId}"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+            <br />
+            <ice:commandButton id="addDecison" value="add Decision" action="#{createDecisonBean.create}" />
+            </ice:form>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        Fehler (sidebar)
+    </ui:define>
+</ui:composition>

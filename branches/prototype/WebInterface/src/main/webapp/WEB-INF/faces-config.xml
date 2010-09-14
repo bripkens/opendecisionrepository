@@ -36,6 +36,12 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+        <managed-bean>
+        <managed-bean-name>createDecisonBean</managed-bean-name>
+        <managed-bean-class>nl.rug.search.odr.backing.CreateDecisionController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>createProjectCtrl</managed-bean-name>
         <managed-bean-class>nl.rug.search.odr.controller.CreateProjectController</managed-bean-class>
