@@ -9,11 +9,13 @@
     </ui:define>
 
     <ui:define name="pagetitle">
-        <ice:outputText value="#{form['project.add.page.title']} " nospan="true" />
+        <ice:outputText value="#{form['project.add.page.title']}" nospan="true" />
     </ui:define>
 
     <ui:define name="content">
         <ice:form>
+
+            <h1><h:outputText value="#{form['project.add.heading']}"/></h1>
 
             <ice:outputText value="#{form['label.name']}"/><br />
             <ice:inputText id="inName"
@@ -34,13 +36,11 @@
             <div class="right">
                 <ice:commandButton action="#{createProjectCtrl.submit}"
                                    value="#{form['button.submit']}"
-                                   styleClass="confirm"
-                                   />
-                &#160;
+                                   styleClass="confirm"/>
+                
                 <ice:commandButton actionListener="#{createProjectCtrl.reset}"
                                    value="#{form['button.clear']}"
                                    styleClass="abort"/>
-                &#160;
             </div>
 
         </ice:form>
