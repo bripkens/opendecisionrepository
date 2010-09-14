@@ -21,7 +21,7 @@ glossary, stakeholder document, bibliography
 
 == Product functionality ==
 
-<table border="1" cellspacing="2" cellpadding="5">
+<table border="1" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
       <th>ID</th>
