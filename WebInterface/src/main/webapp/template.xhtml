@@ -18,9 +18,7 @@
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
             <title>
-                <ice:outputText value="#{common['page.title']} " nospan="true" />
-                -
-                <ui:insert name="pagetitle">page title</ui:insert>
+                <ice:outputText value="#{common['page.title']} " nospan="true" /> - <ui:insert name="pagetitle">page title</ui:insert>
             </title>
 
             <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
@@ -30,7 +28,7 @@
             <script type="text/javascript" src="resources/js/common.js"></script>
             <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
 
-        <ui:insert name="head" />
+            <ui:insert name="head" />
         </head>
         <body>
 
@@ -223,7 +221,8 @@
             </div>
             <div id="footer">
                 <hr style="height: 1px; border-top: 1px;"/>
-                If you have questions or comments regarding the Open Decision Repository, please address them to uwe@vanheesch.net. Also visit our group-website at http://www.cs.rug.nl/search/.
+                <ice:outputText value="#{common['page.footer']} " nospan="true" />
+                
             </div>
         </body>
     </html>
