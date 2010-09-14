@@ -1,4 +1,4 @@
  * *CASE*: Computer-aided software engineering; A category of tools/applications that support the software engineering process.
- * *Entities*: When the word entities is used in conjunction with projects or decisions, then we mean the four distinct entities, which can be configured for each project. These are: relationship types, stakeholder roles, statuses and actions.
+ * *Entity/entities*: When the word entity/entities is used in conjunction with projects or decisions, then we mean the four distinct entities, which can be configured for each project. These are: relationship types, stakeholder roles, statuses and actions.
  * *ODR*: Open Decision Repository
  * *RUG*: Rijksuniversiteit Groningen (NL) / University of Groningen (EN)
