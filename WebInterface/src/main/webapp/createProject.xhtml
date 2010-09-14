@@ -23,7 +23,12 @@
                            maxlength="255"
                            value="#{createProjectCtrl.name}"
                            partialSubmit="true"
-                           required="true" /><br />
+                           required="true">
+                <f:validateLength maximum="255" />
+                <f:validator validatorId="RegexValidator" />
+                <f:attribute name="inputCharset" value="A-Za-z0-9-_: " />
+            </ice:inputText>
+            <br />
 
 
             <ice:outputText value="#{form['label.description']}" /><br />
@@ -31,13 +36,16 @@
                                label="#{form['label.description']}"
                                value="#{createProjectCtrl.description}"
                                partialSubmit="true"
-                               required="true"/><br />
+                               required="true"/>
+            <br />
 
             <div class="right">
                 <ice:commandButton action="#{createProjectCtrl.submit}"
                                    value="#{form['button.submit']}"
                                    styleClass="confirm"/>
+
                 
+
                 <ice:commandButton actionListener="#{createProjectCtrl.reset}"
                                    value="#{form['button.clear']}"
                                    styleClass="abort"/>
@@ -47,10 +55,28 @@
     </ui:define>
 
     <ui:define name="sidebar">
-        <ice:messages layout="list" 
-                      errorClass="error"
-                      warnClass="warning"
-                      fatalClass="fatal"
-                      infoClass="information" />
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list" 
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>dsadas</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
     </ui:define>
 </ui:composition>
