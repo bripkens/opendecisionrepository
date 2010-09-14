@@ -1,2 +1,47 @@
 #labels Phase-Design
-todo.
+=Introduction=
+==Purpose==
+==Overview==
+
+
+=Architectural Decisions =
+
+<table border="1" cellspacing="0" cellpadding="5">
+<thead bgcolor="#666666">
+<tr>
+<th>Name</th>
+<th> *BLaaaaaaaaaaaaaaaaaaaaaaaaaa*</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Problem/Issue</td>
+<td>fhj</td>
+</tr>
+<tr>
+<td>Decision</td>
+<td>fhj</td>
+</tr>
+<tr>
+<td>Alternatives</td>
+<td>fhj</td>
+</tr>
+<tr>
+<td>Arguments</td>
+<td>fhj</td>
+</tr>
+<tr>
+<td>Related decisions</td>
+<td>fhj</td>
+</tr>
+<tr>
+<td>Related requirements</td>
+<td>fhj</td>
+</tr>
+</tbody>
+</table>
+<br /><br />
+
+=Chronological View=
+
+=Dependency View=
