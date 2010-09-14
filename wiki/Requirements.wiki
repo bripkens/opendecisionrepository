@@ -21,6 +21,30 @@ glossary, stakeholder document, bibliography
 
 == Product functionality ==
 
+<table border="1" cellspacing="2" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>HLUC-1</td>
+      <th>Name</th>
+      <td>Add decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Description</b></td>
+      <td colspan="4">description goes here</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Refined by</b></td>
+      <td colspan="4">LLUC-1</td>
+    </tr>
+  </tbody>
+</table>
+
+
 = Low level view =
 
 = Traceability matrix =
