@@ -1,4 +1,4 @@
- * *AJAX*: [http://en.wikipedia.org/wiki/Ajax_(programming) JavaScript and XML]
+ * *AJAX*: [http://en.wikipedia.org/wiki/Ajax_(programming) Asynchronous JavaScript and XML]
  * *CASE*: [http://en.wikipedia.org/wiki/Computer-aided_software_engineering Computer-aided software engineering]
  * *Entity/entities*: When the word entity/entities is used in conjunction with projects or decisions, then the four distinct entities, which can be configured for each project, are ment. These are: relationship types, stakeholder roles, statuses and actions.
  * *Java EE*: [http://en.wikipedia.org/wiki/JavaEE Java Enterprise Edition]
