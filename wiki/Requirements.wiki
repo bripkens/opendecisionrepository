@@ -124,16 +124,16 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 </table>
 
 <wiki:comment>
-This text will be removed from the rendered page.
+Edit a project
 </wiki:comment>
 
 <table border="1" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-1</td>
+      <td>LLUC-2</td>
       <th>Name</th>
-      <td>Add decision</td>
+      <td>Edit decision</td>
       <th>Package</th>
       <td>Decision Management</td>
     </tr>
@@ -145,23 +145,67 @@ This text will be removed from the rendered page.
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">create a project</td>
+      <td colspan="4">edit a project</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authenticated</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
- # The user select "new Project" 
- # The system provides a form with all fields for additional information 
- # The user fills the form
- # The user select submit
- # The system displays a summary of the project
- # The user confirmes the project
- # The system store the project
- # The user will be linked to the projectpage  </td>
+ # The user browses through his projects
+ # choses one
+ # changes the fields he want
+ </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a project
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-3</td>
+      <th>Name</th>
+      <td>Delete a decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # deletes the project
+ # confirms the deletion
+ </td>
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
