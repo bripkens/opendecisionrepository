@@ -529,7 +529,7 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Don't this version, still in beta.</td>
+      <td>Unfortunately the current version (2010-09-15) of Icefaces 2 is still in the first beta phase. Therefore Icefaces 2 is rejected.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
