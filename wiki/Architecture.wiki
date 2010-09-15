@@ -558,3 +558,5 @@ At the beginning of this document you can find a listing of all the architectura
 =Chronological View=
 
 =Dependency View=
+
+http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-dependency-view.png
