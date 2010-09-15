@@ -326,6 +326,80 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> JavaServer Faces version 1.2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>An implementation of the Model View Controller Pattern needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Use JavaServer Faces v1.2.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>JavaServer Faces is a well-proven MVC web-application framework. It has been chosen because it perfectly integrates itself into the Java technology stack.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> JavaServer Faces v2</li>
+<li><<depends on>> Java Enterprise Edition 5</li>
+<li><<caused by>> Model View Controller Pattern</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> JavaServer Faces version 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>An implementation of the Model View Controller Pattern needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Use JavaServer Faces v1.2.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>JavaServer Faces is a well-proven MVC web-application framework. It has been chosen because it perfectly integrates itself into the Java technology stack.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> JavaServer Faces v1.2</li>
+<li><<depends on>> Java Enterprise Edition 6</li>
+<li><<caused by>> Model View Controller Pattern</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
 =Chronological View=
 
 =Dependency View=
