@@ -223,6 +223,78 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Glassfish version 2 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A web application server for Java EE 5 has to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Glassfish version 2 will be used since Icefaces version 1.8 is used. Icefaces 1.8 requires JSF version 1.1 or 1.2 which ships with the application server.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Glassfish version 2 comes with implementations for the Java EE 5 APIs, which also includes JSF 1.2 and TopLink.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> Glassfish version 3</li>
+<li><<caused by>> Java Enterprise Edition 5</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Glassfish version 3 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A web application server for Java EE 6 has to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Glassfish version 3 won't be used since we are using Icefaces 1.8, which requires JSF 1.1 or 1.2. Glassfish v3 can be configured to use a provided JSF implementation but it still not compatible with Icefaces 1.8.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Glassfish v3 is a lightweight web application server and is also the reference implementation for Java EE 6.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> Glassfish version 2</li>
+<li><<caused by>> Java Enterprise Edition 6</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
 =Chronological View=
 
 =Dependency View=
