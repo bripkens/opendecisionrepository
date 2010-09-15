@@ -295,7 +295,7 @@ browse through projecta
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
  # The user select a project 
- # chose a start decision (always newst decision)
+ # chose a start decision (always newst version)
  # chose the related decision
  # define the typ between them
 </td>
