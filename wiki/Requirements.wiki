@@ -83,9 +83,9 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <th>ID</th>
       <td>LLUC-1</td>
       <th>Name</th>
-      <td>Add decision</td>
+      <td>Add project</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -111,7 +111,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
  # The system displays a summary of the project
  # The user confirmes the project
  # The system store the project
- # The user will be linked to the projectpage  </td>
+ # The user will be linked to the projectpage *projectname unique?* </td>
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
@@ -134,9 +134,9 @@ Edit a project
       <th width="30">ID</th>
       <td width="70">LLUC-2</td>
       <th>Name</th>
-      <td>Edit decision</td>
+      <td>Edit project</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -181,9 +181,9 @@ Delete a project
       <th width="30">ID</th>
       <td width="70">LLUC-3</td>
       <th>Name</th>
-      <td>Delete a decision</td>
+      <td>Delete project</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -220,7 +220,7 @@ Delete a project
 </table>
 
 <wiki:comment>
-browse through projecta
+browse through project
 </wiki:comment>
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
@@ -231,7 +231,7 @@ browse through projecta
       <th>Name</th>
       <td>Browse through projects</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -275,7 +275,7 @@ browse through projecta
       <th>Name</th>
       <td>Add relationship</td>
       <th>Package</th>
-      <td>Relationship Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -323,7 +323,7 @@ edit a relationship
       <th>Name</th>
       <td>Edit relationship</td>
       <th>Package</th>
-      <td>Relationship Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -373,7 +373,7 @@ Delete a relationship
       <th>Name</th>
       <td>Delete a relationship</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -423,7 +423,7 @@ browse through relationships
       <th>Name</th>
       <td>Browse through relationships of a decision</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
@@ -459,5 +459,721 @@ browse through relationships
   </tbody>
 </table>
 
+==relationship types==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create relationship type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a relationship type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create relationship types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new relationship type # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
 
-= Traceability matrix =
+<wiki:comment>
+edit a relationship type
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit relationship type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a relationship type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit relationship types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a relationship type # modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a relationship type
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete a relationship type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a relationship type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete relationships types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a relationship type
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through relationship types
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through relationships types</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all relationship type which are available in this project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of all available relationship types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+==status type==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create status type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a status type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create status types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new status type # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+edit a status type
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit status type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a relationship type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit status types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a status type # modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a status type
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete a status type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a status type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete status types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a status type
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through status types
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through status types</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all status type which are available in this project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of all available status types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+==stakeholder role==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create stakeholder role</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a status type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create stakeholder roles</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new stakeholder role # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+edit a stakeholder roles</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit stakeholder role</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a stakeholder role</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit stakeholder roles</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a stakeholder role# modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a stakeholder roles</wiki:comment>
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete a stakeholder role</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a stakeholder role</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete stakeholder roles</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a stakeholder role
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through stakeholder roles</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through stakeholder roles</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all stakeholder roles which are available in this project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of all available stakeholder roles</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+==Decisions==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create stakeholder roles</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new decision # Fill in the necessary data# save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+edit a decision</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit a decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a decision# modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a decision</wiki:comment>
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete a decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a decision
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through decision</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all decision which are decided in this project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of all decision</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>= Traceability matrix = </p>
