@@ -21,7 +21,12 @@ We devided the different views about the requirments into to parts. The first pa
 = High level view =
 
 == Product scope ==
-The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. You can also get get a chronical overview about the decisons and the members who take these. Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
+The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. 
+You can also get three differehnt kind of views. 
+ * A chronical view about the decisons and the members who take these
+ * a stakeholder views, that describe the actions of every role
+ * and a relationship view, that describe the dependencies of decisions.
+Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
 
 There are four main parts in the project:
  * project management (e.g. create a project)
