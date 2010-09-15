@@ -20,6 +20,9 @@ public class ProjectMember implements Serializable {
     private Long projectMemberId;
 
     @ManyToOne
+    private Person person;
+
+    @ManyToOne
     private Project project;
 
     @ManyToOne
@@ -49,6 +52,14 @@ public class ProjectMember implements Serializable {
         this.role = role;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -72,8 +83,7 @@ public class ProjectMember implements Serializable {
 
     @Override
     public String toString() {
-        return "ProjectMember{" + "projectMemberId=" + projectMemberId + "; "
-                + "project=" + project + "; role=" + role + '}';
+        return "ProjectMember{" + "projectMemberId=" + projectMemberId + '}';
     }
 
     

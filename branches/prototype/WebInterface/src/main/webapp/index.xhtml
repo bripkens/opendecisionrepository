@@ -1,44 +1,22 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!--
-    Document   : index
-    Created on : Sep 9, 2010, 6:33:09 PM
-    Author     : Ben Ripkens <bripkens.dev@gmail.com>
--->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ice="http://www.icesoft.com/icefaces/component">
-    <head>
-        <title>
-            <ui:insert name="title">ICEfaces Facelets</ui:insert>
-        </title>
-    </head>
-    <body>
-        <div id="content">
-            <ice:form>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-                <fieldset>
-                    <legend>Registration!!</legend>
+    <ui:define name="head">
+    </ui:define>
 
-                    <table>
-                        <tr>
-                            <td><ice:outputText value="#{form['registration.user.name']} "/></td>
-                        <td><ice:inputText id="inUsername" size="25" maxlength="25" value="#{registerBean.username}"/></td>
-                        </tr>
-                        <tr>
-                            <td><ice:outputText value="#{form['registration.user.pw']}"/></td>
-                        <td><ice:inputSecret id="inPassword" size="25" maxlength="25" value="#{registerBean.password}"/></td>
-                        </tr>
-                        <tr>
-                            <td><ice:outputText value="#{form['registration.user.email']}"/></td>
-                        <td><ice:inputText id="inEmailAddress" size="25" maxlength="25" value="#{registerBean.emailAddress}" required="true"
-                            /></td>
-                        </tr>
-                    </table>
-                    <ice:commandButton id="addUser" value="addUser" action="#{registerBean.register}" />
-                </fieldset>
-            </ice:form>
-        </div>
-    </body>
-</html>
+    <ui:define name="pagetitle">
+        welcome to the index
+    </ui:define>
+
+    <ui:define name="content">
+        welcome to the index
+    </ui:define>
+
+    <ui:define name="sidebar">
+        welcome to the index
+    </ui:define>
+</ui:composition>
