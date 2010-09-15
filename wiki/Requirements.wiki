@@ -80,7 +80,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>HLUC-1</td>
+      <td>LLUC-1</td>
       <th>Name</th>
       <td>Add decision</td>
       <th>Package</th>
@@ -107,9 +107,10 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
  # The system provides a form with all fields for additional information 
  # The user fills the form
  # The user select submit
- # The syste displays a summary of the project
+ # The system displays a summary of the project
  # The user confirmes the project
- # The system store the project  </td>
+ # The system store the project
+ # The user will be linked to the projectpage  </td>
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
