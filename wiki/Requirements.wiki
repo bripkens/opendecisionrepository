@@ -6,6 +6,17 @@
 = Introduction =
 
 == Purpose ==
+The document describe the necessary requirments for the Open Decision Repository (ODR), which will be provide a visualization of the different architectural decisions and their relationships amongst themselves. The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The Originator is Mr. Uwe van Heesch. He is currently writing a paper about visualization of architectural decisions. This project serves as a prototyp which can also be used to support his paper. 
+
+== Scope ==
+The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. You can also get get a chronical overview about the decisons and the members who take these. Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
+
+There are four main parts in the project:
+ # project management (e.g. create a project)
+ # user management (e.g. create user with different roles)
+ # decision visualization (e.g. get a chronical visualization)
+ # administration (administrate the ODR)
+
 
 == References ==
 glossary, stakeholder document, bibliography
