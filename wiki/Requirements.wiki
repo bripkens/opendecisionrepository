@@ -104,12 +104,12 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
  # The user select "new Project" 
- # the system provides a form with all fields for additional information 
- # the user fills the form
- # the user select submit
- # the syste displays a summary of the project
- # the user confirmes the project
- # the system store the project  </td>
+ # The system provides a form with all fields for additional information 
+ # The user fills the form
+ # The user select submit
+ # The syste displays a summary of the project
+ # The user confirmes the project
+ # The system store the project  </td>
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
