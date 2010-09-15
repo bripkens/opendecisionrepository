@@ -12,10 +12,10 @@ The document describe the necessary requirments for the Open Decision Repository
 The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. You can also get get a chronical overview about the decisons and the members who take these. Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
 
 There are four main parts in the project:
- # project management (e.g. create a project)
- # user management (e.g. create user with different roles)
- # decision visualization (e.g. get a chronical visualization)
- # administration (administrate the ODR)
+ * project management (e.g. create a project)
+ * user management (e.g. create user with different roles)
+ * decision visualization (e.g. get a chronical visualization)
+ * administration (administrate the ODR)
 
 
 == References ==
