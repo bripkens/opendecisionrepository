@@ -9,4 +9,6 @@ import nl.rug.search.odr.entities.Person;
  */
 public interface UserLocal {
     void registerPerson(Person p);
+
+    boolean isRegistered(String name);
 }

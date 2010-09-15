@@ -25,8 +25,11 @@
                            partialSubmit="true"
                            required="true">
                 <f:validateLength maximum="255" />
+
                 <f:validator validatorId="RegexValidator" />
-                <f:attribute name="inputCharset" value="A-Za-z0-9-_: " />
+                <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+
+                <f:validator validatorId="ProjectNameValidator" />
             </ice:inputText>
             <br />
 

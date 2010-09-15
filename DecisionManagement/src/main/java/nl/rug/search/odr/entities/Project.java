@@ -83,9 +83,10 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "Project{" + "projectId=" + projectId + "; name=" + name + "; description=" + description +
-                "; member=" + member + '}';
+        return "Project{" + "projectId=" + projectId + '}';
     }
+
+    
 
     
 

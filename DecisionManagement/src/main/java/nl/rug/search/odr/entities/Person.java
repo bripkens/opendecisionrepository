@@ -2,10 +2,13 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,6 +25,9 @@ public class Person implements Serializable {
     private String name;
     private String email;
     private String password;
+
+    @OneToMany(mappedBy="person")
+    private Collection<ProjectMember> memberShips;
 
     public String getEmail() {
         return email;
@@ -62,6 +68,14 @@ public class Person implements Serializable {
         return hash;
     }
 
+    public Collection<ProjectMember> getMemberShips() {
+        return memberShips;
+    }
+
+    public void setMemberShips(Collection<ProjectMember> memberShips) {
+        this.memberShips = memberShips;
+    }
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -78,8 +92,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "personId=" + personId + "; name=" + name + "; email=" + email + "; "
-                + "password=" + password + '}';
+        return "Person{" + "personId=" + personId + '}';
     }
 
 }

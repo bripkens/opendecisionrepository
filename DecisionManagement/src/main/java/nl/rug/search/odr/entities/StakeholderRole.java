@@ -62,7 +62,7 @@ public class StakeholderRole implements Serializable {
 
     @Override
     public String toString() {
-        return "StakeholderRole{" + "stakeholderRoleId=" + stakeholderRoleId + "; name=" + name + '}';
+        return "StakeholderRole{" + "stakeholderRoleId=" + stakeholderRoleId + '}';
     }
 
 

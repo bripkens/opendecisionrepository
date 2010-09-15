@@ -25,6 +25,10 @@
             <var>common</var>
         </resource-bundle>
         <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.page</base-name>
+            <var>page</var>
+        </resource-bundle>
+        <resource-bundle>
             <base-name>nl.rug.search.odr.localization.form</base-name>
             <var>form</var>
         </resource-bundle>
@@ -45,6 +49,16 @@
     <validator>
         <validator-id>RegexValidator</validator-id>
         <validator-class>nl.rug.search.odr.validator.RegexValidator</validator-class>
+    </validator>
+
+    <validator>
+        <validator-id>ProjectNameValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.ProjectNameValidator</validator-class>
+    </validator>
+
+    <validator>
+        <validator-id>UserNameValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.UserNameValidator</validator-class>
     </validator>
 
     <!--

@@ -102,8 +102,9 @@ public class Decision implements Serializable {
 
     @Override
     public String toString() {
-        return "Decision{" + "decisionId=" + decisionId + "; name=" + name + "; problem=" + problem + "; "
-                + "decision=" + decision + '}';
+        return "Decision{" + "decisionId=" + decisionId + '}';
     }
+
+    
 
 }
