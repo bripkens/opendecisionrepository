@@ -12,40 +12,99 @@ At the beginning of this document you can find a listing of all the architectura
 =Architectural Decisions =
 
 <table border="1" cellspacing="0" cellpadding="5">
-<thead bgcolor="#666666">
-<tr>
-<th>Name</th>
-<th> *BLaaaaaaaaaaaaaaaaaaaaaaaaaa*</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Problem/Issue</td>
-<td>fhj</td>
-</tr>
-<tr>
-<td>Decision</td>
-<td>fhj</td>
-</tr>
-<tr>
-<td>Alternatives</td>
-<td>fhj</td>
-</tr>
-<tr>
-<td>Arguments</td>
-<td>fhj</td>
-</tr>
-<tr>
-<td>Related decisions</td>
-<td>fhj</td>
-</tr>
-<tr>
-<td>Related requirements</td>
-<td>fhj</td>
-</tr>
-</tbody>
+  <thead bgcolor="#666666">
+    <tr>
+      <th> Name </th>
+      <th>Java programming language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A programming language has to be chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Java will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Both developers are experienced with the Java programming language as well as Java based technologies.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td> <<is alternative for>> Tcl</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
 </table>
-<br /><br />
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead bgcolor="#666666">
+    <tr>
+      <th> Name </th>
+      <th> Tcl </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A programming language has to be chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Tcl won't be used as a programming language.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>The language is unknown to the developers. Learning an additional language would require too much time.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td> <<is alternative for>> Java programming language</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead bgcolor="#666666">
+    <tr>
+      <th> Name </th>
+      <th> xowiki </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>Stefan Sobernig from Vienna university of economics and businesses offered us the possibility to use their wiki like content authoring environment. This system would already supports some features that would otherwise need to be implemented.
+      </td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Xowiki won't be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>The programming language that it uses has been rejected.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td> <<depends on>> Tcl</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
 
 =Chronological View=
 
