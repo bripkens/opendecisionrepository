@@ -8,3 +8,4 @@
  * *OPR*: [http://code.google.com/p/openpatternrepository/ Open Pattern Repository]
  * *RIA*: [http://en.wikipedia.org/wiki/Rich_Internet_application Rich Internet Application]
  * *RUG*: Rijksuniversiteit Groningen (NL) / University of Groningen (EN)
+ * *SEARCH*: [http://www.cs.rug.nl/search/ Software Engineering and Architecture Group]
