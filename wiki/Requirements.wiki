@@ -123,4 +123,55 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
+<wiki:comment>
+This text will be removed from the rendered page.
+</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-1</td>
+      <th>Name</th>
+      <td>Add decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authenticated</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select "new Project" 
+ # The system provides a form with all fields for additional information 
+ # The user fills the form
+ # The user select submit
+ # The system displays a summary of the project
+ # The user confirmes the project
+ # The system store the project
+ # The user will be linked to the projectpage  </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
 = Traceability matrix =
