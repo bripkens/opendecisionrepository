@@ -76,7 +76,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 = Low level view =
 
-<table border="1" cellspacing="0" cellpadding="5">
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th>ID</th>
@@ -89,7 +89,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </thead>
   <tbody>
     <tr>
-      <td colspan="2"><b>Actors</b></td>
+      <td colspan="2" width="100"><b>Actors</b></td>
       <td colspan="4">User</td>
     </tr>
     <tr>
@@ -127,7 +127,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 Edit a project
 </wiki:comment>
 
-<table border="1" cellspacing="0" cellpadding="5">
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th>ID</th>
@@ -140,7 +140,7 @@ Edit a project
   </thead>
   <tbody>
     <tr>
-      <td colspan="2"><b>Actors</b></td>
+      <td colspan="2" width="100"><b>Actors</b></td>
       <td colspan="4">User</td>
     </tr>
     <tr>
@@ -174,7 +174,7 @@ Edit a project
 Delete a project
 </wiki:comment>
 
-<table border="1" cellspacing="0" cellpadding="5">
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th>ID</th>
@@ -187,7 +187,7 @@ Delete a project
   </thead>
   <tbody>
     <tr>
-      <td colspan="2"><b>Actors</b></td>
+      <td colspan="2" width="100"><b>Actors</b></td>
       <td colspan="4">User</td>
     </tr>
     <tr>
