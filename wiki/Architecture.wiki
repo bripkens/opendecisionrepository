@@ -295,6 +295,37 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Model View Controller Pattern </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>User interface modifications should not result in changes to the business logic. On the other hand it should be easy to adapt the user interface to future changes.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Structure the user interface according to the Model View Controller Pattern.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>According to the Model View Controller Pattern the model (business logic) has no knowledge about the view. This being the case, the model won't change if the user interface changes. In addition the user interface can be completely swapped without affecting the business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
 =Chronological View=
 
 =Dependency View=
