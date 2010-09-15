@@ -488,7 +488,7 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Use Icefaces 1.8 as it extends the standard JSF components with AJAX support and also adds additional components.</td>
+      <td>Use Icefaces 1.8.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
@@ -499,6 +499,7 @@ At the beginning of this document you can find a listing of all the architectura
       <td>
 <ul>
 <li><<depends on>> JavaServer Faces 1.2</li>
+<li><<is alternative for>> Icefaces 2</li>
 <li><<caused by>> Asynchronous JavaScript and XML</li>
 </ul>
 </td>
@@ -509,6 +510,49 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
   </tbody>
 </table>
+
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>Icefaces version 2-beta1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>Provide AJAX support for the JSF components.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Don't this version, still in beta.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Icefaces v2 extends the standard JSF components with AJAX support. It also adds additional components that are handy when developing a RIA. Icefaces 2 can be used with Glassfish v3, Java EE6 and JSF 2.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<depends on>> JavaServer Faces 2</li>
+<li><<is alternative for>> Icefaces 1.8</li>
+<li><<caused by>> Asynchronous JavaScript and XML</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 
 =Chronological View=
