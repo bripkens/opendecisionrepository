@@ -39,7 +39,7 @@ This project will be used by three different kinds of usergroups.
  The normal visitor of the system is a registrated user. He can create projects, can add  members and manage the entire project. Project members have to take a role within a project like "Software-architect", "manager" or "customer". Every role has different functionallity in the system that is adapeted to its scope of dutys. Furthermore he is able to get a look in all views (chronical view, stakeholder view and relationship view) of his projects and other published projects.
 
  * Administrator
- The administrator is able to manage the entities in the system. He can add common  entities or delete idle entities. 
+ The administrator is able to manage the entities in the system. He can add common  entities or delete unesed entities. 
 
 == Product functionality ==
 
