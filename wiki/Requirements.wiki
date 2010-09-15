@@ -19,7 +19,6 @@ glossary, stakeholder document, bibliography
 We devided the different views about the requirments into to parts. The first part descibes the requirments in a rough way. This section is called high level. The second part is the low level view. In this section, the requirements are detailed. 
 
 = High level view =
- ##########
 
 == Product scope ==
 The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. You can also get get a chronical overview about the decisons and the members who take these. Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
