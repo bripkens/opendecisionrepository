@@ -95,7 +95,7 @@ At the beginning of this document you can find a listing of all the architectura
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td>Stefan Sobernig from Vienna university of economics and businesses offered us the possibility to use their wiki like content authoring environment. This system would already supports some features that would otherwise need to be implemented.
+      <td>Stefan Sobernig from Vienna university of economics and businesses offered the possibility to use their wiki like content authoring environment. This system would already support some features that would otherwise need to be implemented.
       </td>
     </tr>
     <tr>
