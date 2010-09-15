@@ -2,6 +2,7 @@
  * *Entity/entities*: When the word entity/entities is used in conjunction with projects or decisions, then the four distinct entities, which can be configured for each project, are ment. These are: relationship types, stakeholder roles, statuses and actions.
  * *Java EE*: [http://en.wikipedia.org/wiki/JavaEE Java Enterprise Edition]
  * *JSF*: [http://en.wikipedia.org/wiki/Javaserver_faces JavaServer Faces]
+ * *MVC*: [http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller Model View Controller]
  * *ODR*: Open Decision Repository
  * *OPR*: Open Pattern Repository
  * *RUG*: Rijksuniversiteit Groningen (NL) / University of Groningen (EN)
