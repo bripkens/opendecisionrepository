@@ -273,7 +273,7 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Glassfish version 3 won't be used since we are using Icefaces 1.8, which requires JSF 1.1 or 1.2. Glassfish v3 can be configured to use a provided JSF implementation but it still not compatible with Icefaces 1.8.</td>
+      <td>Glassfish version 3 won't be used since we are using Icefaces 1.8, which requires JSF 1.1 or 1.2. Glassfish v3 can be configured to use a provided JSF implementation but it is still not compatible with Icefaces 1.8.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
