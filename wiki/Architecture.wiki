@@ -11,10 +11,10 @@ At the beginning of this document you can find a listing of all the architectura
 
 =Architectural Decisions =
 
-<table border="1" cellspacing="0" cellpadding="5">
+<table border="1" cellspacing="0" cellpadding="5"  width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th>Java programming language</th>
     </tr>
   </thead>
@@ -46,11 +46,13 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
-      <th> Tcl </th>
+      <th width="150"> Name </th>
+      <th>Tcl</th>
     </tr>
   </thead>
   <tbody>
@@ -81,10 +83,12 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> xowiki </th>
     </tr>
   </thead>
@@ -118,10 +122,12 @@ At the beginning of this document you can find a listing of all the architectura
 </table>
 
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Web application </th>
     </tr>
   </thead>
@@ -149,10 +155,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Java Enterprise Edition 5 </th>
     </tr>
   </thead>
@@ -186,10 +196,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Java Enterprise Edition 6 </th>
     </tr>
   </thead>
@@ -223,10 +237,15 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Glassfish version 2 </th>
     </tr>
   </thead>
@@ -259,10 +278,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Glassfish version 3 </th>
     </tr>
   </thead>
@@ -295,10 +318,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> Model View Controller Pattern </th>
     </tr>
   </thead>
@@ -326,10 +353,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> JavaServer Faces version 1.2</th>
     </tr>
   </thead>
@@ -363,10 +394,14 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
-<table border="1" cellspacing="0" cellpadding="5">
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
-      <th> Name </th>
+      <th width="150"> Name </th>
       <th> JavaServer Faces version 2</th>
     </tr>
   </thead>
