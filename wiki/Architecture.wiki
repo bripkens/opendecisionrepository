@@ -12,7 +12,7 @@ At the beginning of this document you can find a listing of all the architectura
 =Architectural Decisions =
 
 <table border="1" cellspacing="0" cellpadding="5">
-  <thead bgcolor="#666666">
+  <thead>
     <tr>
       <th> Name </th>
       <th>Java programming language</th>
@@ -33,7 +33,11 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td> <<is alternative for>> Tcl</td>
+      <td>
+<ul>
+<li><<is alternative for>> Tcl</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related requirements* </td>
@@ -43,7 +47,7 @@ At the beginning of this document you can find a listing of all the architectura
 </table>
 
 <table border="1" cellspacing="0" cellpadding="5">
-  <thead bgcolor="#666666">
+  <thead>
     <tr>
       <th> Name </th>
       <th> Tcl </th>
@@ -64,7 +68,11 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td> <<is alternative for>> Java programming language</td>
+      <td>
+<ul>
+<li><<is alternative for>> Java programming language</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related requirements* </td>
@@ -74,7 +82,7 @@ At the beginning of this document you can find a listing of all the architectura
 </table>
 
 <table border="1" cellspacing="0" cellpadding="5">
-  <thead bgcolor="#666666">
+  <thead>
     <tr>
       <th> Name </th>
       <th> xowiki </th>
@@ -96,7 +104,11 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td> <<depends on>> Tcl</td>
+      <td>
+<ul>
+<li><<depends on>> Tcl</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related requirements* </td>
@@ -105,6 +117,111 @@ At the beginning of this document you can find a listing of all the architectura
   </tbody>
 </table>
 
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Web application </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>The ODR should make it easier to share knowledge. A web application is the easiest way to do this.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>The ODR will be a implemented as a web application.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>The customer wants a web application.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>todo</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Java Enterprise Edition 5 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A framework that enables the creation of Java web applications has to be chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>The ODR will be a implemented using Java Enterprise Edition 5. Version 5 is used because Icefaces version 1.8 requires Glassfish version 2.x.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Java Enterprise Edition comes with many useful features that allow the developer to focus on the implementation of business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> Java Enterprise Edition 6</li>
+<li><<depends on>> Java programming language</li>
+<li><<caused by>> Web application</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th> Name </th>
+      <th> Java Enterprise Edition 6 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A framework that enables the creation of Java web applications has to be chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Java EE6 won't be used since Glassfish version 3 has been rejected.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Java Enterprise Edition comes with many useful features that allow the developer to focus on the implementation of business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<is alternative for>> Java Enterprise Edition 5</li>
+<li><<depends on>> Java programming language</li>
+<li><<caused by>> Web application</li>
+</ul>
+</td>
+    </tr>
+    <tr>
+      <td> *Related requirements* </td>
+      <td>todo</td>
+    </tr>
+  </tbody>
+</table>
 
 =Chronological View=
 
