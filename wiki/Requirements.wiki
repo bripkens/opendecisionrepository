@@ -1139,7 +1139,7 @@ browse through decision</wiki:comment>
       <th width="30">ID</th>
       <td width="70">LLUC-8</td>
       <th>Name</th>
-      <td>Browse through decision</td>
+      <td>Browse through decisions</td>
       <th>Package</th>
       <td>Decision Management</td>
     </tr>
@@ -1151,7 +1151,7 @@ browse through decision</wiki:comment>
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">get all decision which are decided in this project</td>
+      <td colspan="4">get all decisions which are decided in this project</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
@@ -1175,5 +1175,363 @@ browse through decision</wiki:comment>
   </tbody>
 </table>
 
+==Iterations==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create iteration</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a iteration</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create iterations</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new iteration # Fill in the necessary data# save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+edit a decision</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit iteration</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a iteration</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit iterations</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a iteration# modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a decision</wiki:comment>
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete  iteration</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a iteration</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete iterations</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a iteration
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through decision</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through Iterations</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all iteration of the project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of iterations</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+==action type==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create action type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">create a action type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create action types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user select a project 
+ # create a new iteration # Fill in the necessary data# save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+edit a action type</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Edit action type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a action type</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit action types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browses through his projects
+ # choses one
+ # chose a action type# modify it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Delete a action type</wiki:comment>
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Delete  action type</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a 
+      <wiki:comment>action type</wiki:comment></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete action types</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # chose a action type
+ # delete it # confirm it # save it</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+browse through action types</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>Browse through 
+      <wiki:comment>action types</wiki:comment></td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">get all 
+        <wiki:comment>action types</wiki:comment>
+of the project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+ # The user browse through his projects
+ # chose one
+ # get a list of all 
+   <wiki:comment>action types</wiki:comment></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
 
 <p>= Traceability matrix = </p>
