@@ -1,13 +1,19 @@
 
 package nl.rug.search.odr.controller;
 
+import javax.ejb.EJB;
 import javax.faces.event.ActionEvent;
+import nl.rug.search.odr.ProjectLocal;
+import nl.rug.search.odr.entities.Project;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public class CreateProjectController {
+
+    @EJB
+    private ProjectLocal pl;
 
     private String name;
     private String description;
@@ -29,7 +35,13 @@ public class CreateProjectController {
     }
 
     public void submit() {
-        System.out.println("Has been submitted!");
+        Project p = new Project();
+        p.setName(name);
+        p.setDescription(description);
+        
+        pl.createProject(p);
+
+        reset();
     }
 
     public void reset() {
