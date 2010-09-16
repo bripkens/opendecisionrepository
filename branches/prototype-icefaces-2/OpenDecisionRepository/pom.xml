@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+        <artifactId>prototype-icefaces-2</artifactId>
+        <groupId>nl.rug.search</groupId>
+        <version>0.1</version>
+    </parent>
+  <groupId>nl.rug.search</groupId>
+  <artifactId>OpenDecisionRepository</artifactId>
+  <packaging>ear</packaging>
+  <version>0.1</version>
+  <name>OpenDecisionRepository</name>
+  <url>http://maven.apache.org</url>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0.2</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ear-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+            <version>6</version>
+        </configuration>
+      </plugin>
+    </plugins>
+    <finalName>OpenDecisionRepository</finalName>
+  </build>
+    <dependencies>
+        <dependency>
+            <groupId>nl.rug.search</groupId>
+            <artifactId>WebInterface</artifactId>
+            <version>0.1</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+    <properties>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+    </properties>
+</project>
