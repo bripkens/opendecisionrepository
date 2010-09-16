@@ -16,9 +16,6 @@
 
     <application>
 
-<!--        <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
-        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>-->
-
         <message-bundle>nl.rug.search.odr.localization.validation</message-bundle>
 
         <resource-bundle>
@@ -68,22 +65,11 @@
         #########################################################
     -->
 
-<!--    <managed-bean>
-        <managed-bean-name>registerBean</managed-bean-name>
-        <managed-bean-class>nl.rug.search.odr.backing.RegisterUserBackingBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>createDecisonBean</managed-bean-name>
-        <managed-bean-class>nl.rug.search.odr.backing.CreateDecisionController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>createProjectCtrl</managed-bean-name>
-        <managed-bean-class>nl.rug.search.odr.controller.CreateProjectController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>-->
+    <!--
+        #########################################################
+                            Navigation rules
+        #########################################################
+    -->
 
 </faces-config>
