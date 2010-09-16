@@ -52,6 +52,7 @@ Correct time estimation is difficult since both team members have only limited k
 
 == Risk table ==
 || *Risk* || *Probability* || *Effect* ||
+||Usage of IceFaces 2.0 Beta 1||Moderate||Serious||
 ||Sickness||Moderate||Catastrophic||
 ||Late requirement changes||Likely||Serious||
 ||Wrong time estimation||Likely||Serious||
