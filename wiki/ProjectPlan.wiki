@@ -61,4 +61,4 @@ Correct time estimation is difficult since both team members have only limited k
 =Project schedule =
  In this Project, Scrum will be used. Scrum is an agile software development method for project management. The entire project time is divided by 10 sprints. One sprint takes 2 weeks and after every sprint, the customer will be informed about the project and get a delivery. In the following picture you can see a detailed view about the schedule.
 
-http://opendecisionrepository.googlecode.com/svn/wiki/images/schedule.png
+ http://opendecisionrepository.googlecode.com/svn/wiki/images/schedule.png
