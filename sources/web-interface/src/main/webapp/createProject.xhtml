@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['project.add.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form>
+
+            <h1><h:outputText value="#{form['project.add.heading']}"/></h1>
+
+            <ice:outputText value="#{form['label.name']}"/><br />
+            <ice:inputText id="inName"
+                           label="#{form['label.name']}"
+                           maxlength="255"
+                           value="#{createProjectController.name}"
+                           partialSubmit="true"
+                           required="true">
+                <f:validateLength maximum="255" />
+
+                <f:validator validatorId="RegexValidator" />
+                <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+
+                <f:validator validatorId="ProjectNameValidator" />
+            </ice:inputText>
+            <br />
+
+
+            <ice:outputText value="#{form['label.description']}" /><br />
+            <ice:inputTextarea id="inDescription"
+                               label="#{form['label.description']}"
+                               value="#{createProjectController.description}"
+                               partialSubmit="true"
+                               required="true"/>
+            <br />
+
+            <div class="right">
+                <ice:commandButton action="#{createProjectController.submit}"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"/>
+
+                
+
+                <ice:commandButton actionListener="#{createProjectController.reset}"
+                                   value="#{form['button.clear']}"
+                                   styleClass="abort"/>
+            </div>
+
+        </ice:form>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list" 
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>dsadas</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

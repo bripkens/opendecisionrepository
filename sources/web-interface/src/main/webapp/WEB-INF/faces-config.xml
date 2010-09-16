@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+
+    <!--
+        #########################################################
+                            Localization
+        #########################################################
+    -->
+
+    <application>
+
+<!--        <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>-->
+
+        <message-bundle>nl.rug.search.odr.localization.validation</message-bundle>
+
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.common</base-name>
+            <var>common</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.page</base-name>
+            <var>page</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.form</base-name>
+            <var>form</var>
+        </resource-bundle>
+
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+
+    </application>
+
+    <!--
+        #########################################################
+                            Validators
+        #########################################################
+    -->
+
+    <validator>
+        <validator-id>RegexValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.RegexValidator</validator-class>
+    </validator>
+
+    <validator>
+        <validator-id>ProjectNameValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.ProjectNameValidator</validator-class>
+    </validator>
+
+    <validator>
+        <validator-id>UserNameValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.UserNameValidator</validator-class>
+    </validator>
+
+    <!--
+        #########################################################
+                            Managed beans
+        #########################################################
+    -->
+
+<!--    <managed-bean>
+        <managed-bean-name>registerBean</managed-bean-name>
+        <managed-bean-class>nl.rug.search.odr.backing.RegisterUserBackingBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>createDecisonBean</managed-bean-name>
+        <managed-bean-class>nl.rug.search.odr.backing.CreateDecisionController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>createProjectCtrl</managed-bean-name>
+        <managed-bean-class>nl.rug.search.odr.controller.CreateProjectController</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>-->
+
+</faces-config>
