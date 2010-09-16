@@ -24,8 +24,6 @@ public class CreateDecisionController {
     private String pId;
     private String arguments;
 
-
-
     public String getArguments() {
         return arguments;
     }

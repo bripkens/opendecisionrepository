@@ -3,11 +3,11 @@ package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -22,8 +22,13 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long personId;
 
+    @Column(length=30,nullable=false,unique=true,updatable=false)
     private String name;
+    
+    @Column(length=255,nullable=false,unique=true)
     private String email;
+
+    @Column(length=255,nullable=false)
     private String password;
 
     @OneToMany(mappedBy="person")
@@ -61,19 +66,19 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (personId != null ? personId.hashCode() : 0);
-        return hash;
-    }
-
     public Collection<ProjectMember> getMemberShips() {
         return memberShips;
     }
 
     public void setMemberShips(Collection<ProjectMember> memberShips) {
         this.memberShips = memberShips;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (personId != null ? personId.hashCode() : 0);
+        return hash;
     }
 
     @Override

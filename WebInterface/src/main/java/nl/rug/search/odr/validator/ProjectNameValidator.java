@@ -8,6 +8,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import nl.rug.search.odr.ProjectLocal;
 import nl.rug.search.odr.UserLocal;
 
 /**
@@ -16,7 +17,7 @@ import nl.rug.search.odr.UserLocal;
  */
 public class ProjectNameValidator implements Validator {
 
-    private UserLocal ul;
+    private ProjectLocal pl;
     
     /**
      * <p>The message identifier of the {@link javax.faces.application.FacesMessage} to be created if
@@ -30,7 +31,7 @@ public class ProjectNameValidator implements Validator {
         try {
             InitialContext ic = new InitialContext();
 
-            ul = (UserLocal) ic.lookup("java:comp/env/" + ProjectNameValidatorHelper.JNDI_NAME);
+            pl = (ProjectLocal) ic.lookup("java:comp/env/" + ProjectNameValidatorHelper.JNDI_NAME);
         } catch (NamingException ex) {
             throw new FacesException(ex);
         }
@@ -45,7 +46,7 @@ public class ProjectNameValidator implements Validator {
 
         String name = value.toString().trim();
 
-        if (name.isEmpty() || !ul.isRegistered(name)) {
+        if (name.isEmpty() || !pl.isUsed(name)) {
             return;
         }
 

@@ -1,6 +1,7 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,10 @@ public class Project implements Serializable {
 
     @OneToMany(mappedBy = "project")
     private Collection<ProjectMember> member;
+
+    public Project() {
+        member = new ArrayList<ProjectMember>();
+    }
 
     public String getDescription() {
         return description;
