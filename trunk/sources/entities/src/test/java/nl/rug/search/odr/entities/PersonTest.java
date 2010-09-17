@@ -3,7 +3,6 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import static org.junit.Assert.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,9 +31,6 @@ public class PersonTest {
         p = new Person();
     }
 
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testInitialization() {
