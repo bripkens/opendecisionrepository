@@ -58,7 +58,7 @@ public class ProjectMember implements Serializable {
 
     public void setPerson(Person person) {
         if (person == null) {
-            person.internalRemoveMembership(this);
+            this.person.internalRemoveMembership(this);
         }
 
         this.person = person;
