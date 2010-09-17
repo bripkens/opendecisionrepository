@@ -9,14 +9,13 @@ import org.junit.Test;
  *
  * @author Stefan
  */
-public class StatusTest {
+public class RelationshipTypeTest {
 
-    private Status s;
+    private Relationshiptype r;
 
     @Before
     public void setUp() {
-        s = new Status();
-        s.setCommon(false);
+        r = new Relationshiptype();
     }
 
     @After
@@ -25,47 +24,52 @@ public class StatusTest {
 
     @Test
     public void testInitialization() {
-        assertNull(s.getStatusId());
-        assertNull(s.getName());
+        assertNull(r.getId());
+        assertNull(r.getName());
+        r.setCommon(false);
     }
 
+
+    //ID TEST/
     @Test
     public void testId(){
         Long id = 1L;
-        s.setStatusId(id);
-        assertEquals(id, s.getStatusId());
+        r.setId(id);
+        assertEquals(id, r.getId());
     }
 
    @Test(expected = NullPointerException.class)
     public void testNullId() {
-       s.setStatusId(null);
+       r.setId(null);
     }
 
+   //NAME TEST/
     @Test
     public void testSetName() {
-        s.setName("foo");
-        assertEquals("foo", s.getName());
+        r.setName("foo");
+        assertEquals("foo", r.getName());
     }
 
     @Test(expected = NullPointerException.class)
     public void testNullName() {
-       s.setName(null);
+       r.setName(null);
     }
 
     @Test(expected = RuntimeException.class)
     public void testEmptyName() {
-        s.setName("        ");
+        r.setName("        ");
     }
 
+    //COMMON TEST/
     @Test
     public void testIsCommon() {
-        s.setCommon(true);
-        assertEquals(true, s.isCommon());
+        r.setCommon(true);
+        assertEquals(true, r.isCommon());
     }
 
     @Test
     public void testIsNotCommon() {
-        s.setCommon(false);
-        assertEquals(false, s.isCommon());
+        r.setCommon(false);
+        assertEquals(false, r.isCommon());
     }
 }

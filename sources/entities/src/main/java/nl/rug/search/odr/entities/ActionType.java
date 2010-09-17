@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -21,7 +22,7 @@ public class ActionType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long actionTypeId;
 
     @Column(length = 30, nullable = false, unique = true)
     private String name;
@@ -30,11 +31,14 @@ public class ActionType implements Serializable {
     private boolean common;
 
     public Long getId() {
-        return id;
+        return actionTypeId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        if(id == null){
+         throw new NullPointerException("is is null");
+        }
+        this.actionTypeId = id;
     }
 
     public boolean isCommon() {
@@ -50,13 +54,14 @@ public class ActionType implements Serializable {
     }
 
     public void setName(String name) {
+        StringValidator.isValid(name);
         this.name = name;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (actionTypeId != null ? actionTypeId.hashCode() : 0);
         return hash;
     }
 
@@ -67,7 +72,7 @@ public class ActionType implements Serializable {
             return false;
         }
         ActionType other = (ActionType) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.actionTypeId == null && other.actionTypeId != null) || (this.actionTypeId != null && !this.actionTypeId.equals(other.actionTypeId))) {
             return false;
         }
         return true;
@@ -75,7 +80,8 @@ public class ActionType implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.rug.search.odr.entities.ActionType[id=" + id + "]";
+        return "ActionType{" + "actionTypeId=" + actionTypeId + "name=" + name + "common=" + common + '}';
     }
+
 
 }

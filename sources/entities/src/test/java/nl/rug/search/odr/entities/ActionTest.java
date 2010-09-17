@@ -7,15 +7,15 @@ import org.junit.Test;
 
 /**
  *
- * @author Ben Ripkens <bripkens.dev@gmail.com>
+ * @author Stefan
  */
 public class ActionTest {
 
-    private Person p;
+    private Action a;
 
     @Before
     public void setUp() {
-        p = new Person();
+        a = new Action();
     }
 
     @After
@@ -24,33 +24,20 @@ public class ActionTest {
 
     @Test
     public void testInitialization() {
-        assertNull(p.getPersonId());
-        assertNull(p.getName());
-        assertNull(p.getPassword());
-        assertNull(p.getEmail());
-
-        assertNotNull(p.getMemberships());
-
-        assertTrue(p.getMemberships().isEmpty());
+        assertNull(a.getId());
+        assertNull(a.getType());
     }
 
     @Test
-    public void testSetEmail() {
-        p.setEmail("foo@foo.de");
+    public void testSetType() {
+        ActionType type = new ActionType();
+       a.setType(type);
+       assertEquals(type, a.getType());
+
     }
 
-    @Test(expected=RuntimeException.class)
-    public void testSetInvalidEmail1() {
-        p.setEmail("dassa");
-    }
-
-    @Test(expected=RuntimeException.class)
-    public void testSetInvalidEmail2() {
-        p.setEmail("dassa@dasdsa");
-    }
-
-    @Test(expected=RuntimeException.class)
-    public void testSetInvalidEmail3() {
-        p.setEmail("dassadasdsa.de");
+    @Test(expected=NullPointerException.class)
+    public void testSetNullType() {
+        a.setType(null);
     }
 }

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
@@ -14,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -21,38 +21,35 @@ import javax.persistence.OneToMany;
  */
 //@Entity
 public class ArchitecturalDecision implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(length = 30, nullable = false)
     private String name;
-
     @Column(length = 30, nullable = true)
     private String oprId;
-
     @Column(length = 30, nullable = false)
     private String arguments;
-
     @Column(length = 30, nullable = false)
     private String decision;
-
     @Column(length = 30, nullable = false)
     private String problem;
-
     @OneToMany
     private Version version;
-
     @OneToMany
     private Collection<Version> versions;
 
-    public ArchitecturalDecision(){
+    public ArchitecturalDecision() {
         versions = new ArrayList<Version>();
     }
 
-    public void addVerison(Version version){
-     versions.add(version);
+    public void addVerison(Version version) {
+        if (version == null) {
+            throw new NullPointerException("version is null");
+        }
+        versions.add(version);
     }
 
     public String getArguments() {
@@ -60,7 +57,8 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setArguments(String arguments) {
-        this.arguments = arguments;
+        StringValidator.isValid(arguments);
+         this.arguments = arguments;
     }
 
     public String getDecision() {
@@ -68,7 +66,8 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setDecision(String decision) {
-        this.decision = decision;
+       StringValidator.isValid(decision);
+         this.decision = decision;
     }
 
     public String getName() {
@@ -76,7 +75,8 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setName(String name) {
-        this.name = name;
+        StringValidator.isValid(name);
+         this.name = name;
     }
 
     public String getOprId() {
@@ -84,7 +84,8 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setOprId(String oprId) {
-        this.oprId = oprId;
+       StringValidator.isValid(oprId);
+       this.oprId = oprId;
     }
 
     public String getProblem() {
@@ -92,6 +93,7 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setProblem(String problem) {
+        StringValidator.isValid(problem);
         this.problem = problem;
     }
 
@@ -106,14 +108,6 @@ public class ArchitecturalDecision implements Serializable {
     public Collection<Version> getVersions() {
         return versions;
     }
-
-//    public void removeVersion(Version version){
-//        if(version != null){
-//        versions.remove(version);
-//        } else {
-//            throw new NullPointerException("version is null");
-//        }
-//    }
 
     public Long getId() {
         return id;
@@ -147,4 +141,5 @@ public class ArchitecturalDecision implements Serializable {
     public String toString() {
         return "ArchitecturalDecision{" + "id=" + id + "name=" + name + "oprId=" + oprId + "arguments=" + arguments + "decision=" + decision + "problem=" + problem + "version=" + version + "versions=" + versions + '}';
     }
+
 }

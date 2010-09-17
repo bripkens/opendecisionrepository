@@ -6,10 +6,12 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -25,13 +27,46 @@ public class Relationship implements Serializable {
     private Long id;
 
     @ManyToOne
+    private Relationshiptype type;
+
+
+    @ManyToMany
     private Version source;
 
-    @ManyToOne
+
+    @ManyToMany
     private Version target;
 
-    @ManyToOne
-    private Relationshiptype type;
+    public Version getSource() {
+        return source;
+    }
+
+    public Version getTarget() {
+        return target;
+    }
+
+
+     public void setSourceVersion(Version version) {
+        if (version == null) {
+            this.source.internalRemoveRelationship(this);
+        }
+        this.source = version;
+
+        if (version != null) {
+            version.internalAddRelationship(this);
+        }
+    }
+
+      public void setTargetVersion(Version version) {
+        if (version == null) {
+            this.target.internalRemoveRelationship(this);
+        }
+        this.source = version;
+
+        if (version != null) {
+            version.internalAddRelationship(this);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -63,7 +98,6 @@ public class Relationship implements Serializable {
 
     @Override
     public String toString() {
-        return "Relationship{" + "id=" + id + "source=" + source + "target=" + target + "type=" + type + '}';
+        return "Relationship{" + "id=" + id + "type=" + type + '}';
     }
-
 }

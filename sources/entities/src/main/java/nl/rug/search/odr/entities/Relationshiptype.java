@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -34,6 +35,9 @@ public class Relationshiptype implements Serializable {
     }
 
     public void setId(Long id) {
+        if(id == null){
+            throw new NullPointerException("please provide an id");
+        }
         this.id = id;
     }
 
@@ -50,6 +54,7 @@ public class Relationshiptype implements Serializable {
     }
 
     public void setName(String name) {
+        StringValidator.isValid(name);
         this.name = name;
     }
 
