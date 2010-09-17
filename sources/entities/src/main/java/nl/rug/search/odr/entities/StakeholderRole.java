@@ -21,12 +21,24 @@ public class StakeholderRole implements Serializable {
 
     private String name;
 
+    private boolean common;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
+        checkName(name);
+
         this.name = name;
+    }
+
+    private void checkName(String name) {
+        if (name == null) {
+            throw new NullPointerException("A valid name is required.");
+        } else if (name.trim().isEmpty()) {
+            throw new RuntimeException("A valid name is required.");
+        }
     }
 
     public Long getStakeholderRoleId() {
@@ -35,6 +47,14 @@ public class StakeholderRole implements Serializable {
 
     public void setStakeholderRoleId(Long stakeholderRoleId) {
         this.stakeholderRoleId = stakeholderRoleId;
+    }
+
+    public boolean isCommon() {
+        return common;
+    }
+
+    public void setCommon(boolean common) {
+        this.common = common;
     }
 
     @Override

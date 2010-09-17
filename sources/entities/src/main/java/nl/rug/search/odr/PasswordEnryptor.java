@@ -8,7 +8,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class PasswordEnryptor {
+public abstract class PasswordEnryptor {
 
     private static final PasswordEncryptor encryptor = new StrongPasswordEncryptor();
 
