@@ -60,11 +60,15 @@ public class Person implements Serializable {
     }
 
     public void setEmail(String email) {
+        checkEmail(email);
+
+        this.email = email;
+    }
+
+    private void checkEmail(String email) {
         if (!EmailValidator.isValidEmailAddress(email)) {
             throw new RuntimeException("Please provide a valid email address");
         }
-
-        this.email = email;
     }
 
     
@@ -82,7 +86,17 @@ public class Person implements Serializable {
     }
 
     public void setName(String name) {
+        checkName(name);
+
         this.name = name;
+    }
+
+    private void checkName(String name) {
+        if (name == null) {
+            throw new NullPointerException("Please provide a valid name.");
+        } else if (name.trim().isEmpty()) {
+            throw new RuntimeException("Please provide a valid name.");
+        }
     }
 
     public String getPassword() {

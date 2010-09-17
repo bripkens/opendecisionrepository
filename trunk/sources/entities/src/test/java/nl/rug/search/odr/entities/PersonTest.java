@@ -1,6 +1,5 @@
 package nl.rug.search.odr.entities;
 
-import java.lang.RuntimeException;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
