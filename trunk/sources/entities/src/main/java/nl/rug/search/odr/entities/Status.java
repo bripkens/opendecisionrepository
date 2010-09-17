@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -24,7 +25,7 @@ public class Status implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long statusId;
 
     @Column(length = 30, nullable = false, updatable = false)
     private String name;
@@ -33,12 +34,15 @@ public class Status implements Serializable {
     private boolean common;
 
 
-    public Long getId() {
-        return id;
+    public Long getStatusId() {
+        return statusId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStatusId(Long id) {
+        if(id == null){
+            throw new NullPointerException("please provide a id");
+        }
+        this.statusId = id;
     }
 
     public void setCommon(boolean common) {
@@ -54,13 +58,14 @@ public class Status implements Serializable {
     }
 
     public void setName(String name) {
+        StringValidator.isValid(name);
         this.name = name;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (statusId != null ? statusId.hashCode() : 0);
         return hash;
     }
 
@@ -71,7 +76,7 @@ public class Status implements Serializable {
             return false;
         }
         Status other = (Status) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.statusId == null && other.statusId != null) || (this.statusId != null && !this.statusId.equals(other.statusId))) {
             return false;
         }
         return true;
@@ -79,7 +84,7 @@ public class Status implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.rug.search.odr.entities.Status[id=" + id + "]";
+        return "nl.rug.search.odr.entities.Status[id=" + statusId + "]";
     }
 
 }

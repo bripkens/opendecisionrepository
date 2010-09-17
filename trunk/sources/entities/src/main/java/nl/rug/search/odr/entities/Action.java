@@ -23,6 +23,7 @@ public class Action implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     private ActionType type;
 
