@@ -16,10 +16,14 @@ public class ProjectBean implements ProjectLocal {
     @PersistenceContext
     private EntityManager entityManager;
     
+    @Override
     public void createProject(Project p) {
+        
+
         entityManager.persist(p);
     }
 
+    @Override
     public boolean isUsed(String projectName) {
         projectName = projectName.trim().toLowerCase();
 
