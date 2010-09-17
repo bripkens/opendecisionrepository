@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <h:outputText value="#{common['learnMore.page.title']}" />
+    </ui:define>
+
+    <ui:define name="content">
+            <h1><h:outputText value="#{page['learnMore.headline']}" /></h1>
+            <h2>Who and why?</h2>
+            <p>The Open Decision Repository (ODR) project was initiated as part of the doctoral research by Uwe van Heesch,
+               supervised by Paris Avgeriou. It is a joint-venture project of the research group Software Engineering and
+               Architecture (SEARCH), which is part of the Department of Mathematics and Computing Science at the
+               University of Groningen/NL and the Software Engineering study programme at the Fontys University of Applied
+               Sciences in Venlo/NL.</p>
+            <h2>Goals</h2>
+            <p>-</p>
+            <h2>Tutorials</h2>
+            <p>-</p>
+    </ui:define>
+    <ui:define name="sidebar">
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="Fontys University of Applied Sciences, Venlo" /></b><br />
+                            <a href="http://www.fontys.nl/campusvenlo" target="_blank"><img src="resources/images/fontys-logo.png" border="1" alt="Logo Fontys University" /></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="University of Groningen" /></b><br />
+                            <a href="http://www.cs.rug.nl/search/" target="_blank"><img src="resources/images/rug-logo.png" border="1" alt="Logo University of Groningen" /></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="Credits" /></b><br />
+                            <ice:outputText value="The following students have contributed to the ODR so far:" />
+                            <ul>
+                                <li>Stefan Arians (stefan.arians at gmail dot com)</li>
+                                <li>Ben Ripkens (bripkens.dev at gmail dot com)</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    </ui:define>
+
+</ui:composition>

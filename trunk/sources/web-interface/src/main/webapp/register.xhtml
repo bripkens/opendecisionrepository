@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['registration.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="belowHeader">
+        <div id="result">
+<!--            <ice:panelGroup-->
+            <ice:message for="registerForm"
+                         errorClass="fail"
+                         infoClass="success"
+                         effect="#{registerUserController.resultEffect}"
+                         visible="false" />
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form id="registerForm" binding="#{registerUserController.formComponent}">
+
+            <h1><h:outputText value="#{form['registration.heading']}"/></h1>
+
+
+
+
+
+
+
+
+            <ice:outputText value="#{form['label.name']}"/><br />
+            <ice:inputText id="inName"
+                           label="#{form['label.name']}"
+                           maxlength="255"
+                           value="#{registerUserController.name}"
+                           partialSubmit="true"
+                           required="true">
+                <f:validateLength maximum="255" />
+
+                <f:validator validatorId="RegexValidator" />
+                <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+
+                <f:validator validatorId="UserNameValidator" />
+            </ice:inputText>
+            <br />
+
+
+
+
+
+
+
+
+            <ice:outputText value="#{form['label.password']}"/><br />
+            <ice:inputSecret id="inPassword"
+                             label="#{form['label.password']}"
+                             maxlength="255"
+                             value="#{registerUserController.password}"
+                             required="true">
+                <f:validateLength maximum="255" />
+            </ice:inputSecret>
+            <br />
+
+
+
+
+
+
+
+
+            <ice:outputText value="#{form['label.email']}"/><br />
+            <ice:inputText id="inEmail"
+                           label="#{form['label.email']}"
+                           maxlength="255"
+                           value="#{registerUserController.email}"
+                           partialSubmit="true"
+                           required="true">
+                <f:validateLength maximum="255" />
+
+                <f:validator validatorId="EmailValidator" />
+            </ice:inputText>
+            <br />
+
+
+
+
+
+
+            <div class="right">
+                <ice:commandButton action="#{registerUserController.submitForm}"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"/>
+
+
+
+                <ice:commandButton actionListener="#{registerUserController.resetForm}"
+                                   value="#{form['button.clear']}"
+                                   styleClass="abort"/>
+            </div>
+
+        </ice:form>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list" 
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>dsadas</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
  *
  * @author Stefan
  */
-@Entity
+//@Entity
 public class Action implements Serializable {
 
     private static final long serialVersionUID = 1L;

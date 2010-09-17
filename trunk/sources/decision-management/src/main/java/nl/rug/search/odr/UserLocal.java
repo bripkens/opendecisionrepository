@@ -11,4 +11,6 @@ public interface UserLocal {
     void registerPerson(Person p);
 
     boolean isRegistered(String name);
+
+    boolean isUsed(String email);
 }

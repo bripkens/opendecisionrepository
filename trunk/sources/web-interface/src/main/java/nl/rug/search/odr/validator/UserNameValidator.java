@@ -1,3 +1,4 @@
+
 package nl.rug.search.odr.validator;
 
 import com.sun.faces.util.MessageFactory;
@@ -9,7 +10,6 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import nl.rug.search.odr.ProjectLocal;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.UserLocal;
 
@@ -17,21 +17,23 @@ import nl.rug.search.odr.UserLocal;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class ProjectNameValidator implements Validator {
+public class UserNameValidator implements Validator{
 
-    private ProjectLocal pl;
+    private UserLocal ul;
+
     /**
      * <p>The message identifier of the {@link javax.faces.application.FacesMessage} to be created if
      * the unique name already exists.</p>
      */
-    public static final String USEDPROJECTNAME_ID =
-            "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
+    public static final String USEDUSERNAME_ID =
+            "nl.rug.search.odr.validator.UserNameValidator.DUPLICATEUSERNAME";
 
-    public ProjectNameValidator() {
+
+    public UserNameValidator() {
         try {
             InitialContext ic = new InitialContext();
 
-            pl = (ProjectLocal) ic.lookup("java:comp/env/" + Helper.JNDI_NAME);
+            ul = (UserLocal) ic.lookup("java:comp/env/" + Helper.JNDI_NAME);
         } catch (NamingException ex) {
             throw new FacesException(ex);
         }
@@ -39,24 +41,23 @@ public class ProjectNameValidator implements Validator {
 
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
-
         String name = value.toString();
 
-        if (!StringValidator.isValid(name, false) || !pl.isUsed(name)) {
+        if (!StringValidator.isValid(name, false) || !ul.isRegistered(name)) {
             return;
         }
 
         throw new ValidatorException(MessageFactory.getMessage(
                 fc,
-                USEDPROJECTNAME_ID,
+                USEDUSERNAME_ID,
                 new Object[]{
                     MessageFactory.getLabel(fc, uic)
                 }));
     }
 
-    @EJB(name = Helper.JNDI_NAME, beanInterface = ProjectLocal.class)
+    @EJB(name = Helper.JNDI_NAME, beanInterface = UserLocal.class)
     private class Helper {
 
-        public static final String JNDI_NAME = "nl.rug.search.odr.validator.ProjectNameValidator.Helper";
+        public static final String JNDI_NAME = "nl.rug.search.odr.validator.UserNameValidator.Helper";
     }
 }

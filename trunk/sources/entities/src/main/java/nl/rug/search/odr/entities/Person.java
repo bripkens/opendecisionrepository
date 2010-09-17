@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.PasswordEnryptor;
+import nl.rug.search.odr.StringValidator;
 
 
 /**
@@ -102,17 +103,9 @@ public class Person implements Serializable {
     }
 
     public void setName(String name) {
-        checkName(name);
+        StringValidator.isValid(name);
 
         this.name = name;
-    }
-
-    private void checkName(String name) {
-        if (name == null) {
-            throw new NullPointerException("Please provide a valid name.");
-        } else if (name.trim().isEmpty()) {
-            throw new RuntimeException("Please provide a valid name.");
-        }
     }
 
 
@@ -127,21 +120,15 @@ public class Person implements Serializable {
     }
 
     public void setPassword(String password) {
-        checkPassword(password);
+        StringValidator.isValid(password);
+
         this.password = password;
     }
 
     public void setPlainPassword(String password) {
-        checkPassword(password);
+        StringValidator.isValid(password);
+        
         setPassword(PasswordEnryptor.encryptPassword(password));
-    }
-
-    private void checkPassword(String password) {
-        if (password == null) {
-            throw new NullPointerException("Please provide a valid password.");
-        } else if (password.trim().isEmpty()) {
-            throw new RuntimeException("Please provide a valid password.");
-        }
     }
 
     public boolean validatePassword(String password) {

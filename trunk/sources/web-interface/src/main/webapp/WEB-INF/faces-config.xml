@@ -59,6 +59,11 @@
         <validator-class>nl.rug.search.odr.validator.UserNameValidator</validator-class>
     </validator>
 
+    <validator>
+        <validator-id>EmailValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.EmailValidator</validator-class>
+    </validator>
+
     <!--
         #########################################################
                             Managed beans
