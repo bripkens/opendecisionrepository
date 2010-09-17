@@ -27,6 +27,5 @@
         <module>web-interface</module>
         <module>odr-startup</module>
         <module>entities</module>
-    <module>ODR-Entities</module>
   </modules>
 </project>

@@ -16,7 +16,7 @@ import javax.persistence.Id;
  *
  * @author Stefan
  */
-@Entity
+//@Entity
 public class ActionType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

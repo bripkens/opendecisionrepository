@@ -33,4 +33,14 @@ public class User implements UserLocal {
         return result != 0;
     }
 
+    @Override
+    public boolean isUsed(String email) {
+        email = email.trim().toLowerCase();
+
+        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.email) = :email");
+        q.setParameter("email", email);
+
+        long result = (Long) q.getSingleResult();
+        return result != 0;
+    }
 }

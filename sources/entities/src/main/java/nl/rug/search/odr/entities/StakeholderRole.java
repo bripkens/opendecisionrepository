@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -28,17 +29,9 @@ public class StakeholderRole implements Serializable {
     }
 
     public void setName(String name) {
-        checkName(name);
+        StringValidator.isValid(name);
 
         this.name = name;
-    }
-
-    private void checkName(String name) {
-        if (name == null) {
-            throw new NullPointerException("A valid name is required.");
-        } else if (name.trim().isEmpty()) {
-            throw new RuntimeException("A valid name is required.");
-        }
     }
 
     public Long getStakeholderRoleId() {
