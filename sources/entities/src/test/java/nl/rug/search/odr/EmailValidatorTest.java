@@ -1,6 +1,5 @@
 package nl.rug.search.odr;
 
-import nl.rug.search.odr.EmailValidator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

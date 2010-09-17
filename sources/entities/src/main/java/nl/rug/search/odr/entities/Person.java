@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.EmailValidator;
+import nl.rug.search.odr.PasswordEnryptor;
 
 
 /**
@@ -55,6 +54,12 @@ public class Person implements Serializable {
         memberships = new ArrayList<ProjectMember>();
     }
 
+
+
+
+
+
+
     public String getEmail() {
         return email;
     }
@@ -71,7 +76,10 @@ public class Person implements Serializable {
         }
     }
 
-    
+
+
+
+
 
     public Long getPersonId() {
         return personId;
@@ -80,6 +88,14 @@ public class Person implements Serializable {
     public void setPersonId(Long personId) {
         this.personId = personId;
     }
+
+
+
+
+
+
+
+
 
     public String getName() {
         return name;
@@ -99,19 +115,53 @@ public class Person implements Serializable {
         }
     }
 
+
+
+
+
+
+
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
+        checkPassword(password);
         this.password = password;
     }
+
+    public void setPlainPassword(String password) {
+        checkPassword(password);
+        setPassword(PasswordEnryptor.encryptPassword(password));
+    }
+
+    private void checkPassword(String password) {
+        if (password == null) {
+            throw new NullPointerException("Please provide a valid password.");
+        } else if (password.trim().isEmpty()) {
+            throw new RuntimeException("Please provide a valid password.");
+        }
+    }
+
+    public boolean validatePassword(String password) {
+        return PasswordEnryptor.checkPassword(password, this.password);
+    }
+
+
+
+
+
 
     public Collection<ProjectMember> getMemberships() {
         return Collections.unmodifiableCollection(memberships);
     }
 
-    public void setMemberShips(Collection<ProjectMember> memberships) {
+    public void setMemberships(Collection<ProjectMember> memberships) {
+        if (memberships == null) {
+            throw new NullPointerException("Memberships may not be null.");
+        }
+
         this.memberships = memberships;
     }
 
@@ -131,6 +181,10 @@ public class Person implements Serializable {
         memberships.remove(member);
     }
 
+
+
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
