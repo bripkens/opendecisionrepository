@@ -17,10 +17,12 @@ public class User implements UserLocal {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public void registerPerson(Person p) {
         entityManager.persist(p);
     }
 
+    @Override
     public boolean isRegistered(String name) {
         name = name.trim().toLowerCase();
         

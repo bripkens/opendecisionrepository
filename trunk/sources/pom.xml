@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nl.rug.search</groupId>
-  <artifactId>opendecisionrepository</artifactId>
-  <packaging>pom</packaging>
-  <version>0.1</version>
-  <name>OpenDecisionRepository</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>nl.rug.search</groupId>
+    <artifactId>opendecisionrepository</artifactId>
+    <packaging>pom</packaging>
+    <version>0.1</version>
+    <name>OpenDecisionRepository</name>
   
-  <url>http://code.google.com/p/opendecisionrepository/</url>
-  
-  <modules>
-    <module>decision-management</module>
-    <module>web-interface</module>
-    <module>odr-startup</module>
+    <url>http://code.google.com/p/opendecisionrepository/</url>
+
+    <developers>
+        <developer>
+            <id>benr</id>
+            <name>Ben Ripkens</name>
+            <email>bripkens.dev@gmail.com</email>
+        </developer>
+        <developer>
+            <id>stefana</id>
+            <name>Stefan Arians</name>
+            <email>stefan.arians@gmail.com</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>decision-management</module>
+        <module>web-interface</module>
+        <module>odr-startup</module>
+        <module>entities</module>
+    <module>ODR-Entities</module>
   </modules>
 </project>
