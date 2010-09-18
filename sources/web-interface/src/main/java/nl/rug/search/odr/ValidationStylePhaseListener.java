@@ -22,9 +22,11 @@ public class ValidationStylePhaseListener implements PhaseListener {
 
     private final String ORIGINAL_STYLE = "nl.rug.opr.search.original.style";
 
+    @Override
     public void afterPhase(PhaseEvent event) {
     }
 
+    @Override
     public void beforePhase(PhaseEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot root = context.getViewRoot();
@@ -44,6 +46,7 @@ public class ValidationStylePhaseListener implements PhaseListener {
         }
     }
 
+    @Override
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
