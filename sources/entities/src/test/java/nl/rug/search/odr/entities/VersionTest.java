@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -122,11 +123,8 @@ public class VersionTest {
         Relationship relationship = new Relationship();
 
         v.addRelationship(relationship);
-
-        assertTrue(containsReference(v.getRelationships(), relationship));
-
+        assertTrue(TestUtil.containsReference(v.getRelationships(), relationship));
         assertSame(v, relationship.getSource());
-
     }
 
     @Test
@@ -135,16 +133,6 @@ public class VersionTest {
         v.addRelationship(relationship);
         v.removeRelationShip(relationship);
 
-        assertFalse(containsReference(v.getRelationships(), relationship));
-    }
-
-    private static <T> boolean containsReference(Collection<T> collection, T item) {
-        for (T currentItem : collection) {
-            if (currentItem == item) {
-                return true;
-            }
-        }
-
-        return false;
+        assertFalse(TestUtil.containsReference(v.getRelationships(), relationship));
     }
 }

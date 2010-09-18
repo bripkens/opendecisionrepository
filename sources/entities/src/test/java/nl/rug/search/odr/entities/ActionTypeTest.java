@@ -32,6 +32,23 @@ public class ActionTypeTest {
         assertEquals(1, id);
     }
 
+    @Test
+    public void testSetName() {
+        String name = "foo";
+        a.setName(name);
+        assertEquals(name, a.getName());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testNullName() {
+        a.setName(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testEmptyName() {
+        a.setName("  ");
+    }
+
     @Test(expected = NullPointerException.class)
     public void testNullId() {
         a.setId(null);

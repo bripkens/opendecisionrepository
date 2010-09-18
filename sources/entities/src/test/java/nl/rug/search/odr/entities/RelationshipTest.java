@@ -25,7 +25,22 @@ public class RelationshipTest {
 
     @Test
     public void testInitialization() {
-        throw new UnsupportedOperationException();
+        assertNull(r.getId());
+        assertNull(r.getSource());
+        assertNull(r.getTarget());
+    }
+
+
+    @Test
+    public void testId() {
+        r.setId(Long.MIN_VALUE);
+
+        assertEquals(Long.MIN_VALUE, (long) r.getId());
+    }
+
+    @Test (expected=NullPointerException.class)
+    public void testNullId(){
+        r.setId(null);
     }
 
     @Test
@@ -38,6 +53,7 @@ public class RelationshipTest {
         assertNotSame(v, r.getTarget());
         
         assertTrue(containsReference(v.getRelationships(), r));
+        assertEquals(r.getSource(),v);
     }
 
     @Test

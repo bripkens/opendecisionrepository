@@ -29,15 +29,33 @@ public class ActionTest {
     }
 
     @Test
+    public void testSetId(){
+        a.setId(Long.MIN_VALUE);
+        assertEquals(Long.MIN_VALUE, (long) a.getId());
+    }
+
+    @Test
     public void testSetType() {
         ActionType type = new ActionType();
-       a.setType(type);
-       assertEquals(type, a.getType());
+        a.setType(type);
+        assertEquals(type, a.getType());
 
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testSetNullType() {
         a.setType(null);
+    }
+
+    @Test
+    public void testSetMember() {
+        ProjectMember pm = new ProjectMember();
+        a.setMember(pm);
+        assertEquals(pm, a.getMember());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testSetNullMember() {
+        a.setMember(null);
     }
 }
