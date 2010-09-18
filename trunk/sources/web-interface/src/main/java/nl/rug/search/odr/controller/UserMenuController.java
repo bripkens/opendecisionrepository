@@ -4,6 +4,7 @@ package nl.rug.search.odr.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
+import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.SessionUtil;
 
 /**
@@ -41,5 +42,7 @@ public class UserMenuController {
         }
 
         session.removeAttribute("logged_in");
+
+        JsfUtil.refreshPage();
     }
 }

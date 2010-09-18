@@ -7,10 +7,11 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
 
-    <div id="userMenu">
+    
         Hello Mr. X -
-        <ice:form id="logoutForm" action="/index.html"><ice:commandButton action="#{userMenuController.logout}"
-                                                     value="#{form['button.logout']}" /></ice:form>
-    </div>
+        <ice:form id="logoutForm">
+            <ice:commandLink action="#{userMenuController.logout}"
+                             value="#{form['button.logout']}" />
+        </ice:form>
 
 </ui:composition>

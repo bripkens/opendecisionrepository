@@ -37,7 +37,6 @@
                 </div>
                 <div id="navigation">
                     <div>
-                        <h:form>
                             <ul>
                                 <li class="current">
                                     <a href="index.html"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
@@ -52,13 +51,12 @@
                                     <a href="learnMore.html"><h:outputText value="#{common['page.mainMenu.learnMore.text']}" title="#{common['page.mainMenu.learnMore.title']}" /></a>
                                 </li>
                             </ul>
-                        </h:form>
                     </div>
                 </div>
-
+                <div id="userMenu">
+                    <ui:include src="#{userMenuController.userMenu}" />
+                </div>
             </div>
-
-            <ui:include src="#{userMenuController.userMenu}" />
 
             <ui:insert name="belowHeader"/>
 
