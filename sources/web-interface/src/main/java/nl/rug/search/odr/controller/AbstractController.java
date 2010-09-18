@@ -14,7 +14,7 @@ import javax.faces.event.ActionEvent;
  */
 public abstract class AbstractController {
 
-    public static final int RESULT_DELAY = 5;
+    public static final int RESULT_DELAY = 3;
     private EffectQueue resultEffect;
     private String resultMessage;
     private ActionResult resultType;
@@ -36,10 +36,8 @@ public abstract class AbstractController {
         resultEffect.add(fade);
         resultEffect.setFired(true);
 
-
         resultMessage = null;
         resultType = ActionResult.FAIL;
-
 
         reset();
     }

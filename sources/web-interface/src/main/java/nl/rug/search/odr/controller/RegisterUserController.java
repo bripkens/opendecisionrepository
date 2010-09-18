@@ -1,8 +1,10 @@
 package nl.rug.search.odr.controller;
 
+import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import nl.rug.search.odr.MessageUtil;
 import nl.rug.search.odr.UserLocal;
 import nl.rug.search.odr.entities.Person;
 
@@ -20,12 +22,20 @@ public class RegisterUserController extends AbstractController {
 
     @Override
     protected String getSuccessMessage() {
-        return "Registration successful.";
+        return MessageUtil.getMessageResourceString(
+                                    "nl.rug.search.odr.localization.form",
+                                    "registration.success",
+                                    null,
+                                    Locale.ENGLISH);
     }
 
     @Override
     protected String getFailMessage() {
-        return "Registration failed.";
+        return MessageUtil.getMessageResourceString(
+                                    "nl.rug.search.odr.localization.form",
+                                    "registration.fail",
+                                    null,
+                                    Locale.ENGLISH);
     }
 
     @Override

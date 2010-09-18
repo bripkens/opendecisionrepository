@@ -3,3 +3,31 @@
     margin: 0 0 0.1em 0;
     padding: 0;
 }
+.formSection {
+    position: relative;
+    border-bottom: 1px dashed #666;
+    margin: 0.8em 0 0 0;
+}
+.last {
+    border-bottom: 0;
+}
+.formSection label {
+    float: left;
+}
+.formSection span {
+    float: left;
+}
+.formSection input {
+    float: right;
+}
+.formSection p {
+    width: 100%;
+    float: none;
+    clear: both;
+    margin: 0 0 0.8em 0;
+
+    color: #666;
+    font-size: 0.75em;
+    font-variant: small-caps;
+    text-indent: 11em;
+}

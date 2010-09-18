@@ -45,6 +45,7 @@ blockquote, q {
 
 body {
     font-size: 16px;
+    position: relative;
 }
 
 #header {
@@ -105,6 +106,7 @@ div#navigation{
     position: relative;
     bottom: 0;
     top: 2.75em;
+    z-index: 35;
 }
 
 div#navigation li.current > a {
@@ -365,6 +367,10 @@ div#help {
     line-height:1em;
     height: 2em;
     padding-right: -1em;
+    z-index: 34;
+    top: 4.5em;
+    width: 100%;
+    position: absolute;
 }
 
 .center {
@@ -473,11 +479,6 @@ input[type=submit]:active, #page input[type=submit]:focus,#page input[type=file]
     background-image: url(../images/formButtonActive.png);
 }
 
-#page label {
-    width: 100px;
-    float: left;
-}
-
 #page td {
     vertical-align: top;
 }
@@ -581,17 +582,22 @@ form hr {
 
 #page input[type=submit].confirm {
     background-image: url(../images/buttonConfirm.png);
+    position: relative;
+    top: 2em;
 }
 
 #page input[type=submit].confirm:active, #page input[type=submit].confirm:focus {
     background-image: url(../images/buttonConfirmActive.png);
 }
 
-#page input[type=submit].abort {
+#page input[type=reset].abort {
     background-image: url(../images/buttonAbort.png);
+    position: relative;
+    top: 2em;
+    left: 1em;
 }
 
-#page input[type=submit].abort:active, #page input[type=submit].abort:focus {
+#page input[type=reset].abort:active, #page input[type=submit].abort:focus {
     background-image: url(../images/buttonAbortActive.png);
 }
 
