@@ -19,34 +19,30 @@ public class RegisterUserController extends AbstractController {
     private String name, email, password;
 
     @Override
-    public String getSuccessMessage() {
+    protected String getSuccessMessage() {
         return "Registration successful.";
     }
 
     @Override
-    public String getFailMessage() {
+    protected String getFailMessage() {
         return "Registration failed.";
     }
 
     @Override
-    public void reset() {
+    protected void reset() {
         name = email = password = null;
     }
 
     @Override
-    public boolean execute() {
-        try {
+    protected boolean execute() {
 
-            Person p = new Person();
-            p.setName(name);
-            p.setEmail(email);
-            p.setPassword(password);
+        Person p = new Person();
+        p.setName(name);
+        p.setEmail(email);
+        p.setPassword(password);
 
 
-            userLocal.registerPerson(p);
-        } catch (Exception e) {
-            return false;
-        }
+        userLocal.registerPerson(p);
 
         return true;
     }

@@ -27,7 +27,7 @@ public class Relationship implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Relationshiptype type;
+    private RelationshipType type;
 
 
     @ManyToMany
@@ -58,14 +58,8 @@ public class Relationship implements Serializable {
     }
 
       public void setTargetVersion(Version version) {
-        if (version == null) {
-            this.target.internalRemoveRelationship(this);
-        }
-        this.source = version;
+        this.target = version;
 
-        if (version != null) {
-            version.internalAddRelationship(this);
-        }
     }
 
     public Long getId() {

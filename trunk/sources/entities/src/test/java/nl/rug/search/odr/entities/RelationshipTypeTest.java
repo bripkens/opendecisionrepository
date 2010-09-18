@@ -11,11 +11,11 @@ import org.junit.Test;
  */
 public class RelationshipTypeTest {
 
-    private Relationshiptype r;
+    private RelationshipType r;
 
     @Before
     public void setUp() {
-        r = new Relationshiptype();
+        r = new RelationshipType();
     }
 
     @After

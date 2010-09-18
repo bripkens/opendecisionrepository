@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import static org.junit.Assert.*;
+import static nl.rug.search.odr.TestUtil.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,17 +14,6 @@ import org.junit.Test;
 public class PersonTest {
 
     private Person p;
-
-
-    private static <T> boolean containsReference(Collection<T> collection, T item) {
-        for(T currentItem : collection) {
-            if (currentItem == item) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
 
     @Before
