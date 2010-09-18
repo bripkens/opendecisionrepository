@@ -67,6 +67,9 @@ public class Relationship implements Serializable {
     }
 
     public void setId(Long id) {
+        if(id == null){
+            throw new NullPointerException("please provide an id");
+        }
         this.id = id;
     }
 

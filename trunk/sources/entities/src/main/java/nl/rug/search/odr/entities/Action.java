@@ -27,6 +27,9 @@ public class Action implements Serializable {
     @ManyToOne
     private ActionType type;
 
+    @ManyToOne
+    private ProjectMember member;
+
     public ActionType getType() {
         return type;
     }
@@ -49,6 +52,17 @@ public class Action implements Serializable {
         } else {
             throw new NullPointerException("ID is null");
         }
+    }
+
+    public ProjectMember getMember() {
+        return member;
+    }
+
+    public void setMember(ProjectMember member) {
+        if(member == null){
+            throw new NullPointerException("Please provide a member");
+        }
+        this.member = member;
     }
 
     @Override

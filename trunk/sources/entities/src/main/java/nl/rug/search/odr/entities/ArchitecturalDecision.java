@@ -57,8 +57,10 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setArguments(String arguments) {
-        StringValidator.isValid(arguments);
-         this.arguments = arguments;
+        if (arguments == null) {
+            throw new NullPointerException("please provide arguments");
+        }
+        this.arguments = arguments;
     }
 
     public String getDecision() {
@@ -66,8 +68,10 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setDecision(String decision) {
-       StringValidator.isValid(decision);
-         this.decision = decision;
+        if (decision == null) {
+            throw new NullPointerException("please provide a decision");
+        }
+        this.decision = decision;
     }
 
     public String getName() {
@@ -76,7 +80,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setName(String name) {
         StringValidator.isValid(name);
-         this.name = name;
+        this.name = name;
     }
 
     public String getOprId() {
@@ -84,8 +88,10 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setOprId(String oprId) {
-       StringValidator.isValid(oprId);
-       this.oprId = oprId;
+        if (oprId == null) {
+            throw new NullPointerException("please provide a oprId");
+        }
+        this.oprId = oprId;
     }
 
     public String getProblem() {
@@ -93,7 +99,9 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setProblem(String problem) {
-        StringValidator.isValid(problem);
+        if (problem == null) {
+            throw new NullPointerException("please provide a problem");
+        }
         this.problem = problem;
     }
 
@@ -102,6 +110,9 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setVersion(Version version) {
+        if (version == null) {
+            throw new NullPointerException("please provide an version");
+        }
         this.version = version;
     }
 
@@ -114,6 +125,9 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setId(Long id) {
+        if (id == null) {
+            throw new NullPointerException("please provide an id");
+        }
         this.id = id;
     }
 
@@ -141,5 +155,4 @@ public class ArchitecturalDecision implements Serializable {
     public String toString() {
         return "ArchitecturalDecision{" + "id=" + id + "name=" + name + "oprId=" + oprId + "arguments=" + arguments + "decision=" + decision + "problem=" + problem + "version=" + version + "versions=" + versions + '}';
     }
-
 }
