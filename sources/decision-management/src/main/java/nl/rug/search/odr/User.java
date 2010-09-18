@@ -43,4 +43,20 @@ public class User implements UserLocal {
         long result = (Long) q.getSingleResult();
         return result != 0;
     }
+
+    @Override
+    public Person tryLogin(String name, String password)  {
+        name = name.trim().toLowerCase();
+
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
+        q.setParameter("name", name);
+
+        Person result = (Person) q.getSingleResult();
+
+        if (result == null || !result.validatePassword(password)) {
+            return null;
+        }
+
+        return result;
+    }
 }

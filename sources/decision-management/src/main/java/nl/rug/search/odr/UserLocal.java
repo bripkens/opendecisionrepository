@@ -13,4 +13,6 @@ public interface UserLocal {
     boolean isRegistered(String name);
 
     boolean isUsed(String email);
+
+    public nl.rug.search.odr.entities.Person tryLogin(java.lang.String name, java.lang.String password);
 }

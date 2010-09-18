@@ -7,8 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import nl.rug.search.odr.EjbUtil;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.UserLocal;
 
@@ -36,10 +35,8 @@ public class EmailValidator implements Validator {
 
     public EmailValidator() {
         try {
-            InitialContext ic = new InitialContext();
-
-            ul = (UserLocal) ic.lookup("java:comp/env/" + Helper.JNDI_NAME);
-        } catch (NamingException ex) {
+            ul = EjbUtil.lookUp(Helper.JNDI_NAME, UserLocal.class);
+        } catch (RuntimeException ex) {
             throw new FacesException(ex);
         }
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:ice="http://www.icesoft.com/icefaces/component"
+                    xmlns:f="http://java.sun.com/jsf/core">
+
+    <div id="userMenu">
+        <ice:form id="loginForm">
+            <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+            <ice:inputText id="inLoginName"
+                           label="#{form['label.name']}"
+                           maxlength="255"
+                           value="#{loginController.name}"
+                           required="true">
+            </ice:inputText>
+
+            <ice:outputLabel value="#{form['label.password']}" for="inPassword" />
+            <ice:inputSecret id="inLoginPassword"
+                             label="#{form['label.password']}"
+                             maxlength="255"
+                             value="#{loginController.password}"
+                             required="true"
+                             redisplay="true">
+            </ice:inputSecret>
+
+            <ice:commandButton action="#{loginController.submitForm}"
+                               value="#{form['button.login']}"
+                               styleClass="confirm"/>
+        </ice:form>
+    </div>
+
+</ui:composition>

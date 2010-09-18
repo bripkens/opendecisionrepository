@@ -1,5 +1,6 @@
 package nl.rug.search.odr.controller;
 
+import nl.rug.search.odr.ActionResult;
 import com.icesoft.faces.context.effects.Appear;
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.EffectQueue;

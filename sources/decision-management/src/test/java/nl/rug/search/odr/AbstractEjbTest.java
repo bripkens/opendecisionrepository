@@ -41,11 +41,7 @@ public class AbstractEjbTest {
     public static <T> T lookUp(Class classType, Class<T> interfaceType) {
         T lookedUpClass = null;
         
-        try {
-            lookedUpClass = (T) ctx.lookup("java:global/classes/" + classType.getSimpleName());
-        } catch (NamingException ex) {
-            fail("Could not lookup " + classType.getName());
-        }
+        lookedUpClass = EjbUtil.lookUp(classType, interfaceType);
 
         assertNotNull("Looked up class " + classType.getName() + " is null.", lookedUpClass);
 

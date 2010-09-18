@@ -4,7 +4,8 @@
         xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://java.sun.com/jsf/html"
-        xml:lang="en">
+        xml:lang="en"
+        id="mainView">
 
 
     <html xmlns="http://www.w3.org/1999/xhtml"
@@ -56,6 +57,8 @@
                 </div>
 
             </div>
+
+            <ui:include src="#{userMenuController.userMenu}" />
 
             <ui:insert name="belowHeader"/>
 
