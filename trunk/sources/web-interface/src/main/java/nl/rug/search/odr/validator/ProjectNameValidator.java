@@ -7,11 +7,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import nl.rug.search.odr.EjbUtil;
 import nl.rug.search.odr.ProjectLocal;
 import nl.rug.search.odr.StringValidator;
-import nl.rug.search.odr.UserLocal;
 
 /**
  *
@@ -29,10 +27,8 @@ public class ProjectNameValidator implements Validator {
 
     public ProjectNameValidator() {
         try {
-            InitialContext ic = new InitialContext();
-
-            pl = (ProjectLocal) ic.lookup("java:comp/env/" + Helper.JNDI_NAME);
-        } catch (NamingException ex) {
+            pl = EjbUtil.lookUp(Helper.JNDI_NAME, ProjectLocal.class);
+        } catch (RuntimeException ex) {
             throw new FacesException(ex);
         }
     }

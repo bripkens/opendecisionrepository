@@ -49,7 +49,7 @@ public class RegisterUserController extends AbstractController {
         Person p = new Person();
         p.setName(name);
         p.setEmail(email);
-        p.setPassword(password);
+        p.setPlainPassword(password);
 
 
         userLocal.registerPerson(p);

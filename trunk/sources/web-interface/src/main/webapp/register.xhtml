@@ -48,10 +48,11 @@
                     <f:validator validatorId="UserNameValidator" />
                 </ice:inputText>
                 <p>
-                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 5;
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
                     <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
                     <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_];
-                    <ice:outputText value="#{form['constraint.username']}" nospan="true" /></p>
+                    <ice:outputText value="#{form['constraint.username']}" nospan="true" />
+                </p>
             </div>
 
 
@@ -97,7 +98,8 @@
                 </ice:inputText>
                 <p>
                     <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255;
-                    <ice:outputText value="#{form['constraint.email']}" nospan="true" /></p>
+                    <ice:outputText value="#{form['constraint.email']}" nospan="true" />
+                </p>
             </div>
 
 
