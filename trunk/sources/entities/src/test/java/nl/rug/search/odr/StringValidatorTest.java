@@ -25,12 +25,30 @@ public class StringValidatorTest {
     }
 
     @Test(expected=NullPointerException.class)
-    public void testInValidString() {
+    public void testInValidNull() {
         StringValidator.isValid(null);
     }
 
     @Test(expected=NullPointerException.class)
-    public void testInValidStringTrue() {
+    public void testInValidNullTrue() {
         StringValidator.isValid(null, true);
+    }
+
+    public void testInValidNullFalse() {
+        assertFalse(StringValidator.isValid(null, false));
+    }
+
+    @Test(expected=RuntimeException.class)
+    public void testInValidEmpty() {
+        StringValidator.isValid("      ");
+    }
+
+    @Test(expected=RuntimeException.class)
+    public void testInValidEmptyTrue() {
+        StringValidator.isValid("     ", true);
+    }
+
+    public void testInValidEmptyFalse() {
+        assertFalse(StringValidator.isValid("    ", false));
     }
 }

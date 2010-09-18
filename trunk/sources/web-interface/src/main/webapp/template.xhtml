@@ -29,42 +29,6 @@
         </h:head>
         <h:body>
 
-            <!--        <ice:form>
-                        <ice:panelPopup id="rejectDecisionBox"
-                                        draggable="true"
-                                        modal="true"
-                                        rendered="{viewDecisionCtrl.rejectBox}"
-                                        visible="{viewDecisionCtrl.rejectBox}"
-                                        autoCentre="auto"
-                                        style="position:absolute;z-index: 99; background-color: lightgray;border: 1px solid #48a659;">
-                            <f:facet name="header">
-                                <ice:panelGroup styleClass="popupHeaderWrapper" style="text-align: center; background-color: gray; margin-bottom: 10px; color: white;font: 12px/1.5em erdama, sans-serif; padding: 1px;width: 100%;">
-                                    <ice:outputText style="text-align: inherit;" value="{help['decision.view.reject.text']}" escape="false" />
-                                </ice:panelGroup>
-                            </f:facet>
-                            <f:facet name="body">
-
-                                <ice:panelGroup styleClass="popupBody center" style="text-align: center;">
-                                    &#160;&#160;
-                                    <ice:commandButton
-                                        actionListener="{viewDecisionCtrl.reject}"
-                                        value="Yes" >
-                                        <f:attribute name="rejectDecision" value="true" />
-                                    </ice:commandButton>
-                                    &#160;
-                                    <ice:commandButton
-                                        actionListener="{viewDecisionCtrl.reject}"
-                                        value="No" >
-                                        <f:attribute name="rejectDecision" value="false" />
-                                    </ice:commandButton>
-                                    &#160;&#160;
-                                    <br /><br />
-                                </ice:panelGroup>
-
-                            </f:facet>
-                        </ice:panelPopup>
-                    </ice:form>-->
-
             <div id="header">
                 <div class="hseperator"></div>
                 <div id="logo">
@@ -90,17 +54,7 @@
                         </h:form>
                     </div>
                 </div>
-<!--                <ul id="shortlinks">
-                    <li>
-                        <img src="resources/images/search.png" id="toggle_quicksearch" alt="Search" />
-                    </li>
-                    <li>
-                        <img src="resources/images/archiv.png" id="toggle_archiv" alt="Archiv" />
-                    </li>
-                    <li>
-                        <img src="resources/images/rss.png" alt="Stay up-to-date" />
-                    </li>
-                </ul>-->
+
             </div>
 
             <ui:insert name="belowHeader"/>

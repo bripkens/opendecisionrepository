@@ -64,17 +64,26 @@
         <validator-class>nl.rug.search.odr.validator.EmailValidator</validator-class>
     </validator>
 
+
+    <!--
+        #########################################################
+                            Lifecycle
+        #########################################################
+    -->
+
+    <lifecycle>
+        <phase-listener>nl.rug.search.odr.ValidationStylePhaseListener</phase-listener>
+    </lifecycle>
+
     <!--
         #########################################################
                             Managed beans
         #########################################################
     -->
 
-
     <!--
         #########################################################
                             Navigation rules
         #########################################################
     -->
-
 </faces-config>

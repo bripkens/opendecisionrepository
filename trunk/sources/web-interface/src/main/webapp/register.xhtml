@@ -32,75 +32,89 @@
 
 
 
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputText id="inName"
+                               label="#{form['label.name']}"
+                               maxlength="255"
+                               value="#{registerUserController.name}"
+                               required="true">
+                    <f:validateLength minimum="3" maximum="30" />
 
-            <ice:outputText value="#{form['label.name']}"/><br />
-            <ice:inputText id="inName"
-                           label="#{form['label.name']}"
-                           maxlength="255"
-                           value="#{registerUserController.name}"
-                           required="true">
-                <f:validateLength maximum="255" />
+                    <f:validator validatorId="RegexValidator" />
+                    <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
 
-                <f:validator validatorId="RegexValidator" />
-                <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
-
-                <f:validator validatorId="UserNameValidator" />
-            </ice:inputText>
-            <br />
-
-
-
-
-
-
-
-
-            <ice:outputText value="#{form['label.password']}"/><br />
-            <ice:inputSecret id="inPassword"
-                             label="#{form['label.password']}"
-                             maxlength="255"
-                             value="#{registerUserController.password}"
-                             required="true"
-                             redisplay="true">
-                <f:validateLength maximum="255" />
-            </ice:inputSecret>
-            <br />
-
-
-
-
-
-
-
-
-            <ice:outputText value="#{form['label.email']}"/><br />
-            <ice:inputText id="inEmail"
-                           label="#{form['label.email']}"
-                           maxlength="255"
-                           value="#{registerUserController.email}"
-                           required="true">
-                <f:validateLength maximum="255" />
-
-                <f:validator validatorId="EmailValidator" />
-            </ice:inputText>
-            <br />
-
-
-
-
-
-
-            <div class="right">
-                <ice:commandButton action="#{registerUserController.submitForm}"
-                                   value="#{form['button.submit']}"
-                                   styleClass="confirm"/>
-
-
-
-                <ice:commandButton actionListener="#{registerUserController.resetForm}"
-                                   value="#{form['button.clear']}"
-                                   styleClass="abort"/>
+                    <f:validator validatorId="UserNameValidator" />
+                </ice:inputText>
+                <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 5;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
+                    <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_];
+                    <ice:outputText value="#{form['constraint.username']}" nospan="true" /></p>
             </div>
+
+
+
+
+
+
+
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.password']}" for="inPassword" />
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputSecret id="inPassword"
+                                 label="#{form['label.password']}"
+                                 maxlength="255"
+                                 value="#{registerUserController.password}"
+                                 required="true"
+                                 redisplay="true">
+                    <f:validateLength minimum="5" maximum="255" />
+                </ice:inputSecret>
+                <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 5;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255
+                </p>
+            </div>
+
+
+
+
+
+
+
+            <div class="formSection last">
+                <ice:outputLabel value="#{form['label.email']}" for="inEmail"/>
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputText id="inEmail"
+                               label="#{form['label.email']}"
+                               maxlength="255"
+                               value="#{registerUserController.email}"
+                               required="true">
+                    <f:validateLength maximum="255" />
+
+                    <f:validator validatorId="EmailValidator" />
+                </ice:inputText>
+                <p>
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255;
+                    <ice:outputText value="#{form['constraint.email']}" nospan="true" /></p>
+            </div>
+
+
+
+
+
+
+            <ice:commandButton action="#{registerUserController.submitForm}"
+                               value="#{form['button.submit']}"
+                               styleClass="confirm"/>
+
+
+
+            <ice:commandButton actionListener="#{registerUserController.resetForm}"
+                               value="#{form['button.clear']}"
+                               styleClass="abort"
+                               type="reset" />
 
         </ice:form>
     </ui:define>
