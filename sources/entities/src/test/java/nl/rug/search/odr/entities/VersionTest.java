@@ -120,15 +120,13 @@ public class VersionTest {
     @Test
     public void testAddRelationship() {
         Relationship relationship = new Relationship();
-        Version v2 = new Version();
-
-        relationship.setSourceVersion(v2);
-        relationship.setTargetVersion(v);
 
         v.addRelationship(relationship);
 
         assertTrue(containsReference(v.getRelationships(), relationship));
-        assertTrue(containsReference(v2.getRelationships(), relationship));
+
+        assertSame(v, relationship.getSource());
+
     }
 
     @Test
@@ -140,7 +138,6 @@ public class VersionTest {
         assertFalse(containsReference(v.getRelationships(), relationship));
     }
 
-//    
     private static <T> boolean containsReference(Collection<T> collection, T item) {
         for (T currentItem : collection) {
             if (currentItem == item) {

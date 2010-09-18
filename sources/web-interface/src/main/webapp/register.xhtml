@@ -14,17 +14,15 @@
 
     <ui:define name="belowHeader">
         <div id="result">
-<!--            <ice:panelGroup-->
-            <ice:message for="registerForm"
-                         errorClass="fail"
-                         infoClass="success"
-                         effect="#{registerUserController.resultEffect}"
-                         visible="false" />
+            <ice:outputText value="#{registerUserController.resultMessage}"
+                            styleClass="#{registerUserController.resultStyle}"
+                            effect="#{registerUserController.resultEffect}"
+                            visible="false" />
         </div>
     </ui:define>
 
     <ui:define name="content">
-        <ice:form id="registerForm" binding="#{registerUserController.formComponent}">
+        <ice:form id="registerForm" partialSubmit="true">
 
             <h1><h:outputText value="#{form['registration.heading']}"/></h1>
 
@@ -40,7 +38,6 @@
                            label="#{form['label.name']}"
                            maxlength="255"
                            value="#{registerUserController.name}"
-                           partialSubmit="true"
                            required="true">
                 <f:validateLength maximum="255" />
 
@@ -63,7 +60,8 @@
                              label="#{form['label.password']}"
                              maxlength="255"
                              value="#{registerUserController.password}"
-                             required="true">
+                             required="true"
+                             redisplay="true">
                 <f:validateLength maximum="255" />
             </ice:inputSecret>
             <br />
@@ -80,7 +78,6 @@
                            label="#{form['label.email']}"
                            maxlength="255"
                            value="#{registerUserController.email}"
-                           partialSubmit="true"
                            required="true">
                 <f:validateLength maximum="255" />
 
