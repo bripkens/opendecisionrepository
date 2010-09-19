@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -26,6 +27,11 @@ public class ActionTest {
     public void testInitialization() {
         assertNull(a.getId());
         assertNull(a.getType());
+    }
+
+    @Test(expected=NullPointerException.class)
+    public void SetNullId(){
+        a.setId(null);
     }
 
     @Test
@@ -57,5 +63,31 @@ public class ActionTest {
     @Test (expected = NullPointerException.class)
     public void testSetNullMember() {
         a.setMember(null);
+    }
+
+    @Test
+    public void setToString(){
+        assertTrue(TestUtil.toStringHelper(a));
+    }
+
+    @Test
+    public void testHashCode(){
+        Action ac = new Action();
+        ac.setId(Long.MIN_VALUE);
+        ac.setMember(new ProjectMember());
+        ac.setType(new ActionType());
+        
+        Action ac1 = new Action();
+        ac1.setId(Long.MIN_VALUE);
+        ac1.setMember(new ProjectMember());
+        ac1.setType(new ActionType());
+        
+        assertEquals(ac.hashCode(),ac1.hashCode());
+        TestUtil.assertNotEquals(a.hashCode(), ac.hashCode());
+    }
+
+    @Test
+    public void testEquals(){
+        assertFalse(a.equals(new TestUtil()));
     }
 }

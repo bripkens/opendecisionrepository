@@ -10,7 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -23,10 +24,8 @@ public class Action implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @ManyToOne
     private ActionType type;
-
     @ManyToOne
     private ProjectMember member;
 
@@ -47,11 +46,10 @@ public class Action implements Serializable {
     }
 
     public void setId(Long id) {
-        if (id != null) {
-            this.id = id;
-        } else {
-            throw new NullPointerException("ID is null");
+        if (id == null) {
+            throw new NullPointerException("Please provide an id");
         }
+        this.id = id;
     }
 
     public ProjectMember getMember() {
@@ -59,7 +57,7 @@ public class Action implements Serializable {
     }
 
     public void setMember(ProjectMember member) {
-        if(member == null){
+        if (member == null) {
             throw new NullPointerException("Please provide a member");
         }
         this.member = member;
@@ -67,22 +65,26 @@ public class Action implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(id).append(member).append(serialVersionUID).append(type).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Action)) {
+        if (object == null) {
             return false;
         }
-        Action other = (Action) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        Action ac = (Action) object;
+        return new EqualsBuilder().append(id, ac.id).
+                append(member, ac.member).
+                append(type, ac.type).
+                isEquals();
     }
 
     @Override

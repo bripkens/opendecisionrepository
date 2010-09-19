@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -119,6 +120,26 @@ public class ArchitecturalDecisionTest {
     @Test(expected = NullPointerException.class)
     public void testNullArguments() {
        a.setArguments(null);
+    }
+
+    @Test
+    public void testaddVerison(){
+        Version v = new Version();
+        Version v2 = new Version();
+        a.addVerison(v);
+        assertTrue(TestUtil.containsReference(a.getVersions(),v));
+        assertFalse(TestUtil.containsReference(a.getVersions(),v2));
+    }
+    
+    @Test (expected = NullPointerException.class)
+    public void testNullAddVerison(){
+        a.addVerison(null);
+
+    }
+
+    @Test
+    public void setToString(){
+        assertTrue(TestUtil.toStringHelper(a));
     }
     
 }
