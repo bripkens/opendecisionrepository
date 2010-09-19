@@ -3,6 +3,7 @@ package nl.rug.search.odr;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.entities.Person;
@@ -51,7 +52,13 @@ public class User implements UserLocal {
         Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
         q.setParameter("name", name);
 
-        Person result = (Person) q.getSingleResult();
+        Person result;
+
+        try {
+        result = (Person) q.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
 
         if (result == null || !result.validatePassword(password)) {
             return null;

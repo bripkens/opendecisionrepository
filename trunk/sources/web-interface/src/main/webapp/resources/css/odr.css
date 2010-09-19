@@ -12,6 +12,29 @@ div#userMenu {
     right: 100px;
 }
 
+div#userMenu input {
+    background-color: #F4F2F2;
+    border: 1px solid #4F4F4F;
+    color: #4F4F4F;
+    font: 13px/1.5em arial,sans-serif;
+    width: 100px;
+    position: absolute;
+    top: 0px;
+}
+div#userMenu input[type=password] {
+    left: 105px;
+}
+div#userMenu input[type=text] {
+    left: 0px;
+}
+div#userMenu input[type=submit] {
+    left: 210px;
+    background-image: url(../images/buttonConfirm.png);
+    color: white;
+    border: 0;
+    font-size: 0.7em;
+}
+
 
 
 .formSection {
