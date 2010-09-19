@@ -15,6 +15,7 @@ public class ProjectTest extends AbstractEjbTest {
 
     @Before
     public void setUp() {
+        deleteRecords("Project");
     }
 
     @After

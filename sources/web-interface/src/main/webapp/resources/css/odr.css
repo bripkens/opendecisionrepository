@@ -15,6 +15,11 @@ div#userMenu {
     top: 5px;
     right: 100px;
 }
+div#userMenu .registerLink {
+    position: absolute;
+    top: 25px;
+    font: 13px arial,sans-serif;
+}
 div#userMenu input {
     background-color: #F4F2F2;
     border: 1px solid #4F4F4F;
@@ -33,6 +38,9 @@ div#userMenu input.name {
 }
 div#userMenu input.prefilled {
     color: #999;
+}
+div#userMenu input.error {
+    color: #bd0000;
 }
 div#userMenu input[type=submit] {
     left: 210px;
