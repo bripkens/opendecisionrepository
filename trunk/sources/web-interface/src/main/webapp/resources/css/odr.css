@@ -1,3 +1,7 @@
+.prefillValue {
+    display: none;
+}
+
 #page ul.info li div.text h2 {
     font-size: 1.1em;
     margin: 0 0 0.1em 0;
@@ -11,28 +15,37 @@ div#userMenu {
     top: 5px;
     right: 100px;
 }
-
 div#userMenu input {
     background-color: #F4F2F2;
     border: 1px solid #4F4F4F;
     color: #4F4F4F;
-    font: 13px/1.5em arial,sans-serif;
+    font: 13px arial,sans-serif;
     width: 100px;
     position: absolute;
     top: 0px;
+    height: 19px;
 }
-div#userMenu input[type=password] {
+div#userMenu input.password {
     left: 105px;
 }
-div#userMenu input[type=text] {
+div#userMenu input.name {
     left: 0px;
+}
+div#userMenu input.prefilled {
+    color: #999;
 }
 div#userMenu input[type=submit] {
     left: 210px;
-    background-image: url(../images/buttonConfirm.png);
+    background-image: url(../images/buttonConfirmSmall.png);
     color: white;
     border: 0;
     font-size: 0.7em;
+    width: 75px;
+    height: 19px;
+    padding: 0 0 2px 0;
+}
+div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
+    background-image: url(../images/buttonConfirmActiveSmall.png);
 }
 
 
@@ -51,7 +64,7 @@ div#userMenu input[type=submit] {
 .formSection span {
     float: left;
 }
-.formSection input {
+#page .formSection input {
     float: right;
 }
 .formSection p {
