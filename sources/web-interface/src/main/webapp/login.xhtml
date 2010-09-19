@@ -8,7 +8,6 @@
                     xmlns:f="http://java.sun.com/jsf/core">
 
         <ice:form id="loginForm">
-            <ice:outputLabel value="#{form['label.name']}" for="inName"/>
             <ice:inputText id="inLoginName"
                            label="#{form['label.name']}"
                            maxlength="255"
@@ -16,7 +15,6 @@
                            required="true">
             </ice:inputText>
 
-            <ice:outputLabel value="#{form['label.password']}" for="inPassword" />
             <ice:inputSecret id="inLoginPassword"
                              label="#{form['label.password']}"
                              maxlength="255"
