@@ -1,7 +1,9 @@
 package nl.rug.search.odr;
 
 import java.util.Collection;
+import javax.validation.constraints.AssertTrue;
 import org.junit.Ignore;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -16,7 +18,15 @@ public class TestUtil {
                 return true;
             }
         }
-
         return false;
+    }
+
+    public static boolean toStringHelper(Object obj) {
+        return obj.toString().startsWith(obj.getClass().getSimpleName());
+    }
+
+    public static void assertNotEquals(Object a, Object b){
+        assertFalse(a.equals(b));
+
     }
 }
