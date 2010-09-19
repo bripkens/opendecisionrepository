@@ -5,7 +5,6 @@ j(document).ready(function() {
 });
 
 var prefillValue = new Array();
-var prefillTypes = new Array();
 
 function preparePrefill() {
     j("input.prefill").each(function() {
@@ -14,14 +13,12 @@ function preparePrefill() {
         var text = j(".prefillValue[for=" + id + "]").text();
         
         prefillValue[id] = text;
-        prefillTypes[id] = element.attr("type");
         
         element.focus(function() {
             var element = j(this);
 
             if (element.val() == prefillValue[element.attr("id")]) {
                 element.val("");
-                element.attr("type", prefillTypes[element.attr("id")]);
                 element.removeClass("prefilled");
             }
         });
@@ -39,7 +36,6 @@ function preparePrefill() {
 function prefill(element) {
     if (element.val() == "") {
         element.val(prefillValue[element.attr("id")]);
-        element.attr("type", "text")
         element.addClass("prefilled");
     }
 }

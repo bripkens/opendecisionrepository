@@ -6,14 +6,12 @@
                     xmlns:h="http://java.sun.com/jsf/html"
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
-
-        <ice:form id="loginForm">
+        <ice:form id="loginForm" partialSubmit="false">
             <ice:outputLabel value="#{form['label.name']}" for="inLoginName" styleClass="prefillValue" />
             <ice:inputText id="inLoginName"
                            label="#{form['label.name']}"
                            maxlength="255"
                            value="#{loginController.name}"
-                           required="true"
                            styleClass="prefill name">
             </ice:inputText>
 
@@ -22,14 +20,16 @@
                              label="#{form['label.password']}"
                              maxlength="255"
                              value="#{loginController.password}"
-                             required="true"
                              redisplay="true"
                              styleClass="prefill password">
             </ice:inputSecret>
+
+            <ice:commandLink action="/register.html"
+                             value="#{form['button.register']}"
+                             styleClass="registerLink"/>
 
             <ice:commandButton action="#{loginController.submitForm}"
                                value="#{form['button.login']}"
                                styleClass="confirm"/>
         </ice:form>
-
 </ui:composition>
