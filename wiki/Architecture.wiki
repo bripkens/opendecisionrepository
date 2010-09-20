@@ -170,12 +170,7 @@ At the beginning of this document you can find a listing of all the architectura
     <tr>
       <td> *Related decisions* </td>
       <td>
-<ul>
-<li><<caused by>> Java Enterprise Edition</li>
-<li>&lt;&lt;replaces&gt;&gt; Java Enterprise Edition 6</li>
-<li><<depends on>> Java programming language</li>
-<li><<depends on>> Glassfish v2</li>
-</ul>
+
 </td>
     </tr>
   </tbody>
