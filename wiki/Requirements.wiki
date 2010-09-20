@@ -219,7 +219,7 @@ Edit an iteration</wiki:comment>
 <LI>The User selctes _edit_</LI>
 <LI>The System displays the iteration in an editable form</LI>
 <LI>The User changes the details and selects _OK_</LI>
-<LI>The System stores the changes</LI>
+<LI>The System saves the changes</LI>
 </OL>
       </td>
     </tr>
@@ -432,7 +432,7 @@ Edit a decision</wiki:comment>
 <LI>The User selctes _edit_</LI>
 <LI>The System displays the decision in an editable form</LI>
 <LI>The User changes the details and selects _OK_</LI>
-<LI>The System stores the changes</LI>
+<LI>The System saves the changes</LI>
 </OL>
       </td>
     </tr>
@@ -536,7 +536,7 @@ delete an decision</wiki:comment>
 <Li>The user selects a decision, that is the destination-decision</Li>
 <LI>The system displays a dropdownbox for the relationshiptype</LI>
 <LI>The user chooses a type and confirm with _OK_</LI>
-<LI>The system stores the relationship</LI>
+<LI>The system saves the relationship</LI>
 </OL>
       
       </td>
@@ -635,7 +635,7 @@ Edit a relationship</wiki:comment>
 <LI>The user chooses a relationship by selecting _edit_ next to the relationship</LI>
 <LI>The System displays a editable form with the destination-decision and the relationship-type</LI>
 <LI>The user changes the destination-decision and the relationship-type</LI>
-<LI>The system stores the changes</LI>
+<LI>The system saves the changes</LI>
 </OL>
       </td>
     </tr>
@@ -732,10 +732,10 @@ delete a relationship</wiki:comment>
       
 <OL>
 <LI>This usecase starts when the user selects a decision.</LI>
-<LI>The user select _change status_</LI>
-<Li>The System displays a compobox with all available statuses</Li>
-<Li>The user change the state and select _OK_</Li>
-<LI>The system stored the changes</LI>
+<LI>The user selects _change status_</LI>
+<Li>The System displays a combobox with all available statuses</Li>
+<Li>The user changes the state and select _OK_</Li>
+<LI>The system saves the changes</LI>
 </OL>
       
       </td>
