@@ -6,14 +6,11 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
 /**
@@ -40,7 +37,7 @@ public class Status implements Serializable {
 
     public void setStatusId(Long id) {
         if(id == null){
-            throw new NullPointerException("please provide a id");
+            throw new BusinessException("Id is null.");
         }
         this.statusId = id;
     }

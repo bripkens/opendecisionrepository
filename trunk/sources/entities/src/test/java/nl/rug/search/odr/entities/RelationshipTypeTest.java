@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -39,7 +40,7 @@ public class RelationshipTypeTest {
         assertEquals(id, r.getId());
     }
 
-   @Test(expected = NullPointerException.class)
+   @Test(expected = BusinessException.class)
     public void testNullId() {
        r.setId(null);
     }
@@ -51,12 +52,12 @@ public class RelationshipTypeTest {
         assertEquals("foo", r.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullName() {
        r.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyName() {
         r.setName("        ");
     }

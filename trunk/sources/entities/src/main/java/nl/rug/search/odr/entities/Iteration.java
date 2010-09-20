@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -48,7 +49,7 @@ public class Iteration implements Serializable {
 
     public void setVersion(Version version) {
         if(version == null){
-            throw new NullPointerException("please provide a version");
+            throw new BusinessException("Version is null.");
         }
         this.version = version;
     }
@@ -59,7 +60,7 @@ public class Iteration implements Serializable {
 
     public void setId(Long id) {
         if (id == null) {
-            throw new NullPointerException("please provide an id");
+            throw new BusinessException("Id is null.");
         }
         this.iterationId = id;
     }
@@ -80,9 +81,9 @@ public class Iteration implements Serializable {
 
     public void setEndDate(Date endDate) {
         if (endDate == null) {
-            throw new NullPointerException("please provide a endDate");
-        } else if (startDate.getTime() > endDate.getTime()) {
-            throw new RuntimeException("enddate has to be after startdate");
+            throw new BusinessException("End date is null.");
+        } else if (startDate != null && startDate.getTime() > endDate.getTime()) {
+            throw new BusinessException("enddate has to be after startdate");
         }
         this.endDate = endDate;
     }
@@ -102,13 +103,13 @@ public class Iteration implements Serializable {
 
     public void setStartDate(Date startDate) {
         if(startDate == null){
-            throw new NullPointerException("Please provide a startDate");
+            throw new BusinessException("Start date is null.");
         }
         if (endDate != null) {
             if (startDate.getTime() < endDate.getTime()) {
                 this.startDate = startDate;
             } else {
-                throw new RuntimeException("the startDate has to be before the endDate");
+                throw new BusinessException("the startDate has to be before the endDate");
             }
         }
         this.startDate = startDate;

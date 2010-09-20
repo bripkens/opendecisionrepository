@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
 /**
@@ -42,7 +43,7 @@ public class Requirement implements Serializable {
 
     public void setRequirementId(Long id) {
         if(id == null){
-            throw new NullPointerException("please prove a id");
+            throw new BusinessException("Id is null.");
         }
         this.requirementId = id;
     }

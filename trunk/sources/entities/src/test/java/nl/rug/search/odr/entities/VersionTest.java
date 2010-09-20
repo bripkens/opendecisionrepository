@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class VersionTest {
         assertEquals(Long.MIN_VALUE, (long) v.getVersionId());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullVersionId() {
         v.setVersionId(null);
     }
@@ -51,7 +52,7 @@ public class VersionTest {
         assertEquals(revision, v.getRevision());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyRevision() {
         v.setRevision(-1);
     }
@@ -64,7 +65,7 @@ public class VersionTest {
         assertEquals(a, v.getAction());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullAction() {
         v.setAction(null);
     }
@@ -86,7 +87,7 @@ public class VersionTest {
         assertEquals(s, v.getStatus());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullSetStatus() {
         v.setStatus(null);
     }
@@ -99,7 +100,7 @@ public class VersionTest {
         assertEquals(r, v.getRequirement());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullSetRequirment() {
         v.setRequirement(null);
     }
@@ -113,7 +114,7 @@ public class VersionTest {
         assertNotSame(relationships, v.getRelationships());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullRelationship() {
         v.setRelationships(null);
     }
@@ -136,7 +137,7 @@ public class VersionTest {
         assertFalse(TestUtil.containsReference(v.getRelationships(), relationship));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected=BusinessException.class)
     public void setNUlladdRelationship(){
         Relationship relationship = new Relationship();
         v.addRelationship(null);
@@ -149,9 +150,10 @@ public class VersionTest {
 
     @Test
     public void testHashCode(){
+        Date d = new Date();
         Version v2 = new Version();
         v2.setVersionId(Long.MIN_VALUE);
-        v2.setCreateDate(new Date());
+        v2.setCreateDate(d);
         v2.setRevision(1);
         v2.setStatus(new Status());
         v2.setRequirement(new Requirement());
@@ -161,7 +163,7 @@ public class VersionTest {
 
         Version v3 = new Version();
         v3.setVersionId(Long.MIN_VALUE);
-        v3.setCreateDate(new Date());
+        v3.setCreateDate(d);
         v3.setRevision(1);
         v3.setStatus(new Status());
         v3.setRequirement(new Requirement());
