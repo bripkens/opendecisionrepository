@@ -58,7 +58,7 @@ public class UserTest extends AbstractEjbTest {
         assertTrue(local.isRegistered(p.getName()));
     }
 
-    @Test
+    @Test(expected=BusinessException.class)
     public void testRegisterTwice() {
         Person p = getDummyPerson();
 
