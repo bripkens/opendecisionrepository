@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.StringValidator;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -25,7 +27,7 @@ public class ArchitecturalDecision implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long ArchitecturalDecisionId;
     @Column(length = 30, nullable = false)
     private String name;
     @Column(length = 30, nullable = true)
@@ -121,38 +123,47 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public Long getId() {
-        return id;
+        return ArchitecturalDecisionId;
     }
 
     public void setId(Long id) {
         if (id == null) {
             throw new NullPointerException("please provide an id");
         }
-        this.id = id;
+        this.ArchitecturalDecisionId = id;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(ArchitecturalDecisionId).append(name).append(problem).append(arguments).
+                append(decision).append(problem).append(oprId).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ArchitecturalDecision)) {
+        if (object == null) {
             return false;
         }
-        ArchitecturalDecision other = (ArchitecturalDecision) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        ArchitecturalDecision ac = (ArchitecturalDecision) object;
+        return new EqualsBuilder().
+                append(ArchitecturalDecisionId, ac.ArchitecturalDecisionId).
+                append(name, ac.name).
+                append(arguments, ac.arguments).
+                append(decision, ac.decision).
+                append(problem, ac.problem).
+                append(oprId, ac.oprId).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "ArchitecturalDecision{" + "id=" + id + "name=" + name + "oprId=" + oprId + "arguments=" + arguments + "decision=" + decision + "problem=" + problem + "version=" + version + "versions=" + versions + '}';
+        return "ArchitecturalDecision{" + "id=" + ArchitecturalDecisionId + "type=" + name + '}';
     }
 }

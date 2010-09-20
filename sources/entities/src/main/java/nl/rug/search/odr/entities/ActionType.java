@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import nl.rug.search.odr.StringValidator;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -58,29 +60,34 @@ public class ActionType implements Serializable {
         this.name = name;
     }
 
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (actionTypeId != null ? actionTypeId.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(actionTypeId).append(name).append(common).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ActionType)) {
+        if (object == null) {
             return false;
         }
-        ActionType other = (ActionType) object;
-        if ((this.actionTypeId == null && other.actionTypeId != null) || (this.actionTypeId != null && !this.actionTypeId.equals(other.actionTypeId))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        ActionType ac = (ActionType) object;
+        return new EqualsBuilder().append(actionTypeId, ac.actionTypeId).
+                append(name, ac.name).
+                append(common, ac.common).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "ActionType{" + "actionTypeId=" + actionTypeId + "name=" + name + "common=" + common + '}';
+        return "ActionType{" + "id=" + actionTypeId + "type=" + name + '}';
     }
 
 

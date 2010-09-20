@@ -87,4 +87,21 @@ public class ActionTypeTest {
         assertEquals(at.hashCode(),at1.hashCode());
         TestUtil.assertNotEquals(a.hashCode(), at.hashCode());
     }
+
+    @Test
+    public void testEquals(){
+        assertFalse(a.equals(new TestUtil()));
+
+        ActionType ac1 = new ActionType();
+        ac1.setId(Long.MIN_VALUE);
+        ac1.setCommon(true);
+        ac1.setName("foo");
+
+        assertFalse(a.equals(ac1));
+    }
+
+    @Test
+    public void testNullEquals(){
+        assertFalse(a.equals(null));
+    }
 }

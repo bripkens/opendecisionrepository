@@ -135,4 +135,77 @@ public class VersionTest {
 
         assertFalse(TestUtil.containsReference(v.getRelationships(), relationship));
     }
+
+    @Test(expected=NullPointerException.class)
+    public void setNUlladdRelationship(){
+        Relationship relationship = new Relationship();
+        v.addRelationship(null);
+    }
+
+    @Test
+    public void testToString(){
+        assertTrue(TestUtil.toStringHelper(v));
+    }
+
+    @Test
+    public void testHashCode(){
+        Version v2 = new Version();
+        v2.setVersionId(Long.MIN_VALUE);
+        v2.setCreateDate(new Date());
+        v2.setRevision(1);
+        v2.setStatus(new Status());
+        v2.setRequirement(new Requirement());
+        Collection<Relationship> rships = new ArrayList<Relationship>();
+        rships.add(new Relationship());
+        v2.setRelationships(rships);
+
+        Version v3 = new Version();
+        v3.setVersionId(Long.MIN_VALUE);
+        v3.setCreateDate(new Date());
+        v3.setRevision(1);
+        v3.setStatus(new Status());
+        v3.setRequirement(new Requirement());
+        Collection<Relationship> rships1 = new ArrayList<Relationship>();
+        rships.add(new Relationship());
+        v3.setRelationships(rships1);
+
+
+        assertEquals(v2.hashCode(),v3.hashCode());
+        TestUtil.assertNotEquals(v.hashCode(), v2.hashCode());
+    }
+
+    @Test
+    public void testEquals(){
+        assertFalse(v.equals(new TestUtil()));
+
+        Version v2 = new Version();
+        v2.setVersionId(Long.MIN_VALUE);
+        v2.setCreateDate(new Date());
+        v2.setRevision(1);
+        v2.setStatus(new Status());
+        v2.setRequirement(new Requirement());
+        Collection<Relationship> rships = new ArrayList<Relationship>();
+        rships.add(new Relationship());
+        v2.setRelationships(rships);
+
+        Version v3 = new Version();
+        v3.setVersionId(Long.MAX_VALUE);
+        v3.setCreateDate(new Date());
+        v3.setRevision(2);
+        v3.setStatus(new Status());
+        v3.setRequirement(new Requirement());
+        Collection<Relationship> rships1 = new ArrayList<Relationship>();
+        rships.add(new Relationship());
+        v3.setRelationships(rships1);
+
+        assertFalse(v2.equals(v3));
+
+        assertTrue(v.equals(v));
+    }
+
+    @Test
+    public void testNullEquals(){
+        assertFalse(v.equals(null));
+    }
+
 }

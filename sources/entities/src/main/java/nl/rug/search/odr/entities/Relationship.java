@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
@@ -14,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -21,19 +22,15 @@ import javax.persistence.OneToOne;
  */
 //@Entity
 public class Relationship implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private Long RelationshipId;
     @ManyToOne
     private RelationshipType type;
-
-
     @ManyToMany
     private Version source;
-
-
     @ManyToMany
     private Version target;
 
@@ -45,8 +42,7 @@ public class Relationship implements Serializable {
         return target;
     }
 
-
-     public void setSourceVersion(Version version) {
+    public void setSourceVersion(Version version) {
         if (version == null) {
             this.source.internalRemoveRelationship(this);
         }
@@ -57,44 +53,46 @@ public class Relationship implements Serializable {
         }
     }
 
-      public void setTargetVersion(Version version) {
+    public void setTargetVersion(Version version) {
         this.target = version;
 
     }
 
     public Long getId() {
-        return id;
+        return RelationshipId;
     }
 
     public void setId(Long id) {
-        if(id == null){
+        if (id == null) {
             throw new NullPointerException("please provide an id");
         }
-        this.id = id;
+        this.RelationshipId = id;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(RelationshipId).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Relationship)) {
+        if (object == null) {
             return false;
         }
-        Relationship other = (Relationship) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        Relationship ac = (Relationship) object;
+        return new EqualsBuilder().append(RelationshipId, ac.RelationshipId).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "Relationship{" + "id=" + id + "type=" + type + '}';
+        return "Relationship{" + "id=" + RelationshipId +'}';
     }
 }

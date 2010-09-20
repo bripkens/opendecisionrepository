@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import nl.rug.search.odr.StringValidator;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -22,7 +24,7 @@ public class RelationshipType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long relationshipTypeId;
 
     @Column(length = 30, nullable = false, updatable = true)
     private String name;
@@ -31,14 +33,14 @@ public class RelationshipType implements Serializable {
     private boolean common;
 
     public Long getId() {
-        return id;
+        return relationshipTypeId;
     }
 
     public void setId(Long id) {
         if(id == null){
             throw new NullPointerException("please provide an id");
         }
-        this.id = id;
+        this.relationshipTypeId = id;
     }
 
     public boolean isCommon() {
@@ -58,28 +60,32 @@ public class RelationshipType implements Serializable {
         this.name = name;
     }
 
-    @Override
+@Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(relationshipTypeId).append(name).append(common).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RelationshipType)) {
+        if (object == null) {
             return false;
         }
-        RelationshipType other = (RelationshipType) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        RelationshipType rt = (RelationshipType) object;
+        return new EqualsBuilder().append(relationshipTypeId, rt.relationshipTypeId).
+                append(name, rt.name).
+                append(common, rt.common).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "Relationshiptype{" + "id=" + id + '}';
+        return "RelationshipType{" + "relationshipTypeId=" + relationshipTypeId + "name=" + name + '}';
     }
 }
