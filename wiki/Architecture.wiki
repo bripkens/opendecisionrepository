@@ -15,6 +15,36 @@ At the beginning of this document you can find a listing of all the architectura
   <thead>
     <tr>
       <th width="150"> Name </th>
+      <th>OPR technology stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>Technologies for the ODR need to chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>The OPR technology stack will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>The OPR technology stack has proven to be fast, reliable and to support the developers with functionality that enables them to focus on business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+-
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table border="1" cellspacing="0" cellpadding="5"  width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
       <th>Java programming language</th>
     </tr>
   </thead>
@@ -170,7 +200,12 @@ At the beginning of this document you can find a listing of all the architectura
     <tr>
       <td> *Related decisions* </td>
       <td>
-
+<ul>
+<li><<caused by>> Java Enterprise Edition</li>
+<li>`<<replaces>>` Java Enterprise Edition 6</li>
+<li><<depends on>> Java programming language</li>
+<li><<depends on>> Glassfish v2</li>
+</ul>
 </td>
     </tr>
   </tbody>
@@ -206,7 +241,7 @@ At the beginning of this document you can find a listing of all the architectura
       <td>
 <ul>
 <li><<caused by>> Java Enterprise Edition</li>
-<li><<replaces>> Java Enterprise Edition 5</li>
+<li>`<<replaces>>` Java Enterprise Edition 5</li>
 <li><<depends on>> Java programming language</li>
 <li><<depends on>> Glassfish v3</li>
 </ul>
@@ -263,21 +298,24 @@ At the beginning of this document you can find a listing of all the architectura
 
 
 
+
+
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th> Glassfish version 2 </th>
+      <th> Glassfish </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td>A web application server for Java EE 5 has to be found.</td>
+      <td>A web application server has to be found.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Glassfish version 2 will be used since Icefaces version 1.8 is used. Icefaces 1.8 requires JSF version 1.1 or 1.2 which ships with the application server.</td>
+      <td>Glassfish version 2 won't be used because of it's superior predecessor Glassfish v3.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
@@ -287,14 +325,9 @@ At the beginning of this document you can find a listing of all the architectura
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li><<is alternative for>> Glassfish version 3</li>
-<li><<caused by>> Java Enterprise Edition 5</li>
+<li><<caused by>> OPR technology stack</li>
 </ul>
 </td>
-    </tr>
-    <tr>
-      <td> *Related requirements* </td>
-      <td>todo</td>
     </tr>
   </tbody>
 </table>
@@ -307,17 +340,67 @@ At the beginning of this document you can find a listing of all the architectura
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th> Glassfish version 3 </th>
+      <th> Glassfish v2</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td>A web application server for Java EE 6 has to be found.</td>
+      <td>A version of the Glassfish web application server needs to be found.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Glassfish version 3 won't be used since we are using Icefaces 1.8, which requires JSF 1.1 or 1.2. Glassfish v3 can be configured to use a provided JSF implementation but it is still not compatible with Icefaces 1.8.</td>
+      <td>Glassfish v2 won't be used because of it's superior predecessor Glassfish v3 and because Icefaces 1.8 has been rejected.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Glassfish version 2 comes with implementations for the Java EE 5 APIs, which also includes JSF 1.2 and TopLink.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<caused by>> Glassfish</li>
+<li>`<<replaces>>` Glassfish v3</li>
+<li><<caused by>> Icefaces 1.8</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th> Glassfish v3 </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A version of the Glassfish web application server needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Glassfish v3 will be used since we wan't to use Icefaces 2.0 beta-1.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
@@ -327,14 +410,11 @@ At the beginning of this document you can find a listing of all the architectura
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li><<is alternative for>> Glassfish version 2</li>
-<li><<caused by>> Java Enterprise Edition 6</li>
+<li><<caused by>> Glassfish</li>
+<li>`<<replaces>>` Glassfish v2</li>
+<li><<caused by>> Icefaces 2.0 beta-1</li>
 </ul>
 </td>
-    </tr>
-    <tr>
-      <td> *Related requirements* </td>
-      <td>todo</td>
     </tr>
   </tbody>
 </table>
