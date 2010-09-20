@@ -1381,7 +1381,7 @@ browse through decision</wiki:comment>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
  # The user select a project 
- # create a new iteration # Fill in the necessary data# save it</td>
+ # create a new action type# Fill in the necessary data# save it</td>
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
