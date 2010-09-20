@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Stefan
  */
-//@Entity
+@Entity
 public class ArchitecturalDecision implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,38 +31,34 @@ public class ArchitecturalDecision implements Serializable {
     private Long ArchitecturalDecisionId;
     @Column(length = 30, nullable = false)
     private String name;
-    @Column(length = 30, nullable = true)
+    @Column(length = 30)
     private String oprId;
-    @Column(length = 30, nullable = false)
+    @Column(length = 30)
     private String arguments;
-    @Column(length = 30, nullable = false)
+    @Column(length = 30)
     private String decision;
-    @Column(length = 30, nullable = false)
+    @Column(length = 30)
     private String problem;
-    @OneToMany
-    private Version version;
-    @OneToMany
-    private Collection<Version> versions;
 
-    public ArchitecturalDecision() {
-        versions = new ArrayList<Version>();
-    }
+//    @OneToMany
+//    private Collection<Version> versions;
 
-    public void addVerison(Version version) {
-        if (version == null) {
-            throw new BusinessException("version is null.");
-        }
-        versions.add(version);
-    }
+//    public ArchitecturalDecision() {
+//        versions = new ArrayList<Version>();
+//    }
+
+//    public void addVerison(Version version) {
+//        if (version == null) {
+//            throw new BusinessException("version is null.");
+//        }
+//        versions.add(version);
+//    }
 
     public String getArguments() {
         return arguments;
     }
 
     public void setArguments(String arguments) {
-        if (arguments == null) {
-            throw new BusinessException("Arguments are null.");
-        }
         this.arguments = arguments;
     }
 
@@ -70,9 +67,6 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setDecision(String decision) {
-        if (decision == null) {
-            throw new BusinessException("Decisions are null.");
-        }
         this.decision = decision;
     }
 
@@ -90,9 +84,6 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setOprId(String oprId) {
-        if (oprId == null) {
-            throw new BusinessException("OPR id is null.");
-        }
         this.oprId = oprId;
     }
 
@@ -101,26 +92,13 @@ public class ArchitecturalDecision implements Serializable {
     }
 
     public void setProblem(String problem) {
-        if (problem == null) {
-            throw new BusinessException("Problem is null.");
-        }
         this.problem = problem;
     }
 
-    public Version getVersion() {
-        return version;
-    }
-
-    public void setVersion(Version version) {
-        if (version == null) {
-            throw new BusinessException("Version is null.");
-        }
-        this.version = version;
-    }
-
-    public Collection<Version> getVersions() {
-        return versions;
-    }
+    
+//    public Collection<Version> getVersions() {
+//        return versions;
+//    }
 
     public Long getId() {
         return ArchitecturalDecisionId;
