@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.PasswordEnryptor;
 import nl.rug.search.odr.StringValidator;
@@ -31,7 +32,7 @@ public class Person implements Serializable {
 
 
 
-    @Column(length = 255, nullable = false, unique = true, updatable = false)
+    @Column(length = 30, nullable = false, unique = true, updatable = false)
     private String name;
 
 
@@ -73,7 +74,7 @@ public class Person implements Serializable {
 
     private void checkEmail(String email) {
         if (!EmailValidator.isValidEmailAddress(email)) {
-            throw new RuntimeException("Please provide a valid email address");
+            throw new BusinessException("Please provide a valid email address");
         }
     }
 
@@ -104,6 +105,12 @@ public class Person implements Serializable {
 
     public void setName(String name) {
         StringValidator.isValid(name);
+
+        name = name.trim();
+
+        if (name.length() <= 2 || name.length() >= 30) {
+            throw new BusinessException("Name is too long or too short.");
+        }
 
         this.name = name;
     }
@@ -146,7 +153,7 @@ public class Person implements Serializable {
 
     public void setMemberships(Collection<ProjectMember> memberships) {
         if (memberships == null) {
-            throw new NullPointerException("Memberships may not be null.");
+            throw new BusinessException("Memberships may not be null.");
         }
 
         this.memberships = memberships;
@@ -168,6 +175,11 @@ public class Person implements Serializable {
         memberships.remove(member);
     }
 
+
+
+    public boolean isPersistable() {
+        return name != null && password != null && email != null;
+    }
 
 
 

@@ -23,13 +23,15 @@ public abstract class SessionUtil implements SessionAttribute {
         return session.getAttribute(key);
     }
 
-    public static void resetSession() {
-        HttpSession session = getSession(false);
-
+    public static void resetSession(HttpSession session) {
         if (session == null) {
             return;
         }
 
         session.removeAttribute(USER_NAME);
+    }
+
+    public static void resetSession() {
+        resetSession(getSession(false));
     }
 }
