@@ -1,12 +1,11 @@
 
 package nl.rug.search.odr.controller;
 
+import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.SessionAttribute;
-import nl.rug.search.odr.SessionUtil;
 
 /**
  *
@@ -29,7 +28,11 @@ public class UserMenuController {
 
     public void logout() {
         AuthenticationUtil.logout();
-        JsfUtil.refreshPage();
+        try {
+            JsfUtil.redirect("/index.html");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public String getName() {

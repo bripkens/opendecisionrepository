@@ -18,8 +18,6 @@ public class ProjectBean implements ProjectLocal {
     
     @Override
     public void createProject(Project p) {
-        
-
         entityManager.persist(p);
     }
 

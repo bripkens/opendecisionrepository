@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -49,7 +49,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void addVerison(Version version) {
         if (version == null) {
-            throw new NullPointerException("version is null");
+            throw new BusinessException("version is null.");
         }
         versions.add(version);
     }
@@ -60,7 +60,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setArguments(String arguments) {
         if (arguments == null) {
-            throw new NullPointerException("please provide arguments");
+            throw new BusinessException("Arguments are null.");
         }
         this.arguments = arguments;
     }
@@ -71,7 +71,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setDecision(String decision) {
         if (decision == null) {
-            throw new NullPointerException("please provide a decision");
+            throw new BusinessException("Decisions are null.");
         }
         this.decision = decision;
     }
@@ -91,7 +91,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setOprId(String oprId) {
         if (oprId == null) {
-            throw new NullPointerException("please provide a oprId");
+            throw new BusinessException("OPR id is null.");
         }
         this.oprId = oprId;
     }
@@ -102,7 +102,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setProblem(String problem) {
         if (problem == null) {
-            throw new NullPointerException("please provide a problem");
+            throw new BusinessException("Problem is null.");
         }
         this.problem = problem;
     }
@@ -113,7 +113,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setVersion(Version version) {
         if (version == null) {
-            throw new NullPointerException("please provide an version");
+            throw new BusinessException("Version is null.");
         }
         this.version = version;
     }
@@ -128,7 +128,7 @@ public class ArchitecturalDecision implements Serializable {
 
     public void setId(Long id) {
         if (id == null) {
-            throw new NullPointerException("please provide an id");
+            throw new BusinessException("Id is null.");
         }
         this.ArchitecturalDecisionId = id;
     }

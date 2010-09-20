@@ -14,5 +14,6 @@ public interface UserLocal {
 
     boolean isUsed(String email);
 
-    public nl.rug.search.odr.entities.Person tryLogin(java.lang.String name, java.lang.String password);
+    public Person tryLogin(String name, String password);
+
 }

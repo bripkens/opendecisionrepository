@@ -14,13 +14,13 @@ public class StringValidator {
     public static boolean isValid(String value, boolean throwException) {
         if (value == null) {
             if (throwException) {
-                throw new NullPointerException("String validation failed.");
+                throw new BusinessException("String validation failed. Value is null.");
             }
 
             return false;
         } else if (value.trim().isEmpty()) {
             if (throwException) {
-                throw new RuntimeException("String validation failed.");
+                throw new BusinessException("String validation failed. Value is empty.");
             }
 
             return false;

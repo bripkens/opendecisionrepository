@@ -13,18 +13,39 @@ import nl.rug.search.odr.entities.Person;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class User implements UserLocal {
+public class UserBean implements UserLocal {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
+
+    public boolean isPersistable(Person p) {
+        if (p == null || !p.isPersistable() || isRegistered(p.getName()) || isUsed(p.getEmail())) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+
     @Override
     public void registerPerson(Person p) {
+        if (!isPersistable(p)) {
+            throw new BusinessException("Can't persist the person.");
+        }
+
         entityManager.persist(p);
     }
 
+
     @Override
     public boolean isRegistered(String name) {
+        StringValidator.isValid(name);
+
         name = name.trim().toLowerCase();
         
         Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.name) = :name");
@@ -36,6 +57,8 @@ public class User implements UserLocal {
 
     @Override
     public boolean isUsed(String email) {
+        StringValidator.isValid(email);
+
         email = email.trim().toLowerCase();
 
         Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.email) = :email");
@@ -47,6 +70,9 @@ public class User implements UserLocal {
 
     @Override
     public Person tryLogin(String name, String password)  {
+        StringValidator.isValid(name);
+        StringValidator.isValid(password);
+        
         name = name.trim().toLowerCase();
 
         Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
@@ -66,4 +92,5 @@ public class User implements UserLocal {
 
         return result;
     }
+
 }

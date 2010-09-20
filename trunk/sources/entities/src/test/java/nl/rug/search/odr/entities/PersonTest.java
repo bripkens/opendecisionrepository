@@ -2,6 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import static nl.rug.search.odr.TestUtil.*;
 import org.junit.Before;
@@ -54,16 +55,25 @@ public class PersonTest {
         assertEquals(name, p.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidNameNull() {
         p.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidNameEmpty() {
         p.setName("  ");
     }
 
+    @Test(expected=BusinessException.class)
+    public void testNameTooShort() {
+        p.setName("aa ");
+    }
+
+    @Test(expected=BusinessException.class)
+    public void testNameTooLong() {
+        p.setName("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna ");
+    }
 
 
 
@@ -78,12 +88,12 @@ public class PersonTest {
         assertEquals(password, p.getPassword());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidPasswordNull() {
         p.setPassword(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidPasswordEmpty() {
         p.setPassword("  ");
     }
@@ -99,12 +109,12 @@ public class PersonTest {
         assertTrue(p.validatePassword(plainPassword));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidPlainPasswordNull() {
         p.setPlainPassword(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testInvalidPlainPasswordEmpty() {
         p.setPlainPassword("  ");
     }
@@ -120,19 +130,24 @@ public class PersonTest {
         p.setEmail("foo@foo.de");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testSetInvalidEmail1() {
         p.setEmail("dassa");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testSetInvalidEmail2() {
         p.setEmail("dassa@dasdsa");
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testSetInvalidEmail3() {
         p.setEmail("dassadasdsa.de");
+    }
+
+    @Test(expected = BusinessException.class)
+    public void testSetInvalidEmail4() {
+        p.setEmail(null);
     }
 
 
@@ -148,7 +163,7 @@ public class PersonTest {
         assertNotSame(memberships, p.getMemberships());
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected=BusinessException.class)
     public void testSetMembershipsNull() {
         p.setMemberships(null);
     }

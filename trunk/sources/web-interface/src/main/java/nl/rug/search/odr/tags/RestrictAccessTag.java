@@ -16,6 +16,7 @@ import nl.rug.search.odr.RestrictionEvaluator;
 @FacesComponent(value="restrictComponent")
 public class RestrictAccessTag extends UIComponentBase {
 
+    public static final String ATTRIBUTE_NAME = "allow";
     private String allow;
 
     public static final String FAMILY = "conditional.restrict";
@@ -34,7 +35,7 @@ public class RestrictAccessTag extends UIComponentBase {
             try {
                 JsfUtil.redirect(target);
             } catch (IOException ex) {
-                throw new RuntimeException("Can't redirect to url " + target, ex);
+                throw new RuntimeException("Can't redirect to url ".concat(target), ex);
             }
         }
     }
@@ -48,10 +49,10 @@ public class RestrictAccessTag extends UIComponentBase {
             return allow;
         }
 
-        ValueExpression expression = getValueExpression("allow");
+        ValueExpression expression = getValueExpression(ATTRIBUTE_NAME);
 
         if (expression == null) {
-            throw new RuntimeException("No allow attribute defined for tag 'restrict'.");
+            throw new RuntimeException("No ".concat(ATTRIBUTE_NAME).concat("attribute defined for tag 'restrict'."));
         }
 
         return JsfUtil.evaluateExpressionGet(expression.getExpressionString(), String.class);

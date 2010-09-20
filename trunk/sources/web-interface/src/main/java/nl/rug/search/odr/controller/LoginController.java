@@ -1,14 +1,12 @@
 package nl.rug.search.odr.controller;
 
+import java.io.IOException;
 import nl.rug.search.odr.ActionResult;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.SessionAttribute;
 import nl.rug.search.odr.UserLocal;
 import nl.rug.search.odr.entities.Person;
 
@@ -34,8 +32,11 @@ public class LoginController {
         }
 
         AuthenticationUtil.authenticate(p);
-
-        JsfUtil.refreshPage();
+        try {
+            JsfUtil.redirect("/projects.html");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
         return ActionResult.SUCCESS;
     }

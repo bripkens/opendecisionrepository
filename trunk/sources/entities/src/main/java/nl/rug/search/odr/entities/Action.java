@@ -5,11 +5,11 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import nl.rug.search.odr.BusinessException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -37,7 +37,7 @@ public class Action implements Serializable {
         if (type != null) {
             this.type = type;
         } else {
-            throw new NullPointerException("ActionTyp is null");
+            throw new BusinessException("ActionTyp is null");
         }
     }
 
@@ -47,7 +47,7 @@ public class Action implements Serializable {
 
     public void setId(Long id) {
         if (id == null) {
-            throw new NullPointerException("Please provide an id");
+            throw new BusinessException("Action id is null");
         }
         this.id = id;
     }
@@ -58,7 +58,7 @@ public class Action implements Serializable {
 
     public void setMember(ProjectMember member) {
         if (member == null) {
-            throw new NullPointerException("Please provide a member");
+            throw new BusinessException("Member is null");
         }
         this.member = member;
     }
