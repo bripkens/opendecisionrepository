@@ -105,20 +105,20 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
       
-      <OL>
-	<LI>The User chooses a project</LI>
-	<LI>The System displays details about the project</LI>
-	<LI>The User selects _new Iteration_</LI>
-        <LI>The System displays a form:</LI>
-          <UL>
-            <LI>Name</LI>
-            <LI>Description</LI>
-            <LI>Startdate</LI>
-            <LI>Enddate</LI>
-          </UL>
-        <LI>The user confirms his entries with ok.</LI>
-        <Li>The System adds the Iteration</Li>
-      </OL>
+<OL>
+<LI>The User chooses a project</LI>
+<LI>The System displays details about the project</LI>
+<LI>The User selects _new Iteration_</LI>
+<LI>The System displays a form:</LI>
+<UL>
+<LI>Name</LI>
+<LI>Description</LI>
+<LI>Startdate</LI>
+<LI>Enddate</LI>
+</UL>
+<LI>The user confirms his entries with ok.</LI>
+<Li>The System adds the Iteration</Li>
+</OL>
       
       </td>
     </tr>
@@ -163,13 +163,12 @@ read an iteration</wiki:comment>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
-      
-      <OL>
-	<LI>The User chooses a project</LI>
-	<LI>The System displays details about the project</LI>
-	<LI>The User selects a created Iteration</LI>
-        <LI>The System displays all details about this iteration</LI>
-      </OL>
+<OL>
+<LI>The User chooses a project</LI>
+<LI>The System displays details about the project</LI>
+<LI>The User selects a created Iteration</LI>
+<LI>The System displays all details about this iteration</LI>
+</OL>
       </td>
     </tr>
     <tr>
@@ -212,16 +211,16 @@ Edit an iteration</wiki:comment>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
-      <OL>
-	<LI>The User chooses a project</LI>
-	<LI>The System displays details about the project</LI>
-	<LI>The User selects a created iteration</LI>
-        <LI>The System displays all details about this iteration</LI>
-        <LI>The User selctes _edit_</LI>
-        <LI>The System displays the iteration in an editable form</LI>
-        <LI>The User changes the details and selects _OK_</LI>
-        <LI>The System stores the changes</LI>
-      </OL>
+<OL>
+<LI>The User chooses a project</LI>
+<LI>The System displays details about the project</LI>
+<LI>The User selects a created iteration</LI>
+<LI>The System displays all details about this iteration</LI>
+<LI>The User selctes _edit_</LI>
+<LI>The System displays the iteration in an editable form</LI>
+<LI>The User changes the details and selects _OK_</LI>
+<LI>The System stores the changes</LI>
+</OL>
       </td>
     </tr>
     <tr>
@@ -265,16 +264,16 @@ delete an iteration</wiki:comment>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
-      <OL>
-	<LI>The User chooses a project</LI>
-	<LI>The System displays details about the project</LI>
-	<LI>The User selects a created iteration</LI>
-        <LI>The System displays all details about this iteration</LI>
-        <LI>The User selctes _delete_</LI>
-        <LI>The System asks for confirmation.</LI>
-        <LI>The User confirms it</LI>
-        <LI>The System delete the iteration</LI>
-      </OL>
+<OL>
+<LI>The User chooses a project</LI>
+LI>The System displays details about the project</LI>
+<LI>The User selects a created iteration</LI>
+<LI>The System displays all details about this iteration</LI>
+<LI>The User selctes _delete_</LI>
+<LI>The System asks for confirmation.</LI>
+<LI>The User confirms it</LI>
+<LI>The System delete the iteration</LI>
+</OL>
       </td>
     </tr>
     <tr>
