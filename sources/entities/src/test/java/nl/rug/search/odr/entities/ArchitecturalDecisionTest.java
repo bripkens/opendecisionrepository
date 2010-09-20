@@ -30,12 +30,6 @@ public class ArchitecturalDecisionTest {
         assertNull(a.getName());
         assertNull(a.getOprId());
         assertNull(a.getProblem());
-        assertNull(a.getVersion());
-        assertNotNull(a.getVersions());
-
-        assertTrue(a.getVersions().isEmpty());
-
-
     }
 
     @Test
@@ -71,44 +65,12 @@ public class ArchitecturalDecisionTest {
         assertEquals("foo", a.getOprId());
     }
 
-    @Test(expected = BusinessException.class)
-    public void testNullOprId() {
-       a.setOprId(null);
-    }
-
-      @Test
-    public void testSetProblem() {
-        a.setProblem("foo");
-        assertEquals("foo", a.getProblem());
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testNullProblem() {
-       a.setProblem(null);
-    }
-
-    @Test
-    public void testSetVersion() {
-        Version v = new Version();
-        a.setVersion(v);
-        assertEquals(v, a.getVersion());
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testNullVersion() {
-       a.setVersion(null);
-    }
 
         @Test
     public void testSetDecision() {
         String decision = "foo";
         a.setDecision(decision);
         assertEquals(decision, a.getDecision());
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testNullDecision() {
-       a.setDecision(null);
     }
 
         @Test
@@ -118,25 +80,19 @@ public class ArchitecturalDecisionTest {
         assertEquals(arguments, a.getArguments());
     }
 
-    @Test(expected = BusinessException.class)
-    public void testNullArguments() {
-       a.setArguments(null);
-    }
-
-    @Test
-    public void testaddVerison(){
-        Version v = new Version();
-        Version v2 = new Version();
-        a.addVerison(v);
-        assertTrue(TestUtil.containsReference(a.getVersions(),v));
-        assertFalse(TestUtil.containsReference(a.getVersions(),v2));
-    }
+//    @Test
+//    public void testaddVerison(){
+//        Version v = new Version();
+//        Version v2 = new Version();
+//        assertTrue(TestUtil.containsReference(a.getVersions(),v));
+//        assertFalse(TestUtil.containsReference(a.getVersions(),v2));
+//    }
     
-    @Test (expected = BusinessException.class)
-    public void testNullAddVerison(){
-        a.addVerison(null);
-
-    }
+//    @Test (expected = BusinessException.class)
+//    public void testNullAddVerison(){
+//        a.addVerison(null);
+//
+//    }
 
     @Test
     public void setToString(){
@@ -152,7 +108,6 @@ public class ArchitecturalDecisionTest {
         at.setDecision("bla");
         at.setProblem("bla");
         at.setOprId("bla");
-        at.setVersion(new Version());
 
         ArchitecturalDecision at1 = new ArchitecturalDecision();
         at1.setId(Long.MIN_VALUE);
@@ -161,7 +116,6 @@ public class ArchitecturalDecisionTest {
         at1.setDecision("bla");
         at1.setProblem("bla");
         at1.setOprId("bla");
-        at1.setVersion(new Version());
 
         assertEquals(at.hashCode(),at1.hashCode());
         TestUtil.assertNotEquals(a.hashCode(), at.hashCode());
@@ -178,7 +132,6 @@ public class ArchitecturalDecisionTest {
         at1.setDecision("bla");
         at1.setProblem("bla");
         at1.setOprId("bla");
-        at1.setVersion(new Version());
 
         ArchitecturalDecision at2 = new ArchitecturalDecision();
         at2.setId(Long.MIN_VALUE);
@@ -187,7 +140,6 @@ public class ArchitecturalDecisionTest {
         at2.setDecision("foo");
         at2.setProblem("foo");
         at2.setOprId("foo");
-        at2.setVersion(new Version());
 
         assertFalse(at1.equals(at2));
         
