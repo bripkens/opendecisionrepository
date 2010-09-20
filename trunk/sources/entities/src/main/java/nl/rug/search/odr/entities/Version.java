@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -58,7 +59,7 @@ public class Version implements Serializable {
 
     public void setVersionId(Long id) {
         if (id == null) {
-            throw new NullPointerException("please provide an id");
+            throw new BusinessException("is is null");
         }
         this.VersionId = id;
     }
@@ -69,7 +70,7 @@ public class Version implements Serializable {
 
     public void setAction(Action action) {
         if (action == null) {
-            throw new NullPointerException("Please provide a action");
+            throw new BusinessException("Paction is null");
         }
         this.action = action;
     }
@@ -92,7 +93,7 @@ public class Version implements Serializable {
 
     public void setRequirement(Requirement requirement) {
         if (requirement == null) {
-            throw new NullPointerException("Please provide a requirment");
+            throw new BusinessException("requirment is null");
         }
         this.requirement = requirement;
     }
@@ -103,7 +104,7 @@ public class Version implements Serializable {
 
     public void setRevision(int revision) {
         if (revision < 0) {
-            throw new RuntimeException("Please provide a revision >= 0 ");
+            throw new BusinessException("version is smaller than 0");
         }
         this.revision = revision;
     }
@@ -114,14 +115,14 @@ public class Version implements Serializable {
 
     public void setStatus(Status status) {
         if (status == null) {
-            throw new NullPointerException("Please provide a status");
+            throw new BusinessException("status is null");
         }
         this.status = status;
     }
 
     public void addRelationship(Relationship ship) {
         if (ship == null) {
-            throw new NullPointerException("please provide a relationship");
+            throw new BusinessException("relationship is null");
         }
         ship.setSourceVersion(this);
     }
@@ -140,7 +141,7 @@ public class Version implements Serializable {
 
     void setRelationships(Collection<Relationship> relationships) {
         if (relationships == null) {
-            throw new NullPointerException("relationships may not be null.");
+            throw new BusinessException("Collection relationsships is null");
         }
 
         this.relationships = relationships;
