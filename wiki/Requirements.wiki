@@ -585,8 +585,7 @@ read a relationship</wiki:comment>
       
 <OL>
 <LI>This usecase starts when the user selects a decision.</LI>
-<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
-<UL>
+<LI>The System displays detailed information about this desision and its relationships and the relationtypes</LI>
 </OL>
       </td>
     </tr>
@@ -632,10 +631,10 @@ Edit a relationship</wiki:comment>
       <td colspan="4"> 
 <OL>
 <LI>This usecase starts when the user selects a decision.</LI>
-<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
+<LI>The System displays detailed information about this desision and its relationships and the relationtypes</LI>
 <LI>The user chooses a relationship by selecting _edit_ next to the relationship</LI>
-<Li>The System displays a editable form with the destination-decision and the relationship-type</Li>
-<Li>The user changes the destination-decision and the relationship-type</Li>
+<LI>The System displays a editable form with the destination-decision and the relationship-type</LI>
+<LI>The user changes the destination-decision and the relationship-type</LI>
 <LI>The system stores the changes</LI>
 </OL>
       </td>
@@ -683,10 +682,10 @@ delete a relationship</wiki:comment>
       <td colspan="4"> 
 <OL>
 <LI>This usecase starts when the user selects a decision.</LI>
-<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
+<LI>The System displays detailed information about this desision and its relationships and the relationtypes</LI>
 <LI>The user chooses a relationship by selecting _delete_ next to the relationship</LI>
-<Li>The System asks for confirmation</Li>
-<Li>The user confirms it</Li>
+<Li>The System asks for confirmation</LI>
+<Li>The user confirms it</LI>
 <LI>The system removes the relationship</LI>
 </OL>
       </td>
