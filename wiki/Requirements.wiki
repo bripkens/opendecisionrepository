@@ -500,4 +500,206 @@ delete an decision</wiki:comment>
   </tbody>
 </table>
 
+==Relationships==
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create relationship</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Create a relationship</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create relationships</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>This usecase starts when the user selects a decision.</LI>
+<LI>The user select _add`_`relationship_</LI>
+<Li>The System displays a list with all other decisions.</Li>
+<Li>The user selects a decision, that is the destination-decision</Li>
+<LI>The system displays a dropdownbox for the relationshiptype</LI>
+<LI>The user chooses a type and confirm with _OK_</LI>
+<LI>The system stores the relationship</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+read a relationship</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-6</td>
+      <th>Name</th>
+      <td>Read relationship</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">read relationship</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to read relationships</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>This usecase starts when the user selects a decision.</LI>
+<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
+<UL>
+</OL>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+Edit a relationship</wiki:comment>
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-7</td>
+      <th>Name</th>
+      <td>Edit a relationship</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">edit a relationship</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to edit iterations</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+<OL>
+<LI>This usecase starts when the user selects a decision.</LI>
+<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
+<LI>The user chooses a relationship by selecting _edit_ next to the relationship</LI>
+<Li>The System displays a editable form with the destination-decision and the relationship-type</Li>
+<Li>The user changes the destination-decision and the relationship-type</Li>
+<LI>The system stores the changes</LI>
+</OL>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<wiki:comment>
+delete a relationship</wiki:comment>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">LLUC-8</td>
+      <th>Name</th>
+      <td>delete relationship</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">delete a relationship</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to delete relationships</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+<OL>
+<LI>This usecase starts when the user selects a decision.</LI>
+<Li>The System displays detailed information about this desision and its relationships and the relationtypes</Li>
+<LI>The user chooses a relationship by selecting _delete_ next to the relationship</LI>
+<Li>The System asks for confirmation</Li>
+<Li>The user confirms it</Li>
+<LI>The system removes the relationship</LI>
+</OL>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
 <p>= Traceability matrix = </p>
