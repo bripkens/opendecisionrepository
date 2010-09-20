@@ -889,6 +889,8 @@ At the beginning of this document you can find a listing of all the architectura
 
 =Chronological view=
 
+http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-chronological-view.png
+
 =Relationship view=
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-relationship-view.png
