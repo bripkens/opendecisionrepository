@@ -6,7 +6,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.SessionAttribute;
 import nl.rug.search.odr.UserLocal;
 import nl.rug.search.odr.entities.Person;
 
@@ -31,9 +33,7 @@ public class LoginController {
             return ActionResult.FAIL;
         }
 
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-
-        session.setAttribute("logged_in", true);
+        AuthenticationUtil.authenticate(p);
 
         JsfUtil.refreshPage();
 

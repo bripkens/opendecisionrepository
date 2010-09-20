@@ -40,6 +40,17 @@
 
     <!--
         #########################################################
+                            Custom components
+        #########################################################
+    -->
+
+    <component>
+        <component-type>redirect</component-type>
+        <component-class>nl.rug.search.odr.tags.ConditionalRedirectComponent</component-class>
+    </component>
+
+    <!--
+        #########################################################
                             Validators
         #########################################################
     -->
@@ -86,4 +97,29 @@
                             Navigation rules
         #########################################################
     -->
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>start</from-outcome>
+            <to-view-id>/index.html</to-view-id>
+            <redirect />
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>projects</from-outcome>
+            <to-view-id>/projects.html</to-view-id>
+            <redirect />
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>learnMore</from-outcome>
+            <to-view-id>/learnMore.html</to-view-id>
+            <redirect />
+        </navigation-case>
+
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/register.html</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
