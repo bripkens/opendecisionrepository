@@ -56,8 +56,6 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     background-image: url(../images/buttonConfirmActiveSmall.png);
 }
 
-
-
 .formSection {
     position: relative;
     border-bottom: 1px dashed #666;
@@ -85,4 +83,13 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     font-size: 0.75em;
     font-variant: small-caps;
     text-indent: 11em;
+}
+
+.formSection p.empty{
+    margin-bottom: 20px;
+}
+
+#page .formSection Textarea {
+    float: right;
+    height: 60px;
 }

@@ -79,6 +79,11 @@
         <validator-class>nl.rug.search.odr.validator.EmailValidator</validator-class>
     </validator>
 
+    <validator>
+        <validator-id>DecisionNameValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.DecisionNameValdidator</validator-class>
+    </validator>
+
 
     <!--
         #########################################################
