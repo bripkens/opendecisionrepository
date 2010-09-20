@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -43,7 +44,7 @@ public class ArchitecturalDecisionTest {
         assertEquals(Long.MIN_VALUE, (long) a.getId());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testSetNullId() {
         a.setId(null);
     }
@@ -54,12 +55,12 @@ public class ArchitecturalDecisionTest {
         assertEquals("foo", a.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullName() {
        a.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyName() {
         a.setName("        ");
     }
@@ -70,7 +71,7 @@ public class ArchitecturalDecisionTest {
         assertEquals("foo", a.getOprId());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullOprId() {
        a.setOprId(null);
     }
@@ -81,7 +82,7 @@ public class ArchitecturalDecisionTest {
         assertEquals("foo", a.getProblem());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullProblem() {
        a.setProblem(null);
     }
@@ -93,7 +94,7 @@ public class ArchitecturalDecisionTest {
         assertEquals(v, a.getVersion());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullVersion() {
        a.setVersion(null);
     }
@@ -105,7 +106,7 @@ public class ArchitecturalDecisionTest {
         assertEquals(decision, a.getDecision());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullDecision() {
        a.setDecision(null);
     }
@@ -117,7 +118,7 @@ public class ArchitecturalDecisionTest {
         assertEquals(arguments, a.getArguments());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullArguments() {
        a.setArguments(null);
     }
@@ -131,7 +132,7 @@ public class ArchitecturalDecisionTest {
         assertFalse(TestUtil.containsReference(a.getVersions(),v2));
     }
     
-    @Test (expected = NullPointerException.class)
+    @Test (expected = BusinessException.class)
     public void testNullAddVerison(){
         a.addVerison(null);
 

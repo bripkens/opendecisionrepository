@@ -1,7 +1,6 @@
 package nl.rug.search.odr.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -40,17 +39,17 @@ public class ActionTypeTest {
         assertEquals(name, a.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullName() {
         a.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyName() {
         a.setName("  ");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullId() {
         a.setId(null);
     }

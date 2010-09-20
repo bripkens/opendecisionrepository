@@ -24,12 +24,12 @@ public class StringValidatorTest {
         assertTrue(StringValidator.isValid("dasda", true));
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected=BusinessException.class)
     public void testInValidNull() {
         StringValidator.isValid(null);
     }
 
-    @Test(expected=NullPointerException.class)
+    @Test(expected=BusinessException.class)
     public void testInValidNullTrue() {
         StringValidator.isValid(null, true);
     }
@@ -38,12 +38,12 @@ public class StringValidatorTest {
         assertFalse(StringValidator.isValid(null, false));
     }
 
-    @Test(expected=RuntimeException.class)
+    @Test(expected=BusinessException.class)
     public void testInValidEmpty() {
         StringValidator.isValid("      ");
     }
 
-    @Test(expected=RuntimeException.class)
+    @Test(expected=BusinessException.class)
     public void testInValidEmptyTrue() {
         StringValidator.isValid("     ", true);
     }

@@ -1,7 +1,6 @@
 package nl.rug.search.odr.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class RequirementTest {
         assertEquals(1, id);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullId() {
         r.setRequirementId(null);
     }
@@ -45,7 +44,7 @@ public class RequirementTest {
         assertEquals(description, r.getDescription());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullDescription() {
         r.setDescription(null);
     }

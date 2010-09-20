@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class StatusTest {
         assertEquals(id, s.getStatusId());
     }
 
-   @Test(expected = NullPointerException.class)
+   @Test(expected = BusinessException.class)
     public void testNullId() {
        s.setStatusId(null);
     }
@@ -47,12 +48,12 @@ public class StatusTest {
         assertEquals("foo", s.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullName() {
        s.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyName() {
         s.setName("        ");
     }

@@ -5,14 +5,12 @@
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import nl.rug.search.odr.BusinessException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -64,7 +62,7 @@ public class Relationship implements Serializable {
 
     public void setId(Long id) {
         if (id == null) {
-            throw new NullPointerException("please provide an id");
+            throw new BusinessException("Id is null.");
         }
         this.RelationshipId = id;
     }

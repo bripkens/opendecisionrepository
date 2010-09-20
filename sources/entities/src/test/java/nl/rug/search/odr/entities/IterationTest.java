@@ -1,6 +1,7 @@
 package nl.rug.search.odr.entities;
 
 import java.util.Date;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.After;
@@ -40,12 +41,12 @@ public class IterationTest {
         assertEquals(foo, i.getDescription());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testSetNullDescription() {
         i.setDescription(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testSetEmptyDescription() {
         i.setDescription("          ");
     }
@@ -57,7 +58,7 @@ public class IterationTest {
         assertEquals(id, (long) i.getIterationId());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testSetNullIterationId() {
         i.setId(null);
     }
@@ -69,12 +70,12 @@ public class IterationTest {
         assertEquals(name, i.getName());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullName() {
         i.setName(null);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testEmptyName() {
         i.setName("  ");
     }
@@ -85,12 +86,12 @@ public class IterationTest {
         i.setStartDate(startDate);
         assertEquals(startDate, i.getStartDate());
 
-        
+
     }
 
     @Test
-    public void testStartDate(){
-         Date startDate = new Date();
+    public void testStartDate() {
+        Date startDate = new Date();
         //endDate is not empty and before startdate
         long millis = new Date().getTime() + 10000;
 
@@ -102,9 +103,9 @@ public class IterationTest {
 
     }
 
-        @Test (expected=RuntimeException.class)
-    public void testWrongStartDate(){
-         Date startDate = new Date();
+    @Test(expected = BusinessException.class)
+    public void testWrongStartDate() {
+        Date startDate = new Date();
         //endDate is not empty and before startdate
         long millis = new Date().getTime() + 10000;
 
@@ -113,18 +114,17 @@ public class IterationTest {
 
         i.setEndDate(startDate);
         i.setStartDate(endDate);
-        
+
 
     }
 
-
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullStartDate() {
         i.setStartDate(null);
     }
 
     //endDate is before startDate
-    @Test(expected = RuntimeException.class)
+    @Test(expected = BusinessException.class)
     public void testSetEnddate() {
         long millis = new Date().getTime() - 10000;
 
@@ -141,7 +141,7 @@ public class IterationTest {
 
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullEndDate() {
         i.setEndDate(null);
     }
@@ -154,18 +154,18 @@ public class IterationTest {
         assertEquals(v, i.getVersion());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = BusinessException.class)
     public void testNullVersion() {
         i.setVersion(null);
     }
 
     @Test
-    public void setToString(){
+    public void setToString() {
         assertTrue(TestUtil.toStringHelper(i));
     }
 
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         Iteration i2 = new Iteration();
         i2.setId(Long.MIN_VALUE);
         i2.setDescription("bla");
@@ -173,7 +173,7 @@ public class IterationTest {
 
         Date startdate = new Date();
         i2.setStartDate(startdate);
-        i2.setEndDate(new Date(startdate.getTime()+1000));
+        i2.setEndDate(new Date(startdate.getTime() + 1000));
 
         Iteration i3 = new Iteration();
         i3.setId(Long.MIN_VALUE);
@@ -182,14 +182,14 @@ public class IterationTest {
 
         Date startdate1 = new Date();
         i3.setStartDate(startdate1);
-        i3.setEndDate(new Date(startdate1.getTime()+1000));
+        i3.setEndDate(new Date(startdate1.getTime() + 1000));
 
-        assertEquals(i2.hashCode(),i3.hashCode());
+        assertEquals(i2.hashCode(), i3.hashCode());
         TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());
     }
 
     @Test
-    public void testEquals(){
+    public void testEquals() {
         assertFalse(i.equals(new TestUtil()));
 
         Iteration i2 = new Iteration();
@@ -199,7 +199,7 @@ public class IterationTest {
 
         Date startdate = new Date();
         i2.setStartDate(startdate);
-        i2.setEndDate(new Date(startdate.getTime()+1000));
+        i2.setEndDate(new Date(startdate.getTime() + 1000));
 
         Iteration i3 = new Iteration();
         i3.setId(Long.MIN_VALUE);
@@ -208,7 +208,7 @@ public class IterationTest {
 
         Date startdate1 = new Date();
         i3.setStartDate(startdate1);
-        i3.setEndDate(new Date(startdate1.getTime()+1000));
+        i3.setEndDate(new Date(startdate1.getTime() + 1000));
 
         assertFalse(i2.equals(i3));
 
@@ -216,8 +216,7 @@ public class IterationTest {
     }
 
     @Test
-    public void testNullEquals(){
+    public void testNullEquals() {
         assertFalse(i.equals(null));
     }
-
 }

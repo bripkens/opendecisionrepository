@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.BusinessException;
 
 /**
  *
@@ -93,7 +94,7 @@ public class Project implements Serializable {
 
     public void addMember(ProjectMember member){
         if(member == null){
-            throw new NullPointerException("Please provide a member");
+            throw new BusinessException("Member is null.");
         }
         members.add(member);
     }
