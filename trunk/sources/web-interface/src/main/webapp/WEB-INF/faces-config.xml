@@ -30,6 +30,10 @@
             <base-name>nl.rug.search.odr.localization.form</base-name>
             <var>form</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.restriction</base-name>
+            <var>restriction</var>
+        </resource-bundle>
 
         <locale-config>
             <default-locale>en</default-locale>
@@ -45,7 +49,7 @@
     -->
 
     <component>
-        <component-type>redirect</component-type>
+        <component-type>con.redirect</component-type>
         <component-class>nl.rug.search.odr.tags.ConditionalRedirectComponent</component-class>
     </component>
 
