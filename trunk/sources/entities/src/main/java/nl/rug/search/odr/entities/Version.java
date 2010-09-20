@@ -20,6 +20,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.StringValidator;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -76,8 +78,8 @@ public class Version implements Serializable {
         return createDate;
     }
 
-    public void CreateDate() {
-        createDate = new Date();
+    public void setCreateDate(Date date) {
+        this.createDate = date;
     }
 
     public Collection<Relationship> getRelationships() {
@@ -146,25 +148,33 @@ public class Version implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (VersionId != null ? VersionId.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(VersionId).
+                append(revision).
+                append(createDate).
+                toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Version)) {
+        if (object == null) {
             return false;
         }
-        Version other = (Version) object;
-        if ((this.VersionId == null && other.VersionId != null) || (this.VersionId != null && !this.VersionId.equals(other.VersionId))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        Version v2 = (Version) object;
+        return new EqualsBuilder().append(VersionId, v2.VersionId).
+                append(revision, v2.revision).
+                append(createDate, v2.createDate).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "Version{" + "id=" + VersionId + "revision=" + revision + "createDate=" + createDate + '}';
+        return "Version{" + "VersionId=" + VersionId + "revision=" + revision + "createDate=" + createDate + '}';
     }
 }

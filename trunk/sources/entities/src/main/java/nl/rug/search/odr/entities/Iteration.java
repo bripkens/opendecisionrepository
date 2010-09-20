@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.StringValidator;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -115,26 +117,34 @@ public class Iteration implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (iterationId != null ? iterationId.hashCode() : 0);
-        return hash;
+        return new HashCodeBuilder().append(iterationId).append(name).append(description).append(startDate).
+                append(endDate).toHashCode();
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Iteration)) {
+        if (object == null) {
             return false;
         }
-        Iteration other = (Iteration) object;
-        if ((this.iterationId == null && other.iterationId != null) || (this.iterationId != null && !this.iterationId.equals(other.iterationId))) {
+        if (object == this) {
+            return true;
+        }
+        if (object.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        Iteration ac = (Iteration) object;
+        return new EqualsBuilder().
+                append(iterationId, ac.iterationId).
+                append(name, ac.name).
+                append(description, ac.description).
+                append(startDate, ac.startDate).
+                append(endDate, ac.endDate).
+                isEquals();
     }
 
     @Override
     public String toString() {
-        return "nl.rug.search.odr.entities.Iteration[id=" + iterationId + "]";
+        return "Iteration{" + "id=" + iterationId + "type=" + name + '}';
     }
 }

@@ -141,5 +141,61 @@ public class ArchitecturalDecisionTest {
     public void setToString(){
         assertTrue(TestUtil.toStringHelper(a));
     }
+
+    @Test
+    public void testHashCode(){
+        ArchitecturalDecision at = new ArchitecturalDecision();
+        at.setId(Long.MIN_VALUE);
+        at.setArguments("bla");
+        at.setName("bla");
+        at.setDecision("bla");
+        at.setProblem("bla");
+        at.setOprId("bla");
+        at.setVersion(new Version());
+
+        ArchitecturalDecision at1 = new ArchitecturalDecision();
+        at1.setId(Long.MIN_VALUE);
+        at1.setArguments("bla");
+        at1.setName("bla");
+        at1.setDecision("bla");
+        at1.setProblem("bla");
+        at1.setOprId("bla");
+        at1.setVersion(new Version());
+
+        assertEquals(at.hashCode(),at1.hashCode());
+        TestUtil.assertNotEquals(a.hashCode(), at.hashCode());
+    }
+
+    @Test
+    public void testEquals(){
+        assertFalse(a.equals(new TestUtil()));
+
+        ArchitecturalDecision at1 = new ArchitecturalDecision();
+        at1.setId(Long.MIN_VALUE);
+        at1.setArguments("bla");
+        at1.setName("bla");
+        at1.setDecision("bla");
+        at1.setProblem("bla");
+        at1.setOprId("bla");
+        at1.setVersion(new Version());
+
+        ArchitecturalDecision at2 = new ArchitecturalDecision();
+        at2.setId(Long.MIN_VALUE);
+        at2.setArguments("foo");
+        at2.setName("foo");
+        at2.setDecision("foo");
+        at2.setProblem("foo");
+        at2.setOprId("foo");
+        at2.setVersion(new Version());
+
+        assertFalse(at1.equals(at2));
+        
+        assertTrue(a.equals(a));
+    }
+
+    @Test
+    public void testNullEquals(){
+        assertFalse(a.equals(null));
+    }
     
 }

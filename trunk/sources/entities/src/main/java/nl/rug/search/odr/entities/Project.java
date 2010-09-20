@@ -26,10 +26,10 @@ public class Project implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "project")
-    private Collection<ProjectMember> member;
+    private Collection<ProjectMember> members;
 
     public Project() {
-        member = new ArrayList<ProjectMember>();
+        members = new ArrayList<ProjectMember>();
     }
 
     public String getDescription() {
@@ -56,12 +56,12 @@ public class Project implements Serializable {
         this.projectId = projectId;
     }
 
-    public Collection<ProjectMember> getMember() {
-        return member;
+    public Collection<ProjectMember> getMembers() {
+        return members;
     }
 
-    public void setMember(Collection<ProjectMember> member) {
-        this.member = member;
+    public void setMembers(Collection<ProjectMember> members) {
+        this.members = members;
     }
 
     @Override
@@ -91,9 +91,11 @@ public class Project implements Serializable {
         return "Project{" + "projectId=" + projectId + '}';
     }
 
-    
-
-    
-
+    public void addMember(ProjectMember member){
+        if(member == null){
+            throw new NullPointerException("Please provide a member");
+        }
+        members.add(member);
+    }
 
 }

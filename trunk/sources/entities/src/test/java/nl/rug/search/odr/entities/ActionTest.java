@@ -89,5 +89,18 @@ public class ActionTest {
     @Test
     public void testEquals(){
         assertFalse(a.equals(new TestUtil()));
+
+        Action ac1 = new Action();
+        ac1.setId(Long.MIN_VALUE);
+        ac1.setMember(new ProjectMember());
+        ac1.setType(new ActionType());
+
+        assertFalse(a.equals(ac1));
     }
+
+    @Test
+    public void testNullEquals(){
+        assertFalse(a.equals(null));
+    }
+
 }
