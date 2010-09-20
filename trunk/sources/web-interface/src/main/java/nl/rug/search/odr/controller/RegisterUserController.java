@@ -1,10 +1,9 @@
 package nl.rug.search.odr.controller;
 
-import java.util.Locale;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import nl.rug.search.odr.MessageUtil;
+import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.UserLocal;
 import nl.rug.search.odr.entities.Person;
 
@@ -22,20 +21,12 @@ public class RegisterUserController extends AbstractController {
 
     @Override
     protected String getSuccessMessage() {
-        return MessageUtil.getMessageResourceString(
-                                    "nl.rug.search.odr.localization.form",
-                                    "registration.success",
-                                    null,
-                                    Locale.ENGLISH);
+        return JsfUtil.evaluateExpressionGet("#{form['registration.success']}", String.class);
     }
 
     @Override
     protected String getFailMessage() {
-        return MessageUtil.getMessageResourceString(
-                                    "nl.rug.search.odr.localization.form",
-                                    "registration.fail",
-                                    null,
-                                    Locale.ENGLISH);
+        return JsfUtil.evaluateExpressionGet("#{form['registration.fail']}", String.class);
     }
 
     @Override

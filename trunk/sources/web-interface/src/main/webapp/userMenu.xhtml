@@ -8,7 +8,7 @@
                     xmlns:f="http://java.sun.com/jsf/core">
 
     
-        Hello Mr. X -
+    Hello #{userMenuController.name}
         <ice:form id="logoutForm">
             <ice:commandLink action="#{userMenuController.logout}"
                              value="#{form['button.logout']}" />

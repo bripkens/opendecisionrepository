@@ -24,10 +24,10 @@
                              styleClass="prefill password">
             </ice:inputSecret>
 
-            <ice:commandLink action="/register.html"
+            <ice:commandLink action="register"
                              value="#{form['button.register']}"
                              styleClass="registerLink"/>
-
+            
             <ice:commandButton action="#{loginController.submitForm}"
                                value="#{form['button.login']}"
                                styleClass="confirm"/>
