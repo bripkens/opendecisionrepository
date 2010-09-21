@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import nl.rug.search.odr.IterationLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Iteration;
 

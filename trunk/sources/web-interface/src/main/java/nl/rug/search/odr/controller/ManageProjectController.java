@@ -64,10 +64,13 @@ public class ManageProjectController extends AbstractController {
         if (e.getNewValue().equals(e.getOldValue())) {
             return;
         }
+        
         if (e.getNewValue().toString().trim().isEmpty()) {
             proposedPersons.clear();
             return;
         }
+
+        proposePersons(e.getNewValue().toString());
     }
 
     public String getDescription() {
