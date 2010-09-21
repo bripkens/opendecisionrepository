@@ -479,10 +479,6 @@ input[type=submit]:active, #page input[type=submit]:focus,#page input[type=file]
     background-image: url(../images/formButtonActive.png);
 }
 
-#page td {
-    vertical-align: top;
-}
-
 #page input.error {
     background-image: url(../images/error.png);
     background-repeat: no-repeat;
