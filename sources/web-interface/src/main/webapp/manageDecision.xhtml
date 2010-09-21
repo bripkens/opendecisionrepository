@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['decision.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="belowHeader">
+        <div id="result">
+            <ice:outputText value="#{architecturalDecisionController.resultMessage}"
+                            styleClass="#{architecturalDecisionController.resultStyle}"
+                            effect="#{architecturalDecisionController.resultEffect}"
+                            visible="false" />
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form id="registerForm" partialSubmit="true">
+
+            <h1><h:outputText value="#{form['decision.heading']}"/></h1>
+
+            <!--NAME FIELD-->
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputText id="inName"
+                               label="#{form['label.name']}"
+                               maxlength="255"
+                               value="#{architecturalDecisionController.name}"
+                               required="true">
+                    <f:validateLength minimum="3" maximum="30" />
+
+                    <f:validator validatorId="RegexValidator" />
+                    <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                    
+                </ice:inputText>
+                <p>
+                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
+                <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_];
+                </p>
+            </div>
+
+            <!--Problem FIELD-->
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.problem']}" for="inProblem" />
+                <ice:inputTextarea id="inProblem"
+                                   label="#{form['label.problem']}"
+                                   value="#{architecturalDecisionController.problem}">
+                </ice:inputTextarea>
+                <p class="empty"></p>
+            </div>
+
+
+            <!--Decision FIELD-->
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.decision']}" for="inDecision"/>
+                <ice:inputText id="inDecision"
+                               label="#{form['label.decision']}"
+                               value="#{architecturalDecisionController.decision}">
+                </ice:inputText>
+                <p class="empty"></p>
+            </div>
+
+            <!--Arguments FIELD-->
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.arguments']}" for="inArguments"/>
+                <ice:inputTextarea id="inArguments"
+                                   value="#{architecturalDecisionController.arguments}">
+                </ice:inputTextarea>
+                <p class="empty"></p>
+            </div>
+
+            <!--Opr-id FIELD-->
+            <div class="formSection last">
+                <ice:outputLabel value="#{form['label.oprId']}" for="inOprId"/>
+                <ice:inputText id="inOprId"
+                               label="#{form['label.oprId']}"
+                               value="#{architecturalDecisionController.oprId}">
+                </ice:inputText>
+            </div>
+
+
+            <!--Submit Button-->
+            <ice:commandButton action="#{architecturalDecisionController.submitForm}"
+                               value="#{form['button.submit']}"
+                               styleClass="confirm"/>
+
+
+            <!--Reset Button-->
+            <ice:commandButton actionListener="#{architecturalDecisionController.resetForm}"
+                               value="#{form['button.clear']}"
+                               styleClass="abort"
+                               type="reset" />
+
+        </ice:form>
+    </ui:define>
+
+    <!--SIDEBAR-->
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>Iwas tolles :D</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>
