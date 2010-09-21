@@ -1,6 +1,8 @@
 
 package nl.rug.search.odr;
 
+import nl.rug.search.odr.test.TestDeleteHelper;
+import nl.rug.search.odr.test.TestDeleteHelperLocal;
 import static org.junit.Assert.*;
 
 import javax.ejb.embeddable.EJBContainer;

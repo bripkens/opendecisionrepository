@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.UserLocal;
+import nl.rug.search.odr.user.UserLocal;
 import nl.rug.search.odr.entities.Person;
 
 /**
@@ -43,7 +43,7 @@ public class RegisterUserController extends AbstractController {
         p.setPlainPassword(password);
 
 
-        userLocal.registerPerson(p);
+        userLocal.register(p);
 
         return true;
     }

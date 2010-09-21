@@ -75,6 +75,12 @@ public class PersonTest {
         p.setName("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna ");
     }
 
+    @Test(expected = BusinessException.class)
+    public void testChangeName() {
+        p.setName("peter");
+        p.setName("gabi");
+    }
+    
 
 
 
@@ -189,5 +195,24 @@ public class PersonTest {
     @Test
     public void testUselessThings() {
         p.toString();
+    }
+
+    @Test
+    public void testAddMembers() {
+        Project p = new Project();
+        Person person = new Person();
+        ProjectMember pm = new ProjectMember();
+
+        person.addMembership(pm);
+        pm.setProject(p);
+
+        assertSame(person, p.getMembers().iterator().next().getPerson());
+        assertSame(pm, p.getMembers().iterator().next());
+
+        assertSame(p, pm.getProject());
+        assertSame(person, pm.getPerson());
+
+        assertSame(p, person.getMemberships().iterator().next().getProject());
+        assertSame(pm, person.getMemberships().iterator().next());
     }
 }

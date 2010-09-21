@@ -86,7 +86,7 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 }
 
 .formSection p.empty{
-    margin-bottom: 20px;
+    padding: 0 0 9px 0;
 }
 
 #page .formSection Textarea {

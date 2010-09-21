@@ -1,6 +1,10 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.user;
 
 
+import nl.rug.search.odr.AbstractEjbTest;
+import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.user.UserBean;
+import nl.rug.search.odr.user.UserLocal;
 import nl.rug.search.odr.entities.Person;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -32,7 +36,7 @@ public class UserTest extends AbstractEjbTest {
     public void testIsIdSet() {
         Person p = getDummyPerson();
 
-        local.registerPerson(p);
+        local.register(p);
         assertNotNull(p.getPersonId());
     }
 
@@ -42,7 +46,7 @@ public class UserTest extends AbstractEjbTest {
 
         assertFalse(local.isUsed(p.getEmail()));
 
-        local.registerPerson(p);
+        local.register(p);
 
         assertTrue(local.isUsed(p.getEmail()));
     }
@@ -53,7 +57,7 @@ public class UserTest extends AbstractEjbTest {
 
         assertFalse(local.isRegistered(p.getName()));
 
-        local.registerPerson(p);
+        local.register(p);
 
         assertTrue(local.isRegistered(p.getName()));
     }
@@ -62,7 +66,7 @@ public class UserTest extends AbstractEjbTest {
     public void testRegisterTwice() {
         Person p = getDummyPerson();
 
-        local.registerPerson(p);
-        local.registerPerson(p);
+        local.register(p);
+        local.register(p);
     }
 }

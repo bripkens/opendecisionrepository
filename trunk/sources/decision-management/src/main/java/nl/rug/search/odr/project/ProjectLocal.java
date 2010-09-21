@@ -1,5 +1,5 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.project;
 
 import javax.ejb.Local;
 import nl.rug.search.odr.entities.Project;
