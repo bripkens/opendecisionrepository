@@ -84,7 +84,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
-<LI>The user chooses _register_</LI>
+<LI>The guest chooses _register_</LI>
 <LI>The system displays a form with:
 <ul>
 <li>name</li>
@@ -92,7 +92,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <li>password</li>
 </ul>
 </LI>
-<LI>The user submits the form.</LI>
+<LI>The guest submits the form.</LI>
 <LI>The system registers the new account.</LI>
 </OL>
       
@@ -108,6 +108,71 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
   </tbody>
 </table>
+
+
+
+
+
+
+
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>login</td>
+      <th>Package</th>
+      <td>User Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">Guest</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Authentication of a guest.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The guest chooses _login_</LI>
+<LI>The system displays a form with:
+<ul>
+<li>name</li>
+<li>password</li>
+</ul>
+</LI>
+<LI>The user submits the form.</LI>
+<LI>The system checks the login data and authorizes the user.</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 
 
 
