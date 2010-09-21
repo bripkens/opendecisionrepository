@@ -1,10 +1,14 @@
 
 package nl.rug.search.odr.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.event.ValueChangeEvent;
 import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
 
@@ -22,20 +26,10 @@ public class ManageProjectController extends AbstractController {
     private String name;
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
+    private Collection<Person> proposedPersons;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public ManageProjectController() {
+        proposedPersons = new ArrayList<Person>();
     }
 
     @Override
@@ -66,4 +60,29 @@ public class ManageProjectController extends AbstractController {
         return true;
     }
 
+    public void autoCompleteInputValueChanged(ValueChangeEvent e) {
+        if (e.getNewValue().equals(e.getOldValue())) {
+            return;
+        }
+        if (e.getNewValue().toString().trim().isEmpty()) {
+            proposedPersons.clear();
+            return;
+        }
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -8,8 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.EjbUtil;
-import nl.rug.search.odr.ProjectLocal;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.project.ProjectLocal;
 
 /**
  *

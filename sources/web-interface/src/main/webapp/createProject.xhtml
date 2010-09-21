@@ -71,8 +71,27 @@
                                value="#{manageProjectController.description}"
                                required="true">
                     
-                    <f:validateLength minimum="3" maximum="1000" />
+                    <f:validateLength maximum="1000" />
                 </ice:inputTextarea>
+                <p class="empty"></p>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.members']}" for="inMember"/>
+                <ice:selectInputText label="#{form['label.members']}"
+                                     id="inMember"
+                                     rows="10"
+                                     width="300"
+                                     valueChangeListener="#{manageProjectController.autoCompleteInputValueChanged}">
+                    <f:selectItems value="#{editCommonCtrl.tagPossibilities}"/>
+                </ice:selectInputText>
                 <p class="empty"></p>
             </div>
 
