@@ -73,6 +73,10 @@ public class ManageProjectController extends AbstractController {
         proposePersons(e.getNewValue().toString());
     }
 
+    private void proposePersons(String input) {
+        
+    }
+
     public String getDescription() {
         return description;
     }
