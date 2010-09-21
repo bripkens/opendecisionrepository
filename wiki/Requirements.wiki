@@ -50,33 +50,354 @@ This project will be used by three different kinds of usergroups.
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
+
+= Low level view =
+
+==Iterations==
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th>ID</th>
-      <td>HLUC-1</td>
+      <td>LLUC-5</td>
       <th>Name</th>
-      <td>Add decision</td>
+      <td>register</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>User Management</td>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td colspan="2" width="100"><b>Description</b></td>
-      <td colspan="4">description goes here</td>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">Guest</td>
     </tr>
     <tr>
-      <td colspan="2"><b>Refined by</b></td>
-      <td colspan="4">LLUC-1</td>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Register a new user account.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">The desired user name and email are not already registered.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _register_</LI>
+<LI>The system displays a form with:
+<ul>
+<li>name</li>
+<li>email</li>
+<li>password</li>
+</ul>
+</LI>
+<LI>The user submits the form.</LI>
+<LI>The system registers the new account.</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
     </tr>
   </tbody>
 </table>
 
 
-= Low level view =
 
-==Iterations==
+
+
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>create project</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Create a project</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _create project_</LI>
+<LI>The system displays a form with the following fields:
+<UL>
+<LI>name (required, must be unique)</LI>
+<LI>description (optional)</LI>
+</UL>
+</LI>
+<LI>The user confirms his entries with ok.</LI>
+<LI>The system saves this new project</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>modify project</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Save a modified version of an already existing project.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _modify project_</LI>
+<LI>The system displays a form with the following fields:
+<UL>
+<LI>description (optional)</LI>
+<LI>a list of all project members</LI>
+</UL>
+</LI>
+<LI>The user confirms his entries with ok.</LI>
+<LI>The system saves this modified project</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>browse projects</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Get a list of all projects that the user is participating in.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _my projects_</LI>
+<LI>The system displays a list of all projects.</LI>
+<LI>The user selects a project.</LI>
+<LI>The system provides the user with detailed information about the project.</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>LLUC-5</td>
+      <th>Name</th>
+      <td>delete project</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Get a list of all projects that the user is participating in and provide a detail view for a single project.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _delete project_</LI>
+<LI>The system asks for confirmation.</LI>
+<LI>The user confirms the action.</LI>
+<LI>The system deletes the project.</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
