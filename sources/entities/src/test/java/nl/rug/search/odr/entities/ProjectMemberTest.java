@@ -26,4 +26,25 @@ public class ProjectMemberTest {
         assertNull(m.getProject());
         assertNull(m.getRole());
     }
+
+    @Test
+    public void testAddMembers() {
+        Project p = new Project();
+
+        Person person = new Person();
+        person.setName("Gerd");
+
+        ProjectMember pm = new ProjectMember();
+        pm.setPerson(person);
+        pm.setProject(p);
+
+        assertSame(person, p.getMembers().iterator().next().getPerson());
+        assertSame(pm, p.getMembers().iterator().next());
+
+        assertSame(p, pm.getProject());
+        assertSame(person, pm.getPerson());
+
+        assertSame(p, person.getMemberships().iterator().next().getProject());
+        assertSame(pm, person.getMemberships().iterator().next());
+    }
 }

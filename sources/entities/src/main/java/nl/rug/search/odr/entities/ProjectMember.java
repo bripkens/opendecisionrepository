@@ -33,7 +33,15 @@ public class ProjectMember implements Serializable {
     }
 
     public void setProject(Project project) {
+        if (project == null) {
+            this.project.internalRemoveMember(this);
+        }
+
         this.project = project;
+
+        if (project != null) {
+            project.internalAddMember(this);
+        }
     }
 
     public Long getProjectMemberId() {
@@ -94,6 +102,13 @@ public class ProjectMember implements Serializable {
         return "ProjectMember{" + "projectMemberId=" + projectMemberId + '}';
     }
 
-    
+    public boolean isPersistable() {
+        // shouldn't be persisted this way
 
+        return false;
+    }
+
+    boolean internalIsPersistable(Project project) {
+        return person != null && role != null && project.equals(project);
+    }
 }

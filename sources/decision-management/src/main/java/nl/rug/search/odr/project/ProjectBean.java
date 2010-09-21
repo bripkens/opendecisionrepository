@@ -1,10 +1,13 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.project;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.Project;
 
 /**
@@ -15,9 +18,22 @@ import nl.rug.search.odr.entities.Project;
 public class ProjectBean implements ProjectLocal {
     @PersistenceContext
     private EntityManager entityManager;
-    
+
+
+    public boolean isPersistable(Project p) {
+        if (p == null || !p.isPersistable() || isUsed(p.getName())) {
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createProject(Project p) {
+        if (!isPersistable(p)) {
+            throw new BusinessException("Can't persist project.");
+        }
         entityManager.persist(p);
     }
 

@@ -10,7 +10,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.EjbUtil;
 import nl.rug.search.odr.StringValidator;
-import nl.rug.search.odr.UserLocal;
+import nl.rug.search.odr.user.UserLocal;
 
 /**
  *

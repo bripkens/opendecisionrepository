@@ -28,6 +28,7 @@ public abstract class SessionUtil implements SessionAttribute {
             return;
         }
 
+        session.removeAttribute(USER_ID);
         session.removeAttribute(USER_NAME);
     }
 

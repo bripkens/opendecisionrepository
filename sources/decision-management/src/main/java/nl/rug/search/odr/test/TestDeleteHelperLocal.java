@@ -1,5 +1,5 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.test;
 
 import javax.ejb.Local;
 

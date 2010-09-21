@@ -3,12 +3,15 @@ package nl.rug.search.odr.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -23,7 +26,10 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long projectId;
 
+    @Column(length = 50, nullable = false, unique = true, updatable = false)
     private String name;
+
+    @Column(length = 1000)
     private String description;
 
     @OneToMany(mappedBy = "project")
@@ -38,6 +44,9 @@ public class Project implements Serializable {
     }
 
     public void setDescription(String description) {
+        if (description != null) {
+            description = description.trim();
+        }
         this.description = description;
     }
 
@@ -46,6 +55,18 @@ public class Project implements Serializable {
     }
 
     public void setName(String name) {
+        if (this.name != null) {
+            throw new BusinessException("A project name may not be changed.");
+        }
+
+        StringValidator.isValid(name);
+
+        name = name.trim();
+
+        if (name.length() <= 2 || name.length() > 50) {
+            throw new BusinessException("Name is too long or too short.");
+        }
+
         this.name = name;
     }
 
@@ -54,15 +75,47 @@ public class Project implements Serializable {
     }
 
     public void setProjectId(Long projectId) {
+        if (projectId == null) {
+            throw new BusinessException("Id is null");
+        }
+
         this.projectId = projectId;
     }
 
     public Collection<ProjectMember> getMembers() {
-        return members;
+        return Collections.unmodifiableCollection(members);
     }
 
     public void setMembers(Collection<ProjectMember> members) {
+        if (members == null) {
+            throw new BusinessException("Collection of members is null");
+        }
+        
         this.members = members;
+    }
+
+    public void addMember(ProjectMember member){
+        if(member == null){
+            throw new BusinessException("Member is null.");
+        }
+        
+        member.setProject(this);
+    }
+
+    public void removeMember(ProjectMember member) {
+        if(member == null){
+            throw new BusinessException("Member is null.");
+        }
+
+        member.setProject(null);
+    }
+
+    void internalAddMember(ProjectMember member) {
+        members.add(member);
+    }
+
+    void internalRemoveMember(ProjectMember member) {
+        members.remove(member);
     }
 
     @Override
@@ -92,11 +145,19 @@ public class Project implements Serializable {
         return "Project{" + "projectId=" + projectId + '}';
     }
 
-    public void addMember(ProjectMember member){
-        if(member == null){
-            throw new BusinessException("Member is null.");
+    public boolean isPersistable() {
+        if (name == null || members.isEmpty()) {
+            return false;
         }
-        members.add(member);
-    }
 
+
+
+        for(ProjectMember m : members) {
+            if (!m.internalIsPersistable(this)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

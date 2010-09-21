@@ -3,56 +3,96 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://www.decisionrepository.com/taglib">
 
     <ui:define name="head">
+        <odr:restrict allow="#{restriction['createProject.xhtml']}" />
     </ui:define>
 
     <ui:define name="pagetitle">
         <ice:outputText value="#{form['project.add.page.title']}" nospan="true" />
     </ui:define>
 
+    <ui:define name="belowHeader">
+        <div id="result">
+            <ice:outputText value="#{manageProjectController.resultMessage}"
+                            styleClass="#{manageProjectController.resultStyle}"
+                            effect="#{manageProjectController.resultEffect}"
+                            visible="false" />
+        </div>
+    </ui:define>
+
     <ui:define name="content">
-        <ice:form>
+        <ice:form id="registerForm" partialSubmit="true">
 
             <h1><h:outputText value="#{form['project.add.heading']}"/></h1>
 
-            <ice:outputText value="#{form['label.name']}"/><br />
-            <ice:inputText id="inName"
-                           label="#{form['label.name']}"
-                           maxlength="255"
-                           value="#{createProjectController.name}"
-                           partialSubmit="true"
-                           required="true">
-                <f:validateLength maximum="255" />
-
-                <f:validator validatorId="RegexValidator" />
-                <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
-
-                <f:validator validatorId="ProjectNameValidator" />
-            </ice:inputText>
-            <br />
 
 
-            <ice:outputText value="#{form['label.description']}" /><br />
-            <ice:inputTextarea id="inDescription"
-                               label="#{form['label.description']}"
-                               value="#{createProjectController.description}"
-                               partialSubmit="true"
-                               required="true"/>
-            <br />
 
-            <div class="right">
-                <ice:commandButton action="#{createProjectController.submit}"
-                                   value="#{form['button.submit']}"
-                                   styleClass="confirm"/>
 
-                
 
-                <ice:commandButton actionListener="#{createProjectController.reset}"
-                                   value="#{form['button.clear']}"
-                                   styleClass="abort"/>
+
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputText id="inName"
+                               label="#{form['label.name']}"
+                               maxlength="255"
+                               value="#{manageProjectController.name}"
+                               required="true">
+                    <f:validateLength minimum="3" maximum="50" />
+
+                    <f:validator validatorId="RegexValidator" />
+                    <f:attribute name="inputCharset" value="A-Za-z0-9-_" />
+
+                    <f:validator validatorId="ProjectNameValidator" />
+                </ice:inputText>
+                <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
+                    <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_];
+                    <ice:outputText value="#{form['constraint.projectname']}" nospan="true" />
+                </p>
             </div>
+
+
+
+
+
+
+
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.description']}" for="inDescription"/>
+                <ice:inputTextarea id="inDescription"
+                               label="#{form['label.description']}"
+                               maxlength="255"
+                               value="#{manageProjectController.description}"
+                               required="true">
+                    
+                    <f:validateLength minimum="3" maximum="1000" />
+                </ice:inputTextarea>
+                <p class="empty"></p>
+            </div>
+
+            
+
+
+
+
+
+
+            <ice:commandButton action="#{manageProjectController.submitForm}"
+                               value="#{form['button.submit']}"
+                               styleClass="confirm"/>
+
+
+
+            <ice:commandButton actionListener="#{manageProjectController.resetForm}"
+                               value="#{form['button.clear']}"
+                               styleClass="abort"
+                               type="reset" />
 
         </ice:form>
     </ui:define>
@@ -63,7 +103,7 @@
                 <li class="messages">
                     <div class="header"></div>
                     <div class="text">
-                        <ice:messages layout="list" 
+                        <ice:messages layout="list"
                                       errorClass="error"
                                       warnClass="warning"
                                       fatalClass="fatal"

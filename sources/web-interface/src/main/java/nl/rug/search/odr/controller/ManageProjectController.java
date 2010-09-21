@@ -4,8 +4,8 @@ package nl.rug.search.odr.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.event.ActionEvent;
-import nl.rug.search.odr.ProjectLocal;
+import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
 
 /**
@@ -14,7 +14,7 @@ import nl.rug.search.odr.entities.Project;
  */
 @ManagedBean
 @RequestScoped
-public class CreateProjectController {
+public class ManageProjectController extends AbstractController {
 
     @EJB
     private ProjectLocal pl;
@@ -38,22 +38,32 @@ public class CreateProjectController {
         this.name = name;
     }
 
-    public void submit() {
+    @Override
+    protected String getSuccessMessage() {
+        return JsfUtil.evaluateExpressionGet("#{form['project.manage.success']}", String.class);
+    }
+
+    @Override
+    protected String getFailMessage() {
+        return JsfUtil.evaluateExpressionGet("#{form['project.manage.fail']}", String.class);
+    }
+
+    @Override
+    protected void reset() {
+        name = description = null;
+    }
+
+    @Override
+    protected boolean execute() {
         Project p = new Project();
         p.setName(name);
         p.setDescription(description);
-        
+
         pl.createProject(p);
 
         reset();
+
+        return true;
     }
 
-    public void reset() {
-        name = null;
-        description = null;
-    }
-
-    public void reset(ActionEvent e) {
-        reset();
-    }
 }

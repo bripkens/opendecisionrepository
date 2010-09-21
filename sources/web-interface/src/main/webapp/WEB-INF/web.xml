@@ -31,10 +31,6 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <servlet>
-        <servlet-name>Logout Servlet</servlet-name>
-        <servlet-class>nl.rug.search.odr.controller.LogoutServlet</servlet-class>
-    </servlet>
 
     <!--
         #########################################################
@@ -45,10 +41,6 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Logout Servlet</servlet-name>
-        <url-pattern>/logout.html</url-pattern>
     </servlet-mapping>
 
     <!--

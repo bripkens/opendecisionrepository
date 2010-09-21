@@ -1,8 +1,9 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.project;
 
 
+import nl.rug.search.odr.AbstractEjbTest;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.Project;
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,19 +26,11 @@ public class ProjectTest extends AbstractEjbTest {
         return lookUp(ProjectBean.class, ProjectLocal.class);
     }
 
-    @Test
+    @Test(expected=BusinessException.class)
     public void basics() {
         ProjectLocal projectBean = getProjectLocal();
 
-        assertEquals(false, projectBean.isUsed("ODR"));
-
         Project p = new Project();
-        p.setName("ODR");
-        p.setDescription("keine");
-
         projectBean.createProject(p);
-
-        assertEquals(true, projectBean.isUsed("odr"));
-        assertEquals(true, projectBean.isUsed("ODR"));
     }
 }

@@ -104,6 +104,10 @@ public class Person implements Serializable {
     }
 
     public void setName(String name) {
+        if (this.name != null) {
+            throw new BusinessException("Can't change the user name");
+        }
+
         StringValidator.isValid(name);
 
         name = name.trim();
@@ -160,10 +164,18 @@ public class Person implements Serializable {
     }
 
     public void addMembership(ProjectMember member) {
+        if (member == null) {
+            throw new BusinessException("Trying to add a member which is null.");
+        }
+
         member.setPerson(this);
     }
 
     public void removeMembership(ProjectMember member) {
+        if (member == null) {
+            throw new BusinessException("Trying to remove a member which is null.");
+        }
+
         member.setPerson(null);
     }
 
@@ -177,10 +189,20 @@ public class Person implements Serializable {
 
 
 
+
+
+
+
+
+
     public boolean isPersistable() {
         return name != null && password != null && email != null;
     }
 
+
+
+
+    
 
 
     
