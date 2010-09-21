@@ -84,6 +84,11 @@
         <validator-class>nl.rug.search.odr.validator.DecisionNameValdidator</validator-class>
     </validator>
 
+        <validator>
+        <validator-id>IterationDateValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.IterationDateValidator</validator-class>
+    </validator>
+
 
     <!--
         #########################################################
