@@ -20,16 +20,16 @@ public class StakeholderRoleTest {
 
     @Test
     public void testInit() {
-        assertNull(s.getStakeholderRoleId());
+        assertNull(s.getId());
         assertNull(s.getName());
         assertFalse(s.isCommon());
     }
 
     @Test
     public void testId() {
-        s.setStakeholderRoleId(Long.MIN_VALUE);
+        s.setId(Long.MIN_VALUE);
 
-        assertEquals(Long.MIN_VALUE, (long) s.getStakeholderRoleId());
+        assertEquals(Long.MIN_VALUE, (long) s.getId());
     }
 
 
@@ -63,5 +63,17 @@ public class StakeholderRoleTest {
         s.setCommon(false);
 
         assertFalse(s.isCommon());
+    }
+
+    @Test
+    public void testIsEqual() {
+        s.setName("1");
+        s.setCommon(true);
+
+        StakeholderRole s2 = new StakeholderRole();
+        s2.setName("1");
+        s2.setCommon(true);
+
+        assertEquals(s, s2);
     }
 }

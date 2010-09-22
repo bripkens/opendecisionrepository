@@ -14,7 +14,7 @@ public abstract class AuthenticationUtil {
     public static void authenticate(Person p) {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 
-        session.setAttribute(SessionAttribute.USER_ID, p.getPersonId());
+        session.setAttribute(SessionAttribute.USER_ID, p.getId());
         session.setAttribute(SessionAttribute.USER_NAME, p.getName());
     }
 

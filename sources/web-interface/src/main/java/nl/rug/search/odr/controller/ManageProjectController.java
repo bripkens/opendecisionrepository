@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -15,6 +14,7 @@ import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.StakeholderRole;
+import nl.rug.search.odr.project.StakeholderRoleLocal;
 import nl.rug.search.odr.user.UserLocal;
 
 /**
@@ -27,8 +27,13 @@ public class ManageProjectController extends AbstractController {
 
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private UserLocal ul;
+
+    @EJB
+    private StakeholderRoleLocal srl;
+
     private String name;
     private String description;
     private String autoCompleteInputValue;
@@ -111,22 +116,22 @@ public class ManageProjectController extends AbstractController {
         projectMembers.add(p);
     }
 
-    public Collection<StakeholderRole> getRoles() {
-        Collection<StakeholderRole> roles = new ArrayList<StakeholderRole>();
+    public void removeMember(ActionEvent e) {
+        ProjectMember pm = (ProjectMember) e.getComponent().getAttributes().get("member");
 
-        StakeholderRole role = new StakeholderRole();
-        role.setName("Architect");
-        roles.add(role);
+        projectMembers.remove(pm);
+    }
 
-        role = new StakeholderRole();
-        role.setName("Manager");
-        roles.add(role);
+    public Collection<SelectItem> getRoles() {
+        Collection<SelectItem> roleItems = new ArrayList<SelectItem>();
+        Collection<StakeholderRole> roles = srl.getRoles();
 
-        role = new StakeholderRole();
-        role.setName("Customer");
-        roles.add(role);
+        for(StakeholderRole role : roles) {
+            SelectItem item = new SelectItem(role, role.getName());
+            roleItems.add(item);
+        }
 
-        return roles;
+        return roleItems;
     }
 
     public Collection<ProjectMember> getProjectMembers() {

@@ -13,11 +13,11 @@ import javax.persistence.ManyToOne;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class ProjectMember implements Serializable {
+public class ProjectMember extends BaseEntity<ProjectMember> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long projectMemberId;
+    private Long id;
 
     @ManyToOne
     private Person person;
@@ -44,12 +44,14 @@ public class ProjectMember implements Serializable {
         }
     }
 
-    public Long getProjectMemberId() {
-        return projectMemberId;
+    @Override
+    public Long getId() {
+        return id;
     }
 
-    public void setProjectMemberId(Long projectMemberId) {
-        this.projectMemberId = projectMemberId;
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public StakeholderRole getRole() {
@@ -76,39 +78,18 @@ public class ProjectMember implements Serializable {
         }
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (projectMemberId != null ? projectMemberId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProjectMember)) {
-            return false;
-        }
-        ProjectMember other = (ProjectMember) object;
-        if ((this.projectMemberId == null && other.projectMemberId != null) ||
-                (this.projectMemberId != null && !this.projectMemberId.equals(other.projectMemberId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "ProjectMember{" + "projectMemberId=" + projectMemberId + '}';
-    }
 
     public boolean isPersistable() {
         // shouldn't be persisted this way
-
         return false;
     }
 
     boolean internalIsPersistable(Project project) {
         return person != null && role != null && project.equals(project);
+    }
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[] {person, project, role};
     }
 }
