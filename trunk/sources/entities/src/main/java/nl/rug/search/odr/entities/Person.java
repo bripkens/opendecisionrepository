@@ -1,6 +1,5 @@
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,14 +20,14 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class Person implements Serializable {
+public class Person extends BaseEntity<Person> {
 
     private static final long serialVersionUID = 1L;
 
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long personId;
+    private Long id;
 
 
 
@@ -83,12 +82,14 @@ public class Person implements Serializable {
 
 
 
-    public Long getPersonId() {
-        return personId;
+    @Override
+    public Long getId() {
+        return id;
     }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 
 
@@ -207,28 +208,7 @@ public class Person implements Serializable {
 
     
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (personId != null ? personId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Person)) {
-            return false;
-        }
-        Person other = (Person) object;
-        if ((this.personId == null && other.personId != null)
-                || (this.personId != null && !this.personId.equals(other.personId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" + "personId=" + personId + '}';
+    protected Object[] getCompareData() {
+        return new Object[] {name, email, password, memberships.size()};
     }
 }

@@ -22,7 +22,7 @@ public class ProjectTest {
 
     @Test
     public void testInit() {
-        assertNull(p.getProjectId());
+        assertNull(p.getId());
         assertNull(p.getDescription());
         assertNull(p.getName());
         assertNotNull(p.getMembers());

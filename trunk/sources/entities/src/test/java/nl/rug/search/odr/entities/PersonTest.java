@@ -25,7 +25,7 @@ public class PersonTest {
 
     @Test
     public void testInitialization() {
-        assertNull(p.getPersonId());
+        assertNull(p.getId());
         assertNull(p.getName());
         assertNull(p.getPassword());
         assertNull(p.getEmail());
@@ -39,9 +39,9 @@ public class PersonTest {
 
     @Test
     public void testId() {
-        p.setPersonId(Long.MIN_VALUE);
+        p.setId(Long.MIN_VALUE);
 
-        assertEquals(Long.MIN_VALUE, (long) p.getPersonId());
+        assertEquals(Long.MIN_VALUE, (long) p.getId());
     }
 
 

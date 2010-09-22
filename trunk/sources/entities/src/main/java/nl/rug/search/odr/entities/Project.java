@@ -1,6 +1,5 @@
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,13 +17,13 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class Project implements Serializable {
+public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long projectId;
+    private Long id;
 
     @Column(length = 50, nullable = false, unique = true, updatable = false)
     private String name;
@@ -70,16 +69,18 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    @Override
+    public Long getId() {
+        return id;
     }
 
-    public void setProjectId(Long projectId) {
-        if (projectId == null) {
+    @Override
+    public void setId(Long id) {
+        if (id == null) {
             throw new BusinessException("Id is null");
         }
 
-        this.projectId = projectId;
+        this.id = id;
     }
 
     public Collection<ProjectMember> getMembers() {
@@ -118,32 +119,6 @@ public class Project implements Serializable {
         members.remove(member);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Project other = (Project) obj;
-        if (this.projectId != other.projectId && (this.projectId == null || !this.projectId.equals(other.projectId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + (this.projectId != null ? this.projectId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public String toString() {
-        return "Project{" + "projectId=" + projectId + '}';
-    }
 
     public boolean isPersistable() {
         if (name == null || members.isEmpty()) {
@@ -159,5 +134,10 @@ public class Project implements Serializable {
         }
 
         return true;
+    }
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[] {name, description, members.size()};
     }
 }

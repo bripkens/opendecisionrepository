@@ -21,7 +21,7 @@ public class ProjectMemberTest {
 
     @Test
     public void testInit() {
-        assertNull(m.getProjectMemberId());
+        assertNull(m.getId());
         assertNull(m.getPerson());
         assertNull(m.getProject());
         assertNull(m.getRole());

@@ -1,7 +1,6 @@
 
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +12,12 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class StakeholderRole implements Serializable {
+public class StakeholderRole extends BaseEntity<StakeholderRole> {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long stakeholderRoleId;
+    private Long id;
 
     private String name;
 
@@ -34,14 +33,6 @@ public class StakeholderRole implements Serializable {
         this.name = name;
     }
 
-    public Long getStakeholderRoleId() {
-        return stakeholderRoleId;
-    }
-
-    public void setStakeholderRoleId(Long stakeholderRoleId) {
-        this.stakeholderRoleId = stakeholderRoleId;
-    }
-
     public boolean isCommon() {
         return common;
     }
@@ -51,32 +42,18 @@ public class StakeholderRole implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final StakeholderRole other = (StakeholderRole) obj;
-        if (this.stakeholderRoleId != other.stakeholderRoleId && (this.stakeholderRoleId == null ||
-                !this.stakeholderRoleId.equals(other.stakeholderRoleId))) {
-            return false;
-        }
-        return true;
+    protected Object[] getCompareData() {
+        return new Object[] {name, common};
     }
 
     @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + (this.stakeholderRoleId != null ? this.stakeholderRoleId.hashCode() : 0);
-        return hash;
+    public Long getId() {
+        return id;
     }
 
     @Override
-    public String toString() {
-        return "StakeholderRole{" + "stakeholderRoleId=" + stakeholderRoleId + '}';
+    public void setId(Long id) {
+        this.id = id;
     }
-
 
 }

@@ -37,7 +37,7 @@ public class UserTest extends AbstractEjbTest {
         Person p = getDummyPerson();
 
         local.register(p);
-        assertNotNull(p.getPersonId());
+        assertNotNull(p.getId());
     }
 
     @Test
