@@ -3,25 +3,111 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:odr="http://www.decisionrepository.com/taglib">
-
-    
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
 
     <ui:define name="head">
-        <odr:restrict allow="#{restriction['projects.xhtml']}" />
     </ui:define>
 
     <ui:define name="pagetitle">
-        
-        Error!!!!
+        <ice:outputText value="#{form['Projects.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="belowHeader">
+        <div id="result">
+            <ice:outputText value="#{iterationController.resultMessage}"
+                            styleClass="#{iterationController.resultStyle}"
+                            effect="#{iterationController.resultEffect}"
+                            visible="false" />
+        </div>
     </ui:define>
 
     <ui:define name="content">
-        Fehler :-(
+        <ice:form>
+                <!--
+            This is a very basic table comprising four columns. Each
+            row represents an inventory item.  Each column represents a
+            inventory item property.
+        -->
+                <ice:dataTable
+                    value="#{projectsController.carInventory}"
+                    var="item" styleClass="rowhover pointer ">
+
+                    <!-- Stock number -->
+                    <ice:column>
+                        <ice:rowSelector id="selected"
+                                         value="#{item.selected}"
+                                         selectionListener="#{projectsController.rowSelectionListener}"
+                                 />
+
+                        <f:facet name="header">
+                            <ice:outputText value="Stock #"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.stock}"/>
+                    </ice:column>
+
+                    <!-- Model number -->
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Model"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.model}"/>
+                    </ice:column>
+
+                    <!-- Description  -->
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Description"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.description}"/>
+                    </ice:column>
+
+                    <!-- Odometer reading -->
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Odometer"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.odometer}"/>
+                    </ice:column>
+
+                    <!-- Price number -->
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Price"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.price}"/>
+                    </ice:column>
+
+                </ice:dataTable>
+
+            </ice:form>
+
     </ui:define>
 
+    <!--SIDEBAR-->
     <ui:define name="sidebar">
-        Fehler (sidebar)
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>Iwas tolles :D</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+
     </ui:define>
 </ui:composition>

@@ -616,16 +616,15 @@ form hr {
 }
 
 .iceDatTblRow2 {
+    background-color: #bebebe;
 }
 
-.iceRowSelSelected, .iceRowSelSelectedMouseOver {
-    background-color: #666;
-    color: #fff;
+/*//used!*/
+.iceRowSelMouseOver, .iceRowSelSelectedMouseOver {
+    background-color: #48a659;
 }
-
-.iceRowSelMouseOver {
-    background-color: #444;
-    color: #fff;
+.iceRowSelSelected {
+    background-color: #009024;
 }
 
 #page .fanPanel {
