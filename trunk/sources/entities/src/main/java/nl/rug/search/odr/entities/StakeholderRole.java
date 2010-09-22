@@ -56,4 +56,7 @@ public class StakeholderRole extends BaseEntity<StakeholderRole> {
         this.id = id;
     }
 
+    public boolean isPersistable() {
+        return name != null;
+    }
 }

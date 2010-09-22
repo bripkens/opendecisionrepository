@@ -45,7 +45,12 @@ public abstract class GenericDaoBean<T, ID extends Serializable> implements Gene
         return (List<T>) manager.createQuery("select e from "+ getEntityType().getSimpleName()+" as e").getResultList();
     }
 
-    
+
+    @Override
+    public void merge(T entity) {
+        entity = manager.merge(entity);
+    }
+
 
     @Override
     public void makeTransient(T entity) {

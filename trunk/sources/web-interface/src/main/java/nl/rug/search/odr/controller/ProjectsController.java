@@ -18,8 +18,6 @@ public class ProjectsController {
         new InventoryItem(58285, "blAAAA", " k", 23452435, 3452345),};
 
     public void rowSelectionListener(RowSelectorEvent event) {
-        System.out.println("clicked");
-
         InventoryItem item;
         for (int i = 0, max = carInventory.length; i < max; i++) {
             item = (InventoryItem) carInventory[i];
@@ -29,7 +27,7 @@ public class ProjectsController {
 
         for (int i = 0; i < carInventory.length; i++) {
             if (carInventory[i].isSelected()) {
-                System.out.println(carInventory[i].description);
+//                System.out.println(carInventory[i].description);
             }
         }
     }

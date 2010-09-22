@@ -10,6 +10,10 @@ import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Iteration;
+import nl.rug.search.odr.entities.Person;
+import nl.rug.search.odr.entities.StakeholderRole;
+import nl.rug.search.odr.project.StakeholderRoleLocal;
+import nl.rug.search.odr.user.UserLocal;
 
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.Highlight;
@@ -26,6 +30,9 @@ public class IterationController extends AbstractController {
 
     @EJB
     private IterationLocal iterationLocal;
+
+    
+
     private String name, description;
     private Date startDate, endDate = new Date();
     protected Effect valueChangeEffect2;
@@ -73,7 +80,7 @@ public class IterationController extends AbstractController {
     }
 
     public String getDescription() {
-        return description;
+                return description;
     }
 
     public void setDescription(String description) {

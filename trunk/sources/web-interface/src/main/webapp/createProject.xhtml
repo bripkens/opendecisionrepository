@@ -104,9 +104,19 @@
 
                 <ice:dataTable value="#{manageProjectController.projectMembers}" var="item" styleClass="memberSelect">
                     <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="#{manageProjectController.currentUser.person.name}" />
+                        </f:facet>
                         <ice:outputText value="#{item.person.name}" />
                     </ice:column>
                     <ice:column>
+                        <f:facet name="header">
+                            <ice:selectOneListbox size="1" value="#{manageProjectController.currentUser.role.name}">
+                                <f:selectItems value="#{manageProjectController.roles}" var="role">
+                                    <f:selectItem itemValue="#{role.value}" itemLabel="#{role.label}"/>
+                                </f:selectItems>
+                            </ice:selectOneListbox>
+                        </f:facet>
                         <ice:selectOneListbox size="1" value="#{item.role.name}">
                             <f:selectItems value="#{manageProjectController.roles}" var="role">
                                 <f:selectItem itemValue="#{role.value}" itemLabel="#{role.label}"/>
@@ -114,6 +124,7 @@
                         </ice:selectOneListbox>
                     </ice:column>
                     <ice:column>
+                        <f:facet name="header" />
                         <ice:commandLink value=""
                                          actionListener="#{manageProjectController.removeMember}"
                                          immediate="true">

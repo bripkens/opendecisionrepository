@@ -4,6 +4,8 @@ package nl.rug.search.odr;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import nl.rug.search.odr.entities.Person;
+import nl.rug.search.odr.user.UserBean;
+import nl.rug.search.odr.user.UserLocal;
 
 /**
  *
@@ -20,6 +22,10 @@ public abstract class AuthenticationUtil {
 
     public static void logout() {
         SessionUtil.resetSession();
+    }
+
+    public static long getUserId() {
+        return (Long) SessionUtil.getSingleValue(SessionAttribute.USER_ID);
     }
 
     public static String getUserName() {

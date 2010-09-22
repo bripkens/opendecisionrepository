@@ -24,9 +24,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
     @PersistenceContext
     private EntityManager entityManager;
 
-
-
-
     @Override
     public boolean isPersistable(Person p) {
         if (p == null || !p.isPersistable() || isRegistered(p.getName()) || isUsed(p.getEmail())) {
@@ -35,9 +32,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         return true;
     }
-
-
-
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -49,24 +43,17 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         entityManager.persist(p);
     }
 
+    @Override
+    public Person getByName(String name) {
+        StringValidator.isValid(name);
 
+        name = name.trim().toLowerCase();
 
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
+        q.setParameter("name", name);
 
-
-
-
-
-
-    public Person getPerson(long id) {
-        return entityManager.getReference(Person.class, id);
+        return (Person) q.getSingleResult();
     }
-
-
-
-
-
-
-
 
     @Override
     public boolean isRegistered(String name) {
@@ -81,11 +68,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         return result != 0;
     }
 
-
-
-
-
-
     @Override
     public boolean isUsed(String email) {
         StringValidator.isValid(email);
@@ -99,13 +81,8 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         return result != 0;
     }
 
-
-
-
-
-
     @Override
-    public Person tryLogin(String name, String password)  {
+    public Person tryLogin(String name, String password) {
         StringValidator.isValid(name);
         StringValidator.isValid(password);
 
@@ -117,7 +94,7 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         Person result;
 
         try {
-        result = (Person) q.getSingleResult();
+            result = (Person) q.getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
@@ -129,8 +106,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         return result;
     }
 
-
-
     @Override
     public Collection<Person> getProposedPersons(String name) {
         name = name.trim().toLowerCase();
@@ -140,6 +115,4 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         return q.getResultList();
     }
-
-
 }
