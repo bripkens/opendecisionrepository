@@ -1,7 +1,7 @@
 
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +19,7 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.REFRESH)
     private Person person;
 
     @ManyToOne

@@ -34,6 +34,7 @@ public class ProjectBean implements ProjectLocal {
         if (!isPersistable(p)) {
             throw new BusinessException("Can't persist project.");
         }
+
         entityManager.persist(p);
     }
 

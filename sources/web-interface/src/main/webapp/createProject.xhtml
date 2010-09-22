@@ -91,6 +91,7 @@
                                      id="inMember"
                                      rows="#{manageProjectController.proposedPersonsListLength}"
                                      width="350"
+                                     value="#{manageProjectController.autoCompleteInputValue}"
                                      valueChangeListener="#{manageProjectController.autoCompleteInputValueChanged}">
                     <f:selectItems value="#{manageProjectController.proposedPersons}"/>
                 </ice:selectInputText>
@@ -106,7 +107,7 @@
                         <ice:outputText value="#{item.person.name}" />
                     </ice:column>
                     <ice:column>
-                        <ice:selectOneListbox size="1">
+                        <ice:selectOneListbox size="1" value="#{item.role.name}">
                             <f:selectItems value="#{manageProjectController.roles}" var="role">
                                 <f:selectItem itemValue="#{role.value}" itemLabel="#{role.label}"/>
                             </f:selectItems>
