@@ -1,20 +1,26 @@
 package nl.rug.search.odr.controller;
 
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import nl.rug.search.odr.IterationLocal;
+import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Iteration;
+
+import com.icesoft.faces.context.effects.Effect;
+import com.icesoft.faces.context.effects.Highlight;
+import javax.faces.bean.SessionScoped;
 
 
 /**
  *
  * @author Stefan
  */
-@RequestScoped
+@SessionScoped
 @ManagedBean
 public class IterationController extends AbstractController {
 
@@ -22,6 +28,20 @@ public class IterationController extends AbstractController {
     private IterationLocal iterationLocal;
     private String name, description;
     private Date startDate, endDate = new Date();
+    protected Effect valueChangeEffect2;
+
+    public IterationController() {
+        valueChangeEffect2 = new Highlight("#fda505");
+        valueChangeEffect2.setFired(true);
+
+        GregorianCalendar startcal = new GregorianCalendar();
+        startcal.add(GregorianCalendar.DAY_OF_YEAR, 1);
+        startDate = startcal.getTime();
+
+        GregorianCalendar endcal = new GregorianCalendar();
+        endcal.add(GregorianCalendar.DAY_OF_YEAR, 14);
+        endDate = endcal.getTime();
+    }
 
     @Override
     protected String getSuccessMessage() {
@@ -92,5 +112,7 @@ public class IterationController extends AbstractController {
         this.startDate = startDate;
     }
 
-    
+    public TimeZone getTimeZone() {
+        return java.util.TimeZone.getDefault();
+    }
 }
