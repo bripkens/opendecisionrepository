@@ -91,9 +91,7 @@
                                      id="inMember"
                                      rows="#{manageProjectController.proposedPersonsListLength}"
                                      width="350"
-                                     value="#{manageProjectController.autoCompleteInputValue}"
-                                     valueChangeListener="#{manageProjectController.autoCompleteInputValueChanged}"
-                                     partialSubmit="true">
+                                     valueChangeListener="#{manageProjectController.autoCompleteInputValueChanged}">
                     <f:selectItems value="#{manageProjectController.proposedPersons}"/>
                 </ice:selectInputText>
 
@@ -101,11 +99,23 @@
                                value="#{form['button.add']}"
                                styleClass="confirm add"/>
 
-                <ice:repeat value="#{manageProjectController.projectMembers}" var="item">
-                    <ice:outputText value="#{item.person.name}" nospan="true"/><br />
-                </ice:repeat>
-                
                 <p><ice:outputText value="#{form['project.manage.help.enter']}" nospan="true" /></p>
+
+                <ice:dataTable value="#{manageProjectController.projectMembers}" var="item">
+                    <ice:column>
+                        <ice:outputText value="#{item.person.name}" />
+                    </ice:column>
+                    <ice:column>
+                        <ice:outputText value="#{item.role.name}" />
+                        <ice:selectOneListbox value="#{manageProjectController.roles}">
+                        </ice:selectOneListbox>
+                    </ice:column>
+                    <ice:column>
+                        <ice:outputText value="Delete" />
+                    </ice:column>
+                </ice:dataTable>
+
+                <p class="lineSpacer" />
             </div>
 
             

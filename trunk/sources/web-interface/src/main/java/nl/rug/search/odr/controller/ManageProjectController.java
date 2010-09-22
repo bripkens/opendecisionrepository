@@ -14,6 +14,7 @@ import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.user.UserLocal;
 
 /**
@@ -82,15 +83,11 @@ public class ManageProjectController extends AbstractController {
     }
 
     private void proposePersons(String input) {
-        // TODO
+        proposedPersons = ul.getProposedPersons(input);
     }
 
     public Collection<SelectItem> getProposedPersons() {
         Collection<SelectItem> items = new ArrayList<SelectItem>();
-
-        items.add(new SelectItem("1.", "1."));
-        items.add(new SelectItem("2.", "2."));
-        items.add(new SelectItem("3.", "3."));
 
         for (Person p : proposedPersons) {
             items.add(new SelectItem(p, p.getName()));
@@ -100,17 +97,37 @@ public class ManageProjectController extends AbstractController {
     }
 
     public int getProposedPersonsListLength() {
-        return proposedPersons.size() + 3;
+        return proposedPersons.size();
     }
 
     public void addMember(ActionEvent e) {
         ProjectMember p = new ProjectMember();
+        StakeholderRole role = new StakeholderRole();
+        role.setName("Architect");
+        p.setRole(role);
         Person person = new Person();
         person.setName(autoCompleteInputValue);
         p.setPerson(person);
         projectMembers.add(p);
     }
 
+    public Collection<StakeholderRole> getRoles() {
+        Collection<StakeholderRole> roles = new ArrayList<StakeholderRole>();
+
+        StakeholderRole role = new StakeholderRole();
+        role.setName("Architect");
+        roles.add(role);
+
+        role = new StakeholderRole();
+        role.setName("Manager");
+        roles.add(role);
+
+        role = new StakeholderRole();
+        role.setName("Customer");
+        roles.add(role);
+
+        return roles;
+    }
 
     public Collection<ProjectMember> getProjectMembers() {
         return projectMembers;

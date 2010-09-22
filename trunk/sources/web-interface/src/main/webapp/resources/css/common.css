@@ -438,8 +438,7 @@ div#help {
     margin-top: 0.2em;
     background-color: #f4f2f2;
     background-repeat: repeat-x;
-    padding-top: 3px;
-    padding-bottom: 1px;
+    padding: 0 3px 0 3px;
 }
 
 
@@ -696,8 +695,11 @@ form hr {
     border-right: 1px solid #000;
 }
 
-#page .iceSelInpTxtRow {
+#page .iceSelInpTxtRow:last-child {
     border-bottom: 1px solid #000;
+}
+#page .iceSelInpTxtRow {
+    border-bottom: 1px solid #bebebe;;
 }
 
 #page .iceSelInpTxtSelRow {

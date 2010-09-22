@@ -28,7 +28,7 @@ div#userMenu input {
     width: 100px;
     position: absolute;
     top: 0px;
-    height: 19px;
+    margin: 0;
 }
 div#userMenu input.password {
     left: 105px;
@@ -70,10 +70,12 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 }
 #page .formSection input, #page .formSection textarea {
     float: right;
-    font-size: 14px;
+    font: 14px/1.5em arial,sans-serif;
+    min-height: 25px;
 }
 #page .formSection textarea {
-    width: 483px;
+    width: 487px;
+    height: 150px;
 }
 #page .formSection input.iceSelInpTxtTxt {
     position: absolute;
@@ -112,13 +114,11 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     text-indent: 11em;
 }
 
-.formSection p.empty{
+.formSection p.empty {
     padding: 0 0 9px 0;
 }
-
-#page .formSection Textarea {
-    float: right;
-    height: 60px;
+.formSection p.lineSpacer {
+    padding: 0 0 5px;
 }
 
 #page td {
