@@ -14,9 +14,9 @@
 
     <ui:define name="belowHeader">
         <div id="result">
-            <ice:outputText value="#{architecturalDecisionController.resultMessage}"
-                            styleClass="#{architecturalDecisionController.resultStyle}"
-                            effect="#{architecturalDecisionController.resultEffect}"
+            <ice:outputText value="#{iterationController.resultMessage}"
+                            styleClass="#{iterationController.resultStyle}"
+                            effect="#{iterationController.resultEffect}"
                             visible="false" />
         </div>
     </ui:define>
@@ -33,7 +33,7 @@
                 <ice:inputText id="inName"
                                label="#{form['label.name']}"
                                maxlength="255"
-                               value="#{architecturalDecisionController.name}"
+                               value="#{iterationController.name}"
                                required="true">
                     <f:validateLength minimum="3" maximum="30" />
 
@@ -53,7 +53,7 @@
                 <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
                 <ice:inputTextarea id="inDescription"
                                    label="#{form['label.description']}"
-                                   value="#{architecturalDecisionController.problem}">
+                                   value="#{iterationController.description}">
                 </ice:inputTextarea>
                 <p class="empty"></p>
             </div>
@@ -63,14 +63,18 @@
             <div class="formSection">
                 <ice:outputLabel value="#{form['iteration.startDate']}" for="inStartDate"/>
                 <ice:selectInputDate id="date1"
-                                     value="#{dateSelect.date1}"
+                                     value="#{iterationController.startDate}"
                                      imageDir="./resources/images/"
                                      renderAsPopup="true"
                                      styleClass="date"
-                                     label="#{form['iteration.startDate']}">
+                                     label="#{form['iteration.startDate']}"
+                                     partialSubmit="true"
+                                     immediate="true">
                     <f:convertDateTime pattern="yyyy-MM-dd"
-                                       timeZone="#{dateSelect.timeZone}"/>
-                    <f:validator validatorId="IterationDateValidator" />
+                                       timeZone="#{iterationController.timeZone}"/>
+
+                    <f:validator validatorId="IterationDateValidator"/>
+                    <f:attribute name="endDateId" value="iterationForm:date2" />
                 </ice:selectInputDate>
 
                 <p class="empty"></p>
@@ -80,27 +84,31 @@
             <div class="formSection last">
                 <ice:outputLabel value="#{form['iteration.endDate']}" for="inEndDate"/>
                 <ice:selectInputDate id="date2"
-                                     value="#{dateSelect.date2}"
+                                     value="#{iterationController.endDate}"
 
                                      imageDir="./resources/images/"
                                      renderAsPopup="true"
                                      styleClass="date"
-                                     label="#{form['iteration.startDate']}">
+                                     label="#{form['iteration.endDate']}"
+                                     partialSubmit="true"
+                                     immediate="true">
                     <f:convertDateTime pattern="yyyy-MM-dd"
-                                       timeZone="#{dateSelect.timeZone}"/>
+                                       timeZone="#{iterationController.timeZone}"/>
+                    <f:validator validatorId="IterationDateValidator"/>
+                    <f:attribute name="startDateId" value="iterationForm:date1" />
                 </ice:selectInputDate>
 
                 <p class="empty"></p>
             </div>
 
             <!--Submit Button-->
-            <ice:commandButton action="#{architecturalDecisionController.submitForm}"
+            <ice:commandButton action="#{iterationController.submitForm}"
                                value="#{form['button.submit']}"
                                styleClass="confirm"/>
 
 
             <!--Reset Button-->
-            <ice:commandButton actionListener="#{architecturalDecisionController.resetForm}"
+            <ice:commandButton actionListener="#{iterationController.resetForm}"
                                value="#{form['button.clear']}"
                                styleClass="abort"
                                type="reset" />
