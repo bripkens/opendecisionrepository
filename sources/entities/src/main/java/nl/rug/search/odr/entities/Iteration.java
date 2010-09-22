@@ -22,7 +22,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Stefan
  */
-//@Entity
+@Entity
 public class Iteration implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,19 +40,19 @@ public class Iteration implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
-    @ManyToMany
-    private Version version;
+//    @ManyToMany
+//    private Version version;
 
-    public Version getVersion() {
-        return version;
-    }
+//    public Version getVersion() {
+//        return version;
+//    }
 
-    public void setVersion(Version version) {
-        if(version == null){
-            throw new BusinessException("Version is null.");
-        }
-        this.version = version;
-    }
+//    public void setVersion(Version version) {
+//        if(version == null){
+//            throw new BusinessException("Version is null.");
+//        }
+//        this.version = version;
+//    }
 
     public Long getIterationId() {
         return iterationId;

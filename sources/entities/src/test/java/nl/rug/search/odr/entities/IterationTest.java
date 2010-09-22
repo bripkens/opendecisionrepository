@@ -146,18 +146,18 @@ public class IterationTest {
         i.setEndDate(null);
     }
 
-    @Test
-    public void testSetVersion() {
-        Version v = new Version();
-        i.setVersion(v);
-
-        assertEquals(v, i.getVersion());
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testNullVersion() {
-        i.setVersion(null);
-    }
+//    @Test
+//    public void testSetVersion() {
+//        Version v = new Version();
+//        i.setVersion(v);
+//
+//        assertEquals(v, i.getVersion());
+//    }
+//
+//    @Test(expected = BusinessException.class)
+//    public void testNullVersion() {
+//        i.setVersion(null);
+//    }
 
     @Test
     public void setToString() {
