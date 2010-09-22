@@ -2,12 +2,16 @@ package nl.rug.search.odr.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.project.ProjectLocal;
@@ -27,15 +31,29 @@ public class ManageProjectController extends AbstractController {
 
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private UserLocal ul;
+
     @EJB
     private StakeholderRoleLocal srl;
+    
     private String name;
     private String description;
     private String autoCompleteInputValue;
+    private ProjectMember currentUser;
     private Collection<ProjectMember> projectMembers;
     private Collection<Person> proposedPersons;
+
+    @PostConstruct
+    public void initForm() {
+//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        
+
+        currentUser = new ProjectMember();
+        currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
+        currentUser.setRole(srl.getSomePublicRole());
+    }
 
     @Override
     protected String getSuccessMessage() {
@@ -52,6 +70,7 @@ public class ManageProjectController extends AbstractController {
         name = description = autoCompleteInputValue = null;
         proposedPersons = new ArrayList<Person>();
         projectMembers = new ArrayList<ProjectMember>();
+        currentUser = null;
     }
 
     @Override
@@ -60,7 +79,14 @@ public class ManageProjectController extends AbstractController {
         p.setName(name);
         p.setDescription(description);
 
-        p.setMembers(projectMembers);
+        for(ProjectMember member : projectMembers) {
+            p.addMember(member);
+        }
+        p.addMember(currentUser);
+
+        for(ProjectMember member : p.getMembers()) {
+            System.out.println("Project: " + p.getName() + "; Member: " + member.getPerson().getName() + "; Role: " + member.getRole().getName());
+        }
 
         pl.createProject(p);
 
@@ -107,8 +133,12 @@ public class ManageProjectController extends AbstractController {
     }
 
     private boolean isMember(String value) {
+        if (value.equalsIgnoreCase(currentUser.getPerson().getName())) {
+            return true;
+        }
+
         for(ProjectMember member : projectMembers) {
-            if (value.equals(member.getPerson().getName())) {
+            if (value.equalsIgnoreCase(member.getPerson().getName())) {
                 return true;
             }
         }
@@ -130,11 +160,10 @@ public class ManageProjectController extends AbstractController {
 
         ProjectMember p = new ProjectMember();
 
-        StakeholderRole role = srl.getRoles().iterator().next();
+        StakeholderRole role = srl.getSomePublicRole();
         p.setRole(role);
 
-        Person person = new Person();
-        person.setName(autoCompleteInputValue);
+        Person person = ul.getByName(autoCompleteInputValue);
         autoCompleteInputValue = null;
         p.setPerson(person);
 
@@ -149,7 +178,7 @@ public class ManageProjectController extends AbstractController {
 
     public Collection<SelectItem> getRoles() {
         Collection<SelectItem> roleItems = new ArrayList<SelectItem>();
-        Collection<StakeholderRole> roles = srl.getRoles();
+        Collection<StakeholderRole> roles = srl.getPublicRoles();
 
         for (StakeholderRole role : roles) {
             SelectItem item = new SelectItem(role, role.getName());
@@ -194,4 +223,14 @@ public class ManageProjectController extends AbstractController {
     public void setProposedPersons(Collection<Person> proposedPersons) {
         this.proposedPersons = proposedPersons;
     }
+
+    public ProjectMember getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(ProjectMember currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    
 }

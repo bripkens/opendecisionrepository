@@ -80,7 +80,6 @@ public class IterationDateValidator implements Validator {
         String endDateId1 = "";
         endDateId1 = (String) uic.getAttributes().get("endDateId");
 
-        System.out.println(startDateId1 + " : " + endDateId1);
 
         //Startdate before enddate && enddate before startdate
 
@@ -98,9 +97,7 @@ public class IterationDateValidator implements Validator {
             calstart.setTime(startDate);
 
 
-            System.out.println(calstart.get(Calendar.DAY_OF_MONTH) + "-" + calstart.get(Calendar.MONTH) + "-" + calstart.get(Calendar.YEAR));
 
-            System.out.println("überprüft");
 
             if(startDate.after(dateValue)){
                 throw new ValidatorException(MessageFactory.getMessage(

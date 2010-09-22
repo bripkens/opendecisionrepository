@@ -7,6 +7,10 @@ import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
+import nl.rug.search.odr.entities.Person;
+import nl.rug.search.odr.entities.StakeholderRole;
+import nl.rug.search.odr.project.StakeholderRoleLocal;
+import nl.rug.search.odr.user.UserLocal;
 
 
 /**
@@ -16,6 +20,12 @@ import nl.rug.search.odr.entities.ArchitecturalDecision;
 @RequestScoped
 @ManagedBean
 public class ArchitecturalDecisionController extends AbstractController {
+
+    @EJB
+    private UserLocal ul;
+
+    @EJB
+    private StakeholderRoleLocal srl;
 
     @EJB
     private ArchitecturalDecisionLocal architecturalDecisionLocal;
@@ -68,6 +78,51 @@ public class ArchitecturalDecisionController extends AbstractController {
     }
 
     public String getDecision() {
+        StakeholderRole role = new StakeholderRole();
+        role.setName("Architect");
+        role.setCommon(true);
+        srl.persistRole(role);
+
+        role = new StakeholderRole();
+        role.setName("Manager");
+        role.setCommon(true);
+        srl.persistRole(role);
+
+        role = new StakeholderRole();
+        role.setName("Customer");
+        role.setCommon(true);
+        srl.persistRole(role);
+
+        Person p = new Person();
+        p.setName("Ben Ripkens");
+        p.setPlainPassword("12345");
+        p.setEmail("dsadas@dsadas.de");
+        ul.register(p);
+
+        p = new Person();
+        p.setName("ben");
+        p.setPlainPassword("12345");
+        p.setEmail("dsadastzu@dsadas.de");
+        ul.register(p);
+
+        p = new Person();
+        p.setName("Stefan Arians");
+        p.setPlainPassword("12345");
+        p.setEmail("dsadadsas@dsadas.de");
+        ul.register(p);
+
+        p = new Person();
+        p.setName("Uwe van Heesch");
+        p.setPlainPassword("12345");
+        p.setEmail("dsdsaadadsas@dsadas.de");
+        ul.register(p);
+
+        p = new Person();
+        p.setName("Paris Avgeriou");
+        p.setPlainPassword("12345");
+        p.setEmail("dsdsaaddsaadsas@dsadas.de");
+        ul.register(p);
+
         return decision;
     }
 

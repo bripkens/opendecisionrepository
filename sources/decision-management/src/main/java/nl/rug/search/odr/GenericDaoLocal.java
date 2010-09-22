@@ -20,4 +20,6 @@ public interface GenericDaoLocal<T, ID extends Serializable> {
     void makeTransient(T entity);
 
     boolean isPersistable(T entity);
+
+    void merge(T entity);
 }

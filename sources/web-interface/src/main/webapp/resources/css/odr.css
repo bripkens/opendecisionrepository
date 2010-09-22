@@ -114,16 +114,8 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     text-indent: 11em;
 }
 
-<<<<<<< .mine
 .formSection p.empty{
-=======
-.formSection p.empty {
->>>>>>> .r227
     padding: 0 0 9px 0;
-<<<<<<< .mine
-
-=======
->>>>>>> .r227
 }
 .formSection p.lineSpacer {
     padding: 0 0 5px;
