@@ -39,7 +39,7 @@ div#userMenu input.name {
 div#userMenu input.prefilled {
     color: #999;
 }
-div#userMenu form#loginForm input.error {
+div#userMenu form#loginForm input.error, div#userMenu form#loginForm textarea.error {
     color: #bd0000;
 }
 div#userMenu input[type=submit] {
@@ -55,7 +55,6 @@ div#userMenu input[type=submit] {
 div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     background-image: url(../images/buttonConfirmActiveSmall.png);
 }
-
 .formSection {
     position: relative;
     border-bottom: 1px dashed #666;
@@ -69,10 +68,26 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 }
 .formSection span {
 }
-#page .formSection input {
+#page .formSection input, #page .formSection textarea {
     float: right;
+    font-size: 14px;
 }
-
+#page .formSection textarea {
+    width: 483px;
+}
+#page .formSection input.iceSelInpTxtTxt {
+    position: absolute;
+    right: 137px;
+    top: 0px;
+}
+#page .formSection div.iceSelInpTxtList {
+    z-index: 30;
+}
+#page .formSection input[type=submit].add {
+    position: absolute;
+    right: 0;
+    top: 2px;
+}
 #page .formSection div.datePopup input[type=image] {
     width: 16px;
     height: 16px;
@@ -98,13 +113,8 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 }
 
 .formSection p.empty{
-<<<<<<< .mine
-    padding-bottom: 7px;
-=======
     padding: 0 0 9px 0;
->>>>>>> .r216
 }
-
 
 #page .formSection Textarea {
     float: right;

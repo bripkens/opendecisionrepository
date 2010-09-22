@@ -8,6 +8,8 @@ import com.icesoft.faces.context.effects.Fade;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
+import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.SessionUtil;
 
 /**
  *
@@ -21,15 +23,20 @@ public abstract class AbstractController {
     private ActionResult resultType;
 
     public AbstractController() {
-        resetForm(null);
+        resetForm();
     }
 
+    
     protected abstract String getSuccessMessage();
     protected abstract String getFailMessage();
     protected abstract void reset();
     protected abstract boolean execute();
 
-    public final void resetForm(ActionEvent e) {
+    protected String getBeanName() {
+        return this.getClass().getSimpleName();
+    }
+
+    public final void resetForm() {
         resultEffect = new EffectQueue("resultEffect");
         resultEffect.add(new Appear());
         Effect fade = new Fade();
@@ -41,6 +48,11 @@ public abstract class AbstractController {
         resultType = ActionResult.FAIL;
 
         reset();
+    }
+
+    public final void resetForm(ActionEvent e) {
+        resetForm();
+        JsfUtil.removeSessionBean(getBeanName());
     }
 
     public final ActionResult submitForm() {
