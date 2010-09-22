@@ -1,6 +1,7 @@
 package nl.rug.search.odr.user;
 
-import javax.annotation.PostConstruct;
+import java.util.Collection;
+import java.util.Collections;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -130,7 +131,15 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
 
 
+    @Override
+    public Collection<Person> getProposedPersons(String name) {
+        name = name.trim().toLowerCase();
 
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) like :name");
+        q.setParameter("name", "%".concat(name).concat("%"));
+
+        return q.getResultList();
+    }
 
 
 }

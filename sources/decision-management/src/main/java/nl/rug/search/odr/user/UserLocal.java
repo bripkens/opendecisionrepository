@@ -21,4 +21,6 @@ public interface UserLocal extends GenericDaoLocal<Person, Long> {
 
     public boolean isPersistable(nl.rug.search.odr.entities.Person p);
 
+    public java.util.Collection<nl.rug.search.odr.entities.Person> getProposedPersons(java.lang.String name);
+
 }
