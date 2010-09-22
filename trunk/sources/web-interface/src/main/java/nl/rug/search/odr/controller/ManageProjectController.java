@@ -27,13 +27,10 @@ public class ManageProjectController extends AbstractController {
 
     @EJB
     private ProjectLocal pl;
-
     @EJB
     private UserLocal ul;
-
     @EJB
     private StakeholderRoleLocal srl;
-
     private String name;
     private String description;
     private String autoCompleteInputValue;
@@ -62,6 +59,8 @@ public class ManageProjectController extends AbstractController {
         Project p = new Project();
         p.setName(name);
         p.setDescription(description);
+
+        p.setMembers(projectMembers);
 
         pl.createProject(p);
 
@@ -95,24 +94,50 @@ public class ManageProjectController extends AbstractController {
         Collection<SelectItem> items = new ArrayList<SelectItem>();
 
         for (Person p : proposedPersons) {
-            items.add(new SelectItem(p, p.getName()));
+            if (!isMember(p.getName())) {
+                items.add(new SelectItem(p, p.getName()));
+            }
         }
 
         return items;
     }
 
     public int getProposedPersonsListLength() {
-        return proposedPersons.size();
+        return 10;
     }
 
+    private boolean isMember(String value) {
+        for(ProjectMember member : projectMembers) {
+            if (value.equals(member.getPerson().getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    
+
     public void addMember(ActionEvent e) {
+
+        if (isMember(autoCompleteInputValue)) {
+            // TODO: notify user that the person is already a member?
+            return;
+        } else if (!ul.isRegistered(autoCompleteInputValue)) {
+            // TODO: notify user that this person is not registered?
+            return;
+        }
+
         ProjectMember p = new ProjectMember();
-        StakeholderRole role = new StakeholderRole();
-        role.setName("Architect");
+
+        StakeholderRole role = srl.getRoles().iterator().next();
         p.setRole(role);
+
         Person person = new Person();
         person.setName(autoCompleteInputValue);
+        autoCompleteInputValue = null;
         p.setPerson(person);
+
         projectMembers.add(p);
     }
 
@@ -126,7 +151,7 @@ public class ManageProjectController extends AbstractController {
         Collection<SelectItem> roleItems = new ArrayList<SelectItem>();
         Collection<StakeholderRole> roles = srl.getRoles();
 
-        for(StakeholderRole role : roles) {
+        for (StakeholderRole role : roles) {
             SelectItem item = new SelectItem(role, role.getName());
             roleItems.add(item);
         }

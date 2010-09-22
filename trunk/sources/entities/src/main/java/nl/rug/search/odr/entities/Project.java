@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Project extends BaseEntity<Project> {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL, orphanRemoval=true)
     private Collection<ProjectMember> members;
 
     public Project() {

@@ -24,14 +24,17 @@ public class StakeholderRoleBean implements StakeholderRoleLocal {
 
         StakeholderRole role = new StakeholderRole();
         role.setName("Architect");
+        role.setCommon(true);
         roles.add(role);
 
         role = new StakeholderRole();
         role.setName("Manager");
+        role.setCommon(true);
         roles.add(role);
 
         role = new StakeholderRole();
         role.setName("Customer");
+        role.setCommon(true);
         roles.add(role);
 
         return roles;
