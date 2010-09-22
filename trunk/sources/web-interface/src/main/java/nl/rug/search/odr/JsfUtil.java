@@ -34,4 +34,8 @@ public class JsfUtil {
         root.setViewId(viewId);
         context.setViewRoot(root);
     }
+
+    public static void removeSessionBean(String name) {
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(name);
+    }
 }

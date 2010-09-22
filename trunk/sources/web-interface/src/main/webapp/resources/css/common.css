@@ -586,14 +586,14 @@ form hr {
     background-image: url(../images/buttonConfirmActive.png);
 }
 
-#page input[type=reset].abort {
+#page input[type=submit].abort, #page input[type=reset].abort {
     background-image: url(../images/buttonAbort.png);
     position: relative;
     top: 2em;
     left: 1em;
 }
 
-#page input[type=reset].abort:active, #page input[type=submit].abort:focus {
+#page input[type=submit].abort:active, #page input[type=reset].abort:focus {
     background-image: url(../images/buttonAbortActive.png);
 }
 
