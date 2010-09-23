@@ -1,19 +1,13 @@
 package nl.rug.search.odr.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Iteration;
-import nl.rug.search.odr.entities.Person;
-import nl.rug.search.odr.entities.StakeholderRole;
-import nl.rug.search.odr.project.StakeholderRoleLocal;
-import nl.rug.search.odr.user.UserLocal;
 
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.Highlight;
