@@ -14,9 +14,9 @@
 
     <ui:define name="belowHeader">
         <div id="result">
-            <ice:outputText value="#{architecturalDecisionController.resultMessage}"
-                            styleClass="#{architecturalDecisionController.resultStyle}"
-                            effect="#{architecturalDecisionController.resultEffect}"
+            <ice:outputText value="#{decisionController.resultMessage}"
+                            styleClass="#{decisionController.resultStyle}"
+                            effect="#{decisionController.resultEffect}"
                             visible="false" />
         </div>
     </ui:define>
@@ -33,7 +33,7 @@
                 <ice:inputText id="inName"
                                label="#{form['label.name']}"
                                maxlength="255"
-                               value="#{architecturalDecisionController.name}"
+                               value="#{decisionController.name}"
                                required="true">
                     <f:validateLength minimum="3" maximum="30" />
 
@@ -53,7 +53,7 @@
                 <ice:outputLabel value="#{form['label.problem']}" for="inProblem" />
                 <ice:inputTextarea id="inProblem"
                                    label="#{form['label.problem']}"
-                                   value="#{architecturalDecisionController.problem}">
+                                   value="#{decisionController.problem}">
                 </ice:inputTextarea>
                 <p class="empty"></p>
             </div>
@@ -64,7 +64,7 @@
                 <ice:outputLabel value="#{form['label.decision']}" for="inDecision"/>
                 <ice:inputText id="inDecision"
                                label="#{form['label.decision']}"
-                               value="#{architecturalDecisionController.decision}">
+                               value="#{decisionController.decision}">
                 </ice:inputText>
                 <p class="empty"></p>
             </div>
@@ -73,7 +73,7 @@
             <div class="formSection">
                 <ice:outputLabel value="#{form['label.arguments']}" for="inArguments"/>
                 <ice:inputTextarea id="inArguments"
-                                   value="#{architecturalDecisionController.arguments}">
+                                   value="#{decisionController.arguments}">
                 </ice:inputTextarea>
                 <p class="empty"></p>
             </div>
@@ -83,19 +83,19 @@
                 <ice:outputLabel value="#{form['label.oprId']}" for="inOprId"/>
                 <ice:inputText id="inOprId"
                                label="#{form['label.oprId']}"
-                               value="#{architecturalDecisionController.oprId}">
+                               value="#{decisionController.oprId}">
                 </ice:inputText>
             </div>
 
 
             <!--Submit Button-->
-            <ice:commandButton action="#{architecturalDecisionController.submitForm}"
+            <ice:commandButton action="#{decisionController.submitForm}"
                                value="#{form['button.submit']}"
                                styleClass="confirm"/>
 
 
             <!--Reset Button-->
-            <ice:commandButton actionListener="#{architecturalDecisionController.resetForm}"
+            <ice:commandButton actionListener="#{decisionController.resetForm}"
                                value="#{form['button.clear']}"
                                styleClass="abort"
                                type="reset" />

@@ -82,14 +82,14 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
     }
 
     @Override
-    public Person tryLogin(String name, String password) {
-        StringValidator.isValid(name);
+    public Person tryLogin(String email, String password) {
+        StringValidator.isValid(email);
         StringValidator.isValid(password);
 
-        name = name.trim().toLowerCase();
+        email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
-        q.setParameter("name", name);
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email");
+        q.setParameter("email", email);
 
         Person result;
 
