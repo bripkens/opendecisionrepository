@@ -20,12 +20,12 @@ public class LoginController {
 
     @EJB
     private UserLocal ul;
-    private String name, password;
+    private String email, password;
 
     public ActionResult submitForm() {
         Person p = null;
 
-        p = ul.tryLogin(name, password);
+        p = ul.tryLogin(email, password);
 
         if (p == null) {
             return ActionResult.FAIL;
@@ -41,12 +41,12 @@ public class LoginController {
         return ActionResult.SUCCESS;
     }
 
-    public String getName() {
-        return name;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {

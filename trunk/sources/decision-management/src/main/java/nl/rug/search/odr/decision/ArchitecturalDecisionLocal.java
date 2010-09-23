@@ -1,5 +1,5 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.decision;
 
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 

@@ -1,5 +1,5 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.decision;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

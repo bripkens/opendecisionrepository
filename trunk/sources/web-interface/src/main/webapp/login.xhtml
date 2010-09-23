@@ -7,11 +7,11 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
         <ice:form id="loginForm" partialSubmit="false">
-            <ice:outputLabel value="#{form['label.name']}" for="inLoginName" styleClass="prefillValue" />
-            <ice:inputText id="inLoginName"
-                           label="#{form['label.name']}"
+            <ice:outputLabel value="#{form['label.email']}" for="inLoginEmail" styleClass="prefillValue" />
+            <ice:inputText id="inLoginEmail"
+                           label="#{form['label.email']}"
                            maxlength="255"
-                           value="#{loginController.name}"
+                           value="#{loginController.email}"
                            styleClass="prefill name">
             </ice:inputText>
 

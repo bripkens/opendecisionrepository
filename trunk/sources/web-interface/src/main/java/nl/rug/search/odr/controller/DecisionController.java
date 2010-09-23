@@ -4,7 +4,7 @@ package nl.rug.search.odr.controller;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import nl.rug.search.odr.ArchitecturalDecisionLocal;
+import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 import nl.rug.search.odr.entities.Person;
@@ -19,7 +19,7 @@ import nl.rug.search.odr.user.UserLocal;
  */
 @RequestScoped
 @ManagedBean
-public class ArchitecturalDecisionController extends AbstractController {
+public class DecisionController extends AbstractController {
 
     @EJB
     private UserLocal ul;
@@ -96,31 +96,25 @@ public class ArchitecturalDecisionController extends AbstractController {
         Person p = new Person();
         p.setName("Ben Ripkens");
         p.setPlainPassword("12345");
-        p.setEmail("dsadas@dsadas.de");
-        ul.register(p);
-
-        p = new Person();
-        p.setName("ben");
-        p.setPlainPassword("12345");
-        p.setEmail("dsadastzu@dsadas.de");
+        p.setEmail("ben@ben.de");
         ul.register(p);
 
         p = new Person();
         p.setName("Stefan Arians");
         p.setPlainPassword("12345");
-        p.setEmail("dsadadsas@dsadas.de");
+        p.setEmail("stefan@stefan.de");
         ul.register(p);
 
         p = new Person();
         p.setName("Uwe van Heesch");
         p.setPlainPassword("12345");
-        p.setEmail("dsdsaadadsas@dsadas.de");
+        p.setEmail("uwe@uwe.de");
         ul.register(p);
 
         p = new Person();
         p.setName("Paris Avgeriou");
         p.setPlainPassword("12345");
-        p.setEmail("dsdsaaddsaadsas@dsadas.de");
+        p.setEmail("paris@paris.de");
         ul.register(p);
 
         return decision;

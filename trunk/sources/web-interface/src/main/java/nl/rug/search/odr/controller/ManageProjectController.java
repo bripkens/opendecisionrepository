@@ -82,6 +82,8 @@ public class ManageProjectController extends AbstractController {
 
         pl.createProject(sourceProject);
 
+        resetFields();
+
         return true;
     }
 
