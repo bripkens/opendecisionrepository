@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import javax.ejb.embeddable.EJBContainer;
 
 import javax.naming.Context;
-import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 
@@ -45,7 +45,7 @@ public class AbstractEjbTest {
 //        ejbC.close();
     }
 
-    @After
+    @Before
     public void tearDown() {
         deleteHelper.deleteAll();
     }

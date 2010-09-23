@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.SessionUtil;
 
 /**
  *
@@ -22,7 +21,13 @@ public abstract class AbstractController {
     private String resultMessage;
     private ActionResult resultType;
 
+    private final String beanName;
+
     public AbstractController() {
+        String className = getClass().getSimpleName();
+
+        beanName = className.substring(0, 1).toLowerCase().concat(className.substring(1));
+
         resetForm();
     }
 
@@ -33,7 +38,7 @@ public abstract class AbstractController {
     protected abstract boolean execute();
 
     protected String getBeanName() {
-        return this.getClass().getSimpleName();
+        return beanName;
     }
 
     public final void resetForm() {
