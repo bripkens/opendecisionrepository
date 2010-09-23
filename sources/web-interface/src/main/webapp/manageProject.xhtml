@@ -47,14 +47,12 @@
                                maxlength="255"
                                value="#{manageProjectController.name}"
                                required="true"
-                               partialSubmit="true">
+                               partialSubmit="true"
+                               validator="#{manageProjectController.checkProjectName}">
                     <f:validateLength minimum="3" maximum="50" />
-                    
+
                     <f:validator validatorId="RegexValidator" />
                     <f:attribute name="inputCharset" value="A-Za-z0-9-_" />
-
-                    <f:validator validatorId="ProjectNameValidator" />
-                    <f:attribute name="previousName" value="#{manageProjectController.previousName}" />
                 </ice:inputText>
                 <p>
                 <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
