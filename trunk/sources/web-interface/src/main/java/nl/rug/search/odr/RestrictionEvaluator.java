@@ -30,7 +30,6 @@ public abstract class RestrictionEvaluator {
             }
         }
 
-        return IS_ALLOWED;
+        return "/error.html";
     }
-
 }

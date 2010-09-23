@@ -32,7 +32,7 @@ public abstract class GenericDaoBean<T, ID extends Serializable> implements Gene
     public T getById(ID id) {
         T entity = null;
         try {
-            entity = manager.getReference(entityType, id);
+            entity = manager.find(entityType, id);
         } catch (EntityNotFoundException e) {
         }
 

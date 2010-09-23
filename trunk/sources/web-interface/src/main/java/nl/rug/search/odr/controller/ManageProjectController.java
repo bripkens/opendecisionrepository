@@ -2,7 +2,6 @@ package nl.rug.search.odr.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -13,6 +12,7 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
@@ -31,29 +31,19 @@ public class ManageProjectController extends AbstractController {
 
     @EJB
     private ProjectLocal pl;
-
     @EJB
     private UserLocal ul;
-
     @EJB
     private StakeholderRoleLocal srl;
-    
     private String name;
     private String description;
     private String autoCompleteInputValue;
     private ProjectMember currentUser;
+    private Project sourceProject;
     private Collection<ProjectMember> projectMembers;
     private Collection<Person> proposedPersons;
 
-    @PostConstruct
-    public void initForm() {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        
-
-        currentUser = new ProjectMember();
-        currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
-        currentUser.setRole(srl.getSomePublicRole());
-    }
+    private String previousName;
 
     @Override
     protected String getSuccessMessage() {
@@ -67,30 +57,26 @@ public class ManageProjectController extends AbstractController {
 
     @Override
     protected void reset() {
-        name = description = autoCompleteInputValue = null;
+        name = description = autoCompleteInputValue = previousName = null;
         proposedPersons = new ArrayList<Person>();
         projectMembers = new ArrayList<ProjectMember>();
-        currentUser = null;
     }
 
     @Override
     protected boolean execute() {
-        Project p = new Project();
-        p.setName(name);
-        p.setDescription(description);
+        sourceProject.setName(name);
+        sourceProject.setDescription(description);
 
-        for(ProjectMember member : projectMembers) {
-            p.addMember(member);
-        }
-        p.addMember(currentUser);
-
-        for(ProjectMember member : p.getMembers()) {
-            System.out.println("Project: " + p.getName() + "; Member: " + member.getPerson().getName() + "; Role: " + member.getRole().getName());
+        for(ProjectMember member : sourceProject.getMembers()) {
+            sourceProject.removeMember(member);
         }
 
-        pl.createProject(p);
+        for (ProjectMember member : projectMembers) {
+            sourceProject.addMember(member);
+        }
+        sourceProject.addMember(currentUser);
 
-        reset();
+        pl.createProject(sourceProject);
 
         return true;
     }
@@ -137,7 +123,7 @@ public class ManageProjectController extends AbstractController {
             return true;
         }
 
-        for(ProjectMember member : projectMembers) {
+        for (ProjectMember member : projectMembers) {
             if (value.equalsIgnoreCase(member.getPerson().getName())) {
                 return true;
             }
@@ -145,8 +131,6 @@ public class ManageProjectController extends AbstractController {
 
         return false;
     }
-
-    
 
     public void addMember(ActionEvent e) {
 
@@ -232,5 +216,72 @@ public class ManageProjectController extends AbstractController {
         this.currentUser = currentUser;
     }
 
-    
+    public String getPreviousName() {
+        return previousName;
+    }
+
+    public boolean isValidRequest() {
+        if (!AuthenticationUtil.isAuthtenticated()) {
+            return false;
+        }
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        String param = request.getParameter(RequestParameter.PROJECT_ID);
+
+        if (param == null) {
+            if (sourceProject == null || sourceProject.getId() != null) {
+                reset();
+                sourceProject = new Project();
+                currentUser = new ProjectMember();
+                currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
+                currentUser.setRole(srl.getSomePublicRole());
+                return true;
+            }
+
+            return true;
+        }
+
+
+
+        long projectid;
+        try {
+            projectid = Long.parseLong(param);
+        } catch (NumberFormatException ex) {
+            return false; // id can't be parsed
+        }
+
+        if (sourceProject != null && sourceProject.getId() == (Long) projectid) {
+            return true;
+        }
+
+        reset();
+
+        Project p = pl.getById(projectid);
+
+        if (p == null) {
+            return false; // id does not exist
+        }
+
+        sourceProject = p;
+        long userId = AuthenticationUtil.getUserId();
+
+        name = p.getName();
+        previousName = name;
+        description = p.getDescription();
+
+        for (ProjectMember pm : p.getMembers()) {
+            if (pm.getPerson().getId() == userId) {
+                currentUser = pm;
+            } else {
+                projectMembers.add(pm);
+            }
+        }
+
+        if (currentUser == null) {
+            return false; // not part of the group
+        }
+
+        return true;
+    }
 }

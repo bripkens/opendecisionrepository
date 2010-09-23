@@ -25,6 +25,8 @@ public class ProjectNameValidator implements Validator {
     public static final String USEDPROJECTNAME_ID =
             "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
 
+    private static final String PREV_NAME = "previousName";
+
     public ProjectNameValidator() {
         try {
             pl = EjbUtil.lookUp(Helper.JNDI_NAME, ProjectLocal.class);
@@ -40,6 +42,10 @@ public class ProjectNameValidator implements Validator {
 
         if (!StringValidator.isValid(name, false) || !pl.isUsed(name)) {
             return;
+        }
+
+        if (uic.getAttributes().containsKey(PREV_NAME)) {
+            
         }
 
         throw new ValidatorException(MessageFactory.getMessage(
