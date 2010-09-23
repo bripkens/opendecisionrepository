@@ -106,16 +106,16 @@ public class Person extends BaseEntity<Person> {
     }
 
     public void setName(String name) {
-        if (this.name != null) {
-            throw new BusinessException("Can't change the user name");
-        }
-
         StringValidator.isValid(name);
 
         name = name.trim();
 
         if (name.length() <= 2 || name.length() >= 30) {
             throw new BusinessException("Name is too long or too short.");
+        }
+
+        if (this.name != null && !this.name.equalsIgnoreCase(name)) {
+            throw new BusinessException("Chaning the name is not possible.");
         }
 
         this.name = name;

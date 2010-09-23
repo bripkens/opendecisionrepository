@@ -55,16 +55,16 @@ public class Project extends BaseEntity<Project> {
     }
 
     public void setName(String name) {
-        if (this.name != null) {
-            throw new BusinessException("A project name may not be changed.");
-        }
-
         StringValidator.isValid(name);
 
         name = name.trim();
 
         if (name.length() <= 2 || name.length() > 50) {
             throw new BusinessException("Name is too long or too short.");
+        }
+
+        if (this.name != null && !this.name.equalsIgnoreCase(name)) {
+            throw new BusinessException("Chaning the name is not possible.");
         }
 
         this.name = name;

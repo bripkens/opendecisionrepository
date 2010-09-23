@@ -1,18 +1,22 @@
 package nl.rug.search.odr.controller;
 
+import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.entities.Project;
@@ -42,8 +46,8 @@ public class ManageProjectController extends AbstractController {
     private Project sourceProject;
     private Collection<ProjectMember> projectMembers;
     private Collection<Person> proposedPersons;
-
-    private String previousName;
+    public static final String USEDPROJECTNAME_ID =
+            "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
 
     @Override
     protected String getSuccessMessage() {
@@ -57,7 +61,7 @@ public class ManageProjectController extends AbstractController {
 
     @Override
     protected void reset() {
-        name = description = autoCompleteInputValue = previousName = null;
+        name = description = autoCompleteInputValue = null;
         proposedPersons = new ArrayList<Person>();
         projectMembers = new ArrayList<ProjectMember>();
     }
@@ -67,7 +71,7 @@ public class ManageProjectController extends AbstractController {
         sourceProject.setName(name);
         sourceProject.setDescription(description);
 
-        for(ProjectMember member : sourceProject.getMembers()) {
+        for (ProjectMember member : sourceProject.getMembers()) {
             sourceProject.removeMember(member);
         }
 
@@ -216,10 +220,6 @@ public class ManageProjectController extends AbstractController {
         this.currentUser = currentUser;
     }
 
-    public String getPreviousName() {
-        return previousName;
-    }
-
     public boolean isValidRequest() {
         if (!AuthenticationUtil.isAuthtenticated()) {
             return false;
@@ -227,31 +227,44 @@ public class ManageProjectController extends AbstractController {
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        String param = request.getParameter(RequestParameter.PROJECT_ID);
+        String paramId = request.getParameter(RequestParameter.PROJECT_ID);
+        String paramCreate = request.getParameter(RequestParameter.PROJECT_CREATE);
 
-        if (param == null) {
-            if (sourceProject == null || sourceProject.getId() != null) {
-                reset();
-                sourceProject = new Project();
-                currentUser = new ProjectMember();
-                currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
-                currentUser.setRole(srl.getSomePublicRole());
-                return true;
-            }
-
+        if (paramId == null && paramCreate != null) {
+            reset();
+            sourceProject = new Project();
+            currentUser = new ProjectMember();
+            currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
+            currentUser.setRole(srl.getSomePublicRole());
+            return true;
+        } else if (paramId == null && paramCreate == null && sourceProject != null && sourceProject.getId() == null) {
             return true;
         }
 
 
+        if (paramCreate != null) {
+            resetFields();
+            return false;
+        }
+
+        if (paramId == null && sourceProject != null && sourceProject.getId() != null) {
+            System.out.println("############################## 3 ###################################");
+            initFields(sourceProject);
+            return true;
+        }
+
 
         long projectid;
         try {
-            projectid = Long.parseLong(param);
+            projectid = Long.parseLong(paramId);
         } catch (NumberFormatException ex) {
+            System.out.println("############################## 4 ###################################");
+            resetFields();
             return false; // id can't be parsed
         }
 
-        if (sourceProject != null && sourceProject.getId() == (Long) projectid) {
+        if (sourceProject != null && sourceProject.getId() != null && sourceProject.getId().equals(projectid)) {
+            System.out.println("############################## 5 ###################################");
             return true;
         }
 
@@ -260,14 +273,35 @@ public class ManageProjectController extends AbstractController {
         Project p = pl.getById(projectid);
 
         if (p == null) {
+
+            System.out.println("############################## 6 ###################################");
+            resetFields();
             return false; // id does not exist
         }
 
         sourceProject = p;
+        initFields(p);
+
+        if (currentUser == null) {
+            System.out.println("############################## 7 ###################################");
+            resetFields();
+            return false; // not part of the group
+        }
+
+        System.out.println("############################## 8 ###################################");
+        return true;
+    }
+
+    private void resetFields() {
+        name = description = null;
+        currentUser = null;
+        sourceProject = null;
+    }
+
+    private void initFields(Project p) {
         long userId = AuthenticationUtil.getUserId();
 
         name = p.getName();
-        previousName = name;
         description = p.getDescription();
 
         for (ProjectMember pm : p.getMembers()) {
@@ -277,11 +311,34 @@ public class ManageProjectController extends AbstractController {
                 projectMembers.add(pm);
             }
         }
+    }
 
-        if (currentUser == null) {
-            return false; // not part of the group
+    public void checkProjectName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
+
+        String newName = value.toString();
+
+        if (!StringValidator.isValid(newName, false)) {
+            return;
         }
 
-        return true;
+        if (sourceProject.getName() != null) {
+            if (newName.equalsIgnoreCase(sourceProject.getName())) {
+                return;
+            }
+        }
+
+
+        if (!pl.isUsed(newName)) {
+            return;
+        }
+
+
+
+        throw new ValidatorException(MessageFactory.getMessage(
+                fc,
+                USEDPROJECTNAME_ID,
+                new Object[]{
+                    MessageFactory.getLabel(fc, uic)
+                }));
     }
 }
