@@ -623,9 +623,9 @@ form hr {
 .iceRowSelMouseOver, .iceRowSelSelectedMouseOver {
     background-color: #48a659;
 }
-.iceRowSelSelected {
+/*.iceRowSelSelected {
     background-color: #009024;
-}
+}*/
 
 #page .fanPanel {
 }

@@ -1,85 +1,91 @@
 package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.project.ProjectLocal;
 
 @ManagedBean
 @RequestScoped
 public class ProjectsController {
 
-    //  List of sample inventory data.
-    private InventoryItem[] carInventory = new InventoryItem[]{
-        new InventoryItem(58285, "blAAAA", " a", 23452435, 3452345),
-        new InventoryItem(58285, "blAAAA", " s", 23452435, 3452345),
-        new InventoryItem(58285, "blAAAA", " d", 23452435, 3452345),
-        new InventoryItem(58285, "blAAAA", " h", 23452435, 3452345),
-        new InventoryItem(58285, "blAAAA", " g", 23452435, 3452345),
-        new InventoryItem(58285, "blAAAA", " k", 23452435, 3452345),};
+    @EJB
+    private ProjectLocal pl;
+    private List<ProjectMember> members;
 
     public void rowSelectionListener(RowSelectorEvent event) {
-        InventoryItem item;
-        for (int i = 0, max = carInventory.length; i < max; i++) {
-            item = (InventoryItem) carInventory[i];
-                item.setSelected(false);
-            }
-        carInventory[event.getRow()].setSelected(true);
-
-        for (int i = 0; i < carInventory.length; i++) {
-            if (carInventory[i].isSelected()) {
-//                System.out.println(carInventory[i].description);
+        for (int i = 0; i < members.size(); i++) {
+            if (i == event.getRow()) {
+                try {
+                    JsfUtil.redirect("/manageProject.html?" + RequestParameter.PROJECT_ID + "=" + members.get(i).getProject().getId());
+                } catch (IOException ex) {
+                    Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
 
+    @PostConstruct
+    public void init() {
+        members = pl.getAllProjectsFromUser(1);
+    }
+
     /**
-     * Gets the inventoryItem array of car data.
-     * @return array of car inventory data.
+     * @return array of projects data.
      */
-    public InventoryItem[] getCarInventory() {
-        return carInventory;
+    public List<ProjectMember> getProjects() {
+        // members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
+        return members;
+    }
+
+    public boolean isActive() {
+        members = pl.getAllProjectsFromUser(1);
+        if(members.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    public void newProjectLink() {
+        try {
+            JsfUtil.redirect("/manageProject.html?create");
+        } catch (IOException ex) {
+            Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
      * Inventory Item subclass stores data about a cars inventory data.  Properties
      * such a stock, model, description, odometer and price are stored.
      */
-    public class InventoryItem {
+    public class project {
         // slock number
 
-        int stock;
-        String model;
-        String description;
-        int odometer;
-        int price;
-        private boolean selected;
+        String projectName;
+        String stakeholderRole;
+        boolean selected;
 
-        public InventoryItem(int stock, String model, String description, int odometer, int price) {
-            this.stock = stock;
-            this.model = model;
-            this.description = description;
-            this.odometer = odometer;
-            this.price = price;
+        public project(String name, String role) {
+            this.projectName = name;
+            this.stakeholderRole = role;
         }
 
-        public int getStock() {
-            return stock;
+        public String getProjectName() {
+            return projectName;
         }
 
-        public String getModel() {
-            return model;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public int getOdometer() {
-            return odometer;
-        }
-
-        public int getPrice() {
-            return price;
+        public String getStakeholderRole() {
+            return stakeholderRole;
         }
 
         public boolean isSelected() {
