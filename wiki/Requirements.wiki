@@ -213,9 +213,10 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <UL>
 <LI>name (required, must be unique)</LI>
 <LI>description (optional)</LI>
+<li>A list of all project members and their roles in the project. Members can also be added and removed using this form.</li>
 </UL>
 </LI>
-<LI>The user confirms his entries with ok.</LI>
+<LI>The user confirms his entries with _submit_.</LI>
 <LI>The system saves this new project</LI>
 </OL>
       
@@ -262,13 +263,8 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       
 <OL>
 <LI>The user chooses _modify project_</LI>
-<LI>The system displays a form with the following fields:
-<UL>
-<LI>description (optional)</LI>
-<LI>a list of all project members</LI>
-</UL>
-</LI>
-<LI>The user confirms his entries with ok.</LI>
+<LI>see use case *create project step 2*</li>
+<LI>see use case *create project step 3*</li>
 <LI>The system saves this modified project</LI>
 </OL>
       
@@ -303,7 +299,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Get a list of all projects that the user is participating in.</td>
+      <td colspan="4">Get a list of all projects that the user is participating in and provide a detail view for a single project.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
@@ -315,7 +311,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       
 <OL>
 <LI>The user chooses _my projects_</LI>
-<LI>The system displays a list of all projects.</LI>
+<LI>The system displays a list of all projects that the user is participating in.</LI>
 <LI>The user selects a project.</LI>
 <LI>The system provides the user with detailed information about the project.</LI>
 </OL>
@@ -351,7 +347,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Get a list of all projects that the user is participating in and provide a detail view for a single project.</td>
+      <td colspan="4">Delete a project that a user is participating in.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
