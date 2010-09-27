@@ -84,7 +84,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
-<LI>This usecase starts when the user decides to register</LI>
+<LI>The guest chooses _register_</LI>
 <LI>The system displays a form
 <UL>
 <LI>Name _(required, minimum number of characters: 3)_</LI>
