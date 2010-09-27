@@ -24,6 +24,12 @@
                              styleClass="prefill password">
             </ice:inputSecret>
 
+            <ice:panelGroup effect="#{loginController.notificationEffect}"
+                            visible="false"
+                            styleClass="loginError">
+                <ice:outputText value="#{form['login.fail']}" />
+            </ice:panelGroup>
+
             <ice:commandLink action="register"
                              value="#{form['button.register']}"
                              styleClass="registerLink"/>
