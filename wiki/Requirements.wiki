@@ -549,7 +549,10 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <LI>The user select a project</LI>
 <LI>The system provides an overview over all iterations</LI>
 <LI>The user moves his mouse over an iteration name</LI>
-<li>The system shows details of this iteration in a small popup</li>
+<li>The system shows details of this iteration in a small popup<ul>
+<li>name</li>
+<li>description</li>
+</ul></li>
 </OL>
       </td>
     </tr>
@@ -597,8 +600,8 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
 <OL>
 <LI>The user clicks on _modify project_</LI>
+<LI>See use case *create iteration step 2*</LI>
 <LI>See use case *create iteration step 3*</LI>
-<LI>See use case *create iteration step 4*</LI>
 <Li>The system saves the modifications</Li>
 </OL>
       </td>
