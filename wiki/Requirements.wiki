@@ -765,8 +765,8 @@ Edit a decision</wiki:comment>
       <td colspan="4"> 
 <OL>
 <LI>The User chooses modify decision</LI>
+<LI>See use case *create decision step 2*</LI>
 <LI>See use case *create decision step 3*</LI>
-<LI>See use case *create decision step 4*</LI>
 <LI>The system saves this modified decision</LI>
 </OL>
       </td>
