@@ -59,7 +59,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-1</td>
       <th>Name</th>
       <td>register</td>
       <th>Package</th>
@@ -121,7 +121,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-2</td>
       <th>Name</th>
       <td>login</td>
       <th>Package</th>
@@ -182,7 +182,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-3</td>
       <th>Name</th>
       <td>create project</td>
       <th>Package</th>
@@ -236,7 +236,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-4</td>
       <th>Name</th>
       <td>modify project</td>
       <th>Package</th>
@@ -284,7 +284,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-5</td>
       <th>Name</th>
       <td>browse projects</td>
       <th>Package</th>
@@ -338,7 +338,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-6</td>
       <th>Name</th>
       <td>delete project</td>
       <th>Package</th>
@@ -388,7 +388,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-7</td>
       <th>Name</th>
       <td>create iteration</td>
       <th>Package</th>
@@ -442,7 +442,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-6</td>
+      <td width="70">UC-8</td>
       <th>Name</th>
       <td>Browse iterations</td>
       <th>Package</th>
@@ -495,7 +495,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-7</td>
+      <td width="70">UC-9</td>
       <th>Name</th>
       <td>Edit iteration</td>
       <th>Package</th>
@@ -543,7 +543,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-8</td>
+      <td width="70">UC-10</td>
       <th>Name</th>
       <td>delete iteration</td>
       <th>Package</th>
@@ -626,7 +626,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-11</td>
       <th>Name</th>
       <td>create decision</td>
       <th>Package</th>
@@ -683,7 +683,7 @@ read an decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-6</td>
+      <td width="70">UC-12</td>
       <th>Name</th>
       <td>Read decision</td>
       <th>Package</th>
@@ -740,7 +740,7 @@ Edit a decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-7</td>
+      <td width="70">UC-13</td>
       <th>Name</th>
       <td>Edit a decision</td>
       <th>Package</th>
@@ -789,7 +789,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-8</td>
+      <td width="70">UC-14</td>
       <th>Name</th>
       <td>delete Decision</td>
       <th>Package</th>
@@ -837,7 +837,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-15</td>
       <th>Name</th>
       <td>create relationship</td>
       <th>Package</th>
@@ -890,7 +890,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-6</td>
+      <td width="70">UC-16</td>
       <th>Name</th>
       <td>Read relationship</td>
       <th>Package</th>
@@ -936,7 +936,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-7</td>
+      <td width="70">UC-17</td>
       <th>Name</th>
       <td>Edit a relationship</td>
       <th>Package</th>
@@ -986,7 +986,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">LLUC-8</td>
+      <td width="70">UC-18</td>
       <th>Name</th>
       <td>delete relationship</td>
       <th>Package</th>
@@ -1035,7 +1035,7 @@ delete an decision</wiki:comment>
   <thead>
     <tr>
       <th>ID</th>
-      <td>LLUC-5</td>
+      <td>UC-19</td>
       <th>Name</th>
       <td>change the status</td>
       <th>Package</th>
