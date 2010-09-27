@@ -154,7 +154,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 </ul>
 </LI>
 <LI>The user submits the form.</LI>
-<LI>The system checks the login data and authorizes the user.</LI>
+<LI>The system checks the login data and authorizes the user</LI>
 </OL>
       
       </td>
@@ -212,7 +212,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <UL>
 <LI>name _(required, must be unique, minimum number of characters: 3, not changeable after project creation)_</LI>
 <LI>description</LI>
-<li>A list of all project members and their roles in the project. Members can be added and removed using this form.</li>
+<li>A list of all project members and their roles in the project. Members can be added and removed using this form</li>
 </UL>
 </LI>
 <LI>The user confirms his entries with _submit_.</LI>
@@ -250,7 +250,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Save a modified version of an already existing project.</td>
+      <td colspan="4">Save a modified version of an already existing project</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
@@ -310,9 +310,15 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       
 <OL>
 <LI>The user chooses _my projects_</LI>
-<LI>The system displays a list of all projects that the user is participating in.</LI>
-<LI>The user selects a project.</LI>
-<LI>The system provides the user with detailed information about the project.</LI>
+<LI>The system displays a list of all projects that the user is participating in</LI>
+<LI>The user selects a project</LI>
+<LI>The system provides the user with detailed information about the project. The form shows: <ul>
+<li>name</li>
+<li>description</li>
+<li>all project members</li>
+<li>the names of all decisions</li>
+<li>the names of all iterations in ascending order sorted by their start date</li>
+</ul></LI>
 </OL>
       
       </td>
@@ -358,9 +364,9 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       
 <OL>
 <LI>The user chooses _delete project_</LI>
-<LI>The system asks for confirmation.</LI>
-<LI>The user confirms the action.</LI>
-<LI>The system deletes the project.</LI>
+<LI>The system asks for confirmation</LI>
+<LI>The user confirms the action</LI>
+<LI>The system deletes the project</LI>
 </OL>
       
       </td>
@@ -480,25 +486,21 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to create iterations</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
       
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects _new Iteration_</LI>
-<LI>The System displays a form:</LI>
+<LI>The user selects _new iteration_</LI>
+<LI>The system displays a form:</LI>
 <UL>
-<LI>Name</LI>
+<LI>name _(required)_</LI>
 <LI>Description</LI>
-<LI>Startdate</LI>
-<LI>Enddate</LI>
 </UL>
-<LI>The user confirms his entries with ok.</LI>
-<Li>The System adds the Iteration</Li>
+<LI>The user confirms his entries with _submit_</LI>
+<Li>The system adds the iteration</Li>
 </OL>
       
       </td>
@@ -514,8 +516,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-<wiki:comment>
-read an iteration</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -523,7 +524,7 @@ read an iteration</wiki:comment>
       <th width="30">ID</th>
       <td width="70">LLUC-6</td>
       <th>Name</th>
-      <td>Read iteration</td>
+      <td>Browse iterations</td>
       <th>Package</th>
       <td>Project Management</td>
     </tr>
@@ -535,20 +536,20 @@ read an iteration</wiki:comment>
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">read iterations</td>
+      <td colspan="4">Browse iterations and get a detail view for a single iteration.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to read iterations</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects an existing Iteration</LI>
-<LI>The System displays all details about this iteration</LI>
+<LI>The user select a project</LI>
+<LI>The system provides an overview over all iterations</LI>
+<LI>The user moves his mouse over an iteration name</LI>
+<li>The system shows details of this iteration in a small popup</li>
 </OL>
       </td>
     </tr>
@@ -563,15 +564,17 @@ read an iteration</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-Edit an iteration</wiki:comment>
+
+
+
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
       <th width="30">ID</th>
       <td width="70">LLUC-7</td>
       <th>Name</th>
-      <td>Edit an iteration</td>
+      <td>Edit iteration</td>
       <th>Package</th>
       <td>Project Management</td>
     </tr>
@@ -587,20 +590,16 @@ Edit an iteration</wiki:comment>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to edit iterations</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects an existing iteration</LI>
-<LI>The System displays all details about this iteration</LI>
-<LI>The User selctes _edit_</LI>
-<LI>The System displays the iteration in an editable form</LI>
-<LI>The User changes the details and selects _OK_</LI>
-<LI>The System saves the changes</LI>
+<LI>The user clicks on _modify project_</LI>
+<LI>See use case *create iteration step 3*</LI>
+<LI>See use case *create iteration step 4*</LI>
+<Li>The system saves the modifications</Li>
 </OL>
       </td>
     </tr>
@@ -624,7 +623,7 @@ delete an iteration</wiki:comment>
       <th width="30">ID</th>
       <td width="70">LLUC-8</td>
       <th>Name</th>
-      <td>delete Iterations</td>
+      <td>delete iteration</td>
       <th>Package</th>
       <td>Project Management</td>
     </tr>
@@ -636,7 +635,7 @@ delete an iteration</wiki:comment>
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">delete an iteration</td>
+      <td colspan="4">delete iteration</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
@@ -646,14 +645,10 @@ delete an iteration</wiki:comment>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects an existing iteration</LI>
-<LI>The System displays all details about this iteration</LI>
-<LI>The User selctes _delete_</LI>
-<LI>The System asks for confirmation.</LI>
-<LI>The User confirms it</LI>
-<LI>The System delete the iteration</LI>
+<LI>The user chooses _delete iteration_</LI>
+<LI>The system asks for confirmation</LI>
+<LI>The user confirms the action</LI>
+<LI>The system deletes the iteration</LI>
 </OL>
       </td>
     </tr>
