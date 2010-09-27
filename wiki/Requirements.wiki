@@ -685,7 +685,7 @@ read an decision</wiki:comment>
       <th width="30">ID</th>
       <td width="70">UC-12</td>
       <th>Name</th>
-      <td>Read decision</td>
+      <td>Browse decisions</td>
       <th>Package</th>
       <td>Decision Management</td>
     </tr>
@@ -697,11 +697,11 @@ read an decision</wiki:comment>
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">get a detail view about a decision</td>
+      <td colspan="4">Get an overview over all decisions and provide a detail view for a single decision.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to read decisions</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
