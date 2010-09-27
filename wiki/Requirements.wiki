@@ -84,16 +84,15 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
-<LI>The guest chooses _register_</LI>
-<LI>The system displays a form with:
-<ul>
-<li>name</li>
-<li>email</li>
-<li>password</li>
-</ul>
-</LI>
-<LI>The guest submits the form.</LI>
-<LI>The system registers the new account.</LI>
+<LI>This usecase starts when the user decides to register</LI>
+<LI>The system displays a form
+<UL>
+<LI>Name _(required, minimum number of characters: 3)_</LI>
+<LI>e-mail address _(required, valid structure of e-mail address, must be unique)_</LI>
+<LI>Password _(At least 5 characters)_</LI>
+</UL></LI>
+<Li>The user confirms his entries with _Submit_</Li>
+<LI>The system saves the new user account</LI>
 </OL>
       
       </td>
