@@ -1,5 +1,9 @@
 package nl.rug.search.odr.controller;
 
+import com.icesoft.faces.context.effects.Appear;
+import com.icesoft.faces.context.effects.Effect;
+import com.icesoft.faces.context.effects.EffectQueue;
+import com.icesoft.faces.context.effects.Fade;
 import java.io.IOException;
 import nl.rug.search.odr.ActionResult;
 import javax.ejb.EJB;
@@ -22,12 +26,29 @@ public class LoginController {
     private UserLocal ul;
     private String email, password;
 
+    public static final int RESULT_DELAY = 3;
+
+    private EffectQueue notificationEffect;
+
+    public LoginController() {
+        notificationEffect = new EffectQueue("resultEffect");
+        notificationEffect.add(new Appear());
+        Effect fade = new Fade();
+        fade.setDelay(RESULT_DELAY);
+        notificationEffect.add(fade);
+        notificationEffect.setFired(true);
+    }
+
     public ActionResult submitForm() {
         Person p = null;
 
         p = ul.tryLogin(email, password);
 
+        System.out.println("===> got here");
+
         if (p == null) {
+            System.out.println("===> and here");
+            notificationEffect.setFired(false);
             return ActionResult.FAIL;
         }
 
@@ -55,5 +76,13 @@ public class LoginController {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public EffectQueue getNotificationEffect() {
+        return notificationEffect;
+    }
+
+    public void setNotificationEffect(EffectQueue notificationEffect) {
+        this.notificationEffect = notificationEffect;
     }
 }

@@ -39,6 +39,19 @@ div#userMenu input.name {
 div#userMenu input.prefilled {
     color: #999;
 }
+div#userMenu div.loginError {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: #f4f2f2;
+    z-index: 2;
+    border: 2px solid red;
+    position: absolute;
+    top: 26px;
+    padding: 5px;
+    font-family: Arial, Geneva, Verdana, Helvetica, sans-serif;
+    font-size: 0.8em;
+}
 div#userMenu form#loginForm input.error, div#userMenu form#loginForm textarea.error {
     color: #bd0000;
 }
