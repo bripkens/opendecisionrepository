@@ -651,19 +651,17 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects _new Decision_</LI>
-<LI>The System displays a form:</LI>
-<UL>
-<LI>Name</LI>
-<LI>Problem</LI>
-<LI>Arguments</LI>
-<LI>Decision</LI>
-<LI>OPR-Link</LI>
-</UL>
-<LI>The user confirms his entries with ok.</LI>
-<Li>The System adds the Decision</Li>
+<LI>The user chooses _create decision_</LI>
+<LI>The system displays a form with the following fields: <UL>
+
+<LI>name _(required, must be unique, minimum number of characters: 3)_</LI>
+<LI>problem</LI>
+<LI>arguments</LI>
+<LI>decision</LI>
+<LI>opr-link</LI>
+</UL></LI>
+<LI>The user confirmes his entries with _submit_</LI>
+<LI>The system saves this new decision</LI>
 </OL>
       
       </td>
@@ -679,7 +677,8 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-
+<wiki:comment>
+read an decision</wiki:comment>
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -699,21 +698,29 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">read iterations</td>
+      <td colspan="4">get a detail view about a decision</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to read iterations</td>
+      <td colspan="4">User is authorized to read decisions</td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
       
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects a existing Decision</LI>
-<LI>The System displays all details about this decision</LI>
+<LI>The user chooses a decision</LI>
+<LI>The system provide the user with detailed information about this project
+<UL>
+<LI>name</LI>
+<LI>problem</LI>
+<LI>arguments</LI>
+<LI>decision</LI>
+<LI>opr-link</LI>
+<LI>actions</LI>
+<LI>status changes on this decision and who has approved these changes</LI>
+</UL>
+</LI>
 </OL>
       </td>
     </tr>
@@ -728,7 +735,8 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-
+<wiki:comment>
+Edit a decision</wiki:comment>
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -747,24 +755,20 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">edit a decision</td>
+      <td colspan="4">Save a modified version of an already existing project</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to edit iterations</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects a existing decision</LI>
-<LI>The System displays all details about this decision</LI>
-<LI>The User selctes _edit_</LI>
-<LI>The System displays the decision in an editable form</LI>
-<LI>The User changes the details and selects _OK_</LI>
-<LI>The System saves the changes</LI>
+<LI>The User chooses modify decision</LI>
+<LI>See use case *create decision step 3*</LI>
+<LI>See use case *create decision step 4*</LI>
+<LI>The system saves this modified decision</LI>
 </OL>
       </td>
     </tr>
@@ -779,7 +783,8 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-
+<wiki:comment>
+delete an decision</wiki:comment>
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -799,24 +804,20 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">delete an decision</td>
+      <td colspan="4">Delete an existing decision</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to delete iterations</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses a project</LI>
-<LI>The System displays details about the project</LI>
-<LI>The User selects a existing decision</LI>
-<LI>The System displays all details about this decison</LI>
-<LI>The User selctes _delete_</LI>
-<LI>The System asks for confirmation.</LI>
-<LI>The User confirms it</LI>
-<LI>The System delete the decision and its relationships</LI>
+<LI>The user chooses _delete decision_</LI>
+<LI>The system aks for confirmation </LI>
+<LI>The user confirmes it</LI>
+<LI>The system deletes the decision and its relationships</LI>
 </OL>
       </td>
     </tr>
@@ -830,6 +831,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
     </tr>
   </tbody>
 </table>
+
 
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
