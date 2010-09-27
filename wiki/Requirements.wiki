@@ -1,467 +1,4 @@
 #labels Phase-Requirements
-*Table of Contents*
-
-<wiki:toc max_depth="2" />
-
-= Introduction =
-
-== Purpose ==
-The document describe the necessary requirments for the Open Decision Repository (ODR), which will be provide a visualization of the different architectural decisions and their relationships amongst themselves. The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The Originator is Mr. Uwe van Heesch. He is currently writing a paper about visualization of architectural decisions. This project serves as a prototyp which can also be used to support his paper. 
-
-== Scope ==
- ####
-
-
-== References ==
-glossary, stakeholder document, bibliography
-
-== Overview ==
-We devided the different views about the requirments into to parts. The first part descibes the requirments in a rough way. This section is called high level. The second part is the low level view. In this section, the requirements are detailed. 
-
-= High level view =
-
-== Product scope ==
-The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. 
-You can also get three differehnt kind of views. 
- * A chronical view about the decisons and the members who take these
- * a stakeholder views, that describe the actions of every role
- * and a relationship view, that describe the dependencies of decisions.
-Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
-
-There are four main parts in the project:
- * project management (e.g. create a project)
- * user management (e.g. create user with different roles)
- * decision visualization (e.g. get a chronical visualization)
- * administration (administrate the ODR)
-
-== User characteristics ==
-This project will be used by three different kinds of usergroups.
-
- * Guest
- The guest uses the system only to get a look into projects, which are pushlished. He can browse through the projects or find projects by using the search function. 
-
- * User
- The normal visitor of the system is a registrated user. He can create projects, can add  members and manage the entire project. Project members have to take a role within a project like "Software-architect", "manager" or "customer". Every role has different functionallity in the system that is adapeted to its scope of dutys. Furthermore he is able to get a look in all views (chronical view, stakeholder view and relationship view) of his projects and other published projects.
-
- * Administrator
- The administrator is able to manage the entities in the system. He can add common  entities or delete unesed entities. 
-
-== Product functionality ==
-
-http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
-
-
-= Low level view =
-
-==Iterations==
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>register</td>
-      <th>Package</th>
-      <td>User Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">Guest</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Register a new user account.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">The desired user name and email are not already registered.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The guest chooses _register_</LI>
-<LI>The system displays a form
-<UL>
-<LI>name _(required, minimum number of characters: 3)_</LI>
-<LI>e-mail address _(required, valid structure of e-mail address, must be unique)_</LI>
-<LI>password _(At least 5 characters)_</LI>
-</UL></LI>
-<Li>The user confirms his entries with _Submit_</Li>
-<LI>The system saves the new user account</LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>login</td>
-      <th>Package</th>
-      <td>User Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">Guest</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Authentication of a guest.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The guest chooses _login_</LI>
-<LI>The system displays a form with:
-<ul>
-<li>name</li>
-<li>password</li>
-</ul>
-</LI>
-<LI>The user submits the form.</LI>
-<LI>The system checks the login data and authorizes the user</LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>create project</td>
-      <th>Package</th>
-      <td>Project Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">User</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Create a project</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The user chooses _create project_</LI>
-<LI>The system displays a form with the following fields:
-<UL>
-<LI>name _(required, must be unique, minimum number of characters: 3, not changeable after project creation)_</LI>
-<LI>description</LI>
-<li>A list of all project members and their roles in the project. Members can be added and removed using this form</li>
-</UL>
-</LI>
-<LI>The user confirms his entries with _submit_.</LI>
-<LI>The system saves this new project</LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>modify project</td>
-      <th>Package</th>
-      <td>Project Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">User</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Save a modified version of an already existing project</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The user chooses _modify project_</LI>
-<LI>see use case *create project step 2*</li>
-<LI>see use case *create project step 3*</li>
-<LI>The system saves this modified project</LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>browse projects</td>
-      <th>Package</th>
-      <td>Project Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">User</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Get a list of all projects that the user is participating in and provide a detail view for a single project.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The user chooses _my projects_</LI>
-<LI>The system displays a list of all projects that the user is participating in</LI>
-<LI>The user selects a project</LI>
-<LI>The system provides the user with detailed information about the project. The form shows: <ul>
-<li>name</li>
-<li>description</li>
-<li>all project members</li>
-<li>the names of all decisions</li>
-<li>the names of all iterations in ascending order sorted by their start date</li>
-</ul></LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <td>LLUC-5</td>
-      <th>Name</th>
-      <td>delete project</td>
-      <th>Package</th>
-      <td>Project Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2" width="100"><b>Actors</b></td>
-      <td colspan="4">User</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Delete a project that a user is participating in.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-      
-<OL>
-<LI>The user chooses _delete project_</LI>
-<LI>The system asks for confirmation</LI>
-<LI>The user confirms the action</LI>
-<LI>The system deletes the project</LI>
-</OL>
-      
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
@@ -617,8 +154,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-<wiki:comment>
-delete an iteration</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -666,7 +202,43 @@ delete an iteration</wiki:comment>
   </tbody>
 </table>
 
-==Decision==
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== decision management ==
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -724,8 +296,7 @@ delete an iteration</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-read an decision</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -774,8 +345,7 @@ read an decision</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-Edit a decision</wiki:comment>
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -826,8 +396,7 @@ Edit a decision</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-delete an decision</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -879,7 +448,7 @@ delete an decision</wiki:comment>
   </tbody>
 </table>
 
-==Relationships==
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -931,8 +500,7 @@ delete an decision</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-read a relationship</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -979,8 +547,7 @@ read a relationship</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-Edit a relationship</wiki:comment>
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -1029,8 +596,7 @@ Edit a relationship</wiki:comment>
   </tbody>
 </table>
 
-<wiki:comment>
-delete a relationship</wiki:comment>
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
@@ -1080,7 +646,7 @@ delete a relationship</wiki:comment>
   </tbody>
 </table>
 
-==Change status==
+
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -1129,5 +695,3 @@ delete a relationship</wiki:comment>
     </tr>
   </tbody>
 </table>
-
-<p>= Traceability matrix = </p>
