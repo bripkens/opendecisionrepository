@@ -438,54 +438,6 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 
 
-<table border="1" cellspacing="0" cellpadding="5" width="650">
-  <thead>
-    <tr>
-      <th width="30">ID</th>
-      <td width="70">UC-8</td>
-      <th>Name</th>
-      <td>Browse iterations</td>
-      <th>Package</th>
-      <td>Project Management</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="2"><b>Actors</b></td>
-      <td colspan="4">User</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Browse iterations and get a detail view for a single iteration.</td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Basic flow</b></td>
-      <td colspan="4"> 
-<OL>
-<LI>The user select a project</LI>
-<LI>The system provides an overview over all iterations</LI>
-<LI>The user moves his mouse over an iteration name</LI>
-<li>The system shows details of this iteration in a small popup<ul>
-<li>name</li>
-<li>description</li>
-</ul></li>
-</OL>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Variations</b></td>
-      <td colspan="4"></td>
-    </tr>
-    <tr>
-      <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
-    </tr>
-  </tbody>
-</table>
 
 
 
