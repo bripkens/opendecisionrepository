@@ -211,9 +211,9 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <LI>The user chooses _create project_</LI>
 <LI>The system displays a form with the following fields:
 <UL>
-<LI>name (required, must be unique)</LI>
-<LI>description (optional)</LI>
-<li>A list of all project members and their roles in the project. Members can also be added and removed using this form.</li>
+<LI>name _(required, must be unique, minimum number of characters: 3, not changeable after project creation)_</LI>
+<LI>description</LI>
+<li>A list of all project members and their roles in the project. Members can be added and removed using this form.</li>
 </UL>
 </LI>
 <LI>The user confirms his entries with _submit_.</LI>
