@@ -653,7 +653,6 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <OL>
 <LI>The user chooses _create decision_</LI>
 <LI>The system displays a form with the following fields: <UL>
-
 <LI>name _(required, must be unique, minimum number of characters: 3)_</LI>
 <LI>problem</LI>
 <LI>arguments</LI>
