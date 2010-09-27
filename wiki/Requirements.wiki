@@ -87,9 +87,9 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <LI>The guest chooses _register_</LI>
 <LI>The system displays a form
 <UL>
-<LI>Name _(required, minimum number of characters: 3)_</LI>
+<LI>name _(required, minimum number of characters: 3)_</LI>
 <LI>e-mail address _(required, valid structure of e-mail address, must be unique)_</LI>
-<LI>Password _(At least 5 characters)_</LI>
+<LI>password _(At least 5 characters)_</LI>
 </UL></LI>
 <Li>The user confirms his entries with _Submit_</Li>
 <LI>The system saves the new user account</LI>
