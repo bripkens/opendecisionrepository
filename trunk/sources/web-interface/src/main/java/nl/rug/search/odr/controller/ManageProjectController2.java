@@ -1,14 +1,18 @@
 package nl.rug.search.odr.controller;
 
+import com.icesoft.faces.component.ext.HtmlSelectOneListbox;
 import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.AuthenticationUtil;
@@ -45,11 +49,11 @@ public class ManageProjectController2 extends AbstractManageController {
     private Project sourceProject;
     public static final String USEDPROJECTNAME_ID =
             "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
+    private HtmlSelectOneListbox listbox;
 
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="requests">
-
     @Override
     protected void handleCreateRequest() {
         sourceProject = new Project();
@@ -89,7 +93,7 @@ public class ManageProjectController2 extends AbstractManageController {
     }
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="execution">
     public void addMember(ActionEvent e) {
 
@@ -119,9 +123,44 @@ public class ManageProjectController2 extends AbstractManageController {
         projectMembers.remove(pm);
     }
 
+    public void roleChanged(ValueChangeEvent e) {
+        String[] value = e.getNewValue().toString().split(";");
+
+        long userId = Long.parseLong(value[0]);
+        long stakeholderRoleId = Long.parseLong(value[1]);
+
+        StakeholderRole newRole = srl.getById(stakeholderRoleId);
+
+        if (currentUser.getPerson().getId().equals(userId)) {
+            currentUser.setRole(newRole);
+            return;
+        }
+
+        for (ProjectMember member : projectMembers) {
+            if (member.getPerson().getId().equals(userId)) {
+                member.setRole(newRole);
+                return;
+            }
+        }
+    }
+
     @Override
     protected boolean handleCreateExecution() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        sourceProject.setName(name);
+        sourceProject.setDescription(description);
+
+        for (ProjectMember member : sourceProject.getMembers()) {
+            sourceProject.removeMember(member);
+        }
+
+        for (ProjectMember member : projectMembers) {
+            sourceProject.addMember(member);
+        }
+        sourceProject.addMember(currentUser);
+
+        pl.createProject(sourceProject);
+
+        return true;
     }
 
     @Override
@@ -135,7 +174,7 @@ public class ManageProjectController2 extends AbstractManageController {
     }
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="resets">
     @Override
     protected void reset() {
@@ -198,16 +237,33 @@ public class ManageProjectController2 extends AbstractManageController {
         return false;
     }
 
-    public Collection<SelectItem> getRoles() {
+    public Collection<SelectItem> getRoles(String id) {
+
         Collection<SelectItem> roleItems = new ArrayList<SelectItem>();
         Collection<StakeholderRole> roles = srl.getPublicRoles();
 
         for (StakeholderRole role : roles) {
-            SelectItem item = new SelectItem(role, role.getName());
+            SelectItem item = new SelectItem(id + ";" + role.getId(), role.getName());
             roleItems.add(item);
         }
 
         return roleItems;
+    }
+
+    public String getSelectedRole(String userIdParam) {
+        long userId = Long.parseLong(userIdParam);
+
+        if (currentUser.getPerson().getId() == userId) {
+            return userId + ";" + currentUser.getRole().getId();
+        }
+
+        for (ProjectMember member : projectMembers) {
+            if (member.getPerson().getId() == userId) {
+                return userId + ";" + member.getRole().getId();
+            }
+        }
+
+        throw new RuntimeException("Illegal user selected");
     }
 
     @Override
@@ -255,8 +311,36 @@ public class ManageProjectController2 extends AbstractManageController {
         this.currentUser = currentUser;
     }
 
+    @Override
+    protected boolean isIdSet() {
+        return sourceProject != null && sourceProject.getId() != null;
+    }
+
+    public HtmlSelectOneListbox getListbox() {
+        if (listbox != null) {
+            Iterator<UIComponent> comps = listbox.getFacetsAndChildren();
+
+            if (comps.hasNext()) {
+                UISelectItems items = (UISelectItems) comps.next();
+
+                System.out.println("listbox access with children");
+
+                Collection<SelectItem> options = (Collection<SelectItem>) items.getValue();
+
+                for(SelectItem option : options) {
+                    System.out.println(option.getValue());
+                }
+            }
+        }
+        return listbox;
+    }
+
+    public void setListbox(HtmlSelectOneListbox listbox) {
+        this.listbox = listbox;
+    }
+
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="messages">
     @Override
     protected String getSuccessMessage() {
