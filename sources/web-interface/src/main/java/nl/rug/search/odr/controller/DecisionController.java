@@ -8,7 +8,10 @@ import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 import nl.rug.search.odr.entities.Person;
+import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.StakeholderRole;
+import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.StakeholderRoleLocal;
 import nl.rug.search.odr.user.UserLocal;
 
@@ -26,6 +29,9 @@ public class DecisionController extends AbstractController {
 
     @EJB
     private StakeholderRoleLocal srl;
+
+    @EJB
+    private ProjectLocal pl;
 
     @EJB
     private ArchitecturalDecisionLocal architecturalDecisionLocal;
@@ -78,44 +84,76 @@ public class DecisionController extends AbstractController {
     }
 
     public String getDecision() {
-        StakeholderRole role = new StakeholderRole();
-        role.setName("Architect");
-        role.setCommon(true);
-        srl.persistRole(role);
+        StakeholderRole role1 = new StakeholderRole();
+        role1.setName("Architect");
+        role1.setCommon(true);
+        srl.persistRole(role1);
 
-        role = new StakeholderRole();
-        role.setName("Manager");
-        role.setCommon(true);
-        srl.persistRole(role);
+        StakeholderRole role2 = new StakeholderRole();
+        role2.setName("Manager");
+        role2.setCommon(true);
+        srl.persistRole(role2);
 
-        role = new StakeholderRole();
-        role.setName("Customer");
-        role.setCommon(true);
-        srl.persistRole(role);
+        StakeholderRole role3 = new StakeholderRole();
+        role3.setName("Customer");
+        role3.setCommon(true);
+        srl.persistRole(role3);
 
-        Person p = new Person();
-        p.setName("Ben Ripkens");
-        p.setPlainPassword("12345");
-        p.setEmail("ben@ben.de");
-        ul.register(p);
+        Person p1 = new Person();
+        p1.setName("Ben Ripkens");
+        p1.setPlainPassword("12345");
+        p1.setEmail("ben@ben.de");
+        ul.register(p1);
 
-        p = new Person();
-        p.setName("Stefan Arians");
-        p.setPlainPassword("12345");
-        p.setEmail("stefan@stefan.de");
-        ul.register(p);
+        Person p2 = new Person();
+        p2.setName("Stefan Arians");
+        p2.setPlainPassword("12345");
+        p2.setEmail("stefan@stefan.de");
+        ul.register(p2);
 
-        p = new Person();
-        p.setName("Uwe van Heesch");
-        p.setPlainPassword("12345");
-        p.setEmail("uwe@uwe.de");
-        ul.register(p);
+        Person p3 = new Person();
+        p3.setName("Uwe van Heesch");
+        p3.setPlainPassword("12345");
+        p3.setEmail("uwe@uwe.de");
+        ul.register(p3);
 
-        p = new Person();
-        p.setName("Paris Avgeriou");
-        p.setPlainPassword("12345");
-        p.setEmail("paris@paris.de");
-        ul.register(p);
+        Person p4 = new Person();
+        p4.setName("Paris Avgeriou");
+        p4.setPlainPassword("12345");
+        p4.setEmail("paris@paris.de");
+        ul.register(p4);
+
+        Person p5 = new Person();
+        p5.setName("No project member");
+        p5.setPlainPassword("12345");
+        p5.setEmail("not@not.de");
+        ul.register(p5);
+
+        Project pro = new Project();
+        pro.setName("OpenDecisionRepository");
+        pro.setDescription("...part of search...");
+
+        ProjectMember member = new ProjectMember();
+        member.setPerson(p1);
+        member.setRole(role1);
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(p2);
+        member.setRole(role1);
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(p3);
+        member.setRole(role2);
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(p4);
+        member.setRole(role3);
+        pro.addMember(member);
+
+        pl.createProject(pro);
 
         return decision;
     }

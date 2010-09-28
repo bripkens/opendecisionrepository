@@ -44,10 +44,7 @@ public class LoginController {
 
         p = ul.tryLogin(email, password);
 
-        System.out.println("===> got here");
-
         if (p == null) {
-            System.out.println("===> and here");
             notificationEffect.setFired(false);
             return ActionResult.FAIL;
         }

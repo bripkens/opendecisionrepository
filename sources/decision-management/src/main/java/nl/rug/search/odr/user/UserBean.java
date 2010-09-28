@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
@@ -51,6 +52,21 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
         q.setParameter("name", name);
+
+        return (Person) q.getSingleResult();
+    }
+
+    @Override
+    public Person getByEmail(String email) {
+        if (!EmailValidator.isValidEmailAddress(email)) {
+            return null;
+        }
+
+
+        email = email.trim().toLowerCase();
+
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email");
+        q.setParameter("email", email);
 
         return (Person) q.getSingleResult();
     }

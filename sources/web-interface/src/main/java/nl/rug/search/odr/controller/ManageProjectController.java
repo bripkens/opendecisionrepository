@@ -39,6 +39,7 @@ public class ManageProjectController extends AbstractController {
     private UserLocal ul;
     @EJB
     private StakeholderRoleLocal srl;
+
     private String name;
     private String description;
     private String autoCompleteInputValue;
@@ -229,8 +230,8 @@ public class ManageProjectController extends AbstractController {
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        String paramId = request.getParameter(RequestParameter.PROJECT_ID);
-        String paramCreate = request.getParameter(RequestParameter.PROJECT_CREATE);
+        String paramId = request.getParameter(RequestParameter.ID);
+        String paramCreate = request.getParameter(RequestParameter.CREATE);
 
         if (paramId == null && paramCreate != null) {
             reset();
@@ -250,7 +251,6 @@ public class ManageProjectController extends AbstractController {
         }
 
         if (paramId == null && sourceProject != null && sourceProject.getId() != null) {
-            System.out.println("############################## 3 ###################################");
             initFields(sourceProject);
             return true;
         }
@@ -260,13 +260,11 @@ public class ManageProjectController extends AbstractController {
         try {
             projectid = Long.parseLong(paramId);
         } catch (NumberFormatException ex) {
-            System.out.println("############################## 4 ###################################");
             resetFields();
             return false; // id can't be parsed
         }
 
         if (sourceProject != null && sourceProject.getId() != null && sourceProject.getId().equals(projectid)) {
-            System.out.println("############################## 5 ###################################");
             return true;
         }
 
@@ -276,7 +274,6 @@ public class ManageProjectController extends AbstractController {
 
         if (p == null) {
 
-            System.out.println("############################## 6 ###################################");
             resetFields();
             return false; // id does not exist
         }
@@ -285,12 +282,10 @@ public class ManageProjectController extends AbstractController {
         initFields(p);
 
         if (currentUser == null) {
-            System.out.println("############################## 7 ###################################");
             resetFields();
             return false; // not part of the group
         }
 
-        System.out.println("############################## 8 ###################################");
         return true;
     }
 
