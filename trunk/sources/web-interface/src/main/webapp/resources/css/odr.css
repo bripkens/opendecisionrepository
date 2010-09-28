@@ -90,13 +90,11 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     width: 487px;
     height: 150px;
 }
-#page .formSection input.iceSelInpTxtTxt {
+#page .formSection input.memberAdd {
     position: absolute;
     right: 137px;
     top: 0px;
-}
-#page .formSection div.iceSelInpTxtList {
-    z-index: 30;
+    width: 350px;
 }
 #page .formSection input[type=submit].add {
     position: absolute;

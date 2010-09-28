@@ -6,6 +6,9 @@ package nl.rug.search.odr;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public interface RequestParameter {
-    String PROJECT_CREATE = "create";
-    String PROJECT_ID = "projectId";
+    String CREATE = "create";
+    String UPDATE = "update";
+    String DELETE = "delete";
+    String CONFIRM = "confirm";
+    String ID = "id";
 }

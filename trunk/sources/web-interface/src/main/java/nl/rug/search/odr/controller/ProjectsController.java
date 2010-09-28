@@ -27,7 +27,7 @@ public class ProjectsController {
         for (int i = 0; i < members.size(); i++) {
             if (i == event.getRow()) {
                 try {
-                    JsfUtil.redirect("/manageProject.html?" + RequestParameter.PROJECT_ID + "=" + members.get(i).getProject().getId());
+                    JsfUtil.redirect("/manageProject.html?" + RequestParameter.ID + "=" + members.get(i).getProject().getId());
                 } catch (IOException ex) {
                     Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
                 }
