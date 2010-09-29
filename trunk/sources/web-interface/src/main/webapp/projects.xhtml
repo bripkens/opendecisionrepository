@@ -16,7 +16,8 @@
 
 
     <ui:define name="content">
-        <ice:outputText value="#{form['projects.zeroProjects']}" rendered="#{!projectsController.active}"/>
+        <h1><h:outputText value="#{form['projects.page.title']}"/></h1>
+        <ice:outputText value="#{form['projects.zeroProjects']}" rendered="#{!projectsController.active}" escape="false"/>
         <ice:form rendered="#{projectsController.active}">
            
             <h1><h:outputText value="#{form['projects.page.title']}"/></h1>
@@ -55,26 +56,28 @@
     <ui:define name="sidebar">
         <div id="help">
             <ul class="info">
-                <li class="messages">
-                    <div class="header"></div>
-                    <div class="text">
-                        <ice:messages layout="list"
-                                      errorClass="error"
-                                      warnClass="warning"
-                                      fatalClass="fatal"
-                                      infoClass="information" />
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
                     </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{form['projects.help.title']}" /></h2>
+                        <ice:outputText value="#{form['projects.help.content']}" />
+                    </div>
+
                 </li>
                 <li>
                     <div class="header">
-                        <img src="resources/images/add1.png" alt="information" />
+                        <img src="resources/images/create.png" alt="information" />
                     </div>
                     <div class="text">
                         <ice:form>
-                            <h2><ice:commandLink actionListener="#{projectsController.newProjectLink}" >Create a new Project</ice:commandLink></h2>
+                            <h2>Create a new project</h2>
+                            If you want to create a new project, please click <ice:commandLink actionListener="#{projectsController.newProjectLink}" >here</ice:commandLink>
                         </ice:form>
                     </div>
-                </li>
+                    </li>
+                
             </ul>
         </div>
 

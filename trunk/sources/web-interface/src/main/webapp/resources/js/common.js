@@ -2,6 +2,18 @@ var j = jQuery.noConflict();
 
 j(document).ready(function() {
     preparePrefill();
+    j("a#togglelink").click(function(){
+        var button = j(this);
+        var name = button.attr("name");
+        var element = j("div#" + name);
+
+        if (element.css("display") == "none") {
+            element.slideDown();
+        } else {
+            element.slideUp();
+        }
+
+    });
 });
 
 var prefillValue = new Array();

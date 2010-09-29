@@ -1,6 +1,11 @@
 package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
+import com.icesoft.faces.context.effects.BlindUp;
+import com.icesoft.faces.context.effects.Effect;
+import com.icesoft.faces.context.effects.EffectQueue;
+import com.icesoft.faces.context.effects.Fade;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -95,5 +100,18 @@ public class ProjectsController {
         public void setSelected(boolean selected) {
             this.selected = selected;
         }
+    }
+    //TTTEEEESST
+    public Effect getEffect() {
+        EffectQueue blind = new EffectQueue("effectBlind");
+        blind.add(new Fade());
+//        blind.add(new BlindDown());
+        blind.setFired(false);
+
+        return blind;
+    }
+
+    public void changeEffectAction(ActionEvent event){
+        getEffect().setFired(true);
     }
 }

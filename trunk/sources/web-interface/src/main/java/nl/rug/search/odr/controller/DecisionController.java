@@ -1,6 +1,8 @@
 package nl.rug.search.odr.controller;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -105,11 +107,13 @@ public class DecisionController extends AbstractController {
         p1.setEmail("ben@ben.de");
         ul.register(p1);
 
+
         Person p2 = new Person();
         p2.setName("Stefan Arians");
         p2.setPlainPassword("12345");
         p2.setEmail("stefan@stefan.de");
         ul.register(p2);
+
 
         Person p3 = new Person();
         p3.setName("Uwe van Heesch");
