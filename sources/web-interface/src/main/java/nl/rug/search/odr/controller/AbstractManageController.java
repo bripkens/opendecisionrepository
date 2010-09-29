@@ -87,6 +87,8 @@ public abstract class AbstractManageController extends AbstractController implem
     protected boolean execute() {
         boolean success = false;
 
+        Thread.dumpStack();
+
         try {
             if (isPreviousEntitySet() && !isIdSet()) {
                 success = handleCreateExecution();

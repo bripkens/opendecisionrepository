@@ -60,7 +60,7 @@ public class EmailValidator implements Validator {
                     }));
         }
 
-        if (ul.isUsed(email)) {
+        if (ul.isUsedForFullRegistration(email)) {
             throw new ValidatorException(MessageFactory.getMessage(
                     fc,
                     USEDEMAIL_ID,

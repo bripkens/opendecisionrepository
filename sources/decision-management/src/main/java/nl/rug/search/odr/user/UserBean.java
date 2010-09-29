@@ -27,7 +27,7 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
     @Override
     public boolean isPersistable(Person p) {
-        if (p == null || !p.isPersistable() || isRegistered(p.getName()) || isUsed(p.getEmail())) {
+        if (p == null || !p.isPersistable() || isRegistered(p.getName()) || isUsedForFullRegistration(p.getEmail())) {
             return false;
         }
 
@@ -35,13 +35,36 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
     }
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void register(Person p) {
         if (!isPersistable(p)) {
             throw new BusinessException("Can't persist the person.");
         }
 
+        try {
+            Person personInDatabase = getByEmail(p.getEmail());
+
+            personInDatabase.setName(p.getName());
+            personInDatabase.setPassword(p.getPassword());
+
+            p.setId(personInDatabase.getId());
+
+            entityManager.merge(personInDatabase);
+        } catch (NoResultException ex) {
+            entityManager.persist(p);
+        }
+    }
+
+    @Override
+    public Person preRegister(String email) {
+        Person p = new Person();
+        p.setEmail(email);
+
+        if (isUsedOverall(email)) {
+            throw new BusinessException("Email already in use!");
+        }
+
         entityManager.persist(p);
+        return p;
     }
 
     @Override
@@ -61,7 +84,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         if (!EmailValidator.isValidEmailAddress(email)) {
             return null;
         }
-
 
         email = email.trim().toLowerCase();
 
@@ -85,7 +107,20 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
     }
 
     @Override
-    public boolean isUsed(String email) {
+    public boolean isUsedForFullRegistration(String email) {
+        StringValidator.isValid(email);
+
+        email = email.trim().toLowerCase();
+
+        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.email) = :email AND p.password IS NOT NULL");
+        q.setParameter("email", email);
+
+        long result = (Long) q.getSingleResult();
+        return result != 0;
+    }
+
+    @Override
+    public boolean isUsedOverall(String email) {
         StringValidator.isValid(email);
 
         email = email.trim().toLowerCase();
@@ -106,7 +141,7 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email");
+        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email AND p.password IS NOT NULL");
         q.setParameter("email", email);
 
         Person result;

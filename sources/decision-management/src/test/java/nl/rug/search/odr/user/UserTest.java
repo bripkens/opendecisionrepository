@@ -1,10 +1,7 @@
 package nl.rug.search.odr.user;
 
-
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.user.UserBean;
-import nl.rug.search.odr.user.UserLocal;
 import nl.rug.search.odr.entities.Person;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -44,11 +41,11 @@ public class UserTest extends AbstractEjbTest {
     public void testIsUsedEmail() {
         Person p = getDummyPerson();
 
-        assertFalse(local.isUsed(p.getEmail()));
+        assertFalse(local.isUsedForFullRegistration(p.getEmail()));
 
         local.register(p);
 
-        assertTrue(local.isUsed(p.getEmail()));
+        assertTrue(local.isUsedForFullRegistration(p.getEmail()));
     }
 
     @Test
@@ -62,7 +59,7 @@ public class UserTest extends AbstractEjbTest {
         assertTrue(local.isRegistered(p.getName()));
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void testRegisterTwice() {
         Person p = getDummyPerson();
 
@@ -70,18 +67,39 @@ public class UserTest extends AbstractEjbTest {
         local.register(p);
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void tryLoginInvalidEmail() {
         local.tryLogin("dasdsadsa", "12345");
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void tryLoginInvalidEmailNull() {
         local.tryLogin(null, "12345");
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void tryLoginInvalidPasswordNull() {
         local.tryLogin("dsada@dsadas.de", null);
+    }
+
+    @Test
+    public void tryPreRegisterPerson() {
+        String email = "pre@registered.de";
+
+        Person p = local.preRegister(email);
+
+        assertNotNull(p.getId());
+
+        assertFalse(local.isUsedForFullRegistration(email));
+
+        Person p2 = new Person();
+        p2.setName("Hans Peter");
+        p2.setEmail(email);
+        p2.setPlainPassword("12345");
+        local.register(p2);
+
+        assertEquals(p.getId(), p2.getId());
+
+        assertTrue(local.isUsedForFullRegistration(email));
     }
 }

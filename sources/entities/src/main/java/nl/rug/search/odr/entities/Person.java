@@ -32,17 +32,17 @@ public class Person extends BaseEntity<Person> {
 
 
 
-    @Column(length = 30, nullable = false, unique = true, updatable = false)
+    @Column(length = 30)
     private String name;
 
 
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(length = 255, unique = true)
     private String email;
 
 
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255, nullable = true)
     private String password;
 
 

@@ -104,6 +104,10 @@ public class Project extends BaseEntity<Project> {
         member.setProject(this);
     }
 
+    public void removeAllMembers() {
+        members.clear();
+    }
+
     public void removeMember(ProjectMember member) {
         if(member == null){
             throw new BusinessException("Member is null.");
