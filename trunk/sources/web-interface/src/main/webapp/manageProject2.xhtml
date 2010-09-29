@@ -108,13 +108,17 @@
                     </ice:column>
                     <ice:column>
                         <f:facet name="header">
+                            <a name="#{manageProjectController2.getRole(manageProjectController2.currentUser.person.id)}"
+                               class="preselectValue" />
                             <ice:selectOneListbox size="1"
                                                   partialSubmit="true"
-                                                  binding="#{manageProjectController2.listbox}"
                                                   valueChangeListener="#{manageProjectController2.roleChanged}">
                                 <f:selectItems value="#{manageProjectController2.getRoles(manageProjectController2.currentUser.person.id)}" />
                             </ice:selectOneListbox>
+
                         </f:facet>
+                        <a name="#{manageProjectController2.getRole(item.person.id)}"
+                               class="preselectValue" />
                         <ice:selectOneListbox size="1"
                                               partialSubmit="true"
                                               valueChangeListener="#{manageProjectController2.roleChanged}">

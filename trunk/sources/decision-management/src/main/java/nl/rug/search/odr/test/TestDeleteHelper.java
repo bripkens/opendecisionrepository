@@ -19,6 +19,12 @@ public class TestDeleteHelper implements TestDeleteHelperLocal {
     public void deleteAll() {
         for (int i = 0; i < 10; i++) {
             try {
+                Query q = entityManager.createQuery("DELETE FROM ProjectMember");
+                q.executeUpdate();
+            } catch (Exception e) {
+            }
+
+            try {
                 Query q = entityManager.createQuery("DELETE FROM Person");
                 q.executeUpdate();
             } catch (Exception e) {
@@ -26,12 +32,6 @@ public class TestDeleteHelper implements TestDeleteHelperLocal {
 
             try {
                 Query q = entityManager.createQuery("DELETE FROM Project");
-                q.executeUpdate();
-            } catch (Exception e) {
-            }
-
-            try {
-                Query q = entityManager.createQuery("DELETE FROM ProjectMember");
                 q.executeUpdate();
             } catch (Exception e) {
             }

@@ -69,4 +69,19 @@ public class UserTest extends AbstractEjbTest {
         local.register(p);
         local.register(p);
     }
+
+    @Test(expected=BusinessException.class)
+    public void tryLoginInvalidEmail() {
+        local.tryLogin("dasdsadsa", "12345");
+    }
+
+    @Test(expected=BusinessException.class)
+    public void tryLoginInvalidEmailNull() {
+        local.tryLogin(null, "12345");
+    }
+
+    @Test(expected=BusinessException.class)
+    public void tryLoginInvalidPasswordNull() {
+        local.tryLogin("dsada@dsadas.de", null);
+    }
 }

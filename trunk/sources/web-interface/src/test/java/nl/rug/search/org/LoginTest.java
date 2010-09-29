@@ -17,6 +17,8 @@ public class LoginTest extends SeleneseTestCase {
     public void testLoginErrorVisibility() throws Exception {
         selenium.open("/web-interface/");
         assertEquals("display: none;", selenium.getAttribute("loginForm:j_idt22@style"));
+        selenium.type("loginForm:inLoginEmail", "someweirdaddress");
+        selenium.type("loginForm:inLoginPassword", "dsadsa");
         selenium.click("loginForm:j_idt25");
 
         new Wait("Error in wait") {
@@ -31,7 +33,23 @@ public class LoginTest extends SeleneseTestCase {
                 return true;
             }
         };
-        
+
         assertNotEquals("display: none;", selenium.getAttribute("loginForm:j_idt22@style"));
+    }
+
+    public void testValidLogin() throws Exception {
+        // test requires a user with name: Ben Ripkens
+        // email: ben@ben.de
+        // password: 12345
+
+        selenium.open("/web-interface/index.html");
+        selenium.type("loginForm:inLoginEmail", "ben@ben.de");
+        selenium.type("loginForm:inLoginPassword", "12345");
+        selenium.click("loginForm:j_idt25");
+        selenium.waitForPageToLoad("30000");
+        verifyTrue(selenium.isTextPresent("Hello Ben Ripkens"));
+        selenium.click("logoutForm:j_idt22");
+        selenium.waitForPageToLoad("30000");
+        verifyTrue(selenium.isTextPresent("Register"));
     }
 }
