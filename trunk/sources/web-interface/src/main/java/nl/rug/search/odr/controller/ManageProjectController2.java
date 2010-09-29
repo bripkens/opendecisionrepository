@@ -13,6 +13,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
@@ -93,22 +94,28 @@ public class ManageProjectController2 extends AbstractManageController {
     // <editor-fold defaultstate="collapsed" desc="execution">
     public void addMember(ActionEvent e) {
 
+        ProjectMember p = new ProjectMember();
+
         if (isMember(memberInput)) {
             // TODO: notify user that the person is already a member?
             return;
-        } else if (!ul.isUsed(memberInput)) {
-            // TODO: notify user that this person is not registered?
-            return;
-        }
+        } else if (!ul.isUsedOverall(memberInput)) {
 
-        ProjectMember p = new ProjectMember();
+            try {
+                Person person = ul.preRegister(memberInput);
+                p.setPerson(person);
+            } catch (BusinessException ex) {
+                // TODO: inform user about invalid email address form
+            }
+        } else {
+            Person person = ul.getByEmail(memberInput);
+            p.setPerson(person);
+        }
 
         StakeholderRole role = srl.getSomePublicRole();
         p.setRole(role);
-
-        Person person = ul.getByEmail(memberInput);
+        
         memberInput = null;
-        p.setPerson(person);
 
         projectMembers.add(p);
     }
@@ -145,9 +152,7 @@ public class ManageProjectController2 extends AbstractManageController {
         sourceProject.setName(name);
         sourceProject.setDescription(description);
 
-        for (ProjectMember member : sourceProject.getMembers()) {
-            sourceProject.removeMember(member);
-        }
+        sourceProject.removeAllMembers();
 
         for (ProjectMember member : projectMembers) {
             sourceProject.addMember(member);
@@ -161,7 +166,18 @@ public class ManageProjectController2 extends AbstractManageController {
 
     @Override
     protected boolean handleUpdateExecution() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        sourceProject.setName(name);
+        sourceProject.setDescription(description);
+        sourceProject.removeAllMembers();
+
+        for (ProjectMember member : projectMembers) {
+            sourceProject.addMember(member);
+        }
+        sourceProject.addMember(currentUser);
+
+        pl.updateProject(sourceProject);
+
+        return true;
     }
 
     @Override

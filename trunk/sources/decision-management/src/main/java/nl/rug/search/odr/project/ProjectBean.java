@@ -63,5 +63,15 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         return q.getResultList();
     }
 
+    @Override
+    public void updateProject(Project sourceProject) {
+        Query q = entityManager.createQuery("DELETE FROM ProjectMember pm WHERE pm.project.id = :projectId");
+        q.setParameter("projectId", sourceProject.getId());
+
+        createProject(sourceProject);
+
+        entityManager.persist(sourceProject);
+    }
+
 
 }

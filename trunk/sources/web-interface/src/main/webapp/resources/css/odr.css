@@ -135,8 +135,13 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 #page .formSection table.memberSelect select {
     width: 240px;
 }
-#page .formSection table.memberSelect td:first-child {
+#page .formSection table.memberSelect td:first-child, #page .formSection table.memberSelect th:first-child {
+    font-size: 0.9em;
     width: 270px;
+}
+#page .formSection table.memberSelect td:first-child span, #page .formSection table.memberSelect th:first-child span {
+    font-size: 0.9em;
+    color: #444;
 }
 #page .formSection table.memberSelect td {
     width: 250px;

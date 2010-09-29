@@ -15,7 +15,7 @@ public interface UserLocal extends GenericDaoLocal<Person, Long> {
 
     boolean isRegistered(String name);
 
-    boolean isUsed(String email);
+    boolean isUsedForFullRegistration(String email);
 
     public Person tryLogin(String name, String password);
 
@@ -24,4 +24,8 @@ public interface UserLocal extends GenericDaoLocal<Person, Long> {
     public nl.rug.search.odr.entities.Person getByName(java.lang.String name);
 
     public nl.rug.search.odr.entities.Person getByEmail(java.lang.String email);
+
+    public nl.rug.search.odr.entities.Person preRegister(java.lang.String email);
+
+    public boolean isUsedOverall(java.lang.String email);
 }
