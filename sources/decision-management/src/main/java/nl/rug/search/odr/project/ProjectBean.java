@@ -61,6 +61,7 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         q.setParameter("userId", userId);
 
         return q.getResultList();
-
     }
+
+
 }
