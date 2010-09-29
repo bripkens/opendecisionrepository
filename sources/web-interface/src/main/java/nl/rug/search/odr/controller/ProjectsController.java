@@ -42,7 +42,7 @@ public class ProjectsController {
 
     @PostConstruct
     public void init() {
-        members = pl.getAllProjectsFromUser(1);
+        members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
     }
 
     /**
@@ -54,7 +54,7 @@ public class ProjectsController {
     }
 
     public boolean isActive() {
-        members = pl.getAllProjectsFromUser(1);
+        members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
         if(members.isEmpty()){
             return false;
         }
