@@ -2,18 +2,10 @@ var j = jQuery.noConflict();
 
 j(document).ready(function() {
     preparePrefill();
-    j("a#togglelink").click(function(){
-        var button = j(this);
-        var name = button.attr("name");
-        var element = j("div#" + name);
 
-        if (element.css("display") == "none") {
-            element.slideDown();
-        } else {
-            element.slideUp();
-        }
+    preselect();
 
-    });
+    enableToggling();
 });
 
 var prefillValue = new Array();
@@ -50,4 +42,39 @@ function prefill(element) {
         element.val(prefillValue[element.attr("id")]);
         element.addClass("prefilled");
     }
+}
+
+function preselect() {
+    j("a.preselectValue").each(function() {
+       var sourceElement = j(this);
+       var optionToSelect = sourceElement.attr("name");
+
+       var selectElement = sourceElement.next("select");
+
+       var listener = selectElement.attr("onchange");
+       selectElement.removeAttr("onchange");
+
+       selectElement.children("option:selected").removeAttr("selected");
+       selectElement.children("option[value=" + optionToSelect + "]").attr("selected", "selected");
+
+       selectElement.attr("onchange", listener);
+       selectElement.focus();
+       selectElement.blur();
+    });
+}
+
+
+function enableToggling() {
+    j("a#togglelink").click(function(){
+        var button = j(this);
+        var name = button.attr("name");
+        var element = j("div#" + name);
+
+        if (element.css("display") == "none") {
+            element.slideDown();
+        } else {
+            element.slideUp();
+        }
+
+    });
 }

@@ -99,7 +99,9 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
     @Override
     public Person tryLogin(String email, String password) {
-        StringValidator.isValid(email);
+        if (!EmailValidator.isValidEmailAddress(email)) {
+            throw new BusinessException("Invalid email address!");
+        }
         StringValidator.isValid(password);
 
         email = email.trim().toLowerCase();

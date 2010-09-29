@@ -125,7 +125,7 @@
                         </goals>
                         <configuration>
                             <background>true</background>
-                            <skip>true</skip>                       <!-- Change to false to enable selenium tests -->
+                            <skip>false</skip>                       <!-- Change to false to enable selenium tests -->
                         </configuration>
                     </execution>
                 </executions>
@@ -145,7 +145,7 @@
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <skip>true</skip>                       <!-- Change to false to enable selenium tests -->
+                            <skip>false</skip>                       <!-- Change to false to enable selenium tests -->
                         </configuration>
                     </execution>
                 </executions>

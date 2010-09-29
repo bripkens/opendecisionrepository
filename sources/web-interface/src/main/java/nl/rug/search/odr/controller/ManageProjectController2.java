@@ -1,15 +1,12 @@
 package nl.rug.search.odr.controller;
 
-import com.icesoft.faces.component.ext.HtmlSelectOneListbox;
 import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -49,10 +46,9 @@ public class ManageProjectController2 extends AbstractManageController {
     private Project sourceProject;
     public static final String USEDPROJECTNAME_ID =
             "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
-    private HtmlSelectOneListbox listbox;
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="requests">
     @Override
     protected void handleCreateRequest() {
@@ -250,6 +246,22 @@ public class ManageProjectController2 extends AbstractManageController {
         return roleItems;
     }
 
+    public String getRole(String id) {
+        long userId = Long.parseLong(id);
+
+        if (currentUser.getPerson().getId().equals(userId)) {
+            return currentUser.getPerson().getId() + ";" + currentUser.getRole().getId();
+        }
+
+        for (ProjectMember member : projectMembers) {
+            if (member.getPerson().getId().equals(userId)) {
+                return member.getPerson().getId() + ";" + member.getRole().getId();
+            }
+        }
+
+        throw new RuntimeException("Can't determine role");
+    }
+
     public String getSelectedRole(String userIdParam) {
         long userId = Long.parseLong(userIdParam);
 
@@ -316,31 +328,8 @@ public class ManageProjectController2 extends AbstractManageController {
         return sourceProject != null && sourceProject.getId() != null;
     }
 
-    public HtmlSelectOneListbox getListbox() {
-        if (listbox != null) {
-            Iterator<UIComponent> comps = listbox.getFacetsAndChildren();
-
-            if (comps.hasNext()) {
-                UISelectItems items = (UISelectItems) comps.next();
-
-                System.out.println("listbox access with children");
-
-                Collection<SelectItem> options = (Collection<SelectItem>) items.getValue();
-
-                for(SelectItem option : options) {
-                    System.out.println(option.getValue());
-                }
-            }
-        }
-        return listbox;
-    }
-
-    public void setListbox(HtmlSelectOneListbox listbox) {
-        this.listbox = listbox;
-    }
-
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="messages">
     @Override
     protected String getSuccessMessage() {
