@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://www.decisionrepository.com/taglib">
+
+    <ui:define name="head">
+        <odr:restrict allow="#{restriction['projects.xhtml']}" />
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['projectoverview.page.title']}" nospan="true" />
+    </ui:define>
+
+
+    <ui:define name="content">
+        <h1><h:outputText value="Project nicht vorhanden" rendered="#{!projectOverviewController.valid}"/></h1>
+
+        <h1><h:outputText value="#{projectOverviewController.projectName}" rendered="#{projectOverviewController.valid}" /></h1>
+        <ice:form rendered="#{projectOverviewController.valid}" >
+
+            <a href="#" id="togglelink" name="memberContainer1">Projctmembers</a><br />
+            <div id="memberContainer1" >
+                <ice:dataTable
+                    value="#{projectOverviewController.projectMembers}"
+                    var="item" styleClass="rowhover pointer ">
+                    <ice:column>
+                        <ice:rowSelector id="selected"
+                                         selectionListener="#{projectsController.rowSelectionListener}"/>
+                        <f:facet name="header">
+                            <ice:outputText value="ProjectName"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.person.name}"/>
+                    </ice:column>
+
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Stakeholder role"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.role.name}"/>
+                    </ice:column>
+                </ice:dataTable>
+
+            </div>
+
+
+
+            <a href="#" id="togglelink" name="memberContainer2">Iterations</a><br />
+            <div id="memberContainer2" >
+                <ice:dataTable
+                    value="#{projectOverviewController.iterations}"
+                    var="item" styleClass="rowhover pointer ">
+
+                    <ice:column>
+                        <ice:rowSelector id="selected"
+                                         selectionListener="#{projectsController.rowSelectionListener}"/>
+                        <f:facet name="header">
+                            <ice:outputText value="Iteration"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.name}"/>
+                    </ice:column>
+
+                    <ice:column>
+                        <f:facet name="header">
+                            <ice:outputText value="Start date"/>
+                        </f:facet>
+                        <ice:outputText value="#{item.startDate}">
+                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" timeZone="#{iterationController.timeZone}" />
+                            </ice:outputText>
+
+                    </ice:column>
+                </ice:dataTable>
+            </div>
+        </ice:form>
+
+
+
+    </ui:define>
+
+    <!--SIDEBAR-->
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{form['projects.help.title']}" /></h2>
+                        <ice:outputText value="#{form['projects.help.content']}" />
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/create.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <ice:form>
+                            <h2>Create a new project</h2>
+                            If you want to create a new project, please click <ice:commandLink actionListener="#{projectsController.newProjectLink}" >here</ice:commandLink>
+                        </ice:form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </ui:define>
+</ui:composition>
