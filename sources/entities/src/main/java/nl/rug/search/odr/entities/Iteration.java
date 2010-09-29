@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
@@ -40,8 +41,8 @@ public class Iteration implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
-//    @ManyToMany
-//    private Version version;
+    @ManyToOne
+    private Project project;
 
 //    public Version getVersion() {
 //        return version;
