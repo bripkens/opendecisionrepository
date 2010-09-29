@@ -46,23 +46,30 @@ function prefill(element) {
 
 function preselect() {
     j("a.preselectValue").each(function() {
-       var sourceElement = j(this);
-       var optionToSelect = sourceElement.attr("name");
+        var sourceElement = j(this);
+        var optionToSelect = sourceElement.attr("name");
 
-       var selectElement = sourceElement.next("select");
+        var selectElement = sourceElement.next("select");
 
-       var listener = selectElement.attr("onchange");
-       selectElement.removeAttr("onchange");
+        var listener = selectElement.attr("onchange");
+        selectElement.removeAttr("onchange");
 
-       selectElement.children("option:selected").removeAttr("selected");
-       selectElement.children("option[value=" + optionToSelect + "]").attr("selected", "selected");
+        selectElement.children("option:selected").removeAttr("selected");
+        selectElement.children("option[value=" + optionToSelect + "]").attr("selected", "selected");
 
-       selectElement.attr("onchange", listener);
-       selectElement.focus();
-       selectElement.blur();
+        selectElement.attr("onchange", listener);
+        selectElement.focus();
+        selectElement.blur();
+
+        selectElement.change(function() {
+            var selectElement = j(this);
+            var previousElement = selectElement.prev();
+
+            var selectedOption = selectElement.children("option:selected").attr("value");
+            previousElement.attr("name", selectedOption);
+        });
     });
 }
-
 
 function enableToggling() {
     j("a#togglelink").click(function(){

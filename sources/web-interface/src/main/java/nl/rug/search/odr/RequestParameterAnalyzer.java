@@ -55,28 +55,22 @@ public class RequestParameterAnalyzer implements RequestParameter {
         paramCounter += (delete ? 1 : 0);
 
         if (paramCounter > 1) {
-//            System.out.println("&&&&&& 1 &&&&&&&");
             return Mode.ILLEGAL;
         }
 
         if (isDeleteSet() && isIdSet()) {
 
             if (isConfirmSet()) {
-//                System.out.println("&&&&&& 2 &&&&&&&");
                 return Mode.DELETE_CONFIRMED;
             }
 
-//            System.out.println("&&&&&& 3 &&&&&&&");
             return Mode.DELETE;
             
         } else if (isCreateSet()) {
-//            System.out.println("&&&&&& 4 &&&&&&&");
             return Mode.CREATE;
         } else if (isUpdateSet() && isIdSet()) {
-//            System.out.println("&&&&&& 5 &&&&&&&");
             return Mode.UPDATE;
         } else if (isPreviousEntityExisting()) {
-//            System.out.println("&&&&&& 6 &&&&&&&");
             return Mode.STAY_IN_CURRENT;
         }
         

@@ -47,7 +47,6 @@
                                maxlength="255"
                                value="#{manageProjectController.name}"
                                required="true"
-                               partialSubmit="true"
                                validator="#{manageProjectController.checkProjectName}">
                     <f:validateLength minimum="3" maximum="50" />
 
@@ -73,8 +72,7 @@
                 <ice:inputTextarea id="inDescription"
                                    label="#{form['label.description']}"
                                    maxlength="1000"
-                                   value="#{manageProjectController.description}"
-                                   partialSubmit="true">
+                                   value="#{manageProjectController.description}">
                     <f:validateLength maximum="1000" />
                 </ice:inputTextarea>
                 <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
@@ -84,47 +82,46 @@
 
 
 
-
-
-
             <div class="formSection last">
                 <ice:outputLabel value="#{form['label.members']}" for="inMember"/>
                 <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
 
-                <ice:selectInputText label="#{form['label.members']}"
-                                     id="inMember"
-                                     rows="#{manageProjectController.proposedPersonsListLength}"
-                                     width="350"
-                                     value="#{manageProjectController.autoCompleteInputValue}"
-                                     valueChangeListener="#{manageProjectController.autoCompleteInputValueChanged}">
-                    <f:selectItems value="#{manageProjectController.proposedPersons}"/>
-                </ice:selectInputText>
+                <ice:inputText label="#{form['label.members']}"
+                               id="inMember"
+                               styleClass="memberAdd"
+                               value="#{manageProjectController.memberInput}"/>
 
                 <ice:commandButton actionListener="#{manageProjectController.addMember}"
                                    value="#{form['button.add']}"
-                                   styleClass="confirm add"/>
+                                   styleClass="confirm add"
+                                   id="inMemberAdd" />
 
                 <p><ice:outputText value="#{form['project.manage.help.enter']}" nospan="true" /></p>
 
                 <ice:dataTable value="#{manageProjectController.projectMembers}" var="item" styleClass="memberSelect">
                     <ice:column>
                         <f:facet name="header">
-                            <ice:outputText value="#{manageProjectController.currentUser.person.name}" />
+                            <ice:outputText value="#{manageProjectController.currentUser.person.name}" nospan="true"/>
+                            <span>&lt;<ice:outputText value="#{manageProjectController.currentUser.person.email}" nospan="true"/>&gt;</span>
                         </f:facet>
-                        <ice:outputText value="#{item.person.name}" />
+                        <ice:outputText value="#{item.person.name}" nospan="true"/>
+                        <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
                     </ice:column>
                     <ice:column>
                         <f:facet name="header">
-                            <ice:selectOneListbox size="1" value="#{manageProjectController.currentUser.role.name}">
-                                <f:selectItems value="#{manageProjectController.roles}" var="role">
-                                    <f:selectItem itemValue="#{role.value}" itemLabel="#{role.label}"/>
-                                </f:selectItems>
+                            <a name="#{manageProjectController.getRole(manageProjectController.currentUser.person.id)}"
+                               class="preselectValue" />
+                            <ice:selectOneListbox size="1"
+                                                  valueChangeListener="#{manageProjectController.roleChanged}">
+                                <f:selectItems value="#{manageProjectController.getRoles(manageProjectController.currentUser.person.id)}" />
                             </ice:selectOneListbox>
+
                         </f:facet>
-                        <ice:selectOneListbox size="1" value="#{item.role.name}">
-                            <f:selectItems value="#{manageProjectController.roles}" var="role">
-                                <f:selectItem itemValue="#{role.value}" itemLabel="#{role.label}"/>
-                            </f:selectItems>
+                        <a name="#{manageProjectController.getRole(item.person.id)}"
+                           class="preselectValue" />
+                        <ice:selectOneListbox size="1"
+                                              valueChangeListener="#{manageProjectController.roleChanged}">
+                            <f:selectItems value="#{manageProjectController.getRoles(item.person.id)}" />
                         </ice:selectOneListbox>
                     </ice:column>
                     <ice:column>
@@ -143,6 +140,7 @@
 
                 <p class="lineSpacer" />
             </div>
+
 
 
 
