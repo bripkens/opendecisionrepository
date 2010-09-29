@@ -54,9 +54,6 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
 
     @Override
     public List<ProjectMember> getAllProjectsFromUser(long userId) {
-
-      //  Query q = entityManager.createQuery("SELECT p.name  FROM Project p WHERE p.id  IN (SELECT pm.project.id FROM ProjectMember pm WHERE pm.person.id = :userId )");
-
         Query q = entityManager.createQuery("SELECT pm from ProjectMember pm WHERE pm.person.id = :userId");
         q.setParameter("userId", userId);
 
@@ -68,9 +65,7 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         Query q = entityManager.createQuery("DELETE FROM ProjectMember pm WHERE pm.project.id = :projectId");
         q.setParameter("projectId", sourceProject.getId());
 
-        createProject(sourceProject);
-
-        entityManager.persist(sourceProject);
+        entityManager.merge(sourceProject);
     }
 
 
