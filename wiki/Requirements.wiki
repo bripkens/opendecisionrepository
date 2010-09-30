@@ -1087,7 +1087,151 @@ Stored data must never get lost neither become inconsistent at any time.
 <tbody>
   <tr>
     <td colspan="4">
--
+The application should be visually appealing.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-4</td>
+    <th width="80">Category</th>
+    <td>Usability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+The application should use the OPR corporate design.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-5</td>
+    <th width="80">Category</th>
+    <td>Usability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+The web interface should be self explanatory. More complicated views should provide a help functionality or text.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-6</td>
+    <th width="80">Category</th>
+    <td>Efficiency</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+The time it takes from a user action till a visible response should take maximal the time that a human is willing to accept. This is between one and two seconds.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-7</td>
+    <th width="80">Category</th>
+    <td>Efficiency</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+Generation of a visualization should take three seconds on average. Five seconds is the maximum that it is allowed to take.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-8</td>
+    <th width="80">Category</th>
+    <td>Maintainability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+It should be easy to extend the application with new visualizations, but also to change existing ones.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-9</td>
+    <th width="80">Category</th>
+    <td>Maintainability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+Create and update forms must be easily changeable, because it is likely that they require changes.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-9</td>
+    <th width="80">Category</th>
+    <td>Maintainability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+The application should be well tested (> 70% test coverage). This includes units tests for POJOs and EJBs, as well as web interface tests using selenium.
+</td>
+  </tr>
+</tbody>
+</table>
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th width="30">ID</th>
+    <td width="50">NFR-9</td>
+    <th width="80">Category</th>
+    <td>Portability</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="4">
+The application should be portable to any major OS.
 </td>
   </tr>
 </tbody>
