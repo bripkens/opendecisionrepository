@@ -12,3 +12,4 @@
  * *RIA*: [http://en.wikipedia.org/wiki/Rich_Internet_application Rich Internet Application]
  * *RUG*: Rijksuniversiteit Groningen (NL) / University of Groningen (EN)
  * *SEARCH*: [http://www.cs.rug.nl/search/ Software Engineering and Architecture Group]
+ * *Selenium*: [http://seleniumhq.org/ A web application test framework]
