@@ -20,6 +20,8 @@ import javax.faces.event.PhaseListener;
  */
 public class ValidationStylePhaseListener implements PhaseListener {
 
+    private static final long serialVersionUID = 1l;
+
     private final String ORIGINAL_STYLE = "nl.rug.opr.search.original.style";
 
     @Override
