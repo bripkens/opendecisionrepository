@@ -1037,13 +1037,15 @@ delete an decision</wiki:comment>
 
 = Non-functional requirements =
 
+This section describes the non-functional requirements. Each of these non-functional requirements (NFR) has an id, as well as an assigned characteristic. These characteristics are the ones that are specified in _ISO/IEC 9126-1:2001_.
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
 <thead>
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-1</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Functionality</td>
   </tr>
 </thead>
@@ -1062,7 +1064,7 @@ The ODR should provide a web interface. This web interface should be accessible 
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-2</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Reliability</td>
   </tr>
 </thead>
@@ -1080,7 +1082,7 @@ Stored data must never get lost neither become inconsistent at any time.
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-3</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Usability</td>
   </tr>
 </thead>
@@ -1098,7 +1100,7 @@ The application should be visually appealing.
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-4</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Usability</td>
   </tr>
 </thead>
@@ -1116,7 +1118,7 @@ The application should use the OPR corporate design.
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-5</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Usability</td>
   </tr>
 </thead>
@@ -1134,7 +1136,7 @@ The web interface should be self explanatory. More complicated views should prov
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-6</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Efficiency</td>
   </tr>
 </thead>
@@ -1152,7 +1154,7 @@ The time it takes from a user action till a visible response should take maximal
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-7</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Efficiency</td>
   </tr>
 </thead>
@@ -1170,7 +1172,7 @@ Generation of a visualization should take three seconds on average. Five seconds
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-8</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Maintainability</td>
   </tr>
 </thead>
@@ -1188,7 +1190,7 @@ It should be easy to extend the application with new visualizations, but also to
   <tr>
     <th width="30">ID</th>
     <td width="50">NFR-9</td>
-    <th width="80">Category</th>
+    <th width="80">Characteristic</th>
     <td>Maintainability</td>
   </tr>
 </thead>
@@ -1205,8 +1207,8 @@ Create and update forms must be easily changeable, because it is likely that the
 <thead>
   <tr>
     <th width="30">ID</th>
-    <td width="50">NFR-9</td>
-    <th width="80">Category</th>
+    <td width="50">NFR-10</td>
+    <th width="80">Characteristic</th>
     <td>Maintainability</td>
   </tr>
 </thead>
@@ -1223,8 +1225,8 @@ The application should be well tested (> 70% test coverage). This includes units
 <thead>
   <tr>
     <th width="30">ID</th>
-    <td width="50">NFR-9</td>
-    <th width="80">Category</th>
+    <td width="50">NFR-11</td>
+    <th width="80">Characteristic</th>
     <td>Portability</td>
   </tr>
 </thead>
@@ -1241,8 +1243,8 @@ The application should be portable to any major OS.
 <thead>
   <tr>
     <th width="30">ID</th>
-    <td width="50">NFR-10</td>
-    <th width="80">Category</th>
+    <td width="50">NFR-12</td>
+    <th width="80">Characteristic</th>
     <td>Security</td>
   </tr>
 </thead>
