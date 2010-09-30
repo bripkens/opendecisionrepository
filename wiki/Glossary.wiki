@@ -8,6 +8,7 @@
  * *MVC*: [http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller Model View Controller]
  * *ODR*: Open Decision Repository
  * *OPR*: [http://code.google.com/p/openpatternrepository/ Open Pattern Repository]
+ * *POJO*: [http://en.wikipedia.org/wiki/Plain_Old_Java_Object Plain old Java object]
  * *RIA*: [http://en.wikipedia.org/wiki/Rich_Internet_application Rich Internet Application]
  * *RUG*: Rijksuniversiteit Groningen (NL) / University of Groningen (EN)
  * *SEARCH*: [http://www.cs.rug.nl/search/ Software Engineering and Architecture Group]
