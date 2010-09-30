@@ -29,7 +29,7 @@ You can also get three differehnt kind of views.
  * A chronical view about the decisons and the members who take these
  * a stakeholder views, that describe the actions of every role
  * and a relationship view, that describe the dependencies of decisions.
-Another very important point is the revision control, which enables jumping between differet versions of decions for reconstructe the whole project. 
+Another very important point is the revision control, which enables switching between differet versions of decisions.
 
 There are four main parts in the project:
  * project management (e.g. create a project)
@@ -41,13 +41,13 @@ There are four main parts in the project:
 This project will be used by three different kinds of usergroups.
 
  * Guest
- The guest uses the system only to get a look into projects, which are pushlished. He can browse through the projects or find projects by using the search function. 
+The guest uses the system only to get a look into projects, which are pushlished. He can browse through the projects or find projects by using the search function. 
 
  * User
- The normal visitor of the system is a registrated user. He can create projects, can add  members and manage the entire project. Project members have to take a role within a project like "Software-architect", "manager" or "customer". Every role has different functionallity in the system that is adapeted to its scope of dutys. Furthermore he is able to get a look in all views (chronical view, stakeholder view and relationship view) of his projects and other published projects.
+The normal visitor of the system is a registrated user. He can create projects, can add  members and manage the entire project. Project members have to take a role within a project like "Software-architect", "manager" or "customer". Every role has different functionallity in the system that is adapeted to its scope of dutys. Furthermore he is able to get a look in all views (chronical view, stakeholder view and relationship view) of his projects and other published projects.
 
  * Administrator
- The administrator is able to manage the entities in the system. He can add common  entities or delete unesed entities. 
+The administrator is able to manage the entities in the system. He can add common  entities or delete unesed entities. 
 
 == Product functionality ==
 
@@ -1036,3 +1036,17 @@ delete an decision</wiki:comment>
 </table>
 
 = Non-functional requirements =
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+<thead>
+  <tr>
+    <th>ID</th>
+    <td>UC-19</td>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td colspan="2">some text goes here</td>
+  </tr>
+</tbody>
+</table>
