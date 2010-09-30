@@ -30,8 +30,4 @@ public abstract class RestrictionEvaluator {
 
         return "/error.html";
     }
-
-    public static void redirectIfNoGroupMember(long userId, long groupId) {
-        
-    }
 }

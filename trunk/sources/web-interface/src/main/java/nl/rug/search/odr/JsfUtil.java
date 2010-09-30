@@ -23,8 +23,9 @@ public class JsfUtil {
 
         url = externalContext.encodeResourceURL(externalContext.getRequestContextPath().concat(url));
 
-        externalContext.redirect(url);
         context.responseComplete();
+        externalContext.redirect(url);
+        
     }
 
     public static void refreshPage() {
