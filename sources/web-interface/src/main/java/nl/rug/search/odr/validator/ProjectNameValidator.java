@@ -47,8 +47,6 @@ public class ProjectNameValidator implements Validator, Serializable {
             return;
         }
 
-        System.out.println(previousName);
-
         if (previousName != null && !previousName.isEmpty()) {
             if (name.equalsIgnoreCase(previousName)) {
                 return;

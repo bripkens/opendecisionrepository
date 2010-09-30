@@ -48,11 +48,6 @@
         #########################################################
     -->
 
-    <component>
-        <component-type>con.redirect</component-type>
-        <component-class>nl.rug.search.odr.tags.ConditionalRedirectComponent</component-class>
-    </component>
-
     <!--
         #########################################################
                             Validators
@@ -92,20 +87,24 @@
 
     <!--
         #########################################################
-                            Lifecycle
+                            Phase listener
         #########################################################
     -->
-
+    
     <lifecycle>
         <phase-listener>nl.rug.search.odr.ValidationStylePhaseListener</phase-listener>
     </lifecycle>
+    <lifecycle>
+        <phase-listener>nl.rug.search.odr.AuthenticationPhaseListener</phase-listener>
+    </lifecycle>
+
 
     <!--
         #########################################################
                             Managed beans
         #########################################################
     -->
-
+    
     <!--
         #########################################################
                             Navigation rules
