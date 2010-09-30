@@ -1,13 +1,18 @@
 package nl.rug.search.odr.controller;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import nl.rug.search.odr.RequestParameterAnalyzer;
 import nl.rug.search.odr.Mode;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.RestrictionEvaluator;
+import nl.rug.search.odr.project.ProjectLocal;
 
 /**
  *
@@ -15,40 +20,40 @@ import nl.rug.search.odr.RequestParameter;
  */
 public abstract class AbstractManageController extends AbstractController implements RequestParameter {
 
-    protected abstract boolean isIdSet();
+    @EJB
+    private ProjectLocal pl;
+
+    // <editor-fold defaultstate="collapsed" desc="abstract methods">
+    protected abstract Long getPreviousEntityId();
+
     protected abstract boolean isPreviousEntitySet();
 
     protected abstract void resetRequestDependent();
 
     protected abstract boolean handleCreateExecution();
+
     protected abstract void handleCreateRequest();
 
     protected abstract boolean handleUpdateExecution();
+
     protected abstract boolean handleUpdateRequest(long id);
 
     protected abstract boolean handleConfirmedDeleteExecution(long id);
+
     protected abstract boolean handleDeleteRequest(long id);
 
-    /**
-     *
-     * @return true when the request should be handled
-     */
-    protected boolean requestStartHook() {
-        return AuthenticationUtil.isAuthtenticated();
-    }
-
+    // </editor-fold>
     public final boolean isValidRequest() {
-
-        if (!requestStartHook()) {
-            return false;
-        }
-
         HttpServletRequest request;
         request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
         RequestParameterAnalyzer rpa = new RequestParameterAnalyzer(request, isPreviousEntitySet());
-        Mode mode = rpa.getMode();
 
+        if (!isAllowedHook(rpa)) {
+            return false;
+        }
+
+        Mode mode = rpa.getMode();
 
         if (mode == Mode.STAY_IN_CURRENT) {
             return true;
@@ -71,6 +76,37 @@ public abstract class AbstractManageController extends AbstractController implem
         }
     }
 
+    protected boolean isAllowedHook(RequestParameterAnalyzer rpa) {
+        Mode mode = rpa.getMode();
+        if (mode == Mode.STAY_IN_CURRENT && !isIdSet()) {
+            return true;
+        } else if (mode == Mode.STAY_IN_CURRENT) {
+            if (!pl.isMember(AuthenticationUtil.getUserId(), getPreviousEntityId())) {
+                return false;
+            }
+            return true;
+        }
+
+        if (mode == Mode.DELETE || mode == Mode.DELETE_CONFIRMED) {
+            if (!pl.isMember(AuthenticationUtil.getUserId(), rpa.getId())) {
+                return false;
+            }
+            return true;
+        }
+
+        if (mode == Mode.CREATE) {
+            return true;
+        }
+
+        if (mode == Mode.UPDATE) {
+            if (!pl.isMember(AuthenticationUtil.getUserId(), rpa.getId())) {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
 
     @Override
     protected boolean execute() {
@@ -91,5 +127,9 @@ public abstract class AbstractManageController extends AbstractController implem
         }
 
         return success;
+    }
+
+    private boolean isIdSet() {
+        return getPreviousEntityId() != null;
     }
 }

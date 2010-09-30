@@ -68,5 +68,15 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         entityManager.merge(sourceProject);
     }
 
+    @Override
+    public boolean isMember(long userId, long projectId) {
+        Query q = entityManager.createQuery("SELECT COUNT(pm)"
+                + " FROM ProjectMember pm "
+                + " WHERE pm.person.id = :userId AND pm.project.id = :projectId");
+        q.setParameter("userId", userId);
+        q.setParameter("projectId", projectId);
 
+        long result = (Long) q.getSingleResult();
+        return result == 1;
+    }
 }

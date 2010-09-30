@@ -346,8 +346,12 @@ public class ManageProjectController extends AbstractManageController {
     }
 
     @Override
-    protected boolean isIdSet() {
-        return sourceProject != null && sourceProject.getId() != null;
+    protected Long getPreviousEntityId() {
+        if (sourceProject == null) {
+            return null;
+        }
+
+        return sourceProject.getId();
     }
 
     // </editor-fold>
