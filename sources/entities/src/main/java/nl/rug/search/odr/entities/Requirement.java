@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
@@ -19,14 +18,28 @@ import nl.rug.search.odr.StringValidator;
  * @author Stefan
  */
 @Entity
-public class Requirement implements Serializable {
+public class Requirement extends BaseEntity<Requirement> {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long requirementId;
-
-    @Column(length=10000, nullable = false, unique = false, updatable = true)
+    private Long id;
+    
+    @Column
     private String description;
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        if (id == null) {
+            throw new BusinessException("Id is null.");
+        }
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -37,40 +50,13 @@ public class Requirement implements Serializable {
         this.description = description;
     }
 
-    public Long getRequirementId() {
-        return requirementId;
-    }
-
-    public void setRequirementId(Long id) {
-        if(id == null){
-            throw new BusinessException("Id is null.");
-        }
-        this.requirementId = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (requirementId != null ? requirementId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Requirement)) {
-            return false;
-        }
-        Requirement other = (Requirement) object;
-        if ((this.requirementId == null && other.requirementId != null) || (this.requirementId != null && !this.requirementId.equals(other.requirementId))) {
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public String toString() {
-        return "Requirements{" + "requirementId=" + requirementId + "description=" + description + '}';
+        return "Requirements{" + "requirementId=" + id + "description=" + description + '}';
     }
 
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[]{description};
+    }
 }

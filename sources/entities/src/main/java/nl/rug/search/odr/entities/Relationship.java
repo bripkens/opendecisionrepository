@@ -40,16 +40,16 @@ public class Relationship implements Serializable {
         return target;
     }
 
-    public void setSourceVersion(Version version) {
-        if (version == null) {
-            this.source.internalRemoveRelationship(this);
-        }
-        this.source = version;
-
-        if (version != null) {
-            version.internalAddRelationship(this);
-        }
-    }
+//    public void setSourceVersion(Version version) {
+//        if (version == null) {
+//            this.source.internalRemoveRelationship(this);
+//        }
+//        this.source = version;
+//
+//        if (version != null) {
+//            version.internalAddRelationship(this);
+//        }
+//    }
 
     public void setTargetVersion(Version version) {
         this.target = version;

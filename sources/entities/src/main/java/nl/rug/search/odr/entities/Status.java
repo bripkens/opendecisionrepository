@@ -5,8 +5,8 @@
 
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,30 +17,18 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Stefan
  */
-//@Entity
-public class Status implements Serializable {
+@Entity
+public class Status extends BaseEntity<Status>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long statusId;
 
-    @Column(length = 30, nullable = false, updatable = false)
+    @Column
     private String name;
 
-    @Column(length = 30, nullable = false, updatable = false)
+    @Column
     private boolean common;
-
-
-    public Long getStatusId() {
-        return statusId;
-    }
-
-    public void setStatusId(Long id) {
-        if(id == null){
-            throw new BusinessException("Id is null.");
-        }
-        this.statusId = id;
-    }
 
     public void setCommon(boolean common) {
         this.common = common;
@@ -60,28 +48,25 @@ public class Status implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (statusId != null ? statusId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Status)) {
-            return false;
-        }
-        Status other = (Status) object;
-        if ((this.statusId == null && other.statusId != null) || (this.statusId != null && !this.statusId.equals(other.statusId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
-        return "nl.rug.search.odr.entities.Status[id=" + statusId + "]";
+        return "Status{" + "name=" + name + "common=" + common + '}';
     }
 
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[]{name, common};
+    }
+
+    @Override
+    public Long getId() {
+         return statusId;
+    }
+
+    @Override
+    public void setId(Long id) {
+       if(id == null){
+            throw new BusinessException("Id is null.");
+        }
+        this.statusId = id;
+    }
 }

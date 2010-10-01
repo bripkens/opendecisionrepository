@@ -35,8 +35,31 @@ public class Project extends BaseEntity<Project> {
     @OneToMany(mappedBy = "project", cascade=CascadeType.ALL)
     private Collection<ProjectMember> members;
 
+    @OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+    private Collection<Iteration> iterations;
+
     public Project() {
         members = new ArrayList<ProjectMember>();
+        iterations = new ArrayList<Iteration>();
+    }
+
+    public Collection<Iteration> getIterations() {
+        return iterations;
+    }
+
+    public void setIterations(Collection<Iteration> iterations) {
+        this.iterations = iterations;
+    }
+
+    public void addIteration(Iteration it){
+        if(it == null){
+            throw new BusinessException("iteration is null");
+        }
+        iterations.add(it);
+    }
+
+    public void removeIteration(Iteration it){
+        iterations.remove(it);
     }
 
     public String getDescription() {

@@ -20,21 +20,17 @@ public class RequirementTest {
 
     @Test
     public void testInitialization() {
-        assertNull(r.getRequirementId());
+        assertNull(r.getId());
         assertNull(r.getDescription());
     }
 
     @Test
     public void testId() {
         long id = 1;
-        r.setRequirementId(id);
+        r.setId(id);
         assertEquals(1, id);
     }
 
-    @Test(expected = BusinessException.class)
-    public void testNullId() {
-        r.setRequirementId(null);
-    }
 
     @Test
     public void testSetName() {

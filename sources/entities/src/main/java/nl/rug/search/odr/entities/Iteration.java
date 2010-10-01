@@ -4,32 +4,31 @@
  */
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Stefan
  */
 @Entity
-public class Iteration implements Serializable {
+public class Iteration extends BaseEntity<Iteration>{
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long iterationId;
+    private Long id;
     @Column
     private String name;
     @Column
@@ -40,30 +39,44 @@ public class Iteration implements Serializable {
     @Column
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Collection<Version> versions;
 
-    @ManyToOne
-    private Project project;
+    public Iteration() {
+        versions = new ArrayList<Version>();
+    }
 
-//    public Version getVersion() {
-//        return version;
-//    }
+    public Collection<Version> getVersions() {
+        return versions;
+    }
 
-//    public void setVersion(Version version) {
-//        if(version == null){
-//            throw new BusinessException("Version is null.");
-//        }
-//        this.version = version;
-//    }
+    public void setVersions(Collection<Version> versions) {
+        this.versions = versions;
+    }
 
-    public Long getIterationId() {
-        return iterationId;
+    public void removeVersion(Version version) {
+        if (version == null) {
+            throw new BusinessException("remove version is null.");
+        }
+        versions.remove(version);
+    }
+
+    public void addVersion(Version version) {
+        if (version == null) {
+            throw new BusinessException("Version is null.");
+        }
+        versions.add(version);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         if (id == null) {
             throw new BusinessException("Id is null.");
         }
-        this.iterationId = id;
+        this.id = id;
     }
 
     public String getDescription() {
@@ -103,7 +116,7 @@ public class Iteration implements Serializable {
     }
 
     public void setStartDate(Date startDate) {
-        if(startDate == null){
+        if (startDate == null) {
             throw new BusinessException("Start date is null.");
         }
         if (endDate != null) {
@@ -117,36 +130,15 @@ public class Iteration implements Serializable {
 
     }
 
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(iterationId).append(name).append(description).append(startDate).
-                append(endDate).toHashCode();
+    public boolean isPersistable() {
+        if (name == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-        if (object == this) {
-            return true;
-        }
-        if (object.getClass() != getClass()) {
-            return false;
-        }
-
-        Iteration ac = (Iteration) object;
-        return new EqualsBuilder().
-                append(iterationId, ac.iterationId).
-                append(name, ac.name).
-                append(description, ac.description).
-                append(startDate, ac.startDate).
-                append(endDate, ac.endDate).
-                isEquals();
-    }
-
-    @Override
-    public String toString() {
-        return "Iteration{" + "id=" + iterationId + "type=" + name + '}';
+    protected Object[] getCompareData() {
+        return new Object[]{name, description, startDate, endDate};
     }
 }

@@ -26,20 +26,20 @@ public class StatusTest {
 
     @Test
     public void testInitialization() {
-        assertNull(s.getStatusId());
+        assertNull(s.getId());
         assertNull(s.getName());
     }
 
     @Test
     public void testId(){
         Long id = 1L;
-        s.setStatusId(id);
-        assertEquals(id, s.getStatusId());
+        s.setId(id);
+        assertEquals(id, s.getId());
     }
 
    @Test(expected = BusinessException.class)
     public void testNullId() {
-       s.setStatusId(null);
+       s.setId(null);
     }
 
     @Test
