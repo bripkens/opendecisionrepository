@@ -72,7 +72,7 @@ function preselect() {
 }
 
 function enableToggling() {
-    j("a#togglelink").click(function(){
+    j("a.togglelink").click(function(){
         var button = j(this);
         var name = button.attr("name");
         var element = j("div#" + name);

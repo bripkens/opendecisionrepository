@@ -9,9 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 
@@ -27,8 +29,11 @@ public class ProjectOverviewController {
     private ProjectLocal pl;
     @EJB
     private IterationLocal il;
+    @EJB
+    private VersionLocal vl;
     private String pid;
     private long id;
+    private Project pr;
 
     public boolean isValid() {
 
@@ -52,25 +57,28 @@ public class ProjectOverviewController {
     }
 
     private boolean memberIsInProject() {
-        boolean auth = false;
-        for (ProjectMember pm : getProject().getMembers()) {
-            if (pm.getPerson().getId() == AuthenticationUtil.getUserId()) {
-                auth = true;
-            } else {
-                auth = false;
+        getProject();
+        for (ProjectMember pm : pr.getMembers()) {
+            if (pm.getPerson().getId().equals(AuthenticationUtil.getUserId())) {
+                return true;
             }
         }
-        return auth;
+        return false;
+    }
+
+    public String getDescription() {
+        return pr.getDescription();
     }
 
     public Project getProject() {
-        return pl.getById(Long.parseLong(pid));
+        pr = pl.getById(Long.parseLong(pid));
+        return pr;
     }
 
     public Collection<ProjectMember> getProjectMembers() {
         Collection<ProjectMember> copy = new ArrayList<ProjectMember>();
 
-        for (ProjectMember pm : getProject().getMembers()) {
+        for (ProjectMember pm : pr.getMembers()) {
             if (!pm.isRemoved()) {
                 copy.add(pm);
             }
@@ -79,10 +87,10 @@ public class ProjectOverviewController {
     }
 
     public String getProjectName() {
-        return getProject().getName();
+        return pr.getName();
     }
 
-    public Collection<Iteration> getIterations() {
-        return il.getAllITerationsByProjectId(Long.parseLong(pid));
-    }
+//    public Collection<Iteration> getIterations() {
+//        return il.getAllITerationsByProjectId(Long.parseLong(pid));
+//    }
 }
