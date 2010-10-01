@@ -32,7 +32,7 @@ public class Project extends BaseEntity<Project> {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL)
     private Collection<ProjectMember> members;
 
     public Project() {

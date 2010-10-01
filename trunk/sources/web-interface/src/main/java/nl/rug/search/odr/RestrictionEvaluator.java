@@ -13,15 +13,20 @@ public abstract class RestrictionEvaluator {
             return "/error.html";
         }
 
-        if (expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['logged.in']}", String.class))) {
+        if (expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['dont.allow.access']}", String.class))) {
+
+            return "/error.html";
+        }
+
+        if (expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['logged.in']}", String.class)) ||
+                expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['group.member']}", String.class))) {
             if (AuthenticationUtil.isAuthtenticated()) {
                 return IS_ALLOWED;
             }
             return "/register.html";
         }
 
-        if (expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['logged.out']}", String.class)) ||
-                expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['group.member']}", String.class))) {
+        if (expression.equals(JsfUtil.evaluateExpressionGet("#{restriction['logged.out']}", String.class))) {
             if (!AuthenticationUtil.isAuthtenticated()) {
                 return IS_ALLOWED;
             }

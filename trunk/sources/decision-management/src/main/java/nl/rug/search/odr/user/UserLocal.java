@@ -17,7 +17,7 @@ public interface UserLocal extends GenericDaoLocal<Person, Long> {
 
     boolean isUsedForFullRegistration(String email);
 
-    public Person tryLogin(String name, String password);
+    public Person tryLogin(String email, String password);
 
     public java.util.Collection<nl.rug.search.odr.entities.Person> getProposedPersons(java.lang.String name);
 

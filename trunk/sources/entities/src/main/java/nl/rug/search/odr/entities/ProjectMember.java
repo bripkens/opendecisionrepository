@@ -28,6 +28,8 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     @ManyToOne
     private StakeholderRole role;
 
+    private boolean removed;
+
     public Project getProject() {
         return project;
     }
@@ -88,8 +90,16 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
         return person != null && role != null && project.equals(project);
     }
 
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {person, project, role};
+        return new Object[] {person, project, role, removed};
     }
 }

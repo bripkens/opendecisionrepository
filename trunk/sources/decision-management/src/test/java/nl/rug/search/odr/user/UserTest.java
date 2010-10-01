@@ -102,4 +102,55 @@ public class UserTest extends AbstractEjbTest {
 
         assertTrue(local.isUsedForFullRegistration(email));
     }
+
+    @Test(expected=BusinessException.class)
+    public void testTryLoginInvalidEmail() {
+        local.tryLogin("notanemailaddress", "1231241");
+    }
+
+    @Test(expected=BusinessException.class)
+    public void testTryLoginNullPassword() {
+        local.tryLogin("notanemailaddress@dadsa.de", null);
+    }
+
+    @Test
+    public void testTryLoginNotRegistered() {
+        assertNull(local.tryLogin("not@registered.de", "dsasda"));
+    }
+
+    @Test
+    public void testTryLoginInvalidPassword() {
+        String email = "registerd@registered.de";
+        Person p = new Person();
+        p.setName("Some name");
+        p.setEmail(email);
+        p.setPlainPassword("12345");
+        local.register(p);
+        
+        assertNull(local.tryLogin(email, "54321"));
+    }
+
+    @Test
+    public void tesValidLogin() {
+        String email = "registerd@registered.de";
+        String password = "12345";
+        
+        Person p = new Person();
+        p.setName("Some name");
+        p.setEmail(email);
+        p.setPlainPassword(password);
+        local.register(p);
+
+        assertEquals(p, local.tryLogin(email, password));
+    }
+
+    @Test
+    public void tesInValidLoginPreregistered() {
+        String email = "registerd@registered.de";
+        String password = "12345";
+
+        local.preRegister(email);
+
+        assertNull(local.tryLogin(email, password));
+    }
 }

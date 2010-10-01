@@ -65,8 +65,15 @@ div#userMenu input[type=submit] {
     height: 19px;
     padding: 0 0 2px 0;
 }
+div#userMenu input[type=submit].logoutButton {
+    background-image: url(../images/buttonLogoutSmall.png);
+}
+
 div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
     background-image: url(../images/buttonConfirmActiveSmall.png);
+}
+div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=submit].logoutButton:focus {
+    background-image: url(../images/buttonLogoutActiveSmall.png);
 }
 .formSection {
     position: relative;
@@ -159,6 +166,11 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 
 #page input#iterationForm:date1_cb{
     margin-top:50px;
+}
+
+p.deleteConfirmationMessage  span {
+    font-weight: bold;
+    color: #48A659;
 }
 
 /*

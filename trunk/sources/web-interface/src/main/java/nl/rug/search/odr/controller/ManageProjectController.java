@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
@@ -47,10 +48,13 @@ public class ManageProjectController extends AbstractManageController {
     private ProjectMember currentUser;
     private Project sourceProject;
     public static final String USEDPROJECTNAME_ID =
-            "nl.rug.search.odr.validator.ProjectNameValidator.DUPLICATEPROJECTNAME";
+            "nl.rug.search.odr.controller.ManageProjectController.DUPLICATEPROJECTNAME";
+
+    public static final String ALREADY_MEMBER =
+            "nl.rug.search.odr.controller.ManageProjectController.ALREADYMEMBER";
 
     // </editor-fold>
-
+    
     // <editor-fold defaultstate="collapsed" desc="requests">
     @Override
     protected void handleCreateRequest() {
@@ -86,7 +90,15 @@ public class ManageProjectController extends AbstractManageController {
 
     @Override
     protected boolean handleDeleteRequest(long id) {
-        name = "delete request";
+        sourceProject = pl.getById(id);
+
+        if (sourceProject == null) {
+            return false;
+        }
+
+        name = sourceProject.getName();
+        description = sourceProject.getDescription();
+
         return true;
     }
 
@@ -97,12 +109,11 @@ public class ManageProjectController extends AbstractManageController {
 
         ProjectMember p = new ProjectMember();
 
-        if (!StringValidator.isValid(memberInput, false)) {
+        if (!EmailValidator.isValidEmailAddress(memberInput)) {
             return;
         }
 
         if (isMember(memberInput)) {
-            // TODO: notify user that the person is already a member?
             return;
         } else if (!ul.isUsedOverall(memberInput)) {
 
@@ -110,7 +121,6 @@ public class ManageProjectController extends AbstractManageController {
                 Person person = ul.preRegister(memberInput);
                 p.setPerson(person);
             } catch (BusinessException ex) {
-                // TODO: inform user about invalid email address form
             }
         } else {
             Person person = ul.getByEmail(memberInput);
@@ -119,14 +129,28 @@ public class ManageProjectController extends AbstractManageController {
 
         StakeholderRole role = srl.getSomePublicRole();
         p.setRole(role);
-        
+
         memberInput = null;
+
+        for(ProjectMember member : projectMembers) {
+            if (member.getPerson().getId() == p.getId()) {
+                member.setRemoved(false);
+                return;
+            }
+        }
 
         projectMembers.add(p);
     }
 
     public void removeMember(ActionEvent e) {
         ProjectMember pm = (ProjectMember) e.getComponent().getAttributes().get("member");
+
+        for(ProjectMember member : projectMembers) {
+            if (member.getPerson().getId() == pm.getPerson().getId()) {
+                member.setRemoved(true);
+                return;
+            }
+        }
 
         projectMembers.remove(pm);
     }
@@ -186,8 +210,13 @@ public class ManageProjectController extends AbstractManageController {
     }
 
     @Override
-    protected boolean handleConfirmedDeleteExecution(long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected boolean handleConfirmedDeleteExecution() {
+        pl.deleteProject(sourceProject);
+        return true;
+    }
+
+    public void delete() {
+        handleConfirmedDeleteExecution();
     }
 
     // </editor-fold>
@@ -237,6 +266,33 @@ public class ManageProjectController extends AbstractManageController {
                 }));
     }
 
+    public void checkEmailAddress(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
+        String email = value.toString();
+
+        if (email == null || email.trim().isEmpty()) {
+            return;
+        }
+
+        if (!EmailValidator.isValidEmailAddress(email)) {
+            throw new ValidatorException(MessageFactory.getMessage(
+                    fc,
+                    nl.rug.search.odr.validator.EmailValidator.WRONG_EMAIL_FORMAT_ID,
+                    new Object[]{
+                        MessageFactory.getLabel(fc, uic)
+                    }));
+        }
+
+        if (isMember(email)) {
+            throw new ValidatorException(MessageFactory.getMessage(
+                    fc,
+                    ALREADY_MEMBER,
+                    new Object[]{
+                        MessageFactory.getLabel(fc, uic)
+                    }));
+            // TODO: notify user that the person is already a member?
+        }
+    }
+
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter and setter">
@@ -246,7 +302,7 @@ public class ManageProjectController extends AbstractManageController {
         }
 
         for (ProjectMember member : projectMembers) {
-            if (value.equalsIgnoreCase(member.getPerson().getEmail())) {
+            if (value.equalsIgnoreCase(member.getPerson().getEmail()) && !member.isRemoved()) {
                 return true;
             }
         }
@@ -330,7 +386,16 @@ public class ManageProjectController extends AbstractManageController {
 
     public Collection<ProjectMember> getProjectMembers() {
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "preselect();");
-        return projectMembers;
+
+        Collection<ProjectMember> onlyNonRemovedMembers = new ArrayList(projectMembers.size());
+
+        for(ProjectMember pm : projectMembers) {
+            if (!pm.isRemoved()) {
+                onlyNonRemovedMembers.add(pm);
+            }
+        }
+
+        return onlyNonRemovedMembers;
     }
 
     public void setProjectMembers(Collection<ProjectMember> projectMembers) {
@@ -355,7 +420,7 @@ public class ManageProjectController extends AbstractManageController {
     }
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="messages">
     @Override
     protected String getSuccessMessage() {

@@ -25,4 +25,6 @@ public interface ProjectLocal extends GenericDaoLocal<Project, Long>{
 
     public boolean isMember(long userId, long projectId);
 
+    public void deleteProject(Project p);
+
 }

@@ -15,8 +15,6 @@
 
 
     <ui:define name="content">
-        <h1><h:outputText value="Project nicht vorhanden" rendered="#{!projectOverviewController.valid}"/></h1>
-
         <h1><h:outputText value="#{projectOverviewController.projectName}" rendered="#{projectOverviewController.valid}" /></h1>
         <ice:form rendered="#{projectOverviewController.valid}" >
 
