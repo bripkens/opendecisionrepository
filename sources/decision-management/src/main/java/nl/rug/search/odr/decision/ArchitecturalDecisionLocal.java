@@ -9,7 +9,7 @@ import nl.rug.search.odr.entities.ArchitecturalDecision;
  */
 public interface ArchitecturalDecisionLocal {
     
-    void addDecision(ArchitecturalDecision d);
+    void persistDecision(ArchitecturalDecision d);
 
     public boolean isUsed(String decisionName, long projectId);
 
