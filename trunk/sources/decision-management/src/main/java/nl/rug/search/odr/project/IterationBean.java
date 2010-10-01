@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Iteration;
 
 /**
@@ -13,21 +15,23 @@ import nl.rug.search.odr.entities.Iteration;
  * @author Stefan
  */
 @Stateless
-public class IterationBean implements IterationLocal {
+public class IterationBean extends GenericDaoBean<Iteration, Long> implements IterationLocal{
     @PersistenceContext
     private EntityManager entityManager;
 
 
     @Override
-    public void addIteration(Iteration i) {
-        entityManager.persist(i);
+    public boolean isPersistable(Iteration entity) {
+         if (entity == null || !entity.isPersistable()) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
-    public Collection<Iteration> getAllITerationsByProjectId(long projectId){
-        Query q = entityManager.createQuery("Select it from Iteration it where it.project.id = :projectId");
-        q.setParameter("projectId", projectId);
+    public void updateIteration(Iteration sourceIteration) {
 
-        return q.getResultList();
+        entityManager.merge(sourceIteration);
     }
 }

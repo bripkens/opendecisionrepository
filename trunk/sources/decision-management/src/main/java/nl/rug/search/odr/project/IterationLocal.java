@@ -1,17 +1,13 @@
-
 package nl.rug.search.odr.project;
 
-import java.util.Collection;
+import nl.rug.search.odr.GenericDaoLocal;
 import nl.rug.search.odr.entities.Iteration;
 
 /**
  *
  * @author Stefan
  */
-public interface IterationLocal {
-    
-    void addIteration(Iteration i);
+public interface IterationLocal extends GenericDaoLocal<Iteration, Long> {
 
-    public Collection<Iteration> getAllITerationsByProjectId(long projectId);
-    
+    public void updateIteration(Iteration sourceIteration);
 }
