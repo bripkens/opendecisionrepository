@@ -13,7 +13,7 @@ The ODR is an online repository, which provides the functionality to document al
 = Stakeholders =
 Two groups of stakeholders can be identified. The first group are the customers. Customers are the originators of the project and among other things interested in the project progress. Software Engineers make up the second group. Potential users of the system like Software Architects could be represented as a third group. This group hasn't been included since the community of potential users is not aware of this product and has therefore no specific requirements or expectations.
 
-|| Name || Group ||
+|| *Name* || *Group* ||
 || Uwe van Heesch || Customer ||
 || Paris Avgeriou || Customer ||
 || Stefan Arians || Software Engineer ||
