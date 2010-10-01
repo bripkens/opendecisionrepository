@@ -7,6 +7,8 @@ package nl.rug.search.odr.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,12 +25,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author Stefan
  */
 @Entity
-public class ArchitecturalDecision implements Serializable {
+public class ArchitecturalDecision extends BaseEntity<ArchitecturalDecision> {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ArchitecturalDecisionId;
+    private Long id;
     @Column(length = 30, nullable = false)
     private String name;
     @Column(length = 30)
@@ -40,19 +42,15 @@ public class ArchitecturalDecision implements Serializable {
     @Column(length = 30)
     private String problem;
 
-//    @OneToMany
-//    private Collection<Version> versions;
+    @OneToMany(mappedBy="decision", cascade=CascadeType.ALL, orphanRemoval=true)
+    private Collection<Version> versions;
 
-//    public ArchitecturalDecision() {
-//        versions = new ArrayList<Version>();
-//    }
 
-//    public void addVerison(Version version) {
-//        if (version == null) {
-//            throw new BusinessException("version is null.");
-//        }
-//        versions.add(version);
-//    }
+    public ArchitecturalDecision() {
+        versions = new ArrayList<Version>();
+    }
+
+
 
     public String getArguments() {
         return arguments;
@@ -95,53 +93,66 @@ public class ArchitecturalDecision implements Serializable {
         this.problem = problem;
     }
 
-    
-//    public Collection<Version> getVersions() {
-//        return versions;
-//    }
-
     public Long getId() {
-        return ArchitecturalDecisionId;
+        return id;
     }
 
     public void setId(Long id) {
         if (id == null) {
             throw new BusinessException("Id is null.");
         }
-        this.ArchitecturalDecisionId = id;
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(ArchitecturalDecisionId).append(name).append(problem).append(arguments).
-                append(decision).append(problem).append(oprId).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-        if (object == this) {
-            return true;
-        }
-        if (object.getClass() != getClass()) {
-            return false;
-        }
-
-        ArchitecturalDecision ac = (ArchitecturalDecision) object;
-        return new EqualsBuilder().
-                append(ArchitecturalDecisionId, ac.ArchitecturalDecisionId).
-                append(name, ac.name).
-                append(arguments, ac.arguments).
-                append(decision, ac.decision).
-                append(problem, ac.problem).
-                append(oprId, ac.oprId).
-                isEquals();
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "ArchitecturalDecision{" + "id=" + ArchitecturalDecisionId + "type=" + name + '}';
+        return "ArchitecturalDecision{" + "id=" + id + "type=" + name + '}';
     }
+
+
+
+   public Collection<Version> getVersions() {
+        return Collections.unmodifiableCollection(versions);
+    }
+
+    public void setVersions(Collection<Version> versions) {
+        if (versions == null) {
+            throw new BusinessException("Collection of members is null");
+        }
+
+        this.versions = versions;
+    }
+
+    public void addVersion(Version version){
+        if(version == null){
+            throw new BusinessException("Version is null.");
+        }
+        version.setArchitecturalDecision(this);
+    }
+
+    public void removeAllVersions() {
+        versions.clear();
+    }
+
+    public void removeVersion(Version version) {
+        if(version == null){
+            throw new BusinessException("Version is null.");
+        }
+
+        version.setArchitecturalDecision(this);
+    }
+
+    void internalAddVersion(Version version) {
+        versions.add(version);
+    }
+
+    void internalRemoveVersion(Version version) {
+        versions.remove(version);
+    }
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[] {name, oprId, arguments, decision, problem};
+    }
+
 }

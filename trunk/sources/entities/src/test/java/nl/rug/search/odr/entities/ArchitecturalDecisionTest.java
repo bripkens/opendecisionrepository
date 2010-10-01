@@ -126,7 +126,6 @@ public class ArchitecturalDecisionTest {
         assertFalse(a.equals(new TestUtil()));
 
         ArchitecturalDecision at1 = new ArchitecturalDecision();
-        at1.setId(Long.MIN_VALUE);
         at1.setArguments("bla");
         at1.setName("bla");
         at1.setDecision("bla");
@@ -134,7 +133,6 @@ public class ArchitecturalDecisionTest {
         at1.setOprId("bla");
 
         ArchitecturalDecision at2 = new ArchitecturalDecision();
-        at2.setId(Long.MIN_VALUE);
         at2.setArguments("foo");
         at2.setName("foo");
         at2.setDecision("foo");

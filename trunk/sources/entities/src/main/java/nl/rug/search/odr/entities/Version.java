@@ -4,77 +4,107 @@
  */
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.StringValidator;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
  * @author Stefan
  */
-//@Entity
-public class Version implements Serializable {
+@Entity
+public class Version extends BaseEntity<Version> {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long VersionId;
-    @Column(nullable = false, unique = true, updatable = false)
+    private Long id;
     private int revision;
-    @Column(nullable = false, unique = false, updatable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
-    @OneToOne
-    private Action action;
+
+    @ManyToOne
+    private ArchitecturalDecision decision;
+
+//    @OneToOne
+//    private Action action;
     @ManyToOne
     private Status status;
+
     @OneToMany
-    private Requirement requirement;
-    @ManyToMany(mappedBy = "version")
-    private Collection<Relationship> relationships;
+    private Collection<Requirement> requirements;
+
+//    @ManyToMany(mappedBy = "version")
+//    private Collection<Relationship> relationships;
+    public ArchitecturalDecision getDecision() {
+        return decision;
+    }
+
+    public void setArchitecturalDecision(ArchitecturalDecision decision) {
+        if (decision == null) {
+            this.decision.internalRemoveVersion(this);
+        }
+        this.decision = decision;
+
+        if (decision != null) {
+            decision.internalAddVersion(this);
+        }
+    }
 
     public Version() {
-        relationships = new ArrayList<Relationship>();
+        requirements = new ArrayList<Requirement>();
+//        relationships = new ArrayList<Relationship>();
+    }
+    @Override
+    public Long getId() {
+        return id;
     }
 
-    public Long getVersionId() {
-        return VersionId;
-    }
-
-    public void setVersionId(Long id) {
+    @Override
+    public void setId(Long id) {
         if (id == null) {
             throw new BusinessException("is is null");
         }
-        this.VersionId = id;
+        this.id = id;
     }
 
-    public Action getAction() {
-        return action;
-    }
-
-    public void setAction(Action action) {
-        if (action == null) {
-            throw new BusinessException("Paction is null");
+    public void addRequirment(Requirement re){
+        if(re == null){
+            throw new BusinessException("Please provide a requirement");
         }
-        this.action = action;
+        requirements.add(re);
     }
 
+    public void removeRequirement(Requirement re){
+        if(re == null){
+            throw new BusinessException("Can't delete the Requirment null");
+        }
+        requirements.remove(re);
+    }
+
+
+
+
+
+//    public Action getAction() {
+//        return action;
+//    }
+//
+//    public void setAction(Action action) {
+//        if (action == null) {
+//            throw new BusinessException("Paction is null");
+//        }
+//        this.action = action;
+//    }
     public Date getCreateDate() {
         return createDate;
     }
@@ -83,21 +113,19 @@ public class Version implements Serializable {
         this.createDate = date;
     }
 
-    public Collection<Relationship> getRelationships() {
-        return Collections.unmodifiableCollection(relationships);
-    }
-
-    public Requirement getRequirement() {
-        return requirement;
-    }
-
-    public void setRequirement(Requirement requirement) {
-        if (requirement == null) {
-            throw new BusinessException("requirment is null");
-        }
-        this.requirement = requirement;
-    }
-
+//    public Collection<Relationship> getRelationships() {
+//        return Collections.unmodifiableCollection(relationships);
+//    }
+//    public Requirement getRequirement() {
+//        return requirement;
+//    }
+//
+//    public void setRequirement(Requirement requirement) {
+//        if (requirement == null) {
+//            throw new BusinessException("requirment is null");
+//        }
+//        this.requirement = requirement;
+//    }
     public int getRevision() {
         return revision;
     }
@@ -112,70 +140,45 @@ public class Version implements Serializable {
     public Status getStatus() {
         return status;
     }
-
     public void setStatus(Status status) {
         if (status == null) {
             throw new BusinessException("status is null");
         }
         this.status = status;
     }
-
-    public void addRelationship(Relationship ship) {
-        if (ship == null) {
-            throw new BusinessException("relationship is null");
-        }
-        ship.setSourceVersion(this);
-    }
-
-    public void removeRelationShip(Relationship ship) {
-        ship.setSourceVersion(null);
-    }
-
-    void internalAddRelationship(Relationship ship) {
-        relationships.add(ship);
-    }
-
-    void internalRemoveRelationship(Relationship ship) {
-        relationships.remove(ship);
-    }
-
-    void setRelationships(Collection<Relationship> relationships) {
-        if (relationships == null) {
-            throw new BusinessException("Collection relationsships is null");
-        }
-
-        this.relationships = relationships;
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(VersionId).
-                append(revision).
-                append(createDate).
-                toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-        if (object == this) {
-            return true;
-        }
-        if (object.getClass() != getClass()) {
-            return false;
-        }
-
-        Version v2 = (Version) object;
-        return new EqualsBuilder().append(VersionId, v2.VersionId).
-                append(revision, v2.revision).
-                append(createDate, v2.createDate).
-                isEquals();
-    }
-
+    
+//    public void addRelationship(Relationship ship) {
+//        if (ship == null) {
+//            throw new BusinessException("relationship is null");
+//        }
+//        ship.setSourceVersion(this);
+//    }
+//
+//    public void removeRelationShip(Relationship ship) {
+//        ship.setSourceVersion(null);
+//    }
+//    void internalAddRelationship(Relationship ship) {
+//        relationships.add(ship);
+//    }
+//
+//    void internalRemoveRelationship(Relationship ship) {
+//        relationships.remove(ship);
+//    }
+//
+//    void setRelationships(Collection<Relationship> relationships) {
+//        if (relationships == null) {
+//            throw new BusinessException("Collection relationsships is null");
+//        }
+//
+//        this.relationships = relationships;
+//    }
     @Override
     public String toString() {
-        return "Version{" + "VersionId=" + VersionId + "revision=" + revision + "createDate=" + createDate + '}';
+        return "Version{" + "VersionId=" + id + "revision=" + revision + "createDate=" + createDate + '}';
+    }
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[]{revision, createDate};
     }
 }

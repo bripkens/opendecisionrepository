@@ -28,7 +28,7 @@ public class IterationTest {
     @Test
     public void testInitialization() {
         assertNull(i.getDescription());
-        assertNull(i.getIterationId());
+        assertNull(i.getId());
         assertNull(i.getName());
         assertNull(i.getStartDate());
         assertNull(i.getEndDate());
@@ -55,7 +55,7 @@ public class IterationTest {
     public void testSetIterationId() {
         long id = Long.MIN_VALUE;
         i.setId(id);
-        assertEquals(id, (long) i.getIterationId());
+        assertEquals(id, (long) i.getId());
     }
 
     @Test(expected = BusinessException.class)
@@ -159,10 +159,6 @@ public class IterationTest {
 //        i.setVersion(null);
 //    }
 
-    @Test
-    public void setToString() {
-        assertTrue(TestUtil.toStringHelper(i));
-    }
 
     @Test
     public void testHashCode() {
@@ -193,7 +189,6 @@ public class IterationTest {
         assertFalse(i.equals(new TestUtil()));
 
         Iteration i2 = new Iteration();
-        i2.setId(Long.MIN_VALUE);
         i2.setDescription("bla");
         i2.setName("bla");
 
@@ -202,7 +197,6 @@ public class IterationTest {
         i2.setEndDate(new Date(startdate.getTime() + 1000));
 
         Iteration i3 = new Iteration();
-        i3.setId(Long.MIN_VALUE);
         i3.setDescription("foo");
         i3.setName("foo");
 
