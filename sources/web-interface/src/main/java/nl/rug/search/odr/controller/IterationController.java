@@ -69,7 +69,7 @@ public class IterationController extends AbstractController {
         i.setStartDate(startDate);
         i.setEndDate(endDate);
 
-        iterationLocal.addIteration(i);
+      //  iterationLocal.persistIteration(i);
         return true;
     }
 

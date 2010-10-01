@@ -64,7 +64,7 @@ public class DecisionController extends AbstractController {
         ad.setArguments(arguments);
         ad.setOprId(oprId);
 
-        architecturalDecisionLocal.addDecision(ad);
+        architecturalDecisionLocal.persistDecision(ad);
 
         return true;
     }

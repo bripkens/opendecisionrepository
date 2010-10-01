@@ -16,63 +16,35 @@
 
     <ui:define name="content">
         <h1><h:outputText value="#{projectOverviewController.projectName}" rendered="#{projectOverviewController.valid}" /></h1>
-        <ice:form rendered="#{projectOverviewController.valid}" >
 
-            <a href="#" id="togglelink" name="memberContainer1">Projctmembers</a><br />
-            <div id="memberContainer1" >
+        <p><h:outputText value="#{projectOverviewController.description}" rendered="#{projectOverviewController.valid}" /></p>
+
+        <ice:form rendered="#{projectOverviewController.valid}" style="position:relative;" styleClass="members" >
+
+
+            <h2>Project members</h2> <a href="#" class="togglelink collapsable" name="memberContainer1" style="position: absolute; top:0;right:0;">[show/hide]</a>
+            <div id="memberContainer1" class="toggleContainer" >
                 <ice:dataTable
-                    value="#{projectOverviewController.projectMembers}"
-                    var="item" styleClass="rowhover pointer ">
+                    value="#{projectOverviewController.projectMembers}" var="item" styleClass="rowhover pointer ">
                     <ice:column>
                         <ice:rowSelector id="selected"
                                          selectionListener="#{projectsController.rowSelectionListener}"/>
-                        <f:facet name="header">
-                            <ice:outputText value="ProjectName"/>
-                        </f:facet>
-                        <ice:outputText value="#{item.person.name}"/>
+                        <ice:outputText value="#{item.person.name}" nospan="true"/>
+                        <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
                     </ice:column>
-
                     <ice:column>
-                        <f:facet name="header">
-                            <ice:outputText value="Stakeholder role"/>
-                        </f:facet>
-                        <ice:outputText value="#{item.role.name}"/>
+                        <ice:outputText value="#{item.role.name}" nospan="true"/>
                     </ice:column>
                 </ice:dataTable>
 
             </div>
 
+            
 
 
-            <a href="#" id="togglelink" name="memberContainer2">Iterations</a><br />
-            <div id="memberContainer2" >
-                <ice:dataTable
-                    value="#{projectOverviewController.iterations}"
-                    var="item" styleClass="rowhover pointer ">
+            
 
-                    <ice:column>
-                        <ice:rowSelector id="selected"
-                                         selectionListener="#{projectsController.rowSelectionListener}"/>
-                        <f:facet name="header">
-                            <ice:outputText value="Iteration"/>
-                        </f:facet>
-                        <ice:outputText value="#{item.name}"/>
-                    </ice:column>
-
-                    <ice:column>
-                        <f:facet name="header">
-                            <ice:outputText value="Start date"/>
-                        </f:facet>
-                        <ice:outputText value="#{item.startDate}">
-                            <f:convertDateTime type="date" pattern="yyyy-MM-dd" timeZone="#{iterationController.timeZone}" />
-                            </ice:outputText>
-
-                    </ice:column>
-                </ice:dataTable>
-            </div>
         </ice:form>
-
-
 
     </ui:define>
 
