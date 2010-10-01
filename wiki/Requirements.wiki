@@ -9,7 +9,7 @@
 The document describes the requirements for the Open Decision Repository. The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about visualization of architectural decisions. This project serves as a prototyp which can also be used to support his paper. 
 
 == Scope ==
-The ODR will be provide a functionality to capture architectural decisions and their relationships amongst themselves for user specified projects. Users will be able to manage projects and project members, split up the project in iterations and visualize captured decisions in various ways for different stakeholders.
+The ODR will provide a functionality to capture architectural decisions and their relationships amongst themselves for user specified projects. Users will be able to manage projects and project members, split up the project in iterations and visualize captured decisions in various ways for different stakeholders.
 
 
 == Definitions, acronyms, and abbreviations ==
@@ -23,11 +23,14 @@ We devided the different views about the requirments into to parts. The first pa
 
 = Overall description =
 
+== Stakeholders ==
+Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
+
 == Product scope ==
-The Open Decision Repository will provide the possibility to get a visualization about the decision within a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. 
-You can also get three differehnt kind of views. 
- * A chronical view about the decisons and the members who take these
- * a stakeholder views, that describe the actions of every role
+The Open Decision Repository will provide functionality to visualize decisions that have been in a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. 
+You can also get three different kind of views. 
+ * a chronical view about the decisons and the members who take these
+ * a stakeholder view, that describe the actions of every role
  * and a relationship view, that describe the dependencies of decisions.
 Another very important point is the revision control, which enables switching between differet versions of decisions.
 
