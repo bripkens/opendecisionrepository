@@ -26,16 +26,20 @@
 
             <ice:panelGroup effect="#{loginController.notificationEffect}"
                             visible="false"
-                            styleClass="loginError">
+                            styleClass="loginError"
+                            id="loginErrorMessage">
                 <ice:outputText value="#{form['login.fail']}" />
             </ice:panelGroup>
 
             <ice:commandLink action="register"
                              value="#{form['button.register']}"
-                             styleClass="registerLink"/>
+                             styleClass="registerLink"
+                             id="registerLink" />
             
             <ice:commandButton action="#{loginController.submitForm}"
                                value="#{form['button.login']}"
+                               id="loginButton"
                                styleClass="confirm"/>
+            
         </ice:form>
 </ui:composition>

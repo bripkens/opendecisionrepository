@@ -54,7 +54,6 @@ public class ProjectOverviewController {
     private boolean memberIsInProject() {
         boolean auth = false;
         for (ProjectMember pm : getProject().getMembers()) {
-            System.out.println(pm.getId());
             if (pm.getPerson().getId() == AuthenticationUtil.getUserId()) {
                 auth = true;
             } else {
@@ -72,10 +71,13 @@ public class ProjectOverviewController {
         Collection<ProjectMember> copy = new ArrayList<ProjectMember>();
 
         for (ProjectMember pm : getProject().getMembers()) {
-            copy.add(pm);
+            if (!pm.isRemoved()) {
+                copy.add(pm);
+            }
         }
         return copy;
     }
+
     public String getProjectName() {
         return getProject().getName();
     }
@@ -83,5 +85,4 @@ public class ProjectOverviewController {
     public Collection<Iteration> getIterations() {
         return il.getAllITerationsByProjectId(Long.parseLong(pid));
     }
-
 }

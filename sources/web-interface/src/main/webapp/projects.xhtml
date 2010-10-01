@@ -15,7 +15,6 @@
 
 
     <ui:define name="content">
-        <h1><h:outputText value="#{form['projects.page.title']}"/></h1>
         <ice:outputText value="#{form['projects.zeroProjects']}" rendered="#{!projectsController.active}" escape="false"/>
         <ice:form rendered="#{projectsController.active}">
            

@@ -110,13 +110,15 @@
 
             <ice:commandButton action="#{registerUserController.submitForm}"
                                value="#{form['button.submit']}"
-                               styleClass="confirm"/>
+                               styleClass="confirm"
+                               id="registrationSubmitButton"/>
 
 
 
             <ice:commandButton actionListener="#{registerUserController.resetForm}"
                                value="#{form['button.clear']}"
-                               styleClass="abort"/>
+                               styleClass="abort"
+                               id="registrationAbortButton"/>
 
         </ice:form>
     </ui:define>

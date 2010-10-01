@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.user.UserLocal;
 import nl.rug.search.odr.entities.Person;
@@ -25,9 +26,7 @@ public class LoginController {
     @EJB
     private UserLocal ul;
     private String email, password;
-
     public static final int RESULT_DELAY = 3;
-
     private EffectQueue notificationEffect;
 
     public LoginController() {
@@ -42,14 +41,20 @@ public class LoginController {
     public ActionResult submitForm() {
         Person p = null;
 
-        p = ul.tryLogin(email, password);
-
+        try {
+            p = ul.tryLogin(email, password);
+        } catch (BusinessException ex) {
+            notificationEffect.setFired(false);
+            return ActionResult.FAIL;
+        }
+        
         if (p == null) {
             notificationEffect.setFired(false);
             return ActionResult.FAIL;
         }
 
         AuthenticationUtil.authenticate(p);
+
         try {
             JsfUtil.redirect("/projects.html");
         } catch (IOException ex) {

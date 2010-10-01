@@ -1,6 +1,5 @@
 package nl.rug.search.odr.controller;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -9,9 +8,7 @@ import nl.rug.search.odr.Mode;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
-import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
-import nl.rug.search.odr.RestrictionEvaluator;
 import nl.rug.search.odr.project.ProjectLocal;
 
 /**
@@ -38,7 +35,7 @@ public abstract class AbstractManageController extends AbstractController implem
 
     protected abstract boolean handleUpdateRequest(long id);
 
-    protected abstract boolean handleConfirmedDeleteExecution(long id);
+    protected abstract boolean handleConfirmedDeleteExecution();
 
     protected abstract boolean handleDeleteRequest(long id);
 
@@ -70,10 +67,25 @@ public abstract class AbstractManageController extends AbstractController implem
             case DELETE:
                 return handleDeleteRequest(rpa.getId());
             case DELETE_CONFIRMED:
-                return handleConfirmedDeleteExecution(rpa.getId());
+                return handleConfirmedDeleteExecution();
             default:
                 return false;
         }
+    }
+
+    public final boolean isDeleteRequest() {
+        HttpServletRequest request;
+        request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        RequestParameterAnalyzer rpa = new RequestParameterAnalyzer(request, isPreviousEntitySet());
+
+        if (!isAllowedHook(rpa)) {
+            return false;
+        }
+
+        Mode mode = rpa.getMode();
+
+        return mode == Mode.DELETE || mode == Mode.DELETE_CONFIRMED;
     }
 
     protected boolean isAllowedHook(RequestParameterAnalyzer rpa) {

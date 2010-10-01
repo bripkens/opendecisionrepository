@@ -54,7 +54,7 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
 
     @Override
     public List<ProjectMember> getAllProjectsFromUser(long userId) {
-        Query q = entityManager.createQuery("SELECT pm from ProjectMember pm WHERE pm.person.id = :userId");
+        Query q = entityManager.createQuery("SELECT pm from ProjectMember pm WHERE pm.person.id = :userId AND pm.removed = false");
         q.setParameter("userId", userId);
 
         return q.getResultList();
@@ -62,9 +62,6 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
 
     @Override
     public void updateProject(Project sourceProject) {
-        Query q = entityManager.createQuery("DELETE FROM ProjectMember pm WHERE pm.project.id = :projectId");
-        q.setParameter("projectId", sourceProject.getId());
-
         entityManager.merge(sourceProject);
     }
 
@@ -72,11 +69,22 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
     public boolean isMember(long userId, long projectId) {
         Query q = entityManager.createQuery("SELECT COUNT(pm)"
                 + " FROM ProjectMember pm "
-                + " WHERE pm.person.id = :userId AND pm.project.id = :projectId");
+                + " WHERE pm.person.id = :userId AND pm.project.id = :projectId AND pm.removed = false");
         q.setParameter("userId", userId);
         q.setParameter("projectId", projectId);
 
         long result = (Long) q.getSingleResult();
         return result == 1;
+    }
+
+    @Override
+    public void deleteProject(Project p) {
+        Query q = entityManager.createQuery("DELETE FROM ProjectMember pm WHERE pm.project.id = :projectId");
+        q.setParameter("projectId", p.getId());
+        q.executeUpdate();
+
+        q = entityManager.createQuery("DELETE FROM Project p WHERE p.id = :projectId");
+        q.setParameter("projectId", p.getId());
+        q.executeUpdate();
     }
 }

@@ -3,14 +3,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:odr="http://www.decisionrepository.com/taglib">
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
 
     <ui:define name="head">
+        <ui:insert name="pagetitle" />
     </ui:define>
 
     <ui:define name="pagetitle">
-        <ice:outputText value="#{form['project.add.page.title']}" nospan="true" />
+        <ui:insert name="pagetitle" />
     </ui:define>
 
     <ui:define name="belowHeader">
@@ -28,15 +28,21 @@
             <ice:outputText value="#{form['project.manage.no.project.selected.text']}"  />
         </ice:panelGroup>
 
-        <ice:form id="registerForm" rendered="#{manageProjectController.validRequest}">
+        <ice:form id="deleteConfirmForm" rendered="#{manageProjectController.validRequest and manageProjectController.deleteRequest}">
+            <h1><ui:insert name="heading" /></h1>
 
-            <h1><h:outputText value="#{form['project.add.heading']}"/></h1>
+            <p class="deleteConfirmationMessage">
+                <ui:insert name="deleteConfirmationText" />
+            </p>
 
+            <ice:commandButton action="#{manageProjectController.delete}"
+                               value="#{form['button.delete']}"
+                               styleClass="abort"/>
+        </ice:form>
 
+        <ice:form id="registerForm" rendered="#{manageProjectController.validRequest and !manageProjectController.deleteRequest}">
 
-
-
-
+            <h1><ui:insert name="heading" /></h1>
 
             <div class="formSection">
                 <ice:outputLabel value="#{form['label.name']}" for="inName"/>
@@ -83,19 +89,19 @@
 
             <div class="formSection last">
                 <ice:outputLabel value="#{form['label.members']}" for="inMember"/>
-                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
 
                 <ice:inputText label="#{form['label.members']}"
                                id="inMember"
                                styleClass="memberAdd"
-                               value="#{manageProjectController.memberInput}"/>
+                               value="#{manageProjectController.memberInput}"
+                               validator="#{manageProjectController.checkEmailAddress}"/>
 
                 <ice:commandButton actionListener="#{manageProjectController.addMember}"
                                    value="#{form['button.add']}"
                                    styleClass="confirm add"
                                    id="inMemberAdd" />
 
-                <p><ice:outputText value="#{form['project.manage.help.enter']}" nospan="true" /></p>
+                <p style="padding-top: 5px"><ice:outputText value="#{form['project.manage.help.enter']}" nospan="true" /></p>
 
                 <ice:dataTable value="#{manageProjectController.projectMembers}" var="item" styleClass="memberSelect">
                     <ice:column>
@@ -162,28 +168,6 @@
     </ui:define>
 
     <ui:define name="sidebar">
-        <div id="help">
-            <ul class="info">
-                <li class="messages">
-                    <div class="header"></div>
-                    <div class="text">
-                        <ice:messages layout="list"
-                                      errorClass="error"
-                                      warnClass="warning"
-                                      fatalClass="fatal"
-                                      infoClass="information" />
-                    </div>
-                </li>
-                <li>
-                    <div class="header">
-                        <img src="resources/images/info.png" alt="information" />
-                    </div>
-                    <div class="text">
-                        <h2>dsadas</h2>
-                        content?
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <ui:insert name="sidebar" />
     </ui:define>
 </ui:composition>
