@@ -43,10 +43,10 @@
 
             <h3><ice:outputText value="#{page['projectDetails.actions.headline']}" nospan="true"/></h3>
 
-            <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}">
+            <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}" style="text-decoration: none;">
                 <img src="./resources/images/pencil.png" width="48" height="48" alt="edit" />
             </a>
-            <a href="#{projectDetailsController.deleteLink}" style="margin-left: 20px;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
+            <a href="#{projectDetailsController.deleteLink}" style="margin-left: 20px;text-decoration: none;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
                 <img src="./resources/images/cross.png" width="48" height="48" alt="delete" />
             </a>
 

@@ -37,7 +37,8 @@
 
             <ice:commandButton action="#{manageProjectController.delete}"
                                value="#{form['button.delete']}"
-                               styleClass="abort"/>
+                               styleClass="abort"
+                               id="confirmDeleteButton"/>
         </ice:form>
 
         <ice:form id="registerForm" rendered="#{manageProjectController.validRequest and !manageProjectController.deleteRequest}">
@@ -156,7 +157,8 @@
 
             <ice:commandButton action="#{manageProjectController.submitForm}"
                                value="#{form['button.submit']}"
-                               styleClass="confirm"/>
+                               styleClass="confirm"
+                               id="manageProjectCreateButton"/>
 
 
 
