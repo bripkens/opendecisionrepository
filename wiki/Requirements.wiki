@@ -1055,7 +1055,14 @@ This section describes the non-functional requirements. Each of these non-functi
 <tbody>
   <tr>
     <td colspan="4">
-The ODR should provide a web interface. This web interface should be accessible using any of the major browsers without the needs of any plugin. Internet Explorer version six and lower don't need to be supported.
+The ODR should provide a web interface. This web interface should at least support the following web browsers and newer versions of these browsers
+<ul>
+<li>Microsoft Internet Explorer version 7</li>
+<li>Mozilla Firefox version 3.5</li>
+<li>Google Chrome version 5</li>
+<li>Apple Safari version 5</li>
+<li>Opera version 10</li>
+</ul>
 </td>
   </tr>
 </tbody>
