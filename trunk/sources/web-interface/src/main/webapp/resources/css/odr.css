@@ -1,4 +1,4 @@
-.prefillValue, .preselectValue {
+in.prefillValue, .preselectValue {
     display: none;
 }
 
@@ -9,16 +9,61 @@
 }
 
 div#userMenu {
-    width: 300px;
-    height: 75px;
+    width: 330px;
+    height: 100px;
     position: absolute;
-    top: 5px;
+    top: -49px;
     right: 100px;
+    background-image: url(../images/usermenu_shadow_left.png);
+    background-repeat: no-repeat;
+    background-position: left top;
+    font-family: Verdana, sans-serif;
+}
+div#userMenu #logoutForm {
+    position: relative;
+    top: 9px;
+}
+div#userMenu #logoutForm input {
+    position: relative;
+    top: -17px;
+}
+div#userMenu #logoutForm p {
+    font-size: 0.8em;
+}
+div#userMenu label {
+    display: none;
+}
+div#userMenu div {
+    background-image: url(../images/usermenu_shadow_right.png);
+    background-repeat: no-repeat;
+    background-position: right top;
+    height: 100%;
+}
+div#userMenu div div {
+    background-image: url(../images/usermenu_shadow.png);
+    background-repeat: repeat-x;
+    height: 100%;
+    margin-right: 1.62em;
+    margin-left: 1.63em;
+}
+div#userMenu div div div {
+    position: relative;
+    top: 53px;
+    right: 30px;
+    background-image: none;
+    height: 100%;
+
 }
 div#userMenu .registerLink {
     position: absolute;
-    top: 25px;
+    top: 20px;
     font: 13px arial,sans-serif;
+    font-size: 0.75em;
+    color: #444;
+    text-decoration: none;
+}
+div#userMenu .registerLink:hover {
+    text-decoration: underline;
 }
 div#userMenu input {
     background-color: #F4F2F2;
@@ -48,6 +93,10 @@ div#userMenu div.loginError {
     border: 2px solid red;
     position: absolute;
     top: 26px;
+    left: -14px;
+    width: 260px;
+    height: 15px;
+    text-align: center;
     padding: 5px;
     font-family: Arial, Geneva, Verdana, Helvetica, sans-serif;
     font-size: 0.8em;
@@ -181,9 +230,10 @@ p.deleteConfirmationMessage  span {
 #help  ul.info > li > div.text a {
     color: #fff;
 }
-
-#page .members table.rowhover td:first-child, #page .members table.rowhover th:first-child {
+#page .members table.rowhover td, #page .members table.rowhover th {
     font-size: 0.9em;
+}
+#page .members table.rowhover td:first-child, #page .members table.rowhover th:first-child {
     width: 350px;
 }
 #page .members table.rowhover td:first-child span, #page .members table.rowhover th:first-child span {

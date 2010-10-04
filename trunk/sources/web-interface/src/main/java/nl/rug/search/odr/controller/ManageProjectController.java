@@ -194,7 +194,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.createProject(sourceProject);
 
-        resetForm(null);
+        JsfUtil.removeSessionBean(getBeanName());
 
         try {
             JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
@@ -218,7 +218,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.updateProject(sourceProject);
 
-        resetForm(null);
+        JsfUtil.removeSessionBean(getBeanName());
 
         try {
             JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
@@ -233,7 +233,7 @@ public class ManageProjectController extends AbstractManageController {
     protected boolean handleConfirmedDeleteExecution() {
         pl.deleteProject(sourceProject);
 
-        resetForm(null);
+        JsfUtil.removeSessionBean(getBeanName());
 
         try {
             JsfUtil.redirect("/projects.html");

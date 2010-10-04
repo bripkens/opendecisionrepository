@@ -36,24 +36,30 @@
                 </div>
                 <div id="navigation">
                     <div>
-                            <ul>
-                                <li class="current">
-                                    <a href="index.html"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
-                                </li>
-                                <li>
-                                    <a href="projects.html"><h:outputText value="#{common['page.mainMenu.projects.text']}" title="#{common['page.mainMenu.projects.title']}" /></a>
-                                </li>
-                                <li>
-                                    <a href="error.html"><h:outputText value="#{common['page.mainMenu.search.text']}" title="#{common['page.mainMenu.search.title']}" /></a>
-                                </li>
-                                <li>
-                                    <a href="learnMore.html"><h:outputText value="#{common['page.mainMenu.learnMore.text']}" title="#{common['page.mainMenu.learnMore.title']}" /></a>
-                                </li>
-                            </ul>
+                        <ul>
+                            <li class="current">
+                                <a href="index.html"><h:outputText value="#{common['page.mainMenu.start.text']}" title="#{common['page.mainMenu.start.title']}" /></a>
+                            </li>
+                            <li>
+                                <a href="projects.html"><h:outputText value="#{common['page.mainMenu.projects.text']}" title="#{common['page.mainMenu.projects.title']}" /></a>
+                            </li>
+                            <li>
+                                <a href="error.html"><h:outputText value="#{common['page.mainMenu.search.text']}" title="#{common['page.mainMenu.search.title']}" /></a>
+                            </li>
+                            <li>
+                                <a href="learnMore.html"><h:outputText value="#{common['page.mainMenu.learnMore.text']}" title="#{common['page.mainMenu.learnMore.title']}" /></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div id="userMenu">
-                    <ui:include src="#{userMenuController.userMenu}" />
+                    <div>
+                        <div>
+                            <div>
+                                <ui:include src="#{userMenuController.userMenu}" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -66,7 +72,7 @@
                     <ui:insert name="content">content</ui:insert>
                 </div>
 
-                
+
                 <div id="sidebar">
                     <ui:insert name="sidebar">sidebar</ui:insert>
                 </div>
@@ -76,7 +82,7 @@
             <div id="footer">
                 <hr style="height: 1px; border-top: 1px;"/>
                 <ice:outputText value="#{common['page.footer']} " nospan="true" />
-                
+
             </div>
         </h:body>
     </html>

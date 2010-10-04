@@ -57,7 +57,6 @@ public abstract class AbstractController {
 
     public final void resetForm(ActionEvent e) {
         resetForm();
-        JsfUtil.removeSessionBean(getBeanName());
     }
 
     public final ActionResult submitForm() {
