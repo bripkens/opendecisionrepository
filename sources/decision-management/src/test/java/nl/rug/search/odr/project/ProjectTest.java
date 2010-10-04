@@ -75,26 +75,105 @@ public class ProjectTest extends AbstractEjbTest {
         p.setName("SomeProject");
         p.setDescription("Adescription");
 
-        ProjectMember member = new ProjectMember();
-        member.setPerson(person1);
-        member.setRole(role1);
-        p.addMember(member);
+        ProjectMember member1 = new ProjectMember();
+        member1.setPerson(person1);
+        member1.setRole(role1);
+        p.addMember(member1);
 
-        member = new ProjectMember();
-        member.setPerson(person2);
-        member.setRole(role2);
-        p.addMember(member);
+        ProjectMember member2 = new ProjectMember();
+        member2.setPerson(person2);
+        member2.setRole(role2);
+        p.addMember(member2);
 
-        member = new ProjectMember();
-        member.setPerson(person3);
-        member.setRole(role3);
-        p.addMember(member);
+        ProjectMember member3 = new ProjectMember();
+        member3.setPerson(person3);
+        member3.setRole(role3);
+        p.addMember(member3);
 
         pl.createProject(p);
 
-        System.out.println("hat rollen anzahl: " + srl.getPublicRoles().size());
-
         assertEquals(3, srl.getPublicRoles().size());
         assertNotNull(srl.getSomePublicRole());
+
+        Project pFromDb = pl.getById(p.getId());
+
+        assertEquals(p, pFromDb);
+
+        for(ProjectMember pm : pFromDb.getMembers()) {
+            if (!(pm.getPerson().equals(member1.getPerson())
+                    || pm.getPerson().equals(member2.getPerson())
+                    || pm.getPerson().equals(member3.getPerson()))) {
+                fail("Missing members");
+            }
+        }
+
+        ProjectMember someMember = pFromDb.getMembers().iterator().next();
+
+        someMember.setRemoved(true);
+
+        String newName = "oiuhj132312";
+        pFromDb.setName(newName);
+
+        String newDescription = "op32131 23u129120312iu3 12";
+        pFromDb.setDescription(newDescription);
+
+        pl.updateProject(pFromDb);
+
+        pFromDb = pl.getById(p.getId());
+
+        boolean found = false;
+
+        for(ProjectMember pm : pFromDb.getMembers()) {
+            if ( pm.isRemoved()) {
+                found = true;
+            }
+        }
+
+        assertTrue(found);
+        assertEquals(newName, pFromDb.getName());
+        assertEquals(newDescription, pFromDb.getDescription());
+    }
+
+    @Test
+    public void testIsUsedAndIsMember() {
+        String name = "foo";
+
+        Person person1 = new Person();
+        person1.setName("User1");
+        person1.setPlainPassword("Pw1");
+        person1.setEmail("dasdsa@dasdas.de");
+        ul.register(person1);
+
+        Person person2 = new Person();
+        person2.setName("User2");
+        person2.setPlainPassword("Pw2");
+        person2.setEmail("dasdsa@dadas.de");
+        ul.register(person2);
+
+        assertFalse(pl.isUsed(name));
+
+        Project p = new Project();
+        p.setName(name);
+
+        StakeholderRole role1 = new StakeholderRole();
+        role1.setCommon(true);
+        role1.setName("Architect");
+        srl.persistRole(role1);
+
+        ProjectMember member = new ProjectMember();
+        member.setPerson(person1);
+        member.setRole(role1);
+        member.setProject(p);
+
+        pl.createProject(p);
+
+        assertTrue(pl.isUsed(name));
+        assertTrue(pl.isMember(person1.getId(), p.getId()));
+        assertFalse(pl.isMember(person2.getId(), p.getId()));
+        
+
+        pl.deleteProject(p);
+
+        assertFalse(pl.isUsed(name));
     }
 }
