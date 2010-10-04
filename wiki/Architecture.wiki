@@ -814,7 +814,7 @@ At the beginning of this document you can find a listing of all the architectura
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th>TopLink</th>
+      <th>EclipseLink</th>
     </tr>
   </thead>
   <tbody>
@@ -824,11 +824,11 @@ At the beginning of this document you can find a listing of all the architectura
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>TopLink will be used.</td>
+      <td>EclipseLink will be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>TopLink is part of the OPR technology stack.</td>
+      <td>TopLink is part of the OPR technology stack and EclipseLink is a newer version that comes with Glassfish v3.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
