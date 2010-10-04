@@ -193,6 +193,9 @@ public class ManageProjectController extends AbstractManageController {
         sourceProject.addMember(currentUser);
 
         pl.createProject(sourceProject);
+
+        resetForm(null);
+
         try {
             JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
         } catch (IOException ex) {
@@ -215,6 +218,8 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.updateProject(sourceProject);
 
+        resetForm(null);
+
         try {
             JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
         } catch (IOException ex) {
@@ -227,6 +232,8 @@ public class ManageProjectController extends AbstractManageController {
     @Override
     protected boolean handleConfirmedDeleteExecution() {
         pl.deleteProject(sourceProject);
+
+        resetForm(null);
 
         try {
             JsfUtil.redirect("/projects.html");
