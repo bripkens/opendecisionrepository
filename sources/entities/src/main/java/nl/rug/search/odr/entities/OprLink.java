@@ -22,7 +22,7 @@ public class OprLink implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long oprLinkId;
+    private Long id;
 
     private String link;
 
@@ -36,11 +36,11 @@ public class OprLink implements Serializable {
     }
 
     public Long getOprLinkId() {
-        return oprLinkId;
+        return id;
     }
 
     public void setOprLinkId(Long oprLinkId) {
-        this.oprLinkId = oprLinkId;
+        this.id = oprLinkId;
     }
 
 
@@ -48,7 +48,7 @@ public class OprLink implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (oprLinkId != null ? oprLinkId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -59,7 +59,7 @@ public class OprLink implements Serializable {
             return false;
         }
         OprLink other = (OprLink) object;
-        if ((this.oprLinkId == null && other.oprLinkId != null) || (this.oprLinkId != null && !this.oprLinkId.equals(other.oprLinkId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -67,7 +67,7 @@ public class OprLink implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.rug.search.odr.entities.OprLink[id=" + oprLinkId + "]";
+        return "nl.rug.search.odr.entities.OprLink[id=" + id + "]";
     }
 
 }

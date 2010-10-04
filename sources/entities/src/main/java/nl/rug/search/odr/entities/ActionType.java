@@ -7,6 +7,7 @@ package nl.rug.search.odr.entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +20,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Stefan
  */
-//@Entity
-public class ActionType implements Serializable {
+@Entity
+public class ActionType extends BaseEntity<ActionType> {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long actionTypeId;
+    private Long id;
 
     @Column(length = 30, nullable = false, unique = true)
     private String name;
@@ -32,15 +33,17 @@ public class ActionType implements Serializable {
     @Column
     private boolean common;
 
+    @Override
     public Long getId() {
-        return actionTypeId;
+        return id;
     }
 
+    @Override
     public void setId(Long id) {
         if(id == null){
          throw new BusinessException("ActionType Id is null");
         }
-        this.actionTypeId = id;
+        this.id = id;
     }
 
     public boolean isCommon() {
@@ -62,32 +65,20 @@ public class ActionType implements Serializable {
 
 
     @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(actionTypeId).append(name).append(common).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-        if (object == this) {
-            return true;
-        }
-        if (object.getClass() != getClass()) {
-            return false;
-        }
-
-        ActionType ac = (ActionType) object;
-        return new EqualsBuilder().append(actionTypeId, ac.actionTypeId).
-                append(name, ac.name).
-                append(common, ac.common).
-                isEquals();
-    }
-
-    @Override
     public String toString() {
-        return "ActionType{" + "id=" + actionTypeId + "type=" + name + '}';
+        return "ActionType{ type=" + name + '}';
+    }
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[]{name, common};
+    }
+
+    public boolean isPersistable() {
+        if(name == null){
+            return false;
+        }
+        return true;
     }
 
 
