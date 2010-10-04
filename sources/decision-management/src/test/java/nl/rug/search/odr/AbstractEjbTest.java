@@ -1,8 +1,6 @@
 
 package nl.rug.search.odr;
 
-import nl.rug.search.odr.test.TestDeleteHelper;
-import nl.rug.search.odr.test.TestDeleteHelperLocal;
 import static org.junit.Assert.*;
 
 import javax.ejb.embeddable.EJBContainer;
@@ -23,14 +21,15 @@ public class AbstractEjbTest {
 
     private final static EJBContainer ejbC;
     private final static Context ctx;
-    private final static TestDeleteHelperLocal deleteHelper;
+ //   private final static TestDeleteHelperLocal deleteHelper;
 
     static {
         ejbC = EJBContainer.createEJBContainer();
 
         ctx = ejbC.getContext();
 
-        deleteHelper = EjbUtil.lookUp(TestDeleteHelper.class, TestDeleteHelperLocal.class);
+        //deleteHelper = EjbUtil.lookUp(TestDeleteHelper.class, TestDeleteHelperLocal.class);
+       
     }
 
     @BeforeClass
@@ -47,7 +46,8 @@ public class AbstractEjbTest {
 
     @Before
     public void tearDown() {
-        deleteHelper.deleteAll();
+        new DatabaseCleaner().delete();
+       // deleteHelper.deleteAll();
     }
 
     public static <T> T lookUp(Class classType, Class<T> interfaceType) {

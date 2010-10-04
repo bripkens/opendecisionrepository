@@ -2,9 +2,11 @@ package nl.rug.search.odr.user;
 
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.DatabaseCleaner;
 import nl.rug.search.odr.entities.Person;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -41,7 +43,11 @@ public class UserTest extends AbstractEjbTest {
     public void testIsUsedEmail() {
         Person p = getDummyPerson();
 
+        System.out.println("######################################################");
+
         assertFalse(local.isUsedForFullRegistration(p.getEmail()));
+
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         local.register(p);
 
@@ -103,12 +109,12 @@ public class UserTest extends AbstractEjbTest {
         assertTrue(local.isUsedForFullRegistration(email));
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void testTryLoginInvalidEmail() {
         local.tryLogin("notanemailaddress", "1231241");
     }
 
-    @Test(expected=BusinessException.class)
+    @Test(expected = BusinessException.class)
     public void testTryLoginNullPassword() {
         local.tryLogin("notanemailaddress@dadsa.de", null);
     }
@@ -126,7 +132,7 @@ public class UserTest extends AbstractEjbTest {
         p.setEmail(email);
         p.setPlainPassword("12345");
         local.register(p);
-        
+
         assertNull(local.tryLogin(email, "54321"));
     }
 
@@ -134,7 +140,7 @@ public class UserTest extends AbstractEjbTest {
     public void tesValidLogin() {
         String email = "registerd@registered.de";
         String password = "12345";
-        
+
         Person p = new Person();
         p.setName("Some name");
         p.setEmail(email);

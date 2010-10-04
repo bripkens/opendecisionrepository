@@ -116,6 +116,9 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         q.setParameter("email", email);
 
         long result = (Long) q.getSingleResult();
+
+        System.out.println(result);
+
         return result != 0;
     }
 

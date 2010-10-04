@@ -1,5 +1,12 @@
 package nl.rug.search.odr.project;
 
+import nl.rug.search.odr.entities.Action;
+import nl.rug.search.odr.decision.ActionBean;
+import nl.rug.search.odr.decision.ActionLocal;
+import nl.rug.search.odr.entities.ActionType;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nl.rug.search.odr.DatabaseCleaner;
 import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.decision.ArchitecturalDecisionBean;
@@ -11,6 +18,8 @@ import java.util.Collection;
 import java.util.ArrayList;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.AbstractEjbTest;
+import nl.rug.search.odr.decision.ActionTypeBean;
+import nl.rug.search.odr.decision.ActionTypeLocal;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -21,6 +30,7 @@ import nl.rug.search.odr.user.UserLocal;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -37,9 +47,13 @@ public class IterationTest extends AbstractEjbTest {
     private ArchitecturalDecisionLocal al;
     private StatusLocal sl;
     private RequirementLocal rl;
+    private DatabaseCleaner delteh;
+    private ActionTypeLocal atl;
+    private ActionLocal alo;
 
     @Before
     public void setUp() {
+
         il = lookUp(IterationBean.class, IterationLocal.class);
         ul = lookUp(UserBean.class, UserLocal.class);
         srl = lookUp(StakeholderRoleBean.class, StakeholderRoleLocal.class);
@@ -48,6 +62,9 @@ public class IterationTest extends AbstractEjbTest {
         al = lookUp(ArchitecturalDecisionBean.class, ArchitecturalDecisionLocal.class);
         sl = lookUp(StatusBean.class, StatusLocal.class);
         rl = lookUp(RequirementBean.class, RequirementLocal.class);
+        atl = lookUp(ActionTypeBean.class, ActionTypeLocal.class);
+        alo = lookUp(ActionBean.class, ActionLocal.class);
+
     }
 
     @Test
@@ -105,6 +122,9 @@ public class IterationTest extends AbstractEjbTest {
         ArchitecturalDecision decision2 = TestRelationHelper.createArchiteturalDecision("decision2");
         al.persistDecision(decision2);
 
+        assertEquals("decision1", al.getById(decision.getId()).getName());
+        assertEquals("decision2", al.getById(decision2.getId()).getName());
+
 
         //create statuses
         Status statusConfirm = TestRelationHelper.createStatus("Confirm");
@@ -121,22 +141,56 @@ public class IterationTest extends AbstractEjbTest {
         Version v1 = TestRelationHelper.createVersion(1);
         Version v2 = TestRelationHelper.createVersion(2);
 
-            //status auf version setzen
+        //status auf version setzen
         v1.setStatus(statusConfirm);
         v1.setArchitecturalDecision(decision);
         v1.addRequirment(require);
 
         v2.setStatus(statusRejected);
         v2.setArchitecturalDecision(decision2);
-        
+
 
         //save version
         vl.persistVersion(v1);
         vl.persistVersion(v2);
 
+        assertEquals(1, vl.getById(v1.getId()).getRequirements().size());
+
         //add version to iteration
         i.addVersion(v1);
         i.addVersion(v2);
+
+        assertEquals(2, sl.getAll().size());
+
+        assertEquals(statusConfirm, vl.getById(v1.getId()).getStatus());
+        assertEquals(statusRejected, vl.getById(v2.getId()).getStatus());
+
+        //create Actiontypes
+        ActionType validate = TestRelationHelper.createActionType("validate");
+        atl.persistActionType(validate);
+        ActionType confirm = TestRelationHelper.createActionType("confirm");
+        atl.persistActionType(confirm);
+
+        assertEquals(2, atl.getAll().size());
+
+        Action action = TestRelationHelper.createAction(member1, validate);
+
+        Action action2 = TestRelationHelper.createAction(member2, confirm);
+
+        v1.setAction(action);
+        v2.setAction(action2);
+
+        vl.updateVersion(v1);
+        vl.updateVersion(v2);
+
+        assertEquals(action, vl.getById(v1.getId()).getAction());
+        assertEquals(action2, vl.getById(v2.getId()).getAction());
+
+        assertEquals(member1, vl.getById(v1.getId()).getAction().getMember());
+        assertEquals(member2, vl.getById(v2.getId()).getAction().getMember());
+
+        assertEquals(validate, vl.getById(v1.getId()).getAction().getType());
+        assertEquals(confirm, vl.getById(v2.getId()).getAction().getType());
 
 
     }

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 
 /**
@@ -13,7 +14,7 @@ import nl.rug.search.odr.entities.ArchitecturalDecision;
  * @author Stefan
  */
 @Stateless
-public class ArchitecturalDecisionBean implements ArchitecturalDecisionLocal {
+public class ArchitecturalDecisionBean extends GenericDaoBean<ArchitecturalDecision, Long> implements ArchitecturalDecisionLocal {
     @PersistenceContext
     private EntityManager entityManager;
     
@@ -41,5 +42,10 @@ public class ArchitecturalDecisionBean implements ArchitecturalDecisionLocal {
         q.setParameter("projectId", projectId);
 
         return q.getResultList();
+    }
+
+    @Override
+    public boolean isPersistable(ArchitecturalDecision entity) {
+        return true;
     }
 }
