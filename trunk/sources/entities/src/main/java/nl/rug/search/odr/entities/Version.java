@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
 
@@ -35,8 +36,10 @@ public class Version extends BaseEntity<Version> {
     @ManyToOne
     private ArchitecturalDecision decision;
 
-//    @OneToOne
-//    private Action action;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    private Action action;
+
     @ManyToOne
     private Status status;
 
@@ -91,20 +94,21 @@ public class Version extends BaseEntity<Version> {
         requirements.remove(re);
     }
 
+    public Collection<Requirement> getRequirements(){
+        return requirements;
+    }
 
+    public Action getAction() {
+        return action;
+    }
 
-
-
-//    public Action getAction() {
-//        return action;
-//    }
-//
-//    public void setAction(Action action) {
-//        if (action == null) {
-//            throw new BusinessException("Paction is null");
-//        }
-//        this.action = action;
-//    }
+    public void setAction(Action action) {
+        if (action == null) {
+            throw new BusinessException("Paction is null");
+        }
+        this.action = action;
+    }
+    
     public Date getCreateDate() {
         return createDate;
     }

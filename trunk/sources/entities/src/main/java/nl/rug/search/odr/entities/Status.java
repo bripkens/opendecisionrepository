@@ -22,7 +22,7 @@ public class Status extends BaseEntity<Status>{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long statusId;
+    private Long id;
 
     @Column
     private String name;
@@ -59,7 +59,7 @@ public class Status extends BaseEntity<Status>{
 
     @Override
     public Long getId() {
-         return statusId;
+         return id;
     }
 
     @Override
@@ -67,6 +67,6 @@ public class Status extends BaseEntity<Status>{
        if(id == null){
             throw new BusinessException("Id is null.");
         }
-        this.statusId = id;
+        this.id = id;
     }
 }
