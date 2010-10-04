@@ -1099,7 +1099,7 @@ Stored data must never get lost neither become inconsistent at any time.
 <tbody>
   <tr>
     <td colspan="4">
-The application should be visually appealing.
+The web interface should not require any special expertise in the area of web applications. In addition it should support the user by providing [http://ui-patterns.com/patterns/GoodDefaults good defaults].
 </td>
   </tr>
 </tbody>
@@ -1117,7 +1117,7 @@ The application should be visually appealing.
 <tbody>
   <tr>
     <td colspan="4">
-The application should use the OPR corporate design.
+The application should use the OPR corporate design. General layout should be the same, also the way that user interface components are arranged should not be changed. A new color scheme may be applied.
 </td>
   </tr>
 </tbody>
@@ -1135,7 +1135,7 @@ The application should use the OPR corporate design.
 <tbody>
   <tr>
     <td colspan="4">
-The web interface should be self explanatory. More complicated views should provide a help functionality or text.
+Help should be available for views that contain non-standard html components (like a calendar or drag and drop functionality).
 </td>
   </tr>
 </tbody>
@@ -1153,7 +1153,7 @@ The web interface should be self explanatory. More complicated views should prov
 <tbody>
   <tr>
     <td colspan="4">
-The time it takes from a user action till a visible response should take maximal the time that a human is willing to accept. This is between one and two seconds.
+The maximal response time for a user action should be one second for an average application usage by 50 people.
 </td>
   </tr>
 </tbody>
@@ -1171,7 +1171,7 @@ The time it takes from a user action till a visible response should take maximal
 <tbody>
   <tr>
     <td colspan="4">
-Generation of a visualization should take three seconds on average. Five seconds is the maximum that it is allowed to take.
+Generation of a visualization should take three seconds on average. Five seconds is the maximum that it is allowed to take. These numbers apply for an average application usage by 50 people.
 </td>
   </tr>
 </tbody>
@@ -1189,7 +1189,7 @@ Generation of a visualization should take three seconds on average. Five seconds
 <tbody>
   <tr>
     <td colspan="4">
-It should be easy to extend the application with new visualizations, but also to change existing ones.
+It should be easy to extend the application with new visualizations, but also to change existing ones. Adding new visualization
 </td>
   </tr>
 </tbody>
@@ -1261,7 +1261,7 @@ The application should be portable to any major OS.
 <tbody>
   <tr>
     <td colspan="4">
-Only encrypted passwords should be persisted.
+Only encrypted passwords should be persisted. Passwords should be encrypted using at least MD5, an 8 byte salt and 1000 iterations.
 </td>
   </tr>
 </tbody>
