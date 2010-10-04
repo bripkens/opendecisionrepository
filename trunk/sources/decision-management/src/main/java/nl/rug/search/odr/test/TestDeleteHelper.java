@@ -1,14 +1,17 @@
 package nl.rug.search.odr.test;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.entities.BaseEntity;
-import nl.rug.search.odr.entities.ProjectMember;
 
 /**
  *
@@ -17,8 +20,28 @@ import nl.rug.search.odr.entities.ProjectMember;
 @Stateless
 public class TestDeleteHelper implements TestDeleteHelperLocal {
 
+    private static String dbURL = "jdbc:derby://localhost:1527/sun-appserv-samples;create=true;user=APP;password=APP";
+
+    private static Connection conn;
+
+    static {
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        } catch (ClassNotFoundException ex) {
+        }
+        try {
+            DriverManager.getConnection(dbURL);
+        } catch (SQLException ex) {
+        }
+    }
     @PersistenceContext
     private EntityManager entityManager;
+
+    public void truncateAll() {
+        
+    }
 
     @Override
     public void deleteAll() {

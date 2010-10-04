@@ -1,5 +1,6 @@
 package nl.rug.search.odr;
 
+import com.icesoft.faces.context.effects.JavascriptContext;
 import java.io.IOException;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
@@ -26,6 +27,14 @@ public class JsfUtil {
         context.responseComplete();
         externalContext.redirect(url);
         
+    }
+
+    public static void redirectUsingJavaScript(String url) {
+        redirectUsingJavaScript(url, 0);
+    }
+
+    public static void redirectUsingJavaScript(String url, int delay) {
+        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "redirectAfter(".concat(url).concat(",") + delay + ");");
     }
 
     public static void refreshPage() {

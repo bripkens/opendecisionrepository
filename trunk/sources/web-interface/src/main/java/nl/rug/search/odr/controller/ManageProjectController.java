@@ -2,8 +2,11 @@ package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.context.effects.JavascriptContext;
 import com.sun.faces.util.MessageFactory;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,6 +20,7 @@ import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -189,6 +193,11 @@ public class ManageProjectController extends AbstractManageController {
         sourceProject.addMember(currentUser);
 
         pl.createProject(sourceProject);
+        try {
+            JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
 
         return true;
     }
@@ -206,12 +215,25 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.updateProject(sourceProject);
 
+        try {
+            JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
         return true;
     }
 
     @Override
     protected boolean handleConfirmedDeleteExecution() {
         pl.deleteProject(sourceProject);
+
+        try {
+            JsfUtil.redirect("/projects.html");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
         return true;
     }
 
