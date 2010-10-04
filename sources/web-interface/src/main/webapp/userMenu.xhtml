@@ -7,12 +7,16 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
 
-    
-        <ice:form id="logoutForm">
-            <ice:commandButton action="#{userMenuController.logout}"
-                               value="#{form['button.logout']}"
-                               id="logoutButton"
-                               styleClass="confirm logoutButton"/>
-        </ice:form>
+
+    <ice:form id="logoutForm">
+        <p>
+            <ice:outputText value="#{page['user.menu.welcome']}" nospan="true"/>
+            <ice:outputText value="#{userMenuController.name}" nospan="true"/>
+        </p>
+        <ice:commandButton action="#{userMenuController.logout}"
+                           value="#{form['button.logout']}"
+                           id="logoutButton"
+                           styleClass="confirm logoutButton"/>
+    </ice:form>
 
 </ui:composition>
