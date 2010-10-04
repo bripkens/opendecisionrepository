@@ -1,12 +1,9 @@
 
 package nl.rug.search.odr.project;
 
-import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Iteration;
 

@@ -31,7 +31,7 @@ public class VersionBean extends GenericDaoBean<Version, Long> implements Versio
 
     @Override
     public void updateVersion(Version sourceVersion) {
-        makeTransient(sourceVersion);
+//        makeTransient(sourceVersion);
         entityManager.merge(sourceVersion);
 
     }
