@@ -85,3 +85,11 @@ function enableToggling() {
 
     });
 }
+
+function redirectAfter(url, delay) {
+    setTimeout(redirect, delay, url);
+}
+
+function redirect(url) {
+    window.location.href = url;
+}

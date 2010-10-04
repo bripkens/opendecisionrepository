@@ -10,43 +10,43 @@
     </ui:define>
 
     <ui:define name="pagetitle">
-        <ice:outputText value="#{form['projects.page.title']}" nospan="true" />
+        <ice:outputText value="#{page['projects.page.title']}" nospan="true" />
     </ui:define>
 
 
     <ui:define name="content">
-        <ice:outputText value="#{form['projects.zeroProjects']}" rendered="#{!projectsController.active}" escape="false"/>
-        <ice:form rendered="#{projectsController.active}">
-           
-            <h1><h:outputText value="#{form['projects.page.title']}"/></h1>
+
+        <ice:form>
+
+            <h1><h:outputText value="#{page['projects.page.title']}"/></h1>
 
 
             <ice:dataTable
                 value="#{projectsController.projects}"
-                var="project" styleClass="rowhover pointer ">
+                var="project" styleClass="rowhover pointer " rendered="#{projectsController.active}">
 
                 <ice:column>
-
-
                     <ice:rowSelector id="selected"
                                      selectionListener="#{projectsController.rowSelectionListener}"/>
-                        <f:facet name="header">
-                            <ice:outputText value="ProjectName"/>
-                        </f:facet>
-                        <ice:outputText value="#{project.project.name}"/>
+                    <ice:outputText value="#{project.project.name}"/>
                 </ice:column>
 
 
-                <!-- Model number -->
+
                 <ice:column>
-                    <f:facet name="header">
-                        <ice:outputText value="Stakeholder role"/>
-                    </f:facet>
                     <ice:outputText value="#{project.role.name}"/>
                 </ice:column>
             </ice:dataTable>
 
+            <p>
+                <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
+                <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
+            </p>
+
         </ice:form>
+
+
+
 
     </ui:define>
 
@@ -59,8 +59,8 @@
                         <img src="resources/images/info.png" alt="information" />
                     </div>
                     <div class="text">
-                        <h2><ice:outputText value="#{form['projects.help.title']}" /></h2>
-                        <ice:outputText value="#{form['projects.help.content']}" />
+                        <h2><ice:outputText value="#{page['projects.help.title']}" nospan="true"/></h2>
+                        <ice:outputText value="#{page['projects.help.content']}" nospan="true"/>
                     </div>
 
                 </li>
@@ -70,12 +70,12 @@
                     </div>
                     <div class="text">
                         <ice:form>
-                            <h2>Create a new project</h2>
-                            If you want to create a new project, please click <ice:commandLink actionListener="#{projectsController.newProjectLink}" >here</ice:commandLink>
+                            <h2><ice:outputText value="#{page['projects.help.create.title']}" nospan="true"/></h2>
+                            <ice:outputText value="#{page['projects.help.create.text']}" nospan="true" escape="false"/>
                         </ice:form>
                     </div>
-                    </li>
-                
+                </li>
+
             </ul>
         </div>
 

@@ -9,10 +9,8 @@ import nl.rug.search.odr.entities.Status;
 import nl.rug.search.odr.entities.Version;
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.Date;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.AbstractEjbTest;
-import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.ArchitecturalDecision;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -21,13 +19,14 @@ import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.user.UserBean;
 import nl.rug.search.odr.user.UserLocal;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Stefan
  */
+@Ignore
 public class IterationTest extends AbstractEjbTest {
 
     private IterationLocal il;

@@ -32,9 +32,9 @@ public class ProjectsController {
         for (int i = 0; i < members.size(); i++) {
             if (i == event.getRow()) {
                 try {
-                    JsfUtil.redirect("/projectOverview.html?" + RequestParameter.ID + "=" + members.get(i).getProject().getId());
+                    JsfUtil.redirect("/projectDetails.html?" + RequestParameter.ID + "=" + members.get(i).getProject().getId());
                 } catch (IOException ex) {
-                    Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
+                    throw new RuntimeException(ex);
                 }
             }
         }
@@ -69,39 +69,7 @@ public class ProjectsController {
         }
     }
 
-    /**
-     * Inventory Item subclass stores data about a cars inventory data.  Properties
-     * such a stock, model, description, odometer and price are stored.
-     */
-    public class project {
-        // slock number
-
-        String projectName;
-        String stakeholderRole;
-        boolean selected;
-
-        public project(String name, String role) {
-            this.projectName = name;
-            this.stakeholderRole = role;
-        }
-
-        public String getProjectName() {
-            return projectName;
-        }
-
-        public String getStakeholderRole() {
-            return stakeholderRole;
-        }
-
-        public boolean isSelected() {
-            return selected;
-        }
-
-        public void setSelected(boolean selected) {
-            this.selected = selected;
-        }
-    }
-    //TTTEEEESST
+    
     public Effect getEffect() {
         EffectQueue blind = new EffectQueue("effectBlind");
         blind.add(new Fade());

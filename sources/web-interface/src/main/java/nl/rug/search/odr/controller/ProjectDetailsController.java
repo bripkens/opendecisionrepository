@@ -10,10 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.decision.VersionLocal;
-import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
-import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 
@@ -23,7 +21,7 @@ import nl.rug.search.odr.project.ProjectLocal;
  */
 @RequestScoped
 @ManagedBean
-public class ProjectOverviewController {
+public class ProjectDetailsController {
 
     @EJB
     private ProjectLocal pl;
@@ -31,7 +29,6 @@ public class ProjectOverviewController {
     private IterationLocal il;
     @EJB
     private VersionLocal vl;
-    private String pid;
     private long id;
     private Project pr;
 
@@ -43,23 +40,24 @@ public class ProjectOverviewController {
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         if (request.getParameter(RequestParameter.ID) != null) {
-            pid = request.getParameter(RequestParameter.ID);
+            String projectId = request.getParameter(RequestParameter.ID);
             try {
-                id = Long.parseLong(pid);
+                id = Long.parseLong(projectId);
             } catch (NumberFormatException e) {
                 return false;
             }
         }
-        if (pl.getById(id) != null && memberIsInProject() != false) {
+        getProject();
+        if (pr != null && memberIsInProject()) {
             return true;
         }
         return false;
     }
 
     private boolean memberIsInProject() {
-        getProject();
+        long userId = AuthenticationUtil.getUserId();
         for (ProjectMember pm : pr.getMembers()) {
-            if (pm.getPerson().getId().equals(AuthenticationUtil.getUserId())) {
+            if (pm.getPerson().getId().equals(userId)) {
                 return true;
             }
         }
@@ -71,7 +69,7 @@ public class ProjectOverviewController {
     }
 
     public Project getProject() {
-        pr = pl.getById(Long.parseLong(pid));
+        pr = pl.getById(id);
         return pr;
     }
 
@@ -88,6 +86,14 @@ public class ProjectOverviewController {
 
     public String getProjectName() {
         return pr.getName();
+    }
+
+    public String getUpdateLink() {
+        return "updateProject.html?".concat(RequestParameter.UPDATE).concat("&").concat(RequestParameter.ID).concat("=") + pr.getId();
+    }
+
+    public String getDeleteLink() {
+        return "deleteProject.html?".concat(RequestParameter.DELETE).concat("&").concat(RequestParameter.ID).concat("=") + pr.getId();
     }
 
 //    public Collection<Iteration> getIterations() {

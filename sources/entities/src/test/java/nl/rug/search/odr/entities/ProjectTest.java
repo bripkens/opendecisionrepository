@@ -66,12 +66,6 @@ public class ProjectTest {
                 + " ");
     }
 
-    @Test(expected = BusinessException.class)
-    public void testChangeName() {
-        p.setName("peter");
-        p.setName("gabi");
-    }
-
 
 
     @Test

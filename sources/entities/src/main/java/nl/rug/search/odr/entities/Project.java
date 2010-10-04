@@ -86,10 +86,6 @@ public class Project extends BaseEntity<Project> {
             throw new BusinessException("Name is too long or too short.");
         }
 
-        if (this.name != null && !this.name.equalsIgnoreCase(name)) {
-            throw new BusinessException("Chaning the name is not possible.");
-        }
-
         this.name = name;
     }
 
