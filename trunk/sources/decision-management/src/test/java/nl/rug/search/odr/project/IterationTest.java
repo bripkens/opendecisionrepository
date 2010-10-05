@@ -157,8 +157,8 @@ public class IterationTest extends AbstractEjbTest {
         assertEquals(1, vl.getById(v1.getId()).getRequirements().size());
 
         //add version to iteration
-        i.addVersion(v1);
-        i.addVersion(v2);
+//        i.addVersion(v1);
+//        i.addVersion(v2);
 
         assertEquals(2, sl.getAll().size());
 

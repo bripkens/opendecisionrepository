@@ -22,32 +22,50 @@
 
         <ice:form rendered="#{projectDetailsController.valid}" style="position:relative;" styleClass="members" >
 
-
-            <h3>Project members</h3> <a href="#" class="togglelink collapsable" name="memberContainer1" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
-            <div id="memberContainer1" class="toggleContainer" >
-                <ice:dataTable
-                    value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
-                    <ice:column>
-                        <ice:rowSelector id="selected"
-                                         selectionListener="#{projectsController.rowSelectionListener}"/>
-                        <ice:outputText value="#{item.person.name}" nospan="true"/>
-                        <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
-                    </ice:column>
-                    <ice:column>
-                        <ice:outputText value="#{item.role.name}" nospan="true"/>
-                    </ice:column>
-                </ice:dataTable>
-
+            <div class="relative">
+                <h3>#{page['projectDetails.members']}</h3> <a href="#" class="togglelink collapsable" name="memberContainer1" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
+                <div id="memberContainer1" class="toggleContainer" >
+                    <ice:dataTable
+                        value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
+                        <ice:column>
+                            <ice:rowSelector
+                                selectionListener="#{projectDetailsController.rowMemberSelectionListener}"/>
+                            <ice:outputText value="#{item.person.name}" nospan="true"/>
+                            <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
+                        </ice:column>
+                        <ice:column>
+                            <ice:outputText value="#{item.role.name}" nospan="true"/>
+                        </ice:column>
+                    </ice:dataTable>
+                </div>
             </div>
 
+            <div class="relative">
+                <h3>#{page['projectDetails.iterations.headline']}</h3> <a href="#" class="togglelink collapsable" name="iterationContainer" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
+                <div id="iterationContainer" class="toggleContainer" >
+                    <ice:outputText value="#{page['projectDetails.iterations.add']}" nospan="true"/>
+
+                    <ice:dataTable
+                        value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
+                        <ice:column>
+                            <ice:rowSelector
+                                selectionListener="#{projectDetailsController.rowIterationSelectionListener}"/>
+                            <ice:outputText value="#{item.name}" nospan="true"/>
+                        </ice:column>
+                        <ice:column>
+                            <ice:outputText value="#{item.durationInDays}" nospan="true"/> <ice:outputText value="#{page['projectDetails.iterations.duration']}" nospan="true"/>
+                        </ice:column>
+                    </ice:dataTable>
+                </div>
+            </div>
 
             <h3><ice:outputText value="#{page['projectDetails.actions.headline']}" nospan="true"/></h3>
 
             <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}" style="text-decoration: none;">
-                <img src="./resources/images/pencil.png" width="48" height="48" alt="edit" />
+                <img alt="#{common.edit}" src="./resources/images/pencil.png" width="48" height="48" />
             </a>
             <a href="#{projectDetailsController.deleteLink}" style="margin-left: 20px;text-decoration: none;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
-                <img src="./resources/images/cross.png" width="48" height="48" alt="delete" />
+                <img alt="#{common.remove}" src="./resources/images/cross.png" width="48" height="48" />
             </a>
 
 

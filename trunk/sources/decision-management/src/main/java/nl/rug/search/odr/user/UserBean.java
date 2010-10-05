@@ -117,8 +117,6 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         long result = (Long) q.getSingleResult();
 
-        System.out.println(result);
-
         return result != 0;
     }
 

@@ -1,8 +1,6 @@
 
 package nl.rug.search.odr;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 import nl.rug.search.odr.entities.Person;
 
 /**
@@ -12,12 +10,12 @@ import nl.rug.search.odr.entities.Person;
 public abstract class AuthenticationUtil {
 
     public static void authenticate(Person p) {
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        SessionUtil.addValues(
+                new String[] {SessionAttribute.USER_ID, SessionAttribute.USER_NAME},
+                new Object[] {p.getId(), p.getName()});
 
-        session.setAttribute(SessionAttribute.USER_ID, p.getId());
-        session.setAttribute(SessionAttribute.USER_NAME, p.getName());
     }
-
+    
     public static void logout() {
         SessionUtil.resetSession();
     }
