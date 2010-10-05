@@ -48,20 +48,19 @@ public class TestRelationHelper {
         return member;
     }
 
-    public static Project createProject(Collection<ProjectMember> members) {
+    public static Project createProject(ProjectMember member, String name) {
         Project p = new Project();
-        p.setName("SomeProject1");
+        p.setName(name);
         p.setDescription("Adescription1");
-        p.setMembers(members);
+        p.addMember(member);
         return p;
     }
 
-    public static Iteration createIteration() {
+    public static Iteration createIteration(String name) {
         Iteration i = new Iteration();
         i.setDescription("first Iteration for ODR");
-        i.setName("First iteration");
+        i.setName(name);
         i.setStartDate(new Date());
-        i.setEndDate(new Date());
         return i;
     }
 

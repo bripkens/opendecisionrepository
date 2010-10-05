@@ -13,6 +13,7 @@ import org.junit.Test;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class UserTest extends AbstractEjbTest {
 
     private UserLocal local;
