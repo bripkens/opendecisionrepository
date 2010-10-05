@@ -139,12 +139,10 @@ public class IterationTest {
 
     }
 
-
     @Test(expected = BusinessException.class)
     public void testNullEndDate() {
         i.setEndDate(null);
     }
-
 
     @Test
     public void testHashCode() {
@@ -201,10 +199,9 @@ public class IterationTest {
     }
 
     @Test
-    public void testDuration(){
-        Iteration i = new Iteration();
+    public void testDuration() {
         GregorianCalendar start = new GregorianCalendar();
-        start.set(2010,10,4);
+        start.set(2010, 10, 4);
 
         GregorianCalendar end = new GregorianCalendar();
         end.set(2010, 10, 9);
@@ -212,6 +209,58 @@ public class IterationTest {
         i.setStartDate(start.getTime());
         i.setEndDate(end.getTime());
 
-        assertEquals(5,i.getDurationInDays());
+        assertEquals(5, i.getDurationInDays());
+    }
+
+    @Test
+    public void testEndDateComparatorBothNull() {
+        Iteration i2 = new Iteration();
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(0, comp.compare(i, i2));
+    }
+
+    @Test
+    public void testEndDateComparatorFirstNull() {
+        Iteration i2 = new Iteration();
+        i2.setEndDate(new Date());
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(-1, comp.compare(i, i2));
+    }
+
+    @Test
+    public void testEndDateComparatorSecondNull() {
+        i.setEndDate(new Date());
+        Iteration i2 = new Iteration();
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(1, comp.compare(i, i2));
+    }
+
+    @Test
+    public void testEndDateComparatorFirstSmaller() {
+        i.setEndDate(new Date());
+        Iteration i2 = new Iteration();
+        i2.setEndDate(new Date(i.getEndDate().getTime() + 1000));
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(-1, comp.compare(i, i2));
+    }
+
+    @Test
+    public void testEndDateComparatorBoothEven() {
+        Date date = new Date();
+        i.setEndDate(date);
+        Iteration i2 = new Iteration();
+        i2.setEndDate(date);
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(0, comp.compare(i, i2));
+    }
+
+    @Test
+    public void testEndDateComparatorSecondSmaller() {
+        Date date = new Date();
+        i.setEndDate(date);
+        Iteration i2 = new Iteration();
+        i2.setEndDate(date);
+        Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
+        assertEquals(0, comp.compare(i2, i));
     }
 }
