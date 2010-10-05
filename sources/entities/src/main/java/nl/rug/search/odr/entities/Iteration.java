@@ -28,10 +28,10 @@ public class Iteration extends BaseEntity<Iteration> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 //
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     private String name;
 //
-    @Column(length = 500)
+    @Column(length = 1000)
     private String description;
 //
     @Column(nullable = false)
@@ -80,7 +80,7 @@ public class Iteration extends BaseEntity<Iteration> {
     public void setEndDate(Date endDate) {
         if (endDate == null) {
             throw new BusinessException("End date is null.");
-        } else if (startDate != null && startDate.getTime() > endDate.getTime()) {
+        } else if (startDate != null && startDate.getTime() >= endDate.getTime()) {
             throw new BusinessException("enddate has to be after startdate");
         }
         this.endDate = endDate;

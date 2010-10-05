@@ -17,7 +17,7 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Stefan
  */
-@Entity
+//@Entity
 public class Status extends BaseEntity<Status>{
     private static final long serialVersionUID = 1L;
     @Id

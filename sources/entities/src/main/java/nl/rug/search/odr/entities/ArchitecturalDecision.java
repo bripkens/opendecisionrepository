@@ -24,7 +24,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Stefan
  */
-@Entity
+//@Entity
 public class ArchitecturalDecision extends BaseEntity<ArchitecturalDecision> {
 
     private static final long serialVersionUID = 1L;

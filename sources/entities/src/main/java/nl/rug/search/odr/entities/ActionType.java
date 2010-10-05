@@ -20,7 +20,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Stefan
  */
-@Entity
+//@Entity
 public class ActionType extends BaseEntity<ActionType> {
     private static final long serialVersionUID = 1L;
     @Id

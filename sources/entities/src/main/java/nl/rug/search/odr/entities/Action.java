@@ -15,7 +15,7 @@ import nl.rug.search.odr.BusinessException;
  *
  * @author Stefan
  */
-@Entity (name="Actions")
+//@Entity (name="Actions")
 public class Action extends BaseEntity<Action> {
 
     private static final long serialVersionUID = 1L;
