@@ -1,5 +1,6 @@
 package nl.rug.search.odr.project;
 
+import org.junit.Ignore;
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.StakeholderRole;
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+
 public class StakeholderRoleTest extends AbstractEjbTest {
 
     private StakeholderRoleLocal srl;

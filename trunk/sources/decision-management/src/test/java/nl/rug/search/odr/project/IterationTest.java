@@ -1,26 +1,20 @@
 package nl.rug.search.odr.project;
 
-import nl.rug.search.odr.entities.Action;
+import java.util.List;
+import java.util.Date;
 import nl.rug.search.odr.decision.ActionBean;
 import nl.rug.search.odr.decision.ActionLocal;
-import nl.rug.search.odr.entities.ActionType;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.rug.search.odr.DatabaseCleaner;
-import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.decision.ArchitecturalDecisionBean;
 import nl.rug.search.odr.decision.VersionBean;
 import nl.rug.search.odr.decision.VersionLocal;
-import nl.rug.search.odr.entities.Status;
-import nl.rug.search.odr.entities.Version;
-import java.util.Collection;
-import java.util.ArrayList;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.decision.ActionTypeBean;
 import nl.rug.search.odr.decision.ActionTypeLocal;
-import nl.rug.search.odr.entities.ArchitecturalDecision;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -28,7 +22,6 @@ import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.user.UserBean;
 import nl.rug.search.odr.user.UserLocal;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -36,7 +29,6 @@ import static org.junit.Assert.*;
  *
  * @author Stefan
  */
-@Ignore
 public class IterationTest extends AbstractEjbTest {
 
     private IterationLocal il;
@@ -72,7 +64,7 @@ public class IterationTest extends AbstractEjbTest {
 
         System.out.println("es gibt .. user: " + ul.getAll().size());
 
-        // <editor-fold defaultstate="collapsed" desc="create Persons">
+        // <editor-fold defaultstate="collapsed" desc="create Persons ans save them">
         Person p = TestRelationHelper.createPerson("12345", "a@a.de");
         ul.register(p);
 
@@ -83,7 +75,7 @@ public class IterationTest extends AbstractEjbTest {
         ul.register(p2);
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="create Stakeholder Roles">
+        // <editor-fold defaultstate="collapsed" desc="create Stakeholder Roles and save them">
         StakeholderRole role1 = TestRelationHelper.createStakeholderRole("architekt");
         srl.persistRole(role1);
 
@@ -94,104 +86,92 @@ public class IterationTest extends AbstractEjbTest {
         srl.persistRole(role3);
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="create ProjectMember">
+        // <editor-fold defaultstate="collapsed" desc="create ProjectMember ans link them to roles">
         ProjectMember member1 = TestRelationHelper.createProjectMember(p, role1);
         ProjectMember member2 = TestRelationHelper.createProjectMember(p1, role2);
         ProjectMember member3 = TestRelationHelper.createProjectMember(p2, role3);
 
-        Collection<ProjectMember> members = new ArrayList<ProjectMember>();
-        members.add(member1);
-        members.add(member2);
-        members.add(member3);
         // </editor-fold>
 
-        // <editor-fold defaultstate="collapsed" desc="createProject + add Members">
-        Project pr = TestRelationHelper.createProject(members);
+        // <editor-fold defaultstate="collapsed" desc="createProject + add Members ans save it">
+        Project pr = TestRelationHelper.createProject(member1, "project1");
         pl.createProject(pr);
+
+        Project pr1 = TestRelationHelper.createProject(member2, "project2");
+        pl.createProject(pr1);
+
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="createIterationToProject">
-        Iteration i = TestRelationHelper.createIteration();
+        Iteration i = new Iteration();
+        i.setDescription("aaa");
+        i.setName("first");
+        i.setStartDate(new Date());
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+        }
+
+        Iteration i1 = new Iteration();
+        i1.setDescription("bbb");
+        i1.setName("second");
+        i1.setStartDate(new Date());
+
+        Iteration i2 = new Iteration();
+        i2.setDescription("ccc");
+        i2.setName("third");
+        i2.setStartDate(new Date());
+
+        Iteration i3 = new Iteration();
+        i3.setDescription("ccc");
+        i3.setName("fourth");
+        i3.setStartDate(new Date());
+
+
         pr.addIteration(i);
-        pl.updateProject(pr);
-        // </editor-fold>
+        il.addIteration(pr, i);
 
-        //create Decisions
-        ArchitecturalDecision decision = TestRelationHelper.createArchiteturalDecision("decision1");
-        al.persistDecision(decision);
-        ArchitecturalDecision decision2 = TestRelationHelper.createArchiteturalDecision("decision2");
-        al.persistDecision(decision2);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IterationTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        assertEquals("decision1", al.getById(decision.getId()).getName());
-        assertEquals("decision2", al.getById(decision2.getId()).getName());
+        pr = pl.getById(pr.getId());
+        il.addIteration(pr, i1);
 
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IterationTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //create statuses
-        Status statusConfirm = TestRelationHelper.createStatus("Confirm");
-        sl.persistStatus(statusConfirm);
-        Status statusRejected = TestRelationHelper.createStatus("Rejected");
-        sl.persistStatus(statusRejected);
+        pr1 = pl.getById(pr1.getId());
+        il.addIteration(pr1, i2);
 
-        //create requirement
-        Requirement require = TestRelationHelper.createRequirement("fast");
-        rl.persistRequirement(require);
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(IterationTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        pr1 = pl.getById(pr1.getId());
+        il.addIteration(pr1, i3);
 
-        //create Version
-        Version v1 = TestRelationHelper.createVersion(1);
-        Version v2 = TestRelationHelper.createVersion(2);
-
-        //status auf version setzen
-        v1.setStatus(statusConfirm);
-        v1.setArchitecturalDecision(decision);
-        v1.addRequirment(require);
-
-        v2.setStatus(statusRejected);
-        v2.setArchitecturalDecision(decision2);
+        assertEquals(2, pl.getById(pr.getId()).getIterations().size());
+        assertEquals(2, pl.getById(pr1.getId()).getIterations().size());
 
 
-        //save version
-        vl.persistVersion(v1);
-        vl.persistVersion(v2);
+        assertEquals(4, il.getAll().size());
 
-        assertEquals(1, vl.getById(v1.getId()).getRequirements().size());
-
-        //add version to iteration
-//        i.addVersion(v1);
-//        i.addVersion(v2);
-
-        assertEquals(2, sl.getAll().size());
-
-        assertEquals(statusConfirm, vl.getById(v1.getId()).getStatus());
-        assertEquals(statusRejected, vl.getById(v2.getId()).getStatus());
-
-        //create Actiontypes
-        ActionType validate = TestRelationHelper.createActionType("validate");
-        atl.persistActionType(validate);
-        ActionType confirm = TestRelationHelper.createActionType("confirm");
-        atl.persistActionType(confirm);
-
-        assertEquals(2, atl.getAll().size());
-
-        Action action = TestRelationHelper.createAction(member1, validate);
-
-        Action action2 = TestRelationHelper.createAction(member2, confirm);
-
-        v1.setAction(action);
-        v2.setAction(action2);
-
-        vl.updateVersion(v1);
-        vl.updateVersion(v2);
-
-        assertEquals(action, vl.getById(v1.getId()).getAction());
-        assertEquals(action2, vl.getById(v2.getId()).getAction());
-
-        assertEquals(member1, vl.getById(v1.getId()).getAction().getMember());
-        assertEquals(member2, vl.getById(v2.getId()).getAction().getMember());
-
-        assertEquals(validate, vl.getById(v1.getId()).getAction().getType());
-        assertEquals(confirm, vl.getById(v2.getId()).getAction().getType());
-
-
+        List<Iteration> iterations = il.getAll();
+        int count = 0;
+        for (Iteration it : iterations) {
+            if (it.getEndDate() != null) {
+                count++;
+            }
+        }
+        assertEquals(2, count);
     }
 }

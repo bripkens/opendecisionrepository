@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+
 public class ProjectTest extends AbstractEjbTest {
 
     private ProjectLocal pl;
