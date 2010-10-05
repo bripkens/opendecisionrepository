@@ -35,8 +35,9 @@ public class Project extends BaseEntity<Project> {
     @OneToMany(mappedBy = "project", cascade=CascadeType.ALL)
     private Collection<ProjectMember> members;
 
-    @OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
     private Collection<Iteration> iterations;
+
 
     public Project() {
         members = new ArrayList<ProjectMember>();
