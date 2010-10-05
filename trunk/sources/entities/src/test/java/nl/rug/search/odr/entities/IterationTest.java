@@ -1,6 +1,7 @@
 package nl.rug.search.odr.entities;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
@@ -85,8 +86,6 @@ public class IterationTest {
         Date startDate = new Date();
         i.setStartDate(startDate);
         assertEquals(startDate, i.getStartDate());
-
-
     }
 
     @Test
@@ -100,7 +99,6 @@ public class IterationTest {
 
         i.setStartDate(startDate);
         i.setEndDate(endDate);
-
     }
 
     @Test(expected = BusinessException.class)
@@ -141,23 +139,11 @@ public class IterationTest {
 
     }
 
+
     @Test(expected = BusinessException.class)
     public void testNullEndDate() {
         i.setEndDate(null);
     }
-
-//    @Test
-//    public void testSetVersion() {
-//        Version v = new Version();
-//        i.setVersion(v);
-//
-//        assertEquals(v, i.getVersion());
-//    }
-//
-//    @Test(expected = BusinessException.class)
-//    public void testNullVersion() {
-//        i.setVersion(null);
-//    }
 
 
     @Test
@@ -180,8 +166,8 @@ public class IterationTest {
         i3.setStartDate(startdate1);
         i3.setEndDate(new Date(startdate1.getTime() + 1000));
 
-//        assertEquals(i2.hashCode(), i3.hashCode());
-//        TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());
+        assertEquals(i2.hashCode(), i3.hashCode());
+        TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());
     }
 
     @Test
@@ -212,5 +198,20 @@ public class IterationTest {
     @Test
     public void testNullEquals() {
         assertFalse(i.equals(null));
+    }
+
+    @Test
+    public void testDuration(){
+        Iteration i = new Iteration();
+        GregorianCalendar start = new GregorianCalendar();
+        start.set(2010,10,4);
+
+        GregorianCalendar end = new GregorianCalendar();
+        end.set(2010, 10, 9);
+
+        i.setStartDate(start.getTime());
+        i.setEndDate(end.getTime());
+
+        assertEquals(5,i.getDurationInDays());
     }
 }
