@@ -8,4 +8,7 @@ package nl.rug.search.odr;
 public interface SessionAttribute {
     String USER_ID = "USER_ID";
     String USER_NAME = "USER_NAME";
+
+    String ERROR_TITLE = "ERROR_TITLE";
+    String ERROR_CONTENT = "ERROR_CONTENT";
 }

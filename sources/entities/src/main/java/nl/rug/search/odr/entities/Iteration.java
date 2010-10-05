@@ -129,7 +129,7 @@ public class Iteration extends BaseEntity<Iteration> {
 
     }
 
-    public static class IterationEndDateComparator implements Comparator<Iteration> {
+    public static class EndDateComparator implements Comparator<Iteration> {
 
         @Override
         public int compare(Iteration o1, Iteration o2) {

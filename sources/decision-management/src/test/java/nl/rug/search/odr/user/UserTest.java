@@ -43,11 +43,7 @@ public class UserTest extends AbstractEjbTest {
     public void testIsUsedEmail() {
         Person p = getDummyPerson();
 
-        System.out.println("######################################################");
-
         assertFalse(local.isUsedForFullRegistration(p.getEmail()));
-
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         local.register(p);
 

@@ -1,7 +1,10 @@
 package nl.rug.search.odr.controller;
 
+import com.icesoft.faces.component.ext.RowSelectorEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.decision.VersionLocal;
+import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.IterationLocal;
@@ -64,6 +68,14 @@ public class ProjectDetailsController {
         return false;
     }
 
+    public void rowMemberSelectionListener(RowSelectorEvent event) {
+        // TODO: empty until now, just to get the css tag right
+    }
+
+    public void rowIterationSelectionListener(RowSelectorEvent event) {
+        // TODO: empty until now, just to get the css tag right
+    }
+
     public String getDescription() {
         return pr.getDescription();
     }
@@ -96,7 +108,23 @@ public class ProjectDetailsController {
         return "deleteProject.html?".concat(RequestParameter.DELETE).concat("&").concat(RequestParameter.ID).concat("=") + pr.getId();
     }
 
-//    public Collection<Iteration> getIterations() {
-//        return il.getAllITerationsByProjectId(Long.parseLong(pid));
-//    }
+    public Collection<Iteration> getIterations() {
+       Collection<Iteration> unmodifiableCollection = pr.getIterations();
+
+       if (unmodifiableCollection.isEmpty()) {
+           return Collections.emptyList();
+       }
+
+       List<Iteration> iterations = new ArrayList(unmodifiableCollection.size());
+
+       iterations.addAll(unmodifiableCollection);
+
+       Collections.sort(iterations, new Iteration.EndDateComparator());
+
+       return iterations;
+    }
+
+    public boolean isHavingIterations() {
+        return !pr.getIterations().isEmpty();
+    }
 }
