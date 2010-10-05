@@ -52,6 +52,10 @@ public class Project extends BaseEntity<Project> {
         this.iterations = iterations;
     }
 
+    /**
+     * DONT USE THIS METHOD
+     * @param it
+     */
     public void addIteration(Iteration it){
         if(it == null){
             throw new BusinessException("iteration is null");
@@ -59,6 +63,10 @@ public class Project extends BaseEntity<Project> {
         iterations.add(it);
     }
 
+    /**
+     * DONT USE THIS METHOD
+     * @param it
+     */
     public void removeIteration(Iteration it){
         iterations.remove(it);
     }

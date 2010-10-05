@@ -245,7 +245,7 @@ public class IterationTest {
     }
 
     @Test
-    public void testEndDateComparatorBoothEven() {
+    public void testEndDateComparatorBothEven() {
         Date date = new Date();
         i.setEndDate(date);
         Iteration i2 = new Iteration();
