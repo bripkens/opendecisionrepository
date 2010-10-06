@@ -42,16 +42,6 @@ public class IterationTest {
         assertEquals(foo, i.getDescription());
     }
 
-    @Test(expected = BusinessException.class)
-    public void testSetNullDescription() {
-        i.setDescription(null);
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testSetEmptyDescription() {
-        i.setDescription("          ");
-    }
-
     @Test
     public void testSetIterationId() {
         long id = Long.MIN_VALUE;

@@ -69,7 +69,6 @@ public class Iteration extends BaseEntity<Iteration> {
     }
 
     public void setDescription(String description) {
-        StringValidator.isValid(description);
         this.description = description;
     }
 
