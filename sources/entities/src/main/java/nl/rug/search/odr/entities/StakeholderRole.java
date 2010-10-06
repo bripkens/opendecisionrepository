@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,23 +13,26 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class StakeholderRole extends AbstractUserTyp {
+public class StakeholderRole extends AbstractUserTyp<StakeholderRole> {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+   
+    @Column
     private String name;
+    @Column
     private boolean common;
 
     @Override
-    public Long getId() {
+    public Long getId(){
         return id;
     }
 
     @Override
-    public void setId(Long id) {
-        if (id == null) {
+    public void setId(Long id){
+        if(id == null){
             throw new BusinessException("Please provide an id");
         }
         this.id = id;
@@ -64,9 +68,6 @@ public class StakeholderRole extends AbstractUserTyp {
 
     @Override
     public boolean isPersistable() {
-        if(name.isEmpty()){
-            return false;
-        }
-        return true;
+        return name != null;
     }
 }

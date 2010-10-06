@@ -6,7 +6,6 @@
 package nl.rug.search.odr.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,9 +71,6 @@ public class Status extends BaseEntity<Status>{
 
     @Override
     public boolean isPersistable() {
-        if(!StringValidator.isValid(name)){
-            return false;
-        }
-        return true;
+        return name != null;
     }
 }

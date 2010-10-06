@@ -153,7 +153,7 @@ public class ArchitecturalDecision extends BaseEntity<ArchitecturalDecision> {
 
     @Override
     public boolean isPersistable() {
-        if(StringValidator.isValid(name)){
+        if(name == null){
             return false;
         }
         return true;
