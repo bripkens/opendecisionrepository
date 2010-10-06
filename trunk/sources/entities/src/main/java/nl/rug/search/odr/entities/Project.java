@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
@@ -21,27 +24,30 @@ import nl.rug.search.odr.StringValidator;
 public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
-
+//
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+//
     @Column(length = 50, nullable = false, unique = true, updatable = false)
     private String name;
-
+//
     @Column(length = 1000)
     private String description;
-
-    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL)
+//
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private Collection<ProjectMember> members;
-
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)
+//
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Iteration> iterations;
-
+//
+    @OneToMany ( cascade = CascadeType.ALL)
+    private Collection<StakeholderRole> stakeHolderRoles;
 
     public Project() {
         members = new ArrayList<ProjectMember>();
         iterations = new ArrayList<Iteration>();
+        stakeHolderRoles = new ArrayList<StakeholderRole>();
     }
 
     public Collection<Iteration> getIterations() {
@@ -56,8 +62,8 @@ public class Project extends BaseEntity<Project> {
      * DONT USE THIS METHOD
      * @param it
      */
-    public void addIteration(Iteration it){
-        if(it == null){
+    public void addIteration(Iteration it) {
+        if (it == null) {
             throw new BusinessException("iteration is null");
         }
         iterations.add(it);
@@ -67,8 +73,38 @@ public class Project extends BaseEntity<Project> {
      * DONT USE THIS METHOD
      * @param it
      */
-    public void removeIteration(Iteration it){
+    public void removeIteration(Iteration it) {
         iterations.remove(it);
+    }
+
+    /**
+     * adds a new stakeholderrole to the project
+     * @param role
+     */
+    public void addStakeHolderRole(StakeholderRole role) {
+        if (role == null) {
+            throw new BusinessException("Please provide a role");
+        }
+        stakeHolderRoles.add(role);
+    }
+
+    /**
+     * removes a role from the project
+     * @param role
+     */
+    public void removeStakeHolderRole(StakeholderRole role) {
+        if (role == null) {
+            throw new BusinessException("Please provide a role");
+        }
+        stakeHolderRoles.remove(role);
+    }
+
+    /**
+     * get all stakeholder roles, that are available in this project
+     * @return
+     */
+    public Collection<StakeholderRole> getStakeholderRoles(){
+        return stakeHolderRoles;
     }
 
     public String getDescription() {
@@ -120,15 +156,15 @@ public class Project extends BaseEntity<Project> {
         if (members == null) {
             throw new BusinessException("Collection of members is null");
         }
-        
+
         this.members = members;
     }
 
-    public void addMember(ProjectMember member){
-        if(member == null){
+    public void addMember(ProjectMember member) {
+        if (member == null) {
             throw new BusinessException("Member is null.");
         }
-        
+
         member.setProject(this);
     }
 
@@ -137,7 +173,7 @@ public class Project extends BaseEntity<Project> {
     }
 
     public void removeMember(ProjectMember member) {
-        if(member == null){
+        if (member == null) {
             throw new BusinessException("Member is null.");
         }
 
@@ -152,7 +188,6 @@ public class Project extends BaseEntity<Project> {
         members.remove(member);
     }
 
-
     public boolean isPersistable() {
         if (name == null || members.isEmpty()) {
             return false;
@@ -160,7 +195,7 @@ public class Project extends BaseEntity<Project> {
 
 
 
-        for(ProjectMember m : members) {
+        for (ProjectMember m : members) {
             if (!m.internalIsPersistable(this)) {
                 return false;
             }
@@ -171,6 +206,6 @@ public class Project extends BaseEntity<Project> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {name, description, members.size()};
+        return new Object[]{name, description, members.size()};
     }
 }
