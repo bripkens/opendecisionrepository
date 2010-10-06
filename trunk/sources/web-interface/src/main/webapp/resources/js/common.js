@@ -6,6 +6,10 @@ j(document).ready(function() {
     preselect();
 
     enableToggling();
+
+    enableModalPopup();
+
+    enableIterationDelete();
 });
 
 var prefillValue = new Array();
@@ -72,18 +76,31 @@ function preselect() {
 }
 
 function enableToggling() {
-    j("a.togglelink").click(function(){
+    j("a.togglelink").each(function() {
         var button = j(this);
         var name = button.attr("name");
-        var element = j("div#" + name);
+        var element = j("#" + name);
 
-        if (element.css("display") == "none") {
-            element.slideDown();
-        } else {
-            element.slideUp();
-        }
+        button.click(function() {
+            toggle(element);
 
+            return false;
+        });
+
+        element.children("input.togglelink").first().click(function() {
+            toggle(element);
+
+            return false;
+        });
     });
+}
+
+function toggle(element) {
+    if (element.css("display") == "none") {
+        element.slideDown();
+    } else {
+        element.slideUp();
+    }
 }
 
 function redirectAfter(url, delay) {
@@ -92,4 +109,53 @@ function redirectAfter(url, delay) {
 
 function redirect(url) {
     window.location.href = url;
+}
+
+function enableModalPopup() {
+    j(".modalPopupLink").click(function() {
+        showModalPopup(j(this).attr("name"));
+    })
+
+    j(".hideModalPopupLink").click(hideModalPopup);
+
+    j("#backgroundPopup").click(hideModalPopup);
+}
+
+function showModalPopup(id) {
+    var windowWidth = j(document).width();
+    var windowHeight = j(document).height();
+    var popupHeight = j("#" + id).height();
+    var popupWidth = j("#" + id).width();
+
+    j("#backgroundPopup").css({
+        "height": windowHeight,
+        "width": windowWidth
+    });
+
+    j("#" + id).css({
+        "top": windowHeight/2-popupHeight/2,
+        "left": windowWidth/2-popupWidth/2
+    });
+
+    j("#backgroundPopup").fadeIn("slow");
+    j("#" + id).fadeIn("slow");
+}
+
+function hideModalPopup() {
+    j(".modalPopup").fadeOut("slow");
+    j("#backgroundPopup").fadeOut("slow");
+}
+
+function hideIterationAddForm() {
+    toggle(j('#iterationFormAddContainer'));
+}
+
+function enableIterationDelete() {
+//    j(".iterationDeleteButton").click(function() {
+//        var link = j(this);
+//
+//        var iterationName = link.parent().siblings("td:first-child").children("span.iterationName").text();
+//        var iterationId = link.parent().siblings("td:first-child").children("span.iterationId").text();
+//        alert(iterationId);
+//    });
 }

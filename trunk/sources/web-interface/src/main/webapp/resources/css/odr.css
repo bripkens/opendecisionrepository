@@ -225,7 +225,13 @@ p.deleteConfirmationMessage  span {
     font-weight: bold;
     color: #48A659;
 }
-
+.addIterationLink img {
+    position: relative;
+    top: 1px;
+}
+.addIterationLink span {
+    margin-left: 5px;
+}
 
 .exampleBoxCol1 {
     padding: 7px;
@@ -245,6 +251,79 @@ p.deleteConfirmationMessage  span {
     color: #444;
 }
 
-#page .members a.togglelink{
+#page a.collapsable{
     font-size: 10px;
+}
+
+form#iterationFormAddContainer {
+    display: none;
+    background-color: #EFEFEF;
+    border: 1px solid #CECECE;
+    margin: 10px 0px 0px;
+    padding: 5px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+}
+
+#page form#iterationFormAddContainer input[type="submit"].confirm, #page form#iterationFormAddContainer input[type="submit"].abort {
+    top: 0;
+}
+
+#page form#iterationFormAddContainer input[type="submit"].confirm {
+    left: 10px;
+}
+
+#page form#iterationFormAddContainer input[type="submit"].abort {
+    left: 20px;
+}
+
+#page form#iterationFormAddContainer textarea {
+    height: 100px;
+}
+
+#page form#iterationFormAddContainer .formSection p {
+    color: black;
+    text-indent: 9.5em;
+}
+
+#page form#iterationFormAddContainer h3 {
+    margin: 0;
+}
+div#backgroundPopup {
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: black;
+    position: absolute;
+    opacity: 0.7;
+    z-index: 3;
+}
+div#deleteConfirmationPopup {
+    width: 400px;
+
+    padding: 10px;
+
+    position: absolute;
+
+    display: none;
+    z-index: 4;
+
+    border: 1px solid black;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+
+    background-color: white;
+}
+
+div#deleteConfirmationPopup h1 {
+    color: #48a659;
+    margin-bottom: 0.5em;
+    font-size: 1.5em;
+}
+
+div#deleteConfirmationPopup input {
+    position: static;
+    margin: 10px 0 0 10px;
 }

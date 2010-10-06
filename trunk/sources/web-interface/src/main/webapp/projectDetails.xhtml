@@ -14,19 +14,41 @@
         <ice:outputText value="#{projectDetailsController.projectName}" rendered="#{projectDetailsController.valid}" nospan="true"/>
     </ui:define>
 
+    <ui:define name="bodyBegin">
+        <div id="deleteConfirmationPopup" class="modalPopup">
+            <h1>Delete iteration</h1>
+
+            <p class="deleteConfirmationMessage">
+            <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
+            <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
+            </p>
+            <ice:form rendered="#{projectDetailsController.redirectIfInvalidRequest}" id="confitmIterationDeleteForm">
+
+                <ice:commandButton action="#{projectDetailsController.deleteIteration}"
+                                   value="#{form['button.delete']}"
+                                   styleClass="abort"
+                                   id="confirmIterationDeleteButton"/>
+
+                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink"/>
+            </ice:form>
+        </div>
+    </ui:define>
 
     <ui:define name="content">
-        <h1><h:outputText value="#{projectDetailsController.projectName}" rendered="#{projectDetailsController.valid}" /></h1>
+        <f:subview rendered="#{projectDetailsController.valid}" id="contentSubView">
+            <h1><h:outputText value="#{projectDetailsController.projectName}" /></h1>
 
-        <p><h:outputText value="#{projectDetailsController.description}" rendered="#{projectDetailsController.valid}" /></p>
+            <p><h:outputText value="#{projectDetailsController.description}" /></p>
+        </f:subview>
+        <ice:form styleClass="members" partialSubmit="true">
 
-        <ice:form rendered="#{projectDetailsController.valid}" style="position:relative;" styleClass="members" >
+            <ice:inputHidden value="#{projectDetailsController.projectId}" />
 
             <div class="relative">
                 <h3>#{page['projectDetails.members']}</h3> <a href="#" class="togglelink collapsable" name="memberContainer1" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
                 <div id="memberContainer1" class="toggleContainer" >
-                    <ice:dataTable
-                        value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
+                    <ice:dataTable rendered="#{projectDetailsController.valid}"
+                                   value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
                         <ice:column>
                             <ice:rowSelector
                                 selectionListener="#{projectDetailsController.rowMemberSelectionListener}"/>
@@ -40,25 +62,126 @@
                 </div>
             </div>
 
-            <div class="relative">
-                <h3>#{page['projectDetails.iterations.headline']}</h3> <a href="#" class="togglelink collapsable" name="iterationContainer" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
-                <div id="iterationContainer" class="toggleContainer" >
-                    <ice:outputText value="#{page['projectDetails.iterations.add']}" nospan="true"/>
+        </ice:form>
 
-                    <ice:dataTable
-                        value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
+
+
+        <div class="relative">
+            <h3>#{page['projectDetails.iterations.headline']}</h3> <a href="#" class="togglelink collapsable" name="iterationContainer" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
+
+
+            <div id="iterationContainer" class="toggleContainer" >
+
+                <a href="#" class="addIterationLink togglelink" name="iterationFormAddContainer">
+                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
+                    <ice:outputText value="#{page['projectDetails.iterations.add']}"/>
+                </a>
+
+                <ice:form partialSubmit="true" id="iterationFormAddContainer">
+
+                    <ice:inputHidden value="#{projectDetailsController.projectId}" />
+
+                    <h3><ice:outputText value="#{form['iteration.new']}" nospan="true" /></h3>
+
+
+                    <div class="formSection">
+                        <ice:outputLabel value="#{form['label.name']}" for="inIterationName"/>
+                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                        <ice:inputText id="inIterationName"
+                                       label="#{form['label.name']}"
+                                       required="true"
+                                       value="#{projectDetailsController.iterationName}">
+                            <f:validateLength minimum="3" maximum="50" />
+
+                            <f:validator validatorId="RegexValidator" />
+                            <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                        </ice:inputText>
+                        <p>
+                        <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
+                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                        <ice:outputText value="#{form['constraint.iterationname']}" nospan="true" />
+                        </p>
+                    </div>
+
+
+
+
+                    <div class="formSection last">
+                        <ice:outputLabel value="#{form['label.description']}" for="inIterationDescription"/>
+                        <ice:inputTextarea id="inIterationDescription"
+                                           label="#{form['label.description']}"
+                                           maxlength="1000"
+                                           value="#{projectDetailsController.iterationDescription}">
+                            <f:validateLength maximum="1000" />
+                        </ice:inputTextarea>
+                        <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
+                    </div>
+
+
+
+
+                    <ice:commandButton action="#{projectDetailsController.addIteration}"
+                                       value="#{form['button.submit']}"
+                                       styleClass="confirm"
+                                       id="iterationAddSubmitButton"/>
+
+
+
+                    <ice:commandButton value="#{form['button.cancel']}"
+                                       styleClass="abort togglelink"
+                                       id="iterationAddAbortButton"/>
+                </ice:form>
+
+
+                <a class="modalPopupLink" name="deleteConfirmationPopup">open it!</a>
+
+                
+
+                <ice:form id="iterationOverviewForm">
+
+                    <ice:inputHidden value="#{projectDetailsController.projectId}" />
+
+                    <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
+
                         <ice:column>
-                            <ice:rowSelector
-                                selectionListener="#{projectDetailsController.rowIterationSelectionListener}"/>
-                            <ice:outputText value="#{item.name}" nospan="true"/>
+                            <ice:outputText value="#{item.name}" styleClass="iterationName" />
+                            <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
                         </ice:column>
+
                         <ice:column>
                             <ice:outputText value="#{item.durationInDays}" nospan="true"/> <ice:outputText value="#{page['projectDetails.iterations.duration']}" nospan="true"/>
                         </ice:column>
-                    </ice:dataTable>
-                </div>
-            </div>
 
+                        <ice:column>
+                            <f:facet name="header" />
+                            <ice:commandLink value=""
+                                             actionListener="#{projectDetailsController.requireConfirmation}"
+                                             >
+                                <img alt="#{form['iteration.delete']}"
+                                     src="resources/images/removeSmall.png"
+                                     width="11"
+                                     height="11"/>
+                                <f:attribute value="#{item}" name="iteration" />
+
+                            </ice:commandLink>
+                        </ice:column>
+                        
+                    </ice:dataTable>
+
+                </ice:form>
+
+                <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+            </div>
+        </div>
+
+
+
+        <f:subview rendered="#{projectDetailsController.valid}" id="actionSubView">
             <h3><ice:outputText value="#{page['projectDetails.actions.headline']}" nospan="true"/></h3>
 
             <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}" style="text-decoration: none;">
@@ -67,10 +190,7 @@
             <a href="#{projectDetailsController.deleteLink}" style="margin-left: 20px;text-decoration: none;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
                 <img alt="#{common.remove}" src="./resources/images/cross.png" width="48" height="48" />
             </a>
-
-
-        </ice:form>
-
+        </f:subview>
     </ui:define>
 
     <!--SIDEBAR-->

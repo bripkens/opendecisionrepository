@@ -1,18 +1,22 @@
 package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
+import com.icesoft.faces.context.effects.JavascriptContext;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
-import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -31,26 +35,49 @@ public class ProjectDetailsController {
     private ProjectLocal pl;
     @EJB
     private IterationLocal il;
-    @EJB
-    private VersionLocal vl;
     private long id;
     private Project pr;
+    private String iterationName;
+    private String iterationDescription;
+    private String projectId;
+
+    private String iterationToDeleteId;
+    private String iterationToDeleteName;
+
+    public boolean isRedirectIfInvalidRequest() {
+        if (!isValid()) {
+//            try {
+                throw new RuntimeException();
+//                JsfUtil.redirect("/error.html");
+//                return false;
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
+        }
+
+        return true;
+    }
 
     public boolean isValid() {
-
         if (!AuthenticationUtil.isAuthtenticated()) {
             return false;
+        } else if (pr != null) {
+            return true;
         }
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+
         if (request.getParameter(RequestParameter.ID) != null) {
-            String projectId = request.getParameter(RequestParameter.ID);
-            try {
-                id = Long.parseLong(projectId);
-            } catch (NumberFormatException e) {
-                return false;
-            }
+            projectId = request.getParameter(RequestParameter.ID);
         }
+
+        try {
+            id = Long.parseLong(projectId);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        
         getProject();
         if (pr != null && memberIsInProject()) {
             return true;
@@ -74,6 +101,35 @@ public class ProjectDetailsController {
 
     public void rowIterationSelectionListener(RowSelectorEvent event) {
         // TODO: empty until now, just to get the css tag right
+    }
+
+    public void addIteration() {
+        if (!isValid()) {
+            try {
+                JsfUtil.redirect("/error.html");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        Iteration i = new Iteration();
+        i.setName(iterationName);
+        i.setDescription(iterationDescription);
+        i.setStartDate(new Date());
+
+        il.addIteration(pr, i);
+
+        iterationName = iterationDescription = null;
+
+        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideIterationAddForm();");
+    }
+
+    public void requireConfirmation(ActionEvent e) {
+        throw new RuntimeException();
+    }
+
+    public void deleteIteration() {
+        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
     }
 
     public String getDescription() {
@@ -109,22 +165,64 @@ public class ProjectDetailsController {
     }
 
     public Collection<Iteration> getIterations() {
-       Collection<Iteration> unmodifiableCollection = pr.getIterations();
+        if (pr == null) {
+            return null;
+        }
 
-       if (unmodifiableCollection.isEmpty()) {
-           return Collections.emptyList();
-       }
+        Collection<Iteration> unmodifiableCollection = pr.getIterations();
 
-       List<Iteration> iterations = new ArrayList(unmodifiableCollection.size());
+        if (unmodifiableCollection.isEmpty()) {
+            return Collections.emptyList();
+        }
 
-       iterations.addAll(unmodifiableCollection);
+        List<Iteration> iterations = new ArrayList(unmodifiableCollection.size());
 
-       Collections.sort(iterations, new Iteration.EndDateComparator());
+        for(Iteration it : unmodifiableCollection) {
+            iterations.add(it);
+        }
 
-       return iterations;
+        Collections.sort(iterations, new Iteration.EndDateComparator());
+
+        return iterations;
     }
 
-    public boolean isHavingIterations() {
-        return !pr.getIterations().isEmpty();
+    public String getIterationDescription() {
+        return iterationDescription;
+    }
+
+    public void setIterationDescription(String iterationDescription) {
+        this.iterationDescription = iterationDescription;
+    }
+
+    public String getIterationName() {
+        return iterationName;
+    }
+
+    public void setIterationName(String iterationName) {
+        this.iterationName = iterationName;
+    }
+
+    public String getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(String projectId) {
+        this.projectId = projectId;
+    }
+
+    public String getIterationToDeleteId() {
+        return iterationToDeleteId;
+    }
+
+    public void setIterationToDeleteId(String iterationToDeleteId) {
+        this.iterationToDeleteId = iterationToDeleteId;
+    }
+
+    public String getIterationToDeleteName() {
+        return iterationToDeleteName;
+    }
+
+    public void setIterationToDeleteName(String iterationToDeleteName) {
+        this.iterationToDeleteName = iterationToDeleteName;
     }
 }

@@ -28,7 +28,8 @@
             <ui:insert name="head" />
         </h:head>
         <h:body>
-
+            <div id="backgroundPopup"></div>
+            <ui:insert name="bodyBegin" />
             <div id="header">
                 <div class="hseperator"></div>
                 <div id="logo">
@@ -79,11 +80,11 @@
 
 
             </div>
-            <div id="footer">
+<!--            <div id="footer">
                 <hr style="height: 1px; border-top: 1px;"/>
                 <ice:outputText value="#{common['page.footer']} " nospan="true" />
 
-            </div>
+            </div>-->
         </h:body>
     </html>
 </f:view>
