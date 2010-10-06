@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.StringValidator;
 
 /**
  *
@@ -40,7 +41,7 @@ public class StakeholderRole extends AbstractUserTyp {
 
     @Override
     public void setName(String name) {
-        if (name == null) {
+        if (!StringValidator.isValid(name)) {
             throw new BusinessException("Please provide a name");
         }
         this.name = name;
