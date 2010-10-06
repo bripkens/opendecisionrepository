@@ -152,11 +152,11 @@ public class ProjectDetailsController {
     }
 
     public String getUpdateLink() {
-        return "updateProject.html?".concat(RequestParameter.UPDATE).concat("&").concat(RequestParameter.ID).concat("=") + pr.getId();
+        return "project/".concat(pr.getName()).concat("/update");
     }
 
     public String getDeleteLink() {
-        return "deleteProject.html?".concat(RequestParameter.DELETE).concat("&").concat(RequestParameter.ID).concat("=") + pr.getId();
+        return "project/".concat(pr.getName()).concat("/delete");
     }
 
     public Collection<Iteration> getIterations() {

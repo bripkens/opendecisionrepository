@@ -49,9 +49,6 @@ public class RequestParameterAnalyzer implements RequestParameter {
     }
 
     private Mode determineRequestMode() {
-        System.out.println("CREATE " + create);
-        System.out.println("UPDATE " + update);
-        System.out.println("ID " + id);
         int paramCounter = 0;
         paramCounter += (create ? 1 : 0);
         paramCounter += (update ? 1 : 0);

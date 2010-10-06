@@ -197,7 +197,7 @@ public class ManageProjectController extends AbstractManageController {
         JsfUtil.removeSessionBean(getBeanName());
 
         try {
-            JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
+            JsfUtil.redirect("/project/".concat(sourceProject.getName()));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -221,7 +221,7 @@ public class ManageProjectController extends AbstractManageController {
         JsfUtil.removeSessionBean(getBeanName());
 
         try {
-            JsfUtil.redirect("/projectDetails.html?".concat(RequestParameter.ID).concat("=") + sourceProject.getId());
+            JsfUtil.redirect("/project/".concat(sourceProject.getName()));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
