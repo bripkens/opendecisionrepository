@@ -25,7 +25,7 @@ public class DatabaseCleaner {
 
                 Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
                 connect = DriverManager.getConnection("jdbc:derby://localhost:1527/sun-appserv-samples");
-                String[] entityNames = new String[]{ "ProjectMember", "StakeholderRole", "Iteration", "Person", "Project"};
+                String[] entityNames = new String[]{ "ProjectMember", "StakeholderRole", "Person", "Project"};
 
 //                {"Requirement", "ActionType", "ProjectMember", "Version", "StakeholderRole",
 //                    "Status", "Actions", "OPRLink", "ArchitecturalDecision", "Iteration", "Person", "Project"};

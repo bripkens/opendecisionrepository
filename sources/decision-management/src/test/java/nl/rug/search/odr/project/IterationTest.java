@@ -162,7 +162,6 @@ public class IterationTest extends AbstractEjbTest {
         assertEquals(2, pl.getById(pr.getId()).getIterations().size());
         assertEquals(2, pl.getById(pr1.getId()).getIterations().size());
 
-
         assertEquals(4, il.getAll().size());
 
         List<Iteration> iterations = il.getAll();
@@ -173,5 +172,13 @@ public class IterationTest extends AbstractEjbTest {
             }
         }
         assertEquals(2, count);
+
+        pr1 = pl.getById(pr1.getId());
+        System.out.println("enhaelt die kacke: "+pr1.getIterations().contains(i3));
+        pr1.getIterations().remove(i3);
+        pl.updateProject(pr1);
+
+        assertEquals(1, pl.getById(pr1.getId()).getIterations().size());
+
     }
 }

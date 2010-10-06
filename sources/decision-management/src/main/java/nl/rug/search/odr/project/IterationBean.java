@@ -31,7 +31,6 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
 
     @Override
     public void updateIteration(Iteration sourceIteration) {
-
         entityManager.merge(sourceIteration);
     }
 
@@ -43,19 +42,7 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
                 return;
             }
         }
-//
-//        if (!pro.getIterations().isEmpty()) {
-//            Query q = entityManager.createQuery("UPDATE Iteration i "
-//                    + "SET i.endDate = :endDate "
-//                    + "WHERE i.endDate IS NULL AND i IN (:iterations)");
-//
-//            q.setParameter("endDate", new Date());
-//            q.setParameter("iterations", pro.getIterations());
-////
-//           System.out.println("wurden geaendert: "+ q.executeUpdate());
-//        }
     }
-
 
     @Override
     public void addIteration(Project pr, Iteration i) {
@@ -63,4 +50,5 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
         pr.addIteration(i);
         entityManager.merge(pr);
     }
+
 }
