@@ -72,7 +72,7 @@ public class Status extends BaseEntity<Status>{
 
     @Override
     public boolean isPersistable() {
-        if(name.isEmpty()){
+        if(!StringValidator.isValid(name)){
             return false;
         }
         return true;

@@ -62,7 +62,7 @@ public class Requirement extends BaseEntity<Requirement> {
 
     @Override
     public boolean isPersistable() {
-        if(description.isEmpty()){
+        if(StringValidator.isValid(description)){
             return false;
         }
         return true;

@@ -24,15 +24,13 @@ public abstract class AbstractUserTyp extends BaseEntity<AbstractUserTyp> {
     public abstract boolean isCommon();
     public abstract void setCommon(boolean common);
 
-
-
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
-
-
 }
