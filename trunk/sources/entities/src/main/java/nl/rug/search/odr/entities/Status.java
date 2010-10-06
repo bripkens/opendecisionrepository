@@ -69,4 +69,12 @@ public class Status extends BaseEntity<Status>{
         }
         this.id = id;
     }
+
+    @Override
+    public boolean isPersistable() {
+        if(name.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

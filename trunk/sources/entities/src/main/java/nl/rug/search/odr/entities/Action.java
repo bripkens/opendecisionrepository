@@ -78,4 +78,12 @@ public class Action extends BaseEntity<Action> {
         return new Object[]{type};
     }
 
+    @Override
+    public boolean isPersistable() {
+        if(type == null){
+            return false;
+        }
+        return true;
+    }
+
 }

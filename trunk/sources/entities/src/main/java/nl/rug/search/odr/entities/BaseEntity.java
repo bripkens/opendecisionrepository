@@ -20,6 +20,8 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
     public abstract Long getId();
     public abstract void setId(Long id);
 
+    public abstract boolean isPersistable();
+
     @Override
     public final int hashCode() {
         return calculateHashCode(getCompareData());
