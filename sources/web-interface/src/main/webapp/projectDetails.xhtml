@@ -136,7 +136,7 @@
 
                 <a class="modalPopupLink" name="deleteConfirmationPopup">open it!</a>
 
-                
+
 
                 <ice:form id="iterationOverviewForm">
 
@@ -145,6 +145,9 @@
                     <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
 
                         <ice:column>
+                            <ice:rowSelector id="selected"
+                                selectionAction="#{projectDetailsController.rowIterationSelectionListener}"/>
+                            
                             <ice:outputText value="#{item.name}" styleClass="iterationName" />
                             <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
                         </ice:column>
@@ -156,8 +159,7 @@
                         <ice:column>
                             <f:facet name="header" />
                             <ice:commandLink value=""
-                                             actionListener="#{projectDetailsController.requireConfirmation}"
-                                             >
+                                             styleClass="iterationDeleteButton">
                                 <img alt="#{form['iteration.delete']}"
                                      src="resources/images/removeSmall.png"
                                      width="11"
@@ -166,16 +168,10 @@
 
                             </ice:commandLink>
                         </ice:column>
-                        
+
                     </ice:dataTable>
 
                 </ice:form>
-
-                <ice:messages layout="list"
-                                      errorClass="error"
-                                      warnClass="warning"
-                                      fatalClass="fatal"
-                                      infoClass="information" />
             </div>
         </div>
 

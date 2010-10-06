@@ -4,6 +4,7 @@ package nl.rug.search.odr.project;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.BusinessException;
@@ -84,5 +85,23 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         q = entityManager.createQuery("DELETE FROM Project p WHERE p.id = :projectId");
         q.setParameter("projectId", p.getId());
         q.executeUpdate();
+    }
+
+    @Override
+    public Project getByName(String name) {
+        if (name == null) {
+            return null;
+        }
+
+        name = name.trim().toLowerCase();
+
+        Query q = entityManager.createQuery("SELECT p FROM Project p WHERE lower(p.name) = :name");
+        q.setParameter("name", name);
+
+        try {
+            return (Project) q.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

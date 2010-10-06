@@ -1,0 +1,109 @@
+package nl.rug.search.odr.servlet;
+
+import java.io.IOException;
+import javax.ejb.EJB;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.project.ProjectLocal;
+
+/**
+ *
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
+ */
+@WebServlet(name = "ProjectServlet", urlPatterns = {"/project/*"})
+public class ProjectServlet extends HttpServlet {
+
+    @EJB
+    private ProjectLocal projectLocal;
+
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // there is always one entry, which is always empty
+        // entry two is the project name
+        // entry three is the action type
+
+        String[] parts = request.getPathInfo().split("/");
+
+        Project p = null;
+
+        if (parts.length > 1) {
+            p = projectLocal.getByName(parts[1]);
+        } else {
+            // TODO: handle error, user used some path that should not exist
+            return;
+        }
+
+        String target = null;
+
+        if (parts.length == 2) {
+            target = "/projectDetails.html?".concat(RequestParameter.ID).concat("=");
+        } else if (parts.length > 2) {
+            if (parts[2].equalsIgnoreCase("create")) {
+                target = "/createProject.html?".concat(RequestParameter.CREATE).concat("=true&").concat(RequestParameter.ID).concat("=");
+            } else if (parts[2].equalsIgnoreCase("update")) {
+                target = "/updateProject.html?".concat(RequestParameter.UPDATE).concat("=true&").concat(RequestParameter.ID).concat("=");
+            } else if (parts[2].equalsIgnoreCase("delete")) {
+                target = "/deleteProject.html?".concat(RequestParameter.DELETE).concat("=true&").concat(RequestParameter.ID).concat("=");
+            }
+        }
+
+
+        System.out.println(target);
+
+        if (p == null) {
+            target += -1;
+        } else {
+            target += p.getId();
+        }
+
+        request.getRequestDispatcher(target).forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}
