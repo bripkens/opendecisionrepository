@@ -185,4 +185,9 @@ public class Version extends BaseEntity<Version> {
     protected Object[] getCompareData() {
         return new Object[]{revision, createDate};
     }
+
+    @Override
+    public boolean isPersistable() {
+        return false;
+    }
 }

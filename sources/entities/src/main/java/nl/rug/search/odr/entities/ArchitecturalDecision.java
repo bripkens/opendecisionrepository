@@ -4,21 +4,17 @@
  */
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
@@ -153,6 +149,14 @@ public class ArchitecturalDecision extends BaseEntity<ArchitecturalDecision> {
     @Override
     protected Object[] getCompareData() {
         return new Object[] {name, oprId, arguments, decision, problem};
+    }
+
+    @Override
+    public boolean isPersistable() {
+        if(name.isEmpty()){
+            return false;
+        }
+        return true;
     }
 
 }

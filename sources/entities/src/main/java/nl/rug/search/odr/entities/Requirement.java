@@ -59,4 +59,12 @@ public class Requirement extends BaseEntity<Requirement> {
     protected Object[] getCompareData() {
         return new Object[]{description};
     }
+
+    @Override
+    public boolean isPersistable() {
+        if(description.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }
