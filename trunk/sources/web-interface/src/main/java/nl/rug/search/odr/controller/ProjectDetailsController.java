@@ -46,13 +46,12 @@ public class ProjectDetailsController {
 
     public boolean isRedirectIfInvalidRequest() {
         if (!isValid()) {
-//            try {
-                throw new RuntimeException();
-//                JsfUtil.redirect("/error.html");
-//                return false;
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
+            try {
+                JsfUtil.redirect("/error.html");
+                return false;
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         return true;
@@ -100,7 +99,7 @@ public class ProjectDetailsController {
     }
 
     public void rowIterationSelectionListener(RowSelectorEvent event) {
-        // TODO: empty until now, just to get the css tag right
+        System.out.println(event.getRow());
     }
 
     public void addIteration() {
@@ -122,10 +121,6 @@ public class ProjectDetailsController {
         iterationName = iterationDescription = null;
 
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideIterationAddForm();");
-    }
-
-    public void requireConfirmation(ActionEvent e) {
-        throw new RuntimeException();
     }
 
     public void deleteIteration() {

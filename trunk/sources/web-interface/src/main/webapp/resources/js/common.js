@@ -156,6 +156,7 @@ function enableIterationDelete() {
 //
 //        var iterationName = link.parent().siblings("td:first-child").children("span.iterationName").text();
 //        var iterationId = link.parent().siblings("td:first-child").children("span.iterationId").text();
-//        alert(iterationId);
+//
+//        link.parent().siblings("td:first-child").click();
 //    });
 }

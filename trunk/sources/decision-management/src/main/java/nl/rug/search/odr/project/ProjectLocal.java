@@ -27,4 +27,6 @@ public interface ProjectLocal extends GenericDaoLocal<Project, Long>{
 
     public void deleteProject(Project p);
 
+    public nl.rug.search.odr.entities.Project getByName(java.lang.String name);
+
 }
