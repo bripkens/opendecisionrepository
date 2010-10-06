@@ -1,6 +1,6 @@
 package nl.rug.search.odr.project;
 
-import org.junit.Ignore;
+
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.Person;
@@ -176,5 +176,56 @@ public class ProjectTest extends AbstractEjbTest {
         pl.deleteProject(p);
 
         assertFalse(pl.isUsed(name));
+    }
+
+    @Test
+    public void testcreateRoles() {
+        String name = "foo";
+
+        Person person1 = new Person();
+        person1.setName("User1");
+        person1.setPlainPassword("Pw1");
+        person1.setEmail("dd@dd.de");
+        ul.register(person1);
+
+        Person person2 = new Person();
+        person2.setName("User2");
+        person2.setPlainPassword("Pw2");
+        person2.setEmail("a@a.de");
+        ul.register(person2);
+
+        Project p = new Project();
+        p.setName(name);
+
+        Project project2 = new Project();
+        project2.setName("project_2");
+
+        StakeholderRole role1 = new StakeholderRole();
+        role1.setCommon(true);
+        role1.setName("Architect");
+        srl.persistRole(role1);
+
+        StakeholderRole role2 = new StakeholderRole();
+        role2.setCommon(false);
+        role2.setName("customer");
+
+        ProjectMember member = new ProjectMember();
+        member.setPerson(person1);
+        member.setRole(role1);
+        member.setProject(p);
+
+        ProjectMember member2 = new ProjectMember();
+        member2.setPerson(person2);
+        member2.setRole(role1);
+        member2.setProject(project2);
+
+        pl.createProject(p);
+
+        project2.addStakeHolderRole(role2);
+        pl.createProject(project2);
+
+
+        assertTrue(project2.getStakeholderRoles().contains(role2));
+        assertFalse(p.getStakeholderRoles().contains(role2));
     }
 }

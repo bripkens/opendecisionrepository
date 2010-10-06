@@ -1,6 +1,6 @@
-
 package nl.rug.search.odr.project;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.GenericDaoBean;
+import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.StakeholderRole;
 
 /**
@@ -15,8 +16,8 @@ import nl.rug.search.odr.entities.StakeholderRole;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long>implements StakeholderRoleLocal {
-    
+public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> implements StakeholderRoleLocal {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -44,6 +45,7 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long>im
 
         return (StakeholderRole) q.getSingleResult();
     }
+
 
     @Override
     public boolean isPersistable(StakeholderRole entity) {

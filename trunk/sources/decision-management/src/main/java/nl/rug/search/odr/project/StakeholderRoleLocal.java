@@ -1,8 +1,10 @@
 
 package nl.rug.search.odr.project;
 
+import java.util.Collection;
 import javax.ejb.Local;
 import nl.rug.search.odr.GenericDaoLocal;
+import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.StakeholderRole;
 
 /**
@@ -12,10 +14,10 @@ import nl.rug.search.odr.entities.StakeholderRole;
 @Local
 public interface StakeholderRoleLocal extends GenericDaoLocal<StakeholderRole, Long>{
 
-    public java.util.Collection<nl.rug.search.odr.entities.StakeholderRole> getPublicRoles();
+    public Collection<StakeholderRole> getPublicRoles();
 
-    public nl.rug.search.odr.entities.StakeholderRole getSomePublicRole();
+    public StakeholderRole getSomePublicRole();
 
-    public void persistRole(nl.rug.search.odr.entities.StakeholderRole role);
+    public void persistRole(StakeholderRole role);
     
 }
