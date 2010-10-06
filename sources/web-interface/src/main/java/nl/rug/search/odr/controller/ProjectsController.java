@@ -32,7 +32,7 @@ public class ProjectsController {
         for (int i = 0; i < members.size(); i++) {
             if (i == event.getRow()) {
                 try {
-                    JsfUtil.redirect("/projectDetails.html?" + RequestParameter.ID + "=" + members.get(i).getProject().getId());
+                    JsfUtil.redirect("/project/" + members.get(i).getProject().getName());
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -63,7 +63,7 @@ public class ProjectsController {
 
     public void newProjectLink() {
         try {
-            JsfUtil.redirect("/createProject.html?create");
+            JsfUtil.redirect("/project/create");
         } catch (IOException ex) {
             Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
         }

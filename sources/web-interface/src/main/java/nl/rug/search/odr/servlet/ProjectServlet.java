@@ -30,37 +30,34 @@ public class ProjectServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // there is always one entry, which is always empty
-        // entry two is the project name
-        // entry three is the action type
-
+        
         String[] parts = request.getPathInfo().split("/");
 
-        Project p = null;
 
-        if (parts.length > 1) {
-            p = projectLocal.getByName(parts[1]);
+        String target = null;
+
+        if (parts.length == 2) {
+            if ("create".equalsIgnoreCase(parts[1])) {
+                target = "/createProject.html?create=true";
+                request.getRequestDispatcher(target).forward(request, response);
+                return;
+            } else {
+                target = "/projectDetails.html?".concat(RequestParameter.ID).concat("=");
+            }
+        } else if (parts.length > 2) {
+            if (parts[2].equalsIgnoreCase("update")) {
+                target = "/updateProject.html?".concat(RequestParameter.UPDATE).concat("=true&").concat(RequestParameter.ID).concat("=");
+            } else if (parts[2].equalsIgnoreCase("delete")) {
+                target = "/deleteProject.html?".concat(RequestParameter.DELETE).concat("=true&").concat(RequestParameter.ID).concat("=");
+            }
         } else {
             // TODO: handle error, user used some path that should not exist
             return;
         }
 
-        String target = null;
 
-        if (parts.length == 2) {
-            target = "/projectDetails.html?".concat(RequestParameter.ID).concat("=");
-        } else if (parts.length > 2) {
-            if (parts[2].equalsIgnoreCase("create")) {
-                target = "/createProject.html?".concat(RequestParameter.CREATE).concat("=true&").concat(RequestParameter.ID).concat("=");
-            } else if (parts[2].equalsIgnoreCase("update")) {
-                target = "/updateProject.html?".concat(RequestParameter.UPDATE).concat("=true&").concat(RequestParameter.ID).concat("=");
-            } else if (parts[2].equalsIgnoreCase("delete")) {
-                target = "/deleteProject.html?".concat(RequestParameter.DELETE).concat("=true&").concat(RequestParameter.ID).concat("=");
-            }
-        }
-
-
-        System.out.println(target);
+        Project p = null;
+        p = projectLocal.getByName(parts[1]);
 
         if (p == null) {
             target += -1;
