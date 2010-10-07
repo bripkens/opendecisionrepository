@@ -35,7 +35,7 @@ public class Project extends BaseEntity<Project> {
     @Column(length = 1000)
     private String description;
 //
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL, orphanRemoval=true)
     private Collection<ProjectMember> members;
 //
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

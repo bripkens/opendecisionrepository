@@ -2,6 +2,7 @@ package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import com.icesoft.faces.context.effects.JavascriptContext;
+import com.sun.faces.util.MessageFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,12 +12,15 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -40,9 +44,10 @@ public class ProjectDetailsController {
     private String iterationName;
     private String iterationDescription;
     private String projectId;
-
     private String iterationToDeleteId;
     private String iterationToDeleteName;
+    public static final String ILLEGAL_ITERATION_NAME =
+            "nl.rug.search.odr.controller.ProjectDetailsController.ILLEGAL_ITERATION_NAME";
 
     public boolean isRedirectIfInvalidRequest() {
         if (!isValid()) {
@@ -55,6 +60,10 @@ public class ProjectDetailsController {
         }
 
         return true;
+    }
+
+    public void iterationAddCanceled(ActionEvent e) {
+        iterationName = iterationDescription = null;
     }
 
     public boolean isValid() {
@@ -76,7 +85,7 @@ public class ProjectDetailsController {
         } catch (NumberFormatException e) {
             return false;
         }
-        
+
         getProject();
         if (pr != null && memberIsInProject()) {
             return true;
@@ -100,6 +109,25 @@ public class ProjectDetailsController {
 
     public void rowIterationSelectionListener(RowSelectorEvent event) {
         System.out.println(event.getRow());
+    }
+
+    public void checkIterationName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
+        String newIterationName = value.toString();
+
+        if (!StringValidator.isValid(newIterationName, false)) {
+            return;
+        }
+
+        for (Iteration it : pr.getIterations()) {
+            if (it.getName().equalsIgnoreCase(newIterationName)) {
+                throw new ValidatorException(MessageFactory.getMessage(
+                        fc,
+                        ILLEGAL_ITERATION_NAME,
+                        new Object[]{
+                            MessageFactory.getLabel(fc, uic)
+                        }));
+            }
+        }
     }
 
     public void addIteration() {
@@ -172,7 +200,7 @@ public class ProjectDetailsController {
 
         List<Iteration> iterations = new ArrayList(unmodifiableCollection.size());
 
-        for(Iteration it : unmodifiableCollection) {
+        for (Iteration it : unmodifiableCollection) {
             iterations.add(it);
         }
 

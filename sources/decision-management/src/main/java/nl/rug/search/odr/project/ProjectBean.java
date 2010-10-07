@@ -1,4 +1,3 @@
-
 package nl.rug.search.odr.project;
 
 import java.util.List;
@@ -17,10 +16,10 @@ import nl.rug.search.odr.entities.ProjectMember;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class ProjectBean extends GenericDaoBean<Project, Long>implements ProjectLocal {
+public class ProjectBean extends GenericDaoBean<Project, Long> implements ProjectLocal {
+
     @PersistenceContext
     private EntityManager entityManager;
-
 
     @Override
     public boolean isPersistable(Project p) {
@@ -50,7 +49,6 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
         return result != 0;
     }
 
-
     @Override
     public List<ProjectMember> getAllProjectsFromUser(long userId) {
         Query q = entityManager.createQuery("SELECT pm from ProjectMember pm WHERE pm.person.id = :userId AND pm.removed = false");
@@ -78,13 +76,9 @@ public class ProjectBean extends GenericDaoBean<Project, Long>implements Project
 
     @Override
     public void deleteProject(Project p) {
-        Query q = entityManager.createQuery("DELETE FROM ProjectMember pm WHERE pm.project.id = :projectId");
-        q.setParameter("projectId", p.getId());
-        q.executeUpdate();
-
-        q = entityManager.createQuery("DELETE FROM Project p WHERE p.id = :projectId");
-        q.setParameter("projectId", p.getId());
-        q.executeUpdate();
+        // potential subquery that would work if there wasn't a foreign key constraint
+        // (SELECT pit FROM Project p, IN(p.iterations) pit WHERE p.id = :projectId)
+        entityManager.remove(getById(p.getId()));
     }
 
     @Override

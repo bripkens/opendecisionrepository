@@ -91,6 +91,7 @@
                                        label="#{form['label.name']}"
                                        required="true"
                                        value="#{projectDetailsController.iterationName}">
+                            <!--validator="#{projectDetailsController.checkIterationName}"-->
                             <f:validateLength minimum="3" maximum="50" />
 
                             <f:validator validatorId="RegexValidator" />
@@ -120,7 +121,6 @@
 
 
 
-
                     <ice:commandButton action="#{projectDetailsController.addIteration}"
                                        value="#{form['button.submit']}"
                                        styleClass="confirm"
@@ -128,11 +128,17 @@
 
 
 
-                    <ice:commandButton value="#{form['button.cancel']}"
+                    <ice:commandButton actionListener="#{projectDetailsController.iterationAddCanceled}"
+                                       value="#{form['button.cancel']}"
                                        styleClass="abort togglelink"
                                        id="iterationAddAbortButton"/>
                 </ice:form>
 
+                <ice:messages layout="list"
+                              errorClass="error"
+                              warnClass="warning"
+                              fatalClass="fatal"
+                              infoClass="information" />
 
                 <a class="modalPopupLink" name="deleteConfirmationPopup">open it!</a>
 
@@ -146,8 +152,8 @@
 
                         <ice:column>
                             <ice:rowSelector id="selected"
-                                selectionAction="#{projectDetailsController.rowIterationSelectionListener}"/>
-                            
+                                             selectionAction="#{projectDetailsController.rowIterationSelectionListener}"/>
+
                             <ice:outputText value="#{item.name}" styleClass="iterationName" />
                             <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
                         </ice:column>

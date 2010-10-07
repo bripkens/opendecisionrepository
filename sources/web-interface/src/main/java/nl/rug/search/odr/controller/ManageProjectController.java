@@ -5,8 +5,6 @@ import com.sun.faces.util.MessageFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,7 +18,6 @@ import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -127,6 +124,14 @@ public class ManageProjectController extends AbstractManageController {
             } catch (BusinessException ex) {
             }
         } else {
+            for(ProjectMember member : projectMembers) {
+                if (member.isRemoved() && member.getPerson().getEmail().equalsIgnoreCase(memberInput)) {
+                    member.setRemoved(false);
+                    memberInput = null;
+                    return;
+                }
+            }
+
             Person person = ul.getByEmail(memberInput);
             p.setPerson(person);
         }
