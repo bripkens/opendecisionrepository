@@ -91,7 +91,6 @@
                                        label="#{form['label.name']}"
                                        required="true"
                                        value="#{projectDetailsController.iterationName}">
-                            <!--validator="#{projectDetailsController.checkIterationName}"-->
                             <f:validateLength minimum="3" maximum="50" />
 
                             <f:validator validatorId="RegexValidator" />
@@ -144,7 +143,7 @@
 
 
 
-                <ice:form id="iterationOverviewForm">
+                <ice:form>
 
                     <ice:inputHidden value="#{projectDetailsController.projectId}" />
 
