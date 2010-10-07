@@ -2,7 +2,6 @@ package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import com.icesoft.faces.context.effects.JavascriptContext;
-import com.sun.faces.util.MessageFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,15 +11,12 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
-import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -46,8 +42,6 @@ public class ProjectDetailsController {
     private String projectId;
     private String iterationToDeleteId;
     private String iterationToDeleteName;
-    public static final String ILLEGAL_ITERATION_NAME =
-            "nl.rug.search.odr.controller.ProjectDetailsController.ILLEGAL_ITERATION_NAME";
 
     public boolean isRedirectIfInvalidRequest() {
         if (!isValid()) {
@@ -67,9 +61,13 @@ public class ProjectDetailsController {
     }
 
     public boolean isValid() {
+        System.out.println("### 1");
+
         if (!AuthenticationUtil.isAuthtenticated()) {
+            System.out.println("### 2");
             return false;
         } else if (pr != null) {
+            System.out.println("### 3");
             return true;
         }
 
@@ -77,19 +75,25 @@ public class ProjectDetailsController {
 
 
         if (request.getParameter(RequestParameter.ID) != null) {
+            System.out.println("### 4");
             projectId = request.getParameter(RequestParameter.ID);
         }
 
         try {
+            System.out.println("### 5");
             id = Long.parseLong(projectId);
         } catch (NumberFormatException e) {
+            System.out.println("### 6");
             return false;
         }
 
+        System.out.println("### 7");
         getProject();
         if (pr != null && memberIsInProject()) {
+            System.out.println("### 8");
             return true;
         }
+        System.out.println("### 9");
         return false;
     }
 
@@ -111,24 +115,6 @@ public class ProjectDetailsController {
         System.out.println(event.getRow());
     }
 
-    public void checkIterationName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
-        String newIterationName = value.toString();
-
-        if (!StringValidator.isValid(newIterationName, false)) {
-            return;
-        }
-
-        for (Iteration it : pr.getIterations()) {
-            if (it.getName().equalsIgnoreCase(newIterationName)) {
-                throw new ValidatorException(MessageFactory.getMessage(
-                        fc,
-                        ILLEGAL_ITERATION_NAME,
-                        new Object[]{
-                            MessageFactory.getLabel(fc, uic)
-                        }));
-            }
-        }
-    }
 
     public void addIteration() {
         if (!isValid()) {
@@ -188,13 +174,17 @@ public class ProjectDetailsController {
     }
 
     public Collection<Iteration> getIterations() {
+        System.out.println("### 8");
+        
         if (pr == null) {
+            System.out.println("### 9");
             return null;
         }
 
         Collection<Iteration> unmodifiableCollection = pr.getIterations();
 
         if (unmodifiableCollection.isEmpty()) {
+            System.out.println("### 10");
             return Collections.emptyList();
         }
 
@@ -205,6 +195,8 @@ public class ProjectDetailsController {
         }
 
         Collections.sort(iterations, new Iteration.EndDateComparator());
+
+        System.out.println("### 11");
 
         return iterations;
     }
