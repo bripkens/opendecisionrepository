@@ -1,4 +1,4 @@
-package nl.rug.search.org;
+package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Wait;
@@ -11,7 +11,7 @@ public class LoginTest extends SeleneseTestCase {
 
     @Override
     public void setUp() throws Exception {
-        setUp("http://localhost:8080/web-interface/");
+        setUp("http://localhost:8080/web-interface/", "*firefox");
     }
 
     public void testLoginErrorVisibilityNoInput() throws Exception {
