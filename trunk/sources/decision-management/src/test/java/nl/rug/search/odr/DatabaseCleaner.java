@@ -25,14 +25,14 @@ public class DatabaseCleaner {
 
                 Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
                 connect = DriverManager.getConnection("jdbc:derby://localhost:1527/sun-appserv-samples");
-                String[] entityNames = new String[]{ "ProjectMember", "StakeholderRole", "Person", "Project"};
+                String[] entityNames = new String[]{ "ProjectMember", "StakeholderRole", "Iteration", "Person", "Project", "Project_Stakeholderrole"};
 
 //                {"Requirement", "ActionType", "ProjectMember", "Version", "StakeholderRole",
 //                    "Status", "Actions", "OPRLink", "ArchitecturalDecision", "Iteration", "Person", "Project"};
 
                 Statement statement1 = connect.createStatement();
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 10; i++) {
 
                     for (int j = 0; j < entityNames.length; j++) {
 

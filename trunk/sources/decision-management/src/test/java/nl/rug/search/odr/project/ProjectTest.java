@@ -1,6 +1,5 @@
 package nl.rug.search.odr.project;
 
-
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.entities.Person;
@@ -12,11 +11,11 @@ import nl.rug.search.odr.user.UserLocal;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-
 public class ProjectTest extends AbstractEjbTest {
 
     private ProjectLocal pl;
@@ -100,7 +99,7 @@ public class ProjectTest extends AbstractEjbTest {
 
         assertEquals(p, pFromDb);
 
-        for(ProjectMember pm : pFromDb.getMembers()) {
+        for (ProjectMember pm : pFromDb.getMembers()) {
             if (!(pm.getPerson().equals(member1.getPerson())
                     || pm.getPerson().equals(member2.getPerson())
                     || pm.getPerson().equals(member3.getPerson()))) {
@@ -124,8 +123,8 @@ public class ProjectTest extends AbstractEjbTest {
 
         boolean found = false;
 
-        for(ProjectMember pm : pFromDb.getMembers()) {
-            if ( pm.isRemoved()) {
+        for (ProjectMember pm : pFromDb.getMembers()) {
+            if (pm.isRemoved()) {
                 found = true;
             }
         }
@@ -171,11 +170,11 @@ public class ProjectTest extends AbstractEjbTest {
         assertTrue(pl.isUsed(name));
         assertTrue(pl.isMember(person1.getId(), p.getId()));
         assertFalse(pl.isMember(person2.getId(), p.getId()));
-        
 
-        pl.deleteProject(p);
 
-        assertFalse(pl.isUsed(name));
+        // pl.deleteProject(p);
+
+      //  assertFalse(pl.isUsed(name));
     }
 
     @Test
@@ -226,6 +225,12 @@ public class ProjectTest extends AbstractEjbTest {
 
 
         assertTrue(project2.getStakeholderRoles().contains(role2));
+        pl.deleteProject(project2);
+        assertNull(pl.getById(project2.getId()));
+        assertNull(srl.getById(role2.getId()));
+
+
+
         assertFalse(p.getStakeholderRoles().contains(role2));
     }
 }
