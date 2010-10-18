@@ -3,6 +3,7 @@ package nl.rug.search.odr.project;
 import org.junit.Ignore;
 import java.util.List;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import nl.rug.search.odr.decision.ActionBean;
 import nl.rug.search.odr.decision.ActionLocal;
 import java.util.logging.Level;
@@ -63,8 +64,6 @@ public class IterationTest extends AbstractEjbTest {
     @Test
     public void projectIterationTest() {
 
-        System.out.println("es gibt .. user: " + ul.getAll().size());
-
         // <editor-fold defaultstate="collapsed" desc="create Persons ans save them">
         Person p = TestRelationHelper.createPerson("12345", "a@a.de");
         ul.register(p);
@@ -104,10 +103,40 @@ public class IterationTest extends AbstractEjbTest {
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="createIterationToProject">
+        GregorianCalendar startCal = new GregorianCalendar(2012, 1, 10);
+        GregorianCalendar endCal = new GregorianCalendar(2012, 1, 12);
+
+        GregorianCalendar startCal1 = new GregorianCalendar(2012, 1, 15);
+        GregorianCalendar endCal1 = new GregorianCalendar(2012, 1, 17);
+
+//        //#################################################################
+//        fails because the dates are not valid
+//        GregorianCalendar startCal2 = new GregorianCalendar(2012, 1, 9);
+//        GregorianCalendar endCal2 = new GregorianCalendar(2012,1,18);
+//
+//        GregorianCalendar startCal3 = new GregorianCalendar(2012, 1, 11);
+//        GregorianCalendar endCal3 = new GregorianCalendar(2012,1,13);
+//
+//        GregorianCalendar startCal4 = new GregorianCalendar(2012, 1, 13);
+//        GregorianCalendar endCal4 = new GregorianCalendar(2012,1,16);
+//
+//        GregorianCalendar startCal5 = new GregorianCalendar(2012, 1, 11);
+//        GregorianCalendar endCal5 = new GregorianCalendar(2012,1,16);
+//        //################################################################
+
+        GregorianCalendar startCal6 = new GregorianCalendar(2012, 1, 18);
+        GregorianCalendar endCal6 = new GregorianCalendar(2012, 1, 19);
+
+        GregorianCalendar startCal7 = new GregorianCalendar(2012, 1, 20);
+        GregorianCalendar endCal7 = new GregorianCalendar(2012, 2, 2);
+
         Iteration i = new Iteration();
         i.setDescription("aaa");
         i.setName("first");
-        i.setStartDate(new Date());
+        i.setProjectMember(member1);
+        i.setStartDate(startCal.getTime());
+        i.setDocumentedWhen(new Date());
+        i.setEndDate(endCal.getTime());
 
         try {
             Thread.sleep(100);
@@ -117,17 +146,28 @@ public class IterationTest extends AbstractEjbTest {
         Iteration i1 = new Iteration();
         i1.setDescription("bbb");
         i1.setName("second");
-        i1.setStartDate(new Date());
+        i1.setProjectMember(member2);
+        i1.setStartDate(startCal1.getTime());
+        i1.setDocumentedWhen(new Date());
+        i1.setEndDate(endCal1.getTime());
 
         Iteration i2 = new Iteration();
+        Date date = new Date();
         i2.setDescription("ccc");
         i2.setName("third");
-        i2.setStartDate(new Date());
+        i2.setProjectMember(member3);
+        i2.setStartDate(startCal6.getTime());
+        i2.setDocumentedWhen(date);
+        i2.setEndDate(endCal6.getTime());
+
 
         Iteration i3 = new Iteration();
         i3.setDescription("ccc");
         i3.setName("fourth");
-        i3.setStartDate(new Date());
+        i3.setProjectMember(member1);
+        i3.setStartDate(startCal7.getTime());
+        i3.setDocumentedWhen(new Date());
+        i3.setEndDate(endCal7.getTime());
 
 
         pr.addIteration(i);
@@ -172,14 +212,19 @@ public class IterationTest extends AbstractEjbTest {
                 count++;
             }
         }
-        assertEquals(2, count);
+        assertEquals(4, count);
 
         pr1 = pl.getById(pr1.getId());
-        System.out.println("enhaelt die kacke: "+pr1.getIterations().contains(i3));
         pr1.getIterations().remove(i3);
         pl.updateProject(pr1);
 
         assertEquals(1, pl.getById(pr1.getId()).getIterations().size());
+
+        Iteration iter = pl.getById(pr1.getId()).getIterations().iterator().next();
+        assertEquals(member3, iter.getProjectMember());
+        assertEquals(startCal6.getTime(), iter.getStartDate());
+        assertEquals(endCal6.getTime(), iter.getEndDate());
+        assertEquals(date, iter.getDocumentedWhen());
 
     }
 }

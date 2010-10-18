@@ -1,5 +1,8 @@
 package nl.rug.search.odr.project;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,6 +13,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.StakeholderRole;
 
 /**
  *
@@ -76,9 +80,31 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
 
     @Override
     public void deleteProject(Project p) {
+        Project pNew = getById(p.getId());
+
+        
+        Iterator<StakeholderRole> it = pNew.getStakeholderRoles().iterator();
+
+        StringBuilder sb = new StringBuilder();
+
+        while(it.hasNext()) {
+//            sb.append("'");
+            sb.append(it.next().getId().toString());
+//            sb.append("'");
+            
+            if (it.hasNext()) {
+                sb.append(",");
+            }
+        }
+
         // potential subquery that would work if there wasn't a foreign key constraint
-        // (SELECT pit FROM Project p, IN(p.iterations) pit WHERE p.id = :projectId)
-        entityManager.remove(getById(p.getId()));
+//          Query q = entityManager.createQuery("DELETE FROM Project p LEFT JOIN p.stakeHolderRoles pit WHERE p.id = :projectId AND pit.common = FALSE");
+//
+        Query t = entityManager.createQuery("DELETE FROM StakeholderRole s WHERE s.id IN (".concat(sb.toString()).concat(")"));
+
+//        System.out.println("#################### "+q.executeUpdate() + " ######################" );
+
+           entityManager.remove(pNew);
     }
 
     @Override
