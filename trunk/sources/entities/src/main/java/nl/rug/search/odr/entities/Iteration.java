@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
@@ -34,6 +35,10 @@ public class Iteration extends BaseEntity<Iteration> {
     @Column(length = 1000)
     private String description;
 //
+    @Column (nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date documentedWhen;
+//
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate;
@@ -41,6 +46,10 @@ public class Iteration extends BaseEntity<Iteration> {
     @Column
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
+//
+    @OneToOne
+    ProjectMember projectMember;
+
 
     @Override
     public Long getId() {
@@ -72,6 +81,14 @@ public class Iteration extends BaseEntity<Iteration> {
         this.description = description;
     }
 
+    public Date getDocumentedWhen() {
+        return documentedWhen;
+    }
+
+    public void setDocumentedWhen(Date documentedWhen) {
+        this.documentedWhen = documentedWhen;
+    }
+
     public Date getEndDate() {
         return endDate;
     }
@@ -98,8 +115,20 @@ public class Iteration extends BaseEntity<Iteration> {
         this.startDate = startDate;
     }
 
+    public ProjectMember getProjectMember() {
+        return projectMember;
+    }
+
+    public void setProjectMember(ProjectMember projectMember) {
+        if(projectMember == null){
+            throw new BusinessException("Please provide a projectMember");
+        }
+        this.projectMember = projectMember;
+    }
+
+    @Override
     public boolean isPersistable() {
-        if (name == null && startDate == null) {
+        if (name == null || startDate == null || endDate == null || documentedWhen == null || projectMember == null) {
             return false;
         }
         return true;
@@ -124,7 +153,7 @@ public class Iteration extends BaseEntity<Iteration> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{name, description, startDate, endDate};
+        return new Object[]{name, description, startDate, endDate, documentedWhen, projectMember};
 
     }
 
