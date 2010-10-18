@@ -34,6 +34,10 @@
             <base-name>nl.rug.search.odr.localization.restriction</base-name>
             <var>restriction</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.error</base-name>
+            <var>error</var>
+        </resource-bundle>
 
         <locale-config>
             <default-locale>en</default-locale>
@@ -96,6 +100,9 @@
     </lifecycle>
     <lifecycle>
         <phase-listener>nl.rug.search.odr.AuthenticationPhaseListener</phase-listener>
+    </lifecycle>
+    <lifecycle>
+        <phase-listener>nl.rug.search.odr.DebugPhaseListener</phase-listener>
     </lifecycle>
 
 

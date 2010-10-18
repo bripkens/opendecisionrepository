@@ -9,14 +9,14 @@
     </ui:define>
 
     <ui:define name="pagetitle">
-        Error!!!!
+        <ice:outputText value="#{errorController.headline}" nospan="true" />
     </ui:define>
 
     <ui:define name="content">
-        Fehler :-(
+        <h1><ice:outputText value="#{errorController.headline}" nospan="true" /></h1>
+        <p><ice:outputText value="#{errorController.content}" nospan="true" /></p>
     </ui:define>
 
     <ui:define name="sidebar">
-        Fehler (sidebar)
     </ui:define>
 </ui:composition>

@@ -42,7 +42,7 @@ public class ProjectServlet extends HttpServlet {
                 request.getRequestDispatcher(target).forward(request, response);
                 return;
             } else {
-                target = "/projectDetails2.html?".concat(RequestParameter.ID).concat("=");
+                target = "/projectDetails.html?".concat(RequestParameter.ID).concat("=");
             }
         } else if (parts.length > 2) {
             if (parts[2].equalsIgnoreCase("update")) {
