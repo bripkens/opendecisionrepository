@@ -611,17 +611,18 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
-<LI>The user chooses _create decision_</LI>
-<LI>The system displays a wizrd with the following steps and fields:
-<ol>
-<li> Step 1 - 
-  <ul>
-    <LI>name _(required, must be unique in the project, minimum number of characters: 3)_</LI>
-    <LI>template _(required)_</LI>
-    <LI>date _(required)_</LI>
-  </ul>
-</li>
-</ol>
+ <LI>The user chooses _create decision_</LI>
+ <LI>The system displays a wizrd with the following steps and fields:
+  <ol>
+   <li> Step 1 - 
+    <ul>
+     <LI>name _(required, must be unique in the project, minimum number of characters: 3)_</LI>
+     <LI>template _(required)_</LI>
+     <LI>date _(required)_</LI>
+    </ul>
+   </li>
+  </ol>
+ </li>
 <LI>The user confirmes his entries with _submit_</LI>
 <LI>The system saves this new decision</LI>
 </OL>
