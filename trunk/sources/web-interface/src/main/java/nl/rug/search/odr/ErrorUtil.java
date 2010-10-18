@@ -2,6 +2,7 @@
 package nl.rug.search.odr;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,6 +27,11 @@ public abstract class ErrorUtil {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public static void showUknownError() {
+        ErrorUtil.showErrorMessageUsingExpression("#{error['unknown.heading']}",
+                "#{error['unknown.message']}");
     }
 
     public static void showNotAuthenticatedError() {

@@ -8,8 +8,6 @@ j(document).ready(function() {
     enableToggling();
 
     enableModalPopup();
-
-    enableIterationDelete();
 });
 
 var prefillValue = new Array();
@@ -150,13 +148,6 @@ function hideIterationAddForm() {
     toggle(j('#iterationFormAddContainer'));
 }
 
-function enableIterationDelete() {
-//    j(".iterationDeleteButton").click(function() {
-//        var link = j(this);
-//
-//        var iterationName = link.parent().siblings("td:first-child").children("span.iterationName").text();
-//        var iterationId = link.parent().siblings("td:first-child").children("span.iterationId").text();
-//
-//        link.parent().siblings("td:first-child").click();
-//    });
+function showIterationDeleteForm() {
+    showModalPopup("deleteConfirmationPopup");
 }
