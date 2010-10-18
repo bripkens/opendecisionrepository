@@ -8,13 +8,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.ErrorUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Iteration;
@@ -25,9 +27,9 @@ import nl.rug.search.odr.project.ProjectLocal;
 
 /**
  *
- * @author Stefan
+ * @author Ben
  */
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class ProjectDetailsController {
 
@@ -35,71 +37,58 @@ public class ProjectDetailsController {
     private ProjectLocal pl;
     @EJB
     private IterationLocal il;
+
     private long id;
-    private Project pr;
+    private Project project;
+
     private String iterationName;
     private String iterationDescription;
     private String projectId;
     private String iterationToDeleteId;
     private String iterationToDeleteName;
 
-    public boolean isRedirectIfInvalidRequest() {
-        if (!isValid()) {
-            try {
-                JsfUtil.redirect("/error.html");
-                return false;
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
-        return true;
-    }
-
-    public void iterationAddCanceled(ActionEvent e) {
-        iterationName = iterationDescription = null;
-    }
-
-    public boolean isValid() {
-        System.out.println("### 1");
-
+    @PostConstruct
+    public void postConstruct() {
         if (!AuthenticationUtil.isAuthtenticated()) {
-            System.out.println("### 2");
-            return false;
-        } else if (pr != null) {
-            System.out.println("### 3");
-            return true;
+            ErrorUtil.showNotAuthenticatedError();
+            return;
         }
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
 
         if (request.getParameter(RequestParameter.ID) != null) {
-            System.out.println("### 4");
             projectId = request.getParameter(RequestParameter.ID);
         }
 
         try {
-            System.out.println("### 5");
             id = Long.parseLong(projectId);
         } catch (NumberFormatException e) {
-            System.out.println("### 6");
-            return false;
+            ErrorUtil.showInvalidIdError();
+            return;
         }
 
-        System.out.println("### 7");
         getProject();
-        if (pr != null && memberIsInProject()) {
-            System.out.println("### 8");
-            return true;
+        if (project == null) {
+            ErrorUtil.showIdNotRegisteredError();
+            return;
+        } else if (project != null && !memberIsInProject()) {
+            ErrorUtil.showNoMemberError();
+            return;
         }
-        System.out.println("### 9");
-        return false;
+    }
+
+    public boolean isValid() {
+        return project != null;
+    }
+
+    public void iterationAddCanceled(ActionEvent e) {
+        iterationName = iterationDescription = null;
     }
 
     private boolean memberIsInProject() {
         long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : pr.getMembers()) {
+        for (ProjectMember pm : project.getMembers()) {
             if (pm.getPerson().getId().equals(userId)) {
                 return true;
             }
@@ -130,7 +119,7 @@ public class ProjectDetailsController {
         i.setDescription(iterationDescription);
         i.setStartDate(new Date());
 
-        il.addIteration(pr, i);
+        il.addIteration(project, i);
 
         iterationName = iterationDescription = null;
 
@@ -142,18 +131,18 @@ public class ProjectDetailsController {
     }
 
     public String getDescription() {
-        return pr.getDescription();
+        return project.getDescription();
     }
 
     public Project getProject() {
-        pr = pl.getById(id);
-        return pr;
+        project = pl.getById(id);
+        return project;
     }
 
     public Collection<ProjectMember> getProjectMembers() {
         Collection<ProjectMember> copy = new ArrayList<ProjectMember>();
 
-        for (ProjectMember pm : pr.getMembers()) {
+        for (ProjectMember pm : project.getMembers()) {
             if (!pm.isRemoved()) {
                 copy.add(pm);
             }
@@ -162,29 +151,25 @@ public class ProjectDetailsController {
     }
 
     public String getProjectName() {
-        return pr.getName();
+        return project.getName();
     }
 
     public String getUpdateLink() {
-        return "project/".concat(pr.getName()).concat("/update");
+        return "project/".concat(project.getName()).concat("/update");
     }
 
     public String getDeleteLink() {
-        return "project/".concat(pr.getName()).concat("/delete");
+        return "project/".concat(project.getName()).concat("/delete");
     }
 
     public Collection<Iteration> getIterations() {
-        System.out.println("### 8");
-        
-        if (pr == null) {
-            System.out.println("### 9");
+        if (project == null) {
             return null;
         }
 
-        Collection<Iteration> unmodifiableCollection = pr.getIterations();
+        Collection<Iteration> unmodifiableCollection = project.getIterations();
 
         if (unmodifiableCollection.isEmpty()) {
-            System.out.println("### 10");
             return Collections.emptyList();
         }
 
@@ -195,8 +180,6 @@ public class ProjectDetailsController {
         }
 
         Collections.sort(iterations, new Iteration.EndDateComparator());
-
-        System.out.println("### 11");
 
         return iterations;
     }

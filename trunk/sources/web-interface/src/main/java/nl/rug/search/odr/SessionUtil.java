@@ -47,20 +47,26 @@ public abstract class SessionUtil implements SessionAttribute {
     public static void resetSession(HttpSession session) {
         if (session == null) {
             return;
-
-
         }
 
         session.removeAttribute(USER_ID);
         session.removeAttribute(USER_NAME);
         session.removeAttribute(ERROR_TITLE);
         session.removeAttribute(ERROR_CONTENT);
+    }
 
+    public static void resetErrorValues() {
+        HttpSession session = getSession(false);
 
+        if (session == null) {
+            return;
+        }
+
+        session.removeAttribute(ERROR_TITLE);
+        session.removeAttribute(ERROR_CONTENT);
     }
 
     public static void resetSession() {
         resetSession(getSession(false));
-
     }
 }

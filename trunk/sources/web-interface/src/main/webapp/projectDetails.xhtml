@@ -22,7 +22,7 @@
             <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
             <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
             </p>
-            <ice:form rendered="#{projectDetailsController.redirectIfInvalidRequest}" id="confitmIterationDeleteForm">
+            <ice:form rendered="#{projectDetailsController.valid}" id="confitmIterationDeleteForm">
 
                 <ice:commandButton action="#{projectDetailsController.deleteIteration}"
                                    value="#{form['button.delete']}"
@@ -151,7 +151,7 @@
 
                         <ice:column>
                             <ice:rowSelector id="selected"
-                                             selectionAction="#{projectDetailsController.rowIterationSelectionListener}"/>
+                                             selectionListener="#{projectDetailsController.rowIterationSelectionListener}"/>
 
                             <ice:outputText value="#{item.name}" styleClass="iterationName" />
                             <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
