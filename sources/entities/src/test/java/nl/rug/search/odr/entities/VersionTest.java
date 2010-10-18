@@ -1,9 +1,6 @@
 package nl.rug.search.odr.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -24,7 +21,7 @@ public class VersionTest {
 
     @Test
     public void testInitialization() {
-        assertNull(v.getCreateDate());
+        assertNull(v.getDocumentedWhen());
 //        assertNull(v.getRequirement());
 //        assertNull(v.getStatus());
 //        assertNull(v.getVersionId());
@@ -44,36 +41,18 @@ public class VersionTest {
 //        v.setVersionId(null);
 //    }
 
-    @Test
-    public void testSetRevision() {
-        String name = "Hans Gerhard";
-        int revision = 2;
-        v.setRevision(revision);
-        assertEquals(revision, v.getRevision());
-    }
-
-    @Test(expected = BusinessException.class)
-    public void testEmptyRevision() {
-        v.setRevision(-1);
-    }
 
     @Test
     public void testRelationshipversionDecision(){
         Version v2 = new Version();
-        v2.setCreateDate(new Date());
-        v2.setRevision(1);
+        v2.setDocumentedWhen(new Date());
 
-        ArchitecturalDecision decision = new ArchitecturalDecision();
+        Decision decision = new Decision();
         decision.setName("testName");
-        decision.setArguments("testArguments");
-        decision.setOprId("testOprId");
-        decision.setProblem("testProblem");
-        decision.setDecision("testDecision");
 
         decision.addVersion(v2);
 
         assertEquals(v2,decision.getVersions().iterator().next());
-        assertEquals(decision, v2.getDecision());
     }
 
 //    @Test
@@ -162,17 +141,13 @@ public class VersionTest {
 //        v.addRelationship(null);
 //    }
 
-    @Test
-    public void testToString(){
-        assertTrue(TestUtil.toStringHelper(v));
-    }
 
 //    @Test
 //    public void testHashCode(){
 //        Date d = new Date();
 //        Version v2 = new Version();
 //        v2.setVersionId(Long.MIN_VALUE);
-//        v2.setCreateDate(d);
+//        v2.setDocumentedWhen(d);
 //        v2.setRevision(1);
 //        v2.setStatus(new Status());
 //        v2.setRequirement(new Requirement());
@@ -182,7 +157,7 @@ public class VersionTest {
 //
 //        Version v3 = new Version();
 //        v3.setVersionId(Long.MIN_VALUE);
-//        v3.setCreateDate(d);
+//        v3.setDocumentedWhen(d);
 //        v3.setRevision(1);
 //        v3.setStatus(new Status());
 //        v3.setRequirement(new Requirement());
@@ -201,7 +176,7 @@ public class VersionTest {
 //
 //        Version v2 = new Version();
 //        v2.setVersionId(Long.MIN_VALUE);
-//        v2.setCreateDate(new Date());
+//        v2.setDocumentedWhen(new Date());
 //        v2.setRevision(1);
 //        v2.setStatus(new Status());
 //        v2.setRequirement(new Requirement());
@@ -211,7 +186,7 @@ public class VersionTest {
 //
 //        Version v3 = new Version();
 //        v3.setVersionId(Long.MAX_VALUE);
-//        v3.setCreateDate(new Date());
+//        v3.setDocumentedWhen(new Date());
 //        v3.setRevision(2);
 //        v3.setStatus(new Status());
 //        v3.setRequirement(new Requirement());

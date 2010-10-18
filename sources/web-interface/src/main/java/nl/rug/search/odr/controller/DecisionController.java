@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
 import nl.rug.search.odr.JsfUtil;
-import nl.rug.search.odr.entities.ArchitecturalDecision;
+import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -57,12 +57,12 @@ public class DecisionController extends AbstractController {
     @Override
     protected boolean execute() {
 
-        ArchitecturalDecision ad = new ArchitecturalDecision();
+        Decision ad = new Decision();
         ad.setName(name);
-        ad.setProblem(problem);
-        ad.setDecision(decision);
-        ad.setArguments(arguments);
-        ad.setOprId(oprId);
+//        ad.setProblem(problem);
+//        ad.setDecision(decision);
+//        ad.setArguments(arguments);
+//        ad.setOprId(oprId);
 
         architecturalDecisionLocal.persistDecision(ad);
 

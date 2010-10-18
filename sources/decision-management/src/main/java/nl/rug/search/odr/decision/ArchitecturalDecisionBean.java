@@ -7,19 +7,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import nl.rug.search.odr.GenericDaoBean;
-import nl.rug.search.odr.entities.ArchitecturalDecision;
+import nl.rug.search.odr.entities.Decision;
 
 /**
  *
  * @author Stefan
  */
 @Stateless
-public class ArchitecturalDecisionBean extends GenericDaoBean<ArchitecturalDecision, Long> implements ArchitecturalDecisionLocal {
+public class ArchitecturalDecisionBean extends GenericDaoBean<Decision, Long> implements ArchitecturalDecisionLocal {
     @PersistenceContext
     private EntityManager entityManager;
     
     @Override
-    public void persistDecision(ArchitecturalDecision d) {
+    public void persistDecision(Decision d) {
         entityManager.persist(d);
     }
 
@@ -28,7 +28,7 @@ public class ArchitecturalDecisionBean extends GenericDaoBean<ArchitecturalDecis
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Collection<ArchitecturalDecision> getDecisions(long projectId){
+    public Collection<Decision> getDecisions(long projectId){
         Query q = entityManager.createQuery("Select ad "
                                           + "from ARCHITECTURALDECISION ad "
                                           + "where ad.id in( Select v.id "
@@ -45,7 +45,7 @@ public class ArchitecturalDecisionBean extends GenericDaoBean<ArchitecturalDecis
     }
 
     @Override
-    public boolean isPersistable(ArchitecturalDecision entity) {
+    public boolean isPersistable(Decision entity) {
         return true;
     }
 }
