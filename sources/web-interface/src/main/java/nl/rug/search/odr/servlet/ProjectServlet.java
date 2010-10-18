@@ -15,7 +15,7 @@ import nl.rug.search.odr.project.ProjectLocal;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@WebServlet(name = "ProjectServlet", urlPatterns = {"/project/*"})
+@WebServlet(name = "ProjectServlet", urlPatterns = {"/project/*", "/p/*"})
 public class ProjectServlet extends HttpServlet {
 
     @EJB
@@ -46,9 +46,11 @@ public class ProjectServlet extends HttpServlet {
             }
         } else if (parts.length > 2) {
             if (parts[2].equalsIgnoreCase("update")) {
-                target = "/updateProject.html?".concat(RequestParameter.UPDATE).concat("=true&").concat(RequestParameter.ID).concat("=");
+                target = "/updateProject.html?".concat(RequestParameter.UPDATE).
+                        concat("=true&").concat(RequestParameter.ID).concat("=");
             } else if (parts[2].equalsIgnoreCase("delete")) {
-                target = "/deleteProject.html?".concat(RequestParameter.DELETE).concat("=true&").concat(RequestParameter.ID).concat("=");
+                target = "/deleteProject.html?".concat(RequestParameter.DELETE).
+                        concat("=true&").concat(RequestParameter.ID).concat("=");
             }
         } else {
             // TODO: handle error, user used some path that should not exist

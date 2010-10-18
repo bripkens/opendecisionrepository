@@ -1,7 +1,10 @@
 .relative {
     position: relative;
 }
-
+span.small {
+    font-size: 0.9em;
+    color: #444;
+}
 in.prefillValue, .preselectValue {
     display: none;
 }

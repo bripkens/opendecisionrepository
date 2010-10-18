@@ -101,14 +101,6 @@ function toggle(element) {
     }
 }
 
-function redirectAfter(url, delay) {
-    setTimeout(redirect, delay, url);
-}
-
-function redirect(url) {
-    window.location.href = url;
-}
-
 function enableModalPopup() {
     j(".modalPopupLink").click(function() {
         showModalPopup(j(this).attr("name"));

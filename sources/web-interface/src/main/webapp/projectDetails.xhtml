@@ -86,7 +86,8 @@
                         <ice:inputText id="inIterationName"
                                        label="#{form['label.name']}"
                                        required="true"
-                                       value="#{projectDetailsController.iterationName}">
+                                       value="#{projectDetailsController.iterationName}"
+                                       validator="#{projectDetailsController.checkIterationName}">
                             <f:validateLength minimum="3" maximum="50" />
 
                             <f:validator validatorId="RegexValidator" />
@@ -114,12 +115,6 @@
                         <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
                     </div>
 
-<!--                    <ice:messages layout="list"
-                                  errorClass="error"
-                                  warnClass="warning"
-                                  fatalClass="fatal"
-                                  infoClass="information" />-->
-
                     <ice:commandButton action="#{projectDetailsController.addIteration}"
                                        value="#{form['button.submit']}"
                                        styleClass="confirm"
@@ -146,7 +141,15 @@
                         </ice:column>
 
                         <ice:column>
-                            <ice:outputText value="#{item.durationInDays}" nospan="true"/> <ice:outputText value="#{page['projectDetails.iterations.duration']}" nospan="true"/>
+                            <span class="small">
+                                <ice:outputText value="#{item.startDate}" nospan="true">
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" />
+                                </ice:outputText>
+                                <ice:outputText value=" - " nospan="true" />
+                                <ice:outputText value="#{item.endDate}" nospan="true">
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" />
+                                </ice:outputText>
+                            </span>
                         </ice:column>
 
                         <ice:column>
@@ -187,6 +190,16 @@
     <ui:define name="sidebar">
         <div id="help">
             <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
                 <li>
                     <div class="header">
                         <img src="resources/images/info.png" alt="information" />

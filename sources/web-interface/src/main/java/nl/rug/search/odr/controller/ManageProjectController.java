@@ -273,7 +273,7 @@ public class ManageProjectController extends AbstractManageController {
     // <editor-fold defaultstate="collapsed" desc="validators">
     public void checkProjectName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
 
-        String newName = value.toString();
+        String newName = value.toString().trim();
 
         if (!StringValidator.isValid(newName, false)) {
             return;
