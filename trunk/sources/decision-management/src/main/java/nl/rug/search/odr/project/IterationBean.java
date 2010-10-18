@@ -1,10 +1,10 @@
 package nl.rug.search.odr.project;
 
-import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Iteration;
 
@@ -34,21 +34,46 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
         entityManager.merge(sourceIteration);
     }
 
-    private void setEndDate(Project pro) {
-        for(Iteration each : pro.getIterations()){
-            if (each.getEndDate() == null) {
-                each.setEndDate(new Date());
-                entityManager.merge(each);
-                return;
-            }
-        }
+//    private void setEndDate(Project pro) {
+//        for (Iteration each : pro.getIterations()) {
+//            if (each.getEndDate() == null) {
+//                each.setEndDate(new Date());
+//                entityManager.merge(each);
+//                return;
+//            }
+//        }
+//    }
+
+    @Override
+    public boolean checkDates(Iteration i){
+        Query q = entityManager.createQuery("SELECT COUNT(i) FROM Iteration i WHERE :startDate BETWEEN i.startDate AND i.endDate "
+                                          + "OR :endDate BETWEEN i.startDate AND i.endDate OR i.startDate BETWEEN :startDate AND :endDate "
+                                          + "OR i.endDate BETWEEN :startDate AND :endDate");
+        q.setParameter("startDate", i.getStartDate());
+        q.setParameter("endDate", i.getEndDate());
+
+        long result = (Long) q.getSingleResult();
+        System.out.println("result count ist " + result);
+        return result == 0;
     }
 
     @Override
     public void addIteration(Project pr, Iteration i) {
-        setEndDate(pr);
+        if (!isPersistable(i) || !checkDates(i)) {
+            throw new BusinessException("Can't persist Iteration.");
+        }
         pr.addIteration(i);
         entityManager.merge(pr);
+
     }
 
+    @Override
+    public boolean deleteIteration(long id){
+        Query q = entityManager.createQuery("DELETE FROM Iteration i WHERE i.id = :id");
+        q.setParameter("id", id);
+        if (q.executeUpdate() > 0){
+            return true;
+        }
+        return false;
+    }
 }
