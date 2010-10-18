@@ -644,7 +644,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 <li> Overview
 <ul>
-<li>A confirmation page that shows the all previously entered information</li>
+<li>A confirmation page that shows all previously entered data</li>
 </ul>
 </li>
 
