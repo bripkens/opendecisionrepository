@@ -2,6 +2,7 @@ package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
 import com.icesoft.faces.context.effects.JavascriptContext;
+import com.sun.faces.util.MessageFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,16 +11,18 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
 import nl.rug.search.odr.ErrorUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -38,16 +41,18 @@ public class ProjectDetailsController {
     private ProjectLocal pl;
     @EJB
     private IterationLocal il;
-
     private long id;
     private Project project;
-
     private String iterationName;
     private String iterationDescription;
     private String projectId;
     private long iterationToDeleteId;
     private String iterationToDeleteName;
 
+    public static final String USED_ITERATION_NAME
+            = "nl.rug.search.odr.controller.ProjectDetailsController.USED_ITERATION_NAME";
+
+    // <editor-fold defaultstate="collapsed" desc="construction">
     @PostConstruct
     public void postConstruct() {
         if (!AuthenticationUtil.isAuthtenticated()) {
@@ -69,7 +74,7 @@ public class ProjectDetailsController {
         }
 
         getProject();
-        
+
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
             return;
@@ -83,18 +88,17 @@ public class ProjectDetailsController {
         return project != null;
     }
 
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="actionlistener">
     public void iterationAddCanceled(ActionEvent e) {
         iterationName = iterationDescription = null;
+
+        JsfUtil.clearMessages();
     }
 
     private boolean memberIsInProject() {
-        long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : project.getMembers()) {
-            if (pm.getPerson().getId().equals(userId)) {
-                return true;
-            }
-        }
-        return false;
+        return getProjectMember() != null;
     }
 
     public void rowMemberSelectionListener(RowSelectorEvent event) {
@@ -104,7 +108,6 @@ public class ProjectDetailsController {
     public void rowIterationSelectionListener(RowSelectorEvent event) {
         // TODO: empty until now, just to get the css tag right
     }
-
 
     public void addIteration() {
         if (!isValid()) {
@@ -118,7 +121,10 @@ public class ProjectDetailsController {
         Iteration i = new Iteration();
         i.setName(iterationName);
         i.setDescription(iterationDescription);
-        i.setStartDate(new Date());
+        i.setStartDate(new Date());                             // TODO change!
+        i.setEndDate(new Date(new Date().getTime() + 3));       // TODO change!
+        i.setDocumentedWhen(new Date());
+        i.setProjectMember(getProjectMember());
 
         il.addIteration(project, i);
 
@@ -126,6 +132,8 @@ public class ProjectDetailsController {
 
         // reloading the project to get the new id
         project = pl.getById(project.getId());
+
+        JsfUtil.clearMessages();
 
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideIterationAddForm();");
     }
@@ -140,7 +148,7 @@ public class ProjectDetailsController {
     }
 
     public void deleteIteration() {
-        for(Iteration it : project.getIterations()) {
+        for (Iteration it : project.getIterations()) {
             if (it.getId().equals(iterationToDeleteId)) {
                 project.removeIteration(it);
                 break;
@@ -150,6 +158,40 @@ public class ProjectDetailsController {
         pl.updateProject(project);
 
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
+    }
+
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="validator">
+    public void checkIterationName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
+        String newName = value.toString().trim();
+
+        if (!StringValidator.isValid(newName, false)) {
+            return;
+        }
+
+        for (Iteration it : project.getIterations()) {
+            if (it.getName().equalsIgnoreCase(newName)) {
+                throw new ValidatorException(MessageFactory.getMessage(
+                        fc,
+                        USED_ITERATION_NAME,
+                        new Object[]{
+                            MessageFactory.getLabel(fc, uic)
+                        }));
+            }
+        }
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="getter">
+    public ProjectMember getProjectMember() {
+        long userId = AuthenticationUtil.getUserId();
+        for (ProjectMember pm : project.getMembers()) {
+            if (pm.getPerson().getId().equals(userId)) {
+                return pm;
+            }
+        }
+        return null;
     }
 
     public String getDescription() {
@@ -201,7 +243,7 @@ public class ProjectDetailsController {
             iterations.add(it);
         }
 
-        Collections.sort(iterations, new Iteration.EndDateComparator());
+        Collections.sort(iterations, Collections.reverseOrder(new Iteration.EndDateComparator()));
 
         return iterations;
     }
@@ -241,4 +283,5 @@ public class ProjectDetailsController {
     public void setIterationToDeleteName(String iterationToDeleteName) {
         this.iterationToDeleteName = iterationToDeleteName;
     }
+    // </editor-fold>
 }

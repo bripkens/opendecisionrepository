@@ -60,14 +60,4 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
         entityManager.merge(pr);
 
     }
-
-    @Override
-    public boolean deleteIteration(long id) {
-        Query q = entityManager.createQuery("DELETE FROM Iteration i WHERE i.id = :id");
-        q.setParameter("id", id);
-        if (q.executeUpdate() > 0) {
-            return true;
-        }
-        return false;
-    }
 }

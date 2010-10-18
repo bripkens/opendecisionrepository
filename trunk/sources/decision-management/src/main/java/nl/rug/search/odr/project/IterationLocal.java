@@ -14,5 +14,4 @@ public interface IterationLocal extends GenericDaoLocal<Iteration, Long> {
 
     public void addIteration(Project pr, Iteration i);
 
-    public boolean deleteIteration(long id);
 }

@@ -1,7 +1,8 @@
 package nl.rug.search.odr;
 
-import com.icesoft.faces.context.effects.JavascriptContext;
 import java.io.IOException;
+import java.util.Iterator;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -26,15 +27,32 @@ public class JsfUtil {
 
         context.responseComplete();
         externalContext.redirect(url);
-        
+
     }
 
-    public static void redirectUsingJavaScript(String url) {
-        redirectUsingJavaScript(url, 0);
+    public static void clearMessages() {
+        clearMessages(FacesContext.getCurrentInstance());
     }
 
-    public static void redirectUsingJavaScript(String url, int delay) {
-        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "redirectAfter(".concat(url).concat(",") + delay + ");");
+    public static void clearMessages(FacesContext context) {
+        Iterator<String> clients = context.getClientIdsWithMessages();
+        while (clients.hasNext()) {
+            String clientId = clients.next();
+            clearMessages(context, clientId);
+        }
+    }
+
+    public static void clearMessages(FacesContext context, String clientId) {
+        Iterator<FacesMessage> messages = context.getMessages(clientId);
+
+        while (messages.hasNext()) {
+            messages.next();
+            messages.remove();
+        }
+    }
+
+    public static void clearMessages(String clientId) {
+        clearMessages(FacesContext.getCurrentInstance(), clientId);
     }
 
     public static void refreshPage() {

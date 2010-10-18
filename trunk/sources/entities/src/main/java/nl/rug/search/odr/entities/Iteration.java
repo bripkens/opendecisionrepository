@@ -36,15 +36,15 @@ public class Iteration extends BaseEntity<Iteration> {
     private String description;
 //
     @Column (nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date documentedWhen;
 //
     @Column(nullable = false)
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date startDate;
 //
     @Column
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date endDate;
 //
     @OneToOne
