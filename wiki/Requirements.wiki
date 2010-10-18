@@ -651,7 +651,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 </ol></li>
 
 <LI>The user confirmes his entries with _submit_</LI>
-<LI>The system saves this new decision</LI>
+<LI>The system saves this new decision and the current date</LI>
 </OL>
       
       </td>
