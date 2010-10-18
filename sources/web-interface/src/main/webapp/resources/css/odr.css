@@ -259,7 +259,7 @@ form#iterationFormAddContainer {
     display: none;
     background-color: #EFEFEF;
     border: 1px solid #CECECE;
-    margin: 10px 0px 0px;
+    margin: 10px 0px 10px;
     padding: 5px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;

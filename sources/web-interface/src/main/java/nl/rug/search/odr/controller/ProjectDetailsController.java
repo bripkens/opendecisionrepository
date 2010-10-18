@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -44,7 +45,7 @@ public class ProjectDetailsController {
     private String iterationName;
     private String iterationDescription;
     private String projectId;
-    private String iterationToDeleteId;
+    private long iterationToDeleteId;
     private String iterationToDeleteName;
 
     @PostConstruct
@@ -55,7 +56,6 @@ public class ProjectDetailsController {
         }
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
 
         if (request.getParameter(RequestParameter.ID) != null) {
             projectId = request.getParameter(RequestParameter.ID);
@@ -69,6 +69,7 @@ public class ProjectDetailsController {
         }
 
         getProject();
+        
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
             return;
@@ -101,7 +102,7 @@ public class ProjectDetailsController {
     }
 
     public void rowIterationSelectionListener(RowSelectorEvent event) {
-        System.out.println(event.getRow());
+        // TODO: empty until now, just to get the css tag right
     }
 
 
@@ -123,10 +124,31 @@ public class ProjectDetailsController {
 
         iterationName = iterationDescription = null;
 
+        // reloading the project to get the new id
+        project = pl.getById(project.getId());
+
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideIterationAddForm();");
     }
 
+    public void showDeleteIterationConfirmation(ActionEvent e) {
+        Iteration it = (Iteration) e.getComponent().getAttributes().get("iteration");
+
+        iterationToDeleteId = it.getId();
+        iterationToDeleteName = it.getName();
+
+        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "showIterationDeleteForm();");
+    }
+
     public void deleteIteration() {
+        for(Iteration it : project.getIterations()) {
+            if (it.getId().equals(iterationToDeleteId)) {
+                project.removeIteration(it);
+                break;
+            }
+        }
+
+        pl.updateProject(project);
+
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
     }
 
@@ -208,12 +230,8 @@ public class ProjectDetailsController {
         this.projectId = projectId;
     }
 
-    public String getIterationToDeleteId() {
+    public long getIterationToDeleteId() {
         return iterationToDeleteId;
-    }
-
-    public void setIterationToDeleteId(String iterationToDeleteId) {
-        this.iterationToDeleteId = iterationToDeleteId;
     }
 
     public String getIterationToDeleteName() {

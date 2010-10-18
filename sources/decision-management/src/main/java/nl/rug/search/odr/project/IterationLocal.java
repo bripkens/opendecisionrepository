@@ -16,6 +16,4 @@ public interface IterationLocal extends GenericDaoLocal<Iteration, Long> {
 
     public boolean checkDates(Iteration i);
 
-    public boolean deleteIteration(long id);
-
 }
