@@ -21,25 +21,28 @@ import nl.rug.search.odr.StringValidator;
 public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
-//
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//
+
     @Column(length = 50, nullable = false, unique = true, updatable = false)
     private String name;
-//
+
     @Column(length = 1000)
     private String description;
-//
-    @OneToMany(mappedBy = "project", cascade=CascadeType.ALL, orphanRemoval=true)
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<ProjectMember> members;
-//
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<Iteration> iterations;
-//
-    @OneToMany ( cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<StakeholderRole> stakeHolderRoles;
+
+
+
 
     public Project() {
         members = new ArrayList<ProjectMember>();
@@ -47,13 +50,22 @@ public class Project extends BaseEntity<Project> {
         stakeHolderRoles = new ArrayList<StakeholderRole>();
     }
 
+
+
+
     public Collection<Iteration> getIterations() {
         return iterations;
     }
 
+
+
+
     public void setIterations(Collection<Iteration> iterations) {
         this.iterations = iterations;
     }
+
+
+
 
     /**
      * DONT USE THIS METHOD
@@ -66,6 +78,9 @@ public class Project extends BaseEntity<Project> {
         iterations.add(it);
     }
 
+
+
+
     /**
      * DONT USE THIS METHOD
      * @param it
@@ -73,6 +88,9 @@ public class Project extends BaseEntity<Project> {
     public void removeIteration(Iteration it) {
         iterations.remove(it);
     }
+
+
+
 
     /**
      * adds a new stakeholderrole to the project
@@ -85,6 +103,9 @@ public class Project extends BaseEntity<Project> {
         stakeHolderRoles.add(role);
     }
 
+
+
+
     /**
      * removes a role from the project
      * @param role
@@ -96,17 +117,26 @@ public class Project extends BaseEntity<Project> {
         stakeHolderRoles.remove(role);
     }
 
+
+
+
     /**
      * get all stakeholder roles, that are available in this project
      * @return
      */
-    public Collection<StakeholderRole> getStakeholderRoles(){
+    public Collection<StakeholderRole> getStakeholderRoles() {
         return stakeHolderRoles;
     }
+
+
+
 
     public String getDescription() {
         return description;
     }
+
+
+
 
     public void setDescription(String description) {
         if (description != null) {
@@ -115,9 +145,15 @@ public class Project extends BaseEntity<Project> {
         this.description = description;
     }
 
+
+
+
     public String getName() {
         return name;
     }
+
+
+
 
     public void setName(String name) {
         StringValidator.isValid(name);
@@ -131,10 +167,16 @@ public class Project extends BaseEntity<Project> {
         this.name = name;
     }
 
+
+
+
     @Override
     public Long getId() {
         return id;
     }
+
+
+
 
     @Override
     public void setId(Long id) {
@@ -145,9 +187,15 @@ public class Project extends BaseEntity<Project> {
         this.id = id;
     }
 
+
+
+
     public Collection<ProjectMember> getMembers() {
         return Collections.unmodifiableCollection(members);
     }
+
+
+
 
     public void setMembers(Collection<ProjectMember> members) {
         if (members == null) {
@@ -157,6 +205,9 @@ public class Project extends BaseEntity<Project> {
         this.members = members;
     }
 
+
+
+
     public void addMember(ProjectMember member) {
         if (member == null) {
             throw new BusinessException("Member is null.");
@@ -165,9 +216,15 @@ public class Project extends BaseEntity<Project> {
         member.setProject(this);
     }
 
+
+
+
     public void removeAllMembers() {
         members.clear();
     }
+
+
+
 
     public void removeMember(ProjectMember member) {
         if (member == null) {
@@ -177,13 +234,22 @@ public class Project extends BaseEntity<Project> {
         member.setProject(null);
     }
 
+
+
+
     void internalAddMember(ProjectMember member) {
         members.add(member);
     }
 
+
+
+
     void internalRemoveMember(ProjectMember member) {
         members.remove(member);
     }
+
+
+
 
     public boolean isPersistable() {
         if (name == null || members.isEmpty()) {
@@ -200,6 +266,9 @@ public class Project extends BaseEntity<Project> {
 
         return true;
     }
+
+
+
 
     @Override
     protected Object[] getCompareData() {

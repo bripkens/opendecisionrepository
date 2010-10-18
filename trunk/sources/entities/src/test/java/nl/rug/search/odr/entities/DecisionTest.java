@@ -11,13 +11,13 @@ import org.junit.Test;
  *
  * @author Stefan
  */
-public class ArchitecturalDecisionTest {
+public class DecisionTest {
 
-    private ArchitecturalDecision a;
+    private Decision a;
 
     @Before
     public void setUp() {
-        a = new ArchitecturalDecision();
+        a = new Decision();
     }
 
     @After
@@ -28,8 +28,6 @@ public class ArchitecturalDecisionTest {
     public void testInitialization() {
         assertNull(a.getId());
         assertNull(a.getName());
-        assertNull(a.getOprId());
-        assertNull(a.getProblem());
     }
 
     @Test
@@ -59,27 +57,6 @@ public class ArchitecturalDecisionTest {
         a.setName("        ");
     }
 
-     @Test
-    public void testSetOprId() {
-        a.setOprId("foo");
-        assertEquals("foo", a.getOprId());
-    }
-
-
-        @Test
-    public void testSetDecision() {
-        String decision = "foo";
-        a.setDecision(decision);
-        assertEquals(decision, a.getDecision());
-    }
-
-        @Test
-    public void testSetArguments() {
-        String arguments = "foo";
-        a.setArguments(arguments);
-        assertEquals(arguments, a.getArguments());
-    }
-
 //    @Test
 //    public void testaddVerison(){
 //        Version v = new Version();
@@ -95,27 +72,14 @@ public class ArchitecturalDecisionTest {
 //    }
 
     @Test
-    public void setToString(){
-        assertTrue(TestUtil.toStringHelper(a));
-    }
-
-    @Test
     public void testHashCode(){
-        ArchitecturalDecision at = new ArchitecturalDecision();
+        Decision at = new Decision();
         at.setId(Long.MIN_VALUE);
-        at.setArguments("bla");
         at.setName("bla");
-        at.setDecision("bla");
-        at.setProblem("bla");
-        at.setOprId("bla");
 
-        ArchitecturalDecision at1 = new ArchitecturalDecision();
+        Decision at1 = new Decision();
         at1.setId(Long.MIN_VALUE);
-        at1.setArguments("bla");
         at1.setName("bla");
-        at1.setDecision("bla");
-        at1.setProblem("bla");
-        at1.setOprId("bla");
 
         assertEquals(at.hashCode(),at1.hashCode());
         TestUtil.assertNotEquals(a.hashCode(), at.hashCode());
@@ -125,19 +89,11 @@ public class ArchitecturalDecisionTest {
     public void testEquals(){
         assertFalse(a.equals(new TestUtil()));
 
-        ArchitecturalDecision at1 = new ArchitecturalDecision();
-        at1.setArguments("bla");
+        Decision at1 = new Decision();
         at1.setName("bla");
-        at1.setDecision("bla");
-        at1.setProblem("bla");
-        at1.setOprId("bla");
 
-        ArchitecturalDecision at2 = new ArchitecturalDecision();
-        at2.setArguments("foo");
+        Decision at2 = new Decision();
         at2.setName("foo");
-        at2.setDecision("foo");
-        at2.setProblem("foo");
-        at2.setOprId("foo");
 
         assertFalse(at1.equals(at2));
         

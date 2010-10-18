@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 import nl.rug.search.odr.entities.Action;
 import nl.rug.search.odr.entities.ActionType;
-import nl.rug.search.odr.entities.ArchitecturalDecision;
+import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -66,18 +66,13 @@ public class TestRelationHelper {
 
     public static Version createVersion(int revision) {
         Version v = new Version();
-        v.setCreateDate(new Date());
-        v.setRevision(revision);
+        v.setDocumentedWhen(new Date());
         return v;
     }
 
-    public static ArchitecturalDecision createArchiteturalDecision(String name) {
-        ArchitecturalDecision decision = new ArchitecturalDecision();
-        decision.setArguments("testArguments");
-        decision.setDecision("testDecision");
+    public static Decision createArchiteturalDecision(String name) {
+        Decision decision = new Decision();
         decision.setName(name);
-        decision.setOprId("testoprID");
-        decision.setProblem("lotoProblems");
 
         return decision;
     }
