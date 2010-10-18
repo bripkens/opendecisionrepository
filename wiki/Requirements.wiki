@@ -611,18 +611,45 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
       <td colspan="4"> 
       
 <OL>
- <LI>The user chooses _create decision_</LI>
- <LI>The system displays a wizrd with the following steps and fields:
-  <ol>
-   <li> Step 1 - 
-    <ul>
-     <LI>name _(required, must be unique in the project, minimum number of characters: 3)_</LI>
-     <LI>template _(required)_</LI>
-     <LI>date _(required)_</LI>
-    </ul>
-   </li>
-  </ol>
- </li>
+<LI>The user chooses _create decision_</LI>
+<LI>The system displays a wizard with the following steps and fields:
+<ol>
+<li> Essential information
+<ul>
+<LI>Name text field _(required, must be unique in the project, minimum number of characters: 3)_</LI>
+<LI>Menu to select a template _(required)_</LI>
+<LI>Date field with date picker _(required)_</LI>
+<li>Menu to select requirements, which are drivers for this decision</li>
+<li>OPR link text field</li>
+</ul>
+</li>
+
+<li> Template related information
+<ul>
+<li>Several text areas, which depend on the selected template.</li>
+</ul>
+</li>
+
+<li> Relationships
+<ul>
+<li>Menu to add, modify and remove relationships for a decision.</li>
+</ul>
+</li>
+
+<li> State
+<ul>
+<li>This step should provide functionality to set the current state and the members, which are responsible for the state transition.</li>
+</ul>
+</li>
+
+<li> Overview
+<ul>
+<li>A confirmation page that shows the all previously entered information</li>
+</ul>
+</li>
+
+</ol></li>
+
 <LI>The user confirmes his entries with _submit_</LI>
 <LI>The system saves this new decision</LI>
 </OL>
