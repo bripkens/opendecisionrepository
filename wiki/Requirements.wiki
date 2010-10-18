@@ -428,7 +428,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <li>end date _(required)_</li>
 </UL>
 <LI>The user confirms his entries with _submit_</LI>
-<Li>The system adds the iteration</Li>
+<Li>The system adds the iteration and saves when the iteration was documented and which user did it.</Li>
 </OL>
       
       </td>
@@ -482,7 +482,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 <LI>The user clicks on _modify project_</LI>
 <LI>See use case *create iteration step 2*</LI>
 <LI>See use case *create iteration step 3*</LI>
-<Li>The system saves the modifications</Li>
+<Li>The system saves the modifications.</Li>
 </OL>
       </td>
     </tr>
