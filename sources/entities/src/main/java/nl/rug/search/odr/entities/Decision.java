@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -31,7 +32,7 @@ public class Decision extends BaseEntity<Decision> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length=50,nullable = false)
+    @Column(length = 50, nullable = false)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -39,6 +40,11 @@ public class Decision extends BaseEntity<Decision> {
 
     @ManyToOne
     private DecisionTemplate template;
+
+    @OneToOne
+    private OprLink link;
+
+
 
 
     public Decision() {
@@ -83,7 +89,7 @@ public class Decision extends BaseEntity<Decision> {
         if (id == null) {
             throw new BusinessException("Id is null.");
         }
-        
+
         this.id = id;
     }
 
@@ -155,12 +161,23 @@ public class Decision extends BaseEntity<Decision> {
 
 
 
+    public OprLink getLink() {
+        return link;
+    }
+
+
+
+
+    public void setLink(OprLink link) {
+        this.link = link;
+    }
+
 
 
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {name};
+        return new Object[]{name, link};
     }
 
 
@@ -168,9 +185,6 @@ public class Decision extends BaseEntity<Decision> {
 
     @Override
     public boolean isPersistable() {
-        if (name == null) {
-            return false;
-        }
-        return true;
+        return name != null && template != null && !versions.isEmpty();
     }
 }

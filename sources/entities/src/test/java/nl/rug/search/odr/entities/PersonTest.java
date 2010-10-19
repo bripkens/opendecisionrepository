@@ -17,10 +17,14 @@ public class PersonTest {
     private Person p;
 
 
+
+
     @Before
     public void setUp() {
         p = new Person();
     }
+
+
 
 
     @Test
@@ -37,12 +41,14 @@ public class PersonTest {
 
 
 
+
     @Test
     public void testId() {
         p.setId(Long.MIN_VALUE);
 
         assertEquals(Long.MIN_VALUE, (long) p.getId());
     }
+
 
 
 
@@ -55,32 +61,57 @@ public class PersonTest {
         assertEquals(name, p.getName());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testInvalidNameNull() {
         p.setName(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testInvalidNameEmpty() {
         p.setName("  ");
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testNameTooShort() {
         p.setName("aa ");
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testNameTooLong() {
         p.setName("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna ");
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testChangeName() {
         p.setName("peter");
         p.setName("gabi");
     }
-    
+
+    @Test
+    public void testChangeNameCaseChange() {
+        p.setName("peter");
+
+        assertEquals("peter", p.getName());
+
+        p.setName("Peter");
+
+        assertEquals("Peter", p.getName());
+    }
 
 
 
@@ -94,15 +125,24 @@ public class PersonTest {
         assertEquals(password, p.getPassword());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testInvalidPasswordNull() {
         p.setPassword(null);
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testInvalidPasswordEmpty() {
         p.setPassword("  ");
     }
+
+
+
 
     @Test
     public void testSetPlainPassword() {
@@ -115,10 +155,16 @@ public class PersonTest {
         assertTrue(p.validatePassword(plainPassword));
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testInvalidPlainPasswordNull() {
         p.setPlainPassword(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testInvalidPlainPasswordEmpty() {
@@ -128,34 +174,42 @@ public class PersonTest {
 
 
 
-
-
-
     @Test
     public void testSetEmail() {
         p.setEmail("foo@foo.de");
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testSetInvalidEmail1() {
         p.setEmail("dassa");
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testSetInvalidEmail2() {
         p.setEmail("dassa@dasdsa");
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testSetInvalidEmail3() {
         p.setEmail("dassadasdsa.de");
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testSetInvalidEmail4() {
         p.setEmail(null);
     }
-
 
 
 
@@ -169,10 +223,16 @@ public class PersonTest {
         assertNotSame(memberships, p.getMemberships());
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testSetMembershipsNull() {
         p.setMemberships(null);
     }
+
+
+
 
     @Test
     public void testAddMembership() {
@@ -181,6 +241,9 @@ public class PersonTest {
 
         assertTrue(containsReference(p.getMemberships(), member));
     }
+
+
+
 
     @Test
     public void testRemoveMembership() {
@@ -192,10 +255,16 @@ public class PersonTest {
         assertFalse(containsReference(p.getMemberships(), member));
     }
 
+
+
+
     @Test
     public void testUselessThings() {
         p.toString();
     }
+
+
+
 
     @Test
     public void testAddMembers() {
@@ -214,5 +283,40 @@ public class PersonTest {
 
         assertSame(p, person.getMemberships().iterator().next().getProject());
         assertSame(pm, person.getMemberships().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testAddNullMembership() {
+        p.addMembership(null);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testRemoveNullMembership() {
+        p.removeMembership(null);
+    }
+
+
+
+    @Test
+    public void testIsPersistable() {
+        assertFalse(p.isPersistable());
+
+        p.setName("12345");
+
+        assertFalse(p.isPersistable());
+
+        p.setEmail("dsaas@dasdas.de");
+
+        assertFalse(p.isPersistable());
+
+        p.setPlainPassword("abcde");
+
+        assertTrue(p.isPersistable());
     }
 }

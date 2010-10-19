@@ -13,66 +13,108 @@ import org.junit.Test;
  */
 public class DecisionTest {
 
-    private Decision a;
+    private Decision d;
+
+
+
 
     @Before
     public void setUp() {
-        a = new Decision();
+        d = new Decision();
     }
+
+
+
 
     @After
     public void tearDown() {
     }
 
+
+
+
     @Test
     public void testInitialization() {
-        assertNull(a.getId());
-        assertNull(a.getName());
+        assertNull(d.getId());
+        assertNull(d.getName());
     }
+
+
+
 
     @Test
     public void testSetId() {
-        a.setId(Long.MIN_VALUE);
-        assertEquals(Long.MIN_VALUE, (long) a.getId());
+        d.setId(Long.MIN_VALUE);
+        assertEquals(Long.MIN_VALUE, (long) d.getId());
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testSetNullId() {
-        a.setId(null);
+        d.setId(null);
     }
+
+
+
 
     @Test
     public void testSetName() {
-        a.setName("foo");
-        assertEquals("foo", a.getName());
+        d.setName("foo");
+        assertEquals("foo", d.getName());
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testNullName() {
-       a.setName(null);
+        d.setName(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testEmptyName() {
-        a.setName("        ");
+        d.setName("        ");
     }
 
-//    @Test
-//    public void testaddVerison(){
-//        Version v = new Version();
-//        Version v2 = new Version();
-//        assertTrue(TestUtil.containsReference(a.getVersions(),v));
-//        assertFalse(TestUtil.containsReference(a.getVersions(),v2));
-//    }
+
+
+    @Test(expected=BusinessException.class)
+    public void testNameTooShort() {
+        d.setName("ab");
+    }
     
-//    @Test (expected = BusinessException.class)
-//    public void testNullAddVerison(){
-//        a.addVerison(null);
-//
-//    }
+    
+    @Test(expected=BusinessException.class)
+    public void testNameTooLong() {
+        d.setName("123456789012345678901234567890123456789012345678901");
+    }
+
 
     @Test
-    public void testHashCode(){
+    public void testIsPersistable() {
+        assertFalse(d.isPersistable());
+
+        d.setName("abcd");
+
+        assertFalse(d.isPersistable());
+
+        d.setTemplate(new DecisionTemplate());
+
+        assertFalse(d.isPersistable());
+
+        d.addVersion(new Version());
+
+        assertTrue(d.isPersistable());
+    }
+
+
+    @Test
+    public void testHashCode() {
         Decision at = new Decision();
         at.setId(Long.MIN_VALUE);
         at.setName("bla");
@@ -81,13 +123,16 @@ public class DecisionTest {
         at1.setId(Long.MIN_VALUE);
         at1.setName("bla");
 
-        assertEquals(at.hashCode(),at1.hashCode());
-        TestUtil.assertNotEquals(a.hashCode(), at.hashCode());
+        assertEquals(at.hashCode(), at1.hashCode());
+        TestUtil.assertNotEquals(d.hashCode(), at.hashCode());
     }
 
+
+
+
     @Test
-    public void testEquals(){
-        assertFalse(a.equals(new TestUtil()));
+    public void testEquals() {
+        assertFalse(d.equals(new TestUtil()));
 
         Decision at1 = new Decision();
         at1.setName("bla");
@@ -96,13 +141,15 @@ public class DecisionTest {
         at2.setName("foo");
 
         assertFalse(at1.equals(at2));
-        
-        assertTrue(a.equals(a));
+
+        assertTrue(d.equals(d));
     }
 
+
+
+
     @Test
-    public void testNullEquals(){
-        assertFalse(a.equals(null));
+    public void testNullEquals() {
+        assertFalse(d.equals(null));
     }
-    
 }

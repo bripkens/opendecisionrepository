@@ -2,22 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
 /**
  *
  * @author Stefan
  */
-//@Entity
-public class OprLink implements Serializable {
+@Entity
+public class OprLink extends BaseEntity<OprLink> {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -26,48 +26,55 @@ public class OprLink implements Serializable {
 
     private String link;
 
+
+
+
     public String getLink() {
         return link;
     }
+
+
+
 
     public void setLink(String link) {
         StringValidator.isValid(link);
         this.link = link;
     }
 
-    public Long getOprLinkId() {
+
+
+
+
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setOprLinkId(Long oprLinkId) {
-        this.id = oprLinkId;
-    }
 
 
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof OprLink)) {
-            return false;
+    public void setId(Long id) {
+        if (id == null) {
+            throw new BusinessException("Id is null");
         }
-        OprLink other = (OprLink) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+
+        this.id = id;
     }
+
+
+
 
     @Override
-    public String toString() {
-        return "nl.rug.search.odr.entities.OprLink[id=" + id + "]";
+    public boolean isPersistable() {
+        return link != null;
     }
 
+
+
+
+    @Override
+    protected Object[] getCompareData() {
+        return new Object[] {link};
+    }
 }
