@@ -90,4 +90,24 @@ public class TemplateComponentTest {
         c.setOrder(-31);
         assertEquals(-31, c.getOrder());
     }
+
+    @Test
+    public void getCompareData() {
+        c.setLabel("label");
+        c.setOrder(2);
+        c.setLocalizationReference("reference");
+
+        assertEquals("label", c.getCompareData()[0]);
+        assertEquals(2, c.getCompareData()[1]);
+        assertEquals("reference", c.getCompareData()[2]);
+    }
+
+    @Test
+    public void testIsPersistable() {
+        assertFalse(c.isPersistable());
+
+        c.setLabel("12345");
+
+        assertTrue(c.isPersistable());
+    }
 }

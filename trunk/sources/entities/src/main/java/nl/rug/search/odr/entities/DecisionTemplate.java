@@ -133,7 +133,7 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
 
     @Override
     public boolean isPersistable() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return name != null;
     }
 
 
@@ -141,6 +141,6 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
 
     @Override
     protected Object[] getCompareData() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Object[] {name};
     }
 }

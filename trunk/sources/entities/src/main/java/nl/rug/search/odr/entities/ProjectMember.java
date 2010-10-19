@@ -1,4 +1,3 @@
-
 package nl.rug.search.odr.entities;
 
 import javax.persistence.CascadeType;
@@ -14,12 +13,14 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class ProjectMember extends BaseEntity<ProjectMember> {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade=CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     private Person person;
 
     @ManyToOne
@@ -30,9 +31,15 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
 
     private boolean removed;
 
+
+
+
     public Project getProject() {
         return project;
     }
+
+
+
 
     public void setProject(Project project) {
         if (project == null) {
@@ -46,27 +53,45 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
         }
     }
 
+
+
+
     @Override
     public Long getId() {
         return id;
     }
+
+
+
 
     @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+
+
+
     public StakeholderRole getRole() {
         return role;
     }
+
+
+
 
     public void setRole(StakeholderRole role) {
         this.role = role;
     }
 
+
+
+
     public Person getPerson() {
         return person;
     }
+
+
+
 
     public void setPerson(Person person) {
         if (person == null) {
@@ -81,25 +106,39 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     }
 
 
+
+
+    @Override
     public boolean isPersistable() {
-        // shouldn't be persisted this way
-        return false;
+        return person != null && project != null && role != null;
     }
+
+
+
 
     boolean internalIsPersistable(Project project) {
         return person != null && role != null && project.equals(project);
     }
 
+
+
+
     public boolean isRemoved() {
         return removed;
     }
+
+
+
 
     public void setRemoved(boolean removed) {
         this.removed = removed;
     }
 
+
+
+
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {person, project, role, removed};
+        return new Object[]{person, project, role, removed};
     }
 }

@@ -24,37 +24,42 @@ import nl.rug.search.odr.StringValidator;
 public class Iteration extends BaseEntity<Iteration> {
 
     private static final long serialVersionUID = 1L;
-//
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//
+
     @Column(length = 50, nullable = false)
     private String name;
-//
+
     @Column(length = 1000)
     private String description;
-//
-    @Column (nullable = false)
+
+    @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date documentedWhen;
-//
+
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date startDate;
-//
+
     @Column
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date endDate;
-//
+
     @OneToOne
     ProjectMember projectMember;
+
+
 
 
     @Override
     public Long getId() {
         return id;
     }
+
+
+
 
     @Override
     public void setId(Long id) {
@@ -64,34 +69,58 @@ public class Iteration extends BaseEntity<Iteration> {
         this.id = id;
     }
 
+
+
+
     public String getName() {
         return name;
     }
+
+
+
 
     public void setName(String name) {
         StringValidator.isValid(name);
         this.name = name;
     }
 
+
+
+
     public String getDescription() {
         return description;
     }
+
+
+
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+
+
+
     public Date getDocumentedWhen() {
         return documentedWhen;
     }
+
+
+
 
     public void setDocumentedWhen(Date documentedWhen) {
         this.documentedWhen = documentedWhen;
     }
 
+
+
+
     public Date getEndDate() {
         return endDate;
     }
+
+
+
 
     public void setEndDate(Date endDate) {
         if (endDate == null) {
@@ -102,9 +131,15 @@ public class Iteration extends BaseEntity<Iteration> {
         this.endDate = endDate;
     }
 
+
+
+
     public Date getStartDate() {
         return startDate;
     }
+
+
+
 
     public void setStartDate(Date startDate) {
         if (startDate == null) {
@@ -115,16 +150,25 @@ public class Iteration extends BaseEntity<Iteration> {
         this.startDate = startDate;
     }
 
+
+
+
     public ProjectMember getProjectMember() {
         return projectMember;
     }
 
+
+
+
     public void setProjectMember(ProjectMember projectMember) {
-        if(projectMember == null){
+        if (projectMember == null) {
             throw new BusinessException("Please provide a projectMember");
         }
         this.projectMember = projectMember;
     }
+
+
+
 
     @Override
     public boolean isPersistable() {
@@ -133,6 +177,9 @@ public class Iteration extends BaseEntity<Iteration> {
         }
         return true;
     }
+
+
+
 
     public long getDurationInDays() {
         if (startDate == null) {
@@ -150,6 +197,9 @@ public class Iteration extends BaseEntity<Iteration> {
         duration /= 24 * 60 * 60 * 1000;
         return duration;
     }
+
+
+
 
     @Override
     protected Object[] getCompareData() {

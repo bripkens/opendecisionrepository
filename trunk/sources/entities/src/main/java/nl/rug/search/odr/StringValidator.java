@@ -5,7 +5,7 @@ package nl.rug.search.odr;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class StringValidator {
+public abstract class StringValidator {
 
     public static boolean isValid(String value) {
         return isValid(value, true);
