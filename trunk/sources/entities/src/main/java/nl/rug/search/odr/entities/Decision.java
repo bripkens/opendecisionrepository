@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import nl.rug.search.odr.BusinessException;
@@ -23,6 +25,10 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Ben
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "Decision.isNameUsed",
+                query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name")
+})
 @Entity
 public class Decision extends BaseEntity<Decision> {
 

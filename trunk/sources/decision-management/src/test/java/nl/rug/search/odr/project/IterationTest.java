@@ -9,8 +9,8 @@ import nl.rug.search.odr.decision.ActionLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.rug.search.odr.DatabaseCleaner;
-import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
-import nl.rug.search.odr.decision.ArchitecturalDecisionBean;
+import nl.rug.search.odr.decision.DecisionLocal;
+import nl.rug.search.odr.decision.DecisionBean;
 import nl.rug.search.odr.decision.VersionBean;
 import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Iteration;
@@ -43,7 +43,7 @@ public class IterationTest extends AbstractEjbTest {
 
     private VersionLocal vl;
 
-    private ArchitecturalDecisionLocal al;
+    private DecisionLocal al;
 
     private StatusLocal sl;
 
@@ -66,7 +66,7 @@ public class IterationTest extends AbstractEjbTest {
         srl = lookUp(StakeholderRoleBean.class, StakeholderRoleLocal.class);
         pl = lookUp(ProjectBean.class, ProjectLocal.class);
         vl = lookUp(VersionBean.class, VersionLocal.class);
-        al = lookUp(ArchitecturalDecisionBean.class, ArchitecturalDecisionLocal.class);
+        al = lookUp(DecisionBean.class, DecisionLocal.class);
         sl = lookUp(StatusBean.class, StatusLocal.class);
         rl = lookUp(RequirementBean.class, RequirementLocal.class);
         atl = lookUp(ActionTypeBean.class, ActionTypeLocal.class);
