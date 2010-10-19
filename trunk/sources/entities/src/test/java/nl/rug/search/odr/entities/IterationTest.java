@@ -188,19 +188,6 @@ public class IterationTest {
         assertFalse(i.equals(null));
     }
 
-    @Test
-    public void testDuration() {
-        GregorianCalendar start = new GregorianCalendar();
-        start.set(2010, 10, 4);
-
-        GregorianCalendar end = new GregorianCalendar();
-        end.set(2010, 10, 9);
-
-        i.setStartDate(start.getTime());
-        i.setEndDate(end.getTime());
-
-        assertEquals(5, i.getDurationInDays());
-    }
 
     @Test
     public void testEndDateComparatorBothNull() {

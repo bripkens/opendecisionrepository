@@ -1,11 +1,8 @@
 package nl.rug.search.odr.project;
 
-import org.junit.Ignore;
 import java.util.List;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import nl.rug.search.odr.decision.ActionBean;
-import nl.rug.search.odr.decision.ActionLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.rug.search.odr.DatabaseCleaner;
@@ -15,8 +12,6 @@ import nl.rug.search.odr.decision.VersionBean;
 import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.AbstractEjbTest;
-import nl.rug.search.odr.decision.ActionTypeBean;
-import nl.rug.search.odr.decision.ActionTypeLocal;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -51,9 +46,6 @@ public class IterationTest extends AbstractEjbTest {
 
     private DatabaseCleaner delteh;
 
-    private ActionTypeLocal atl;
-
-    private ActionLocal alo;
 
 
 
@@ -69,8 +61,6 @@ public class IterationTest extends AbstractEjbTest {
         al = lookUp(DecisionBean.class, DecisionLocal.class);
         sl = lookUp(StatusBean.class, StatusLocal.class);
         rl = lookUp(RequirementBean.class, RequirementLocal.class);
-        atl = lookUp(ActionTypeBean.class, ActionTypeLocal.class);
-        alo = lookUp(ActionBean.class, ActionLocal.class);
 
     }
 

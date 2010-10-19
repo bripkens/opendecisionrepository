@@ -32,7 +32,8 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     @SuppressWarnings("unchecked")
     public GenericDaoBean() {
         //find superclass of type GenericDaoBean
-        this.entityType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.entityType = (Class<T>) ((ParameterizedType) getClass().
+                getGenericSuperclass()).getActualTypeArguments()[0];
         this.entityName = entityType.getSimpleName();
     }
 
@@ -56,7 +57,8 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
-        return (List<T>) manager.createQuery("select e from " + getEntityName() + " as e").getResultList();
+        return (List<T>) manager.createQuery("select e from " + getEntityName() + " as e").
+                getResultList();
     }
 
 

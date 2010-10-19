@@ -94,7 +94,8 @@ public abstract class DatabaseCleaner {
                 deleteRow(con, tableId, result.getLong(1));
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Can't read table contents", ex);
+            throw new RuntimeException("Can't read table contents. Trying to read column " + TABLES[tableId][1] +
+                    " from table " + TABLES[tableId][0], ex);
         }
 
     }

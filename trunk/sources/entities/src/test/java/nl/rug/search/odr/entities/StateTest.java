@@ -10,16 +10,16 @@ import org.junit.Test;
  *
  * @author Stefan
  */
-public class StatusTest {
+public class StateTest {
 
-    private Status s;
+    private State s;
 
 
 
 
     @Before
     public void setUp() {
-        s = new Status();
+        s = new State();
         s.setCommon(false);
     }
 
@@ -36,7 +36,7 @@ public class StatusTest {
     @Test
     public void testInitialization() {
         assertNull(s.getId());
-        assertNull(s.getName());
+        assertNull(s.getStatusName());
     }
 
 
@@ -58,29 +58,6 @@ public class StatusTest {
     }
 
 
-
-
-    @Test
-    public void testSetName() {
-        s.setName("foo");
-        assertEquals("foo", s.getName());
-    }
-
-
-
-
-    @Test(expected = BusinessException.class)
-    public void testNullName() {
-        s.setName(null);
-    }
-
-
-
-
-    @Test(expected = BusinessException.class)
-    public void testEmptyName() {
-        s.setName("        ");
-    }
 
 
 
