@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import nl.rug.search.odr.decision.ArchitecturalDecisionLocal;
+import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Person;
@@ -36,7 +36,7 @@ public class DecisionController extends AbstractController {
     private ProjectLocal pl;
 
     @EJB
-    private ArchitecturalDecisionLocal architecturalDecisionLocal;
+    private DecisionLocal architecturalDecisionLocal;
     private String name, problem, decision, arguments, oprId;
 
     @Override
@@ -64,16 +64,16 @@ public class DecisionController extends AbstractController {
 //        ad.setArguments(arguments);
 //        ad.setOprId(oprId);
 
-        architecturalDecisionLocal.persistDecision(ad);
+//        architecturalDecisionLocal.persistDecision(ad);
 
         return true;
     }
 
-    public ArchitecturalDecisionLocal getArchitecturalDecisionLocal() {
+    public DecisionLocal getArchitecturalDecisionLocal() {
         return architecturalDecisionLocal;
     }
 
-    public void setArchitecturalDecisionLocal(ArchitecturalDecisionLocal architecturalDecisionLocal) {
+    public void setArchitecturalDecisionLocal(DecisionLocal architecturalDecisionLocal) {
         this.architecturalDecisionLocal = architecturalDecisionLocal;
     }
 

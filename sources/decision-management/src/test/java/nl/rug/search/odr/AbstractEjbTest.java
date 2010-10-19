@@ -46,8 +46,8 @@ public class AbstractEjbTest {
 
     @Before
     public void tearDown() {
-        new DatabaseCleaner().delete();
-       // deleteHelper.deleteAll();
+//        new DatabaseCleaner().delete();
+        DatabaseCleaner.bruteForceCleanup();
     }
 
     public static <T> T lookUp(Class classType, Class<T> interfaceType) {

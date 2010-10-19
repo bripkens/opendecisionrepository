@@ -1,117 +1,119 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.rug.search.odr;
 
-/**
- *
- * @author Stefan
- */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
 
-public class DatabaseCleaner {
+/**
+ * 
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
+ */
+public abstract class DatabaseCleaner {
 
-    private Connection connect = null;
+    public static final String CONNECTION_STRING = "jdbc:derby://localhost:1527/sun-appserv-samples";
 
-    private Statement statement = null;
+    public static final int ITERATIONS = 3;
 
-    private ResultSet list = null;
+    public static final String[][] TABLES = new String[][]{
+        {"COMPONENTVALUE", "ID"},
+        {"DECISION", "ID"},
+        {"DECISION_COMPONENTVALUE", "DECISION_ID"},
+        {"DECISION_VERSION", "DECISION_ID"},
+        {"DECISIONTEMPLATE", "ID"},
+        {"DECISIONTEMPLATE_TEMPLATECOMPONENT", "DECISIONTEMPLATE_ID"},
+        {"ITERATION", "ID"},
+        {"OPRLINK", "ID"},
+        {"PERSON", "ID"},
+        {"PROJECT", "ID"},
+        {"PROJECT_DECISION", "PROJECT_ID"},
+        {"PROJECT_ITERATION", "PROJECT_ID"},
+        {"PROJECT_STAKEHOLDERROLE", "PROJECT_ID"},
+        {"PROJECTMEMBER", "ID"},
+        {"STAKEHOLDERROLE", "ID"},
+        {"TEMPLATECOMPONENT", "ID"},
+        {"VERSION", "ID"}};
 
 
 
 
-    public void delete() {
-        for (int z = 0; z < 5; z++) {
-            try {
+    static {
+        try {
+            Class.forName("org.apache.derby.jdbc.ClientDriver").
+                    newInstance();
 
-                Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-                connect = DriverManager.getConnection("jdbc:derby://localhost:1527/sun-appserv-samples");
-                String[] entityNames = new String[]{"ProjectMember", "StakeholderRole", "Iteration",
-                    "Person", "Project", "Project_Stakeholderrole", "Decision", "DecisionTemplate", "OprLink"};
-
-                Statement statement1 = connect.createStatement();
-
-                for (int i = 0; i < 10; i++) {
-
-                    for (int j = 0; j < entityNames.length; j++) {
-
-                        try {
-
-                            list = statement1.executeQuery("Select id From " + entityNames[j]);
-
-                            while (list.next()) {
-                                try {
-                                    statement1.execute("Delete from " + entityNames[j] + "  WHERE ID = " + list.getInt(1));
-                                } catch (Exception e) {
-                                }
-                            }
-                        } catch (Exception e) {
-                        }
-
-                    }
-
-//                    ResultSet list1 = statement1.executeQuery("Select ITERATION_ID From Iteration_Version");
-//                    while (list1.next()) {
-//                        try {
-//                            statement1.execute("Delete from  Iteration_Version  WHERE ITERATION_ID = " + list1.getInt(1));
-//                        } catch (Exception e) {
-//                        }
-//                    }
-
-                    ResultSet list2 = statement1.executeQuery("Select PROJECT_ID From PROJECT_ITERATION");
-                    while (list2.next()) {
-                        try {
-                            statement1.execute("Delete from  PROJECT_ITERATION  WHERE PROJECT_ID = " + list2.getInt(1));
-                        } catch (Exception e) {
-                        }
-                    }
-
-//                    ResultSet list3 = statement1.executeQuery("Select VERSION_ID From VERSION_REQUIREMENT");
-//                    while (list3.next()) {
-//                        try {
-//                            statement1.execute("Delete from  VERSION_REQUIREMENT  WHERE VERSION_ID = " + list3.getInt(1));
-//                        } catch (Exception e) {
-//                        }
-//                    }
-
-                    ResultSet list4 = statement1.executeQuery("Select SEQ_NAME From SEQUENCE");
-                    while (list4.next()) {
-                        try {
-                            statement1.execute("Delete from  SEQUENCE  WHERE SEQ_NAME = " + list4.getInt(1));
-                        } catch (Exception e) {
-                        }
-                    }
-
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            } finally {
-                close();
-            }
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 
 
 
 
-    private void close() {
+    public static void bruteForceCleanup() {
+        Connection con;
+
         try {
-            if (list != null) {
-                list.close();
+            con = DriverManager.getConnection(CONNECTION_STRING);
+        } catch (SQLException ex) {
+            throw new RuntimeException("Can't establish a connection to the database", ex);
+        }
+
+
+        for (int i = 0; i < ITERATIONS; i++) {
+            clearDatabase(con);
+        }
+
+
+        try {
+            con.close();
+        } catch (SQLException ex) {
+        }
+    }
+
+
+
+
+    private static void clearDatabase(Connection con) {
+        for (int i = 0; i < TABLES.length; i++) {
+            clearTable(con, i);
+        }
+    }
+
+
+
+
+    private static void clearTable(Connection con, int tableId) {
+        try {
+            ResultSet result = con.createStatement().
+                    executeQuery("SELECT ".concat(TABLES[tableId][1]).
+                    concat(" FROM ").
+                    concat(TABLES[tableId][0]));
+
+            while (result.next()) {
+                deleteRow(con, tableId, result.getLong(1));
             }
-            if (statement != null) {
-                statement.close();
-            }
-            if (connect != null) {
-                connect.close();
-            }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            throw new RuntimeException("Can't read table contents", ex);
+        }
+
+    }
+
+
+
+
+    private static void deleteRow(Connection con, int tableId, long rowId) {
+
+        try {
+            con.createStatement().
+                    executeUpdate("DELETE FROM ".concat(TABLES[tableId][0]).
+                    concat(" WHERE ").
+                    concat(TABLES[tableId][1]).
+                    concat(" = ").
+                    concat(String.valueOf(rowId)));
+
+        } catch (SQLException ex) {
+            // may be thrown because of constraints, don't do anything
         }
     }
 
@@ -119,7 +121,6 @@ public class DatabaseCleaner {
 
 
     public static void main(String[] args) {
-        DatabaseCleaner clean = new DatabaseCleaner();
-        clean.delete();
+        DatabaseCleaner.bruteForceCleanup();
     }
 }
