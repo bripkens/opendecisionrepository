@@ -41,6 +41,9 @@ public class Decision extends BaseEntity<Decision> {
     @ManyToOne
     private DecisionTemplate template;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<ComponentValue> values;
+
     @OneToOne
     private OprLink link;
 
@@ -49,6 +52,7 @@ public class Decision extends BaseEntity<Decision> {
 
     public Decision() {
         versions = new ArrayList<Version>();
+        values = new ArrayList<ComponentValue>();
     }
 
 
@@ -156,6 +160,53 @@ public class Decision extends BaseEntity<Decision> {
         }
 
         this.template = template;
+    }
+
+
+
+
+    public Collection<ComponentValue> getValues() {
+        return Collections.unmodifiableCollection(values);
+    }
+
+
+
+
+    public void setValues(Collection<ComponentValue> values) {
+        if (values == null) {
+            throw new BusinessException("Values are null");
+        }
+
+        this.values = values;
+    }
+
+
+
+
+    public void addValue(ComponentValue value) {
+        if (value == null) {
+            throw new BusinessException("Value is null");
+        }
+
+        values.add(value);
+    }
+
+
+
+
+    public void removeValue(ComponentValue value) {
+        if (value == null) {
+            throw new BusinessException("Value is null");
+        }
+
+        values.remove(value);
+    }
+
+
+
+
+    public void removeAllValues() {
+        this.values.clear();
     }
 
 

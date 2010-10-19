@@ -13,10 +13,16 @@ public class TemplateComponentTest {
 
     private TemplateComponent c;
 
+
+
+
     @Before
     public void setUp() {
         c = new TemplateComponent();
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -26,6 +32,9 @@ public class TemplateComponentTest {
         assertEquals(0, c.getOrder());
     }
 
+
+
+
     @Test
     public void testId() {
         c.setId(Long.MIN_VALUE);
@@ -33,10 +42,15 @@ public class TemplateComponentTest {
         assertEquals(Long.MIN_VALUE, (long) c.getId());
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testBadId() {
         c.setId(null);
     }
+
+
 
 
     @Test
@@ -48,6 +62,9 @@ public class TemplateComponentTest {
         assertNull(c.getLocalizationReference());
     }
 
+
+
+
     @Test
     public void testSetLabel() {
         String name = "ODR";
@@ -57,22 +74,34 @@ public class TemplateComponentTest {
         assertEquals(name, c.getLabel());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testInvalidLabelNull() {
         c.setLabel(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testInvalidLabelEmpty() {
         c.setLabel("  ");
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testLabelTooShort() {
         c.setLabel("aa ");
     }
 
-    @Test(expected=BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testLabelTooLong() {
         c.setLabel("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
                 + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
@@ -83,6 +112,9 @@ public class TemplateComponentTest {
                 + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna");
     }
 
+
+
+
     @Test
     public void testSetOrder() {
         c.setOrder(1);
@@ -90,6 +122,9 @@ public class TemplateComponentTest {
         c.setOrder(-31);
         assertEquals(-31, c.getOrder());
     }
+
+
+
 
     @Test
     public void getCompareData() {
@@ -101,6 +136,9 @@ public class TemplateComponentTest {
         assertEquals(2, c.getCompareData()[1]);
         assertEquals("reference", c.getCompareData()[2]);
     }
+
+
+
 
     @Test
     public void testIsPersistable() {

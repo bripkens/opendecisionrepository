@@ -13,10 +13,16 @@ public class RequirementTest {
 
     private Requirement r;
 
+
+
+
     @Before
     public void setUp() {
         r = new Requirement();
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -24,12 +30,17 @@ public class RequirementTest {
         assertNull(r.getDescription());
     }
 
+
+
+
     @Test
     public void testId() {
         long id = 1;
         r.setId(id);
         assertEquals(1, id);
     }
+
+
 
 
     @Test
@@ -40,10 +51,16 @@ public class RequirementTest {
         assertEquals(description, r.getDescription());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullDescription() {
         r.setDescription(null);
     }
+
+
+
 
     @Test(expected = RuntimeException.class)
     public void testEmptyDescription() {

@@ -16,14 +16,23 @@ public class RelationshipTest {
 
     private Relationship r;
 
+
+
+
     @Before
     public void setUp() {
         r = new Relationship();
     }
 
+
+
+
     @After
     public void tearDown() {
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -33,6 +42,8 @@ public class RelationshipTest {
     }
 
 
+
+
     @Test
     public void testId() {
         r.setId(Long.MIN_VALUE);
@@ -40,8 +51,11 @@ public class RelationshipTest {
         assertEquals(Long.MIN_VALUE, (long) r.getId());
     }
 
-    @Test (expected=BusinessException.class)
-    public void testNullId(){
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testNullId() {
         r.setId(null);
     }
 
@@ -70,8 +84,9 @@ public class RelationshipTest {
 //        assertFalse(containsReference(v.getRelationships(), r));
 //    }
 
+
     @Test
-    public void testToString(){
+    public void testToString() {
         assertTrue(TestUtil.toStringHelper(r));
     }
 
@@ -111,10 +126,9 @@ public class RelationshipTest {
 //        assertTrue(r.equals(r));
 //    }
 
+
     @Test
-    public void testNullEquals(){
+    public void testNullEquals() {
         assertFalse(r.equals(null));
     }
-
-
 }

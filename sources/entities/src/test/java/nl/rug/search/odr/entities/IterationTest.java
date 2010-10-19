@@ -142,17 +142,17 @@ public class IterationTest {
         i2.setName("bla");
 
         Date startdate = new Date();
+        Date endDate = new Date(startdate.getTime() + 1000);
         i2.setStartDate(startdate);
-        i2.setEndDate(new Date(startdate.getTime() + 1000));
+        i2.setEndDate(endDate);
 
         Iteration i3 = new Iteration();
         i3.setId(Long.MIN_VALUE);
         i3.setDescription("bla");
         i3.setName("bla");
 
-        Date startdate1 = new Date();
-        i3.setStartDate(startdate1);
-        i3.setEndDate(new Date(startdate1.getTime() + 1000));
+        i3.setStartDate(startdate);
+        i3.setEndDate(endDate);
 
         assertEquals(i2.hashCode(), i3.hashCode());
         TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());

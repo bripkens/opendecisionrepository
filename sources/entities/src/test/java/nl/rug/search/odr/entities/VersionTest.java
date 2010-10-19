@@ -14,10 +14,16 @@ public class VersionTest {
 
     private Version v;
 
+
+
+
     @Before
     public void setUp() {
         v = new Version();
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -42,8 +48,9 @@ public class VersionTest {
 //    }
 
 
+
     @Test
-    public void testRelationshipversionDecision(){
+    public void testRelationshipversionDecision() {
         Version v2 = new Version();
         v2.setDocumentedWhen(new Date());
 
@@ -52,7 +59,7 @@ public class VersionTest {
 
         decision.addVersion(v2);
 
-        assertEquals(v2,decision.getVersions().iterator().next());
+        assertEquals(v2, decision.getVersions().iterator().next());
     }
 
 //    @Test
@@ -67,6 +74,7 @@ public class VersionTest {
 //    public void testNullAction() {
 //        v.setAction(null);
 //    }
+
 
     @Test
     public void testLaterDate() {
@@ -140,8 +148,6 @@ public class VersionTest {
 //        Relationship relationship = new Relationship();
 //        v.addRelationship(null);
 //    }
-
-
 //    @Test
 //    public void testHashCode(){
 //        Date d = new Date();
@@ -169,7 +175,6 @@ public class VersionTest {
 //        assertEquals(v2.hashCode(),v3.hashCode());
 //        TestUtil.assertNotEquals(v.hashCode(), v2.hashCode());
 //    }
-
 //    @Test
 //    public void testEquals(){
 //        assertFalse(v.equals(new TestUtil()));
@@ -198,10 +203,8 @@ public class VersionTest {
 //
 //        assertTrue(v.equals(v));
 //    }
-
     @Test
-    public void testNullEquals(){
+    public void testNullEquals() {
         assertFalse(v.equals(null));
     }
-
 }

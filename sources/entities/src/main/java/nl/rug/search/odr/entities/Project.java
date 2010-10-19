@@ -39,7 +39,10 @@ public class Project extends BaseEntity<Project> {
     private Collection<Iteration> iterations;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Collection<StakeholderRole> stakeHolderRoles;
+    private Collection<StakeholderRole> roles;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Decision> decisions;
 
 
 
@@ -47,30 +50,31 @@ public class Project extends BaseEntity<Project> {
     public Project() {
         members = new ArrayList<ProjectMember>();
         iterations = new ArrayList<Iteration>();
-        stakeHolderRoles = new ArrayList<StakeholderRole>();
+        roles = new ArrayList<StakeholderRole>();
+        decisions = new ArrayList<Decision>();
     }
 
 
 
 
     public Collection<Iteration> getIterations() {
-        return iterations;
+        return Collections.unmodifiableCollection(iterations);
     }
 
 
 
 
     public void setIterations(Collection<Iteration> iterations) {
+        if (iterations == null) {
+            throw new BusinessException("Iterations is null");
+        }
+
         this.iterations = iterations;
     }
 
 
 
 
-    /**
-     * DONT USE THIS METHOD
-     * @param it
-     */
     public void addIteration(Iteration it) {
         if (it == null) {
             throw new BusinessException("iteration is null");
@@ -81,51 +85,64 @@ public class Project extends BaseEntity<Project> {
 
 
 
-    /**
-     * DONT USE THIS METHOD
-     * @param it
-     */
     public void removeIteration(Iteration it) {
+        if (it == null) {
+            throw new BusinessException("It is null");
+        }
+
         iterations.remove(it);
     }
 
 
 
 
-    /**
-     * adds a new stakeholderrole to the project
-     * @param role
-     */
-    public void addStakeHolderRole(StakeholderRole role) {
-        if (role == null) {
-            throw new BusinessException("Please provide a role");
-        }
-        stakeHolderRoles.add(role);
+    public void removeAllIterations() {
+        iterations.clear();
     }
 
 
 
 
-    /**
-     * removes a role from the project
-     * @param role
-     */
-    public void removeStakeHolderRole(StakeholderRole role) {
+    public void addRole(StakeholderRole role) {
         if (role == null) {
             throw new BusinessException("Please provide a role");
         }
-        stakeHolderRoles.remove(role);
+        roles.add(role);
     }
 
 
 
 
-    /**
-     * get all stakeholder roles, that are available in this project
-     * @return
-     */
-    public Collection<StakeholderRole> getStakeholderRoles() {
-        return stakeHolderRoles;
+    public void removeRole(StakeholderRole role) {
+        if (role == null) {
+            throw new BusinessException("Please provide a role");
+        }
+        roles.remove(role);
+    }
+
+
+
+
+    public void setRoles(Collection<StakeholderRole> roles) {
+        if (roles == null) {
+            throw new BusinessException("Roles are null");
+        }
+
+        this.roles = roles;
+    }
+
+
+
+
+    public Collection<StakeholderRole> getRoles() {
+        return Collections.unmodifiableCollection(roles);
+    }
+
+
+
+
+    public void removeAllRoles() {
+        roles.clear();
     }
 
 
@@ -251,20 +268,56 @@ public class Project extends BaseEntity<Project> {
 
 
 
+    public Collection<Decision> getDecisions() {
+        return Collections.unmodifiableCollection(decisions);
+    }
+
+
+
+
+    public void setDecisions(Collection<Decision> decisions) {
+        if (decisions == null) {
+            throw new BusinessException("Decisions is null");
+        }
+
+        this.decisions = decisions;
+    }
+
+
+
+
+    public void addDecision(Decision decision) {
+        if (decision == null) {
+            throw new BusinessException("Decision is null");
+        }
+
+        decisions.add(decision);
+    }
+
+
+
+
+    public void removeDecision(Decision decision) {
+        if (decision == null) {
+            throw new BusinessException("Decision is null");
+        }
+
+        decisions.remove(decision);
+    }
+
+
+
+
+    public void removeAllDecisions() {
+        decisions.clear();
+    }
+
+
+
+
+    @Override
     public boolean isPersistable() {
-        if (name == null || members.isEmpty()) {
-            return false;
-        }
-
-
-
-        for (ProjectMember m : members) {
-            if (!m.internalIsPersistable(this)) {
-                return false;
-            }
-        }
-
-        return true;
+        return name != null && !members.isEmpty();
     }
 
 
@@ -272,6 +325,6 @@ public class Project extends BaseEntity<Project> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{name, description, members.size()};
+        return new Object[]{name, description};
     }
 }
