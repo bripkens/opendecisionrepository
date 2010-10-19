@@ -13,7 +13,7 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class StakeholderRole extends AbstractUserTyp<StakeholderRole> {
+public class StakeholderRole extends AbstractProjectEntity<StakeholderRole> {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;

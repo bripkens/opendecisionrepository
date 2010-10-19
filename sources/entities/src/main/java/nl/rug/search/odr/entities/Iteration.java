@@ -29,7 +29,8 @@ public class Iteration extends BaseEntity<Iteration> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50,
+            nullable = false)
     private String name;
 
     @Column(length = 1000)
@@ -181,29 +182,9 @@ public class Iteration extends BaseEntity<Iteration> {
 
 
 
-    public long getDurationInDays() {
-        if (startDate == null) {
-            throw new BusinessException("can calculate duration without a startDate");
-        }
-        long endMilliseconds = 0;
-        if (endDate != null) {
-            endMilliseconds = endDate.getTime();
-        } else {
-            endMilliseconds = new Date().getTime();
-        }
-
-        long duration = 0;
-        duration = endMilliseconds - startDate.getTime();
-        duration /= 24 * 60 * 60 * 1000;
-        return duration;
-    }
-
-
-
-
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{name, description, startDate, endDate, documentedWhen, projectMember};
+        return new Object[]{name, description, startDate, endDate, documentedWhen};
 
     }
 

@@ -1,7 +1,7 @@
 package nl.rug.search.odr.entities;
 
 import java.util.Date;
-import nl.rug.search.odr.TestUtil;
+import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import org.junit.Test;
 /**
  *
  * @author Stefan
+ * @modified Ben
  */
 public class VersionTest {
 
@@ -28,183 +29,125 @@ public class VersionTest {
     @Test
     public void testInitialization() {
         assertNull(v.getDocumentedWhen());
-//        assertNull(v.getRequirement());
-//        assertNull(v.getStatus());
-//        assertNull(v.getVersionId());
-
-//        assertNotNull(v.getRelationships());
-//        assertTrue(v.getRelationships().isEmpty());
+        assertNull(v.getDecidedWhen());
+        assertNull(v.getId());
+        assertFalse(v.isRemoved());
     }
 
-//    @Test
-//    public void testVersionId() {
-//        v.setVersionId(Long.MIN_VALUE);
-//        assertEquals(Long.MIN_VALUE, (long) v.getVersionId());
-//    }
-//
-//    @Test(expected = BusinessException.class)
-//    public void testNullVersionId() {
-//        v.setVersionId(null);
-//    }
 
 
 
     @Test
-    public void testRelationshipversionDecision() {
-        Version v2 = new Version();
-        v2.setDocumentedWhen(new Date());
-
-        Decision decision = new Decision();
-        decision.setName("testName");
-
-        decision.addVersion(v2);
-
-        assertEquals(v2, decision.getVersions().iterator().next());
+    public void testVersionId() {
+        v.setId(Long.MIN_VALUE);
+        assertEquals(Long.MIN_VALUE, (long) v.getId());
     }
 
-//    @Test
-//    public void testSetAction() {
-//        Action a = new Action();
-//        v.setAction(a);
-//
-//        assertEquals(a, v.getAction());
-//    }
 
-//    @Test(expected = BusinessException.class)
-//    public void testNullAction() {
-//        v.setAction(null);
-//    }
+
+
+    @Test(expected = BusinessException.class)
+    public void testNullVersionId() {
+        v.setId(null);
+    }
+
+
 
 
     @Test
-    public void testLaterDate() {
-        Date now = new Date();
-        long time = new Date().getTime() + 10000;
-        Date laterDate = new Date(time);
+    public void testSetDecidedWhen() {
+        Date someDate = new Date();
+        v.setDecidedWhen(someDate);
 
-        int i = now.compareTo(laterDate);
-        assertTrue(i < 0);
+        assertEquals(someDate, v.getDecidedWhen());
     }
 
-//    @Test
-//    public void testSetSatus() {
-//        Status s = new Status();
-//        v.setStatus(s);
-//        assertEquals(s, v.getStatus());
-//    }
-//
-//    @Test(expected = BusinessException.class)
-//    public void testNullSetStatus() {
-//        v.setStatus(null);
-//    }
-//
-//    @Test
-//    public void testSetRequirment() {
-//        Requirement r = new Requirement();
-//        v.setRequirement(r);
-//
-//        assertEquals(r, v.getRequirement());
-//    }
 
-//    @Test(expected = BusinessException.class)
-//    public void testNullSetRequirment() {
-//        v.setRequirement(null);
-//    }
 
-//    @Test
-//    public void testSetRelationship() {
-//        Collection<Relationship> relationships = new ArrayList<Relationship>();
-//
-//        v.setRelationships(relationships);
-//
-//        assertNotSame(relationships, v.getRelationships());
-//    }
-//
-//    @Test(expected = BusinessException.class)
-//    public void testNullRelationship() {
-//        v.setRelationships(null);
-//    }
-//
-//    @Test
-//    public void testAddRelationship() {
-//        Relationship relationship = new Relationship();
-//
-//        v.addRelationship(relationship);
-//        assertTrue(TestUtil.containsReference(v.getRelationships(), relationship));
-//        assertSame(v, relationship.getSource());
-//    }
 
-//    @Test
-//    public void testRemoveRelationShip() {
-//        Relationship relationship = new Relationship();
-//        v.addRelationship(relationship);
-//        v.removeRelationShip(relationship);
-//
-//        assertFalse(TestUtil.containsReference(v.getRelationships(), relationship));
-//    }
-//
-//    @Test(expected=BusinessException.class)
-//    public void setNUlladdRelationship(){
-//        Relationship relationship = new Relationship();
-//        v.addRelationship(null);
-//    }
-//    @Test
-//    public void testHashCode(){
-//        Date d = new Date();
-//        Version v2 = new Version();
-//        v2.setVersionId(Long.MIN_VALUE);
-//        v2.setDocumentedWhen(d);
-//        v2.setRevision(1);
-//        v2.setStatus(new Status());
-//        v2.setRequirement(new Requirement());
-//        Collection<Relationship> rships = new ArrayList<Relationship>();
-//        rships.add(new Relationship());
-//        v2.setRelationships(rships);
-//
-//        Version v3 = new Version();
-//        v3.setVersionId(Long.MIN_VALUE);
-//        v3.setDocumentedWhen(d);
-//        v3.setRevision(1);
-//        v3.setStatus(new Status());
-//        v3.setRequirement(new Requirement());
-//        Collection<Relationship> rships1 = new ArrayList<Relationship>();
-//        rships.add(new Relationship());
-//        v3.setRelationships(rships1);
-//
-//
-//        assertEquals(v2.hashCode(),v3.hashCode());
-//        TestUtil.assertNotEquals(v.hashCode(), v2.hashCode());
-//    }
-//    @Test
-//    public void testEquals(){
-//        assertFalse(v.equals(new TestUtil()));
-//
-//        Version v2 = new Version();
-//        v2.setVersionId(Long.MIN_VALUE);
-//        v2.setDocumentedWhen(new Date());
-//        v2.setRevision(1);
-//        v2.setStatus(new Status());
-//        v2.setRequirement(new Requirement());
-//        Collection<Relationship> rships = new ArrayList<Relationship>();
-//        rships.add(new Relationship());
-//        v2.setRelationships(rships);
-//
-//        Version v3 = new Version();
-//        v3.setVersionId(Long.MAX_VALUE);
-//        v3.setDocumentedWhen(new Date());
-//        v3.setRevision(2);
-//        v3.setStatus(new Status());
-//        v3.setRequirement(new Requirement());
-//        Collection<Relationship> rships1 = new ArrayList<Relationship>();
-//        rships.add(new Relationship());
-//        v3.setRelationships(rships1);
-//
-//        assertFalse(v2.equals(v3));
-//
-//        assertTrue(v.equals(v));
-//    }
+    @Test(expected = BusinessException.class)
+    public void testSetDecidedWhenNull() {
+        v.setDecidedWhen(null);
+    }
+
+
+
+
     @Test
-    public void testNullEquals() {
-        assertFalse(v.equals(null));
+    public void testSetDocumentedWhen() {
+        Date someDate = new Date();
+        v.setDocumentedWhen(someDate);
+
+        assertEquals(someDate, v.getDocumentedWhen());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetDocumentedWhenNull() {
+        v.setDocumentedWhen(null);
+    }
+
+
+
+
+    @Test
+    public void testSetRemoved() {
+        v.setRemoved(true);
+
+        assertTrue(v.isRemoved());
+
+        v.setRemoved(false);
+
+        assertFalse(v.isRemoved());
+    }
+
+
+
+
+    @Test
+    public void testGetCompareData() {
+        Date documentedWhen = new Date();
+        Date decidedWhen = new Date(documentedWhen.getTime() - 2000);
+
+        v.setDecidedWhen(decidedWhen);
+        v.setDocumentedWhen(documentedWhen);
+
+        assertEquals(documentedWhen, v.getCompareData()[0]);
+        assertEquals(decidedWhen, v.getCompareData()[1]);
+        assertFalse((Boolean) v.getCompareData()[2]);
+    }
+
+
+
+
+    @Test
+    public void testIsPersistable() {
+        assertFalse(v.isPersistable());
+
+        v.setDecidedWhen(new Date());
+
+        assertFalse(v.isPersistable());
+
+        v.setDocumentedWhen(new Date());
+
+        assertTrue(v.isPersistable());
+    }
+
+
+
+
+    @Test
+    public void testIsPersistableOtherway() {
+        assertFalse(v.isPersistable());
+
+        v.setDocumentedWhen(new Date());
+
+        assertFalse(v.isPersistable());
+
+        v.setDecidedWhen(new Date());
+
+        assertTrue(v.isPersistable());
     }
 }

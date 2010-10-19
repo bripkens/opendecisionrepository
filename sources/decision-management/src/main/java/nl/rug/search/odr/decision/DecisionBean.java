@@ -8,7 +8,7 @@ import nl.rug.search.odr.entities.Decision;
 
 /**
  *
- * @author Ben
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
 public class DecisionBean extends GenericDaoBean<Decision, Long> implements DecisionLocal {

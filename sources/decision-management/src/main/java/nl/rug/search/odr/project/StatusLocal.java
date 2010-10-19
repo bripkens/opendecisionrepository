@@ -1,15 +1,15 @@
 package nl.rug.search.odr.project;
 
 import nl.rug.search.odr.GenericDaoLocal;
-import nl.rug.search.odr.entities.Status;
+import nl.rug.search.odr.entities.State;
 
 /**
  *
  * @author Stefan
  */
-public interface StatusLocal extends GenericDaoLocal<Status, Long> {
+public interface StatusLocal extends GenericDaoLocal<State, Long> {
 
-    public void updateStatus(Status sourceStatus);
+    public void updateStatus(State sourceStatus);
 
-    public void persistStatus(Status status);
+    public void persistStatus(State status);
 }
