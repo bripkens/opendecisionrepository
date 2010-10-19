@@ -14,15 +14,24 @@ public class StatusTest {
 
     private Status s;
 
+
+
+
     @Before
     public void setUp() {
         s = new Status();
         s.setCommon(false);
     }
 
+
+
+
     @After
     public void tearDown() {
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -30,17 +39,26 @@ public class StatusTest {
         assertNull(s.getName());
     }
 
+
+
+
     @Test
-    public void testId(){
+    public void testId() {
         Long id = 1L;
         s.setId(id);
         assertEquals(id, s.getId());
     }
 
-   @Test(expected = BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testNullId() {
-       s.setId(null);
+        s.setId(null);
     }
+
+
+
 
     @Test
     public void testSetName() {
@@ -48,21 +66,33 @@ public class StatusTest {
         assertEquals("foo", s.getName());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullName() {
-       s.setName(null);
+        s.setName(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testEmptyName() {
         s.setName("        ");
     }
 
+
+
+
     @Test
     public void testIsCommon() {
         s.setCommon(true);
         assertEquals(true, s.isCommon());
     }
+
+
+
 
     @Test
     public void testIsNotCommon() {

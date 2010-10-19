@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import nl.rug.search.odr.BusinessException;
 
 /**
  *
@@ -66,6 +67,10 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
 
     @Override
     public void setId(Long id) {
+        if (id == null) {
+            throw new BusinessException("Id is null");
+        }
+
         this.id = id;
     }
 
@@ -80,6 +85,10 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
 
 
     public void setRole(StakeholderRole role) {
+        if (role == null) {
+            throw new BusinessException("Role is null");
+        }
+
         this.role = role;
     }
 
@@ -116,13 +125,6 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
 
 
 
-    boolean internalIsPersistable(Project project) {
-        return person != null && role != null && project.equals(project);
-    }
-
-
-
-
     public boolean isRemoved() {
         return removed;
     }
@@ -141,4 +143,6 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     protected Object[] getCompareData() {
         return new Object[]{person, project, role, removed};
     }
+
+
 }

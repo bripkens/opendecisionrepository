@@ -15,14 +15,23 @@ public class RelationshipTypeTest {
 
     private RelationshipType r;
 
+
+
+
     @Before
     public void setUp() {
         r = new RelationshipType();
     }
 
+
+
+
     @After
     public void tearDown() {
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -33,29 +42,43 @@ public class RelationshipTypeTest {
 
 
     //ID TEST/
+
+
     @Test
-    public void testId(){
+    public void testId() {
         Long id = 1L;
         r.setId(id);
         assertEquals(id, r.getId());
     }
 
-   @Test(expected = BusinessException.class)
+
+
+
+    @Test(expected = BusinessException.class)
     public void testNullId() {
-       r.setId(null);
+        r.setId(null);
     }
 
-   //NAME TEST/
+    //NAME TEST/
+
+
+
     @Test
     public void testSetName() {
         r.setName("foo");
         assertEquals("foo", r.getName());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullName() {
-       r.setName(null);
+        r.setName(null);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testEmptyName() {
@@ -63,11 +86,17 @@ public class RelationshipTypeTest {
     }
 
     //COMMON TEST/
+
+
+
     @Test
     public void testIsCommon() {
         r.setCommon(true);
         assertEquals(true, r.isCommon());
     }
+
+
+
 
     @Test
     public void testIsNotCommon() {
@@ -75,13 +104,19 @@ public class RelationshipTypeTest {
         assertEquals(false, r.isCommon());
     }
 
+
+
+
     @Test
-    public void testToString(){
+    public void testToString() {
         assertTrue(TestUtil.toStringHelper(r));
     }
 
+
+
+
     @Test
-    public void testHashCode(){
+    public void testHashCode() {
         RelationshipType r2 = new RelationshipType();
         r2.setId(Long.MIN_VALUE);
         r2.setCommon(true);
@@ -93,12 +128,15 @@ public class RelationshipTypeTest {
         r3.setName("foo");
 
 
-        assertEquals(r2.hashCode(),r3.hashCode());
+        assertEquals(r2.hashCode(), r3.hashCode());
         TestUtil.assertNotEquals(r.hashCode(), r2.hashCode());
     }
 
+
+
+
     @Test
-    public void testEquals(){
+    public void testEquals() {
         assertFalse(r.equals(new TestUtil()));
 
         RelationshipType r2 = new RelationshipType();
@@ -116,8 +154,11 @@ public class RelationshipTypeTest {
         assertTrue(r.equals(r));
     }
 
+
+
+
     @Test
-    public void testNullEquals(){
+    public void testNullEquals() {
         assertFalse(r.equals(null));
     }
 }

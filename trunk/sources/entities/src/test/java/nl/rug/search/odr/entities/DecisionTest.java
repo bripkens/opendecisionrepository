@@ -1,5 +1,7 @@
 package nl.rug.search.odr.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
@@ -37,6 +39,8 @@ public class DecisionTest {
     public void testInitialization() {
         assertNull(d.getId());
         assertNull(d.getName());
+        assertNull(d.getLink());
+        assertNull(d.getTemplate());
     }
 
 
@@ -83,16 +87,21 @@ public class DecisionTest {
 
 
 
-    @Test(expected=BusinessException.class)
+
+    @Test(expected = BusinessException.class)
     public void testNameTooShort() {
         d.setName("ab");
     }
-    
-    
-    @Test(expected=BusinessException.class)
+
+
+
+
+    @Test(expected = BusinessException.class)
     public void testNameTooLong() {
         d.setName("123456789012345678901234567890123456789012345678901");
     }
+
+
 
 
     @Test
@@ -111,6 +120,8 @@ public class DecisionTest {
 
         assertTrue(d.isPersistable());
     }
+
+
 
 
     @Test
@@ -151,5 +162,202 @@ public class DecisionTest {
     @Test
     public void testNullEquals() {
         assertFalse(d.equals(null));
+    }
+
+
+
+
+    @Test
+    public void testSetOprLink() {
+        OprLink link = new OprLink();
+
+        d.setLink(link);
+
+        assertSame(link, d.getLink());
+
+        d.setLink(null);
+
+        assertNull(d.getLink());
+    }
+
+
+
+
+    @Test
+    public void setVersionsTest() {
+        Collection<Version> versions = new ArrayList<Version>();
+        Version version = new Version();
+        versions.add(version);
+
+
+        d.setVersions(versions);
+
+        assertSame(version, d.getVersions().iterator().next());
+        assertNotSame(versions, d.getVersions());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setVersionsNull() {
+        d.setVersions(null);
+    }
+
+
+
+
+    @Test
+    public void addVersion() {
+        Version v = new Version();
+        d.addVersion(v);
+
+        assertSame(v, d.getVersions().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addNullVersion() {
+        d.addVersion(null);
+    }
+
+
+
+
+    @Test
+    public void removeVersion() {
+        Version v = new Version();
+        d.addVersion(v);
+
+        assertFalse(d.getVersions().isEmpty());
+
+        d.removeVersion(v);
+
+        assertTrue(d.getVersions().isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeNullVersion() {
+        d.removeVersion(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllVersions() {
+        Version v = new Version();
+        d.addVersion(v);
+
+        assertFalse(d.getVersions().isEmpty());
+
+        d.removeAllVersions();
+
+        assertTrue(d.getVersions().isEmpty());
+    }
+
+
+
+
+    @Test
+    public void setTemplate() {
+        DecisionTemplate t = new DecisionTemplate();
+
+        d.setTemplate(t);
+
+        assertSame(t, d.getTemplate());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setNullTemplate() {
+        d.setTemplate(null);
+    }
+
+
+
+
+    @Test
+    public void setValues() {
+        Collection<ComponentValue> values = new ArrayList<ComponentValue>();
+        ComponentValue value = new ComponentValue();
+        values.add(value);
+
+        d.setValues(values);
+
+        assertNotSame(values, d.getValues());
+        assertSame(value, d.getValues().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setValuesNull() {
+        d.setValues(null);
+    }
+
+
+
+
+    @Test
+    public void addValue() {
+        ComponentValue value = new ComponentValue();
+        d.addValue(value);
+
+        assertFalse(d.getValues().isEmpty());
+
+        assertSame(value, d.getValues().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addValueNull() {
+        d.addValue(null);
+    }
+
+
+
+
+    @Test
+    public void removeValue() {
+        ComponentValue value = new ComponentValue();
+        d.addValue(value);
+
+        assertFalse(d.getValues().isEmpty());
+
+        d.removeValue(value);
+
+        assertTrue(d.getValues().isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeValueNull() {
+        d.removeValue(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllValues() {
+        ComponentValue value = new ComponentValue();
+        d.addValue(value);
+
+        d.removeAllValues();
+
+        assertTrue(d.getValues().isEmpty());
     }
 }
