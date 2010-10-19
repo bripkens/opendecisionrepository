@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
@@ -17,6 +19,10 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "DecisionTemplate.isNameUsed",
+                query = "SELECT COUNT(t) FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
+})
 @Entity
 public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
 
@@ -26,10 +32,12 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50,
+            nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<TemplateComponent> components;
 
 
@@ -141,6 +149,6 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {name};
+        return new Object[]{name};
     }
 }
