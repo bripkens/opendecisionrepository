@@ -16,8 +16,13 @@ import java.sql.Statement;
 public class DatabaseCleaner {
 
     private Connection connect = null;
+
     private Statement statement = null;
+
     private ResultSet list = null;
+
+
+
 
     public void delete() {
         for (int z = 0; z < 5; z++) {
@@ -25,10 +30,8 @@ public class DatabaseCleaner {
 
                 Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
                 connect = DriverManager.getConnection("jdbc:derby://localhost:1527/sun-appserv-samples");
-                String[] entityNames = new String[]{ "ProjectMember", "StakeholderRole", "Iteration", "Person", "Project", "Project_Stakeholderrole"};
-
-//                {"Requirement", "ActionType", "ProjectMember", "Version", "StakeholderRole",
-//                    "Status", "Actions", "OPRLink", "ArchitecturalDecision", "Iteration", "Person", "Project"};
+                String[] entityNames = new String[]{"ProjectMember", "StakeholderRole", "Iteration",
+                    "Person", "Project", "Project_Stakeholderrole", "Decision", "DecisionTemplate", "OprLink"};
 
                 Statement statement1 = connect.createStatement();
 
@@ -94,6 +97,9 @@ public class DatabaseCleaner {
         }
     }
 
+
+
+
     private void close() {
         try {
             if (list != null) {
@@ -108,6 +114,9 @@ public class DatabaseCleaner {
         } catch (Exception e) {
         }
     }
+
+
+
 
     public static void main(String[] args) {
         DatabaseCleaner clean = new DatabaseCleaner();

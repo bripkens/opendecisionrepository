@@ -34,16 +34,29 @@ import static org.junit.Assert.*;
 public class IterationTest extends AbstractEjbTest {
 
     private IterationLocal il;
+
     private UserLocal ul;
+
     private StakeholderRoleLocal srl;
+
     private ProjectLocal pl;
+
     private VersionLocal vl;
+
     private ArchitecturalDecisionLocal al;
+
     private StatusLocal sl;
+
     private RequirementLocal rl;
+
     private DatabaseCleaner delteh;
+
     private ActionTypeLocal atl;
+
     private ActionLocal alo;
+
+
+
 
     @Before
     public void setUp() {
@@ -60,6 +73,9 @@ public class IterationTest extends AbstractEjbTest {
         alo = lookUp(ActionBean.class, ActionLocal.class);
 
     }
+
+
+
 
     @Test
     public void projectIterationTest() {
@@ -215,7 +231,7 @@ public class IterationTest extends AbstractEjbTest {
         assertEquals(4, count);
 
         pr1 = pl.getById(pr1.getId());
-        pr1.getIterations().remove(i3);
+        pr1.removeIteration(i3);
         pl.updateProject(pr1);
 
         assertEquals(1, pl.getById(pr1.getId()).getIterations().size());

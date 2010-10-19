@@ -83,7 +83,7 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         Project pNew = getById(p.getId());
 
         
-        Iterator<StakeholderRole> it = pNew.getStakeholderRoles().iterator();
+        Iterator<StakeholderRole> it = pNew.getRoles().iterator();
 
         StringBuilder sb = new StringBuilder();
 

@@ -220,17 +220,17 @@ public class ProjectTest extends AbstractEjbTest {
 
         pl.createProject(p);
 
-        project2.addStakeHolderRole(role2);
+        project2.addRole(role2);
         pl.createProject(project2);
 
 
-        assertTrue(project2.getStakeholderRoles().contains(role2));
+        assertTrue(project2.getRoles().contains(role2));
         pl.deleteProject(project2);
         assertNull(pl.getById(project2.getId()));
         assertNull(srl.getById(role2.getId()));
 
 
 
-        assertFalse(p.getStakeholderRoles().contains(role2));
+        assertFalse(p.getRoles().contains(role2));
     }
 }
