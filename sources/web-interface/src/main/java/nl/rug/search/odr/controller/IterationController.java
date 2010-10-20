@@ -1,84 +1,264 @@
 package nl.rug.search.odr.controller;
 
-import java.util.Date;
+import com.icesoft.faces.component.ext.RowSelectorEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
-import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.entities.Iteration;
 
-import com.icesoft.faces.context.effects.Effect;
-import com.icesoft.faces.context.effects.Highlight;
-import javax.faces.bean.SessionScoped;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
 
+import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.ErrorUtil;
+import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.project.ProjectLocal;
 
 /**
  *
  * @author Stefan
  */
-@SessionScoped
 @ManagedBean
-public class IterationController extends AbstractController {
+@ViewScoped
+public class IterationController {
 
     @EJB
-    private IterationLocal iterationLocal;
-
-    
-
-    private String name, description;
-    private Date startDate, endDate = new Date();
-    protected Effect valueChangeEffect2;
+    private ProjectLocal pl;
+    @EJB
+    private IterationLocal il;
+    private long projectId;
+    private String str_projectId;
+    private Project project;
+    private long iterationId;
+    private String str_iterationId;
+    private Iteration iteration;
+    private String iterationName;
+    private String iterationDescription;
+    //
+    private Date startDate;
+    private String startHour;
+    private String startMinute;
+    //
+    private Date endDate;
+    private String endHour;
+    private String endMinute;
 
     public IterationController() {
-        valueChangeEffect2 = new Highlight("#fda505");
-        valueChangeEffect2.setFired(true);
-
-        GregorianCalendar startcal = new GregorianCalendar();
-        startcal.add(GregorianCalendar.DAY_OF_YEAR, 1);
-        startDate = startcal.getTime();
-
-        GregorianCalendar endcal = new GregorianCalendar();
-        endcal.add(GregorianCalendar.DAY_OF_YEAR, 14);
-        endDate = endcal.getTime();
     }
 
-    @Override
-    protected String getSuccessMessage() {
-        return JsfUtil.evaluateExpressionGet("#{form['Iteration.success']}", String.class);
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("POSTCONSTRUCT");
+        if (!AuthenticationUtil.isAuthtenticated()) {
+            ErrorUtil.showNotAuthenticatedError();
+            return;
+        }
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+        // <editor-fold defaultstate="collapsed" desc="get Project Id">
+        System.out.println("Project Id ist : " + request.getParameter(RequestParameter.ID));
+
+        if (request.getParameter(RequestParameter.ID) != null) {
+            str_projectId = request.getParameter(RequestParameter.ID);
+
+            try {
+                projectId = Long.parseLong(str_projectId);
+            } catch (NumberFormatException e) {
+                ErrorUtil.showInvalidIdError();
+                return;
+            }
+        }
+
+        // </editor-fold>
+
+        getProject();
+
+        if (project == null) {
+            ErrorUtil.showIdNotRegisteredError();
+            return;
+        } else if (project != null && !memberIsInProject()) {
+            ErrorUtil.showNoMemberError();
+            return;
+        }
+        JsfUtil.flashScope().put("projetId", projectId);
+
+        // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
+        if (request.getParameter(RequestParameter.ITERATIONID) != null) {
+            str_iterationId = request.getParameter(RequestParameter.ITERATIONID);
+        }
+
+        try {
+            iterationId = Long.parseLong(str_iterationId);
+        } catch (NumberFormatException e) {
+            ErrorUtil.showInvalidIdError();
+            return;
+        }
+        // </editor-fold>
+
+        getIterationFromDb();
+
+        if (iteration == null) {
+            ErrorUtil.showIterationIdNotRegisteredError();
+            return;
+        }
+
+        iterationName = iteration.getName();
+        iterationDescription = iteration.getDescription();
+
+        startDate = iteration.getStartDate();
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(startDate);
+        startHour = String.valueOf(cal.get(Calendar.HOUR));
+        startMinute = String.valueOf(cal.get(Calendar.MINUTE));
+
+        endDate = iteration.getEndDate();
+        cal.setTime(endDate);
+        endHour = String.valueOf(cal.get(Calendar.HOUR));
+        endMinute = String.valueOf(cal.get(Calendar.MINUTE));
+
     }
 
-    @Override
-    protected String getFailMessage() {
-        return JsfUtil.evaluateExpressionGet("#{form['Iteration.fail']}", String.class);
+    private Project getProject() {
+        project = pl.getById(projectId);
+        return project;
     }
 
-    @Override
-    protected void reset() {
-        name = description = null;
-        startDate = endDate = null;
+    private boolean memberIsInProject() {
+        return getProjectMember() != null;
     }
 
-    @Override
-    protected boolean execute() {
+    public ProjectMember getProjectMember() {
+        long userId = AuthenticationUtil.getUserId();
+        for (ProjectMember pm : project.getMembers()) {
+            if (pm.getPerson().getId().equals(userId)) {
+                return pm;
+            }
+        }
+        return null;
+    }
 
-        Iteration i = new Iteration();
-        i.setName(name);
-        i.setDescription(description);
-        i.setStartDate(startDate);
-        i.setEndDate(endDate);
+    private Iteration getIterationFromDb() {
+        iteration = il.getById(iterationId);
+        return iteration;
+    }
 
-      //  iterationLocal.persistIteration(i);
-        return true;
+    public boolean isValid() {
+        if (project != null && iteration != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public Iteration getIteration() {
+        return iteration;
+    }
+
+    public void submitForm() {
+        iteration.setName(iterationName);
+        iteration.setDescription(iterationDescription);
+
+        GregorianCalendar calStart = new GregorianCalendar();
+        calStart.setTime(startDate);
+        calStart.set(Calendar.HOUR, Integer.parseInt(startHour));
+        calStart.set(Calendar.MINUTE, Integer.parseInt(startMinute));
+        iteration.setStartDate(calStart.getTime());
+
+        GregorianCalendar calEnd = new GregorianCalendar();
+        calEnd.setTime(endDate);
+        calEnd.set(Calendar.HOUR, Integer.parseInt(endHour));
+        calEnd.set(Calendar.MINUTE, Integer.parseInt(endMinute));
+        iteration.setEndDate(calEnd.getTime());
+
+        //TODO IF THE MEMBER ALSO BE SAVED
+
+        il.updateIteration(iteration);
+    }
+
+    public void abortForm() {
+        try {
+            JsfUtil.redirect("/projects.html");
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public SelectItem[] getHourItems() {
+        return arrayBuilder(24);
+    }
+
+    public SelectItem[] getMinuteItems() {
+        return arrayBuilder(60);
+    }
+
+    private SelectItem[] arrayBuilder(int count) {
+        SelectItem[] components = new SelectItem[count];
+        for (int i = 0; i < components.length; i++) {
+            components[i] = new SelectItem(i);
+        }
+        return components;
+    }
+
+    public String getName() {
+        return iterationName;
+    }
+
+    public void setName(String name) {
+        System.out.println("setName");
+        iterationName = name;
     }
 
     public String getDescription() {
-                return description;
+        return iterationDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String desciption) {
+        iterationDescription = desciption;
+    }
+
+    public String getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(String endHour) {
+        this.endHour = endHour;
+    }
+
+    public String getEndMinute() {
+        return endMinute;
+    }
+
+    public void setEndMinute(String endMinute) {
+        this.endMinute = endMinute;
+    }
+
+    public String getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(String hour) {
+        startHour = hour;
+    }
+
+    public String getStartMinute() {
+        return startMinute;
+    }
+
+    public void setStartMinute(String minute) {
+        startMinute = minute;
     }
 
     public Date getEndDate() {
@@ -89,31 +269,11 @@ public class IterationController extends AbstractController {
         this.endDate = endDate;
     }
 
-    public IterationLocal getIterationLocal() {
-        return iterationLocal;
-    }
-
-    public void setIterationLocal(IterationLocal iterationLocal) {
-        this.iterationLocal = iterationLocal;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Date getStartDate() {
         return startDate;
     }
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
-    }
-
-    public TimeZone getTimeZone() {
-        return java.util.TimeZone.getDefault();
     }
 }

@@ -11,4 +11,6 @@ public interface RequestParameter {
     String DELETE = "delete";
     String CONFIRM = "confirm";
     String ID = "id";
+    
+    String ITERATIONID = "iterationId";
 }

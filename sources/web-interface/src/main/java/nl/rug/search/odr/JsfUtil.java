@@ -7,6 +7,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 /**
  *
@@ -67,4 +68,9 @@ public class JsfUtil {
     public static void removeSessionBean(String name) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(name);
     }
+
+    public static Flash flashScope (){
+	return (FacesContext.getCurrentInstance().getExternalContext().getFlash());
+   }
+
 }
