@@ -21,6 +21,9 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
+
     @Override
     public void persistRole(StakeholderRole role) {
         if (!role.isPersistable()) {
@@ -30,6 +33,9 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
         entityManager.persist(role);
     }
 
+
+
+
     @Override
     public Collection<StakeholderRole> getPublicRoles() {
         Query q = entityManager.createQuery("SELECT sr FROM StakeholderRole sr WHERE sr.common = TRUE");
@@ -38,6 +44,9 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
         return q.getResultList();
     }
 
+
+
+
     @Override
     public StakeholderRole getSomePublicRole() {
         Query q = entityManager.createQuery("SELECT sr FROM StakeholderRole sr WHERE sr.common = TRUE");
@@ -45,6 +54,8 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
 
         return (StakeholderRole) q.getSingleResult();
     }
+
+
 
 
     @Override

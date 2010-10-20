@@ -33,8 +33,10 @@ public class ProjectTest {
         assertNull(p.getName());
         assertNotNull(p.getMembers());
 
-        assertTrue(p.getMembers().isEmpty());
+        assertTrue(p.getMembers().
+                isEmpty());
     }
+
 
 
 
@@ -46,10 +48,13 @@ public class ProjectTest {
     }
 
 
-    @Test(expected=BusinessException.class)
+
+
+    @Test(expected = BusinessException.class)
     public void testSetIdNull() {
         p.setId(null);
     }
+
 
 
 
@@ -128,14 +133,24 @@ public class ProjectTest {
 
         p.addMember(pm);
 
-        assertSame(person, p.getMembers().iterator().next().getPerson());
-        assertSame(pm, p.getMembers().iterator().next());
+        assertSame(person, p.getMembers().
+                iterator().
+                next().
+                getPerson());
+        assertSame(pm, p.getMembers().
+                iterator().
+                next());
 
         assertSame(p, pm.getProject());
         assertSame(person, pm.getPerson());
 
-        assertSame(p, person.getMemberships().iterator().next().getProject());
-        assertSame(pm, person.getMemberships().iterator().next());
+        assertSame(p, person.getMemberships().
+                iterator().
+                next().
+                getProject());
+        assertSame(pm, person.getMemberships().
+                iterator().
+                next());
     }
 
 
@@ -150,7 +165,9 @@ public class ProjectTest {
         p.setIterations(iterations);
 
         assertNotSame(iterations, p.getIterations());
-        assertSame(it, p.getIterations().iterator().next());
+        assertSame(it, p.getIterations().
+                iterator().
+                next());
     }
 
 
@@ -169,9 +186,12 @@ public class ProjectTest {
         Iteration it = new Iteration();
         p.addIteration(it);
 
-        assertFalse(p.getIterations().isEmpty());
+        assertFalse(p.getIterations().
+                isEmpty());
 
-        assertSame(it, p.getIterations().iterator().next());
+        assertSame(it, p.getIterations().
+                iterator().
+                next());
     }
 
 
@@ -190,11 +210,13 @@ public class ProjectTest {
         Iteration it = new Iteration();
         p.addIteration(it);
 
-        assertFalse(p.getIterations().isEmpty());
+        assertFalse(p.getIterations().
+                isEmpty());
 
         p.removeIteration(it);
 
-        assertTrue(p.getIterations().isEmpty());
+        assertTrue(p.getIterations().
+                isEmpty());
     }
 
 
@@ -215,7 +237,8 @@ public class ProjectTest {
 
         p.removeAllIterations();
 
-        assertTrue(p.getIterations().isEmpty());
+        assertTrue(p.getIterations().
+                isEmpty());
     }
 
 
@@ -230,7 +253,9 @@ public class ProjectTest {
         p.setRoles(roles);
 
         assertNotSame(roles, p.getRoles());
-        assertSame(role, p.getRoles().iterator().next());
+        assertSame(role, p.getRoles().
+                iterator().
+                next());
     }
 
 
@@ -249,9 +274,12 @@ public class ProjectTest {
         StakeholderRole role = new StakeholderRole();
         p.addRole(role);
 
-        assertFalse(p.getRoles().isEmpty());
+        assertFalse(p.getRoles().
+                isEmpty());
 
-        assertSame(role, p.getRoles().iterator().next());
+        assertSame(role, p.getRoles().
+                iterator().
+                next());
     }
 
 
@@ -270,11 +298,13 @@ public class ProjectTest {
         StakeholderRole role = new StakeholderRole();
         p.addRole(role);
 
-        assertFalse(p.getRoles().isEmpty());
+        assertFalse(p.getRoles().
+                isEmpty());
 
         p.removeRole(role);
 
-        assertTrue(p.getRoles().isEmpty());
+        assertTrue(p.getRoles().
+                isEmpty());
     }
 
 
@@ -295,8 +325,11 @@ public class ProjectTest {
 
         p.removeAllRoles();
 
-        assertTrue(p.getRoles().isEmpty());
+        assertTrue(p.getRoles().
+                isEmpty());
     }
+
+
 
 
     @Test
@@ -313,6 +346,8 @@ public class ProjectTest {
     }
 
 
+
+
     @Test
     public void testCompareData() {
         assertNull(p.getCompareData()[0]);
@@ -327,6 +362,8 @@ public class ProjectTest {
     }
 
 
+
+
     @Test
     public void setMembers() {
         Collection<ProjectMember> members = new ArrayList<ProjectMember>();
@@ -336,7 +373,9 @@ public class ProjectTest {
         p.setMembers(members);
 
         assertNotSame(members, p.getMembers());
-        assertSame(member, p.getMembers().iterator().next());
+        assertSame(member, p.getMembers().
+                iterator().
+                next());
     }
 
 
@@ -355,9 +394,12 @@ public class ProjectTest {
         ProjectMember member = new ProjectMember();
         p.addMember(member);
 
-        assertFalse(p.getMembers().isEmpty());
+        assertFalse(p.getMembers().
+                isEmpty());
 
-        assertSame(member, p.getMembers().iterator().next());
+        assertSame(member, p.getMembers().
+                iterator().
+                next());
     }
 
 
@@ -376,11 +418,13 @@ public class ProjectTest {
         ProjectMember member = new ProjectMember();
         p.addMember(member);
 
-        assertFalse(p.getMembers().isEmpty());
+        assertFalse(p.getMembers().
+                isEmpty());
 
         p.removeMember(member);
 
-        assertTrue(p.getMembers().isEmpty());
+        assertTrue(p.getMembers().
+                isEmpty());
     }
 
 
@@ -401,40 +445,9 @@ public class ProjectTest {
 
         p.removeAllMembers();
 
-        assertTrue(p.getMembers().isEmpty());
+        assertTrue(p.getMembers().
+                isEmpty());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -448,7 +461,9 @@ public class ProjectTest {
         p.setDecisions(decisions);
 
         assertNotSame(decisions, p.getDecisions());
-        assertSame(decision, p.getDecisions().iterator().next());
+        assertSame(decision, p.getDecisions().
+                iterator().
+                next());
     }
 
 
@@ -467,9 +482,12 @@ public class ProjectTest {
         Decision decision = new Decision();
         p.addDecision(decision);
 
-        assertFalse(p.getDecisions().isEmpty());
+        assertFalse(p.getDecisions().
+                isEmpty());
 
-        assertSame(decision, p.getDecisions().iterator().next());
+        assertSame(decision, p.getDecisions().
+                iterator().
+                next());
     }
 
 
@@ -488,11 +506,13 @@ public class ProjectTest {
         Decision decision = new Decision();
         p.addDecision(decision);
 
-        assertFalse(p.getDecisions().isEmpty());
+        assertFalse(p.getDecisions().
+                isEmpty());
 
         p.removeDecision(decision);
 
-        assertTrue(p.getDecisions().isEmpty());
+        assertTrue(p.getDecisions().
+                isEmpty());
     }
 
 
@@ -513,6 +533,271 @@ public class ProjectTest {
 
         p.removeAllDecisions();
 
-        assertTrue(p.getDecisions().isEmpty());
+        assertTrue(p.getDecisions().
+                isEmpty());
+    }
+
+
+
+
+    @Test
+    public void setRequirements() {
+        Collection<Requirement> requirements = new ArrayList<Requirement>();
+        Requirement requirement = new Requirement();
+        requirements.add(requirement);
+
+        p.setRequirements(requirements);
+
+        assertNotSame(requirements, p.getRequirements());
+        assertSame(requirement, p.getRequirements().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setRequirementsNull() {
+        p.setRequirements(null);
+    }
+
+
+
+
+    @Test
+    public void addRequirement() {
+        Requirement requirement = new Requirement();
+        p.addRequirement(requirement);
+
+        assertFalse(p.getRequirements().
+                isEmpty());
+
+        assertSame(requirement, p.getRequirements().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addRequirementNull() {
+        p.addRequirement(null);
+    }
+
+
+
+
+    @Test
+    public void removeRequirement() {
+        Requirement requirement = new Requirement();
+        p.addRequirement(requirement);
+
+        assertFalse(p.getRequirements().
+                isEmpty());
+
+        p.removeRequirement(requirement);
+
+        assertTrue(p.getRequirements().
+                isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeRequirementNull() {
+        p.removeRequirement(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllRequirement() {
+        Requirement requirement = new Requirement();
+        p.addRequirement(requirement);
+
+        p.removeAllRequirements();
+
+        assertTrue(p.getRequirements().
+                isEmpty());
+    }
+
+
+
+
+    @Test
+    public void setStates() {
+        Collection<State> states = new ArrayList<State>();
+        State state = new State();
+        states.add(state);
+
+        p.setStates(states);
+
+        assertNotSame(states, p.getStates());
+        assertSame(state, p.getStates().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setStatesNull() {
+        p.setStates(null);
+    }
+
+
+
+
+    @Test
+    public void addState() {
+        State state = new State();
+        p.addState(state);
+
+        assertFalse(p.getStates().
+                isEmpty());
+
+        assertSame(state, p.getStates().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addStateNull() {
+        p.addState(null);
+    }
+
+
+
+
+    @Test
+    public void removeState() {
+        State state = new State();
+        p.addState(state);
+
+        assertFalse(p.getStates().
+                isEmpty());
+
+        p.removeState(state);
+
+        assertTrue(p.getStates().
+                isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeStateNull() {
+        p.removeState(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllStates() {
+        State state = new State();
+        p.addState(state);
+
+        p.removeAllStates();
+
+        assertTrue(p.getStates().
+                isEmpty());
+    }
+
+
+
+
+    @Test
+    public void setRelationshipTypes() {
+        Collection<RelationshipType> relationshipTypes = new ArrayList<RelationshipType>();
+        RelationshipType relationshipType = new RelationshipType();
+        relationshipTypes.add(relationshipType);
+
+        p.setRelationshipTypes(relationshipTypes);
+
+        assertNotSame(relationshipTypes, p.getRelationshipTypes());
+        assertSame(relationshipType, p.getRelationshipTypes().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setRelationshipTypesNull() {
+        p.setRelationshipTypes(null);
+    }
+
+
+
+
+    @Test
+    public void addRelationship() {
+        RelationshipType relationshipType = new RelationshipType();
+        p.addRelationshipType(relationshipType);
+
+        assertFalse(p.getRelationshipTypes().
+                isEmpty());
+
+        assertSame(relationshipType, p.getRelationshipTypes().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addRelationshipNull() {
+        p.addRelationshipType(null);
+    }
+
+
+
+
+    @Test
+    public void removeRelationship() {
+        RelationshipType relationshipType = new RelationshipType();
+        p.addRelationshipType(relationshipType);
+
+        assertFalse(p.getRelationshipTypes().
+                isEmpty());
+
+        p.removeRelationshipType(relationshipType);
+
+        assertTrue(p.getRelationshipTypes().
+                isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeRelationshipNull() {
+        p.removeRelationshipType(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllRelationshipTypes() {
+        RelationshipType relationshipType = new RelationshipType();
+        p.addRelationshipType(relationshipType);
+
+        p.removeAllRelationshipTypes();
+
+        assertTrue(p.getRelationshipTypes().
+                isEmpty());
     }
 }
