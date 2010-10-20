@@ -667,8 +667,9 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
   </tbody>
 </table>
 
-<wiki:comment>
-read an decision</wiki:comment>
+http://opendecisionrepository.googlecode.com/svn/wiki/images/activity-diagram-add-modify-decision.png
+
+
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
