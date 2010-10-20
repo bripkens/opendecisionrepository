@@ -125,4 +125,23 @@ public class ProjectMemberTest {
     public void testNullId() {
         m.setId(null);
     }
+
+
+    @Test
+    public void testGetCompareData() {
+        Person person = new Person();
+        Project project = new Project();
+        StakeholderRole role = new StakeholderRole();
+        boolean removed = true;
+
+        m.setPerson(person);
+        m.setProject(project);
+        m.setRole(role);
+        m.setRemoved(removed);
+
+        assertEquals(person, m.getCompareData()[0]);
+        assertEquals(project, m.getCompareData()[1]);
+        assertEquals(role, m.getCompareData()[2]);
+        assertEquals(removed, m.getCompareData()[3]);
+    }
 }

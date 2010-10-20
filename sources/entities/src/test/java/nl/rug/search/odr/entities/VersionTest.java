@@ -1,5 +1,7 @@
 package nl.rug.search.odr.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
@@ -31,6 +33,7 @@ public class VersionTest {
         assertNull(v.getDocumentedWhen());
         assertNull(v.getDecidedWhen());
         assertNull(v.getId());
+        assertNull(v.getState());
         assertFalse(v.isRemoved());
     }
 
@@ -132,6 +135,14 @@ public class VersionTest {
 
         v.setDocumentedWhen(new Date());
 
+        assertFalse(v.isPersistable());
+
+        v.addInitiator(new ProjectMember());
+
+        assertFalse(v.isPersistable());
+
+        v.setState(new State());
+
         assertTrue(v.isPersistable());
     }
 
@@ -148,6 +159,289 @@ public class VersionTest {
 
         v.setDecidedWhen(new Date());
 
+        assertFalse(v.isPersistable());
+
+        v.setState(new State());
+
+        assertFalse(v.isPersistable());
+
+        v.addInitiator(new ProjectMember());
+
         assertTrue(v.isPersistable());
+    }
+
+
+
+
+    @Test
+    public void testSetState() {
+        State s = new State();
+
+        v.setState(s);
+
+        assertSame(s, v.getState());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetStateNull() {
+        v.setState(null);
+    }
+
+
+
+
+    @Test
+    public void setRequirements() {
+        Collection<Requirement> requirements = new ArrayList<Requirement>();
+        Requirement r = new Requirement();
+        requirements.add(r);
+
+        v.setRequirements(requirements);
+
+        assertNotSame(requirements, v.getRequirements());
+        assertSame(r, v.getRequirements().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setRequirementsNull() {
+        v.setRequirements(null);
+    }
+
+
+
+
+    @Test
+    public void addRequirement() {
+        Requirement r = new Requirement();
+        v.addRequirement(r);
+
+        assertFalse(v.getRequirements().
+                isEmpty());
+
+        assertSame(r, v.getRequirements().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addRequirementNull() {
+        v.addRequirement(null);
+    }
+
+
+
+
+    @Test
+    public void removeRequirement() {
+        Requirement r = new Requirement();
+        v.addRequirement(r);
+
+        assertFalse(v.getRequirements().
+                isEmpty());
+
+        v.removeRequirement(r);
+
+        assertTrue(v.getRequirements().
+                isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeRequirementNull() {
+        v.removeRequirement(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllRequirement() {
+        Requirement r = new Requirement();
+        v.addRequirement(r);
+
+        v.removeAllRequirements();
+
+        assertTrue(v.getRequirements().
+                isEmpty());
+    }
+
+
+
+
+    @Test
+    public void setRelationships() {
+        Collection<Relationship> relationships = new ArrayList<Relationship>();
+        Relationship relationship = new Relationship();
+        relationships.add(relationship);
+
+        v.setRelationships(relationships);
+
+        assertNotSame(relationships, v.getRelationships());
+        assertSame(relationship, v.getRelationships().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setRelationshipsNull() {
+        v.setRelationships(null);
+    }
+
+
+
+
+    @Test
+    public void addRelationship() {
+        Relationship relationship = new Relationship();
+        v.addRelationship(relationship);
+
+        assertFalse(v.getRelationships().
+                isEmpty());
+
+        assertSame(relationship, v.getRelationships().
+                iterator().
+                next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addRelationshipNull() {
+        v.addRelationship(null);
+    }
+
+
+
+
+    @Test
+    public void removeRelationship() {
+        Relationship relationship = new Relationship();
+        v.addRelationship(relationship);
+
+        assertFalse(v.getRelationships().
+                isEmpty());
+
+        v.removeRelationship(relationship);
+
+        assertTrue(v.getRelationships().
+                isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeRelationshipNull() {
+        v.removeRelationship(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllRelationship() {
+        Relationship relationship = new Relationship();
+        v.addRelationship(relationship);
+
+        v.removeAllRelationships();
+
+        assertTrue(v.getRelationships().
+                isEmpty());
+    }
+
+
+
+    @Test
+    public void setProjectMembers() {
+        Collection<ProjectMember> initiators = new ArrayList<ProjectMember>();
+        ProjectMember initiator = new ProjectMember();
+        initiators.add(initiator);
+
+        v.setInitiators(initiators);
+
+        assertNotSame(initiators, v.getInitiators());
+        assertSame(initiator, v.getInitiators().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setProjectMembersNull() {
+        v.setInitiators(null);
+    }
+
+
+
+
+    @Test
+    public void addProjectMember() {
+        ProjectMember initiator = new ProjectMember();
+        v.addInitiator(initiator);
+
+        assertFalse(v.getInitiators().isEmpty());
+
+        assertSame(initiator, v.getInitiators().iterator().next());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void addProjectMemberNull() {
+        v.addInitiator(null);
+    }
+
+
+
+
+    @Test
+    public void removeProjectMember() {
+        ProjectMember initiator = new ProjectMember();
+        v.addInitiator(initiator);
+
+        assertFalse(v.getInitiators().isEmpty());
+
+        v.removeInitiator(initiator);
+
+        assertTrue(v.getInitiators().isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeProjectMemberNull() {
+        v.removeInitiator(null);
+    }
+
+
+
+
+    @Test
+    public void removeAllProjectMember() {
+        ProjectMember initiator = new ProjectMember();
+        v.addInitiator(initiator);
+
+        v.removeAllInitiators();
+
+        assertTrue(v.getInitiators().isEmpty());
     }
 }

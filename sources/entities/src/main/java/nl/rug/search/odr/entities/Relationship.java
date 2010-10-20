@@ -1,96 +1,103 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.rug.search.odr.entities;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import nl.rug.search.odr.BusinessException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  *
- * @author Stefan
+ * @author Ben
  */
-//@Entity
-public class Relationship implements Serializable {
+@Entity
+public class Relationship extends BaseEntity<Relationship> {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long RelationshipId;
+    private Long id;
+
     @ManyToOne
     private RelationshipType type;
-    @ManyToMany
-    private Version source;
+
     @ManyToMany
     private Version target;
 
-    public Version getSource() {
-        return source;
-    }
+
+
 
     public Version getTarget() {
         return target;
     }
 
-//    public void setSourceVersion(Version version) {
-//        if (version == null) {
-//            this.source.internalRemoveRelationship(this);
-//        }
-//        this.source = version;
-//
-//        if (version != null) {
-//            version.internalAddRelationship(this);
-//        }
-//    }
 
-    public void setTargetVersion(Version version) {
+
+
+    public void setTarget(Version version) {
+        if (version == null) {
+            throw new BusinessException("Version is null");
+        }
+
         this.target = version;
 
     }
 
-    public Long getId() {
-        return RelationshipId;
+
+
+
+    public RelationshipType getType() {
+        return type;
     }
 
+
+
+
+    public void setType(RelationshipType type) {
+        if (type == null) {
+            throw new BusinessException("Type is null");
+        }
+
+        this.type = type;
+    }
+
+
+
+
+
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+
+
+
+    @Override
     public void setId(Long id) {
         if (id == null) {
             throw new BusinessException("Id is null.");
         }
-        this.RelationshipId = id;
+        this.id = id;
     }
 
+
+
+
     @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(RelationshipId).toHashCode();
+    public boolean isPersistable() {
+        return type != null && target != null;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (object == null) {
-            return false;
-        }
-        if (object == this) {
-            return true;
-        }
-        if (object.getClass() != getClass()) {
-            return false;
-        }
 
-        Relationship ac = (Relationship) object;
-        return new EqualsBuilder().append(RelationshipId, ac.RelationshipId).
-                isEquals();
-    }
+
 
     @Override
-    public String toString() {
-        return "Relationship{" + "id=" + RelationshipId +'}';
+    protected Object[] getCompareData() {
+        return new Object[]{type};
     }
 }

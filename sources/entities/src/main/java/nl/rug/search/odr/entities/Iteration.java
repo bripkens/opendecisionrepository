@@ -110,6 +110,10 @@ public class Iteration extends BaseEntity<Iteration> {
 
 
     public void setDocumentedWhen(Date documentedWhen) {
+        if (documentedWhen == null) {
+            throw new BusinessException("DocumentedWhen is null");
+        }
+
         this.documentedWhen = documentedWhen;
     }
 
@@ -145,7 +149,7 @@ public class Iteration extends BaseEntity<Iteration> {
     public void setStartDate(Date startDate) {
         if (startDate == null) {
             throw new BusinessException("Start date is null.");
-        } else if (endDate != null && startDate.getTime() > endDate.getTime()) {
+        } else if (endDate != null && startDate.getTime() >= endDate.getTime()) {
             throw new BusinessException("the startDate has to be before the endDate");
         }
         this.startDate = startDate;

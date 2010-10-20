@@ -42,6 +42,11 @@ public class StakeholderRoleTest {
     }
 
 
+    @Test(expected=BusinessException.class)
+    public void testIdNull() {
+        s.setId(null);
+    }
+
 
 
     @Test
@@ -96,5 +101,16 @@ public class StakeholderRoleTest {
         s2.setCommon(true);
 
         assertEquals(s, s2);
+    }
+
+
+
+    @Test
+    public void testIsPersistable() {
+        assertFalse(s.isPersistable());
+
+        s.setName("Klaus");
+
+        assertTrue(s.isPersistable());
     }
 }

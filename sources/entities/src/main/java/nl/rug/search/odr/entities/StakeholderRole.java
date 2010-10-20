@@ -13,7 +13,7 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Entity
-public class StakeholderRole extends AbstractProjectEntity<StakeholderRole> {
+public class StakeholderRole extends BaseEntity<StakeholderRole> {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -38,25 +38,20 @@ public class StakeholderRole extends AbstractProjectEntity<StakeholderRole> {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
-        if (!StringValidator.isValid(name)) {
-            throw new BusinessException("Please provide a name");
-        }
+        StringValidator.isValid(name);
+        
         this.name = name;
     }
 
-    @Override
     public boolean isCommon() {
         return common;
     }
 
-    @Override
     public void setCommon(boolean common) {
         this.common = common;
     }
