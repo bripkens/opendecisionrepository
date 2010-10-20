@@ -13,8 +13,10 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.DatabaseCleaner;
 import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.SessionUtil;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.DecisionTemplate;
+import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -135,7 +137,7 @@ public class FillDbController {
         DatabaseCleaner.bruteForceCleanup();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        request.getSession().invalidate();
+        SessionUtil.resetSession();
 
         JsfUtil.refreshPage();
     }
@@ -156,7 +158,32 @@ public class FillDbController {
 
         p.addDecision(d);
 
-        pl.updateProject(p);
+        pl.merge(p);
+    }
+
+    public void addIterations() {
+        Project p = pl.getByName("OpenDecisionRepository");
+
+        Iteration it1 = new Iteration();
+        it1.setName("Milestone 1");
+        it1.setDescription("The first milestone");
+        it1.setProjectMember(p.getMembers().iterator().next());
+        it1.setDocumentedWhen(new Date());
+        it1.setStartDate(it1.getDocumentedWhen());
+        it1.setEndDate(new Date(it1.getStartDate().getTime() + 6000000));
+
+        Iteration it2 = new Iteration();
+        it2.setName("Milestone 2");
+        it2.setDescription("The second milestone");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 1));
+        it2.setStartDate(it2.getDocumentedWhen());
+        it2.setEndDate(new Date(it2.getStartDate().getTime() + 6000000));
+
+        p.addIteration(it1);
+        p.addIteration(it2);
+
+        pl.merge(p);
     }
 
     public void addStakeholderRoles() {
