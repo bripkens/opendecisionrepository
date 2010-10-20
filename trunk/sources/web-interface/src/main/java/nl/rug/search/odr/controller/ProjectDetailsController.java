@@ -23,6 +23,7 @@ import nl.rug.search.odr.ErrorUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -106,6 +107,10 @@ public class ProjectDetailsController {
     }
 
     public void rowIterationSelectionListener(RowSelectorEvent event) {
+        // TODO: empty until now, just to get the css tag right
+    }
+
+    public void rowDecisionSelectionListener(RowSelectorEvent event) {
         // TODO: empty until now, just to get the css tag right
     }
 
@@ -282,6 +287,16 @@ public class ProjectDetailsController {
 
     public void setIterationToDeleteName(String iterationToDeleteName) {
         this.iterationToDeleteName = iterationToDeleteName;
+    }
+
+    public Collection<Decision> getDecisions() {
+        Collection<Decision> decisions = project.getDecisions();
+
+        if (decisions.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return decisions;
     }
     // </editor-fold>
 }

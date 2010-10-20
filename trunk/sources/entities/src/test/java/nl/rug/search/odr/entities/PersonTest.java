@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
-import static nl.rug.search.odr.TestUtil.*;
+import static nl.rug.search.odr.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -244,7 +244,7 @@ public class PersonTest {
         ProjectMember member = new ProjectMember();
         p.addMembership(member);
 
-        assertTrue(containsReference(p.getMemberships(), member));
+        assertTrue(assertContainsReference(p.getMemberships(), member));
     }
 
 
@@ -257,7 +257,7 @@ public class PersonTest {
 
         p.removeMembership(member);
 
-        assertFalse(containsReference(p.getMemberships(), member));
+        assertFalse(assertContainsReference(p.getMemberships(), member));
     }
 
 

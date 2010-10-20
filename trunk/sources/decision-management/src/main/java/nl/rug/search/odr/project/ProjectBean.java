@@ -1,7 +1,5 @@
 package nl.rug.search.odr.project;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -25,6 +23,9 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
+
     @Override
     public boolean isPersistable(Project p) {
         if (p == null || !p.isPersistable() || isUsed(p.getName())) {
@@ -34,6 +35,9 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         return true;
     }
 
+
+
+
     @Override
     public void createProject(Project p) {
         if (!isPersistable(p)) {
@@ -42,9 +46,13 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         entityManager.persist(p);
     }
 
+
+
+
     @Override
     public boolean isUsed(String projectName) {
-        projectName = projectName.trim().toLowerCase();
+        projectName = projectName.trim().
+                toLowerCase();
 
         Query q = entityManager.createQuery("SELECT COUNT(p) FROM Project p WHERE LOWER(p.name) = :name");
         q.setParameter("name", projectName);
@@ -52,6 +60,9 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         long result = (Long) q.getSingleResult();
         return result != 0;
     }
+
+
+
 
     @Override
     public List<ProjectMember> getAllProjectsFromUser(long userId) {
@@ -61,10 +72,16 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         return q.getResultList();
     }
 
+
+
+
     @Override
     public void updateProject(Project sourceProject) {
         entityManager.merge(sourceProject);
     }
+
+
+
 
     @Override
     public boolean isMember(long userId, long projectId) {
@@ -78,20 +95,26 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         return result == 1;
     }
 
+
+
+
     @Override
     public void deleteProject(Project p) {
         Project pNew = getById(p.getId());
 
-        
-        Iterator<StakeholderRole> it = pNew.getRoles().iterator();
+
+        Iterator<StakeholderRole> it = pNew.getRoles().
+                iterator();
 
         StringBuilder sb = new StringBuilder();
 
-        while(it.hasNext()) {
+        while (it.hasNext()) {
 //            sb.append("'");
-            sb.append(it.next().getId().toString());
+            sb.append(it.next().
+                    getId().
+                    toString());
 //            sb.append("'");
-            
+
             if (it.hasNext()) {
                 sb.append(",");
             }
@@ -100,12 +123,16 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         // potential subquery that would work if there wasn't a foreign key constraint
 //          Query q = entityManager.createQuery("DELETE FROM Project p LEFT JOIN p.stakeHolderRoles pit WHERE p.id = :projectId AND pit.common = FALSE");
 //
-        Query t = entityManager.createQuery("DELETE FROM StakeholderRole s WHERE s.id IN (".concat(sb.toString()).concat(")"));
+        Query t = entityManager.createQuery("DELETE FROM StakeholderRole s WHERE s.id IN (".concat(sb.toString()).
+                concat(")"));
 
 //        System.out.println("#################### "+q.executeUpdate() + " ######################" );
 
-           entityManager.remove(pNew);
+        entityManager.remove(pNew);
     }
+
+
+
 
     @Override
     public Project getByName(String name) {
@@ -113,7 +140,8 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
             return null;
         }
 
-        name = name.trim().toLowerCase();
+        name = name.trim().
+                toLowerCase();
 
         Query q = entityManager.createQuery("SELECT p FROM Project p WHERE lower(p.name) = :name");
         q.setParameter("name", name);

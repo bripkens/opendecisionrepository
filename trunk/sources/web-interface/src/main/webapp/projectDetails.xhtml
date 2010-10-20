@@ -38,11 +38,19 @@
         <f:subview rendered="#{projectDetailsController.valid}" id="contentSubView">
             <h1><h:outputText value="#{projectDetailsController.projectName}" /></h1>
 
+            <div class="projectDetailsActions">
+                <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}" style="text-decoration: none;">
+                    <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
+                </a>
+                <a href="#{projectDetailsController.deleteLink}" style="margin-left: 10px;text-decoration: none;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
+                    <img alt="#{common.remove}" src="./resources/images/cross.png" width="38" height="38" />
+                </a>
+            </div>
+
             <p><h:outputText value="#{projectDetailsController.description}" /></p>
         </f:subview>
-        <ice:form styleClass="members" partialSubmit="true">
+        <ice:form styleClass="members relative" partialSubmit="true" >
 
-            <div class="relative">
                 <h3>#{page['projectDetails.members']}</h3> <a href="#" class="togglelink collapsable" name="memberContainer1" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
                 <div id="memberContainer1" class="toggleContainer" >
                     <ice:dataTable rendered="#{projectDetailsController.valid}"
@@ -58,7 +66,6 @@
                         </ice:column>
                     </ice:dataTable>
                 </div>
-            </div>
 
         </ice:form>
 
@@ -128,7 +135,7 @@
                                        id="iterationAddAbortButton"/>
                 </ice:form>
 
-                <ice:form>
+                <ice:form style="margin-top: 10px;">
 
                     <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
 
@@ -173,17 +180,22 @@
         </div>
 
 
+        <ice:form styleClass="members relative" partialSubmit="true" >
 
-        <f:subview rendered="#{projectDetailsController.valid}" id="actionSubView">
-            <h3><ice:outputText value="#{page['projectDetails.actions.headline']}" nospan="true"/></h3>
+            <h3>#{page['projectDetails.decisions.headline']}</h3> <a href="#" class="togglelink collapsable" name="decisionContainer" style="position: absolute; top:0;right:0;">#{common.toggle}</a>
+                <div id="decisionContainer" class="toggleContainer" >
+                    <ice:dataTable rendered="#{projectDetailsController.valid}"
+                                   value="#{projectDetailsController.decisions}" var="item" styleClass="rowhover pointer ">
+                        <ice:column>
+                            <ice:rowSelector
+                                selectionListener="#{projectDetailsController.rowDecisionSelectionListener}"/>
+                            <ice:outputText value="#{item.name}" nospan="true"/>
+                        </ice:column>
+                    </ice:dataTable>
+                </div>
 
-            <a href="#{projectDetailsController.updateLink}" id="updateLink" title="#{page['projectDetails.actions.edit.title']}" style="text-decoration: none;">
-                <img alt="#{common.edit}" src="./resources/images/pencil.png" width="48" height="48" />
-            </a>
-            <a href="#{projectDetailsController.deleteLink}" style="margin-left: 20px;text-decoration: none;" id="deleteLink" title="#{page['projectDetails.actions.delete.title']}">
-                <img alt="#{common.remove}" src="./resources/images/cross.png" width="48" height="48" />
-            </a>
-        </f:subview>
+        </ice:form>
+
     </ui:define>
 
     <!--SIDEBAR-->

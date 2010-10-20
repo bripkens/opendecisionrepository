@@ -3,7 +3,7 @@ package nl.rug.search.odr.entities;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static nl.rug.search.odr.TestUtil.*;
+import static nl.rug.search.odr.Assert.*;
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>

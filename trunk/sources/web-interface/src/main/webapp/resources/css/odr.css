@@ -1,6 +1,9 @@
 .relative {
     position: relative;
 }
+p.small {
+    font-size: 0.9em;
+}
 span.small {
     font-size: 0.9em;
     color: #444;
@@ -262,7 +265,7 @@ form#iterationFormAddContainer {
     display: none;
     background-color: #EFEFEF;
     border: 1px solid #CECECE;
-    margin: 10px 0px 10px;
+    margin: 10px 0px 0px;
     padding: 5px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
@@ -329,4 +332,9 @@ div#deleteConfirmationPopup h1 {
 div#deleteConfirmationPopup input {
     position: static;
     margin: 10px 0 0 10px;
+}
+div.projectDetailsActions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
