@@ -58,6 +58,5 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
         }
         pr.addIteration(i);
         entityManager.merge(pr);
-
     }
 }
