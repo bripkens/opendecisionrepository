@@ -40,7 +40,7 @@ public class IterationTest extends AbstractEjbTest {
 
     private DecisionLocal al;
 
-    private StatusLocal sl;
+    private StateLocal sl;
 
     private RequirementLocal rl;
 
@@ -59,7 +59,7 @@ public class IterationTest extends AbstractEjbTest {
         pl = lookUp(ProjectBean.class, ProjectLocal.class);
         vl = lookUp(VersionBean.class, VersionLocal.class);
         al = lookUp(DecisionBean.class, DecisionLocal.class);
-        sl = lookUp(StatusBean.class, StatusLocal.class);
+        sl = lookUp(StateBean.class, StateLocal.class);
         rl = lookUp(RequirementBean.class, RequirementLocal.class);
 
     }

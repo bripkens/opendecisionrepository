@@ -1,23 +1,26 @@
-package nl.rug.search.odr.decision;
+package nl.rug.search.odr.project;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import nl.rug.search.odr.GenericDaoBean;
-import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.entities.State;
 
 /**
  *
- * @author Stefan
+ * @author Ben
  */
 @Stateless
-public class VersionBean extends GenericDaoBean<Version, Long> implements VersionLocal {
+public class StateBean extends GenericDaoBean<State, Long> implements StateLocal {
 
     @PersistenceContext
     private EntityManager manager;
 
+
+
+
     @Override
-    public boolean isPersistable(Version entity) {
+    public boolean isPersistable(State entity) {
         return entity.isPersistable();
     }
 }

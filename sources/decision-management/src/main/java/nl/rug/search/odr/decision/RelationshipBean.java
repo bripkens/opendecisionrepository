@@ -4,20 +4,23 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import nl.rug.search.odr.GenericDaoBean;
-import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.entities.Relationship;
 
 /**
  *
- * @author Stefan
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class VersionBean extends GenericDaoBean<Version, Long> implements VersionLocal {
+public class RelationshipBean extends GenericDaoBean<Relationship, Long> implements RelationshipBeanLocal {
 
     @PersistenceContext
     private EntityManager manager;
 
+
+
+
     @Override
-    public boolean isPersistable(Version entity) {
+    public boolean isPersistable(Relationship entity) {
         return entity.isPersistable();
     }
 }

@@ -44,8 +44,21 @@ public class Project extends BaseEntity<Project> {
                orphanRemoval = true)
     private Collection<Iteration> iterations;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<StakeholderRole> roles;
+
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private Collection<State> states;
+
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private Collection<RelationshipType> relationshipTypes;
+
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private Collection<Requirement> requirements;
 
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
@@ -59,6 +72,9 @@ public class Project extends BaseEntity<Project> {
         iterations = new ArrayList<Iteration>();
         roles = new ArrayList<StakeholderRole>();
         decisions = new ArrayList<Decision>();
+        requirements = new ArrayList<Requirement>();
+        states = new ArrayList<State>();
+        relationshipTypes = new ArrayList<RelationshipType>();
     }
 
 
@@ -317,6 +333,144 @@ public class Project extends BaseEntity<Project> {
 
     public void removeAllDecisions() {
         decisions.clear();
+    }
+
+
+
+
+    public Collection<Requirement> getRequirements() {
+        return Collections.unmodifiableCollection(requirements);
+    }
+
+
+
+
+    public void setRequirements(Collection<Requirement> requirements) {
+        if (requirements == null) {
+            throw new BusinessException("Requirements is null");
+        }
+        this.requirements = requirements;
+    }
+
+
+
+
+    public void addRequirement(Requirement requirement) {
+        if (requirement == null) {
+            throw new BusinessException("Requirement is null");
+        }
+
+        requirements.add(requirement);
+    }
+
+
+
+
+    public void removeRequirement(Requirement requirement) {
+        if (requirement == null) {
+            throw new BusinessException("Requirement is null");
+        }
+
+        requirements.remove(requirement);
+    }
+
+
+
+
+    public void removeAllRequirements() {
+        requirements.clear();
+    }
+
+
+
+
+    public Collection<State> getStates() {
+        return Collections.unmodifiableCollection(states);
+    }
+
+
+
+
+    public void setStates(Collection<State> states) {
+        if (states == null) {
+            throw new BusinessException("States is null");
+        }
+        this.states = states;
+    }
+
+
+
+
+    public void addState(State state) {
+        if (state == null) {
+            throw new BusinessException("State is null");
+        }
+
+        states.add(state);
+    }
+
+
+
+
+    public void removeState(State state) {
+        if (state == null) {
+            throw new BusinessException("State is null");
+        }
+
+        states.remove(state);
+    }
+
+
+
+
+    public void removeAllStates() {
+        states.clear();
+    }
+
+
+
+
+    public Collection<RelationshipType> getRelationshipTypes() {
+        return Collections.unmodifiableCollection(relationshipTypes);
+    }
+
+
+
+
+    public void setRelationshipTypes(Collection<RelationshipType> relationshipTypes) {
+        if (relationshipTypes == null) {
+            throw new BusinessException("RelationshipTypes is null");
+        }
+        this.relationshipTypes = relationshipTypes;
+    }
+
+
+
+
+    public void addRelationshipType(RelationshipType relationshipType) {
+        if (relationshipType == null) {
+            throw new BusinessException("RelationshipType is null");
+        }
+
+        relationshipTypes.add(relationshipType);
+    }
+
+
+
+
+    public void removeRelationshipType(RelationshipType relationshipType) {
+        if (relationshipType == null) {
+            throw new BusinessException("RelationshipType is null");
+        }
+
+        relationshipTypes.remove(relationshipType);
+    }
+
+
+
+
+    public void removeAllRelationshipTypes() {
+        relationshipTypes.clear();
     }
 
 
