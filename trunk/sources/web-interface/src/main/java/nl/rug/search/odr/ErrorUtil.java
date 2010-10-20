@@ -51,4 +51,9 @@ public abstract class ErrorUtil {
     public static void showNoMemberError() {
         ErrorUtil.showErrorMessageUsingExpression("#{error['not.member.heading']}", "#{error['not.member.message']}");
     }
+
+    public static void showIterationIdNotRegisteredError() {
+        ErrorUtil.showErrorMessageUsingExpression("#{error['not.registered.id.heading']}",
+                "#{error['not.registered.id.message']}");
+    }
 }

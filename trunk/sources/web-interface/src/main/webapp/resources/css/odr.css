@@ -147,6 +147,57 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 }
 .formSection span {
 }
+
+#page .formSection .iceSelInpDateInput{
+    float:left;
+    position:absolute;
+    right:257px;
+    width:230px;
+}
+
+#page .formSection select{
+    height:25px;
+    position:absolute;
+    right:120px;
+    top:0;
+    width:50px;
+    padding:0px;
+}
+
+#page .formSection select.minute{
+    float:right;
+    right:30px;
+}
+
+#page .formSection label.hourlabel{
+    float:right;
+    position:absolute;
+    right:180px;
+    top: 2px;
+}
+
+#page .formSection label.timedoublepoint{
+    float:right;
+    position:absolute;
+    right:93px;
+    top:2px;
+}
+
+#page .formSection label.min{
+    float:right;
+    position:absolute;
+    right:0;
+    top:2px;
+}
+
+#page .formSection label.h{
+    float:right;
+    position:absolute;
+    right:105px;
+    top:2px;
+}
+
+
 #page .formSection input, #page .formSection textarea {
     float: right;
     font: 14px/1.5em arial,sans-serif;
@@ -168,11 +219,15 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     top: 2px;
 }
 #page .formSection div.datePopup input[type=image] {
-    width: 16px;
-    height: 16px;
-    border: 0;
-    margin: 0;
-    background-color: white;
+    background-color:white;
+    border:0 none;
+    float:left;
+    height:16px;
+    margin:0;
+    position:absolute;
+    right:230px;
+    top:2px;
+    width:20px;
 }
 
 #page .formSection div.datePopup br {
@@ -194,6 +249,12 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .formSection p.empty{
     padding: 0 0 9px 0;
 }
+
+.formSection p.constraintDate{
+    padding:8px 0 0;
+}
+
+
 .formSection p.lineSpacer {
     padding: 0 0 5px;
 }
