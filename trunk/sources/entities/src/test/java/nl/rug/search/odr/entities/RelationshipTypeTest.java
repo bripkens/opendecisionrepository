@@ -3,7 +3,6 @@ package nl.rug.search.odr.entities;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,22 +25,14 @@ public class RelationshipTypeTest {
 
 
 
-    @After
-    public void tearDown() {
-    }
-
-
-
-
     @Test
     public void testInitialization() {
         assertNull(r.getId());
         assertNull(r.getName());
-        r.setCommon(false);
+        assertFalse(r.isCommon());
     }
 
 
-    //ID TEST/
 
 
     @Test
@@ -59,7 +50,6 @@ public class RelationshipTypeTest {
         r.setId(null);
     }
 
-    //NAME TEST/
 
 
 
@@ -85,7 +75,6 @@ public class RelationshipTypeTest {
         r.setName("        ");
     }
 
-    //COMMON TEST/
 
 
 
@@ -102,14 +91,6 @@ public class RelationshipTypeTest {
     public void testIsNotCommon() {
         r.setCommon(false);
         assertEquals(false, r.isCommon());
-    }
-
-
-
-
-    @Test
-    public void testToString() {
-        assertTrue(TestUtil.toStringHelper(r));
     }
 
 
@@ -149,16 +130,30 @@ public class RelationshipTypeTest {
         r3.setCommon(true);
         r3.setName("bla");
 
-        assertFalse(r2.equals(r3));
+        assertTrue(r2.equals(r3));
 
         assertTrue(r.equals(r));
     }
 
 
+    @Test
+    public void testIsPersistable() {
+        assertFalse(r.isPersistable());
 
+        r.setName("abcd");
+
+        assertTrue(r.isPersistable());
+    }
 
     @Test
-    public void testNullEquals() {
-        assertFalse(r.equals(null));
+    public void testGetCompareData() {
+        String name = "klad";
+        boolean common = true;
+
+        r.setName(name);
+        r.setCommon(common);
+
+        assertEquals(name, r.getCompareData()[0]);
+        assertEquals(common, r.getCompareData()[1]);
     }
 }

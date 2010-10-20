@@ -36,7 +36,8 @@ public class PersonTest {
 
         assertNotNull(p.getMemberships());
 
-        assertTrue(p.getMemberships().isEmpty());
+        assertTrue(p.getMemberships().
+                isEmpty());
     }
 
 
@@ -102,6 +103,9 @@ public class PersonTest {
         p.setName("gabi");
     }
 
+
+
+
     @Test
     public void testChangeNameCaseChange() {
         p.setName("peter");
@@ -150,7 +154,8 @@ public class PersonTest {
 
         p.setPlainPassword(plainPassword);
 
-        assertFalse(p.getPassword().equals(plainPassword));
+        assertFalse(p.getPassword().
+                equals(plainPassword));
 
         assertTrue(p.validatePassword(plainPassword));
     }
@@ -275,14 +280,24 @@ public class PersonTest {
         person.addMembership(pm);
         pm.setProject(p);
 
-        assertSame(person, p.getMembers().iterator().next().getPerson());
-        assertSame(pm, p.getMembers().iterator().next());
+        assertSame(person, p.getMembers().
+                iterator().
+                next().
+                getPerson());
+        assertSame(pm, p.getMembers().
+                iterator().
+                next());
 
         assertSame(p, pm.getProject());
         assertSame(person, pm.getPerson());
 
-        assertSame(p, person.getMemberships().iterator().next().getProject());
-        assertSame(pm, person.getMemberships().iterator().next());
+        assertSame(p, person.getMemberships().
+                iterator().
+                next().
+                getProject());
+        assertSame(pm, person.getMemberships().
+                iterator().
+                next());
     }
 
 
@@ -303,6 +318,7 @@ public class PersonTest {
 
 
 
+
     @Test
     public void testIsPersistable() {
         assertFalse(p.isPersistable());
@@ -316,6 +332,26 @@ public class PersonTest {
         assertFalse(p.isPersistable());
 
         p.setPlainPassword("abcde");
+
+        assertTrue(p.isPersistable());
+    }
+
+
+
+
+    @Test
+    public void testIsPersistableOtherWay() {
+        assertFalse(p.isPersistable());
+
+        p.setPlainPassword("abcde");
+
+        assertFalse(p.isPersistable());
+
+        p.setName("12345");
+
+        assertFalse(p.isPersistable());
+
+        p.setEmail("dsaas@dasdas.de");
 
         assertTrue(p.isPersistable());
     }

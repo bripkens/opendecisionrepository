@@ -26,22 +26,29 @@ public class Project extends BaseEntity<Project> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, nullable = false, unique = true, updatable = false)
+    @Column(length = 50,
+            nullable = false,
+            unique = true,
+            updatable = false)
     private String name;
 
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<ProjectMember> members;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<Iteration> iterations;
 
     @OneToMany(cascade = CascadeType.ALL)
     private Collection<StakeholderRole> roles;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<Decision> decisions;
 
 

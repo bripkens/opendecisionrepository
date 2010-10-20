@@ -1,7 +1,6 @@
 package nl.rug.search.odr.entities;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
@@ -12,19 +11,29 @@ import org.junit.Test;
 /**
  *
  * @author Stefan
+ * @modified Ben
  */
 public class IterationTest {
 
     private Iteration i;
+
+
+
 
     @Before
     public void setUp() {
         i = new Iteration();
     }
 
+
+
+
     @After
     public void tearDown() {
     }
+
+
+
 
     @Test
     public void testInitialization() {
@@ -35,12 +44,18 @@ public class IterationTest {
         assertNull(i.getEndDate());
     }
 
+
+
+
     @Test
     public void testSetDescription() {
         String foo = "fooo";
         i.setDescription(foo);
         assertEquals(foo, i.getDescription());
     }
+
+
+
 
     @Test
     public void testSetIterationId() {
@@ -49,10 +64,16 @@ public class IterationTest {
         assertEquals(id, (long) i.getId());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testSetNullIterationId() {
         i.setId(null);
     }
+
+
+
 
     @Test
     public void testSetName() {
@@ -61,15 +82,24 @@ public class IterationTest {
         assertEquals(name, i.getName());
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullName() {
         i.setName(null);
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testEmptyName() {
         i.setName("  ");
     }
+
+
+
 
     @Test
     public void testSetStartdate() {
@@ -77,6 +107,9 @@ public class IterationTest {
         i.setStartDate(startDate);
         assertEquals(startDate, i.getStartDate());
     }
+
+
+
 
     @Test
     public void testStartDate() {
@@ -90,6 +123,9 @@ public class IterationTest {
         i.setStartDate(startDate);
         i.setEndDate(endDate);
     }
+
+
+
 
     @Test(expected = BusinessException.class)
     public void testWrongStartDate() {
@@ -106,12 +142,18 @@ public class IterationTest {
 
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullStartDate() {
         i.setStartDate(null);
     }
 
     //endDate is before startDate
+
+
+
     @Test(expected = BusinessException.class)
     public void testSetEnddate() {
         long millis = new Date().getTime() - 10000;
@@ -129,10 +171,16 @@ public class IterationTest {
 
     }
 
+
+
+
     @Test(expected = BusinessException.class)
     public void testNullEndDate() {
         i.setEndDate(null);
     }
+
+
+
 
     @Test
     public void testHashCode() {
@@ -157,6 +205,9 @@ public class IterationTest {
         assertEquals(i2.hashCode(), i3.hashCode());
         TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());
     }
+
+
+
 
     @Test
     public void testEquals() {
@@ -183,10 +234,15 @@ public class IterationTest {
         assertTrue(i.equals(i));
     }
 
+
+
+
     @Test
     public void testNullEquals() {
         assertFalse(i.equals(null));
     }
+
+
 
 
     @Test
@@ -196,6 +252,9 @@ public class IterationTest {
         assertEquals(0, comp.compare(i, i2));
     }
 
+
+
+
     @Test
     public void testEndDateComparatorFirstNull() {
         Iteration i2 = new Iteration();
@@ -203,6 +262,9 @@ public class IterationTest {
         Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
         assertEquals(-1, comp.compare(i, i2));
     }
+
+
+
 
     @Test
     public void testEndDateComparatorSecondNull() {
@@ -212,14 +274,21 @@ public class IterationTest {
         assertEquals(1, comp.compare(i, i2));
     }
 
+
+
+
     @Test
     public void testEndDateComparatorFirstSmaller() {
         i.setEndDate(new Date());
         Iteration i2 = new Iteration();
-        i2.setEndDate(new Date(i.getEndDate().getTime() + 1000));
+        i2.setEndDate(new Date(i.getEndDate().
+                getTime() + 1000));
         Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
         assertEquals(-1, comp.compare(i, i2));
     }
+
+
+
 
     @Test
     public void testEndDateComparatorBothEven() {
@@ -231,6 +300,9 @@ public class IterationTest {
         assertEquals(0, comp.compare(i, i2));
     }
 
+
+
+
     @Test
     public void testEndDateComparatorSecondSmaller() {
         Date date = new Date();
@@ -239,5 +311,134 @@ public class IterationTest {
         i2.setEndDate(date);
         Iteration.EndDateComparator comp = new Iteration.EndDateComparator();
         assertEquals(0, comp.compare(i2, i));
+    }
+
+
+
+
+    @Test
+    public void testSetDocumentedWhen() {
+        Date documentedWhen = new Date();
+        i.setDocumentedWhen(documentedWhen);
+
+        assertSame(documentedWhen, i.getDocumentedWhen());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetDocumentedWhenNull() {
+        i.setDocumentedWhen(null);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetEndDateInvalid() {
+        Date d = new Date();
+
+        i.setStartDate(d);
+        i.setEndDate(d);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetEndDateInvalid2() {
+        Date d = new Date();
+
+        i.setStartDate(d);
+        i.setEndDate(new Date(d.getTime() - 1));
+    }
+
+
+
+
+    @Test
+    public void testSetEndDateValid() {
+        Date d = new Date();
+        Date endDate = new Date(d.getTime() + 5000);
+        i.setStartDate(d);
+        i.setEndDate(endDate);
+
+        assertSame(endDate, i.getEndDate());
+    }
+
+
+
+
+    @Test
+    public void testSetStartDateValid() {
+        Date d = new Date();
+        i.setEndDate(new Date(d.getTime() + 5000));
+        i.setStartDate(d);
+
+        assertSame(d, i.getStartDate());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetStartDateInvalid() {
+        Date d = new Date();
+
+        i.setEndDate(d);
+        i.setStartDate(d);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetStartDateInvalid2() {
+        Date d = new Date();
+
+        i.setEndDate(new Date(d.getTime() - 1));
+        i.setStartDate(d);
+    }
+
+
+
+
+    @Test
+    public void testSetProjectMember() {
+        ProjectMember member = new ProjectMember();
+        i.setProjectMember(member);
+
+        assertSame(member, i.getProjectMember());
+    }
+
+    @Test(expected=BusinessException.class)
+    public void testSetProjectMemberInvalid() {
+        i.setProjectMember(null);
+    }
+
+    @Test
+    public void testIsPersistable() {
+        assertFalse(i.isPersistable());
+
+        i.setName("dasasdas");
+
+        assertFalse(i.isPersistable());
+
+        i.setStartDate(new Date());
+
+        assertFalse(i.isPersistable());
+
+        i.setEndDate(new Date(i.getStartDate().getTime() + 5));
+
+        assertFalse(i.isPersistable());
+
+        i.setDocumentedWhen(new Date());
+
+        assertFalse(i.isPersistable());
+
+        i.setProjectMember(new ProjectMember());
+
+        assertTrue(i.isPersistable());
     }
 }
