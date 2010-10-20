@@ -179,6 +179,7 @@ div#navigation > div  ul {
     border-right: 0.08em solid #48a659;
     padding-right: 3em;
     padding-bottom: 2em;
+    position: relative;
 }
 
 

@@ -1,9 +1,7 @@
 package nl.rug.search.odr.entities;
 
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.TestUtil;
 import static org.junit.Assert.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

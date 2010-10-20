@@ -2,7 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.Date;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.TestUtil;
+import static nl.rug.search.odr.Assert.*;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -203,7 +203,7 @@ public class IterationTest {
         i3.setEndDate(endDate);
 
         assertEquals(i2.hashCode(), i3.hashCode());
-        TestUtil.assertNotEquals(i.hashCode(), i2.hashCode());
+        assertNotEquals(i.hashCode(), i2.hashCode());
     }
 
 
@@ -211,7 +211,7 @@ public class IterationTest {
 
     @Test
     public void testEquals() {
-        assertFalse(i.equals(new TestUtil()));
+        assertFalse(i.equals(new Object()));
 
         Iteration i2 = new Iteration();
         i2.setDescription("bla");

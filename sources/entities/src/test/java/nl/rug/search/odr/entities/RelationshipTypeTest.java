@@ -1,8 +1,9 @@
 package nl.rug.search.odr.entities;
 
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.TestUtil;
+
 import static org.junit.Assert.*;
+import static nl.rug.search.odr.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -110,7 +111,7 @@ public class RelationshipTypeTest {
 
 
         assertEquals(r2.hashCode(), r3.hashCode());
-        TestUtil.assertNotEquals(r.hashCode(), r2.hashCode());
+        assertNotEquals(r.hashCode(), r2.hashCode());
     }
 
 
@@ -118,7 +119,7 @@ public class RelationshipTypeTest {
 
     @Test
     public void testEquals() {
-        assertFalse(r.equals(new TestUtil()));
+        assertFalse(r.equals(new Object()));
 
         RelationshipType r2 = new RelationshipType();
         r2.setId(Long.MIN_VALUE);

@@ -3,7 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.TestUtil;
+import static nl.rug.search.odr.Assert.*;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -135,7 +135,7 @@ public class DecisionTest {
         at1.setName("bla");
 
         assertEquals(at.hashCode(), at1.hashCode());
-        TestUtil.assertNotEquals(d.hashCode(), at.hashCode());
+        assertNotEquals(d.hashCode(), at.hashCode());
     }
 
 
@@ -143,7 +143,7 @@ public class DecisionTest {
 
     @Test
     public void testEquals() {
-        assertFalse(d.equals(new TestUtil()));
+        assertFalse(d.equals(new Object()));
 
         Decision at1 = new Decision();
         at1.setName("bla");
