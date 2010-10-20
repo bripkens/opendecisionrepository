@@ -10,8 +10,6 @@
       <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
 
-    <mapping-file>nl/rug/search/odr/entities/DecisionTemplate.xml</mapping-file>
-
   </persistence-unit>
   
 </persistence>
