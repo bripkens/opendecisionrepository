@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -12,7 +14,11 @@ import nl.rug.search.odr.StringValidator;
  * @author Stefan
  * @modified Ben
  */
-@Entity(name="VersionState")
+@NamedQueries(value = {
+    @NamedQuery(name = "State.getInitialState",
+                query = "SELECT s FROM VersionState s WHERE s.common = TRUE AND s.initialState = TRUE")
+})
+@Entity(name = "VersionState")
 public class State extends BaseEntity<State> {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +34,8 @@ public class State extends BaseEntity<State> {
     private boolean common;
 
     private boolean initialState;
+
+
 
 
     public void setCommon(boolean common) {
@@ -72,9 +80,6 @@ public class State extends BaseEntity<State> {
 
 
 
-    
-
-
 
     public String getStatusName() {
         return statusName;
@@ -87,8 +92,6 @@ public class State extends BaseEntity<State> {
         StringValidator.isValid(name);
         this.statusName = name;
     }
-
-
 
 
 

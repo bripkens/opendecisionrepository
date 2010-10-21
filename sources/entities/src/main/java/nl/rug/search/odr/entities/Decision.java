@@ -274,7 +274,7 @@ public class Decision extends BaseEntity<Decision> {
 
         @Override
         public int compare(Decision o1, Decision o2) {
-            return o1.name.compareTo(o2.name);
+            return o1.name.compareToIgnoreCase(o2.name);
         }
     }
 }

@@ -495,7 +495,7 @@ public class Project extends BaseEntity<Project> {
 
         @Override
         public int compare(Project o1, Project o2) {
-            return o1.name.compareTo(o2.name);
+            return o1.name.compareToIgnoreCase(o2.name);
         }
 
     }

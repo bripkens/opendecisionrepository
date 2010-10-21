@@ -297,11 +297,11 @@ p.deleteConfirmationMessage  span {
     font-weight: bold;
     color: #48A659;
 }
-.addIterationLink img {
+.quickAddDecisionLink img {
     position: relative;
     top: 1px;
 }
-.addIterationLink span {
+.quickAddDecisionLink span {
     margin-left: 5px;
 }
 
@@ -322,7 +322,7 @@ p.deleteConfirmationMessage  span {
     font-size: 0.9em;
     color: #444;
 }
-form#iterationFormAddContainer {
+form#decisionQuickAddContainer{
     display: none;
     background-color: #EFEFEF;
     border: 1px solid #CECECE;
@@ -333,28 +333,28 @@ form#iterationFormAddContainer {
     border-radius: 15px;
 }
 
-#page form#iterationFormAddContainer input[type="submit"].confirm, #page form#iterationFormAddContainer input[type="submit"].abort {
+#page form#decisionQuickAddContainer input[type="submit"].confirm, #page form#decisionQuickAddContainer input[type="submit"].abort {
     top: 0;
 }
 
-#page form#iterationFormAddContainer input[type="submit"].confirm {
+#page form#decisionQuickAddContainer input[type="submit"].confirm {
     left: 10px;
 }
 
-#page form#iterationFormAddContainer input[type="submit"].abort {
+#page form#decisionQuickAddContainer input[type="submit"].abort {
     left: 20px;
 }
 
-#page form#iterationFormAddContainer textarea {
+#page form#decisionQuickAddContainer textarea {
     height: 100px;
 }
 
-#page form#iterationFormAddContainer .formSection p {
+#page form#decisionQuickAddContainer .formSection p {
     color: black;
     text-indent: 9.5em;
 }
 
-#page form#iterationFormAddContainer h3 {
+#page form#decisionQuickAddContainer h3 {
     margin: 0;
 }
 div#backgroundPopup {

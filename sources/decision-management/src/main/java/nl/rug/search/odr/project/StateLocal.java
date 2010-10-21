@@ -8,4 +8,6 @@ import nl.rug.search.odr.entities.State;
  * @author Ben
  */
 public interface StateLocal extends GenericDaoLocal<State, Long> {
+
+    public nl.rug.search.odr.entities.State getInitialState();
 }
