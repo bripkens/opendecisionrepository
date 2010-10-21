@@ -50,7 +50,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>testutil</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

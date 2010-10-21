@@ -2,11 +2,13 @@ package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Wait;
+import org.junit.Ignore;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class ManageProjectTest extends SeleneseTestCase {
 
     @Override

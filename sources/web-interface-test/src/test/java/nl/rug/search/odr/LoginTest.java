@@ -2,16 +2,18 @@ package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
 import com.thoughtworks.selenium.Wait;
+import org.junit.Ignore;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class LoginTest extends SeleneseTestCase {
+@Ignore
+public class LoginTest extends SeleneseTestCase implements Settings {
 
     @Override
     public void setUp() throws Exception {
-        setUp("http://localhost:8080/web-interface/", "*firefox");
+        setUp(URL, BROWSER);
     }
 
     public void testLoginErrorVisibilityNoInput() throws Exception {
