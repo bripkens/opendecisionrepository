@@ -44,7 +44,7 @@ public class IterationController {
     private Project project;
     private long iterationId;
     private String str_iterationId;
-    private Iteration iteration;
+    private Iteration iteration = null;
     private String iterationName;
     private String iterationDescription;
     //
@@ -55,6 +55,7 @@ public class IterationController {
     private Date endDate;
     private String endHour;
     private String endMinute;
+    private boolean isUpdate = false;
 
     public IterationController() {
     }
@@ -98,37 +99,50 @@ public class IterationController {
 
         // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
         if (request.getParameter(RequestParameter.ITERATIONID) != null) {
+            isUpdate = true;
             str_iterationId = request.getParameter(RequestParameter.ITERATIONID);
+        }else{
+            isUpdate = false;
         }
 
-        try {
-            iterationId = Long.parseLong(str_iterationId);
-        } catch (NumberFormatException e) {
-            ErrorUtil.showInvalidIdError();
-            return;
+        if (isUpdate) {
+            try {
+                iterationId = Long.parseLong(str_iterationId);
+                getIterationFromDb();
+            } catch (NumberFormatException e) {
+                ErrorUtil.showInvalidIdError();
+                return;
+            }
         }
         // </editor-fold>
 
-        getIterationFromDb();
+
 
         if (iteration == null) {
-            ErrorUtil.showIterationIdNotRegisteredError();
-            return;
+            iterationName = "";
+            iterationDescription = "";
+            startDate = null;
+            startHour = "";
+            startMinute = "";
+            endDate = null;
+            endHour = "";
+            endMinute = "";
+
+        } else {
+            iterationName = iteration.getName();
+            iterationDescription = iteration.getDescription();
+
+            startDate = iteration.getStartDate();
+            GregorianCalendar cal = new GregorianCalendar();
+            cal.setTime(startDate);
+            startHour = String.valueOf(cal.get(Calendar.HOUR));
+            startMinute = String.valueOf(cal.get(Calendar.MINUTE));
+
+            endDate = iteration.getEndDate();
+            cal.setTime(endDate);
+            endHour = String.valueOf(cal.get(Calendar.HOUR));
+            endMinute = String.valueOf(cal.get(Calendar.MINUTE));
         }
-
-        iterationName = iteration.getName();
-        iterationDescription = iteration.getDescription();
-
-        startDate = iteration.getStartDate();
-        GregorianCalendar cal = new GregorianCalendar();
-        cal.setTime(startDate);
-        startHour = String.valueOf(cal.get(Calendar.HOUR));
-        startMinute = String.valueOf(cal.get(Calendar.MINUTE));
-
-        endDate = iteration.getEndDate();
-        cal.setTime(endDate);
-        endHour = String.valueOf(cal.get(Calendar.HOUR));
-        endMinute = String.valueOf(cal.get(Calendar.MINUTE));
 
     }
 
@@ -184,8 +198,12 @@ public class IterationController {
         iteration.setEndDate(calEnd.getTime());
 
         //TODO IF THE MEMBER ALSO BE SAVED
-
-        il.updateIteration(iteration);
+        if (isUpdate) {
+            il.updateIteration(iteration);
+        } else {
+            project.addIteration(iteration);
+            pl.updateProject(project);
+        }
     }
 
     public void abortForm() {
