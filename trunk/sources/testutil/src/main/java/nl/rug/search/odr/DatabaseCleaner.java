@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public abstract class DatabaseCleaner {
 
-    public static final String CONNECTION_STRING = "jdbc:derby://localhost:1527/sun-appserv-samples";
+    public static final String CONNECTION_STRING = "jdbc:derby://127.0.0.1:1527/sun-appserv-samples";
 
     public static final String DRIVER_CLASS = "org.apache.derby.jdbc.ClientDriver";
 

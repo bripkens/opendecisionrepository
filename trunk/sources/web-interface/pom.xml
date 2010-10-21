@@ -40,29 +40,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
-            <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>testutil</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-compat</artifactId>
@@ -79,7 +61,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>testutil</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
@@ -117,43 +103,6 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>selenium-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>start-server</goal>
-                        </goals>
-                        <configuration>
-                            <background>true</background>
-                            <skip>true</skip>                       <!-- Change to false to enable selenium tests -->
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <configuration>
-                            <skip>true</skip>                       <!-- Change to false to enable selenium tests -->
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <finalName>odr-web-interface</finalName>
