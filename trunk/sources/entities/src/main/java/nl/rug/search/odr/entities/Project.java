@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -487,5 +488,15 @@ public class Project extends BaseEntity<Project> {
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name, description};
+    }
+
+
+    public static class NameComparator implements Comparator<Project> {
+
+        @Override
+        public int compare(Project o1, Project o2) {
+            return o1.name.compareTo(o2.name);
+        }
+
     }
 }

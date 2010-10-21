@@ -2,6 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import nl.rug.search.odr.BusinessException;
 import static nl.rug.search.odr.Assert.*;
 import static org.junit.Assert.*;
@@ -11,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Stefan
+ * @author Stefan, Ben
  */
 public class DecisionTest {
 
@@ -109,10 +110,6 @@ public class DecisionTest {
         assertFalse(d.isPersistable());
 
         d.setName("abcd");
-
-        assertFalse(d.isPersistable());
-
-        d.setTemplate(new DecisionTemplate());
 
         assertFalse(d.isPersistable());
 
@@ -359,5 +356,57 @@ public class DecisionTest {
         d.removeAllValues();
 
         assertTrue(d.getValues().isEmpty());
+    }
+
+
+
+    @Test
+    public void getCurrentVersion() {
+        assertNull(d.getCurrentVersion());
+
+        Version older = new Version();
+        older.setDecidedWhen(new Date());
+
+        Version newer = new Version();
+        newer.setDecidedWhen(new Date(older.getDecidedWhen().getTime() + 1));
+
+        d.addVersion(newer);
+        d.addVersion(older);
+
+        assertSame(newer, d.getCurrentVersion());
+
+        d.removeVersion(newer);
+
+        assertSame(older, d.getCurrentVersion());
+    }
+
+    @Test
+    public void getCurrentVersionOtherway() {
+        assertNull(d.getCurrentVersion());
+
+        Version older = new Version();
+        older.setDecidedWhen(new Date());
+
+        Version newer = new Version();
+        newer.setDecidedWhen(new Date(older.getDecidedWhen().getTime() + 1));
+
+        d.addVersion(older);
+        d.addVersion(newer);
+
+        assertSame(newer, d.getCurrentVersion());
+
+        d.removeVersion(newer);
+
+        assertSame(older, d.getCurrentVersion());
+    }
+
+    @Test
+    public void comparatorTest() {
+        d.setName("AAAAA");
+
+        Decision d2 = new Decision();
+        d2.setName("BBBBB");
+
+        assertTrue(new Decision.NameComparator().compare(d, d2) < 0);
     }
 }

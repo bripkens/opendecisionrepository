@@ -800,4 +800,16 @@ public class ProjectTest {
         assertTrue(p.getRelationshipTypes().
                 isEmpty());
     }
+
+
+
+    @Test
+    public void comparatorTest() {
+        p.setName("AAAAA");
+
+        Project p2 = new Project();
+        p2.setName("BBBBB");
+
+        assertTrue(new Project.NameComparator().compare(p, p2) < 0);
+    }
 }

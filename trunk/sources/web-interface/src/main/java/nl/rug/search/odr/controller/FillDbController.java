@@ -148,14 +148,243 @@ public class FillDbController {
         Decision d = new Decision();
         d.setName("Java Programming language");
         d.setTemplate(getTemplate("Quick add form"));
-
         Version v = new Version();
         v.setDecidedWhen(new Date());
         v.setDocumentedWhen(new Date());
         v.setInitiators(p.getMembers());
-        v.setState(getState("formulated"));
+        v.setState(getState("approved"));
         d.addVersion(v);
+        p.addDecision(d);
 
+        d = new Decision();
+        d.setName("Tcl");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("xowiki");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Java Enterprise Edition");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Glassfish");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("OPR technology tstack");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("JavaServer Faces");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Icefaces");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Java Persistence API");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("MySQL");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Eclipselink");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Enterprise Java Beans");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Icefaces 1.8");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Icefaces 2.0-beta1");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("JavaServer Faces 1.2");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("JavaServer Faces 2");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Glassfish 2");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Glassfish 3");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Enterprise Java Beans 3");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Enterprise Java Beans 3.1");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Java Enterprise Edition 5");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Java Enterprise Edition 6");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
         p.addDecision(d);
 
         pl.merge(p);

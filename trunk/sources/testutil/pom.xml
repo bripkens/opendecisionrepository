@@ -10,7 +10,7 @@
     <groupId>nl.rug.search</groupId>
     <artifactId>testutil</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ODR - TestUtil</name>
+    <name>ODR - Test utilities</name>
 
     <url>http://code.google.com/p/opendecisionrepository/</url>
     

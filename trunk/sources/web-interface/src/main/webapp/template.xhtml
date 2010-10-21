@@ -20,7 +20,6 @@
 
             <link rel="stylesheet" type="text/css" href="resources/css/odr.css" />
             <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
-            <link rel="stylesheet" type="text/css" href="resources/css/calendar.css" />
 
             <link rel="icon" href="resources/images/icon.png" type="image/png" />
 
@@ -78,15 +77,21 @@
 
                 <div id="sidebar">
                     <ui:insert name="sidebar">sidebar</ui:insert>
+                    <ice:outputConnectionStatus
+                        cautionLabel="Caution: Connection in danger."
+                        activeLabel="Active: Working."
+                        disconnectedLabel="Disconnected."
+                        inactiveLabel="Active: Idle."
+                        />
                 </div>
 
 
             </div>
-<!--            <div id="footer">
-                <hr style="height: 1px; border-top: 1px;"/>
-                <ice:outputText value="#{common['page.footer']} " nospan="true" />
+<!--                        <div id="footer">
+                            <hr style="height: 1px; border-top: 1px;"/>
+                            <ice:outputText value="#{common['page.footer']} " nospan="true" />
 
-            </div>-->
+                        </div>-->
         </h:body>
     </html>
 </f:view>

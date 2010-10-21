@@ -102,16 +102,19 @@ public class ProjectDetailsController {
         return getProjectMember() != null;
     }
 
-    public void rowMemberSelectionListener(RowSelectorEvent event) {
-        // TODO: empty until now, just to get the css tag right
+    public void rowMemberSelectionListener(ProjectMember m) {
+        // TODO: implement
+        System.out.println("Go to member details " + m.getPerson().getName());
     }
 
-    public void rowIterationSelectionListener(RowSelectorEvent event) {
-        // TODO: empty until now, just to get the css tag right
+    public void rowIterationSelectionListener(Iteration i) {
+        // TODO: implement
+        System.out.println("Go to iteration details " + i.getName());
     }
 
-    public void rowDecisionSelectionListener(RowSelectorEvent event) {
-        // TODO: empty until now, just to get the css tag right
+    public void rowDecisionSelectionListener(Decision d) {
+        // TODO: implement
+        System.out.println("Go to decision details " + d.getName());
     }
 
     public void addIteration() {
@@ -163,6 +166,21 @@ public class ProjectDetailsController {
         pl.updateProject(project);
 
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
+    }
+
+    public void editIteration(Iteration it) {
+        // TODO implement
+        System.out.println("Editing iteration " + it.getName());
+    }
+
+    public void editDecision(Decision d) {
+        // TODO implement
+        System.out.println("Editing decision " + d.getName());
+    }
+
+    public void deleteDecision(Decision d) {
+        // TODO implement
+        System.out.println("Deleting decision " + d.getName());
     }
 
     // </editor-fold>
@@ -242,11 +260,7 @@ public class ProjectDetailsController {
             return Collections.emptyList();
         }
 
-        List<Iteration> iterations = new ArrayList(unmodifiableCollection.size());
-
-        for (Iteration it : unmodifiableCollection) {
-            iterations.add(it);
-        }
+        List<Iteration> iterations = new ArrayList(unmodifiableCollection);
 
         Collections.sort(iterations, Collections.reverseOrder(new Iteration.EndDateComparator()));
 
@@ -296,7 +310,11 @@ public class ProjectDetailsController {
             return Collections.emptyList();
         }
 
-        return decisions;
+        List<Decision> resultDecisions = new ArrayList<Decision>(decisions);
+
+        Collections.sort(resultDecisions, new Decision.NameComparator());
+
+        return resultDecisions;
     }
     // </editor-fold>
 }
