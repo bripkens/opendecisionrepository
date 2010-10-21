@@ -1,4 +1,3 @@
-
 package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
@@ -12,18 +11,23 @@ import org.junit.Ignore;
 @Ignore
 public abstract class AbstractSelenseTestCase extends SeleneseTestCase implements Settings {
 
-    
-
     @Override
     public void setUp() throws Exception {
         setUp(URL, BROWSER);
         clearDatabase();
+        selenium.open("/web-interface/");
     }
+
+
+
 
     public void clearDatabase() {
         selenium.open("/web-interface/fillDb.html");
         selenium.click("fillDatabaseForm:clearDatabase");
     }
+
+
+
 
     public void sleep(final long millis) {
         new Wait("Error in Sleep") {
@@ -39,6 +43,9 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
             }
         };
     }
+
+
+
 
     public void waitForAjaxRequest() {
         sleep(AJAX_SLEEP_MILLIS);

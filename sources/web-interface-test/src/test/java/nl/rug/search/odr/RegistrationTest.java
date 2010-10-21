@@ -1,10 +1,7 @@
 package nl.rug.search.odr;
 
+import com.thoughtworks.selenium.Selenium;
 import org.junit.Test;
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Before;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -21,8 +18,7 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
 
 
-    public void registerUserWithDefaulCredentials() {
-        selenium.open("/web-interface/");
+    public static void registerUserWithDefaulCredentials(Selenium selenium) {
         selenium.click("loginForm:registerLink");
         selenium.waitForPageToLoad("30000");
         selenium.type("registerForm:inPassword", PASSWORD);
@@ -36,7 +32,7 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
     @Test
     public void testRegister() {
-        registerUserWithDefaulCredentials();
+        registerUserWithDefaulCredentials(selenium);
 
         waitForAjaxRequest();
 
@@ -48,8 +44,10 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
     @Test
     public void testValidation() {
-        registerUserWithDefaulCredentials();
-        
+        registerUserWithDefaulCredentials(selenium);
+
+        waitForAjaxRequest();
+
         selenium.open("/web-interface/");
         selenium.click("loginForm:registerLink");
         selenium.waitForPageToLoad("30000");
