@@ -1,0 +1,22 @@
+table.iceDatPgr {
+    margin-top: 5px;
+}
+
+.iceDatPgrScrBtn img {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+}
+
+.iceDatPgrTbl .iceDatPgrCol a, .iceDatPgrScrCol a {
+    margin-left: 3px;
+}
+.iceDatPgrTbl .iceDatPgrCol:first-child a, .iceDatPgrTbl .iceDatPgrScrCol:first-child a {
+    margin-left: 0px;
+}
+
+.iceDatPgrScrCol a {
+    color: black;
+    text-decoration: none;
+}

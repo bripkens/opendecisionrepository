@@ -11,7 +11,12 @@ span.small {
 in.prefillValue, .preselectValue {
     display: none;
 }
-
+a.collapsable{
+    font-size: 10px;
+    position: absolute;
+    top:0;
+    right:0;
+}
 #page ul.info li div.text h2 {
     font-size: 1.1em;
     margin: 0 0 0.1em 0;
@@ -317,11 +322,6 @@ p.deleteConfirmationMessage  span {
     font-size: 0.9em;
     color: #444;
 }
-
-#page a.collapsable{
-    font-size: 10px;
-}
-
 form#iterationFormAddContainer {
     display: none;
     background-color: #EFEFEF;

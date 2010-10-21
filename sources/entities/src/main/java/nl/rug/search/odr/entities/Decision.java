@@ -7,6 +7,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,16 +39,19 @@ public class Decision extends BaseEntity<Decision> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50,
+            nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<Version> versions;
 
     @ManyToOne
     private DecisionTemplate template;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     private Collection<ComponentValue> values;
 
     @OneToOne
@@ -232,6 +236,27 @@ public class Decision extends BaseEntity<Decision> {
 
 
 
+    public Version getCurrentVersion() {
+        if (versions.isEmpty()) {
+            return null;
+        }
+
+        Version currentVersion = versions.iterator().
+                next();
+
+        for (Version v : versions) {
+            if (v.getDecidedWhen().
+                    after(currentVersion.getDecidedWhen())) {
+                currentVersion = v;
+            }
+        }
+
+        return currentVersion;
+    }
+
+
+
+
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name, link};
@@ -242,6 +267,14 @@ public class Decision extends BaseEntity<Decision> {
 
     @Override
     public boolean isPersistable() {
-        return name != null && template != null && !versions.isEmpty();
+        return name != null && !versions.isEmpty();
+    }
+
+    public static class NameComparator implements Comparator<Decision> {
+
+        @Override
+        public int compare(Decision o1, Decision o2) {
+            return o1.name.compareTo(o2.name);
+        }
     }
 }
