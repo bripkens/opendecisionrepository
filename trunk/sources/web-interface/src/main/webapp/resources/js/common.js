@@ -136,8 +136,8 @@ function hideModalPopup() {
     j("#backgroundPopup").fadeOut("slow");
 }
 
-function hideIterationAddForm() {
-    toggle(j('#iterationFormAddContainer'));
+function hideDecisionAddForm() {
+    toggle(j('#decisionQuickAddContainer'));
 }
 
 function showIterationDeleteForm() {

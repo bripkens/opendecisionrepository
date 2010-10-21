@@ -80,65 +80,65 @@
 
             <div id="iterationContainer" class="toggleContainer" >
 
-                <a href="#" class="addIterationLink togglelink" name="iterationFormAddContainer">
-                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
-                    <ice:outputText value="#{page['projectDetails.iterations.add']}"/>
-                </a>
+                <!--                <a href="#" class="quickAddDecisionLink togglelink" name="iterationFormAddContainer">
+                                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
+                                    <ice:outputText value="#{page['projectDetails.iterations.add']}"/>
+                                </a>
 
-                <ice:form partialSubmit="true" id="iterationFormAddContainer">
+                                <ice:form partialSubmit="true" id="iterationFormAddContainer">
 
-                    <h3><ice:outputText value="#{form['iteration.new']}" nospan="true" /></h3>
-
-
-                    <div class="formSection">
-                        <ice:outputLabel value="#{form['label.name']}" for="inIterationName"/>
-                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
-                        <ice:inputText id="inIterationName"
-                                       label="#{form['label.name']}"
-                                       required="true"
-                                       value="#{projectDetailsController.iterationName}"
-                                       validator="#{projectDetailsController.checkIterationName}">
-                            <f:validateLength minimum="3" maximum="50" />
-
-                            <f:validator validatorId="RegexValidator" />
-                            <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
-                        </ice:inputText>
-                        <p>
-                        <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
-                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
-                        <ice:outputText value="#{form['constraint.iterationname']}" nospan="true" />
-                        </p>
-                    </div>
+                                    <h3><ice:outputText value="#{form['iteration.new']}" nospan="true" /></h3>
 
 
+                                    <div class="formSection">
+                                        <ice:outputLabel value="#{form['label.name']}" for="inIterationName"/>
+                                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                                        <ice:inputText id="inIterationName"
+                                                       label="#{form['label.name']}"
+                                                       required="true"
+                                                       value="#{projectDetailsController.iterationName}"
+                                                       validator="#{projectDetailsController.checkIterationName}">
+                                            <f:validateLength minimum="3" maximum="50" />
 
-
-                    <div class="formSection last">
-                        <ice:outputLabel value="#{form['label.description']}" for="inIterationDescription"/>
-                        <ice:inputTextarea id="inIterationDescription"
-                                           label="#{form['label.description']}"
-                                           maxlength="1000"
-                                           value="#{projectDetailsController.iterationDescription}">
-                            <f:validateLength maximum="1000" />
-                        </ice:inputTextarea>
-                        <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
-                    </div>
-
-                    <ice:commandButton action="#{projectDetailsController.addIteration}"
-                                       value="#{form['button.submit']}"
-                                       styleClass="confirm"
-                                       id="iterationAddSubmitButton"/>
+                                            <f:validator validatorId="RegexValidator" />
+                                            <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                                        </ice:inputText>
+                                        <p>
+                                        <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
+                                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                                        <ice:outputText value="#{form['constraint.iterationname']}" nospan="true" />
+                                        </p>
+                                    </div>
 
 
 
-                    <ice:commandButton actionListener="#{projectDetailsController.iterationAddCanceled}"
-                                       value="#{form['button.cancel']}"
-                                       styleClass="abort togglelink"
-                                       id="iterationAddAbortButton"/>
-                </ice:form>
 
-                <ice:form style="margin-top: 10px;">
+                                    <div class="formSection last">
+                                        <ice:outputLabel value="#{form['label.description']}" for="inIterationDescription"/>
+                                        <ice:inputTextarea id="inIterationDescription"
+                                                           label="#{form['label.description']}"
+                                                           maxlength="1000"
+                                                           value="#{projectDetailsController.iterationDescription}">
+                                            <f:validateLength maximum="1000" />
+                                        </ice:inputTextarea>
+                                        <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
+                                    </div>
+
+                                    <ice:commandButton action="#{projectDetailsController.addIteration}"
+                                                       value="#{form['button.submit']}"
+                                                       styleClass="confirm"
+                                                       id="iterationAddSubmitButton"/>
+
+
+
+                                    <ice:commandButton actionListener="#{projectDetailsController.iterationAddCanceled}"
+                                                       value="#{form['button.cancel']}"
+                                                       styleClass="abort togglelink"
+                                                       id="iterationAddAbortButton"/>
+                                </ice:form>-->
+
+                <ice:form>
 
                     <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
 
@@ -189,83 +189,147 @@
         </div>
 
 
-        <ice:form styleClass="relative" partialSubmit="true" >
+
+
+
+
+        <div class="relative">
 
             <h3>#{page['projectDetails.decisions.headline']}</h3>
+
             <a href="#" class="togglelink collapsable" name="decisionContainer"
                style="position: absolute; top:0;right:0;">#{common.toggle}</a>
+
             <div id="decisionContainer" class="toggleContainer" >
 
-                <ice:dataTable rendered="#{projectDetailsController.valid}"
-                               value="#{projectDetailsController.decisions}"
-                               var="item"
-                               styleClass="rowhover pointer "
-                               id="decisionTable"
-                               rows="10">
-                    <ice:column>
-                        <ice:rowSelector
-                            selectionAction="#{projectDetailsController.rowDecisionSelectionListener(item)}"/>
-                        <ice:outputText value="#{item.name}" nospan="true"/>
-                    </ice:column>
-                    <ice:column>
-                        <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
-                    </ice:column>
-                    <ice:column>
-                        <ice:commandLink value=""
-                                         action="#{projectDetailsController.editDecision(item)}">
-                            <img alt="#{common.edit}"
-                                 src="resources/images/pencilSmall.png"
-                                 width="11"
-                                 height="11"/>
-                        </ice:commandLink>
 
-                        <ice:commandLink value=""
-                                         action="#{projectDetailsController.deleteDecision(item)}">
-                            <img alt="#{common.remove}"
-                                 src="resources/images/removeSmall.png"
-                                 width="11"
-                                 height="11"/>
-                        </ice:commandLink>
-                    </ice:column>
-                </ice:dataTable>
 
-                <ice:dataPaginator id="decisionTablePaginator"
-                                   for="decisionTable"
-                                   fastStep="10"
-                                   pageCountVar="pageCount"
-                                   pageIndexVar="pageIndex"
-                                   paginator="true"
-                                   paginatorMaxPages="5"
-                                   >
 
-                    <f:facet name="first" >
-                        <ice:graphicImage url="/resources/images/arrow-first.gif" style="border:none;"/>
-                    </f:facet>
+                <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer">
+                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
+                    <ice:outputText value="#{page['projectDetails.decisions.add']}"/>
+                </a>
 
-                    <f:facet name="last">
-                        <ice:graphicImage url="resources/images/arrow-last.gif" style="border:none;" />
-                    </f:facet>
+                <ice:form partialSubmit="true" id="decisionQuickAddContainer">
 
-                    <f:facet name="previous">
-                        <ice:graphicImage url="resources/images/arrow-previous.gif" style="border:none;" />
-                    </f:facet>
+                    <h3><ice:outputText value="#{form['decision.new']}" nospan="true" /></h3>
 
-                    <f:facet name="next">
-                        <ice:graphicImage url="resources/images/arrow-next.gif" style="border:none;" />
-                    </f:facet>
 
-                    <f:facet name="fastforward">
-                        <ice:graphicImage url="resources/images/arrow-ff.gif" style="border:none;" />
-                    </f:facet>
+                    <div class="formSection last">
+                        <ice:outputLabel value="#{form['label.name']}" for="inDecisionName"/>
+                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                        <ice:inputText id="inDecisionName"
+                                       label="#{form['label.name']}"
+                                       required="true"
+                                       value="#{projectDetailsController.decisionName}"
+                                       validator="#{projectDetailsController.checkDecisionName}">
+                            <f:validateLength minimum="3" maximum="50" />
 
-                    <f:facet name="fastrewind">
-                        <ice:graphicImage url="resources/images/arrow-fr.gif" style="border:none;" />
-                    </f:facet>
+                            <f:validator validatorId="RegexValidator" />
+                            <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                        </ice:inputText>
+                        <p>
+                        <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
+                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                        <ice:outputText value="#{form['constraint.decisionname']}" nospan="true" />
+                        </p>
+                    </div>
 
-                </ice:dataPaginator>
+
+
+                    <ice:commandButton action="#{projectDetailsController.addDecision}"
+                                       value="#{form['button.submit']}"
+                                       styleClass="confirm"
+                                       id="decisionAddSubmitButton"/>
+
+
+
+                    <ice:commandButton actionListener="#{projectDetailsController.decisionAddCanceled}"
+                                       value="#{form['button.cancel']}"
+                                       styleClass="abort togglelink"
+                                       id="decisionAddAbortButton"/>
+                </ice:form>
+
+
+
+
+
+                
+
+                <ice:form partialSubmit="true" style="margin-top: 10px;">
+                    <ice:dataTable rendered="#{projectDetailsController.valid}"
+                                   value="#{projectDetailsController.decisions}"
+                                   var="item"
+                                   styleClass="rowhover pointer "
+                                   id="decisionTable"
+                                   rows="10">
+                        <ice:column>
+                            <ice:rowSelector
+                                selectionAction="#{projectDetailsController.rowDecisionSelectionListener(item)}"/>
+                            <ice:outputText value="#{item.name}" nospan="true"/>
+                        </ice:column>
+                        <ice:column>
+                            <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
+                        </ice:column>
+                        <ice:column>
+                            <ice:commandLink value=""
+                                             action="#{projectDetailsController.editDecision(item)}">
+                                <img alt="#{common.edit}"
+                                     src="resources/images/pencilSmall.png"
+                                     width="11"
+                                     height="11"/>
+                            </ice:commandLink>
+
+                            <ice:commandLink value=""
+                                             action="#{projectDetailsController.deleteDecision(item)}">
+                                <img alt="#{common.remove}"
+                                     src="resources/images/removeSmall.png"
+                                     width="11"
+                                     height="11"/>
+                            </ice:commandLink>
+                        </ice:column>
+                    </ice:dataTable>
+
+                    <ice:dataPaginator id="decisionTablePaginator"
+                                       for="decisionTable"
+                                       fastStep="10"
+                                       pageCountVar="pageCount"
+                                       pageIndexVar="pageIndex"
+                                       paginator="true"
+                                       paginatorMaxPages="5"
+                                       >
+
+                        <f:facet name="first" >
+                            <ice:graphicImage url="/resources/images/arrow-first.gif" style="border:none;"/>
+                        </f:facet>
+
+                        <f:facet name="last">
+                            <ice:graphicImage url="resources/images/arrow-last.gif" style="border:none;" />
+                        </f:facet>
+
+                        <f:facet name="previous">
+                            <ice:graphicImage url="resources/images/arrow-previous.gif" style="border:none;" />
+                        </f:facet>
+
+                        <f:facet name="next">
+                            <ice:graphicImage url="resources/images/arrow-next.gif" style="border:none;" />
+                        </f:facet>
+
+                        <f:facet name="fastforward">
+                            <ice:graphicImage url="resources/images/arrow-ff.gif" style="border:none;" />
+                        </f:facet>
+
+                        <f:facet name="fastrewind">
+                            <ice:graphicImage url="resources/images/arrow-fr.gif" style="border:none;" />
+                        </f:facet>
+
+                    </ice:dataPaginator>
+                </ice:form>
             </div>
+        </div>
 
-        </ice:form>
+
 
     </ui:define>
 

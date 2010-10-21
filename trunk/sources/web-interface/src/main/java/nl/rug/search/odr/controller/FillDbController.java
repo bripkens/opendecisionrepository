@@ -449,36 +449,42 @@ public class FillDbController {
         state.setActionName("formulate");
         state.setStatusName("formulated");
         state.setInitialState(false);
+        state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("propose");
         state.setStatusName("considered");
         state.setInitialState(true);
+        state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("validate");
         state.setStatusName("decided");
         state.setInitialState(false);
+        state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("confirm");
         state.setStatusName("approved");
         state.setInitialState(false);
+        state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("challenge");
         state.setStatusName("challenged");
         state.setInitialState(false);
+        state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("validate");
         state.setStatusName("rejected");
         state.setInitialState(false);
+        state.setCommon(true);
         sl.persist(state);
     }
 

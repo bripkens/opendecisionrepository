@@ -12,6 +12,7 @@ import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.StakeholderRole;
+import nl.rug.search.odr.entities.State;
 
 /**
  *
