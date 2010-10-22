@@ -58,28 +58,17 @@ public class ManageDecisionController extends AbstractController {
     private ProjectLocal pl;
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="pojo attributes">
     private Project project;
+    // </editor-fold>
+
+
+
 
     // <editor-fold defaultstate="collapsed" desc="construction">
-    /**
-     * Since this class is session scoped the postConstruct method will be called by isValid
-     */
+    @PostConstruct
     public void postConstruct() {
         initSteps();
-
-        HttpServletRequest request = (HttpServletRequest)
-                FacesContext.getCurrentInstance().getExternalContext().getRequest();
-
-        RequestAnalyser analyser = new RequestAnalyser(request, pl);
-
-        RequestAnalyserDto result = analyser.analyse();
-
-        if (result.isValid()) {
-            project = result.getProject();
-        } else if (project == null) {
-            System.out.println("Invalid");
-            result.executeErrorAction();
-        }
     }
 
 
@@ -108,6 +97,24 @@ public class ManageDecisionController extends AbstractController {
 
 
 
+    /**
+     * Since this class is session scoped the postConstruct method will be called by isValid
+     */
+    public void setUp() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().
+                getExternalContext().
+                getRequest();
+
+        RequestAnalyser analyser = new RequestAnalyser(request, pl);
+
+        RequestAnalyserDto result = analyser.analyse();
+
+        if (result.isValid()) {
+            project = result.getProject();
+        } else if (project == null) {
+            result.executeErrorAction();
+        }
+    }
     // </editor-fold>
 
 
@@ -173,7 +180,7 @@ public class ManageDecisionController extends AbstractController {
 
 
 
-    // <editor-fold defaultstate="collapsed" desc="getter that return calculated values">
+    // <editor-fold defaultstate="collapsed" desc="getter which return calculated values">
     public boolean isLastStep() {
         return currentStep.getClass() == STEP_ORDER[STEP_ORDER.length - 1];
     }
@@ -199,8 +206,11 @@ public class ManageDecisionController extends AbstractController {
         return -1;
     }
 
+
+
+
     public boolean isValid() {
-        postConstruct();
+        setUp();
         return project != null;
     }
     // </editor-fold>
@@ -262,6 +272,13 @@ public class ManageDecisionController extends AbstractController {
 
     public TemplateRelatedStep getTemplateRelatedStep() {
         return templateRelatedStep;
+    }
+
+
+
+
+    public Project getProject() {
+        return project;
     }
     // </editor-fold>
 

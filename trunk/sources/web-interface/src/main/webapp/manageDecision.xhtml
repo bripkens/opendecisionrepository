@@ -12,10 +12,19 @@
         Decision wizard
     </ui:define>
 
+    <ui:define name="belowHeader">
+        <div id="result">
+            <ice:outputText value="#{manageDecisionController.resultMessage}"
+                            styleClass="#{manageDecisionController.resultStyle}"
+                            effect="#{manageDecisionController.resultEffect}"
+                            visible="false" />
+        </div>
+    </ui:define>
+
     <ui:define name="content">
         <div>
             <ice:form id="manageDecisionForm" partialSubmit="false" rendered="#{manageDecisionController.valid}">
-               
+
                 <ice:commandButton action="#{manageDecisionController.nextStep}"
                                    rendered="#{!manageDecisionController.lastStep}"
                                    value="Next"
@@ -24,7 +33,19 @@
                                    rendered="#{!manageDecisionController.firstStep}"
                                    value="Previous"
                                    id="previousStepButton"/>
+
                 <ui:include src="#{manageDecisionController.currentStep.faceletName}" />
+
+                <ice:commandButton action="#{manageDecisionController.submitForm}"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"
+                                   id="manageDecisionSubmitButton"/>
+
+
+
+                <ice:commandButton actionListener="#{manageDecisionController.resetForm}"
+                                   value="#{form['button.clear']}"
+                                   styleClass="abort"/>
             </ice:form>
         </div>
     </ui:define>
