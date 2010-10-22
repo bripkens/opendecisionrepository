@@ -1,8 +1,6 @@
 package nl.rug.search.odr.controller;
 
-import com.icesoft.faces.component.ext.RowSelectorEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -11,12 +9,10 @@ import nl.rug.search.odr.entities.Iteration;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.AuthenticationUtil;
@@ -26,6 +22,7 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.project.ProjectMemberLocal;
 
 /**
  *
@@ -45,24 +42,21 @@ public class IterationController {
     private long iterationId;
     private String str_iterationId;
     private Iteration iteration = null;
-    private String iterationName;
-    private String iterationDescription;
+    private String iterationName = "";
+    private String iterationDescription = "";
+    private ProjectMember member;
     //
-    private Date startDate;
-    private String startHour;
-    private String startMinute;
+    private Date startDate = null;
+    private String startHour = "";
+    private String startMinute = "";
     //
-    private Date endDate;
-    private String endHour;
-    private String endMinute;
+    private Date endDate = null;
+    private String endHour = "";
+    private String endMinute = "";
     private boolean isUpdate = false;
-
-    public IterationController() {
-    }
 
     @PostConstruct
     public void postConstruct() {
-        System.out.println("POSTCONSTRUCT");
         if (!AuthenticationUtil.isAuthtenticated()) {
             ErrorUtil.showNotAuthenticatedError();
             return;
@@ -101,7 +95,7 @@ public class IterationController {
         if (request.getParameter(RequestParameter.ITERATIONID) != null) {
             isUpdate = true;
             str_iterationId = request.getParameter(RequestParameter.ITERATIONID);
-        }else{
+        } else {
             isUpdate = false;
         }
 
@@ -119,15 +113,7 @@ public class IterationController {
 
 
         if (iteration == null) {
-            iterationName = "";
-            iterationDescription = "";
-            startDate = null;
-            startHour = "";
-            startMinute = "";
-            endDate = null;
-            endHour = "";
-            endMinute = "";
-
+            iteration = new Iteration();
         } else {
             iterationName = iteration.getName();
             iterationDescription = iteration.getDescription();
@@ -159,6 +145,7 @@ public class IterationController {
         long userId = AuthenticationUtil.getUserId();
         for (ProjectMember pm : project.getMembers()) {
             if (pm.getPerson().getId().equals(userId)) {
+                member = pm;
                 return pm;
             }
         }
@@ -198,9 +185,12 @@ public class IterationController {
         iteration.setEndDate(calEnd.getTime());
 
         //TODO IF THE MEMBER ALSO BE SAVED
+
         if (isUpdate) {
             il.updateIteration(iteration);
         } else {
+            iteration.setDocumentedWhen(new Date());
+            iteration.setProjectMember(member);
             project.addIteration(iteration);
             pl.updateProject(project);
         }
@@ -214,6 +204,7 @@ public class IterationController {
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="comboBox values">
     public SelectItem[] getHourItems() {
         return arrayBuilder(24);
     }
@@ -229,13 +220,14 @@ public class IterationController {
         }
         return components;
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="getter-setter">
     public String getName() {
         return iterationName;
     }
 
     public void setName(String name) {
-        System.out.println("setName");
         iterationName = name;
     }
 
@@ -294,4 +286,5 @@ public class IterationController {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+    // </editor-fold>
 }
