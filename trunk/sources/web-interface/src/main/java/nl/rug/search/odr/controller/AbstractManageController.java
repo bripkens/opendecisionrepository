@@ -3,7 +3,7 @@ package nl.rug.search.odr.controller;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
-import nl.rug.search.odr.RequestParameterAnalyzer;
+import nl.rug.search.odr.RequestParameterAnalyser;
 import nl.rug.search.odr.Mode;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public abstract class AbstractManageController extends AbstractController implem
         HttpServletRequest request;
         request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        RequestParameterAnalyzer rpa = new RequestParameterAnalyzer(request, isPreviousEntitySet());
+        RequestParameterAnalyser rpa = new RequestParameterAnalyser(request, isPreviousEntitySet());
 
         if (!isAllowedHook(rpa)) {
             return false;
@@ -77,7 +77,7 @@ public abstract class AbstractManageController extends AbstractController implem
         HttpServletRequest request;
         request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 
-        RequestParameterAnalyzer rpa = new RequestParameterAnalyzer(request, isPreviousEntitySet());
+        RequestParameterAnalyser rpa = new RequestParameterAnalyser(request, isPreviousEntitySet());
 
         if (!isAllowedHook(rpa)) {
             return false;
@@ -88,7 +88,7 @@ public abstract class AbstractManageController extends AbstractController implem
         return mode == Mode.DELETE || mode == Mode.DELETE_CONFIRMED;
     }
 
-    protected boolean isAllowedHook(RequestParameterAnalyzer rpa) {
+    protected boolean isAllowedHook(RequestParameterAnalyser rpa) {
         Mode mode = rpa.getMode();
         if (mode == Mode.STAY_IN_CURRENT && !isIdSet()) {
             return true;

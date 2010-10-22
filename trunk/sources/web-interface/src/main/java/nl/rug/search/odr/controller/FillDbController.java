@@ -55,7 +55,7 @@ public class FillDbController {
         Person p1 = new Person();
         p1.setName("Ben Ripkens");
         p1.setPlainPassword("12345");
-        p1.setEmail("b@b.de");
+        p1.setEmail("ben@ripkens.de");
         ul.register(p1);
 
 
@@ -118,7 +118,7 @@ public class FillDbController {
         Person p = null;
 
         try {
-            p = ul.tryLogin("b@b.de", "12345");
+            p = ul.tryLogin("ben@ripkens.de", "12345");
         } catch (BusinessException ex) {
             throw new RuntimeException(ex);
         }

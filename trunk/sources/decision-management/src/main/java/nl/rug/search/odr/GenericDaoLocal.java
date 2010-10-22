@@ -22,6 +22,8 @@ public interface GenericDaoLocal<T extends BaseEntity, ID extends Serializable> 
 
     void persist(T entity);
 
+    void delete(T entity);
+
     boolean isPersistable(T entity);
 
     void merge(T entity);

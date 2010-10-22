@@ -8,7 +8,7 @@ import nl.rug.search.odr.RequestParameter;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class RequestParameterAnalyzer implements RequestParameter {
+public class RequestParameterAnalyser implements RequestParameter {
 
     public static final long ID_NOT_SET = -1;
 
@@ -20,7 +20,7 @@ public class RequestParameterAnalyzer implements RequestParameter {
 
     private Mode mode;
 
-    public RequestParameterAnalyzer(HttpServletRequest request, boolean previousEntityExisting) {
+    public RequestParameterAnalyser(HttpServletRequest request, boolean previousEntityExisting) {
         this.request = request;
         this.previousEntityExisting = previousEntityExisting;
 

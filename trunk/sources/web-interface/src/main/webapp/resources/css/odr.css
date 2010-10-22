@@ -160,7 +160,8 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     width:230px;
 }
 
-#page .formSection select{
+/* If you want to use this css, then restrict it to the current view not all.*/
+/*#page .formSection select{
     height:25px;
     position:absolute;
     right:120px;
@@ -172,7 +173,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 #page .formSection select.minute{
     float:right;
     right:30px;
-}
+}*/
 
 #page .formSection label.hourlabel{
     float:right;
