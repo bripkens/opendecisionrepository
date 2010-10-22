@@ -4,6 +4,7 @@ package nl.rug.search.odr.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.SessionAttribute;
 import nl.rug.search.odr.SessionUtil;
 
@@ -18,10 +19,20 @@ public class ErrorController {
 
     @PostConstruct
     public void postConstruct() {
-        headline = SessionUtil.getSingleValue(SessionAttribute.ERROR_TITLE).toString();
-        content = SessionUtil.getSingleValue(SessionAttribute.ERROR_CONTENT).toString();
+        headline = getMessage(SessionAttribute.ERROR_TITLE, "#{error['unknown.heading']}");
+        content = getMessage(SessionAttribute.ERROR_CONTENT, "#{error['unknown.message']}");
 
         SessionUtil.resetErrorValues();
+    }
+
+    private String getMessage(String sessionAttribute, String defaultMessageExpression) {
+        Object message = SessionUtil.getSingleValue(sessionAttribute);
+
+        if (message != null) {
+            return message.toString();
+        }
+
+        return JsfUtil.evaluateExpressionGet(defaultMessageExpression, String.class);
     }
 
     public String getContent() {

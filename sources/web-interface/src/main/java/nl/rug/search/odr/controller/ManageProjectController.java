@@ -236,7 +236,7 @@ public class ManageProjectController extends AbstractManageController {
 
     @Override
     protected boolean handleConfirmedDeleteExecution() {
-        pl.deleteProject(sourceProject);
+        pl.delete(sourceProject);
 
         JsfUtil.removeSessionBean(getBeanName());
 

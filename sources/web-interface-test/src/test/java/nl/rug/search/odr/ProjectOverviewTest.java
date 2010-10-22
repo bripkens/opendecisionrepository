@@ -1,4 +1,3 @@
-
 package nl.rug.search.odr;
 
 /**
@@ -14,9 +13,15 @@ public class ProjectOverviewTest extends AbstractSelenseTestCase {
         verifyTrue(selenium.isTextPresent("Your projects"));
     }
 
+
+
+
     public void testAccessProjectsWhileNotLoggedIn() {
-        selenium.open("/web-interface/projects.html");
+        open("projects.html");
         verifyTrue(selenium.isTextPresent("Registration"));
         verifyFalse(selenium.isTextPresent("Your projects"));
     }
+
+
+
 }

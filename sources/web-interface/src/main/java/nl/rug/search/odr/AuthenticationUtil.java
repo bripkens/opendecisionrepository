@@ -31,4 +31,5 @@ public abstract class AuthenticationUtil {
     public static boolean isAuthtenticated() {
         return SessionUtil.getSingleValue(SessionAttribute.USER_ID) != null;
     }
+
 }

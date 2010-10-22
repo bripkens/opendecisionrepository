@@ -99,40 +99,6 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
 
 
 
-    @Override
-    public void deleteProject(Project p) {
-        Project pNew = getById(p.getId());
-
-
-        Iterator<StakeholderRole> it = pNew.getRoles().
-                iterator();
-
-        StringBuilder sb = new StringBuilder();
-
-        while (it.hasNext()) {
-//            sb.append("'");
-            sb.append(it.next().
-                    getId().
-                    toString());
-//            sb.append("'");
-
-            if (it.hasNext()) {
-                sb.append(",");
-            }
-        }
-
-        // potential subquery that would work if there wasn't a foreign key constraint
-//          Query q = entityManager.createQuery("DELETE FROM Project p LEFT JOIN p.stakeHolderRoles pit WHERE p.id = :projectId AND pit.common = FALSE");
-//
-        Query t = entityManager.createQuery("DELETE FROM StakeholderRole s WHERE s.id IN (".concat(sb.toString()).
-                concat(")"));
-
-//        System.out.println("#################### "+q.executeUpdate() + " ######################" );
-
-        entityManager.remove(pNew);
-    }
-
-
 
 
     @Override

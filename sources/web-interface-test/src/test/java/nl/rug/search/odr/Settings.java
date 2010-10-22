@@ -1,4 +1,3 @@
-
 package nl.rug.search.odr;
 
 import org.junit.Ignore;
@@ -9,8 +8,15 @@ import org.junit.Ignore;
  */
 @Ignore
 public interface Settings {
+
     String URL = "http://localhost:8080/web-interface/";
+
+    String CONTEXT_PATH = "/web-interface/";
+
     String BROWSER = "*firefox";
 
     long AJAX_SLEEP_MILLIS = 300;
+
+    String TIMEOUT_MILLIS = "30000";
+
 }

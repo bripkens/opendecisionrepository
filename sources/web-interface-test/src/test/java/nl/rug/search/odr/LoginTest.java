@@ -12,8 +12,11 @@ public class LoginTest extends AbstractSelenseTestCase {
         selenium.type("loginForm:inLoginEmail", RegistrationTest.EMAIL);
         selenium.type("loginForm:inLoginPassword", RegistrationTest.PASSWORD);
         selenium.click("loginForm:loginButton");
-        selenium.waitForPageToLoad("30000");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
     }
+
+
+
 
     public void testLoginErrorVisibilityNoInput() throws Exception {
         assertFalse(selenium.isVisible("loginForm:loginErrorMessage"));
@@ -46,12 +49,12 @@ public class LoginTest extends AbstractSelenseTestCase {
 
         waitForAjaxRequest();
 
-        selenium.open("/web-interface/index.html");
+        open();
 
         loginUserWithDefaulCredentials(selenium);
-        
-        selenium.waitForPageToLoad("30000");
-        
+
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+
         verifyTrue(selenium.isElementPresent("logoutForm:logoutButton"));
     }
 
@@ -63,14 +66,14 @@ public class LoginTest extends AbstractSelenseTestCase {
 
         waitForAjaxRequest();
 
-        selenium.open("/web-interface/index.html");
+        open();
 
         loginUserWithDefaulCredentials(selenium);
 
-        selenium.waitForPageToLoad("30000");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
         selenium.click("logoutForm:logoutButton");
-        selenium.waitForPageToLoad("30000");
-        
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+
         verifyTrue(selenium.isTextPresent("Register"));
     }
 }

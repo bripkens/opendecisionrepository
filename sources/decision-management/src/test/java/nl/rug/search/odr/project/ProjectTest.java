@@ -225,7 +225,7 @@ public class ProjectTest extends AbstractEjbTest {
 
 
         assertTrue(project2.getRoles().contains(role2));
-        pl.deleteProject(project2);
+        pl.delete(project2);
         assertNull(pl.getById(project2.getId()));
         assertNull(srl.getById(role2.getId()));
 

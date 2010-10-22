@@ -79,6 +79,10 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     }
 
 
+    public void delete(T entity) {
+        manager.remove(manager.find(entityType, entity.getId()));
+    }
+
 
 
     public Class<T> getEntityType() {

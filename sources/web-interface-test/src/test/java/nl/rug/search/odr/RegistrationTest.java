@@ -1,6 +1,7 @@
 package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.Selenium;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -11,7 +12,7 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
     public static final String USER_NAME = "Ben Ripkens";
 
-    public static final String PASSWORD = "super secure";
+    public static final String PASSWORD = "12345";
 
     public static final String EMAIL = "ben@ripkens.de";
 
@@ -20,7 +21,7 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
     public static void registerUserWithDefaulCredentials(Selenium selenium) {
         selenium.click("loginForm:registerLink");
-        selenium.waitForPageToLoad("30000");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
         selenium.type("registerForm:inPassword", PASSWORD);
         selenium.type("registerForm:inName", USER_NAME);
         selenium.type("registerForm:inEmail", EMAIL);
@@ -48,9 +49,9 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
         waitForAjaxRequest();
 
-        selenium.open("/web-interface/");
+        open();
         selenium.click("loginForm:registerLink");
-        selenium.waitForPageToLoad("30000");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
         selenium.type("registerForm:inName", USER_NAME);
         selenium.fireEvent("registerForm:inName", "blur");
         waitForAjaxRequest();
@@ -67,5 +68,18 @@ public class RegistrationTest extends AbstractSelenseTestCase {
         selenium.fireEvent("registerForm:inEmail", "blur");
         waitForAjaxRequest();
         verifyTrue(selenium.isTextPresent("This email is already registered"));
+    }
+
+
+
+
+    @Test
+    public void testRegistrationWhileLoggedIn() {
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+
+        open("register.html");
+        verifyTrue(selenium.getLocation().
+                endsWith("error.html"));
     }
 }
