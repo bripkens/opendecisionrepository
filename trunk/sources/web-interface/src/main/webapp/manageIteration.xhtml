@@ -54,11 +54,9 @@
                                maxlength="255"
                                partialSubmit="true"
                                value="#{iterationController.description}">
-                    <f:validateLength minimum="5" maximum="1000" />
                 </ice:inputText>
                 <p>
-                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 0;
-                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000
+                <ice:outputText value="#{form['iteration.description']}" nospan="true" /> 0;
                 </p>
             </div>
 
