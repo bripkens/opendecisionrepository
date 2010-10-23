@@ -36,4 +36,16 @@ public class DecisionTemplateTest extends AbstractEjbTest {
 
         assertTrue(dtl.isNameUsed(name));
     }
+
+
+
+    @Test
+    public void testGetByName() {
+        DecisionTemplate template = new DecisionTemplate();
+        template.setName("Foobar");
+        dtl.persist(template);
+
+        DecisionTemplate templateFromDatabase = dtl.getByName(template.getName());
+        assertEquals(template.getName(), templateFromDatabase.getName());
+    }
 }

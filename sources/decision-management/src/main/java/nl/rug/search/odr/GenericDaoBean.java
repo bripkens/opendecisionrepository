@@ -74,11 +74,11 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
     @Override
     public void makeTransient(T entity) {
-        entity = manager.merge(entity);
-        manager.remove(entity);
+        manager.detach(entity);
     }
 
 
+    @Override
     public void delete(T entity) {
         manager.remove(manager.find(entityType, entity.getId()));
     }

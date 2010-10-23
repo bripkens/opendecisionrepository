@@ -370,12 +370,11 @@ div#help {
     line-height:1em;
     height: 2em;
     padding-right: -1em;
-    z-index: 34;
     top: 4.5em;
     width: 100%;
     position: absolute;
+    z-index: 34;
 }
-
 .center {
     text-align: center;
 }

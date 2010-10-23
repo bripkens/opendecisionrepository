@@ -7,7 +7,53 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
 
-    <p>
-        <ice:outputText value="Essentials step" nospan="true"/>
-    </p>
+
+
+    <div class="formSection">
+        <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+        <ice:inputText id="inName"
+                       label="#{form['label.name']}"
+                       maxlength="255"
+                       value="#{manageDecisionController.essentialsStep.decisionName}"
+                       required="true"
+                       validator="#{manageDecisionController.essentialsStep.checkDecisionName}">
+            <f:validateLength minimum="3" maximum="255" />
+        </ice:inputText>
+        <p>
+            <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+            <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255;
+            <ice:outputText value="#{form['constraint.decisionname']}" nospan="true" />
+        </p>
+    </div>
+
+
+
+    <div class="formSection">
+        <ice:outputLabel value="#{form['label.template']}" for="inTemplate"/>
+        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+        <ice:selectOneMenu id="inTemplate"
+                              label="#{form['label.template']}"
+                              required="true"
+                              value="#{manageDecisionController.essentialsStep.decisionTemplate}">
+            <f:selectItems value="#{manageDecisionController.essentialsStep.decisionTemplates}" />
+        </ice:selectOneMenu>
+        <p class="empty" />
+    </div>
+
+
+    
+    <div class="formSection last">
+        <ice:outputLabel value="#{form['label.opr.link']}" for="inOprLink"/>
+        <ice:inputText id="inOprLink"
+                       label="#{form['label.opr.link']}"
+                       maxlength="255"
+                       value="#{manageDecisionController.essentialsStep.oprLink}">
+            <f:validateLength maximum="255" />
+        </ice:inputText>
+        <p>
+            <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255
+        </p>
+    </div>
+
 </ui:composition>

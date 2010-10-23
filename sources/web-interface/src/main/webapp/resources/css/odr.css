@@ -267,6 +267,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 
 #page .formSection table.memberSelect select {
     width: 240px;
+    position: static;
 }
 #page .formSection table.memberSelect td:first-child, #page .formSection table.memberSelect th:first-child {
     font-size: 0.9em;
@@ -399,4 +400,18 @@ div.projectDetailsActions {
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.nextStepButton, .previousStepButton {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+.previousStepButton {
+    right: 150px;
+}
+#page .formSection select {
+    left: 107px;
+    position: absolute;
+    width: 495px;
 }

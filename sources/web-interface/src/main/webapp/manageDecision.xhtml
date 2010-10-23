@@ -27,12 +27,16 @@
 
                 <ice:commandButton action="#{manageDecisionController.nextStep}"
                                    rendered="#{!manageDecisionController.lastStep}"
-                                   value="Next"
-                                   id="nextStepButton"/>
+                                   value="#{form['button.next']}"
+                                   id="nextStepButton"
+                                   styleClass="nextStepButton"/>
                 <ice:commandButton action="#{manageDecisionController.previousStep}"
                                    rendered="#{!manageDecisionController.firstStep}"
-                                   value="Previous"
-                                   id="previousStepButton"/>
+                                   value="#{form['button.previous']}"
+                                   id="previousStepButton"
+                                   styleClass="previousStepButton"/>
+
+                <h1><ice:outputText value="#{manageDecisionController.headline}" nospan="true" /></h1>
 
                 <ui:include src="#{manageDecisionController.currentStep.faceletName}" />
 
@@ -45,11 +49,35 @@
 
                 <ice:commandButton actionListener="#{manageDecisionController.resetForm}"
                                    value="#{form['button.clear']}"
-                                   styleClass="abort"/>
+                                   styleClass="abort"
+                                   immediate="true"/>
             </ice:form>
         </div>
     </ui:define>
 
     <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>help headline</h2>
+                        help content
+                    </div>
+                </li>
+            </ul>
+        </div>
     </ui:define>
 </ui:composition>
