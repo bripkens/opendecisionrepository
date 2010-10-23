@@ -35,4 +35,17 @@ public class DecisionTemplateBean extends GenericDaoBean<DecisionTemplate, Long>
                 setParameter("name", name).
                 getSingleResult() > 0;
     }
+
+
+
+
+    @Override
+    public DecisionTemplate getByName(String name) {
+        name = name.trim().
+                toLowerCase();
+
+        return entityManager.createNamedQuery("DecisionTemplate.getByName", DecisionTemplate.class).
+                setParameter("name", name).
+                getSingleResult();
+    }
 }

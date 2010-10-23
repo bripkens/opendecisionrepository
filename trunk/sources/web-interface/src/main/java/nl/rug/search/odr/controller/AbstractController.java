@@ -55,7 +55,7 @@ public abstract class AbstractController {
         reset();
     }
 
-    public final void resetForm(ActionEvent e) {
+    public void resetForm(ActionEvent e) {
         resetForm();
     }
 

@@ -51,8 +51,8 @@ public class ProjectDetailsController {
     private long iterationToDeleteId;
     private String iterationToDeleteName;
 
-    public static final String USED_PROJECT_NAME
-            = "nl.rug.search.odr.controller.ProjectDetailsController.USED_PROJECT_NAME";
+    public static final String USED_DECISION_NAME
+            = "nl.rug.search.odr.USED_DECISION_NAME";
 
     // <editor-fold defaultstate="collapsed" desc="construction">
     @PostConstruct
@@ -205,7 +205,7 @@ public class ProjectDetailsController {
             if (d.getName().equalsIgnoreCase(newName)) {
                 throw new ValidatorException(MessageFactory.getMessage(
                         fc,
-                        USED_PROJECT_NAME,
+                        USED_DECISION_NAME,
                         new Object[]{
                             MessageFactory.getLabel(fc, uic)
                         }));

@@ -1,17 +1,19 @@
 package nl.rug.search.odr.controller.decision;
 
-import java.util.Enumeration;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.controller.AbstractController;
+import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.project.ProjectLocal;
 
@@ -56,10 +58,15 @@ public class ManageDecisionController extends AbstractController {
     // <editor-fold defaultstate="collapsed" desc="EJBs">
     @EJB
     private ProjectLocal pl;
+
+    @EJB
+    private DecisionTemplateLocal dtl;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="pojo attributes">
     private Project project;
+
+    private Decision decision;
     // </editor-fold>
 
 
@@ -81,6 +88,13 @@ public class ManageDecisionController extends AbstractController {
         statesStep = new StatesStep(this);
         confirmationStep = new ConfirmationStep(this);
 
+        setCurrentStepToInitialStep();
+    }
+
+
+
+
+    private void setCurrentStepToInitialStep() {
         if (STEP_ORDER[0] == EssentialsStep.class) {
             currentStep = essentialsStep;
         } else if (STEP_ORDER[0] == TemplateRelatedStep.class) {
@@ -165,7 +179,38 @@ public class ManageDecisionController extends AbstractController {
 
     // <editor-fold defaultstate="collapsed" desc="submit/reset">
     @Override
+    public void resetForm(ActionEvent e) {
+        super.resetForm(e);
+
+        JsfUtil.refreshPage();
+    }
+
+
+
+
+    @Override
     protected void reset() {
+        if (essentialsStep != null) {
+            essentialsStep.dispose();
+        }
+
+        if (templateRelatedStep != null) {
+            templateRelatedStep.dispose();
+        }
+
+        if (relationshipsStep != null) {
+            relationshipsStep.dispose();
+        }
+
+        if (statesStep != null) {
+            statesStep.dispose();
+        }
+
+        if (confirmationStep != null) {
+            confirmationStep.dispose();
+        }
+
+        setCurrentStepToInitialStep();
     }
 
 
@@ -212,6 +257,33 @@ public class ManageDecisionController extends AbstractController {
     public boolean isValid() {
         setUp();
         return project != null;
+    }
+
+
+
+
+    public boolean isUpdateRequest() {
+        return decision != null;
+    }
+
+
+
+
+    public String getHeadline() {
+        if (isUpdateRequest()) {
+            return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.update']}", String.class);
+        } else {
+            return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.create']}", String.class);
+        }
+    }
+    // </editor-fold>
+
+
+
+
+    // <editor-fold defaultstate="collapsed" desc="getter which return EJBs">
+    DecisionTemplateLocal getDecisionTemplateLocal() {
+        return dtl;
     }
     // </editor-fold>
 
@@ -279,6 +351,13 @@ public class ManageDecisionController extends AbstractController {
 
     public Project getProject() {
         return project;
+    }
+
+
+
+
+    public Decision getDecision() {
+        return decision;
     }
     // </editor-fold>
 

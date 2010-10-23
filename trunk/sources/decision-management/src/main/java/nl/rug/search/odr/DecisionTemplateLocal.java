@@ -21,5 +21,10 @@ public interface DecisionTemplateLocal extends GenericDaoLocal<DecisionTemplate,
 
     @java.lang.Override
     public boolean isPersistable(nl.rug.search.odr.entities.DecisionTemplate entity);
+
+
+
+
+    public nl.rug.search.odr.entities.DecisionTemplate getByName(java.lang.String name);
     
 }

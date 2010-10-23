@@ -21,7 +21,9 @@ import nl.rug.search.odr.StringValidator;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "DecisionTemplate.isNameUsed",
-                query = "SELECT COUNT(t) FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
+                query = "SELECT COUNT(t) FROM DecisionTemplate t WHERE LOWER(t.name) = :name"),
+    @NamedQuery(name= "DecisionTemplate.getByName",
+                query="SELECT t FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
 })
 @Entity
 public class DecisionTemplate extends BaseEntity<DecisionTemplate> {

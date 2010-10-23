@@ -95,7 +95,7 @@ public class RequestAnalyser {
 
         result.setProject(pl.getById(projectId));
 
-        if (result == null) {
+        if (result.getProject() == null) {
 
             result.setErrorAction(new Runnable() {
                 @Override
