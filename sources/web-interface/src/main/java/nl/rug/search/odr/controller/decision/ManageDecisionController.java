@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestAnalyser;
@@ -20,7 +21,8 @@ import nl.rug.search.odr.project.ProjectLocal;
 /**
  * 
  * Controller should be view / conversation scoped. Unfortunately I only got it working using
- * session scope. See the following web sites for some additional information
+ * session scope. See the following web sites for some additional information regarding
+ * the use of view scope and dynamic ui:include
  *
  * http://forums.java.net/jive/thread.jspa?threadID=74533
  * http://www.icefaces.org/JForum/posts/list/17579.page
@@ -88,24 +90,7 @@ public class ManageDecisionController extends AbstractController {
         statesStep = new StatesStep(this);
         confirmationStep = new ConfirmationStep(this);
 
-        setCurrentStepToInitialStep();
-    }
-
-
-
-
-    private void setCurrentStepToInitialStep() {
-        if (STEP_ORDER[0] == EssentialsStep.class) {
-            currentStep = essentialsStep;
-        } else if (STEP_ORDER[0] == TemplateRelatedStep.class) {
-            currentStep = templateRelatedStep;
-        } else if (STEP_ORDER[0] == RelationshipsStep.class) {
-            currentStep = relationshipsStep;
-        } else if (STEP_ORDER[0] == StatesStep.class) {
-            currentStep = statesStep;
-        } else if (STEP_ORDER[0] == ConfirmationStep.class) {
-            currentStep = confirmationStep;
-        }
+        setStep(0);
     }
 
 
@@ -138,7 +123,11 @@ public class ManageDecisionController extends AbstractController {
     public void nextStep() {
         int nextStepId = getStepId(currentStep) + 1;
 
-        setStep(nextStepId);
+        if (shouldStepBeSkipped(nextStepId)) {
+            nextStepId++;
+        }
+
+        navigateToStep(nextStepId);
     }
 
 
@@ -147,15 +136,43 @@ public class ManageDecisionController extends AbstractController {
     public void previousStep() {
         int previousStepId = getStepId(currentStep) - 1;
 
-        setStep(previousStepId);
+        if (shouldStepBeSkipped(previousStepId)) {
+            previousStepId--;
+        }
+
+        navigateToStep(previousStepId);
     }
 
 
 
 
-    private void setStep(int id) {
+    private boolean shouldStepBeSkipped(int nextStepId) {
+        if (STEP_ORDER[nextStepId] != TemplateRelatedStep.class) {
+            return false;
+        }
+
+        if (essentialsStep.getDecisionTemplateAsObject().
+                getComponents().
+                isEmpty()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    private void navigateToStep(int id) {
         currentStep.blur();
 
+        setStep(id);
+
+        currentStep.focus();
+
+        JsfUtil.refreshPage();
+    }
+
+
+    private void setStep(int id) {
         if (STEP_ORDER[id] == EssentialsStep.class) {
             currentStep = essentialsStep;
         } else if (STEP_ORDER[id] == TemplateRelatedStep.class) {
@@ -167,10 +184,6 @@ public class ManageDecisionController extends AbstractController {
         } else if (STEP_ORDER[id] == ConfirmationStep.class) {
             currentStep = confirmationStep;
         }
-
-        currentStep.focus();
-
-        JsfUtil.refreshPage();
     }
     // </editor-fold>
 
@@ -210,7 +223,26 @@ public class ManageDecisionController extends AbstractController {
             confirmationStep.dispose();
         }
 
-        setCurrentStepToInitialStep();
+        setStep(0);
+    }
+
+
+
+
+    /**
+     * When the user is not on the confirmation page, then a press
+     * on the submit button should bring him there
+     * @return
+     */
+    @Override
+    public ActionResult submitForm() {
+        if (currentStep.getClass() != STEP_ORDER[STEP_ORDER.length - 1]) {
+            navigateToStep(STEP_ORDER.length - 1);
+
+            return null;
+        } else {
+            return super.submitForm();
+        }
     }
 
 

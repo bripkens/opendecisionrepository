@@ -22,6 +22,7 @@ import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
+import nl.rug.search.odr.entities.TemplateComponent;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.StakeholderRoleLocal;
@@ -503,6 +504,81 @@ public class FillDbController {
     public void addDecisionTemplates() {
         DecisionTemplate template = new DecisionTemplate();
         template.setName("Quick add form");
+        dtl.persist(template);
+
+        template = new DecisionTemplate();
+        template.setName("Demystifying architecture");
+
+        TemplateComponent templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Issue");
+        templateComponent.setOrder(0);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Decision");
+        templateComponent.setOrder(1);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Group");
+        templateComponent.setOrder(2);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Assumptions");
+        templateComponent.setOrder(3);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Constraints");
+        templateComponent.setOrder(4);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Positions");
+        templateComponent.setOrder(5);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Argument");
+        templateComponent.setOrder(6);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Implications");
+        templateComponent.setOrder(7);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Notes");
+        templateComponent.setOrder(8);
+        template.addComponent(templateComponent);
+
+        dtl.persist(template);
+
+        template = new DecisionTemplate();
+        template.setName("Viewpoints for architectural decisions");
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Problem/Issue");
+        templateComponent.setOrder(0);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Decision");
+        templateComponent.setOrder(1);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Alternatives");
+        templateComponent.setOrder(2);
+        template.addComponent(templateComponent);
+
+        templateComponent = new TemplateComponent();
+        templateComponent.setLabel("Arguments");
+        templateComponent.setOrder(3);
+        template.addComponent(templateComponent);
+
         dtl.persist(template);
     }
 

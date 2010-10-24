@@ -59,7 +59,7 @@ public abstract class AbstractController {
         resetForm();
     }
 
-    public final ActionResult submitForm() {
+    public ActionResult submitForm() {
         boolean success = false;
 
         try {

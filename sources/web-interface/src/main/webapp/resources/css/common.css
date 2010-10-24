@@ -444,8 +444,11 @@ div#help {
     background-color: #f4f2f2;
     background-repeat: repeat-x;
     padding: 0 3px 0 3px;
+    height: 25px;
 }
-
+#page select {
+    padding: 0;
+}
 
 #page input:focus, #page textarea:focus  {
     background-color: #fff;
