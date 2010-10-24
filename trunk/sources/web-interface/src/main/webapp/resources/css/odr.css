@@ -164,7 +164,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 }
 
 /* If you want to use this css, then restrict it to the current view not all.*/
-/*#page .formSection select{
+#page .formSection select{
     height:25px;
     position:absolute;
     right:120px;
@@ -176,7 +176,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 #page .formSection select.minute{
     float:right;
     right:30px;
-}*/
+}
 
 #page .formSection label.hourlabel{
     float:right;
@@ -417,4 +417,12 @@ div.projectDetailsActions {
     left: 107px;
     position: absolute;
     width: 495px;
+}
+#page .formSection table.collection {
+    font-size: 0.9em;
+    padding: 35px 0 6px 10px;
+    width: 500px;
+}
+#page table tr:hover {
+    background-color: #f4f2f2;
 }

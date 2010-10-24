@@ -71,7 +71,7 @@
                                      imageDir="./resources/images/"
                                      renderAsPopup="true"
                                      styleClass="date">
-                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium"/>
+                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
                 </ice:selectInputDate>
 
                 <ice:outputLabel styleClass="hourlabel" value="Time:" for="inStartDateHour"/>
@@ -111,7 +111,7 @@
                                      imageDir="./resources/images/"
                                      renderAsPopup="true"
                                      styleClass="date">
-                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium"/>
+                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
                 </ice:selectInputDate>
 
                 <ice:outputLabel styleClass="hourlabel" value="Time:" for="inEndDateHour"/>

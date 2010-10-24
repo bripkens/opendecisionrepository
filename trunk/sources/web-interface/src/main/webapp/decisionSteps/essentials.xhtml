@@ -33,16 +33,50 @@
         <ice:outputLabel value="#{form['label.template']}" for="inTemplate"/>
         <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
         <ice:selectOneMenu id="inTemplate"
-                              label="#{form['label.template']}"
-                              required="true"
-                              value="#{manageDecisionController.essentialsStep.decisionTemplate}">
+                           label="#{form['label.template']}"
+                           required="true"
+                           value="#{manageDecisionController.essentialsStep.decisionTemplate}">
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
             <f:selectItems value="#{manageDecisionController.essentialsStep.decisionTemplates}" />
         </ice:selectOneMenu>
         <p class="empty" />
     </div>
 
 
-    
+    <div class="formSection">
+        <ice:outputLabel value="#{form['label.requirements']}" for="inRequirement"/>
+        <ice:selectOneMenu id="inRequirement"
+                           label="#{form['label.requirements']}"
+                           required="true"
+                           immediate="true"
+                           partialSubmit="true"
+                           valueChangeListener="#{manageDecisionController.essentialsStep.requirementSelectionChangeListener}">
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
+            <f:selectItems value="#{manageDecisionController.essentialsStep.availableRequirements}" />
+        </ice:selectOneMenu>
+
+        <ice:dataTable value="#{manageDecisionController.essentialsStep.selectedRequirements}" var="item"
+                       styleClass="collection">
+            <ice:column>
+                <ice:rowSelector />
+                <ice:outputText value="#{item.description}" nospan="true" />
+            </ice:column>
+            <ice:column>
+                <ice:commandLink value=""
+                                 action="#{manageDecisionController.essentialsStep.removeRequirement(item.id)}"
+                                 immediate="true">
+                    <img alt="#{common.remove}"
+                         src="resources/images/removeSmall.png"
+                         width="11"
+                         height="11"/>
+                </ice:commandLink>
+            </ice:column>
+        </ice:dataTable>
+
+        <p />
+    </div>
+
+
     <div class="formSection last">
         <ice:outputLabel value="#{form['label.opr.link']}" for="inOprLink"/>
         <ice:inputText id="inOprLink"

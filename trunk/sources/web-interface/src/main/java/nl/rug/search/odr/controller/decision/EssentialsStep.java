@@ -1,10 +1,13 @@
 package nl.rug.search.odr.controller.decision;
 
 import com.sun.faces.util.MessageFactory;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.DecisionTemplateLocal;
@@ -12,6 +15,7 @@ import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.DecisionTemplate;
+import nl.rug.search.odr.entities.Requirement;
 
 /**
  *
@@ -21,6 +25,7 @@ public class EssentialsStep implements WizardStep {
 
     // <editor-fold defaultstate="collapsed" desc="constants">
     public static final String USER_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="attributes">
     private final ManageDecisionController wizard;
@@ -30,14 +35,17 @@ public class EssentialsStep implements WizardStep {
     private DecisionTemplate decisionTemplate;
 
     private String oprLink;
-    // </editor-fold>
 
+    private Collection<Requirement> selectedRequirements;
+
+    // </editor-fold>
 
 
 
     // <editor-fold defaultstate="collapsed" desc="construction">
     public EssentialsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
+        selectedRequirements = new ArrayList<Requirement>();
     }
     // </editor-fold>
 
@@ -63,6 +71,35 @@ public class EssentialsStep implements WizardStep {
     public void dispose() {
         decisionName = null;
         decisionTemplate = null;
+        oprLink = null;
+        selectedRequirements.clear();
+    }
+    // </editor-fold>
+
+
+
+
+    // <editor-fold defaultstate="collapsed" desc="listeners">
+    public void requirementSelectionChangeListener(ValueChangeEvent e) {
+        String selectedRequirement = e.getNewValue().toString();
+
+        for (Requirement requirement : wizard.getProject().
+                getRequirements()) {
+            if (requirement.getDescription().
+                    equals(selectedRequirement) && !selectedRequirements.contains(requirement)) {
+                selectedRequirements.add(requirement);
+                return;
+            }
+        }
+    }
+
+    public void removeRequirement(long id) {
+        for(Requirement requirement : selectedRequirements) {
+            if (requirement.getId().equals(id)) {
+                selectedRequirements.remove(requirement);
+                return;
+            }
+        }
     }
     // </editor-fold>
 
@@ -132,9 +169,12 @@ public class EssentialsStep implements WizardStep {
     }
 
 
-    public DecisionTemplate getDecisionTemplateAsObject() {
+
+
+    DecisionTemplate getDecisionTemplateAsObject() {
         return decisionTemplate;
     }
+
 
 
 
@@ -175,6 +215,34 @@ public class EssentialsStep implements WizardStep {
 
     public void setOprLink(String oprLink) {
         this.oprLink = oprLink;
+    }
+
+
+
+
+    public Collection<SelectItem> getAvailableRequirements() {
+        Collection<Requirement> allRequirementsImmutable = wizard.getProject().
+                getRequirements();
+
+        Collection<SelectItem> allRequirements = new ArrayList<SelectItem>(allRequirementsImmutable.size());
+
+        for (Requirement requirement : allRequirementsImmutable) {
+            if (!selectedRequirements.contains(requirement)) {
+                SelectItem item = new SelectItem();
+                item.setValue(requirement.getDescription());
+                item.setLabel(requirement.getDescription());
+                allRequirements.add(item);
+            }
+        }
+
+        return allRequirements;
+    }
+
+
+
+    
+    public Collection<Requirement> getSelectedRequirements() {
+        return selectedRequirements;
     }
     // </editor-fold>
 }
