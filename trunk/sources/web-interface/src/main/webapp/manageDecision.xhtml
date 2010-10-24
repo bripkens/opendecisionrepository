@@ -25,16 +25,7 @@
         <div>
             <ice:form id="manageDecisionForm" partialSubmit="false" rendered="#{manageDecisionController.valid}">
 
-                <ice:commandButton action="#{manageDecisionController.nextStep}"
-                                   rendered="#{!manageDecisionController.lastStep}"
-                                   value="#{form['button.next']}"
-                                   id="nextStepButton"
-                                   styleClass="nextStepButton"/>
-                <ice:commandButton action="#{manageDecisionController.previousStep}"
-                                   rendered="#{!manageDecisionController.firstStep}"
-                                   value="#{form['button.previous']}"
-                                   id="previousStepButton"
-                                   styleClass="previousStepButton"/>
+
 
                 <h1><ice:outputText value="#{manageDecisionController.headline}" nospan="true" /></h1>
 
@@ -51,6 +42,18 @@
                                    value="#{form['button.clear']}"
                                    styleClass="abort"
                                    immediate="true"/>
+
+                <ice:commandButton action="#{manageDecisionController.nextStep}"
+                                   rendered="#{!manageDecisionController.lastStep}"
+                                   value="#{form['button.next']}"
+                                   id="nextStepButton"
+                                   styleClass="nextStepButton"/>
+
+                <ice:commandButton action="#{manageDecisionController.previousStep}"
+                                   rendered="#{!manageDecisionController.firstStep}"
+                                   value="#{form['button.previous']}"
+                                   id="previousStepButton"
+                                   styleClass="previousStepButton"/>
             </ice:form>
         </div>
     </ui:define>

@@ -83,7 +83,6 @@ public class EssentialsStep implements WizardStep {
             return;
         }
 
-
         for (Decision decision : wizard.getProject().
                 getDecisions()) {
             if (newName.equalsIgnoreCase(decision.getName())) {
@@ -132,6 +131,10 @@ public class EssentialsStep implements WizardStep {
         return null;
     }
 
+
+    public DecisionTemplate getDecisionTemplateAsObject() {
+        return decisionTemplate;
+    }
 
 
 

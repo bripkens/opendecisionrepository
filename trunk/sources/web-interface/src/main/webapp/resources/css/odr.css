@@ -17,6 +17,9 @@ a.collapsable{
     top:0;
     right:0;
 }
+#page table select {
+    height: 19px;
+}
 #page ul.info li div.text h2 {
     font-size: 1.1em;
     margin: 0 0 0.1em 0;
@@ -207,7 +210,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 #page .formSection input, #page .formSection textarea {
     float: right;
     font: 14px/1.5em arial,sans-serif;
-    min-height: 25px;
+    height: 25px;
 }
 #page .formSection textarea {
     width: 487px;
