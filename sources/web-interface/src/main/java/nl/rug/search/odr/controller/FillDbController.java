@@ -20,6 +20,7 @@ import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.TemplateComponent;
@@ -590,5 +591,26 @@ public class FillDbController {
         }
 
         throw new RuntimeException("Can't find template.");
+    }
+
+    public void addRequirements() {
+        Project p = pl.getByName("OpenDecisionRepository");
+
+        Requirement r = new Requirement();
+        r.setDescription("First requirement");
+        r.setInitiators(p.getMembers());
+        p.addRequirement(r);
+
+        r = new Requirement();
+        r.setDescription("Second requirement");
+        r.setInitiators(p.getMembers());
+        p.addRequirement(r);
+
+        r = new Requirement();
+        r.setDescription("Third requirement");
+        r.setInitiators(p.getMembers());
+        p.addRequirement(r);
+
+        pl.merge(p);
     }
 }

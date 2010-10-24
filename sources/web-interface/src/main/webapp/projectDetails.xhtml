@@ -153,11 +153,11 @@
                         <ice:column>
                             <span class="small">
                                 <ice:outputText value="#{item.startDate}" nospan="true">
-                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" />
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" timeZone="#{timeZoneController.timeZone}" />
                                 </ice:outputText>
                                 <ice:outputText value=" - " nospan="true" />
                                 <ice:outputText value="#{item.endDate}" nospan="true">
-                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" />
+                                    <f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm" timeZone="#{timeZoneController.timeZone}" />
                                 </ice:outputText>
                             </span>
                         </ice:column>
