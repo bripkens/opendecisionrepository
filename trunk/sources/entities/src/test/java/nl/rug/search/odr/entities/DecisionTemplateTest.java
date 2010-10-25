@@ -140,4 +140,14 @@ public class DecisionTemplateTest {
     public void testSetNullComponenst() {
         t.setComponents(null);
     }
+
+    @Test
+    public void comparatorTest() {
+        t.setName("AAAAA");
+
+        DecisionTemplate t2 = new DecisionTemplate();
+        t2.setName("BBBBB");
+
+        assertTrue(new DecisionTemplate.NameComparator().compare(t, t2) < 0);
+    }
 }

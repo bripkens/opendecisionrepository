@@ -597,17 +597,17 @@ public class FillDbController {
         Project p = pl.getByName("OpenDecisionRepository");
 
         Requirement r = new Requirement();
-        r.setDescription("First requirement");
+        r.setName("First requirement");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 
         r = new Requirement();
-        r.setDescription("Second requirement");
+        r.setName("Second requirement");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 
         r = new Requirement();
-        r.setDescription("Third requirement");
+        r.setName("Third requirement");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 

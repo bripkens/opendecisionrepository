@@ -4,6 +4,7 @@ import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -81,11 +82,12 @@ public class EssentialsStep implements WizardStep {
 
     // <editor-fold defaultstate="collapsed" desc="listeners">
     public void requirementSelectionChangeListener(ValueChangeEvent e) {
-        String selectedRequirement = e.getNewValue().toString();
+        String selectedRequirement = e.getNewValue().
+                toString();
 
         for (Requirement requirement : wizard.getProject().
                 getRequirements()) {
-            if (requirement.getDescription().
+            if (requirement.getName().
                     equals(selectedRequirement) && !selectedRequirements.contains(requirement)) {
                 selectedRequirements.add(requirement);
                 return;
@@ -93,9 +95,13 @@ public class EssentialsStep implements WizardStep {
         }
     }
 
+
+
+
     public void removeRequirement(long id) {
-        for(Requirement requirement : selectedRequirements) {
-            if (requirement.getId().equals(id)) {
+        for (Requirement requirement : selectedRequirements) {
+            if (requirement.getId().
+                    equals(id)) {
                 selectedRequirements.remove(requirement);
                 return;
             }
@@ -190,6 +196,8 @@ public class EssentialsStep implements WizardStep {
         DecisionTemplateLocal dtl = wizard.getDecisionTemplateLocal();
         List<DecisionTemplate> allTemplates = dtl.getAll();
 
+        Collections.sort(allTemplates, new DecisionTemplate.NameComparator());
+
         SelectItem[] allTemplatesAsItems = new SelectItem[allTemplates.size()];
 
         int i = 0;
@@ -224,24 +232,38 @@ public class EssentialsStep implements WizardStep {
         Collection<Requirement> allRequirementsImmutable = wizard.getProject().
                 getRequirements();
 
-        Collection<SelectItem> allRequirements = new ArrayList<SelectItem>(allRequirementsImmutable.size());
+        List<SelectItem> allRequirements = new ArrayList<SelectItem>(allRequirementsImmutable.size());
 
         for (Requirement requirement : allRequirementsImmutable) {
             if (!selectedRequirements.contains(requirement)) {
                 SelectItem item = new SelectItem();
-                item.setValue(requirement.getDescription());
-                item.setLabel(requirement.getDescription());
+                item.setValue(requirement.getName());
+                item.setLabel(requirement.getName());
                 allRequirements.add(item);
             }
         }
+
+        Collections.sort(allRequirements, new Comparator<SelectItem>() {
+
+            @Override
+            public int compare(SelectItem o1, SelectItem o2) {
+                return o1.getLabel().
+                        compareToIgnoreCase(o2.getLabel());
+            }
+        });
 
         return allRequirements;
     }
 
 
 
-    
+
     public Collection<Requirement> getSelectedRequirements() {
+
+        List<Requirement> requirements = (List<Requirement>) selectedRequirements;
+
+        Collections.sort(requirements, new Requirement.NameComparator());
+
         return selectedRequirements;
     }
     // </editor-fold>
