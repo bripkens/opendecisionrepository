@@ -316,13 +316,13 @@ p.deleteConfirmationMessage  span {
 #help  ul.info > li > div.text a {
     color: #fff;
 }
-#page .members table.rowhover td, #page .members table.rowhover th {
+#page .members table td, #page .members table th {
     font-size: 0.9em;
 }
-#page .members table.rowhover td:first-child, #page .members table.rowhover th:first-child {
+#page .members table td:first-child, #page .members table th:first-child {
     width: 350px;
 }
-#page .members table.rowhover td:first-child span, #page .members table.rowhover th:first-child span {
+#page .members table td:first-child span, #page .members table th:first-child span {
     font-size: 0.9em;
     color: #444;
 }
@@ -417,11 +417,14 @@ div.projectDetailsActions {
     position: absolute;
     width: 495px;
 }
+#page .formSection table select {
+    height: 19px;
+}
 #page .formSection table.collection {
     font-size: 0.9em;
     padding: 35px 0 6px 10px;
     width: 500px;
 }
-#page table tr:hover {
+#page table.enableHover tr:hover {
     background-color: #f4f2f2;
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -41,6 +42,7 @@ public class EssentialsStep implements WizardStep {
 
     private Collection<Requirement> selectedRequirements;
 
+    private Date decidedWhen;
     // </editor-fold>
 
 
@@ -68,6 +70,8 @@ public class EssentialsStep implements WizardStep {
         }
 
         selectedRequirements = new ArrayList<Requirement>(wizard.getVersion().getRequirements());
+
+        decidedWhen = wizard.getVersion().getDecidedWhen();
     }
 
 
@@ -93,6 +97,7 @@ public class EssentialsStep implements WizardStep {
         Version v = wizard.getVersion();
         v.removeAllRequirements();
         v.setRequirements(selectedRequirements);
+        v.setDecidedWhen(decidedWhen);
     }
 
 
@@ -287,6 +292,20 @@ public class EssentialsStep implements WizardStep {
         Collections.sort(requirements, new Requirement.NameComparator());
 
         return selectedRequirements;
+    }
+
+
+
+
+    public Date getDecidedWhen() {
+        return decidedWhen;
+    }
+
+
+
+
+    public void setDecidedWhen(Date decidedWhen) {
+        this.decidedWhen = decidedWhen;
     }
     // </editor-fold>
 }

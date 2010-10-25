@@ -56,7 +56,7 @@
             <a href="#" class="togglelink collapsable" name="memberContainer1" >#{common.toggle}</a>
             <div id="memberContainer1" class="toggleContainer" >
                 <ice:dataTable rendered="#{projectDetailsController.valid}"
-                               value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
+                               value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover enableHover ">
                     <ice:column>
                         <ice:rowSelector />
                         <ice:outputText value="#{item.person.name}" nospan="true"/>
@@ -81,7 +81,7 @@
 
                 <ice:form>
 
-                    <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
+                    <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover enableHover ">
 
                         <ice:column>
                             <ice:rowSelector />
@@ -145,14 +145,13 @@
 
 
                 <ice:form>
-                    <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer">
+                    <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer" id="showQuickAddDecisionContainer">
                         <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
                         <ice:outputText value="#{page['projectDetails.decisions.quick.add']}"/>
                     </a>
-                    <ice:commandLink value="#{page['projectDetails.decisions.wizard.add']}"
-                                     action="#{projectDetailsController.navigateToWizard}"
-                                     id="addDecisionWizardLink"
-                                     style="margin-left: 15px;"/>
+                    <a href="#{projectDetailsController.createDecisionLink}" id="addDecisionWizardLink" style="margin-left: 15px;">
+                        <ice:outputText value="#{page['projectDetails.decisions.wizard.add']}"/>
+                    </a>
                 </ice:form>
 
                 <ice:form partialSubmit="true" id="decisionQuickAddContainer">
@@ -206,7 +205,7 @@
                     <ice:dataTable rendered="#{projectDetailsController.valid}"
                                    value="#{projectDetailsController.decisions}"
                                    var="item"
-                                   styleClass="rowhover pointer "
+                                   styleClass="rowhover enableHover "
                                    id="decisionTable"
                                    rows="10">
                         <ice:column>
@@ -217,13 +216,12 @@
                             <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
                         </ice:column>
                         <ice:column>
-                            <ice:commandLink value=""
-                                             action="#{projectDetailsController.editDecision(item)}">
+                            <a href="#{projectDetailsController.getEditDecisionLink(item)}">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"
                                      width="11"
                                      height="11"/>
-                            </ice:commandLink>
+                            </a>
 
                             <ice:commandLink value=""
                                              action="#{projectDetailsController.deleteDecision(item)}">

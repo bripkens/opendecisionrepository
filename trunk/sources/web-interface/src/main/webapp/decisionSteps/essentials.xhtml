@@ -5,7 +5,8 @@
                     xmlns:ui="http://java.sun.com/jsf/facelets"
                     xmlns:h="http://java.sun.com/jsf/html"
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
-                    xmlns:f="http://java.sun.com/jsf/core">
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
 
 
@@ -76,6 +77,9 @@
         <p />
     </div>
 
+    <div class="formSection">
+        <odr:datetimepicker value="#{manageDecisionController.essentialsStep.decidedWhen}" />
+    </div>
 
     <div class="formSection last">
         <ice:outputLabel value="#{form['label.opr.link']}" for="inOprLink"/>
