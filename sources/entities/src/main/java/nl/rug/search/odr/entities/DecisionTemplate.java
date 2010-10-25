@@ -3,6 +3,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -152,5 +153,16 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name};
+    }
+
+
+
+    public static class NameComparator implements Comparator<DecisionTemplate> {
+
+        @Override
+        public int compare(DecisionTemplate o1, DecisionTemplate o2) {
+            return o1.name.compareToIgnoreCase(o2.name);
+        }
+
     }
 }

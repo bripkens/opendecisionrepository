@@ -78,11 +78,41 @@ public class RequirementTest {
 
 
     @Test
+    public void testSetName() {
+        String name = "xxx";
+        r.setName(name);
+
+        assertEquals(name, r.getName());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testNullName() {
+        r.setName(null);
+    }
+
+
+
+
+    @Test(expected = RuntimeException.class)
+    public void testEmptyName() {
+        r.setName("     ");
+    }
+
+
+
+    @Test
     public void testCompareData() {
+        String name = "sadasds";
+        r.setName(name);
         String description = "djsiaodasda";
         r.setDescription(description);
 
-        assertEquals(description, r.getCompareData()[0]);
+
+        assertEquals(name, r.getCompareData()[0]);
+        assertEquals(description, r.getCompareData()[1]);
     }
 
 
@@ -90,7 +120,7 @@ public class RequirementTest {
     public void testIsPersistable() {
         assertFalse(r.isPersistable());
 
-        r.setDescription("1sdasdsa");
+        r.setName("1sdasdsa");
 
         assertFalse(r.isPersistable());
 
@@ -175,5 +205,15 @@ public class RequirementTest {
         r.removeAllInitiators();
 
         assertTrue(r.getInitiators().isEmpty());
+    }
+
+    @Test
+    public void comparatorTest() {
+        r.setName("AAAAA");
+
+        Requirement r2 = new Requirement();
+        r2.setName("BBBBB");
+
+        assertTrue(new Requirement.NameComparator().compare(r, r2) < 0);
     }
 }

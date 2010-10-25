@@ -7,6 +7,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,8 @@ public class Requirement extends BaseEntity<Requirement> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String name;
 
     private String description;
 
@@ -74,6 +77,22 @@ public class Requirement extends BaseEntity<Requirement> {
         StringValidator.isValid(description);
         this.description = description;
     }
+
+
+
+
+    public String getName() {
+        return name;
+    }
+
+
+
+
+    public void setName(String name) {
+        StringValidator.isValid(name);
+        this.name = name;
+    }
+
 
 
 
@@ -127,7 +146,7 @@ public class Requirement extends BaseEntity<Requirement> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{description};
+        return new Object[]{name, description};
     }
 
 
@@ -135,6 +154,15 @@ public class Requirement extends BaseEntity<Requirement> {
 
     @Override
     public boolean isPersistable() {
-        return description != null && !initiators.isEmpty();
+        return name != null && !initiators.isEmpty();
+    }
+
+    public static class NameComparator implements Comparator<Requirement> {
+
+        @Override
+        public int compare(Requirement o1, Requirement o2) {
+            return o1.name.compareToIgnoreCase(o2.name);
+        }
+
     }
 }
