@@ -16,7 +16,9 @@ import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.DecisionTemplate;
+import nl.rug.search.odr.entities.OprLink;
 import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Version;
 
 /**
  *
@@ -56,6 +58,16 @@ public class EssentialsStep implements WizardStep {
     // <editor-fold defaultstate="collapsed" desc="action called by parent component">
     @Override
     public void focus() {
+        Decision d = wizard.getDecision();
+
+        decisionName = d.getName();
+        decisionTemplate = d.getTemplate();
+
+        if (d.getLink() != null) {
+            oprLink = d.getLink().getLink();
+        }
+
+        selectedRequirements = new ArrayList<Requirement>(wizard.getVersion().getRequirements());
     }
 
 
@@ -63,18 +75,29 @@ public class EssentialsStep implements WizardStep {
 
     @Override
     public void blur() {
+        Decision d = wizard.getDecision();
+
+        d.setName(decisionName);
+        d.setTemplate(decisionTemplate);
+
+        if (!StringValidator.isValid(oprLink, false)) {
+            d.setLink(null);
+        } else if (d.getLink() == null) {
+            OprLink link = new OprLink();
+            link.setLink(oprLink);
+            d.setLink(link);
+        } else {
+            d.getLink().setLink(oprLink);
+        }
+
+        Version v = wizard.getVersion();
+        v.removeAllRequirements();
+        v.setRequirements(selectedRequirements);
     }
 
 
 
 
-    @Override
-    public void dispose() {
-        decisionName = null;
-        decisionTemplate = null;
-        oprLink = null;
-        selectedRequirements.clear();
-    }
     // </editor-fold>
 
 
@@ -121,8 +144,7 @@ public class EssentialsStep implements WizardStep {
             return;
         }
 
-        if (wizard.isUpdateRequest() && newName.equalsIgnoreCase(wizard.getDecision().
-                getName())) {
+        if (wizard.isUpdateRequest() && newName.equalsIgnoreCase(wizard.getInitialDecisionName())) {
             return;
         }
 

@@ -5,6 +5,7 @@ import com.icesoft.faces.context.effects.Appear;
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.EffectQueue;
 import com.icesoft.faces.context.effects.Fade;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
@@ -14,7 +15,7 @@ import nl.rug.search.odr.JsfUtil;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public abstract class AbstractController {
+public abstract class AbstractController implements Serializable {
 
     public static final int RESULT_DELAY = 3;
     private EffectQueue resultEffect;

@@ -26,24 +26,30 @@ public class ProjectsController {
 
     @EJB
     private ProjectLocal pl;
+
     private List<ProjectMember> members;
+
+
+
 
     public void rowSelectionListener(RowSelectorEvent event) {
         for (int i = 0; i < members.size(); i++) {
             if (i == event.getRow()) {
-                try {
-                    JsfUtil.redirect("/project/" + members.get(i).getProject().getName());
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(members.get(i).getProject().getName()));
             }
         }
     }
+
+
+
 
     @PostConstruct
     public void init() {
         members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
     }
+
+
+
 
     /**
      * @return array of projects data.
@@ -53,23 +59,27 @@ public class ProjectsController {
         return members;
     }
 
+
+
+
     public boolean isActive() {
         members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
-        if(members.isEmpty()){
+        if (members.isEmpty()) {
             return false;
         }
         return true;
     }
 
+
+
+
     public void newProjectLink() {
-        try {
-            JsfUtil.redirect("/project/create");
-        } catch (IOException ex) {
-            Logger.getLogger(ProjectsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(RequestParameter.CREATE));
     }
 
-    
+
+
+
     public Effect getEffect() {
         EffectQueue blind = new EffectQueue("effectBlind");
         blind.add(new Fade());
@@ -79,7 +89,10 @@ public class ProjectsController {
         return blind;
     }
 
-    public void changeEffectAction(ActionEvent event){
+
+
+
+    public void changeEffectAction(ActionEvent event) {
         getEffect().setFired(true);
     }
 }

@@ -38,16 +38,25 @@ public class ManageProjectController extends AbstractManageController {
     // <editor-fold defaultstate="collapsed" desc="attributes">
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private UserLocal ul;
+
     @EJB
     private StakeholderRoleLocal srl;
+
     private String name;
+
     private String description;
+
     private String memberInput;
+
     private Collection<ProjectMember> projectMembers;
+
     private ProjectMember currentUser;
+
     private Project sourceProject;
+
     public static final String USEDPROJECTNAME_ID =
             "nl.rug.search.odr.controller.ManageProjectController.DUPLICATEPROJECTNAME";
 
@@ -55,8 +64,10 @@ public class ManageProjectController extends AbstractManageController {
             "nl.rug.search.odr.controller.ManageProjectController.ALREADYMEMBER";
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="requests">
+
+
     @Override
     protected void handleCreateRequest() {
         sourceProject = new Project();
@@ -64,6 +75,9 @@ public class ManageProjectController extends AbstractManageController {
         currentUser.setPerson(ul.getById(AuthenticationUtil.getUserId()));
         currentUser.setRole(srl.getSomePublicRole());
     }
+
+
+
 
     @Override
     protected boolean handleUpdateRequest(long id) {
@@ -89,6 +103,9 @@ public class ManageProjectController extends AbstractManageController {
         return true;
     }
 
+
+
+
     @Override
     protected boolean handleDeleteRequest(long id) {
         sourceProject = pl.getById(id);
@@ -106,6 +123,8 @@ public class ManageProjectController extends AbstractManageController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="execution">
+
+
     public void addMember(ActionEvent e) {
 
         ProjectMember p = new ProjectMember();
@@ -124,7 +143,7 @@ public class ManageProjectController extends AbstractManageController {
             } catch (BusinessException ex) {
             }
         } else {
-            for(ProjectMember member : projectMembers) {
+            for (ProjectMember member : projectMembers) {
                 if (member.isRemoved() && member.getPerson().getEmail().equalsIgnoreCase(memberInput)) {
                     member.setRemoved(false);
                     memberInput = null;
@@ -141,7 +160,7 @@ public class ManageProjectController extends AbstractManageController {
 
         memberInput = null;
 
-        for(ProjectMember member : projectMembers) {
+        for (ProjectMember member : projectMembers) {
             if (member.getPerson().getId() == p.getId()) {
                 member.setRemoved(false);
                 return;
@@ -151,10 +170,13 @@ public class ManageProjectController extends AbstractManageController {
         projectMembers.add(p);
     }
 
+
+
+
     public void removeMember(ActionEvent e) {
         ProjectMember pm = (ProjectMember) e.getComponent().getAttributes().get("member");
 
-        for(ProjectMember member : projectMembers) {
+        for (ProjectMember member : projectMembers) {
             if (member.getPerson().getId() == pm.getPerson().getId()) {
                 member.setRemoved(true);
                 return;
@@ -163,6 +185,9 @@ public class ManageProjectController extends AbstractManageController {
 
         projectMembers.remove(pm);
     }
+
+
+
 
     public void roleChanged(ValueChangeEvent e) {
         String[] value = e.getNewValue().toString().split(";");
@@ -185,6 +210,9 @@ public class ManageProjectController extends AbstractManageController {
         }
     }
 
+
+
+
     @Override
     protected boolean handleCreateExecution() {
         sourceProject.setName(name);
@@ -200,15 +228,13 @@ public class ManageProjectController extends AbstractManageController {
         pl.createProject(sourceProject);
 
         JsfUtil.removeSessionBean(getBeanName());
-
-        try {
-            JsfUtil.redirect("/project/".concat(sourceProject.getName()));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/project/".concat(sourceProject.getName()));
 
         return true;
     }
+
+
+
 
     @Override
     protected boolean handleUpdateExecution() {
@@ -225,14 +251,13 @@ public class ManageProjectController extends AbstractManageController {
 
         JsfUtil.removeSessionBean(getBeanName());
 
-        try {
-            JsfUtil.redirect("/project/".concat(sourceProject.getName()));
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/project/".concat(sourceProject.getName()));
 
         return true;
     }
+
+
+
 
     @Override
     protected boolean handleConfirmedDeleteExecution() {
@@ -240,14 +265,13 @@ public class ManageProjectController extends AbstractManageController {
 
         JsfUtil.removeSessionBean(getBeanName());
 
-        try {
-            JsfUtil.redirect("/projects.html");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/projects.html");
 
         return true;
     }
+
+
+
 
     public void delete() {
         handleConfirmedDeleteExecution();
@@ -256,11 +280,16 @@ public class ManageProjectController extends AbstractManageController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="resets">
+
+
     @Override
     protected void reset() {
         name = description = memberInput = null;
         projectMembers = new ArrayList<ProjectMember>();
     }
+
+
+
 
     @Override
     protected void resetRequestDependent() {
@@ -271,6 +300,8 @@ public class ManageProjectController extends AbstractManageController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="validators">
+
+
     public void checkProjectName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
 
         String newName = value.toString().trim();
@@ -299,6 +330,9 @@ public class ManageProjectController extends AbstractManageController {
                     MessageFactory.getLabel(fc, uic)
                 }));
     }
+
+
+
 
     public void checkEmailAddress(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
         String email = value.toString();
@@ -330,6 +364,8 @@ public class ManageProjectController extends AbstractManageController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter and setter">
+
+
     private boolean isMember(String value) {
         if (value.equalsIgnoreCase(currentUser.getPerson().getEmail())) {
             return true;
@@ -344,6 +380,9 @@ public class ManageProjectController extends AbstractManageController {
         return false;
     }
 
+
+
+
     public Collection<SelectItem> getRoles(String id) {
 
         Collection<SelectItem> roleItems = new ArrayList<SelectItem>();
@@ -356,6 +395,9 @@ public class ManageProjectController extends AbstractManageController {
 
         return roleItems;
     }
+
+
+
 
     public String getRole(String id) {
         long userId = Long.parseLong(id);
@@ -373,6 +415,9 @@ public class ManageProjectController extends AbstractManageController {
         throw new RuntimeException("Can't determine role");
     }
 
+
+
+
     public String getSelectedRole(String userIdParam) {
         long userId = Long.parseLong(userIdParam);
 
@@ -389,41 +434,65 @@ public class ManageProjectController extends AbstractManageController {
         throw new RuntimeException("Illegal user selected");
     }
 
+
+
+
     @Override
     protected boolean isPreviousEntitySet() {
         return sourceProject != null;
     }
 
+
+
+
     public String getDescription() {
         return description;
     }
+
+
+
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+
+
+
     public String getMemberInput() {
         return memberInput;
     }
+
+
+
 
     public void setMemberInput(String memberInput) {
         this.memberInput = memberInput;
     }
 
+
+
+
     public String getName() {
         return name;
     }
 
+
+
+
     public void setName(String name) {
         this.name = name;
     }
+
+
+
 
     public Collection<ProjectMember> getProjectMembers() {
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "preselect();");
 
         Collection<ProjectMember> onlyNonRemovedMembers = new ArrayList(projectMembers.size());
 
-        for(ProjectMember pm : projectMembers) {
+        for (ProjectMember pm : projectMembers) {
             if (!pm.isRemoved()) {
                 onlyNonRemovedMembers.add(pm);
             }
@@ -432,17 +501,29 @@ public class ManageProjectController extends AbstractManageController {
         return onlyNonRemovedMembers;
     }
 
+
+
+
     public void setProjectMembers(Collection<ProjectMember> projectMembers) {
         this.projectMembers = projectMembers;
     }
+
+
+
 
     public ProjectMember getCurrentUser() {
         return currentUser;
     }
 
+
+
+
     public void setCurrentUser(ProjectMember currentUser) {
         this.currentUser = currentUser;
     }
+
+
+
 
     @Override
     protected Long getPreviousEntityId() {
@@ -456,10 +537,15 @@ public class ManageProjectController extends AbstractManageController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="messages">
+
+
     @Override
     protected String getSuccessMessage() {
         return JsfUtil.evaluateExpressionGet("#{form['project.manage.success']}", String.class);
     }
+
+
+
 
     @Override
     protected String getFailMessage() {

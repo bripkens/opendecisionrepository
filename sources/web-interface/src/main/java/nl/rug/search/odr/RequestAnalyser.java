@@ -24,6 +24,7 @@ public class RequestAnalyser {
         this.request = request;
         this.pl = pl;
         this.result = new RequestAnalyserDto();
+        this.result.setRequest(request);
     }
 
 

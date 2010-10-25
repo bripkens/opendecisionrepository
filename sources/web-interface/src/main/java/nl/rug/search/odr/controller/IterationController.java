@@ -34,26 +34,46 @@ public class IterationController {
 
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private IterationLocal il;
+
     private long projectId;
+
     private String str_projectId;
+
     private Project project;
+
     private long iterationId;
+
     private String str_iterationId;
+
     private Iteration iteration = null;
+
     private String iterationName = "";
+
     private String iterationDescription = "";
+
     private ProjectMember member;
     //
+
     private Date startDate = null;
+
     private String startHour = "";
+
     private String startMinute = "";
     //
+
     private Date endDate = null;
+
     private String endHour = "";
+
     private String endMinute = "";
+
     private boolean isUpdate = false;
+
+
+
 
     @PostConstruct
     public void postConstruct() {
@@ -62,7 +82,8 @@ public class IterationController {
             return;
         }
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
+                getRequest();
 
         // <editor-fold defaultstate="collapsed" desc="get Project Id">
         System.out.println("Project Id ist : " + request.getParameter(RequestParameter.ID));
@@ -92,9 +113,9 @@ public class IterationController {
         JsfUtil.flashScope().put("projetId", projectId);
 
         // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
-        if (request.getParameter(RequestParameter.ITERATIONID) != null) {
+        if (request.getParameter(RequestParameter.ITERATION_ID) != null) {
             isUpdate = true;
-            str_iterationId = request.getParameter(RequestParameter.ITERATIONID);
+            str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);
         } else {
             isUpdate = false;
         }
@@ -132,14 +153,23 @@ public class IterationController {
 
     }
 
+
+
+
     private Project getProject() {
         project = pl.getById(projectId);
         return project;
     }
 
+
+
+
     private boolean memberIsInProject() {
         return getProjectMember() != null;
     }
+
+
+
 
     public ProjectMember getProjectMember() {
         long userId = AuthenticationUtil.getUserId();
@@ -152,10 +182,16 @@ public class IterationController {
         return null;
     }
 
+
+
+
     private Iteration getIterationFromDb() {
         iteration = il.getById(iterationId);
         return iteration;
     }
+
+
+
 
     public boolean isValid() {
         if (project != null && iteration != null) {
@@ -164,9 +200,15 @@ public class IterationController {
         return false;
     }
 
+
+
+
     public Iteration getIteration() {
         return iteration;
     }
+
+
+
 
     public void submitForm() {
         iteration.setName(iterationName);
@@ -196,22 +238,30 @@ public class IterationController {
         }
     }
 
+
+
+
     public void abortForm() {
-        try {
-            JsfUtil.redirect("/projects.html");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/projects.html");
     }
 
     // <editor-fold defaultstate="collapsed" desc="comboBox values">
+
+
+
     public SelectItem[] getHourItems() {
         return arrayBuilder(24);
     }
 
+
+
+
     public SelectItem[] getMinuteItems() {
         return arrayBuilder(60);
     }
+
+
+
 
     private SelectItem[] arrayBuilder(int count) {
         SelectItem[] components = new SelectItem[count];
@@ -223,65 +273,113 @@ public class IterationController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter-setter">
+
+
+
     public String getName() {
         return iterationName;
     }
+
+
+
 
     public void setName(String name) {
         iterationName = name;
     }
 
+
+
+
     public String getDescription() {
         return iterationDescription;
     }
+
+
+
 
     public void setDescription(String desciption) {
         iterationDescription = desciption;
     }
 
+
+
+
     public String getEndHour() {
         return endHour;
     }
+
+
+
 
     public void setEndHour(String endHour) {
         this.endHour = endHour;
     }
 
+
+
+
     public String getEndMinute() {
         return endMinute;
     }
+
+
+
 
     public void setEndMinute(String endMinute) {
         this.endMinute = endMinute;
     }
 
+
+
+
     public String getStartHour() {
         return startHour;
     }
+
+
+
 
     public void setStartHour(String hour) {
         startHour = hour;
     }
 
+
+
+
     public String getStartMinute() {
         return startMinute;
     }
+
+
+
 
     public void setStartMinute(String minute) {
         startMinute = minute;
     }
 
+
+
+
     public Date getEndDate() {
         return endDate;
     }
+
+
+
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
+
+
+
     public Date getStartDate() {
         return startDate;
     }
+
+
+
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;

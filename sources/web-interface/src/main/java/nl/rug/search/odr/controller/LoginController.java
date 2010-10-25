@@ -25,9 +25,15 @@ public class LoginController {
 
     @EJB
     private UserLocal ul;
+
     private String email, password;
+
     public static final int RESULT_DELAY = 3;
+
     private EffectQueue notificationEffect;
+
+
+
 
     public LoginController() {
         notificationEffect = new EffectQueue("resultEffect");
@@ -38,6 +44,9 @@ public class LoginController {
         notificationEffect.setFired(true);
     }
 
+
+
+
     public ActionResult submitForm() {
         Person p = null;
 
@@ -47,7 +56,7 @@ public class LoginController {
             notificationEffect.setFired(false);
             return ActionResult.FAIL;
         }
-        
+
         if (p == null) {
             notificationEffect.setFired(false);
             return ActionResult.FAIL;
@@ -55,34 +64,48 @@ public class LoginController {
 
         AuthenticationUtil.authenticate(p);
 
-        try {
-            JsfUtil.redirect("/projects.html");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/projects.html");
 
         return ActionResult.SUCCESS;
     }
+
+
+
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+
+
+
     public String getEmail() {
         return email;
     }
+
+
+
 
     public String getPassword() {
         return password;
     }
 
+
+
+
     public void setPassword(String password) {
         this.password = password;
     }
 
+
+
+
     public EffectQueue getNotificationEffect() {
         return notificationEffect;
     }
+
+
+
 
     public void setNotificationEffect(EffectQueue notificationEffect) {
         this.notificationEffect = notificationEffect;

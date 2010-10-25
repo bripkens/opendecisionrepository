@@ -38,11 +38,4 @@ public class TemplateRelatedStep implements WizardStep {
     @Override
     public void blur() {
     }
-
-
-
-
-    @Override
-    public void dispose() {
-    }
 }

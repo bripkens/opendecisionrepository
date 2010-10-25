@@ -3,6 +3,7 @@ package nl.rug.search.odr;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.ejb.Local;
 import nl.rug.search.odr.entities.BaseEntity;
 
 /**
