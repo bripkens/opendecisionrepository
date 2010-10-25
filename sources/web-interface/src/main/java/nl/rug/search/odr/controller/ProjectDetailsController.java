@@ -107,21 +107,6 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="actionlistener">
-
-
-    public void navigateToWizard() {
-        StringBuilder link = new StringBuilder();
-        link.append("/manageDecision.html?");
-        link.append(RequestParameter.ID);
-        link.append("=");
-        link.append(project.getId());
-
-        JsfUtil.redirect(link.toString());
-    }
-
-
-
-
     public void decisionAddCanceled(ActionEvent e) {
         decisionName = null;
     }
@@ -206,28 +191,6 @@ public class ProjectDetailsController {
 
 
 
-    public void editDecision(Decision d) {
-        StringBuilder link = new StringBuilder().
-                append("/manageDecision.html?").
-                append(RequestParameter.ID).
-                append("=").
-                append(project.getId()).
-                append("&").
-                append(RequestParameter.DECISION_ID).
-                append("=").
-                append(d.getId()).
-                append("&").
-                append(RequestParameter.ITERATION_ID).
-                append("=").
-                append(d.getCurrentVersion().getId());
-
-
-        JsfUtil.redirect(link.toString());
-    }
-
-
-
-
     public void deleteDecision(Decision d) {
         // TODO implement
         System.out.println("Delete decision: " + d.getName());
@@ -260,6 +223,37 @@ public class ProjectDetailsController {
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
+
+
+    public String getEditDecisionLink(Decision d) {
+        StringBuilder link = new StringBuilder().append("manageDecision.html?").
+                append(RequestParameter.ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(project.getId()).
+                append(RequestParameter.AMPERSAND).
+                append(RequestParameter.DECISION_ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(d.getId()).
+                append(RequestParameter.AMPERSAND).
+                append(RequestParameter.VERSION_ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(d.getCurrentVersion().getId());
+
+        return link.toString();
+    }
+
+
+
+    public String getCreateDecisionLink() {
+        StringBuilder link = new StringBuilder().append("manageDecision.html?").
+                append(RequestParameter.ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(project.getId()).
+                append(RequestParameter.AMPERSAND).
+                append(RequestParameter.CREATE);
+
+        return link.toString();
+    }
 
 
     public ProjectMember getProjectMember() {

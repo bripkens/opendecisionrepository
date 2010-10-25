@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:ice="http://www.icesoft.com/icefaces/component"
+          xmlns:composite="http://java.sun.com/jsf/composite"
+          xml:lang="en">
+    
+    <composite:interface componentType="nl.rug.search.odr.component.DatetimePicker">
+        <composite:attribute name="value" type="java.util.Date"/>
+    </composite:interface>
+
+    <composite:implementation>
+        <ice:selectInputDate id="date"
+                             renderAsPopup="true"
+                             popupDateFormat="yyyy-mm-dd"
+                             imageDir="./resources/images/"
+                             styleClass="dateSelection">
+            <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
+        </ice:selectInputDate>
+
+        <h:selectOneMenu id="hours" converter="javax.faces.Integer" styleClass="hourSelection">
+            <f:selectItems value="#{datesController.hours}" />
+        </h:selectOneMenu>
+
+        <h:selectOneMenu id="minutes" converter="javax.faces.Integer" styleClass="minuteSelection">
+            <f:selectItems value="#{datesController.minutes}" />
+        </h:selectOneMenu>
+    </composite:implementation>
+</html>

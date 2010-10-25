@@ -17,8 +17,11 @@ import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.controller.AbstractController;
+import nl.rug.search.odr.decision.DecisionLocal;
+import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
@@ -72,9 +75,19 @@ public class ManageDecisionController extends AbstractController {
 
     @EJB
     private StateLocal sl;
+
+    @EJB
+    private DecisionLocal dl;
+
+    @EJB
+    private VersionLocal vl;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="pojo attributes">
+    private static final long serialVersionUID = 1l;
+
+    private ProjectMember member;
+
     private Project project;
 
     private Decision decision;
@@ -125,7 +138,6 @@ public class ManageDecisionController extends AbstractController {
 
         if (result.isValid()) {
             setUpDecisionSpecific(result);
-            currentStep.focus();
         } else if (project == null) {
             result.executeErrorAction();
         }
@@ -136,6 +148,7 @@ public class ManageDecisionController extends AbstractController {
 
     private void setUpDecisionSpecific(RequestAnalyserDto requestAnalyser) {
         project = requestAnalyser.getProject();
+        member = requestAnalyser.getMember();
 
         String decisionIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.DECISION_ID);
@@ -143,22 +156,18 @@ public class ManageDecisionController extends AbstractController {
         String versionIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.VERSION_ID);
 
-        if (decisionIdParameter == null) {
-            decision = new Decision();
+        String createParameter = requestAnalyser.getRequest().
+                getParameter(RequestParameter.CREATE);
 
-            version = new Version();
-            decision.addVersion(version);
-            version.setState(sl.getInitialState());
-            Date now = new Date();
-            version.setDecidedWhen(now);
-            version.setDocumentedWhen(now);
-            version.addInitiator(requestAnalyser.getMember());
-
-            initialDecisionName = null;
-            initialState = version.getState();
+        if (createParameter != null) {
+            prepareProjosForCreateRequest();
+            setStep(0);
+            currentStep.focus();
+            return;
+        } else if (decision != null && decisionIdParameter == null && versionIdParameter == null) {
             return;
         }
-
+        
         long decisionId = -1;
         long versionId = -1;
 
@@ -167,6 +176,7 @@ public class ManageDecisionController extends AbstractController {
             versionId = Long.parseLong(versionIdParameter);
         } catch (NumberFormatException ex) {
             ErrorUtil.showInvalidIdError();
+            return;
         }
 
         for (Decision decision : project.getDecisions()) {
@@ -179,16 +189,34 @@ public class ManageDecisionController extends AbstractController {
 
         if (decision == null) {
             ErrorUtil.showIdNotRegisteredError();
+            return;
         }
 
         for (Version version : decision.getVersions()) {
             if (version.getId().equals(versionId)) {
                 this.version = version;
+                currentStep.focus();
                 return;
             }
         }
 
         ErrorUtil.showIdNotRegisteredError();
+    }
+
+
+
+
+    private void prepareProjosForCreateRequest() {
+        decision = new Decision();
+        version = new Version();
+        decision.addVersion(version);
+        version.setState(sl.getInitialState());
+        Date now = new Date();
+        version.setDecidedWhen(now);
+        version.setDocumentedWhen(now);
+        version.addInitiator(member);
+        initialDecisionName = null;
+        initialState = version.getState();
     }
     // </editor-fold>
 
@@ -275,6 +303,19 @@ public class ManageDecisionController extends AbstractController {
     public void resetForm(ActionEvent e) {
         super.resetForm(e);
 
+        if (isUpdateRequest()) {
+            decision = dl.getById(decision.getId());
+            initialDecisionName = decision.getName();
+            version = vl.getById(version.getId());
+            initialState = version.getState();
+        } else {
+            prepareProjosForCreateRequest();
+        }
+
+        setStep(0);
+
+        currentStep.focus();
+
         JsfUtil.refreshPage();
     }
 
@@ -283,7 +324,7 @@ public class ManageDecisionController extends AbstractController {
 
     @Override
     protected void reset() {
-        setStep(0);
+        // empty, this reset method is not appropriate for the wizard
     }
 
 
@@ -323,6 +364,8 @@ public class ManageDecisionController extends AbstractController {
         initialDecisionName = null;
         version = null;
         initialState = null;
+
+        setStep(0);
 
         return true;
     }
@@ -404,6 +447,14 @@ public class ManageDecisionController extends AbstractController {
 
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+    @Override
+    public boolean showMessage() {
+        return false;
+    }
+
+
+
+
     @Override
     protected String getSuccessMessage() {
         return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.success.message']}", String.class);

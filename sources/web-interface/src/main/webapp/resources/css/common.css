@@ -609,7 +609,7 @@ form hr {
     width: 100%;
 }
 
-.iceDatTblCol1, .iceDatTblCol2 {
+.iceDatTblCol1, .iceDatTblCol2, .iceDatTblColHdr1, .iceDatTblColHdr2 {
     border-bottom: 1px solid #dedddd;
 }
 

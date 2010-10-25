@@ -42,6 +42,10 @@ public abstract class AbstractController implements Serializable {
         return beanName;
     }
 
+    public boolean showMessage() {
+        return true;
+    }
+
     public final void resetForm() {
         resultEffect = new EffectQueue("resultEffect");
         resultEffect.add(new Appear());
@@ -84,6 +88,10 @@ public abstract class AbstractController implements Serializable {
     }
 
     private void showMessage(ActionResult result, String msg) {
+        if (!showMessage()) {
+            return;
+        }
+        
         resultMessage = msg;
 
         resultType = result;

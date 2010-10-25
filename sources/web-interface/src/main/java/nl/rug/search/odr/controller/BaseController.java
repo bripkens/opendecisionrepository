@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 @ApplicationScoped
 public class BaseController {
 
-
     /**
      * TODO: only do this on application startup
      * @return the baseHREF
