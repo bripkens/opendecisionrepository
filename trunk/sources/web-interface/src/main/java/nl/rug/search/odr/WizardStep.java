@@ -11,6 +11,4 @@ public interface WizardStep {
     void focus();
 
     void blur();
-
-    void dispose();
 }

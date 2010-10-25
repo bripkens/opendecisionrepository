@@ -2,6 +2,8 @@ package nl.rug.search.odr;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
@@ -20,40 +22,19 @@ public class JsfUtil {
         return context.getApplication().evaluateExpressionGet(context, expression, expected);
     }
 
-    public static void redirect(String url) throws IOException {
+    public static void redirect(String url) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
 
         url = externalContext.encodeResourceURL(externalContext.getRequestContextPath().concat(url));
 
         context.responseComplete();
-        externalContext.redirect(url);
-
-    }
-
-    public static void clearMessages() {
-        clearMessages(FacesContext.getCurrentInstance());
-    }
-
-    public static void clearMessages(FacesContext context) {
-        Iterator<String> clients = context.getClientIdsWithMessages();
-        while (clients.hasNext()) {
-            String clientId = clients.next();
-            clearMessages(context, clientId);
+        try {
+            externalContext.redirect(url);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
-    }
 
-    public static void clearMessages(FacesContext context, String clientId) {
-        Iterator<FacesMessage> messages = context.getMessages(clientId);
-
-        while (messages.hasNext()) {
-            messages.next();
-            messages.remove();
-        }
-    }
-
-    public static void clearMessages(String clientId) {
-        clearMessages(FacesContext.getCurrentInstance(), clientId);
     }
 
     public static void refreshPage() {

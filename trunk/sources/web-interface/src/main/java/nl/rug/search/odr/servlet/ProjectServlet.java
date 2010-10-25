@@ -37,7 +37,7 @@ public class ProjectServlet extends HttpServlet {
         String target = null;
 
         if (parts.length == 2) {
-            if ("create".equalsIgnoreCase(parts[1])) {
+            if (RequestParameter.CREATE.equalsIgnoreCase(parts[1])) {
                 target = "/createProject.html?create=true";
                 request.getRequestDispatcher(target).forward(request, response);
                 return;
@@ -45,10 +45,10 @@ public class ProjectServlet extends HttpServlet {
                 target = "/projectDetails.html?".concat(RequestParameter.ID).concat("=");
             }
         } else if (parts.length > 2) {
-            if (parts[2].equalsIgnoreCase("update")) {
+            if (parts[2].equalsIgnoreCase(RequestParameter.UPDATE)) {
                 target = "/updateProject.html?".concat(RequestParameter.UPDATE).
                         concat("=true&").concat(RequestParameter.ID).concat("=");
-            } else if (parts[2].equalsIgnoreCase("delete")) {
+            } else if (parts[2].equalsIgnoreCase(RequestParameter.DELETE)) {
                 target = "/deleteProject.html?".concat(RequestParameter.DELETE).
                         concat("=true&").concat(RequestParameter.ID).concat("=");
             }

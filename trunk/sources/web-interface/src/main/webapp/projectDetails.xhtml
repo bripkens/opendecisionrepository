@@ -58,8 +58,7 @@
                 <ice:dataTable rendered="#{projectDetailsController.valid}"
                                value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover pointer ">
                     <ice:column>
-                        <ice:rowSelector
-                            selectionAction="#{projectDetailsController.rowMemberSelectionListener(item)}"/>
+                        <ice:rowSelector />
                         <ice:outputText value="#{item.person.name}" nospan="true"/>
                         <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
                     </ice:column>
@@ -80,71 +79,12 @@
 
             <div id="iterationContainer" class="toggleContainer" >
 
-                <!--                <a href="#" class="quickAddDecisionLink togglelink" name="iterationFormAddContainer">
-                                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
-                                    <ice:outputText value="#{page['projectDetails.iterations.add']}"/>
-                                </a>
-
-                                <ice:form partialSubmit="true" id="iterationFormAddContainer">
-
-                                    <h3><ice:outputText value="#{form['iteration.new']}" nospan="true" /></h3>
-
-
-                                    <div class="formSection">
-                                        <ice:outputLabel value="#{form['label.name']}" for="inIterationName"/>
-                                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
-                                        <ice:inputText id="inIterationName"
-                                                       label="#{form['label.name']}"
-                                                       required="true"
-                                                       value="#{projectDetailsController.iterationName}"
-                                                       validator="#{projectDetailsController.checkIterationName}">
-                                            <f:validateLength minimum="3" maximum="50" />
-
-                                            <f:validator validatorId="RegexValidator" />
-                                            <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
-                                        </ice:inputText>
-                                        <p>
-                                        <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
-                                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
-                                        <ice:outputText value="#{form['constraint.iterationname']}" nospan="true" />
-                                        </p>
-                                    </div>
-
-
-
-
-                                    <div class="formSection last">
-                                        <ice:outputLabel value="#{form['label.description']}" for="inIterationDescription"/>
-                                        <ice:inputTextarea id="inIterationDescription"
-                                                           label="#{form['label.description']}"
-                                                           maxlength="1000"
-                                                           value="#{projectDetailsController.iterationDescription}">
-                                            <f:validateLength maximum="1000" />
-                                        </ice:inputTextarea>
-                                        <p><ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000</p>
-                                    </div>
-
-                                    <ice:commandButton action="#{projectDetailsController.addIteration}"
-                                                       value="#{form['button.submit']}"
-                                                       styleClass="confirm"
-                                                       id="iterationAddSubmitButton"/>
-
-
-
-                                    <ice:commandButton actionListener="#{projectDetailsController.iterationAddCanceled}"
-                                                       value="#{form['button.cancel']}"
-                                                       styleClass="abort togglelink"
-                                                       id="iterationAddAbortButton"/>
-                                </ice:form>-->
-
                 <ice:form>
 
                     <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover pointer ">
 
                         <ice:column>
-                            <ice:rowSelector id="selected"
-                                             selectionAction="#{projectDetailsController.rowIterationSelectionListener(item)}"/>
+                            <ice:rowSelector />
 
                             <ice:outputText value="#{item.name}" styleClass="iterationName" />
                             <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
@@ -204,11 +144,16 @@
 
 
 
-
-                <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer">
-                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
-                    <ice:outputText value="#{page['projectDetails.decisions.add']}"/>
-                </a>
+                <ice:form>
+                    <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer">
+                        <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
+                        <ice:outputText value="#{page['projectDetails.decisions.quick.add']}"/>
+                    </a>
+                    <ice:commandLink value="#{page['projectDetails.decisions.wizard.add']}"
+                                     action="#{projectDetailsController.navigateToWizard}"
+                                     id="addDecisionWizardLink"
+                                     style="margin-left: 15px;"/>
+                </ice:form>
 
                 <ice:form partialSubmit="true" id="decisionQuickAddContainer">
 
@@ -255,7 +200,7 @@
 
 
 
-                
+
 
                 <ice:form partialSubmit="true" style="margin-top: 10px;">
                     <ice:dataTable rendered="#{projectDetailsController.valid}"
@@ -265,8 +210,7 @@
                                    id="decisionTable"
                                    rows="10">
                         <ice:column>
-                            <ice:rowSelector
-                                selectionAction="#{projectDetailsController.rowDecisionSelectionListener(item)}"/>
+                            <ice:rowSelector />
                             <ice:outputText value="#{item.name}" nospan="true"/>
                         </ice:column>
                         <ice:column>

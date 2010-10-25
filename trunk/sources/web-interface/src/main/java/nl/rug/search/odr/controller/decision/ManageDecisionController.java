@@ -1,5 +1,6 @@
 package nl.rug.search.odr.controller.decision;
 
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -9,14 +10,19 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.ErrorUtil;
 import nl.rug.search.odr.JsfUtil;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
+import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.controller.AbstractController;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.State;
+import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.project.StateLocal;
 
 /**
  * 
@@ -63,12 +69,21 @@ public class ManageDecisionController extends AbstractController {
 
     @EJB
     private DecisionTemplateLocal dtl;
+
+    @EJB
+    private StateLocal sl;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="pojo attributes">
     private Project project;
 
     private Decision decision;
+
+    private String initialDecisionName;
+
+    private Version version;
+
+    private State initialState;
     // </editor-fold>
 
 
@@ -109,10 +124,71 @@ public class ManageDecisionController extends AbstractController {
         RequestAnalyserDto result = analyser.analyse();
 
         if (result.isValid()) {
-            project = result.getProject();
+            setUpDecisionSpecific(result);
+            currentStep.focus();
         } else if (project == null) {
             result.executeErrorAction();
         }
+    }
+
+
+
+
+    private void setUpDecisionSpecific(RequestAnalyserDto requestAnalyser) {
+        project = requestAnalyser.getProject();
+
+        String decisionIdParameter = requestAnalyser.getRequest().
+                getParameter(RequestParameter.DECISION_ID);
+
+        String versionIdParameter = requestAnalyser.getRequest().
+                getParameter(RequestParameter.VERSION_ID);
+
+        if (decisionIdParameter == null) {
+            decision = new Decision();
+
+            version = new Version();
+            decision.addVersion(version);
+            version.setState(sl.getInitialState());
+            Date now = new Date();
+            version.setDecidedWhen(now);
+            version.setDocumentedWhen(now);
+            version.addInitiator(requestAnalyser.getMember());
+
+            initialDecisionName = null;
+            initialState = version.getState();
+            return;
+        }
+
+        long decisionId = -1;
+        long versionId = -1;
+
+        try {
+            decisionId = Long.parseLong(decisionIdParameter);
+            versionId = Long.parseLong(versionIdParameter);
+        } catch (NumberFormatException ex) {
+            ErrorUtil.showInvalidIdError();
+        }
+
+        for (Decision decision : project.getDecisions()) {
+            if (decision.getId().equals(decisionId)) {
+                this.decision = decision;
+                this.initialDecisionName = decision.getName();
+                break;
+            }
+        }
+
+        if (decision == null) {
+            ErrorUtil.showIdNotRegisteredError();
+        }
+
+        for (Version version : decision.getVersions()) {
+            if (version.getId().equals(versionId)) {
+                this.version = version;
+                return;
+            }
+        }
+
+        ErrorUtil.showIdNotRegisteredError();
     }
     // </editor-fold>
 
@@ -161,6 +237,8 @@ public class ManageDecisionController extends AbstractController {
     }
 
 
+
+
     private void navigateToStep(int id) {
         currentStep.blur();
 
@@ -170,6 +248,8 @@ public class ManageDecisionController extends AbstractController {
 
         JsfUtil.refreshPage();
     }
+
+
 
 
     private void setStep(int id) {
@@ -203,26 +283,6 @@ public class ManageDecisionController extends AbstractController {
 
     @Override
     protected void reset() {
-        if (essentialsStep != null) {
-            essentialsStep.dispose();
-        }
-
-        if (templateRelatedStep != null) {
-            templateRelatedStep.dispose();
-        }
-
-        if (relationshipsStep != null) {
-            relationshipsStep.dispose();
-        }
-
-        if (statesStep != null) {
-            statesStep.dispose();
-        }
-
-        if (confirmationStep != null) {
-            confirmationStep.dispose();
-        }
-
         setStep(0);
     }
 
@@ -250,7 +310,21 @@ public class ManageDecisionController extends AbstractController {
 
     @Override
     protected boolean execute() {
-        return false;
+        if (!isUpdateRequest()) {
+            project.addDecision(decision);
+        }
+
+        pl.merge(project);
+
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
+
+        project = null;
+        decision = null;
+        initialDecisionName = null;
+        version = null;
+        initialState = null;
+
+        return true;
     }
     // </editor-fold>
 
@@ -258,6 +332,13 @@ public class ManageDecisionController extends AbstractController {
 
 
     // <editor-fold defaultstate="collapsed" desc="getter which return calculated values">
+    public boolean isUpdateRequest() {
+        return initialDecisionName != null;
+    }
+
+
+
+
     public boolean isLastStep() {
         return currentStep.getClass() == STEP_ORDER[STEP_ORDER.length - 1];
     }
@@ -288,14 +369,7 @@ public class ManageDecisionController extends AbstractController {
 
     public boolean isValid() {
         setUp();
-        return project != null;
-    }
-
-
-
-
-    public boolean isUpdateRequest() {
-        return decision != null;
+        return decision != null && version != null;
     }
 
 
@@ -316,6 +390,13 @@ public class ManageDecisionController extends AbstractController {
     // <editor-fold defaultstate="collapsed" desc="getter which return EJBs">
     DecisionTemplateLocal getDecisionTemplateLocal() {
         return dtl;
+    }
+
+
+
+
+    ProjectLocal getProjectLocal() {
+        return pl;
     }
     // </editor-fold>
 
@@ -390,6 +471,27 @@ public class ManageDecisionController extends AbstractController {
 
     public Decision getDecision() {
         return decision;
+    }
+
+
+
+
+    public String getInitialDecisionName() {
+        return initialDecisionName;
+    }
+
+
+
+
+    public State getInitialState() {
+        return initialState;
+    }
+
+
+
+
+    public Version getVersion() {
+        return version;
     }
     // </editor-fold>
 

@@ -17,15 +17,24 @@ public class AuthenticationPhaseListener implements PhaseListener {
 
     private static final long serialVersionUID = 1l;
 
+
+
+
     @Override
     public void beforePhase(PhaseEvent event) {
 //        handle(event.getFacesContext());
     }
 
+
+
+
     @Override
     public void afterPhase(PhaseEvent event) {
         handle(event.getFacesContext());
     }
+
+
+
 
     private void handle(FacesContext context) {
         UIViewRoot root = context.getViewRoot();
@@ -37,20 +46,20 @@ public class AuthenticationPhaseListener implements PhaseListener {
         String viewId = root.getViewId();
         String restrictionSetting = JsfUtil.evaluateExpressionGet("#{restriction['" + viewId + "']}", String.class);
 
-        if (restrictionSetting == null || restrictionSetting.isEmpty() || restrictionSetting.equals("???".concat(viewId).concat("???"))) {
+        if (restrictionSetting == null || restrictionSetting.isEmpty() || restrictionSetting.equals("???".concat(viewId).
+                concat("???"))) {
             return;
         }
 
         String result = RestrictionEvaluator.isAllowed(restrictionSetting);
 
         if (result != RestrictionEvaluator.IS_ALLOWED) {
-            try {
-                JsfUtil.redirect(result);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            JsfUtil.redirect(result);
         }
     }
+
+
+
 
     @Override
     public PhaseId getPhaseId() {

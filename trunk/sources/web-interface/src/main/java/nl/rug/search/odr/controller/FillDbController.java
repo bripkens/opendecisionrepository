@@ -53,6 +53,9 @@ public class FillDbController {
     @EJB
     private StateLocal sl;
 
+
+
+
     public void addPersons() {
         Person p1 = new Person();
         p1.setName("Ben Ripkens");
@@ -87,6 +90,9 @@ public class FillDbController {
         ul.register(p5);
     }
 
+
+
+
     public void addProject() {
         Project pro = new Project();
         pro.setName("OpenDecisionRepository");
@@ -116,6 +122,9 @@ public class FillDbController {
 
     }
 
+
+
+
     public void login() {
         Person p = null;
 
@@ -128,25 +137,28 @@ public class FillDbController {
 
         AuthenticationUtil.authenticate(p);
 
-        try {
-            JsfUtil.redirect("/projects.html");
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        JsfUtil.redirect("/projects.html");
     }
+
+
+
 
     public void clearDatabase() {
         DatabaseCleaner.bruteForceCleanup();
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
+                getRequest();
 
         SessionUtil.resetSession();
 
         JsfUtil.refreshPage();
     }
 
+
+
+
     public void addDecisions() {
         Project p = pl.getByName("OpenDecisionRepository");
-        
+
         Decision d = new Decision();
         d.setName("Java Programming language");
         d.setTemplate(getTemplate("Quick add form"));
@@ -392,6 +404,9 @@ public class FillDbController {
         pl.merge(p);
     }
 
+
+
+
     public void addIterations() {
         Project p = pl.getByName("OpenDecisionRepository");
 
@@ -417,6 +432,9 @@ public class FillDbController {
         pl.merge(p);
     }
 
+
+
+
     public void addStakeholderRoles() {
         StakeholderRole role1 = new StakeholderRole();
         role1.setName("Architect");
@@ -434,10 +452,13 @@ public class FillDbController {
         srl.persistRole(role3);
     }
 
+
+
+
     private StakeholderRole getStakeholderRole(String roleName) {
         Collection<StakeholderRole> roles = srl.getAll();
 
-        for(StakeholderRole role : roles) {
+        for (StakeholderRole role : roles) {
             if (role.getName().equalsIgnoreCase(roleName)) {
                 return role;
             }
@@ -445,6 +466,9 @@ public class FillDbController {
 
         throw new RuntimeException("Can't find the role");
     }
+
+
+
 
     public void addStates() {
         State state = new State();
@@ -490,10 +514,13 @@ public class FillDbController {
         sl.persist(state);
     }
 
+
+
+
     private State getState(String statusName) {
         Collection<State> states = sl.getAll();
 
-        for(State state : states) {
+        for (State state : states) {
             if (state.getStatusName().equalsIgnoreCase(statusName)) {
                 return state;
             }
@@ -501,6 +528,9 @@ public class FillDbController {
 
         throw new RuntimeException("Can't find state");
     }
+
+
+
 
     public void addDecisionTemplates() {
         DecisionTemplate template = new DecisionTemplate();
@@ -583,8 +613,11 @@ public class FillDbController {
         dtl.persist(template);
     }
 
+
+
+
     private DecisionTemplate getTemplate(String name) {
-        for(DecisionTemplate template : dtl.getAll()) {
+        for (DecisionTemplate template : dtl.getAll()) {
             if (template.getName().equalsIgnoreCase(name)) {
                 return template;
             }
@@ -592,6 +625,9 @@ public class FillDbController {
 
         throw new RuntimeException("Can't find template.");
     }
+
+
+
 
     public void addRequirements() {
         Project p = pl.getByName("OpenDecisionRepository");

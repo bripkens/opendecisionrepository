@@ -29,9 +29,7 @@ public class StateBean extends GenericDaoBean<State, Long> implements StateLocal
 
     @Override
     public State getInitialState() {
-        // can't use EntityManager.createNamedQuery#(String, Class<T>) due to a bug in eclipselink
-        // https://bugs.eclipse.org/bugs/show_bug.cgi?id=300412
-        return (State) manager.createNamedQuery("State.getInitialState").
+        return manager.createNamedQuery("State.getInitialState", State.class).
                 setMaxResults(1).
                 getSingleResult();
     }

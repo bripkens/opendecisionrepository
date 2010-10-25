@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -41,20 +43,28 @@ public class ProjectDetailsController {
 
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private StateLocal sl;
-    
+
     private long id;
+
     private Project project;
+
     private String decisionName;
+
     private String projectId;
+
     private long iterationToDeleteId;
+
     private String iterationToDeleteName;
 
-    public static final String USED_DECISION_NAME
-            = "nl.rug.search.odr.USED_DECISION_NAME";
+    public static final String USED_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
 
     // <editor-fold defaultstate="collapsed" desc="construction">
+
+
+
     @PostConstruct
     public void postConstruct() {
         if (!AuthenticationUtil.isAuthtenticated()) {
@@ -62,7 +72,8 @@ public class ProjectDetailsController {
             return;
         }
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
+                getRequest();
 
         if (request.getParameter(RequestParameter.ID) != null) {
             projectId = request.getParameter(RequestParameter.ID);
@@ -86,6 +97,9 @@ public class ProjectDetailsController {
         }
     }
 
+
+
+
     public boolean isValid() {
         return project != null;
     }
@@ -93,38 +107,39 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="actionlistener">
+
+
+    public void navigateToWizard() {
+        StringBuilder link = new StringBuilder();
+        link.append("/manageDecision.html?");
+        link.append(RequestParameter.ID);
+        link.append("=");
+        link.append(project.getId());
+
+        JsfUtil.redirect(link.toString());
+    }
+
+
+
+
     public void decisionAddCanceled(ActionEvent e) {
         decisionName = null;
-
-        JsfUtil.clearMessages();
     }
+
+
+
 
     private boolean memberIsInProject() {
         return getProjectMember() != null;
     }
 
-    public void rowMemberSelectionListener(ProjectMember m) {
-        // TODO: implement
-        System.out.println("Go to member details: " + m.getPerson().getName());
-    }
 
-    public void rowIterationSelectionListener(Iteration i) {
-        // TODO: implement
-        System.out.println("Go to iteration details: " + i.getName());
-    }
 
-    public void rowDecisionSelectionListener(Decision d) {
-        // TODO: implement
-        System.out.println("Go to decision details: " + d.getName());
-    }
 
     public void addDecision() {
         if (!isValid()) {
-            try {
-                JsfUtil.redirect("/error.html");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+            ErrorUtil.showUknownError();
+            return;
         }
 
         Decision d = new Decision();
@@ -135,11 +150,11 @@ public class ProjectDetailsController {
         initialVersion.setDecidedWhen(currentdate);
         initialVersion.setDocumentedWhen(currentdate);
         initialVersion.setState(sl.getInitialState());
-        
+
         Collection<ProjectMember> initiators = new ArrayList<ProjectMember>(1);
         initiators.add(getProjectMember());
         initialVersion.setInitiators(initiators);
-        
+
         d.addVersion(initialVersion);
         project.addDecision(d);
         pl.merge(project);
@@ -149,10 +164,11 @@ public class ProjectDetailsController {
         // reloading the project to get the new id
         project = pl.getById(project.getId());
 
-        JsfUtil.clearMessages();
-
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideDecisionAddForm();");
     }
+
+
+
 
     public void showDeleteIterationConfirmation(ActionEvent e) {
         Iteration it = (Iteration) e.getComponent().getAttributes().get("iteration");
@@ -162,6 +178,9 @@ public class ProjectDetailsController {
 
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "showIterationDeleteForm();");
     }
+
+
+
 
     public void deleteIteration() {
         for (Iteration it : project.getIterations()) {
@@ -176,15 +195,38 @@ public class ProjectDetailsController {
         JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
     }
 
+
+
+
     public void editIteration(Iteration it) {
         // TODO implement
         System.out.println("Edit iteration: " + it.getName());
     }
 
+
+
+
     public void editDecision(Decision d) {
-        // TODO implement
-        System.out.println("Edit decision: " + d.getName());
+        StringBuilder link = new StringBuilder().
+                append("/manageDecision.html?").
+                append(RequestParameter.ID).
+                append("=").
+                append(project.getId()).
+                append("&").
+                append(RequestParameter.DECISION_ID).
+                append("=").
+                append(d.getId()).
+                append("&").
+                append(RequestParameter.ITERATION_ID).
+                append("=").
+                append(d.getCurrentVersion().getId());
+
+
+        JsfUtil.redirect(link.toString());
     }
+
+
+
 
     public void deleteDecision(Decision d) {
         // TODO implement
@@ -192,8 +234,10 @@ public class ProjectDetailsController {
     }
 
     // </editor-fold>
-    
+
     // <editor-fold defaultstate="collapsed" desc="validator">
+
+
     public void checkDecisionName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
         String newName = value.toString().trim();
 
@@ -215,6 +259,9 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+
+
+
     public ProjectMember getProjectMember() {
         long userId = AuthenticationUtil.getUserId();
         for (ProjectMember pm : project.getMembers()) {
@@ -225,14 +272,23 @@ public class ProjectDetailsController {
         return null;
     }
 
+
+
+
     public String getDescription() {
         return project.getDescription();
     }
+
+
+
 
     public Project getProject() {
         project = pl.getById(id);
         return project;
     }
+
+
+
 
     public Collection<ProjectMember> getProjectMembers() {
         Collection<ProjectMember> copy = new ArrayList<ProjectMember>();
@@ -245,17 +301,35 @@ public class ProjectDetailsController {
         return copy;
     }
 
+
+
+
     public String getProjectName() {
         return project.getName();
     }
 
+
+
+
     public String getUpdateLink() {
-        return "project/".concat(project.getName()).concat("/update");
+        return RequestParameter.PROJECT_PATH_SHORT.substring(1).
+                concat(project.getName()).
+                concat("/").
+                concat(RequestParameter.UPDATE);
     }
 
+
+
+
     public String getDeleteLink() {
-        return "project/".concat(project.getName()).concat("/delete");
+        return RequestParameter.PROJECT_PATH_SHORT.substring(1).
+                concat(project.getName()).
+                concat("/").
+                concat(RequestParameter.DELETE);
     }
+
+
+
 
     public Collection<Iteration> getIterations() {
         if (project == null) {
@@ -276,33 +350,56 @@ public class ProjectDetailsController {
     }
 
 
+
+
     public String getDecisionName() {
         return decisionName;
     }
+
+
+
 
     public void setDecisionName(String decisionName) {
         this.decisionName = decisionName;
     }
 
+
+
+
     public String getProjectId() {
         return projectId;
     }
+
+
+
 
     public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
 
+
+
+
     public long getIterationToDeleteId() {
         return iterationToDeleteId;
     }
+
+
+
 
     public String getIterationToDeleteName() {
         return iterationToDeleteName;
     }
 
+
+
+
     public void setIterationToDeleteName(String iterationToDeleteName) {
         this.iterationToDeleteName = iterationToDeleteName;
     }
+
+
+
 
     public Collection<Decision> getDecisions() {
         Collection<Decision> decisions = project.getDecisions();

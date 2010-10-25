@@ -30,6 +30,7 @@ public class ConfirmationStep implements WizardStep {
 
     @Override
     public void focus() {
+        
     }
 
 
@@ -42,7 +43,4 @@ public class ConfirmationStep implements WizardStep {
 
 
 
-    @Override
-    public void dispose() {
-    }
 }
