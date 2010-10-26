@@ -120,6 +120,7 @@ div#userMenu div.loginError {
 }
 div#userMenu form#loginForm input.error, div#userMenu form#loginForm textarea.error {
     color: #bd0000;
+    border: 1px solid #bd0000;
 }
 div#userMenu input[type=submit] {
     left: 210px;
@@ -140,14 +141,6 @@ div#userMenu input[type=submit]:active, div#userMenu input[type=submit]:focus {
 }
 div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=submit].logoutButton:focus {
     background-image: url(../images/buttonLogoutActiveSmall.png);
-}
-.formSection {
-    position: relative;
-    border-bottom: 1px dashed #666;
-    margin: 0.8em 0 0 0;
-}
-.last {
-    border-bottom: 0;
 }
 .formSection span {
 }
@@ -410,6 +403,14 @@ div.projectDetailsActions {
                                         Example: Adding stakeholders to a project or adding
                                                  requirements to a decision
 */
+.formSection {
+    position: relative;
+    border-bottom: 1px dashed #666;
+    margin: 0.8em 0 0 0;
+}
+.formSection.last-child, .last, .last-child {
+    border-bottom: 0;
+}
 .formSection label {
     float: left;
     position: relative;
@@ -434,9 +435,25 @@ div.projectDetailsActions {
     padding: 35px 0 6px 10px;
     width: 500px;
 }
-#page table.enableHover tr:hover {
+#page table.collection tr:hover, #page table.enableHover tr:hover {
     background-color: #f4f2f2;
 }
+/*
+    -------------------------------------------------
+                    Error hightlighting
+*/
+#page input.error, #userMenu input.error, #page textarea.error {
+    background-image: url(../images/error.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+    color: #bd0000;
+    border: 1px solid #bd0000;
+}
+#page select.error {
+    color: #bd0000;
+    border: 1px solid #bd0000;
+}
+
 /*
     -------------------------------------------------
                     Generic Wizard
@@ -496,4 +513,13 @@ div.projectDetailsActions {
     position: absolute;
     left: 545px;
     top: 5px;
+}
+#page .formSection .datetimepicker table.date {
+    float:right;
+    left:110px;
+    top:27px;
+}
+#page .formSection .datetimepicker .errorInput {
+    color: #bd0000;
+    border: 1px solid #bd0000;
 }

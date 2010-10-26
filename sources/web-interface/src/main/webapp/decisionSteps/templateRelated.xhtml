@@ -7,8 +7,16 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core">
 
-    <p>
-        <ice:outputText value="Template related step" nospan="true"/>
-    </p>
+    <ice:repeat value="#{manageDecisionController.templateRelatedStep.componentValues}"
+                var="item">
+        
+        <div class="formSection">
+            <ice:outputLabel value="#{item.label}"/>
+            <ice:inputTextarea maxlength="30000"
+                           label="#{item.label}"
+                           value="#{item.value}"/>
+            <p class="empty" />
+        </div>
+    </ice:repeat>
 
 </ui:composition>

@@ -48,6 +48,7 @@ public class EssentialsStep implements WizardStep {
 
 
     // <editor-fold defaultstate="collapsed" desc="construction">
+
     public EssentialsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
         selectedRequirements = new ArrayList<Requirement>();
@@ -99,10 +100,6 @@ public class EssentialsStep implements WizardStep {
         v.setRequirements(selectedRequirements);
         v.setDecidedWhen(decidedWhen);
     }
-
-
-
-
     // </editor-fold>
 
 
@@ -153,8 +150,12 @@ public class EssentialsStep implements WizardStep {
             return;
         }
 
-        for (Decision decision : wizard.getProject().
-                getDecisions()) {
+        Collection<Decision> allDecisions = wizard.getProjectLocal().
+                getById(wizard.getProject().
+                getId()).
+                getDecisions();
+
+        for (Decision decision : allDecisions) {
             if (newName.equalsIgnoreCase(decision.getName())) {
                 throw new ValidatorException(MessageFactory.getMessage(
                         fc,

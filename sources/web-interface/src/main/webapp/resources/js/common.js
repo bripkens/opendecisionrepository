@@ -143,3 +143,7 @@ function hideDecisionAddForm() {
 function showIterationDeleteForm() {
     showModalPopup("deleteConfirmationPopup");
 }
+
+function refresh() {
+    location.reload(true);
+}

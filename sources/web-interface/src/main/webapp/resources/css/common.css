@@ -486,17 +486,7 @@ input[type=submit]:active, #page input[type=submit]:focus,#page input[type=file]
     background-image: url(../images/formButtonActive.png);
 }
 
-#page input.error, #userMenu input.error, #page textarea.error {
-    background-image: url(../images/error.png);
-    background-repeat: no-repeat;
-    background-position: top right;
-    color: #bd0000;
-    border: 1px solid #bd0000;
-}
-#page select.error {
-    color: #bd0000;
-    border: 1px solid #bd0000;
-}
+
 
 #page li {
     list-style-type: disc;

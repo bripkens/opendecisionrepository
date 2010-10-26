@@ -1,5 +1,6 @@
 package nl.rug.search.odr;
 
+import com.icesoft.faces.context.effects.JavascriptContext;
 import java.io.IOException;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
@@ -50,4 +51,7 @@ public class JsfUtil {
 	return (FacesContext.getCurrentInstance().getExternalContext().getFlash());
    }
 
+    public static void addJavascriptCall(String call) {
+        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), call);
+    }
 }

@@ -149,7 +149,7 @@ public class ProjectDetailsController {
         // reloading the project to get the new id
         project = pl.getById(project.getId());
 
-        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideDecisionAddForm();");
+        JsfUtil.addJavascriptCall("hideDecisionAddForm();");
     }
 
 
@@ -161,7 +161,7 @@ public class ProjectDetailsController {
         iterationToDeleteId = it.getId();
         iterationToDeleteName = it.getName();
 
-        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "showIterationDeleteForm();");
+        JsfUtil.addJavascriptCall("showIterationDeleteForm();");
     }
 
 
@@ -177,7 +177,7 @@ public class ProjectDetailsController {
 
         pl.updateProject(project);
 
-        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "hideModalPopup();");
+        JsfUtil.addJavascriptCall("hideModalPopup();");
     }
 
 

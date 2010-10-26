@@ -52,8 +52,6 @@ public class RequestAnalyser {
                     ErrorUtil.showNotAuthenticatedError();
                 }
             });
-            
-            System.out.println("1");
         }
     }
 
