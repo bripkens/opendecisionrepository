@@ -8,6 +8,7 @@ import java.util.TimeZone;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
@@ -34,16 +35,23 @@ public class DatetimePicker extends UIInput implements NamingContainer {
             date = new Date();
         }
 
-        Calendar calendar = new GregorianCalendar(TimeZone.getDefault());
-        calendar.setTime(date);
+        TimeZone timeZone = TimeZone.getDefault();
 
+        Calendar calendar = new GregorianCalendar(timeZone);
+        calendar.setTime(date);
         UIInput hoursComponent = (UIInput) findComponent("hours");
         UIInput minutesComponent = (UIInput) findComponent("minutes");
         UIInput dateComponent = (UIInput) findComponent("date");
-
+        UIOutput timeZoneComponent = (UIOutput) findComponent("timeZone");
+        
         hoursComponent.setValue(calendar.get(Calendar.HOUR_OF_DAY));
         minutesComponent.setValue(calendar.get(Calendar.MINUTE));
         dateComponent.setValue(date);
+
+        String displayName = timeZone.getDisplayName(timeZone.inDaylightTime(date), TimeZone.SHORT);
+
+        timeZoneComponent.setValue(displayName);
+
         super.encodeBegin(context);
     }
 

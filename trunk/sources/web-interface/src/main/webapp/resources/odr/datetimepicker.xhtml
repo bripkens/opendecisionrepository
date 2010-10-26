@@ -22,12 +22,10 @@
                              styleClass="datetimepickerDateLabel"/>
             <ice:selectInputDate id="date"
                                  renderAsPopup="true"
-                                 popupDateFormat="yyyy-mm-dd"
                                  imageDir="./resources/images/"
                                  styleClass="datetimepickerDate">
                 <f:convertDateTime pattern="#{cc.attrs.datePattern}"
                                    type="date"
-                                   dateStyle="medium"
                                    timeZone="#{timeZoneController.timeZone}"/>
             </ice:selectInputDate>
 
@@ -46,6 +44,11 @@
             <h:selectOneMenu id="minutes" converter="javax.faces.Integer" styleClass="datetimepickerMinute">
                 <f:selectItems value="#{datesController.minutes}" />
             </h:selectOneMenu>
+
+            <ice:outputText
+                id="timeZone"
+                value="#{timeZoneController.timeZone.displayName}"
+                styleClass="datetimepickerTimeZone" />
         </div>
     </composite:implementation>
 </html>

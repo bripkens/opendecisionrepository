@@ -519,10 +519,7 @@ form hr {
     border-top: 1px #666 dashed;
 }
 
-.required {
-    color: #bd0000;
-    font-weight: bold;
-}
+
 
 .tagVeryOften {
     color: #48a659;

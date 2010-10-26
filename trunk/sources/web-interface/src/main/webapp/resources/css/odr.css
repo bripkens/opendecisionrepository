@@ -149,9 +149,6 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .last {
     border-bottom: 0;
 }
-.formSection label {
-    float: left;
-}
 .formSection span {
 }
 
@@ -164,7 +161,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 
 /* If you want to use this css, then restrict it to the current view not all.*/
 #page .formSection select{
-    height:25px;
+    height:27px;
     position:absolute;
     right:120px;
     top:0;
@@ -405,20 +402,24 @@ div.projectDetailsActions {
 }
 
 /*
-    Generic form styles
-
+    ############################################################################################
+                                    Generic form styles
 
     .formSection table.collection       Use this if the contents of the table are the result
-                                        of a selection using a combobox or textfield
+                                        of a selection using a combobox or textfield.
+                                        Example: Adding stakeholders to a project or adding
+                                                 requirements to a decision
 */
-
-.nextStepButton, .previousStepButton {
-    position: absolute;
-    top: 12px;
-    right: 15px;
+.formSection label {
+    float: left;
+    position: relative;
+    top: 4px;
 }
-.previousStepButton {
-    right: 150px;
+.required {
+    color: #bd0000;
+    font-weight: bold;
+    position: relative;
+    top: 1px;
 }
 #page .formSection select {
     left: 107px;
@@ -436,6 +437,63 @@ div.projectDetailsActions {
 #page table.enableHover tr:hover {
     background-color: #f4f2f2;
 }
-.formSection .datetimepicker {
+/*
+    -------------------------------------------------
+                    Generic Wizard
+*/
+.nextStepButton, .previousStepButton {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+}
+.previousStepButton {
+    right: 150px;
+}
+
+
+/*
+    -------------------------------------------------
+                    Datetimepicker
+*/
+#page .formSection .datetimepicker {
     position: relative;
+}
+#page .formSection .datetimepicker select {
+    width: 40px;
+    position: absolute;
+}
+#page .formSection .datetimepicker .datetimepickerMinute {
+    left: 498px;
+}
+#page .formSection .datetimepicker .datetimepickerHour {
+    left: 440px;
+}
+#page .formSection .datetimepicker .iceSelInpDateInput {
+    position: absolute;
+    width: 230px;
+    float: none;
+}
+#page .formSection .datetimepicker .datetimepickerDatePopup input[type=image] {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 0;
+    position: absolute;
+    top: 3px;
+    left: 345px;
+}
+#page .formSection .datetimepicker .datetimepickerHourLabel {
+    position: absolute;
+    left: 390px;
+    top: 5px;
+}
+#page .formSection .datetimepicker .datetimepickerMinuteLabel {
+    position: absolute;
+    left: 485px;
+    top: 5px;
+}
+#page .formSection .datetimepicker .datetimepickerTimeZone {
+    position: absolute;
+    left: 545px;
+    top: 5px;
 }
