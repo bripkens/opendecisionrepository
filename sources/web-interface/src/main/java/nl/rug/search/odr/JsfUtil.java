@@ -15,7 +15,10 @@ import javax.faces.context.Flash;
 public class JsfUtil {
 
     public static <T> T evaluateExpressionGet(String expression, Class<? extends T> expected) {
-        FacesContext context = FacesContext.getCurrentInstance();
+        return JsfUtil.evaluateExpressionGet(FacesContext.getCurrentInstance(), expression, expected);
+    }
+
+    public static <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> expected) {
         return context.getApplication().evaluateExpressionGet(context, expression, expected);
     }
 

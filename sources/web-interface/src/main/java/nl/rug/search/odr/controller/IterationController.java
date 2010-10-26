@@ -72,6 +72,22 @@ public class IterationController {
 
     private boolean isUpdate = false;
 
+private Object dummy;
+
+
+
+
+    public Object getDummy() {
+        return dummy;
+    }
+
+
+
+
+    public void setDummy(Object dummy) {
+        this.dummy = dummy;
+    }
+
 
 
 
@@ -214,17 +230,9 @@ public class IterationController {
         iteration.setName(iterationName);
         iteration.setDescription(iterationDescription);
 
-        GregorianCalendar calStart = new GregorianCalendar();
-        calStart.setTime(startDate);
-        calStart.set(Calendar.HOUR, Integer.parseInt(startHour));
-        calStart.set(Calendar.MINUTE, Integer.parseInt(startMinute));
-        iteration.setStartDate(calStart.getTime());
+        iteration.setStartDate(startDate);
+        iteration.setEndDate(endDate);
 
-        GregorianCalendar calEnd = new GregorianCalendar();
-        calEnd.setTime(endDate);
-        calEnd.set(Calendar.HOUR, Integer.parseInt(endHour));
-        calEnd.set(Calendar.MINUTE, Integer.parseInt(endMinute));
-        iteration.setEndDate(calEnd.getTime());
 
         //TODO IF THE MEMBER ALSO BE SAVED
 

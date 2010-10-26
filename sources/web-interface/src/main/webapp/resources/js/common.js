@@ -8,6 +8,8 @@ j(document).ready(function() {
     enableToggling();
 
     enableModalPopup();
+
+    datetimepickerFix();
 });
 
 var prefillValue = new Array();
@@ -139,11 +141,12 @@ function hideModalPopup() {
 function hideDecisionAddForm() {
     toggle(j('#decisionQuickAddContainer'));
 }
-
 function showIterationDeleteForm() {
     showModalPopup("deleteConfirmationPopup");
 }
-
+function datetimepickerValidationFix() {
+    j(".datetimepickerDateInput").focus().blur();
+}
 function refresh() {
     location.reload(true);
 }

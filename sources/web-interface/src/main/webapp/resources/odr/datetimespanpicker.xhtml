@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:odr="http://java.sun.com/jsf/composite/odr"
+      xml:lang="en">
+
+    <composite:interface componentType="nl.rug.search.odr.component.DatetimeSpanPicker">
+        <composite:attribute name="value" type="java.lang.Object"/>
+        <composite:attribute name="startValue" type="java.util.Date"/>
+        <composite:attribute name="endValue" type="java.util.Date"/>
+
+        <composite:attribute name="startDateLabel" type="java.lang.String" default="" />
+        <composite:attribute name="endDateLabel" type="java.lang.String" default="" />
+
+        <composite:attribute name="hourLabel" type="java.lang.String" default="" />
+        <composite:attribute name="minuteLabel" type="java.lang.String" default="" />
+        <composite:attribute name="datePattern" type="java.lang.String" default="yyyy-MM-dd" />
+    </composite:interface>
+
+    <composite:implementation>
+        <div class="formSection">
+            <odr:datetimepicker hourLabel="#{cc.attrs.hourLabel}"
+                                minuteLabel="#{cc.attrs.minuteLabel}"
+                                datePattern="#{cc.attrs.datePattern}"
+                                dateLabel="#{cc.attrs.startDateLabel}"
+                                value="#{cc.attrs.startValue}"
+                                id="startDate"/>
+            <p class="empty"/>
+        </div>
+        <div class="formSection">
+            <odr:datetimepicker hourLabel="#{cc.attrs.hourLabel}"
+                                minuteLabel="#{cc.attrs.minuteLabel}"
+                                datePattern="#{cc.attrs.datePattern}"
+                                dateLabel="#{cc.attrs.endDateLabel}"
+                                value="#{cc.attrs.endValue}"
+                                id="endDate"/>
+            <p class="empty"/>
+        </div>
+        
+    </composite:implementation>
+</html>

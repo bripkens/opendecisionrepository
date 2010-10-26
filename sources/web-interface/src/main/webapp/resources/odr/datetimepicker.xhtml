@@ -34,7 +34,10 @@
                              for="hours"
                              rendered="#{!(empty cc.attrs.hourLabel)}"
                              styleClass="datetimepickerHourLabel"/>
-            <h:selectOneMenu id="hours" converter="javax.faces.Integer" styleClass="datetimepickerHour">
+            <h:selectOneMenu id="hours"
+                             converter="javax.faces.Integer"
+                             styleClass="datetimepickerHour"
+                             onchange="datetimepickerValidationFix();">
                 <f:selectItems value="#{datesController.hours}" />
             </h:selectOneMenu>
 
@@ -42,7 +45,10 @@
                              for="minutes"
                              rendered="#{!(empty cc.attrs.minuteLabel)}"
                              styleClass="datetimepickerMinuteLabel"/>
-            <h:selectOneMenu id="minutes" converter="javax.faces.Integer" styleClass="datetimepickerMinute">
+            <h:selectOneMenu id="minutes"
+                             converter="javax.faces.Integer"
+                             styleClass="datetimepickerMinute"
+                             onchange="datetimepickerValidationFix();">
                 <f:selectItems value="#{datesController.minutes}" />
             </h:selectOneMenu>
 
