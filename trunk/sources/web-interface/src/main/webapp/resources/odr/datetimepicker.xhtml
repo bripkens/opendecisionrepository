@@ -23,7 +23,8 @@
             <ice:selectInputDate id="date"
                                  renderAsPopup="true"
                                  imageDir="./resources/images/"
-                                 styleClass="datetimepickerDate">
+                                 styleClass="datetimepickerDate"
+                                 label="#{cc.attrs.dateLabel}">
                 <f:convertDateTime pattern="#{cc.attrs.datePattern}"
                                    type="date"
                                    timeZone="#{timeZoneController.timeZone}"/>

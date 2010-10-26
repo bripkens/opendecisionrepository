@@ -79,8 +79,8 @@
 
     <div class="formSection">
         <odr:datetimepicker value="#{manageDecisionController.essentialsStep.decidedWhen}"
-                            dateLabel="Date"
-                            hourLabel="Time:"
+                            dateLabel="#{form['label.date']}"
+                            hourLabel="#{form['label.time']}"
                             minuteLabel=":">
         </odr:datetimepicker>
         <p class="empty"/>

@@ -29,6 +29,8 @@ public class DatetimePicker extends UIInput implements NamingContainer {
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
+        new com.icesoft.faces.component.selectinputdate.SelectInputDate();
+        new javax.faces.convert.DateTimeConverter();
         Date date = (Date) getValue();
 
         if (date == null) {

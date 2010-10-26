@@ -6,11 +6,11 @@
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 
     <ui:define name="head">
-<!--        <link rel="stylesheet" type="text/css" href="resources/css/calendar.css" />-->
+        <link rel="stylesheet" type="text/css" href="resources/css/calendar.css" />
     </ui:define>
 
     <ui:define name="pagetitle">
-        Decision wizard
+        <ice:outputText value="#{form['decision.wizard.page.title']}" nospan="true"/>
     </ui:define>
 
     <ui:define name="belowHeader">

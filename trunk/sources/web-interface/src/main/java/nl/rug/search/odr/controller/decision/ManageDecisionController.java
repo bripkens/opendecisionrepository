@@ -181,6 +181,7 @@ public class ManageDecisionController extends AbstractController {
 
         for (Decision decision : project.getDecisions()) {
             if (decision.getId().equals(decisionId)) {
+                dl.makeTransient(decision);
                 this.decision = decision;
                 this.initialDecisionName = decision.getName();
                 break;
@@ -194,7 +195,14 @@ public class ManageDecisionController extends AbstractController {
 
         for (Version version : decision.getVersions()) {
             if (version.getId().equals(versionId)) {
+                vl.makeTransient(version);
                 this.version = version;
+                
+                if (getStepId(currentStep) != 0) {
+                    setStep(0);
+                    JsfUtil.addJavascriptCall("refresh()");
+                }
+                
                 currentStep.focus();
                 return;
             }

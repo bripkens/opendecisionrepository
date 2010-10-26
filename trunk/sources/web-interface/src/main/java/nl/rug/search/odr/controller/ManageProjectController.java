@@ -488,7 +488,7 @@ public class ManageProjectController extends AbstractManageController {
 
 
     public Collection<ProjectMember> getProjectMembers() {
-        JavascriptContext.addJavascriptCall(FacesContext.getCurrentInstance(), "preselect();");
+        JsfUtil.addJavascriptCall("preselect();");
 
         Collection<ProjectMember> onlyNonRemovedMembers = new ArrayList(projectMembers.size());
 
