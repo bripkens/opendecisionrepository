@@ -12,9 +12,13 @@
         
         <div class="formSection">
             <ice:outputLabel value="#{item.label}"/>
+
+            <a href="#" class="toggleTemplateComponent"><ice:outputText value="#{common['toggle.expand']}" nospan="true"/></a>
+
             <ice:inputTextarea maxlength="30000"
                            label="#{item.label}"
-                           value="#{item.value}"/>
+                           value="#{item.value}"
+                           styleClass="shrinked"/>
             <p class="empty" />
         </div>
     </ice:repeat>

@@ -244,10 +244,6 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     text-indent: 11em;
 }
 
-.formSection p.empty{
-    padding: 0 0 9px 0;
-}
-
 .formSection p.constraintDate{
     padding:8px 0 0;
 }
@@ -402,6 +398,9 @@ div.projectDetailsActions {
                                         of a selection using a combobox or textfield.
                                         Example: Adding stakeholders to a project or adding
                                                  requirements to a decision
+
+    -------------------------------------------------
+                    Form container
 */
 .formSection {
     position: relative;
@@ -422,6 +421,13 @@ div.projectDetailsActions {
     position: relative;
     top: 1px;
 }
+.formSection p.empty{
+    padding: 0 0 5px 0;
+}
+/*
+    -------------------------------------------------
+                    Form controls
+*/
 #page .formSection select {
     left: 107px;
     position: absolute;
@@ -522,4 +528,19 @@ div.projectDetailsActions {
 #page .formSection .datetimepicker .errorInput {
     color: #bd0000;
     border: 1px solid #bd0000;
+}
+
+
+/*
+    ############################################################################################
+                                    Decision wizard styles
+*/
+#page .formSection a.toggleTemplateComponent {
+    font-size: 10px;
+    position: absolute;
+    left: 0px;
+    top: 22px;
+}
+#page .formSection textarea.shrinked {
+    height: 40px;
 }

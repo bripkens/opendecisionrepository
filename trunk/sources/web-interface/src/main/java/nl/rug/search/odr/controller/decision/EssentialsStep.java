@@ -213,6 +213,14 @@ public class EssentialsStep implements WizardStep {
 
 
     public void setDecisionTemplate(String decisionTemplate) {
+        // fix for the datetimepicker which requires in a skip of the validation phase?
+        // Please select is set as the special "no selection case" which means that this
+        // should not be possible
+        if (!StringValidator.isValid(decisionTemplate, false)) {
+            return;
+        } else if (decisionTemplate.equalsIgnoreCase("Please select")){
+            return;
+        }
         this.decisionTemplate = wizard.getDecisionTemplateLocal().
                 getByName(decisionTemplate);
     }

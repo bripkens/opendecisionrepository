@@ -161,13 +161,16 @@ public class ManageDecisionController extends AbstractController {
 
         if (createParameter != null) {
             prepareProjosForCreateRequest();
-            setStep(0);
+            if (getStepId(currentStep) != 0) {
+                setStep(0);
+                JsfUtil.addJavascriptCall("refresh()");
+            }
             currentStep.focus();
             return;
         } else if (decision != null && decisionIdParameter == null && versionIdParameter == null) {
             return;
         }
-        
+
         long decisionId = -1;
         long versionId = -1;
 
@@ -197,12 +200,12 @@ public class ManageDecisionController extends AbstractController {
             if (version.getId().equals(versionId)) {
                 vl.makeTransient(version);
                 this.version = version;
-                
+
                 if (getStepId(currentStep) != 0) {
                     setStep(0);
                     JsfUtil.addJavascriptCall("refresh()");
                 }
-                
+
                 currentStep.focus();
                 return;
             }

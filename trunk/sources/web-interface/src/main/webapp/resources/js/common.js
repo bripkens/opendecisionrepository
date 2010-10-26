@@ -9,7 +9,7 @@ j(document).ready(function() {
 
     enableModalPopup();
 
-    datetimepickerFix();
+    decisionWizardHideTemplateComponents();
 });
 
 var prefillValue = new Array();
@@ -149,4 +149,21 @@ function datetimepickerValidationFix() {
 }
 function refresh() {
     location.reload(true);
+}
+function decisionWizardHideTemplateComponents() {
+    j("a.toggleTemplateComponent").click(function() {
+        var element = j(this).siblings("textarea");
+        
+        if (element.css("height") == "40px") {
+            element.animate({
+                height:'150px'
+            });
+        } else {
+            element.animate({
+                height:'40px'
+            });
+        }
+
+        return false;
+    });
 }
