@@ -404,6 +404,14 @@ div.projectDetailsActions {
     right: 10px;
 }
 
+/*
+    Generic form styles
+
+
+    .formSection table.collection       Use this if the contents of the table are the result
+                                        of a selection using a combobox or textfield
+*/
+
 .nextStepButton, .previousStepButton {
     position: absolute;
     top: 12px;
@@ -427,4 +435,7 @@ div.projectDetailsActions {
 }
 #page table.enableHover tr:hover {
     background-color: #f4f2f2;
+}
+.formSection .datetimepicker {
+    position: relative;
 }

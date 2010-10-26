@@ -55,11 +55,11 @@ public class DatetimePicker extends UIInput implements NamingContainer {
         UIInput hourComponent = (UIInput) findComponent("hours");
         UIInput minuteComponent = (UIInput) findComponent("minutes");
         UIInput dateComponent = (UIInput) findComponent("date");
-        
+
         int hour = (Integer) hourComponent.getValue();
         int minute = (Integer) minuteComponent.getValue();
         Date date = (Date) dateComponent.getValue();
-        
+
         Calendar calendar = new GregorianCalendar(TimeZone.getDefault());
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, hour);

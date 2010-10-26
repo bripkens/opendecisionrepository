@@ -1,29 +1,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:ice="http://www.icesoft.com/icefaces/component"
-          xmlns:composite="http://java.sun.com/jsf/composite"
-          xml:lang="en">
-    
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xml:lang="en">
+
     <composite:interface componentType="nl.rug.search.odr.component.DatetimePicker">
         <composite:attribute name="value" type="java.util.Date"/>
+
+        <composite:attribute name="dateLabel" type="java.lang.String" default="" />
+        <composite:attribute name="hourLabel" type="java.lang.String" default="" />
+        <composite:attribute name="minuteLabel" type="java.lang.String" default="" />
+        <composite:attribute name="datePattern" type="java.lang.String" default="yyyy-MM-dd" />
     </composite:interface>
 
     <composite:implementation>
-        <ice:selectInputDate id="date"
-                             renderAsPopup="true"
-                             popupDateFormat="yyyy-mm-dd"
-                             imageDir="./resources/images/"
-                             styleClass="dateSelection">
-            <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
-        </ice:selectInputDate>
+        <div class="datetimepicker">
+            <ice:outputLabel value="#{cc.attrs.dateLabel}"
+                             for="date"
+                             rendered="#{!(empty cc.attrs.dateLabel)}"
+                             styleClass="datetimepickerDateLabel"/>
+            <ice:selectInputDate id="date"
+                                 renderAsPopup="true"
+                                 popupDateFormat="yyyy-mm-dd"
+                                 imageDir="./resources/images/"
+                                 styleClass="datetimepickerDate">
+                <f:convertDateTime pattern="#{cc.attrs.datePattern}"
+                                   type="date"
+                                   dateStyle="medium"
+                                   timeZone="#{timeZoneController.timeZone}"/>
+            </ice:selectInputDate>
 
-        <h:selectOneMenu id="hours" converter="javax.faces.Integer" styleClass="hourSelection">
-            <f:selectItems value="#{datesController.hours}" />
-        </h:selectOneMenu>
+            <ice:outputLabel value="#{cc.attrs.hourLabel}"
+                             for="hours"
+                             rendered="#{!(empty cc.attrs.hourLabel)}"
+                             styleClass="datetimepickerHourLabel"/>
+            <h:selectOneMenu id="hours" converter="javax.faces.Integer" styleClass="datetimepickerHour">
+                <f:selectItems value="#{datesController.hours}" />
+            </h:selectOneMenu>
 
-        <h:selectOneMenu id="minutes" converter="javax.faces.Integer" styleClass="minuteSelection">
-            <f:selectItems value="#{datesController.minutes}" />
-        </h:selectOneMenu>
+            <ice:outputLabel value="#{cc.attrs.minuteLabel}"
+                             for="minutes"
+                             rendered="#{!(empty cc.attrs.minuteLabel)}"
+                             styleClass="datetimepickerMinuteLabel"/>
+            <h:selectOneMenu id="minutes" converter="javax.faces.Integer" styleClass="datetimepickerMinute">
+                <f:selectItems value="#{datesController.minutes}" />
+            </h:selectOneMenu>
+        </div>
     </composite:implementation>
 </html>
