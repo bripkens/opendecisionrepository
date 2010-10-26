@@ -3,7 +3,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
         <link rel="stylesheet" type="text/css" href="resources/css/calendar.css" />
@@ -61,82 +62,13 @@
             </div>
 
 
-            <!--STARTTIME-->
-
-
-            <div class="formSection">
-                <ice:outputLabel value="#{form['iteration.startDate']}" for="inStartDate"/>
-                <ice:selectInputDate id="date1"
-                                     value="#{iterationController.startDate}"
-                                     imageDir="./resources/images/"
-                                     renderAsPopup="true"
-                                     styleClass="date">
-                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
-                </ice:selectInputDate>
-
-                <ice:outputLabel styleClass="hourlabel" value="Time:" for="inStartDateHour"/>
-
-                <ice:selectOneListbox styleClass="dropdown hour" partialSubmit="true" id="inHour" value="#{iterationController.startHour}" size="1">
-                    <f:selectItems id="inStartHourComponents"
-                                   value="#{iterationController.hourItems}"/>
-                </ice:selectOneListbox>
-
-                <ice:outputLabel styleClass="h" value="h" for="inStartDateMinute"/>
-
-                <ice:outputLabel styleClass="timedoublepoint" value=":" for="inStartDateMinute"/>
-
-                <ice:selectOneListbox styleClass="dropdown minute" partialSubmit="true" id="inMinute" value="#{iterationController.startMinute}" size="1">
-
-                    <f:selectItems id="inStartMinuteComponents"
-                                   value="#{iterationController.minuteItems}"/>
-                </ice:selectOneListbox>
-                <ice:outputLabel styleClass="min" value="min" for="inStartDateMinute"/>
-
-                <p class="constraintDate">
-                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 0;
-                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000
-
-                </p>
-            </div>
-
-
-            <!--            ENDTIME-->
-
-
-
-            <div class="formSection">
-                <ice:outputLabel value="#{form['iteration.endDate']}" for="inEndDate"/>
-                <ice:selectInputDate id="date2"
-                                     value="#{iterationController.endDate}"
-                                     imageDir="./resources/images/"
-                                     renderAsPopup="true"
-                                     styleClass="date">
-                    <f:convertDateTime pattern="yyyy-MM-dd" type="date" dateStyle="medium" timeZone="#{timeZoneController.timeZone}"/>
-                </ice:selectInputDate>
-
-                <ice:outputLabel styleClass="hourlabel" value="Time:" for="inEndDateHour"/>
-
-                <ice:selectOneListbox styleClass="dropdown hour" id="adsf" partialSubmit="true" value="#{iterationController.endHour}" size="1">
-                    <f:selectItems id="inEndHourComponents"
-                                   value="#{iterationController.hourItems}"/>
-                </ice:selectOneListbox>
-
-                <ice:outputLabel styleClass="h" value="h" for="inStartDateMinute"/>
-
-                <ice:outputLabel styleClass="timedoublepoint" value=":" for="inStartDateMinute"/>
-
-                <ice:selectOneListbox styleClass="dropdown minute" id="ads" partialSubmit="true" value="#{iterationController.endMinute}" size="1">
-                    <f:selectItems id="inEndMinuteComponents"
-                                   value="#{iterationController.minuteItems}"/>
-                </ice:selectOneListbox>
-                <ice:outputLabel styleClass="min" value="min" for="inEndDateMinute"/>
-
-                <p class="constraintDate">
-                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 0;
-                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 1000
-
-                </p>
-            </div>
+            <odr:datetimespanpicker startValue="#{iterationController.startDate}"
+                                    endValue="#{iterationController.endDate}"
+                                    endDateLabel="End date"
+                                    startDateLabel="Start date"
+                                    hourLabel="Time:"
+                                    minuteLabel=":"
+                                    value="#{iterationController.dummy}"/>
 
 
             <!--Submit Button-->
