@@ -30,6 +30,7 @@ public class RelationshipTypeTest {
     public void testInitialization() {
         assertNull(r.getId());
         assertNull(r.getName());
+        assertNull(r.getDescription());
         assertFalse(r.isCommon());
     }
 
@@ -96,6 +97,19 @@ public class RelationshipTypeTest {
 
 
 
+    @Test
+    public void testDescription() {
+        String description = "abcd";
+        r.setDescription(description);
+        
+        assertEquals(description, r.getDescription());
+        
+        r.setDescription(null);
+        
+        assertNull(r.getDescription());
+    }
+
+
 
     @Test
     public void testHashCode() {
@@ -149,12 +163,15 @@ public class RelationshipTypeTest {
     @Test
     public void testGetCompareData() {
         String name = "klad";
+        String description = "desc";
         boolean common = true;
 
         r.setName(name);
         r.setCommon(common);
+        r.setDescription(description);
 
         assertEquals(name, r.getCompareData()[0]);
         assertEquals(common, r.getCompareData()[1]);
+        assertEquals(description, r.getCompareData()[2]);
     }
 }

@@ -404,7 +404,7 @@ public class ProjectDetailsController {
 
         List<Decision> resultDecisions = new ArrayList<Decision>(decisions);
 
-        Collections.sort(resultDecisions, new Decision.NameComparator());
+        Collections.sort(resultDecisions, Collections.reverseOrder(new Decision.DocumentedWhenComparator()));
 
         return resultDecisions;
     }

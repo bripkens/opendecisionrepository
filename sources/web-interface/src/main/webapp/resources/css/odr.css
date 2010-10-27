@@ -427,12 +427,48 @@ div.projectDetailsActions {
 /*
     -------------------------------------------------
                     Form controls
+    ------- textarea and bigger, smaller buttons
+*/
+.textareaSmaller, .textareaBigger {
+    background-color: #F4F2F2;
+    border: 1px solid black;
+    position: relative;
+    top: -1px;
+    font-size: 10px;
+    width: 70px;
+    text-align: center;
+    float: right;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+.textareaBigger {
+    clear: both;
+    background-image: url(../images/arrow-down.png);
+    background-position: 55px 50%;
+    text-indent: -5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-bottom-right-radius: 5px;
+}
+.textareaSmaller {
+    left: 1px;
+    background-image: url(../images/arrow-up.png);
+    background-position: 5px 50%;
+    text-indent: 5px;
+    border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+}
+/*
+    ------- select
 */
 #page .formSection select {
     left: 107px;
     position: absolute;
     width: 495px;
 }
+/*
+    ------- table and subcomponents
+*/
 #page .formSection table select {
     height: 19px;
 }

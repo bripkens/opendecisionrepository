@@ -474,14 +474,14 @@ public class FillDbController {
         State state = new State();
         state.setActionName("formulate");
         state.setStatusName("formulated");
-        state.setInitialState(false);
+        state.setInitialState(true);
         state.setCommon(true);
         sl.persist(state);
 
         state = new State();
         state.setActionName("propose");
         state.setStatusName("considered");
-        state.setInitialState(true);
+        state.setInitialState(false);
         state.setCommon(true);
         sl.persist(state);
 

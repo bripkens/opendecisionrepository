@@ -21,7 +21,7 @@ public class RelationshipType extends BaseEntity<RelationshipType> {
 
     private boolean common;
 
-
+    private String description;
 
 
     @Override
@@ -73,6 +73,19 @@ public class RelationshipType extends BaseEntity<RelationshipType> {
 
 
 
+    public String getDescription() {
+        return description;
+    }
+
+
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
     @Override
     public boolean isPersistable() {
         return name != null;
@@ -83,6 +96,6 @@ public class RelationshipType extends BaseEntity<RelationshipType> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {name, common};
+        return new Object[] {name, common, description};
     }
 }

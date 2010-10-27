@@ -59,7 +59,7 @@ public class TemplateRelatedStep implements WizardStep {
                     break;
                 }
             }
-            
+
             if (!contained) {
                 boolean last = !componentsIterator.hasNext() && values.isEmpty();
                 componentValues.add(new TemplateComponentInput(component, last));
@@ -69,7 +69,9 @@ public class TemplateRelatedStep implements WizardStep {
         Iterator<ComponentValue> valuesIterator = values.iterator();
         while (valuesIterator.hasNext()) {
             ComponentValue value = valuesIterator.next();
-            componentValues.add(new TemplateComponentInput(value.getComponent(), value, !valuesIterator.hasNext()));
+            if (components.contains(value.getComponent())) {
+                componentValues.add(new TemplateComponentInput(value.getComponent(), value, !valuesIterator.hasNext()));
+            }
         }
 
         Collections.sort(componentValues, new TemplateComponentInput.OrderComparator());
@@ -83,7 +85,7 @@ public class TemplateRelatedStep implements WizardStep {
         Decision d = wizard.getDecision();
         d.removeAllValues();
 
-        for(TemplateComponentInput value : componentValues) {
+        for (TemplateComponentInput value : componentValues) {
             d.addValue(value.getComponentValue());
         }
     }
