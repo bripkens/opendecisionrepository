@@ -1,4 +1,7 @@
 var j = jQuery.noConflict();
+var prefillValue = new Array();
+var textareaResizerDelta = 70;
+var textareaResizerMin = 40;
 
 j(document).ready(function() {
     preparePrefill();
@@ -9,10 +12,10 @@ j(document).ready(function() {
 
     enableModalPopup();
 
-    decisionWizardHideTemplateComponents();
+    textareaResizer();
 });
 
-var prefillValue = new Array();
+
 
 function preparePrefill() {
     j("input.prefill").each(function() {
@@ -150,20 +153,30 @@ function datetimepickerValidationFix() {
 function refresh() {
     location.reload(true);
 }
-function decisionWizardHideTemplateComponents() {
-    j("a.toggleTemplateComponent").click(function() {
+/*
+ * Text area resizer
+ */
+function textareaResizer() {
+    j("div.textareaBigger").click(function() {
         var element = j(this).siblings("textarea");
-        
-        if (element.css("height") == "40px") {
-            element.animate({
-                height:'150px'
-            });
-        } else {
-            element.animate({
-                height:'40px'
-            });
+
+        var newheight = element.height() + textareaResizerDelta;
+
+        element.animate({
+            height:newheight + "px"
+        });
+    })
+    j("div.textareaSmaller").click(function() {
+        var element = j(this).siblings("textarea");
+
+        var newheight = element.height() - textareaResizerDelta;
+
+        if (newheight < textareaResizerMin) {
+            newheight = textareaResizerMin;
         }
 
-        return false;
+        element.animate({
+            height:newheight + "px"
+        });
     });
 }

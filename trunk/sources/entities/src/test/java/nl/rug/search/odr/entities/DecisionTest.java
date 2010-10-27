@@ -391,6 +391,9 @@ public class DecisionTest {
         newer.setDecidedWhen(new Date(older.getDecidedWhen().getTime() + 1));
 
         d.addVersion(older);
+
+        assertSame(older, d.getCurrentVersion());
+
         d.addVersion(newer);
 
         assertSame(newer, d.getCurrentVersion());
@@ -408,5 +411,32 @@ public class DecisionTest {
         d2.setName("BBBBB");
 
         assertTrue(new Decision.NameComparator().compare(d, d2) < 0);
+    }
+
+
+    @Test
+    public void documentedWhenComparatorTest() {
+        Date before = new Date();
+        Date after = new Date(before.getTime() + 1l);
+
+        Version v = new Version();
+        v.setDocumentedWhen(before);
+        v.setDecidedWhen(before);
+        d.addVersion(v);
+
+        Decision d2 = new Decision();
+        Version v2 = new Version();
+        v2.setDocumentedWhen(after);
+        v2.setDecidedWhen(after);
+        d2.addVersion(v2);
+
+        assertSame(v, d.getCurrentVersion());
+        assertSame(before, d.getCurrentVersion().getDocumentedWhen());
+        assertSame(v2, d2.getCurrentVersion());
+        assertSame(after, d2.getCurrentVersion().getDocumentedWhen());
+
+
+
+        assertTrue(new Decision.DocumentedWhenComparator().compare(d, d2) < 0);
     }
 }

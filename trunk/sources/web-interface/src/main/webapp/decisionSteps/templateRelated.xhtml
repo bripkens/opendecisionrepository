@@ -5,7 +5,8 @@
                     xmlns:ui="http://java.sun.com/jsf/facelets"
                     xmlns:h="http://java.sun.com/jsf/html"
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
-                    xmlns:f="http://java.sun.com/jsf/core">
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ice:repeat value="#{manageDecisionController.templateRelatedStep.componentValues}"
                 var="item">
@@ -13,12 +14,11 @@
         <div class="formSection">
             <ice:outputLabel value="#{item.label}"/>
 
-            <a href="#" class="toggleTemplateComponent"><ice:outputText value="#{common['toggle.expand']}" nospan="true"/></a>
-
             <ice:inputTextarea maxlength="30000"
                            label="#{item.label}"
                            value="#{item.value}"
                            styleClass="shrinked"/>
+            <odr:inputTextareaResizer />
             <p class="empty" />
         </div>
     </ice:repeat>

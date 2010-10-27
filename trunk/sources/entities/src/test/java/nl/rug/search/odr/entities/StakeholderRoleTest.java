@@ -28,6 +28,7 @@ public class StakeholderRoleTest {
     public void testInit() {
         assertNull(s.getId());
         assertNull(s.getName());
+        assertNull(s.getDescription());
         assertFalse(s.isCommon());
     }
 
@@ -89,6 +90,15 @@ public class StakeholderRoleTest {
     }
 
 
+
+
+    @Test
+    public void testDescription() {
+        String description = "foobar";
+        s.setDescription(description);
+
+        assertEquals(description, s.getDescription());
+    }
 
 
     @Test

@@ -21,13 +21,11 @@ public class StakeholderRole extends BaseEntity<StakeholderRole> {
 
     private static final long serialVersionUID = 1L;
 
-    @Column
     private String name;
 
-    @Column
     private boolean common;
 
-
+    private String description;
 
 
     @Override
@@ -79,9 +77,24 @@ public class StakeholderRole extends BaseEntity<StakeholderRole> {
 
 
 
+    public String getDescription() {
+        return description;
+    }
+
+
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
+
+
+
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{name, common};
+        return new Object[]{name, common, description};
     }
 
 

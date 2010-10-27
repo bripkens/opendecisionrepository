@@ -277,4 +277,14 @@ public class Decision extends BaseEntity<Decision> {
             return o1.name.compareToIgnoreCase(o2.name);
         }
     }
+
+    public static class DocumentedWhenComparator implements Comparator<Decision> {
+
+        @Override
+        public int compare(Decision o1, Decision o2) {
+
+            return o1.getCurrentVersion().getDocumentedWhen().compareTo(o2.getCurrentVersion().getDocumentedWhen());
+        }
+
+    }
 }
