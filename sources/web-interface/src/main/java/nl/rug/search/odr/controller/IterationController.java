@@ -151,6 +151,11 @@ private Object dummy;
 
         if (iteration == null) {
             iteration = new Iteration();
+            Date currentDate = new Date();
+            iteration.setStartDate(currentDate);
+            iteration.setEndDate(new Date(currentDate.getTime() + 86400000l));
+            startDate = iteration.getStartDate();
+            endDate = iteration.getEndDate();
         } else {
             iterationName = iteration.getName();
             iterationDescription = iteration.getDescription();
@@ -244,6 +249,8 @@ private Object dummy;
             project.addIteration(iteration);
             pl.updateProject(project);
         }
+
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
     }
 
 
