@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:odr="http://www.decisionrepository.com/taglib">
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
         <link rel="stylesheet" type="text/css" href="resources/css/paginator.css" />
@@ -58,8 +58,6 @@
                 <ice:dataTable rendered="#{projectDetailsController.valid}"
                                value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover enableHover ">
                     <ice:column>
-                        <ice:rowSelector />
-                        <ice:outputText value="#{item.person.name}" nospan="true"/>
                         <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
                     </ice:column>
                     <ice:column>
@@ -79,13 +77,15 @@
 
             <div id="iterationContainer" class="toggleContainer" >
 
-                <ice:form>
+                <a href="#{projectDetailsController.createIterationLink}" id="addIterationLink">
+                    <ice:outputText value="#{page['projectDetails.iterations.add']}" nospan="true"/>
+                </a>
 
-                    <ice:dataTable value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover enableHover ">
+                <ice:form style="margin-top: 10px;">
+
+                    <ice:dataTable id="iterationTable" value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover enableHover ">
 
                         <ice:column>
-                            <ice:rowSelector />
-
                             <ice:outputText value="#{item.name}" styleClass="iterationName" />
                             <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
                         </ice:column>
@@ -103,13 +103,12 @@
                         </ice:column>
 
                         <ice:column>
-                            <ice:commandLink value=""
-                                             action="#{projectDetailsController.editIteration(item)}">
+                            <a href="#{projectDetailsController.getEditIterationLink(item)}">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"
                                      width="11"
                                      height="11"/>
-                            </ice:commandLink>
+                            </a>
 
                             <ice:commandLink value=""
                                              actionListener="#{projectDetailsController.showDeleteIterationConfirmation}">
@@ -144,15 +143,13 @@
 
 
 
-                <ice:form>
-                    <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer" id="showQuickAddDecisionContainer">
-                        <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
-                        <ice:outputText value="#{page['projectDetails.decisions.quick.add']}"/>
-                    </a>
-                    <a href="#{projectDetailsController.createDecisionLink}" id="addDecisionWizardLink" style="margin-left: 15px;">
-                        <ice:outputText value="#{page['projectDetails.decisions.wizard.add']}"/>
-                    </a>
-                </ice:form>
+                <a href="#" class="quickAddDecisionLink togglelink" name="decisionQuickAddContainer" id="showQuickAddDecisionContainer">
+                    <img src="./resources/images/add.png" width="12" height="12" alt="#{common.add}" />
+                    <ice:outputText value="#{page['projectDetails.decisions.quick.add']}"/>
+                </a>
+                <a href="#{projectDetailsController.createDecisionLink}" id="addDecisionWizardLink" style="margin-left: 15px;">
+                    <ice:outputText value="#{page['projectDetails.decisions.wizard.add']}"/>
+                </a>
 
                 <ice:form partialSubmit="true" id="decisionQuickAddContainer">
 
@@ -201,7 +198,7 @@
 
 
 
-                <ice:form partialSubmit="true" style="margin-top: 10px;">
+                <ice:form partialSubmit="true" style="margin-top: 10px;" id="dicisionShowForm">
                     <ice:dataTable rendered="#{projectDetailsController.valid}"
                                    value="#{projectDetailsController.decisions}"
                                    var="item"
@@ -239,8 +236,7 @@
                                        pageCountVar="pageCount"
                                        pageIndexVar="pageIndex"
                                        paginator="true"
-                                       paginatorMaxPages="5"
-                                       >
+                                       paginatorMaxPages="5">
 
                         <f:facet name="first" >
                             <ice:graphicImage url="/resources/images/arrow-first.gif" style="border:none;"/>

@@ -223,6 +223,29 @@ public class ProjectDetailsController {
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
+    public String getCreateIterationLink() {
+        StringBuilder link = new StringBuilder().append("manageIteration.html?").
+                append(RequestParameter.ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(project.getId());
+
+        return link.toString();
+    }
+
+    public String getEditIterationLink(Iteration it) {
+        StringBuilder link = new StringBuilder().append("manageIteration.html?").
+                append(RequestParameter.ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(project.getId()).
+                append(RequestParameter.AMPERSAND).
+                append(RequestParameter.ITERATION_ID).
+                append(RequestParameter.EQUAL_SIGN).
+                append(it.getId());
+
+        return link.toString();
+    }
+
+
 
 
     public String getEditDecisionLink(Decision d) {
