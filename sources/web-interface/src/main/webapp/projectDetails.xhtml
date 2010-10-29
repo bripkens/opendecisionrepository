@@ -58,6 +58,7 @@
                 <ice:dataTable rendered="#{projectDetailsController.valid}"
                                value="#{projectDetailsController.projectMembers}" var="item" styleClass="rowhover enableHover ">
                     <ice:column>
+                        <ice:outputText value="#{item.person.name}" nospan="true"/>
                         <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
                     </ice:column>
                     <ice:column>
