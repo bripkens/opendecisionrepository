@@ -84,10 +84,16 @@ public class FillDbController {
         ul.register(p4);
 
         Person p5 = new Person();
-        p5.setName("No project member");
+        p5.setName("Christian Manteuffel");
         p5.setPlainPassword("12345");
-        p5.setEmail("not@not.de");
+        p5.setEmail("christian@christian.de");
         ul.register(p5);
+
+        Person p6 = new Person();
+        p6.setName("Martin Verspai");
+        p6.setPlainPassword("12345");
+        p6.setEmail("martin@martin.de");
+        ul.register(p6);
     }
 
 
@@ -96,7 +102,7 @@ public class FillDbController {
     public void addProject() {
         Project pro = new Project();
         pro.setName("OpenDecisionRepository");
-        pro.setDescription("...part of search...");
+        pro.setDescription("The Open Decision Repository (ODR) project was initiated as part of the doctoral research by Uwe van Heesch, supervised by Paris Avgeriou. It is a joint-venture project of the research group Software Engineering and Architecture (SEARCH), which is part of the Department of Mathematics and Computing Science at the University of Groningen/NL and the Software Engineering study programme at the Fontys University of Applied Sciences in Venlo/NL.");
 
         ProjectMember member = new ProjectMember();
         member.setPerson(ul.getByName("Ben Ripkens"));
@@ -105,6 +111,32 @@ public class FillDbController {
 
         member = new ProjectMember();
         member.setPerson(ul.getByName("Stefan Arians"));
+        member.setRole(getStakeholderRole("Architect"));
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(ul.getByName("Uwe van Heesch"));
+        member.setRole(getStakeholderRole("Customer"));
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(ul.getByName("Paris Avgeriou"));
+        member.setRole(getStakeholderRole("Manager"));
+        pro.addMember(member);
+
+        pl.createProject(pro);
+
+        pro = new Project();
+        pro.setName("OpenPatternRepository");
+        pro.setDescription("The Open Pattern Repository is a publicly available and freely usable online repository for software engineering patterns and software technologies like frameworks and libraries.");
+
+        member = new ProjectMember();
+        member.setPerson(ul.getByName("Christian Manteuffel"));
+        member.setRole(getStakeholderRole("Architect"));
+        pro.addMember(member);
+
+        member = new ProjectMember();
+        member.setPerson(ul.getByName("Martin Verspai"));
         member.setRole(getStakeholderRole("Architect"));
         pro.addMember(member);
 
@@ -633,17 +665,27 @@ public class FillDbController {
         Project p = pl.getByName("OpenDecisionRepository");
 
         Requirement r = new Requirement();
-        r.setName("First requirement");
+        r.setName("Web application");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 
         r = new Requirement();
-        r.setName("Second requirement");
+        r.setName("Rich Internet Application");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 
         r = new Requirement();
-        r.setName("Third requirement");
+        r.setName("Well tested (> 70% test coverage)");
+        r.setInitiators(p.getMembers());
+        p.addRequirement(r);
+
+        r = new Requirement();
+        r.setName("Portable to any major OS");
+        r.setInitiators(p.getMembers());
+        p.addRequirement(r);
+
+        r = new Requirement();
+        r.setName("Password encryption");
         r.setInitiators(p.getMembers());
         p.addRequirement(r);
 
