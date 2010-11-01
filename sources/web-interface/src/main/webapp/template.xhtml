@@ -55,6 +55,10 @@
                         </ul>
                     </div>
                 </div>
+                <ice:outputConnectionStatus disconnectedLabel="#{common['connection.status.lost']}"
+                                            cautionLabel="#{common['connection.status.caution']}"
+                                            showPopupOnDisconnect="true"/>
+                
                 <div id="userMenu">
                     <div>
                         <div>
@@ -79,12 +83,6 @@
                 <div id="sidebar">
                     <ui:insert name="sidebar">sidebar</ui:insert>
                     Fill the Database using this <a href="fillDb.html">page</a>.
-                    <ice:outputConnectionStatus
-                        cautionLabel="Caution: Connection in danger."
-                        activeLabel="Active: Working."
-                        disconnectedLabel="Disconnected."
-                        inactiveLabel="Active: Idle."
-                        />
                 </div>
 
 

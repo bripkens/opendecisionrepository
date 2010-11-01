@@ -7,6 +7,7 @@ import org.junit.Ignore;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class LoginTest extends AbstractSelenseTestCase {
 
     public static void loginUserWithDefaulCredentials(Selenium selenium) {
@@ -15,7 +16,7 @@ public class LoginTest extends AbstractSelenseTestCase {
 
     public static void logout(Selenium selenium){
         selenium.click("logoutForm:logoutButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad(selenium);
     }
 
 
@@ -23,7 +24,7 @@ public class LoginTest extends AbstractSelenseTestCase {
         selenium.type("loginForm:inLoginEmail", email);
         selenium.type("loginForm:inLoginPassword", password);
         selenium.click("loginForm:loginButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad(selenium);
     }
 
 

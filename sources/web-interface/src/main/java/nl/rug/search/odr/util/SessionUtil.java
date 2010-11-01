@@ -1,8 +1,9 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.util;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import nl.rug.search.odr.SessionAttribute;
 
 /**
  *

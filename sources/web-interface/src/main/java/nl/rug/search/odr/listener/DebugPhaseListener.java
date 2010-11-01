@@ -1,5 +1,5 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.listener;
 
 import java.util.logging.Logger;
 import javax.faces.event.PhaseEvent;

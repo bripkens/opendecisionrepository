@@ -389,7 +389,31 @@ div.projectDetailsActions {
     top: 10px;
     right: 10px;
 }
-
+/*
+    ############################################################################################
+                                    Generic page styles
+    -------------------------------------------------
+                    Connection status
+*/
+.iceOutConStatDisconnect, .iceOutConStatCaution, .iceOutConStatInactv, .iceOutConStatActv {
+    width: 20px;
+    height: 25px;
+    position: absolute;
+    left: 360px;
+    top: 60px;
+    text-indent: 24px;
+    font-size: 0.9em;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding: 3px 0 0 0;
+}
+.iceOutConStatCaution {
+    background-image: url(../images/connection_warning.png);
+}
+.iceOutConStatDisconnect {
+    background-image: url(../images/connection_error.png);
+}
 /*
     ############################################################################################
                                     Generic form styles

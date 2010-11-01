@@ -19,9 +19,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
-import nl.rug.search.odr.AuthenticationUtil;
-import nl.rug.search.odr.ErrorUtil;
-import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.QueryStringBuilder;
+import nl.rug.search.odr.util.AuthenticationUtil;
+import nl.rug.search.odr.util.ErrorUtil;
+import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Decision;
@@ -107,6 +108,8 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="actionlistener">
+
+
     public void decisionAddCanceled(ActionEvent e) {
         decisionName = null;
     }
@@ -149,7 +152,7 @@ public class ProjectDetailsController {
         // reloading the project to get the new id
         project = pl.getById(project.getId());
 
-        JsfUtil.addJavascriptCall("hideDecisionAddForm();");
+        JsfUtil.addJavascriptCall("odr.hideDecisionAddForm();");
     }
 
 
@@ -161,7 +164,7 @@ public class ProjectDetailsController {
         iterationToDeleteId = it.getId();
         iterationToDeleteName = it.getName();
 
-        JsfUtil.addJavascriptCall("showIterationDeleteForm();");
+        JsfUtil.addJavascriptCall("odr.showIterationDeleteForm();");
     }
 
 
@@ -177,7 +180,7 @@ public class ProjectDetailsController {
 
         pl.updateProject(project);
 
-        JsfUtil.addJavascriptCall("hideModalPopup();");
+        JsfUtil.addJavascriptCall("odr.popup.hide();");
     }
 
 
@@ -223,60 +226,50 @@ public class ProjectDetailsController {
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
-    public String getCreateIterationLink() {
-        StringBuilder link = new StringBuilder().append("manageIteration.html?").
-                append(RequestParameter.ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(project.getId());
 
-        return link.toString();
+
+    public String getCreateIterationLink() {
+        return new QueryStringBuilder().
+                setUrl("manageIteration.html").
+                append(RequestParameter.ID, project.getId()).
+                toString();
     }
 
-    public String getEditIterationLink(Iteration it) {
-        StringBuilder link = new StringBuilder().append("manageIteration.html?").
-                append(RequestParameter.ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(project.getId()).
-                append(RequestParameter.AMPERSAND).
-                append(RequestParameter.ITERATION_ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(it.getId());
 
-        return link.toString();
+
+
+    public String getEditIterationLink(Iteration it) {
+        return new QueryStringBuilder().
+                setUrl("manageIteration.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.ITERATION_ID, it.getId()).
+                toString();
     }
 
 
 
 
     public String getEditDecisionLink(Decision d) {
-        StringBuilder link = new StringBuilder().append("manageDecision.html?").
-                append(RequestParameter.ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(project.getId()).
-                append(RequestParameter.AMPERSAND).
-                append(RequestParameter.DECISION_ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(d.getId()).
-                append(RequestParameter.AMPERSAND).
-                append(RequestParameter.VERSION_ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(d.getCurrentVersion().getId());
-
-        return link.toString();
+        return new QueryStringBuilder().
+                setUrl("manageDecision.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.DECISION_ID, d.getId()).
+                append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
+                toString();
     }
+
 
 
 
     public String getCreateDecisionLink() {
-        StringBuilder link = new StringBuilder().append("manageDecision.html?").
-                append(RequestParameter.ID).
-                append(RequestParameter.EQUAL_SIGN).
-                append(project.getId()).
-                append(RequestParameter.AMPERSAND).
-                append(RequestParameter.CREATE);
-
-        return link.toString();
+        return new QueryStringBuilder().
+                setUrl("manageDecision.html").
+                append(RequestParameter.ID, project.getId()).
+                appendBolean(RequestParameter.CREATE).
+                toString();
     }
+
+
 
 
     public ProjectMember getProjectMember() {

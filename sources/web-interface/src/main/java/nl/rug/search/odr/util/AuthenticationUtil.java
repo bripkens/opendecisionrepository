@@ -1,6 +1,7 @@
 
-package nl.rug.search.odr;
+package nl.rug.search.odr.util;
 
+import nl.rug.search.odr.SessionAttribute;
 import nl.rug.search.odr.entities.Person;
 
 /**

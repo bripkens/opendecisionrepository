@@ -1,5 +1,8 @@
 package nl.rug.search.odr;
 
+import nl.rug.search.odr.util.JsfUtil;
+import nl.rug.search.odr.util.AuthenticationUtil;
+
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>

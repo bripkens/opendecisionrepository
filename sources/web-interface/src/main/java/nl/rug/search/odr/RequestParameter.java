@@ -8,6 +8,7 @@ package nl.rug.search.odr;
 public interface RequestParameter {
     String EQUAL_SIGN = "=";
     String AMPERSAND = "&";
+    String QUESTION_MARK = "?";
 
     String PROJECT_PATH_LONG = "/project/";
     String PROJECT_PATH_SHORT = "/p/";

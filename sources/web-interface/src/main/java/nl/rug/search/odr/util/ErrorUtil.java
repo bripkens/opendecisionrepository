@@ -1,7 +1,8 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.util;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+import nl.rug.search.odr.SessionAttribute;
 
 /**
  *
