@@ -131,7 +131,7 @@
                             <f:selectItems value="#{manageProjectController.getRoles(item.person.id)}" />
                         </ice:selectOneListbox>
                     </ice:column>
-                    <ice:column>
+                    <ice:column styleClass="navigationColumn">
                         <f:facet name="header" />
                         <ice:commandLink value=""
                                          actionListener="#{manageProjectController.removeMember}"

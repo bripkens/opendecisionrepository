@@ -102,7 +102,7 @@
                             </span>
                         </ice:column>
 
-                        <ice:column>
+                        <ice:column styleClass="navigationColumn">
                             <a href="#{projectDetailsController.getEditIterationLink(item)}">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"
@@ -211,7 +211,7 @@
                         <ice:column>
                             <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
                         </ice:column>
-                        <ice:column>
+                        <ice:column  styleClass="navigationColumn">
                             <a href="#{projectDetailsController.getEditDecisionLink(item)}">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"

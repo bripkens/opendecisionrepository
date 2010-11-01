@@ -1,22 +1,23 @@
 package nl.rug.search.odr.controller;
 
-import com.icesoft.faces.context.effects.JavascriptContext;
 import com.sun.faces.util.MessageFactory;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
+import nl.rug.search.odr.Mode;
+import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
@@ -32,7 +33,7 @@ import nl.rug.search.odr.user.UserLocal;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ManageProjectController extends AbstractManageController {
 
     // <editor-fold defaultstate="collapsed" desc="attributes">
@@ -227,8 +228,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.createProject(sourceProject);
 
-        JsfUtil.removeSessionBean(getBeanName());
-        JsfUtil.redirect("/project/".concat(sourceProject.getName()));
+        JsfUtil.redirect("/p/".concat(sourceProject.getName()));
 
         return true;
     }
@@ -249,9 +249,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.updateProject(sourceProject);
 
-        JsfUtil.removeSessionBean(getBeanName());
-
-        JsfUtil.redirect("/project/".concat(sourceProject.getName()));
+        JsfUtil.redirect("/p/".concat(sourceProject.getName()));
 
         return true;
     }
@@ -262,8 +260,6 @@ public class ManageProjectController extends AbstractManageController {
     @Override
     protected boolean handleConfirmedDeleteExecution() {
         pl.delete(sourceProject);
-
-        JsfUtil.removeSessionBean(getBeanName());
 
         JsfUtil.redirect("/projects.html");
 
@@ -552,4 +548,5 @@ public class ManageProjectController extends AbstractManageController {
         return JsfUtil.evaluateExpressionGet("#{form['project.manage.fail']}", String.class);
     }
     // </editor-fold>
+
 }

@@ -61,7 +61,7 @@
             <ice:column>
                 <ice:outputText value="#{item.name}" nospan="true" />
             </ice:column>
-            <ice:column>
+            <ice:column styleClass="navigationColumn">
                 <ice:commandLink value=""
                                  action="#{manageDecisionController.essentialsStep.removeRequirement(item.id)}"
                                  immediate="true">
