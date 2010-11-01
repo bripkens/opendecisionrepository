@@ -24,7 +24,7 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans Enterprise JavaBeans]
    * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3 Enterprise JavaBeans 3]
    * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3_1 Enterprise JavaBeans 3.1]
-   * [http://code.google.com/p/opendecisionrepository/wiki/Java Persistence_API Java Persistence API]
+   * [http://code.google.com/p/opendecisionrepository/wiki/Java_Persistence_API Java Persistence API]
    * [http://code.google.com/p/opendecisionrepository/wiki/EclipseLink EclipseLink]
    * [http://code.google.com/p/opendecisionrepository/wiki/MySQL MySQL]
 
