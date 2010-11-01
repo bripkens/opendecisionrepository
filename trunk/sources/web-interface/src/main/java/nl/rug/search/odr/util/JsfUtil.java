@@ -1,4 +1,4 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.util;
 
 import com.icesoft.faces.context.effects.JavascriptContext;
 import java.io.IOException;

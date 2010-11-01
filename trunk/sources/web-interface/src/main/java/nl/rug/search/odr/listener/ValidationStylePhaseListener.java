@@ -1,4 +1,4 @@
-package nl.rug.search.odr;
+package nl.rug.search.odr.listener;
 
 import java.util.ArrayList;
 import java.util.HashMap;

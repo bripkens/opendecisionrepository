@@ -96,13 +96,13 @@
     -->
     
     <lifecycle>
-        <phase-listener>nl.rug.search.odr.ValidationStylePhaseListener</phase-listener>
+        <phase-listener>nl.rug.search.odr.listener.ValidationStylePhaseListener</phase-listener>
     </lifecycle>
     <lifecycle>
-        <phase-listener>nl.rug.search.odr.AuthenticationPhaseListener</phase-listener>
+        <phase-listener>nl.rug.search.odr.listener.AuthenticationPhaseListener</phase-listener>
     </lifecycle>
     <lifecycle>
-        <phase-listener>nl.rug.search.odr.DebugPhaseListener</phase-listener>
+        <phase-listener>nl.rug.search.odr.listener.DebugPhaseListener</phase-listener>
     </lifecycle>
 
 

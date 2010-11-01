@@ -14,10 +14,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
-import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
-import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
@@ -488,7 +488,7 @@ public class ManageProjectController extends AbstractManageController {
 
 
     public Collection<ProjectMember> getProjectMembers() {
-        JsfUtil.addJavascriptCall("preselect();");
+        JsfUtil.addJavascriptCall("odr.preselect();");
 
         Collection<ProjectMember> onlyNonRemovedMembers = new ArrayList(projectMembers.size());
 

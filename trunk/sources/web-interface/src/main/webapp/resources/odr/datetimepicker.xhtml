@@ -37,7 +37,7 @@
             <h:selectOneMenu id="hours"
                              converter="javax.faces.Integer"
                              styleClass="datetimepickerHour"
-                             onchange="datetimepickerValidationFix();">
+                             onchange="odr.datetimepickerValidationFix();">
                 <f:selectItems value="#{datesController.hours}" />
             </h:selectOneMenu>
 
@@ -48,7 +48,7 @@
             <h:selectOneMenu id="minutes"
                              converter="javax.faces.Integer"
                              styleClass="datetimepickerMinute"
-                             onchange="datetimepickerValidationFix();">
+                             onchange="odr.datetimepickerValidationFix();">
                 <f:selectItems value="#{datesController.minutes}" />
             </h:selectOneMenu>
 

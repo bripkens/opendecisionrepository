@@ -1,5 +1,6 @@
 package nl.rug.search.odr;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -9,10 +10,29 @@ import java.util.Map.Entry;
  */
 public class QueryStringBuilder implements RequestParameter {
 
+
+
     private static final Object booleanMarker = new Object();
 
+    private String url;
     private Map<String, Object> values;
 
+
+
+
+    public QueryStringBuilder() {
+        values = new HashMap<String, Object>();
+    }
+
+
+
+
+
+
+    public QueryStringBuilder setUrl(String name) {
+        this.url = name;
+        return this;
+    }
 
 
 
@@ -35,6 +55,11 @@ public class QueryStringBuilder implements RequestParameter {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
+        if (url != null) {
+            builder.append(url);
+            builder.append(QUESTION_MARK);
+        }
 
         boolean first = true;
         for (Entry<String, Object> entry : values.entrySet()) {

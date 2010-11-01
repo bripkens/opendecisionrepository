@@ -1,5 +1,7 @@
 package nl.rug.search.odr;
 
+import nl.rug.search.odr.util.AuthenticationUtil;
+import nl.rug.search.odr.util.ErrorUtil;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;

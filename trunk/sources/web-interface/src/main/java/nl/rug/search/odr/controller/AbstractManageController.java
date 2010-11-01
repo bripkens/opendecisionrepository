@@ -7,7 +7,7 @@ import nl.rug.search.odr.RequestParameterAnalyser;
 import nl.rug.search.odr.Mode;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import nl.rug.search.odr.AuthenticationUtil;
+import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.project.ProjectLocal;
 

@@ -76,9 +76,9 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         ManageProjectTest.createDefaultProject(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
 
-        open("p/ODR");
+        open("p/".concat(ManageProjectTest.PROJECT_NAME));
 
-        ManageIterationTest.createDefaultIteration(selenium, "ODR");
+        ManageIterationTest.createDefaultIteration(selenium, ManageProjectTest.PROJECT_NAME);
         sleep(30000);
     }
 }

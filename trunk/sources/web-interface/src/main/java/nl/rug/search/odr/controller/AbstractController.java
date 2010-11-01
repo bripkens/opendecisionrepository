@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
-import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *

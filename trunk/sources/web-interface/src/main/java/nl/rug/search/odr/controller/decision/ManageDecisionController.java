@@ -10,8 +10,8 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
-import nl.rug.search.odr.ErrorUtil;
-import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.util.ErrorUtil;
+import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
@@ -163,7 +163,7 @@ public class ManageDecisionController extends AbstractController {
             prepareProjosForCreateRequest();
             if (getStepId(currentStep) != 0) {
                 setStep(0);
-                JsfUtil.addJavascriptCall("refresh()");
+                JsfUtil.addJavascriptCall("odr.refresh();");
             }
             currentStep.focus();
             return;
@@ -203,7 +203,7 @@ public class ManageDecisionController extends AbstractController {
 
                 if (getStepId(currentStep) != 0) {
                     setStep(0);
-                    JsfUtil.addJavascriptCall("refresh()");
+                    JsfUtil.addJavascriptCall("odr.refresh();");
                 }
 
                 currentStep.focus();

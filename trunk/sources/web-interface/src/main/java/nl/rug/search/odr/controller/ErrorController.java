@@ -4,9 +4,9 @@ package nl.rug.search.odr.controller;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import nl.rug.search.odr.JsfUtil;
+import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.SessionAttribute;
-import nl.rug.search.odr.SessionUtil;
+import nl.rug.search.odr.util.SessionUtil;
 
 /**
  *
