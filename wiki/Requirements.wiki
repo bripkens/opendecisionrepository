@@ -36,14 +36,20 @@ Please refer to the bibliography if you are interested in the information source
 == Overview ==
 The following section provides an overall description about the ODR, followed by specific requirements in section three and views in section four.
 
+
+
+
 = Overall description =
+
+== Stakeholders ==
+Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
 
 == Product perspective ==
 
 == Product functions ==
 
 == User characteristics ==
-This project will be used by three different kinds of usergroups.
+This project will be used by three different kinds of users.
 
  * Guest
 The guest uses the system only to get a look into projects, which are pushlished. He can browse through the projects or find projects by using the search function. 
@@ -59,16 +65,13 @@ The administrator is able to manage the entities in the system. He can add commo
 
 == Assumptions and dependencies ==
 
-== Stakeholders ==
-Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
-
 
 == Product functionality ==
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 
-= Functional requirements =
+= Specific requirements =
 
 == user management ==
 
