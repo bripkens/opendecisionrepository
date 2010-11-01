@@ -50,8 +50,10 @@ document software architecture in a simple and quick manner which, as a result, 
 business logic.
 
 == Product functions ==
-
+In section 1.2 (scope), four main functionality groups have been identified. The following figure shows them.
 http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
+
+The requirements have been grouped according to this functionality groups.
 
 
 == User characteristics ==
