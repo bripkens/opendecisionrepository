@@ -48,6 +48,9 @@ Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPla
 
 == Product functions ==
 
+http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
+
+
 == User characteristics ==
 This project will be used by three different kinds of users.
 
@@ -66,9 +69,6 @@ The administrator is able to manage the entities in the system. He can add commo
 == Assumptions and dependencies ==
 
 
-== Product functionality ==
-
-http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 
 = Specific requirements =
