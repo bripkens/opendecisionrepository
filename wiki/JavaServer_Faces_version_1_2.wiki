@@ -1,0 +1,32 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>JavaServer Faces version 1.2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A JSF version needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>JavaServer Faces v1.2 won't be used since Icefaces 1.8 has been rejected.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<caused by>> JavaServer Faces</li>
+<li>`<<replaces>>` JavaServer Faces 2</li>
+<li><<caused by>> Icefaces 1.8</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
