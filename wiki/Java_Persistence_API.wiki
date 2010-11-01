@@ -1,0 +1,31 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>Java Persistence API</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>JPA will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>JPA is part of the OPR technology stack.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<caused by>> OPR technology stack</li>
+<li><<depends on>> Java programming language</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
