@@ -79,6 +79,7 @@ None
 
 
 = Specific requirements =
+The requirements are documented in use case form. Some of these requirements contain the work flow for the creation or management of data. When italic text is used in a workflow, then it means that an error message is displayed if any of the previously mentioned constraints is violated. It is possible to recover from such an error by undoing the previous action, e.g. clearing the input field.
 
 || *ID* || *Name* ||
 || UC-1 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_1 register] ||
