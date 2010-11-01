@@ -1,0 +1,34 @@
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>Java Enterprise Edition 5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A version of the Java EE needs to be chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Java EE 5 won't be used since Glassfish v2 has been rejected.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Java Enterprise Edition comes with many useful features that allow the developer to focus on the implementation of business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<caused by>> Java Enterprise Edition</li>
+<li>`<<replaces>>` Java Enterprise Edition 6</li>
+<li><<depends on>> Java programming language</li>
+<li><<depends on>> Glassfish v2</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
