@@ -22,6 +22,21 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
 
 
 
+    @Override
+    public void tearDown() throws Exception {
+        try {
+            checkForVerificationErrors();
+        } finally {
+            selenium.stop();
+        }
+    }
+
+
+
+
+
+
+
     public void clearDatabase() {
         open("fillDb.html");
         selenium.click("fillDatabaseForm:clearDatabase");
@@ -90,6 +105,15 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
         selenium.open(CONTEXT_PATH.concat(path));
     }
 
+
+
+    public static void waitForPageToLoad(Selenium selenium) {
+        selenium.waitForPageToLoad(Settings.TIMEOUT_MILLIS);
+    }
+
+    public void waitForPageToLoad() {
+        waitForPageToLoad(selenium);
+    }
 
 
 

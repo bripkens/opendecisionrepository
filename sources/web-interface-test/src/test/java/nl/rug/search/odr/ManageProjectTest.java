@@ -26,7 +26,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
     public static void createDefaultProject(Selenium selenium) {
         open(selenium, "projects.html");
         selenium.click("link=here");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad(selenium);
 
         selenium.type("manageProjectForm:inName", PROJECT_NAME);
         selenium.type("manageProjectForm:inDescription", PROJECT_DESCRIPTION);
@@ -36,7 +36,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         selenium.select("manageProjectForm:j_idt60:j_idt72", "label=".concat(USER_ROLE));
         selenium.select("manageProjectForm:j_idt60:0:j_idt75", "label=".concat(OTHER_MEMBER_ROLE));
         selenium.click("manageProjectForm:manageProjectCreateButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad(selenium);
     }
 
 
@@ -74,7 +74,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         createDefaultProject(selenium);
 
         selenium.click("//img[@alt='edit']");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
 
         sleep(1000);
 
@@ -83,8 +83,8 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         verifyTrue(selenium.isTextPresent(RegistrationTest.USER_NAME));
         verifyTrue(selenium.isTextPresent(RegistrationTest.EMAIL));
         verifyTrue(selenium.isTextPresent(OTHER_MEMBER));
-        verifyEquals(USER_ROLE, selenium.getSelectedLabel("manageProjectForm:j_idt60:j_idt72"));
-        verifyEquals(OTHER_MEMBER_ROLE, selenium.getSelectedLabel("manageProjectForm:j_idt60:0:j_idt75"));
+        verifyEquals(USER_ROLE, selenium.getSelectedLabel("manageProjectForm:j_idt62:j_idt74"));
+        verifyEquals(OTHER_MEMBER_ROLE, selenium.getSelectedLabel("manageProjectForm:j_idt62:0:j_idt77"));
 
         String newName = "FancyNewName";
         String newDescription = "Some other description";
@@ -98,7 +98,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         waitForAjaxRequest();
         selenium.select("manageProjectForm:j_idt60:1:j_idt75", "label=".concat(newMemberRole));
         selenium.click("manageProjectForm:manageProjectCreateButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
 
         verifyTrue(selenium.isTextPresent(newName));
         verifyTrue(selenium.isTextPresent(newDescription));
@@ -124,9 +124,9 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         createDefaultProject(selenium);
 
         selenium.click("//img[@alt='remove']");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
         selenium.click("deleteConfirmForm:confirmDeleteButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
         verifyTrue(selenium.isTextPresent("You have no projects"));
         verifyTrue(selenium.isTextPresent("Your projects"));
     }

@@ -15,7 +15,7 @@ public interface Settings {
 
     String BROWSER = "*firefox";
 
-    long AJAX_SLEEP_MILLIS = 300;
+    long AJAX_SLEEP_MILLIS = 400;
 
     String TIMEOUT_MILLIS = "30000";
 

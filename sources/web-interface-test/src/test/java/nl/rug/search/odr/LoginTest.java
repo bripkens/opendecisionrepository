@@ -1,11 +1,13 @@
 package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.Selenium;
+import org.junit.Ignore;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class LoginTest extends AbstractSelenseTestCase {
 
     public static void loginUserWithDefaulCredentials(Selenium selenium) {
