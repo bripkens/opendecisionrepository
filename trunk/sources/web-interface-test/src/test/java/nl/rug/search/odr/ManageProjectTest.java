@@ -135,7 +135,6 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 //    }
 
     @Test
-
     public void testNoRightsForProject() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         RegistrationTest.registerUser(selenium, "passw", "stefan", "stefan@stefan.de");
@@ -150,22 +149,15 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 
         LoginTest.logout(selenium);
 
-
         LoginTest.loginUser(selenium, "stefan@stefan.de", "passw");
         verifyFalse(selenium.isTextPresent("ODR"));
 
-        open("p/ODR");
-        verifyTrue(selenium.isTextPresent("You are not a member of this project and are therefore not allowed to access this project."));
-        LoginTest.logout(selenium);
-
-        LoginTest.loginUserWithDefaulCredentials(selenium);
-//        open("OPR/update");
+//        open("p/ODR");
+//        verifyTrue(selenium.isTextPresent("You are not a member of this project and are therefore not allowed to access this project."));
+//        open("ODR/update");
 //        verifyTrue(selenium.isTextPresent("no project member"));
-//        open("OPR/delete");
+//        open("ODR/delete");
 //        verifyTrue(selenium.isTextPresent("no project member"));
-
-        ManageIterationTest.createDefaultIteration(selenium, "ODR");
-        sleep(30000);
 
     }
 }

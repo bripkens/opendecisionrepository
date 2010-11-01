@@ -64,4 +64,21 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         selenium.click("iterationForm:submit");
         sleep(AJAX_SLEEP_MILLIS);
     }
+
+    @Test
+    public void testcreateIteration(){
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+
+        addStakeholderRoles();
+
+        ManageProjectTest.createDefaultProject(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+
+        open("p/ODR");
+
+        ManageIterationTest.createDefaultIteration(selenium, "ODR");
+        sleep(30000);
+    }
 }
