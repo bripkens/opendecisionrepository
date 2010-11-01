@@ -24,7 +24,7 @@
 <ul>
 <li><<caused by>> Glassfish</li>
 <li>`<<replaces>>` Glassfish v2</li>
-<li><<caused by>> Icefaces 2.0 beta-1</li>
+<li><<caused by>> Icefaces 2.0 beta-2</li>
 </ul>
 </td>
     </tr>
