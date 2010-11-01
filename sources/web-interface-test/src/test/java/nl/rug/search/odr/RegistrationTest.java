@@ -20,11 +20,15 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
 
     public static void registerUserWithDefaulCredentials(Selenium selenium) {
+        registerUser(selenium, PASSWORD, USER_NAME, EMAIL);
+    }
+
+    public static void registerUser(Selenium selenium, String Password, String UserName, String Email){
         selenium.click("loginForm:registerLink");
         selenium.waitForPageToLoad(TIMEOUT_MILLIS);
-        selenium.type("registerForm:inPassword", PASSWORD);
-        selenium.type("registerForm:inName", USER_NAME);
-        selenium.type("registerForm:inEmail", EMAIL);
+        selenium.type("registerForm:inPassword", Password);
+        selenium.type("registerForm:inName", UserName);
+        selenium.type("registerForm:inEmail", Email);
         selenium.click("registerForm:registrationSubmitButton");
     }
 
