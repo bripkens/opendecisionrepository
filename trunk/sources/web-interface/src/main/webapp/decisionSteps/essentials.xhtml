@@ -40,7 +40,7 @@
             <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
             <f:selectItems value="#{manageDecisionController.essentialsStep.decisionTemplates}" />
         </ice:selectOneMenu>
-        <p class="empty" />
+        <p class="empty increasedPadding" />
     </div>
 
 
@@ -64,11 +64,12 @@
             <ice:column styleClass="navigationColumn">
                 <ice:commandLink value=""
                                  action="#{manageDecisionController.essentialsStep.removeRequirement(item.id)}"
-                                 immediate="true">
+                                 immediate="true"
+                                 styleClass="columnNavigationLink">
                     <img alt="#{common.remove}"
                          src="resources/images/removeSmall.png"
-                         width="11"
-                         height="11"/>
+                         width="14"
+                         height="14"/>
                 </ice:commandLink>
             </ice:column>
         </ice:dataTable>

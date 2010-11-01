@@ -135,11 +135,12 @@
                         <f:facet name="header" />
                         <ice:commandLink value=""
                                          actionListener="#{manageProjectController.removeMember}"
-                                         immediate="true">
+                                         immediate="true"
+                                         styleClass="columnNavigationLink">
                             <img alt="#{form['project.manage.remove.member']}"
                                  src="resources/images/removeSmall.png"
-                                 width="11"
-                                 height="11"/>
+                                 width="14"
+                                 height="14"/>
                             <f:attribute value="#{item}" name="member" />
                         </ice:commandLink>
                     </ice:column>
