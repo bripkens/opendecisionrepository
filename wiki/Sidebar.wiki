@@ -27,5 +27,7 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Java_Persistence_API Java Persistence API]
    * [http://code.google.com/p/opendecisionrepository/wiki/EclipseLink EclipseLink]
    * [http://code.google.com/p/opendecisionrepository/wiki/MySQL MySQL]
+   * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
+   * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
 
  * *[http://code.google.com/p/opendecisionrepository/wiki/Bibliography Bibliography]*
