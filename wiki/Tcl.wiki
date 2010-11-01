@@ -26,5 +26,5 @@
 </ul>
 </td>
     </tr>
-</table>
   </tbody>
+</table>
