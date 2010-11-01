@@ -10,8 +10,18 @@ import org.junit.Ignore;
 public class LoginTest extends AbstractSelenseTestCase {
 
     public static void loginUserWithDefaulCredentials(Selenium selenium) {
-        selenium.type("loginForm:inLoginEmail", RegistrationTest.EMAIL);
-        selenium.type("loginForm:inLoginPassword", RegistrationTest.PASSWORD);
+        loginUser(selenium, RegistrationTest.EMAIL, RegistrationTest.PASSWORD);
+    }
+
+    public static void logout(Selenium selenium){
+        selenium.click("logoutForm:logoutButton");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+    }
+
+
+    public static void loginUser(Selenium selenium, String email, String password) {
+        selenium.type("loginForm:inLoginEmail", email);
+        selenium.type("loginForm:inLoginPassword", password);
         selenium.click("loginForm:loginButton");
         selenium.waitForPageToLoad(TIMEOUT_MILLIS);
     }
