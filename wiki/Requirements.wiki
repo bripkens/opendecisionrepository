@@ -4,33 +4,18 @@
 <wiki:toc max_depth="2" />
 
 = Introduction =
+This document adheres to IEEE Std. 830-1998.
 
 == Purpose ==
-The document describes the requirements for the Open Decision Repository. The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about visualization of architectural decisions. This project serves as a prototyp which can also be used to support his paper. 
+The document describes the requirements for the Open Decision Repository (hereinafter ODR). The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about documentation and visualization of architectural decisions together with Paris Avgeriou and Rich Hilliard. This project serves as a prototyp which may also be used to defend the paper.
+
+Everybody who is interested in the intended functionality of the ODR may read this paper. This includes prospective developers and users.
 
 == Scope ==
-The ODR will provide a functionality to capture architectural decisions and their relationships amongst themselves for user specified projects. Users will be able to manage projects and project members, split up the project in iterations and visualize captured decisions in various ways for different stakeholders.
-
-
-== Definitions, acronyms, and abbreviations ==
-Please refer to the glossary and the project plan for acronyms, definitions and further information about the project structure.
-
-== References ==
-Please refer to the bibliography if you are interested in the information sources.
-
-== Overview ==
-We devided the different views about the requirments into to parts. The first part descibes the requirments in a rough way. This section is called high level. The second part is the low level view. In this section, the requirements are detailed. 
-
-= Overall description =
-
-== Stakeholders ==
-Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
-
-== Product scope ==
-The Open Decision Repository will provide functionality to visualize decisions that have been in a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight of your decisions. 
-You can also get three different kind of views. 
+The Open Decision Repository will provide functionality to document and visualize decisions that have been made in a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight into the decisions and the rationale behind them.
+You can also get three different kinds of views. 
  * a chronical view about the decisons and the members who take these
- * a stakeholder view, that describe the actions of every role
+ * a stakeholder involvement view, that describes the actions of every role
  * and a relationship view, that describe the dependencies of decisions.
 Another very important point is the revision control, which enables switching between differet versions of decisions.
 
@@ -39,6 +24,23 @@ There are four main parts in the project:
  * user management (e.g. create user with different roles)
  * decision visualization (e.g. get a chronical visualization)
  * administration (administrate the ODR)
+
+
+== Definitions, acronyms, and abbreviations ==
+Please refer to the glossary and the project plan for acronyms, definitions and further information about the project structure.
+
+
+== References ==
+Please refer to the bibliography if you are interested in the information sources.
+
+== Overview ==
+The following section provides an overall description about the ODR, followed by specific requirements in section three and views in section four.
+
+= Overall description =
+
+== Product perspective ==
+
+== Product functions ==
 
 == User characteristics ==
 This project will be used by three different kinds of usergroups.
@@ -51,6 +53,15 @@ The normal visitor of the system is a registrated user. He can create projects, 
 
  * Administrator
 The administrator is able to manage the entities in the system. He can add common  entities or delete unesed entities. 
+
+
+== Constraints ==
+
+== Assumptions and dependencies ==
+
+== Stakeholders ==
+Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
+
 
 == Product functionality ==
 
