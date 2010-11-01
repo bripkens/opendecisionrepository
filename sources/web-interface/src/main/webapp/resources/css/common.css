@@ -388,7 +388,7 @@ ul.info li div.text h2 {
 }
 .navigationColumn {
     text-align: right;
-    width: 50px;
+    width: 55px;
     padding-right: 2px;
 }
 /*
@@ -450,6 +450,9 @@ ul.info li div.text h2 {
 }
 .formSection p.empty{
     padding: 0 0 5px 0;
+}
+.formSection p.empty.increasedPadding {
+    padding-bottom: 15px;
 }
 .formSection span {
 }
@@ -579,6 +582,10 @@ ul.info li div.text h2 {
 }
 .formSection table.memberSelect td:last-child {
     width: 20px;
+}
+table a.columnNavigationLink img {
+    position: relative;
+    top: 2px;
 }
 /*
     -------------------------------------------------

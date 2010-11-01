@@ -103,19 +103,27 @@
                         </ice:column>
 
                         <ice:column styleClass="navigationColumn">
-                            <a href="#{projectDetailsController.getEditIterationLink(item)}">
+                            <a href="#" class="columnNavigationLink">
+                                <img alt="#{common.read}"
+                                     src="resources/images/inspect.png"
+                                     width="14"
+                                     height="14"/>
+                            </a>
+
+                            <a href="#{projectDetailsController.getEditIterationLink(item)}" class="columnNavigationLink">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"
-                                     width="11"
-                                     height="11"/>
+                                     width="14"
+                                     height="14"/>
                             </a>
 
                             <ice:commandLink value=""
-                                             actionListener="#{projectDetailsController.showDeleteIterationConfirmation}">
+                                             actionListener="#{projectDetailsController.showDeleteIterationConfirmation}"
+                                             styleClass="columnNavigationLink">
                                 <img alt="#{common.remove}"
                                      src="resources/images/removeSmall.png"
-                                     width="11"
-                                     height="11"/>
+                                     width="14"
+                                     height="14"/>
                                 <f:attribute value="#{item}" name="iteration" />
 
                             </ice:commandLink>
@@ -212,19 +220,27 @@
                             <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
                         </ice:column>
                         <ice:column  styleClass="navigationColumn">
-                            <a href="#{projectDetailsController.getEditDecisionLink(item)}">
+                            <a href="#" class="columnNavigationLink">
+                                <img alt="#{common.read}"
+                                     src="resources/images/inspect.png"
+                                     width="14"
+                                     height="14"/>
+                            </a>
+
+                            <a href="#{projectDetailsController.getEditDecisionLink(item)}" class="columnNavigationLink">
                                 <img alt="#{common.edit}"
                                      src="resources/images/pencilSmall.png"
-                                     width="11"
-                                     height="11"/>
+                                     width="14"
+                                     height="14"/>
                             </a>
 
                             <ice:commandLink value=""
-                                             action="#{projectDetailsController.deleteDecision(item)}">
+                                             action="#{projectDetailsController.deleteDecision(item)}"
+                                             styleClass="columnNavigationLink">
                                 <img alt="#{common.remove}"
                                      src="resources/images/removeSmall.png"
-                                     width="11"
-                                     height="11"/>
+                                     width="14"
+                                     height="14"/>
                             </ice:commandLink>
                         </ice:column>
                     </ice:dataTable>
