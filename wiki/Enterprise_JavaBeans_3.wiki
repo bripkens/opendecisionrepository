@@ -23,7 +23,6 @@
       <td>
 <ul>
 <li><<caused by>> Enterprise JavaBeans</li>
-<li>`<<replaces>>` Enterprise JavaBeans 3.1</li>
 <li><<depends on>> Glassfish v2</li>
 </ul>
 </td>
