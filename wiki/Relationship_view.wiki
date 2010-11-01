@@ -1,1 +1,1 @@
-http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-relationship-view.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/relationship-view.png
