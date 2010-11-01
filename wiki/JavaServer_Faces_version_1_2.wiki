@@ -23,7 +23,6 @@
       <td>
 <ul>
 <li><<caused by>> JavaServer Faces</li>
-<li>`<<replaces>>` JavaServer Faces 2</li>
 <li><<caused by>> Icefaces 1.8</li>
 </ul>
 </td>
