@@ -42,7 +42,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Variations</b></td>
-      <td colspan="4">Displays an error message if any of the previously mentioned constraints is violated. It is possible to recover from such an error by undoing the previous action, e.g. clearing the input field.</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Postconditions</b></td>
