@@ -1,0 +1,51 @@
+
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>UC-15</td>
+      <th>Name</th>
+      <td>create relationship</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Create a relationship</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">User is authorized to create relationships</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>This usecase starts when the user selects a decision.</LI>
+<LI>The user select _add`_`relationship_</LI>
+<Li>The System displays a list with all other decisions.</Li>
+<Li>The user selects a decision, that is the destination-decision</Li>
+<LI>The system displays a dropdownbox for the relationshiptype</LI>
+<LI>The user chooses a type and confirm with _OK_</LI>
+<LI>The system saves the relationship</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
