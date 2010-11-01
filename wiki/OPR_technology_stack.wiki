@@ -1,13 +1,36 @@
-#summary One-sentence summary of this page.
 
 = Introduction =
 
-Add your content here.
+OPR technology stack
 
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+<table border="1" cellspacing="0" cellpadding="5"  width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>OPR technology stack</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>Technologies for the ODR need to chosen.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>The OPR technology stack will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>The OPR technology stack has proven to be fast, reliable and to support the developers with functionality that enables them to focus on business logic.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+-
+</td>
+    </tr>
+  </tbody>
+</table>
