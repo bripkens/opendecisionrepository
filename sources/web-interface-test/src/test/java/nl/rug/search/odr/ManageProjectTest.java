@@ -28,6 +28,8 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         selenium.click("link=here");
         waitForPageToLoad(selenium);
 
+        waitForAjaxRequest();
+
         selenium.type("manageProjectForm:inName", PROJECT_NAME);
         selenium.type("manageProjectForm:inDescription", PROJECT_DESCRIPTION);
         selenium.type("manageProjectForm:inMember", OTHER_MEMBER);
@@ -43,7 +45,6 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 
 
     @Test
-    @Ignore
     public void testCreateProject() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
@@ -96,7 +97,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         selenium.type("manageProjectForm:inMember", newMember);
         selenium.click("manageProjectForm:inMemberAdd");
         waitForAjaxRequest();
-        selenium.select("manageProjectForm:j_idt60:1:j_idt75", "label=".concat(newMemberRole));
+        selenium.select("manageProjectForm:j_idt62:1:j_idt77", "label=".concat(newMemberRole));
         selenium.click("manageProjectForm:manageProjectCreateButton");
         waitForPageToLoad();
 
