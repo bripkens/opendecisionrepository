@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.util.AuthenticationUtil;
@@ -35,7 +36,7 @@ import nl.rug.search.odr.user.UserLocal;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class FillDbController {
 
     @EJB
@@ -53,6 +54,10 @@ public class FillDbController {
     @EJB
     private StateLocal sl;
 
+
+    private boolean clearDone, rolesDone, statesDone, 
+            templatesDone, personsDone, projectsDone, iterationsDone,
+            decisionsDone, requirementsDone;
 
 
 
@@ -94,6 +99,9 @@ public class FillDbController {
         p6.setPlainPassword("12345");
         p6.setEmail("martin@martin.de");
         ul.register(p6);
+
+        clearDone = false;
+        personsDone = true;
     }
 
 
@@ -152,6 +160,8 @@ public class FillDbController {
 
         pl.createProject(pro);
 
+        clearDone = false;
+        projectsDone = true;
     }
 
 
@@ -183,6 +193,11 @@ public class FillDbController {
         SessionUtil.resetSession();
 
         JsfUtil.refreshPage();
+
+        clearDone = true;
+        personsDone = projectsDone = decisionsDone =
+                iterationsDone = requirementsDone = rolesDone =
+                statesDone = templatesDone = false;
     }
 
 
@@ -434,6 +449,9 @@ public class FillDbController {
         p.addDecision(d);
 
         pl.merge(p);
+
+        clearDone = false;
+        decisionsDone = true;
     }
 
 
@@ -462,6 +480,9 @@ public class FillDbController {
         p.addIteration(it2);
 
         pl.merge(p);
+
+        clearDone = false;
+        iterationsDone = true;
     }
 
 
@@ -482,6 +503,9 @@ public class FillDbController {
         role3.setName("Customer");
         role3.setCommon(true);
         srl.persistRole(role3);
+
+        clearDone = false;
+        rolesDone = true;
     }
 
 
@@ -544,6 +568,9 @@ public class FillDbController {
         state.setInitialState(false);
         state.setCommon(true);
         sl.persist(state);
+
+        clearDone = false;
+        statesDone = true;
     }
 
 
@@ -643,6 +670,9 @@ public class FillDbController {
         template.addComponent(templateComponent);
 
         dtl.persist(template);
+
+        clearDone = false;
+        templatesDone = true;
     }
 
 
@@ -690,5 +720,134 @@ public class FillDbController {
         p.addRequirement(r);
 
         pl.merge(p);
+
+        clearDone = false;
+        requirementsDone = true;
+    }
+
+
+
+
+    public boolean isClearDone() {
+        return clearDone;
+    }
+
+
+
+
+    public void setClearDone(boolean clearDone) {
+        this.clearDone = clearDone;
+    }
+
+
+
+
+    public boolean isDecisionsDone() {
+        return decisionsDone;
+    }
+
+
+
+
+    public void setDecisionsDone(boolean decisionsDone) {
+        this.decisionsDone = decisionsDone;
+    }
+
+
+
+
+    public boolean isIterationsDone() {
+        return iterationsDone;
+    }
+
+
+
+
+    public void setIterationsDone(boolean iterationsDone) {
+        this.iterationsDone = iterationsDone;
+    }
+
+
+
+
+    public boolean isPersonsDone() {
+        return personsDone;
+    }
+
+
+
+
+    public void setPersonsDone(boolean personsDone) {
+        this.personsDone = personsDone;
+    }
+
+
+
+
+    public boolean isProjectsDone() {
+        return projectsDone;
+    }
+
+
+
+
+    public void setProjectsDone(boolean projectsDone) {
+        this.projectsDone = projectsDone;
+    }
+
+
+
+
+    public boolean isRequirementsDone() {
+        return requirementsDone;
+    }
+
+
+
+
+    public void setRequirementsDone(boolean requirementsDone) {
+        this.requirementsDone = requirementsDone;
+    }
+
+
+
+
+    public boolean isRolesDone() {
+        return rolesDone;
+    }
+
+
+
+
+    public void setRolesDone(boolean rolesDone) {
+        this.rolesDone = rolesDone;
+    }
+
+
+
+
+    public boolean isStatesDone() {
+        return statesDone;
+    }
+
+
+
+
+    public void setStatesDone(boolean statesDone) {
+        this.statesDone = statesDone;
+    }
+
+
+
+
+    public boolean isTemplatesDone() {
+        return templatesDone;
+    }
+
+
+
+
+    public void setTemplatesDone(boolean templatesDone) {
+        this.templatesDone = templatesDone;
     }
 }

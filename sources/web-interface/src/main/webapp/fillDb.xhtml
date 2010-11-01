@@ -22,7 +22,7 @@
                                action="#{fillDbController.login}"
                                id="fastLogin"/>
 
-            <p>Clear database</p>
+            <p>Clear database <ice:outputText rendered="#{fillDbController.clearDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.clearDatabase}"
                                id="clearDatabase"/>
@@ -32,17 +32,17 @@
 
 
             <h3>Entities</h3>
-            <p>Stakeholder roles</p>
+            <p>Stakeholder roles <ice:outputText rendered="#{fillDbController.rolesDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addStakeholderRoles}"
                                id="addRoles"/>
 
-            <p>States</p>
+            <p>States <ice:outputText rendered="#{fillDbController.statesDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addStates}"
                                id="addStates"/>
 
-            <p>Templates</p>
+            <p>Templates <ice:outputText rendered="#{fillDbController.templatesDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addDecisionTemplates}"
                                id="addTemplates"/>
@@ -52,27 +52,27 @@
 
             <h3>Workflow</h3>
 
-            <p>Persons</p>
+            <p>Persons <ice:outputText rendered="#{fillDbController.personsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addPersons}"
                                id="addPersons"/>
 
-            <p>Projects</p>
+            <p>Projects <ice:outputText rendered="#{fillDbController.projectsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addProject}"
                                id="addProject"/>
 
-            <p>Iterations</p>
+            <p>Iterations <ice:outputText rendered="#{fillDbController.iterationsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addIterations}"
                                id="addIterations"/>
 
-            <p>Decisions</p>
+            <p>Decisions <ice:outputText rendered="#{fillDbController.decisionsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addDecisions}"
                                id="addDecisions"/>
 
-            <p>Requirements</p>
+            <p>Requirements <ice:outputText rendered="#{fillDbController.requirementsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addRequirements}"
                                id="addRequirements"/>
