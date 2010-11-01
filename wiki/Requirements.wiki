@@ -45,6 +45,9 @@ The following section provides an overall description about the ODR, followed by
 Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
 
 == Product perspective ==
+The ODR aims to become a reference implementation of the viewpoints described in _VfAD_. In addition it should support the user by allowing him to
+document software architecture in a simple and quick manner which, as a result, would allow him to spend more time on the actual design and implementation of the
+business logic.
 
 == Product functions ==
 
