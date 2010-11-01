@@ -135,11 +135,8 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 //    }
 
     @Test
-<<<<<<< .mine
+
     public void testNoRightsForProject() {
-=======
-    public void testCreateProject() {
->>>>>>> .r472
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         RegistrationTest.registerUser(selenium, "passw", "stefan", "stefan@stefan.de");
 
@@ -157,38 +154,10 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
         LoginTest.loginUser(selenium, "stefan@stefan.de", "passw");
         verifyFalse(selenium.isTextPresent("ODR"));
 
-<<<<<<< .mine
         open("p/ODR");
         verifyTrue(selenium.isTextPresent("You are not a member of this project and are therefore not allowed to access this project."));
         LoginTest.logout(selenium);
-=======
-        selenium.type("manageProjectForm:inName", newName);
-        selenium.type("manageProjectForm:inDescription", newDescription);
-        selenium.type("manageProjectForm:inMember", newMember);
-        selenium.click("manageProjectForm:inMemberAdd");
-        waitForAjaxRequest();
-        selenium.select("manageProjectForm:j_idt62:1:j_idt77", "label=".concat(newMemberRole));
-        selenium.click("manageProjectForm:manageProjectCreateButton");
-        waitForPageToLoad();
 
-        verifyTrue(selenium.isTextPresent(newName));
-        verifyTrue(selenium.isTextPresent(newDescription));
-        verifyTrue(selenium.isTextPresent(RegistrationTest.USER_NAME));
-        verifyTrue(selenium.isTextPresent(RegistrationTest.EMAIL));
-        verifyTrue(selenium.isTextPresent(OTHER_MEMBER));
-        verifyTrue(selenium.isTextPresent(USER_ROLE));
-        verifyTrue(selenium.isTextPresent(OTHER_MEMBER_ROLE));
-        verifyTrue(selenium.isTextPresent(newMemberRole));
-        verifyTrue(selenium.isTextPresent(newMember));
-    }
-
-
-
-
-    @Test
-    public void testDeleteProject() {
-        RegistrationTest.registerUserWithDefaulCredentials(selenium);
->>>>>>> .r472
         LoginTest.loginUserWithDefaulCredentials(selenium);
 //        open("OPR/update");
 //        verifyTrue(selenium.isTextPresent("no project member"));
