@@ -1,4 +1,3 @@
-
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -24,7 +23,6 @@
       <td>
 <ul>
 <li><<caused by>> Java Enterprise Edition</li>
-<li>`<<replaces>>` Java Enterprise Edition 6</li>
 <li><<depends on>> Java programming language</li>
 <li><<depends on>> Glassfish v2</li>
 </ul>
