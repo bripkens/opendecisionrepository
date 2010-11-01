@@ -3,3 +3,29 @@
 This document describes the architectural decisions for the Open Decision Repository project. All decisions are documented according to the paper _VfAD_.
 
 At the beginning of this document you can find a listing of all the architectural decisions that have been taken. Please notice that the order of these decisions has no meaning. At the end you will find a chronological- and relationship view of the decisions.
+
+
+= Decisions =
+|| [http://code.google.com/p/opendecisionrepository/wiki/OPR_technology_stack OPR technology stack] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Java_programming_language Java programming language] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Tcl Tcl]~~ || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/xowiki xowiki]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Java_Enterprise_Edition Java Enterprise Edition] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Java_Enterprise_Edition_5 Java Enterprise Edition 5]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Java_Enterprise_Edition_6 Java Enterprise Edition 6] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Glassfish Glassfish] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v2 Glassfish v2]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v3 Glassfish v3] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces JavaServer Faces] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces_version_1_2 JavaServer Faces version 1.2]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces_version_2 JavaServer Faces version 2] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Icefaces Icefaces] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Icefaces_1_8 Icefaces 1.8]~~ || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Icefaces_2_0_beta_1 Icefaces 2.0 beta-1]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Icefaces_2_0_beta_2 Icefaces 2.0 beta-2] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans Enterprise JavaBeans] || approved ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3 Enterprise JavaBeans 3]~~ || rejected ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3_1 Enterprise JavaBeans 3.1] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/Java_Persistence_API Java Persistence API] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/EclipseLink EclipseLink] || approved ||
+|| [http://code.google.com/p/opendecisionrepository/wiki/MySQL MySQL] || approved ||
