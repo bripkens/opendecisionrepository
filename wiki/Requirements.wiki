@@ -81,24 +81,24 @@ None
 = Specific requirements =
 
 || *ID* || *Name* ||
-|| UC-1 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_1 1: register] ||
-|| UC-2 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_2 2: login] ||
-|| UC-3 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_3 3: create project] ||
-|| UC-4 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_4 4: modify project] ||
-|| UC-5 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 5: browse projects] ||
-|| UC-6 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_6 6: delete project] ||
-|| UC-7 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_7 7: create iteration] ||
-|| UC-9 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_9 9: edit iteration] ||
-|| UC-10 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_10 10: delete iteration] ||
-|| UC-11 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_11 11: create decision] ||
-|| UC-12 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_12 12: browse decisions] ||
-|| UC-13 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_13 13: edit decision] ||
-|| UC-14 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 14: delete decision] ||
-|| UC-15 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 15: create relationship] ||
-|| UC-16 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 16: read relationship] ||
-|| UC-17 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 17: edit relationship] ||
-|| UC-18 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_18 18: delete relationship] ||
-|| UC-19 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_19 19: change status] ||
+|| UC-1 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_1 register] ||
+|| UC-2 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_2 login] ||
+|| UC-3 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_3 create project] ||
+|| UC-4 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_4 modify project] ||
+|| UC-5 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 browse projects] ||
+|| UC-6 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_6 delete project] ||
+|| UC-7 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_7 create iteration] ||
+|| UC-9 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_9 edit iteration] ||
+|| UC-10 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_10 delete iteration] ||
+|| UC-11 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_11 create decision] ||
+|| UC-12 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_12 browse decisions] ||
+|| UC-13 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_13 edit decision] ||
+|| UC-14 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 delete decision] ||
+|| UC-15 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 create relationship] ||
+|| UC-16 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 read relationship] ||
+|| UC-17 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 edit relationship] ||
+|| UC-18 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_18 delete relationship] ||
+|| UC-19 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_19 change status] ||
 
 
 
