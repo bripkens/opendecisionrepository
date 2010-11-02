@@ -3,7 +3,7 @@ The following presentation was given by Stefan Arians and Ben Ripkens at the Fon
 
 =Presentation hosted on youtube=
 
-<wiki:video url="http://www.youtube.com/watch?v=hK3KysdDiGU" width="640" height="480"/>
+<wiki:video url="http://www.youtube.com/watch?v=Xu7ixyRRFGw" width="640" height="480"/>
 
 =Presentation as seperate images=
 http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide1.png
