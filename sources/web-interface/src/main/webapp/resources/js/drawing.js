@@ -23,14 +23,16 @@ $(document).ready(function() {
 function addItemAtPosition(x, y) {
     $("body").append("<div id='" + idCounter + "' class='node'></div>");
 
-    $("div#" + idCounter).css({
-        "left" : x,
-        "top" : y
+    newElement = $("div#" + idCounter);
+
+    newElement.css({
+        "left" : x - (newElement.width() / 2),
+        "top" : y- (newElement.height() / 2)
     })
 
-    $("div#" + idCounter).draggable();
+    newElement.draggable();
 
-    $("div#" + idCounter).rightClick(function() {
+    newElement.rightClick(function() {
         if (previousElement == null) {
             previousElement = $(this);
             focusNode(previousElement);
@@ -53,19 +55,15 @@ function addItemAtPosition(x, y) {
         ctx.stroke();
 
         $("body").append("<div id='handle" + idCounter + "' class='dragHandle'></div>");
-        $("#handle" + idCounter).css({
+
+        handle = $("#handle" + idCounter);
+        handle.draggable();
+        handle.css({
             "left" : fromX +3,
             "top" : toY+3
         });
-        $("#handle" + idCounter).draggable({
-            start : function() {
-                $(this).addClass("selected", 200);
-            },
-            stop : function() {
-                $(this).removeClass("selected", 200);
-            }
-        });
-
+        
+        
         blurNode(previousElement);
         previousElement = null;
 
@@ -74,7 +72,6 @@ function addItemAtPosition(x, y) {
 
     idCounter++;
 }
-
 function focusNode(node) {
     node.animate({
         "left" : node.position().left - 10 + "px",

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -12,6 +14,10 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "TemplateComponent.getAll",
+                query= "SELECT t FROM TemplateComponent t")
+})
 @Entity
 public class TemplateComponent extends BaseEntity<TemplateComponent> {
 

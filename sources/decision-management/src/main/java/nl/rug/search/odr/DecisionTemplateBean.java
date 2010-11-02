@@ -31,7 +31,7 @@ public class DecisionTemplateBean extends GenericDaoBean<DecisionTemplate, Long>
         name = name.trim().
                 toLowerCase();
 
-        return entityManager.createNamedQuery("DecisionTemplate.isNameUsed", Long.class).
+        return entityManager.createNamedQuery(DecisionTemplate.NAMED_QUERY_IS_NAME_USED, Long.class).
                 setParameter("name", name).
                 getSingleResult() > 0;
     }
@@ -44,7 +44,7 @@ public class DecisionTemplateBean extends GenericDaoBean<DecisionTemplate, Long>
         name = name.trim().
                 toLowerCase();
 
-        return entityManager.createNamedQuery("DecisionTemplate.getByName", DecisionTemplate.class).
+        return entityManager.createNamedQuery(DecisionTemplate.NAMED_QUERY_GET_BY_NAME, DecisionTemplate.class).
                 setParameter("name", name).
                 getSingleResult();
     }

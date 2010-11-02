@@ -25,6 +25,9 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
+
     @Override
     public boolean isPersistable(Person p) {
         if (p == null || !p.isPersistable() || isRegistered(p.getName()) || isUsedForFullRegistration(p.getEmail())) {
@@ -33,6 +36,9 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         return true;
     }
+
+
+
 
     @Override
     public void register(Person p) {
@@ -54,6 +60,9 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         }
     }
 
+
+
+
     @Override
     public Person preRegister(String email) {
         Person p = new Person();
@@ -67,17 +76,22 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         return p;
     }
 
+
+
+
     @Override
     public Person getByName(String name) {
         StringValidator.isValid(name);
 
         name = name.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) = :name");
-        q.setParameter("name", name);
-
-        return (Person) q.getSingleResult();
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_GET_BY_NAME, Person.class).
+                setParameter("name", name).
+                getSingleResult();
     }
+
+
+
 
     @Override
     public Person getByEmail(String email) {
@@ -87,11 +101,13 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email");
-        q.setParameter("email", email);
-
-        return (Person) q.getSingleResult();
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_GET_BY_EMAIL, Person.class).
+                setParameter("email", email).
+                getSingleResult();
     }
+
+
+
 
     @Override
     public boolean isRegistered(String name) {
@@ -99,12 +115,13 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         name = name.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.name) = :name");
-        q.setParameter("name", name);
-
-        long result = (Long) q.getSingleResult();
-        return result != 0;
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_IS_REGISTERED, Long.class).
+                setParameter("name", name).
+                getSingleResult() != 0;
     }
+
+
+
 
     @Override
     public boolean isUsedForFullRegistration(String email) {
@@ -112,13 +129,13 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.email) = :email AND p.password IS NOT NULL");
-        q.setParameter("email", email);
-
-        long result = (Long) q.getSingleResult();
-
-        return result != 0;
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_IS_USED_FOR_FULL_REGISTRATION, Long.class).
+                setParameter("email", email).
+                getSingleResult() != 0;
     }
+
+
+
 
     @Override
     public boolean isUsedOverall(String email) {
@@ -126,12 +143,13 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Person p WHERE LOWER(p.email) = :email");
-        q.setParameter("email", email);
-
-        long result = (Long) q.getSingleResult();
-        return result != 0;
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_IS_USED_OVERALL, Long.class).
+                setParameter("email", email).
+                getSingleResult() != 0;
     }
+
+
+
 
     @Override
     public Person tryLogin(String email, String password) {
@@ -142,13 +160,12 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
 
         email = email.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.email) = :email AND p.password IS NOT NULL");
-        q.setParameter("email", email);
-
         Person result;
 
         try {
-            result = (Person) q.getSingleResult();
+            result = entityManager.createNamedQuery(Person.NAMED_QUERY_TRY_LOGIN, Person.class).
+                    setParameter("email", email).
+                    getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
@@ -160,13 +177,15 @@ public class UserBean extends GenericDaoBean<Person, Long> implements UserLocal 
         return result;
     }
 
+
+
+
     @Override
     public Collection<Person> getProposedPersons(String name) {
         name = name.trim().toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Person p WHERE LOWER(p.name) like :name");
-        q.setParameter("name", "%".concat(name).concat("%"));
-
-        return q.getResultList();
+        return entityManager.createNamedQuery(Person.NAMED_QUERY_GET_PROPOSED_PERSONS).
+                setParameter("name", "%".concat(name).concat("%")).
+                getResultList();
     }
 }

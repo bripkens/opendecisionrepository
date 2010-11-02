@@ -2,6 +2,7 @@ package nl.rug.search.odr.project;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,23 +26,10 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
 
 
     @Override
-    public void persistRole(StakeholderRole role) {
-        if (!role.isPersistable()) {
-            throw new BusinessException("Stakeholder role is not persistable.");
-        }
-
-        entityManager.persist(role);
-    }
-
-
-
-
-    @Override
-    public Collection<StakeholderRole> getPublicRoles() {
-        Query q = entityManager.createQuery("SELECT sr FROM StakeholderRole sr WHERE sr.common = TRUE");
-
-
-        return q.getResultList();
+    public List<StakeholderRole> getPublicRoles() {
+        return entityManager.
+                createNamedQuery(StakeholderRole.NAMED_QUERY_GET_PUBLIC_ROLES).
+                getResultList();
     }
 
 
@@ -49,10 +37,10 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
 
     @Override
     public StakeholderRole getSomePublicRole() {
-        Query q = entityManager.createQuery("SELECT sr FROM StakeholderRole sr WHERE sr.common = TRUE");
-        q.setMaxResults(1);
-
-        return (StakeholderRole) q.getSingleResult();
+        return entityManager.
+                createNamedQuery(StakeholderRole.NAMED_QUERY_GET_PUBLIC_ROLES, StakeholderRole.class).
+                setMaxResults(1).
+                getSingleResult();
     }
 
 
@@ -60,7 +48,6 @@ public class StakeholderRoleBean extends GenericDaoBean<StakeholderRole, Long> i
 
     @Override
     public boolean isPersistable(StakeholderRole entity) {
-        // TODO unfinished
-        return false;
+        return entity.isPersistable();
     }
 }

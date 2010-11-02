@@ -13,10 +13,6 @@ import nl.rug.search.odr.entities.Relationship;
 @Stateless
 public class RelationshipBean extends GenericDaoBean<Relationship, Long> implements RelationshipBeanLocal {
 
-    @PersistenceContext
-    private EntityManager manager;
-
-
 
 
     @Override

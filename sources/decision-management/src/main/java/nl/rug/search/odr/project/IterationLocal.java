@@ -10,8 +10,4 @@ import nl.rug.search.odr.entities.Project;
  */
 public interface IterationLocal extends GenericDaoLocal<Iteration, Long> {
 
-    public void updateIteration(Iteration sourceIteration);
-
-    public void addIteration(Project pr, Iteration i);
-
 }

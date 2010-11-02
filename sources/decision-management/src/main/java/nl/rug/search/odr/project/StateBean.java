@@ -20,16 +20,8 @@ public class StateBean extends GenericDaoBean<State, Long> implements StateLocal
 
 
     @Override
-    public String getEntityName() {
-        return "VersionState";
-    }
-
-
-
-
-    @Override
     public State getInitialState() {
-        return manager.createNamedQuery("State.getInitialState", State.class).
+        return manager.createNamedQuery(State.NAMED_QUERY_GET_INITIAL_STATE, State.class).
                 setMaxResults(1).
                 getSingleResult();
     }

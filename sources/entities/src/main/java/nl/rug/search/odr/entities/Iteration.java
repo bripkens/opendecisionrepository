@@ -11,28 +11,44 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
  * @author Stefan
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "Iteration.getAll",
+                query = "SELECT it FROM Iteration it"),
+    @NamedQuery(name = Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES,
+                query = "SELECT COUNT(i) FROM Iteration i WHERE :startDate BETWEEN i.startDate AND i.endDate "
+                        + "OR :endDate BETWEEN i.startDate AND i.endDate OR i.startDate BETWEEN :startDate AND :endDate "
+                        + "OR i.endDate BETWEEN :startDate AND :endDate")
+})
 @Entity
 public class Iteration extends BaseEntity<Iteration> {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES = "Iteration.checkForOverlappingDates";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @Column(length = 50,
             nullable = false)
     private String name;
 
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Column(length = 1000)
     private String description;
 

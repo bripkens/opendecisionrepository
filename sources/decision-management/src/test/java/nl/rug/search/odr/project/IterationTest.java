@@ -83,13 +83,13 @@ public class IterationTest extends AbstractEjbTest {
 
         // <editor-fold defaultstate="collapsed" desc="create Stakeholder Roles and save them">
         StakeholderRole role1 = TestRelationHelper.createStakeholderRole("architekt");
-        srl.persistRole(role1);
+        srl.persist(role1);
 
         StakeholderRole role2 = TestRelationHelper.createStakeholderRole("manager");
-        srl.persistRole(role2);
+        srl.persist(role2);
 
         StakeholderRole role3 = TestRelationHelper.createStakeholderRole("customer");
-        srl.persistRole(role3);
+        srl.persist(role3);
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="create ProjectMember ans link them to roles">
@@ -101,10 +101,10 @@ public class IterationTest extends AbstractEjbTest {
 
         // <editor-fold defaultstate="collapsed" desc="createProject + add Members ans save it">
         Project pr = TestRelationHelper.createProject(member1, "project1");
-        pl.createProject(pr);
+        pl.persist(pr);
 
         Project pr1 = TestRelationHelper.createProject(member2, "project2");
-        pl.createProject(pr1);
+        pl.persist(pr1);
 
         // </editor-fold>
 
@@ -177,7 +177,8 @@ public class IterationTest extends AbstractEjbTest {
 
 
         pr.addIteration(i);
-        il.addIteration(pr, i);
+        pr.addIteration(i);
+        pl.merge(pr);
 
         try {
             Thread.sleep(50);
@@ -186,7 +187,8 @@ public class IterationTest extends AbstractEjbTest {
         }
 
         pr = pl.getById(pr.getId());
-        il.addIteration(pr, i1);
+        pr.addIteration(i1);
+        pl.merge(pr);
 
         try {
             Thread.sleep(50);
@@ -195,7 +197,8 @@ public class IterationTest extends AbstractEjbTest {
         }
 
         pr1 = pl.getById(pr1.getId());
-        il.addIteration(pr1, i2);
+        pr1.addIteration(i2);
+        pl.merge(pr1);
 
         try {
             Thread.sleep(50);
@@ -204,7 +207,8 @@ public class IterationTest extends AbstractEjbTest {
         }
 
         pr1 = pl.getById(pr1.getId());
-        il.addIteration(pr1, i3);
+        pr1.addIteration(i3);
+        pl.merge(pr1);
 
         assertEquals(2, pl.getById(pr.getId()).getIterations().size());
         assertEquals(2, pl.getById(pr1.getId()).getIterations().size());
@@ -222,7 +226,7 @@ public class IterationTest extends AbstractEjbTest {
 
         pr1 = pl.getById(pr1.getId());
         pr1.removeIteration(i3);
-        pl.updateProject(pr1);
+        pl.merge(pr1);
 
         assertEquals(1, pl.getById(pr1.getId()).getIterations().size());
 

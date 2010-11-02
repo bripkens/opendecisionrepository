@@ -29,7 +29,7 @@ public class DecisionBean extends GenericDaoBean<Decision, Long> implements Deci
 
     @Override
     public boolean isNameUsed(String decisionName, long projectId) {
-        return manager.createNamedQuery("Decision.isNameUsed", Long.class).
+        return manager.createNamedQuery(Decision.NAMED_QUERY_IS_NAME_USED, Long.class).
                 setParameter("id", projectId).
                 setParameter("name", decisionName).
                 getSingleResult() > 0;

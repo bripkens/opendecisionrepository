@@ -6,14 +6,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "ComponentValue.getAll",
+                query= "SELECT cv FROM ComponentValue cv")
+})
 @Entity
-public class ComponentValue extends BaseEntity<TemplateComponent> {
+public class ComponentValue extends BaseEntity<ComponentValue> {
 
     private static final long serialVersionUID = 1L;
 

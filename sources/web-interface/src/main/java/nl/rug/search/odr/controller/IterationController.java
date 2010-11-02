@@ -242,12 +242,12 @@ private Object dummy;
         //TODO IF THE MEMBER ALSO BE SAVED
 
         if (isUpdate) {
-            il.updateIteration(iteration);
+            il.merge(iteration);
         } else {
             iteration.setDocumentedWhen(new Date());
             iteration.setProjectMember(member);
             project.addIteration(iteration);
-            pl.updateProject(project);
+            pl.merge(project);
         }
 
         JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));

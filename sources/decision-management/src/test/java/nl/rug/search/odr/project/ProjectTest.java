@@ -32,7 +32,7 @@ public class ProjectTest extends AbstractEjbTest {
     @Test(expected = BusinessException.class)
     public void basics() {
         Project p = new Project();
-        pl.createProject(p);
+        pl.persist(p);
     }
 
     @Test
@@ -58,17 +58,17 @@ public class ProjectTest extends AbstractEjbTest {
         StakeholderRole role1 = new StakeholderRole();
         role1.setCommon(true);
         role1.setName("Architect");
-        srl.persistRole(role1);
+        srl.persist(role1);
 
         StakeholderRole role2 = new StakeholderRole();
         role2.setCommon(true);
         role2.setName("Manager");
-        srl.persistRole(role2);
+        srl.persist(role2);
 
         StakeholderRole role3 = new StakeholderRole();
         role3.setCommon(true);
         role3.setName("Customer");
-        srl.persistRole(role3);
+        srl.persist(role3);
 
 
         Project p = new Project();
@@ -90,7 +90,7 @@ public class ProjectTest extends AbstractEjbTest {
         member3.setRole(role3);
         p.addMember(member3);
 
-        pl.createProject(p);
+        pl.persist(p);
 
         assertEquals(3, srl.getPublicRoles().size());
         assertNotNull(srl.getSomePublicRole());
@@ -117,7 +117,7 @@ public class ProjectTest extends AbstractEjbTest {
         String newDescription = "op32131 23u129120312iu3 12";
         pFromDb.setDescription(newDescription);
 
-        pl.updateProject(pFromDb);
+        pl.merge(pFromDb);
 
         pFromDb = pl.getById(p.getId());
 
@@ -158,14 +158,14 @@ public class ProjectTest extends AbstractEjbTest {
         StakeholderRole role1 = new StakeholderRole();
         role1.setCommon(true);
         role1.setName("Architect");
-        srl.persistRole(role1);
+        srl.persist(role1);
 
         ProjectMember member = new ProjectMember();
         member.setPerson(person1);
         member.setRole(role1);
         member.setProject(p);
 
-        pl.createProject(p);
+        pl.persist(p);
 
         assertTrue(pl.isUsed(name));
         assertTrue(pl.isMember(person1.getId(), p.getId()));
@@ -202,7 +202,7 @@ public class ProjectTest extends AbstractEjbTest {
         StakeholderRole role1 = new StakeholderRole();
         role1.setCommon(true);
         role1.setName("Architect");
-        srl.persistRole(role1);
+        srl.persist(role1);
 
         StakeholderRole role2 = new StakeholderRole();
         role2.setCommon(false);
@@ -218,10 +218,10 @@ public class ProjectTest extends AbstractEjbTest {
         member2.setRole(role1);
         member2.setProject(project2);
 
-        pl.createProject(p);
+        pl.persist(p);
 
         project2.addRole(role2);
-        pl.createProject(project2);
+        pl.persist(project2);
 
 
         assertTrue(project2.getRoles().contains(role2));

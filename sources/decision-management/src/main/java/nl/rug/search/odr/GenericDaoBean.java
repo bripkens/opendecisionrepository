@@ -7,6 +7,8 @@ package nl.rug.search.odr;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
@@ -34,7 +36,13 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
         //find superclass of type GenericDaoBean
         this.entityType = (Class<T>) ((ParameterizedType) getClass().
                 getGenericSuperclass()).getActualTypeArguments()[0];
-        this.entityName = entityType.getSimpleName();
+        try {
+            this.entityName = entityType.newInstance().getEntityName();
+        } catch (InstantiationException ex) {
+            throw new RuntimeException(ex);
+        } catch (IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 
@@ -44,7 +52,7 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     public T getById(ID id) {
         T entity = null;
         try {
-            entity = manager.find(entityType, id);
+            entity = manager.find(getEntityType(), id);
         } catch (EntityNotFoundException e) {
         }
 
@@ -54,10 +62,10 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
-        return (List<T>) manager.createQuery("select e from " + getEntityName() + " as e").
+        return (List<T>) manager.
+                createNamedQuery(getEntityName().concat(".getAll")).
                 getResultList();
     }
 
@@ -80,22 +88,21 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
     @Override
     public void delete(T entity) {
-        manager.remove(manager.find(entityType, entity.getId()));
+        manager.remove(manager.find(getEntityType(), entity.getId()));
     }
 
 
 
-    public Class<T> getEntityType() {
+    protected Class<T> getEntityType() {
         return entityType;
     }
 
 
 
 
-    public String getEntityName() {
+    protected String getEntityName() {
         return entityName;
     }
-
 
 
 

@@ -28,7 +28,7 @@
             border-radius: 4px;
             position: absolute;
         }
-        div.dragHandle.selected {
+        div.dragHandle.selected, div.node.selected {
             background-color: red;
         }
     </style>

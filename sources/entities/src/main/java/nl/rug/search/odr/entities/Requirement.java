@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -21,6 +23,10 @@ import nl.rug.search.odr.StringValidator;
  * @author Stefan
  * @modified Ben
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "Requirement.getAll",
+                query= "SELECT r FROM Requirement r")
+})
 @Entity
 public class Requirement extends BaseEntity<Requirement> {
 

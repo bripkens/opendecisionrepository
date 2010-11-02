@@ -13,9 +13,6 @@ import nl.rug.search.odr.entities.ProjectMember;
 @Local
 public interface ProjectLocal extends GenericDaoLocal<Project, Long> {
 
-    void createProject(Project p);
-
-
 
 
     public boolean isUsed(String projectName);
@@ -26,9 +23,6 @@ public interface ProjectLocal extends GenericDaoLocal<Project, Long> {
     public List<ProjectMember> getAllProjectsFromUser(long userId);
 
 
-
-
-    public void updateProject(Project sourceProject);
 
 
 

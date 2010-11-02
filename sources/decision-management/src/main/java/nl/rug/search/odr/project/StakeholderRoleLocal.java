@@ -18,6 +18,4 @@ public interface StakeholderRoleLocal extends GenericDaoLocal<StakeholderRole, L
 
     public StakeholderRole getSomePublicRole();
 
-    public void persistRole(StakeholderRole role);
-    
 }

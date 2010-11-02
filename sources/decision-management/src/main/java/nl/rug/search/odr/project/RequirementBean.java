@@ -13,10 +13,6 @@ import nl.rug.search.odr.entities.Requirement;
 @Stateless
 public class RequirementBean extends GenericDaoBean<Requirement, Long> implements RequirementLocal {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-
 
 
     @Override

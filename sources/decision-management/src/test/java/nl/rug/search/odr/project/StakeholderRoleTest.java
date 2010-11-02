@@ -25,7 +25,7 @@ public class StakeholderRoleTest extends AbstractEjbTest {
     @Test(expected=BusinessException.class)
     public void testPersistFail() {
         StakeholderRole role = new StakeholderRole();
-        srl.persistRole(role);
+        srl.persist(role);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class StakeholderRoleTest extends AbstractEjbTest {
         StakeholderRole role = new StakeholderRole();
         role.setName("Some name");
         
-        srl.persistRole(role);
+        srl.persist(role);
 
         assertEquals(role, srl.getById(role.getId()));
     }
@@ -45,7 +45,7 @@ public class StakeholderRoleTest extends AbstractEjbTest {
         StakeholderRole role = new StakeholderRole();
         role.setName("Some name");
         role.setCommon(true);
-        srl.persistRole(role);
+        srl.persist(role);
 
         assertFalse(srl.getPublicRoles().isEmpty());
 

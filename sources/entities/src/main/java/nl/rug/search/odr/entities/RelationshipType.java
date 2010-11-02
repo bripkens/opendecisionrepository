@@ -2,6 +2,8 @@ package nl.rug.search.odr.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -9,6 +11,10 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Ben
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "RelationshipType.getAll",
+                query= "SELECT r FROM RelationshipType r")
+})
 @Entity
 public class RelationshipType extends BaseEntity<RelationshipType> {
 

@@ -27,13 +27,17 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben
  */
 @NamedQueries(value = {
-    @NamedQuery(name = "Decision.isNameUsed",
+    @NamedQuery(name = "Decision.getAll",
+                query= "SELECT d FROM Decision d"),
+    @NamedQuery(name = Decision.NAMED_QUERY_IS_NAME_USED,
                 query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name")
 })
 @Entity
 public class Decision extends BaseEntity<Decision> {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String NAMED_QUERY_IS_NAME_USED = "Decision.isNameUsed";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

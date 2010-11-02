@@ -20,43 +20,20 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
+
     @Override
     public boolean isPersistable(Iteration entity) {
         if (entity == null || !entity.isPersistable()) {
             return false;
-        } else {
-            Query q = entityManager.createQuery("SELECT COUNT(i) FROM Iteration i WHERE :startDate BETWEEN i.startDate AND i.endDate "
-                    + "OR :endDate BETWEEN i.startDate AND i.endDate OR i.startDate BETWEEN :startDate AND :endDate "
-                    + "OR i.endDate BETWEEN :startDate AND :endDate");
-            q.setParameter("startDate", entity.getStartDate());
-            q.setParameter("endDate", entity.getEndDate());
-
-            long result = (Long) q.getSingleResult();
-            return result == 0;
         }
+
+        return entityManager.createNamedQuery(Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES, Long.class).
+                setParameter("startDate", entity.getStartDate()).
+                setParameter("endDate", entity.getEndDate()).
+                getSingleResult() == 0;
     }
 
-    @Override
-    public void updateIteration(Iteration sourceIteration) {
-        entityManager.merge(sourceIteration);
-    }
 
-//    private void setEndDate(Project pro) {
-//        for (Iteration each : pro.getIterations()) {
-//            if (each.getEndDate() == null) {
-//                each.setEndDate(new Date());
-//                entityManager.merge(each);
-//                return;
-//            }
-//        }
-//    }
-
-    @Override
-    public void addIteration(Project pr, Iteration i) {
-        if (!isPersistable(i)) {
-            throw new BusinessException("Can't persist Iteration.");
-        }
-        pr.addIteration(i);
-        entityManager.merge(pr);
-    }
 }

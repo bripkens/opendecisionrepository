@@ -178,7 +178,7 @@ public class ProjectDetailsController {
             }
         }
 
-        pl.updateProject(project);
+        pl.merge(project);
 
         JsfUtil.addJavascriptCall("odr.popup.hide();");
     }

@@ -20,14 +20,15 @@ public class ProjectMemberBean extends GenericDaoBean<ProjectMember, Long> imple
 
     @Override
     public boolean isPersistable(ProjectMember entity) {
-        return false;
+        return entity.isPersistable();
     }
 
     @Override
     public List<ProjectMember> getAllMembersFromProject(long projectId) {
-        Query q = entityManager.createQuery("Select pm from ProjectMember pm where pm.project.id = :projectId");
-        q.setParameter("projectId", projectId);
+        return entityManager.
+                createNamedQuery(ProjectMember.NAMED_QUERY_GET_ALL_MEMBERS_FROM_PROJECT).
+                setParameter("projectId", projectId).
+                getResultList();
 
-        return q.getResultList();
     }
 }
