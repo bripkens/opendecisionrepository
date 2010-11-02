@@ -8,8 +8,58 @@
                     xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <p>
-        <ice:outputText value="Relationships" nospan="true"/>
-    </p>
+    <div class="formSection last">
+        <ice:outputLabel value="#{form['decision.wizard.relationship.add']}" for="inRelationship"/>
+        <ice:selectOneMenu id="inRelationship"
+                           label="#{form['decision.wizard.relationship.add']}"
+                           partialSubmit="true"
+                           valueChangeListener="#{manageDecisionController.relationshipsStep.decisionSelectionChangeListener}"
+                           styleClass="small">
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
+            <f:selectItems value="#{manageDecisionController.relationshipsStep.availableDecisions}" />
+        </ice:selectOneMenu>
+
+        <p class="empty increasedPadding" />
+    </div>
+
+
+
+    <h3><ice:outputText value="#{form['decision.wizard.relationship.existing']}" nospan="true" /></h3>
+
+
+    <ice:repeat value="#{manageDecisionController.relationshipsStep.relationships}" var="item">
+        <div class="formSection decisionWizardRelationships">
+            <ice:outputText value="#{item.name}" styleClass="decisionLabel" />
+            <ice:outputText value="#{form['label.type']}" styleClass="typeLabel" />
+            <ice:outputText value="#{form['label.version']}" styleClass="versionLabel" />
+
+            <ice:selectOneMenu label="#{form['label.relationship.type']}"
+                               partialSubmit="true"
+                               required="true"
+                               styleClass="type">
+                <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
+                <f:selectItems value="#{manageDecisionController.relationshipsStep.relationshipTypes}" />
+            </ice:selectOneMenu>
+
+            <ice:selectOneMenu label="#{form['label.version']}"
+                               partialSubmit="true"
+                               required="true"
+                               styleClass="version">
+                <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
+            </ice:selectOneMenu>
+            
+            <ice:commandLink value=""
+                             action="#{manageDecisionController.relationshipsStep.removeRelationship(item.id)}"
+                             immediate="true"
+                             styleClass="removeButton">
+                <img alt="#{common.remove}"
+                     src="resources/images/removeSmall.png"
+                     width="14"
+                     height="14"/>
+            </ice:commandLink>
+
+            <p class="empty" />
+        </div>
+    </ice:repeat>
 
 </ui:composition>

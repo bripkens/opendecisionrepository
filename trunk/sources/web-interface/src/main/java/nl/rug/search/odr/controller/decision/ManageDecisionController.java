@@ -25,6 +25,7 @@ import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.project.StateLocal;
 
 /**
@@ -81,6 +82,9 @@ public class ManageDecisionController extends AbstractController {
 
     @EJB
     private VersionLocal vl;
+
+    @EJB
+    private RelationshipTypeLocal rtl;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="pojo attributes">
@@ -451,6 +455,11 @@ public class ManageDecisionController extends AbstractController {
 
     ProjectLocal getProjectLocal() {
         return pl;
+    }
+
+
+    RelationshipTypeLocal getRelationshipTypeLocal() {
+        return rtl;
     }
     // </editor-fold>
 

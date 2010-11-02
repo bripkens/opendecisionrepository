@@ -10,6 +10,11 @@ import nl.rug.search.odr.entities.RelationshipType;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Local
-public interface RelationshipTypeBeanLocal extends GenericDaoLocal<RelationshipType, Long>{
+public interface RelationshipTypeLocal extends GenericDaoLocal<RelationshipType, Long>{
+
+
+
+
+    public java.util.List<nl.rug.search.odr.entities.RelationshipType> getPublicTypes();
     
 }

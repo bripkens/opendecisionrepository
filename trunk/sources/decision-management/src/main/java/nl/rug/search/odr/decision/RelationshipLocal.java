@@ -10,6 +10,6 @@ import nl.rug.search.odr.entities.Relationship;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Local
-public interface RelationshipBeanLocal extends GenericDaoLocal<Relationship, Long>{
+public interface RelationshipLocal extends GenericDaoLocal<Relationship, Long>{
     
 }
