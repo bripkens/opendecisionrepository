@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4">After successful authentication, the guest is a user.</td>
+      <td colspan="4">After successful authentication the guest becomes a user (the actor is meant).</td>
     </tr>
   </tbody>
 </table>
