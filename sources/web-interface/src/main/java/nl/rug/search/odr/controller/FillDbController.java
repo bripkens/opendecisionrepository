@@ -21,12 +21,14 @@ import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.TemplateComponent;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.project.StakeholderRoleLocal;
 import nl.rug.search.odr.project.StateLocal;
 import nl.rug.search.odr.user.UserLocal;
@@ -54,10 +56,12 @@ public class FillDbController {
     @EJB
     private StateLocal sl;
 
+    @EJB
+    private RelationshipTypeLocal rtl;
 
     private boolean clearDone, rolesDone, statesDone, 
             templatesDone, personsDone, projectsDone, iterationsDone,
-            decisionsDone, requirementsDone;
+            decisionsDone, requirementsDone, relationshipTypesDone;
 
 
 
@@ -197,7 +201,7 @@ public class FillDbController {
         clearDone = true;
         personsDone = projectsDone = decisionsDone =
                 iterationsDone = requirementsDone = rolesDone =
-                statesDone = templatesDone = false;
+                statesDone = templatesDone = relationshipTypesDone = false;
     }
 
 
@@ -727,6 +731,32 @@ public class FillDbController {
 
 
 
+    public void addRelationshipTypes() {
+        RelationshipType type = new RelationshipType();
+        type.setCommon(true);
+        type.setName("depends on");
+        rtl.persist(type);
+
+        type = new RelationshipType();
+        type.setCommon(true);
+        type.setName("replaces");
+        rtl.persist(type);
+
+        type = new RelationshipType();
+        type.setCommon(true);
+        type.setName("is alternative for");
+        rtl.persist(type);
+
+        type = new RelationshipType();
+        type.setCommon(true);
+        type.setName("caused by");
+        rtl.persist(type);
+
+        clearDone = false;
+        relationshipTypesDone = true;
+    }
+
+
 
     public boolean isClearDone() {
         return clearDone;
@@ -850,4 +880,21 @@ public class FillDbController {
     public void setTemplatesDone(boolean templatesDone) {
         this.templatesDone = templatesDone;
     }
+
+
+
+
+    public boolean isRelationshipTypesDone() {
+        return relationshipTypesDone;
+    }
+
+
+
+
+    public void setRelationshipTypesDone(boolean relationshipTypesDone) {
+        this.relationshipTypesDone = relationshipTypesDone;
+    }
+
+
+
 }

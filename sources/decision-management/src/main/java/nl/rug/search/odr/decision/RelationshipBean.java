@@ -11,7 +11,7 @@ import nl.rug.search.odr.entities.Relationship;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Stateless
-public class RelationshipBean extends GenericDaoBean<Relationship, Long> implements RelationshipBeanLocal {
+public class RelationshipBean extends GenericDaoBean<Relationship, Long> implements RelationshipLocal {
 
 
 

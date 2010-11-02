@@ -8,6 +8,8 @@ package nl.rug.search.odr;
 public interface WizardStep {
     String getFaceletName();
 
+    String getStepName();
+
     void focus();
 
     void blur();

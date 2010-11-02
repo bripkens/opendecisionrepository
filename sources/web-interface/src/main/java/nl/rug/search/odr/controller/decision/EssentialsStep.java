@@ -20,6 +20,7 @@ import nl.rug.search.odr.entities.DecisionTemplate;
 import nl.rug.search.odr.entities.OprLink;
 import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -315,6 +316,14 @@ public class EssentialsStep implements WizardStep {
 
     public void setDecidedWhen(Date decidedWhen) {
         this.decidedWhen = decidedWhen;
+    }
+
+
+
+
+    @Override
+    public String getStepName() {
+        return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.essentials']}", String.class);
     }
     // </editor-fold>
 }

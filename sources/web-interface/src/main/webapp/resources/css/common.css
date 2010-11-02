@@ -565,10 +565,6 @@ ul.info li div.text h2 {
     padding: 0 0 5px;
 }
 
-.formSection table.memberSelect select {
-    width: 240px;
-    position: static;
-}
 .formSection table.memberSelect td:first-child,  .formSection table.memberSelect th:first-child {
     font-size: 0.9em;
     width: 270px;
@@ -703,7 +699,10 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
     position: absolute;
     width: 495px;
 }
-
+.formSection select.small {
+    left:137px;
+    width: 465px;
+}
 .error {
     color: #bd0000;
 }
@@ -758,6 +757,11 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
 */
 .formSection table select {
     height: 19px;
+    width: 240px;
+    position: static;
+}
+.formSection table select.small {
+    width: auto;
 }
 .formSection table.collection {
     font-size: 0.9em;
@@ -1269,7 +1273,41 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .formSection textarea.shrinked {
     height: 40px;
 }
+.decisionWizardRelationships {
 
+}
+.decisionWizardRelationships .typeLabel {
+    position: absolute;
+    left: 0;
+    top: 25px;
+}
+.decisionWizardRelationships .versionLabel {
+    position: absolute;
+    left: 260px;
+    top: 25px;
+}
+.decisionWizardRelationships .type {
+    position: absolute;
+    top: 25px;
+    left: 45px;
+    height: 19px;
+    width: 200px;
+}
+.decisionWizardRelationships .version {
+    position: absolute;
+    top: 25px;
+    left:325px;
+    height: 19px;
+    width: 275px;
+}
+.decisionWizardRelationships a {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+}
+.decisionWizardRelationships p {
+    margin-top: 25px;
+}
 /*
     ############################################################################################
                                     Project details

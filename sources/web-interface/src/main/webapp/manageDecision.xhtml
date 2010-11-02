@@ -28,7 +28,11 @@
 
 
 
-                <h1><ice:outputText value="#{manageDecisionController.headline}" nospan="true" /></h1>
+                <h1>
+                    <ice:outputFormat value="#{manageDecisionController.headline}">
+                        <f:param value="#{manageDecisionController.currentStep.stepName}" />
+                    </ice:outputFormat>
+                </h1>
 
                 <ui:include src="#{manageDecisionController.currentStep.faceletName}" />
 

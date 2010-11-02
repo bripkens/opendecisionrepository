@@ -9,6 +9,7 @@ import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.ComponentValue;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.TemplateComponent;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -102,5 +103,10 @@ public class TemplateRelatedStep implements WizardStep {
 
     public void setComponentValues(List<TemplateComponentInput> componentValues) {
         this.componentValues = componentValues;
+    }
+
+    @Override
+    public String getStepName() {
+        return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.template']}", String.class);
     }
 }

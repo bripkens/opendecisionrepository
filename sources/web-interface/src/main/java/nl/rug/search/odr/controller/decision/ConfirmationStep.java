@@ -1,6 +1,7 @@
 package nl.rug.search.odr.controller.decision;
 
 import nl.rug.search.odr.WizardStep;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -38,6 +39,14 @@ public class ConfirmationStep implements WizardStep {
 
     @Override
     public void blur() {
+    }
+
+
+
+
+    @Override
+    public String getStepName() {
+        return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.confirmation']}", String.class);
     }
 
 
