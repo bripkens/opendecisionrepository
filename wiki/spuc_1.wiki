@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">The desired user name and email are not already registered.</td>
+      <td colspan="4"></td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
@@ -46,7 +46,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
+      <td colspan="4">The user account has been created. A guest could now use it's email address and password for authentication purposes.</td>
     </tr>
   </tbody>
 </table>
