@@ -5,13 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 
 /**
  *
  * @author Ben
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "Relationship.getAll",
+                query= "SELECT r FROM Relationship r")
+})
 @Entity
 public class Relationship extends BaseEntity<Relationship> {
 

@@ -79,4 +79,9 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
         }
         return builder.toHashCode();
     }
+
+
+    public String getEntityName() {
+        return getClass().getSimpleName();
+    }
 }

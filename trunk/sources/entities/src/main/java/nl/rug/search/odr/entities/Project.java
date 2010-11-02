@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
@@ -18,10 +20,32 @@ import nl.rug.search.odr.StringValidator;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "Project.getAll",
+                query = "SELECT p FROM Project p"),
+    @NamedQuery(name = Project.NAMED_QUERY_IS_NAME_USED,
+                query = "SELECT COUNT(p) FROM Project p WHERE LOWER(p.name) = :name"),
+    @NamedQuery(name = Project.NAMED_QUERY_GET_ALL_PROJECTS_FROM_USER,
+                query = "SELECT pm FROM ProjectMember pm WHERE pm.person.id = :userId AND pm.removed = false"),
+    @NamedQuery(name = Project.NAMED_QUERY_IS_MEMBER,
+                query = "SELECT COUNT(pm)"
+                        + " FROM ProjectMember pm "
+                        + " WHERE pm.person.id = :userId AND pm.project.id = :projectId AND pm.removed = false"),
+    @NamedQuery(name = Project.NAMED_QUERY_GET_BY_NAME,
+                query = "SELECT p FROM Project p WHERE lower(p.name) = :name")
+})
 @Entity
 public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String NAMED_QUERY_IS_NAME_USED = "Project.isNameUsed";
+
+    public static final String NAMED_QUERY_GET_ALL_PROJECTS_FROM_USER = "Project.getAllProjectsFromUser";
+
+    public static final String NAMED_QUERY_IS_MEMBER = "Project.isMember";
+
+    public static final String NAMED_QUERY_GET_BY_NAME = "Project.getByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -490,13 +514,11 @@ public class Project extends BaseEntity<Project> {
         return new Object[]{name, description};
     }
 
-
     public static class NameComparator implements Comparator<Project> {
 
         @Override
         public int compare(Project o1, Project o2) {
             return o1.name.compareToIgnoreCase(o2.name);
         }
-
     }
 }

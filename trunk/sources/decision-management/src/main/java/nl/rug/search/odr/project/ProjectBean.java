@@ -39,27 +39,15 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
 
 
 
-    @Override
-    public void createProject(Project p) {
-        if (!isPersistable(p)) {
-            throw new BusinessException("Can't persist project.");
-        }
-        entityManager.persist(p);
-    }
-
-
-
 
     @Override
     public boolean isUsed(String projectName) {
         projectName = projectName.trim().
                 toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT COUNT(p) FROM Project p WHERE LOWER(p.name) = :name");
-        q.setParameter("name", projectName);
-
-        long result = (Long) q.getSingleResult();
-        return result != 0;
+        return entityManager.createNamedQuery(Project.NAMED_QUERY_IS_NAME_USED, Long.class).
+                setParameter("name", projectName).
+                getSingleResult() != 0;
     }
 
 
@@ -67,36 +55,24 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
 
     @Override
     public List<ProjectMember> getAllProjectsFromUser(long userId) {
-        Query q = entityManager.createQuery("SELECT pm from ProjectMember pm WHERE pm.person.id = :userId AND pm.removed = false");
-        q.setParameter("userId", userId);
-
-        return q.getResultList();
+        return entityManager.createNamedQuery(Project.NAMED_QUERY_GET_ALL_PROJECTS_FROM_USER).
+                setParameter("userId", userId).
+                getResultList();
     }
 
 
 
-
-    @Override
-    public void updateProject(Project sourceProject) {
-        entityManager.merge(sourceProject);
-    }
 
 
 
 
     @Override
     public boolean isMember(long userId, long projectId) {
-        Query q = entityManager.createQuery("SELECT COUNT(pm)"
-                + " FROM ProjectMember pm "
-                + " WHERE pm.person.id = :userId AND pm.project.id = :projectId AND pm.removed = false");
-        q.setParameter("userId", userId);
-        q.setParameter("projectId", projectId);
-
-        long result = (Long) q.getSingleResult();
-        return result == 1;
+        return entityManager.createNamedQuery(Project.NAMED_QUERY_IS_MEMBER, Long.class).
+                setParameter("userId", userId).
+                setParameter("projectId", projectId).
+                getSingleResult() == 1;
     }
-
-
 
 
 
@@ -110,11 +86,11 @@ public class ProjectBean extends GenericDaoBean<Project, Long> implements Projec
         name = name.trim().
                 toLowerCase();
 
-        Query q = entityManager.createQuery("SELECT p FROM Project p WHERE lower(p.name) = :name");
-        q.setParameter("name", name);
 
         try {
-            return (Project) q.getSingleResult();
+            return entityManager.createNamedQuery(Project.NAMED_QUERY_GET_BY_NAME, Project.class).
+                    setParameter("name", name).
+                    getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }

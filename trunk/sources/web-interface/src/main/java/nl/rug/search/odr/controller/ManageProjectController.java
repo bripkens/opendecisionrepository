@@ -226,7 +226,7 @@ public class ManageProjectController extends AbstractManageController {
         }
         sourceProject.addMember(currentUser);
 
-        pl.createProject(sourceProject);
+        pl.persist(sourceProject);
 
         JsfUtil.redirect("/p/".concat(sourceProject.getName()));
 
@@ -247,7 +247,7 @@ public class ManageProjectController extends AbstractManageController {
         }
         sourceProject.addMember(currentUser);
 
-        pl.updateProject(sourceProject);
+        pl.merge(sourceProject);
 
         JsfUtil.redirect("/p/".concat(sourceProject.getName()));
 

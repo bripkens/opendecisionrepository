@@ -21,15 +21,20 @@ import nl.rug.search.odr.StringValidator;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @NamedQueries(value = {
-    @NamedQuery(name = "DecisionTemplate.isNameUsed",
+    @NamedQuery(name = "DecisionTemplate.getAll",
+                query= "SELECT dt FROM DecisionTemplate dt"),
+    @NamedQuery(name = DecisionTemplate.NAMED_QUERY_IS_NAME_USED,
                 query = "SELECT COUNT(t) FROM DecisionTemplate t WHERE LOWER(t.name) = :name"),
-    @NamedQuery(name= "DecisionTemplate.getByName",
+    @NamedQuery(name= DecisionTemplate.NAMED_QUERY_GET_BY_NAME,
                 query="SELECT t FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
 })
 @Entity
 public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String NAMED_QUERY_IS_NAME_USED = "DecisionTemplate.isNameUsed";
+    public static final String NAMED_QUERY_GET_BY_NAME = "DecisionTemplate.getByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

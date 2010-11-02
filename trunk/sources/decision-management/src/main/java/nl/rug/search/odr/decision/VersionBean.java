@@ -13,9 +13,6 @@ import nl.rug.search.odr.entities.Version;
 @Stateless
 public class VersionBean extends GenericDaoBean<Version, Long> implements VersionLocal {
 
-    @PersistenceContext
-    private EntityManager manager;
-
     @Override
     public boolean isPersistable(Version entity) {
         return entity.isPersistable();

@@ -32,9 +32,9 @@ public class UserMenuController {
 
 
 
-    public void logout() {
+    public String logout() {
         AuthenticationUtil.logout();
-        JsfUtil.redirect("/index.html");
+        return "index";
     }
 
 

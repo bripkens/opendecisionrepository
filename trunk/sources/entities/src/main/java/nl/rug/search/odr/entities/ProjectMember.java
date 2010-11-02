@@ -6,16 +6,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@NamedQueries(value = {
+    @NamedQuery(name = "ProjectMember.getAll",
+                query = "SELECT pm FROM ProjectMember pm"),
+    @NamedQuery(name = ProjectMember.NAMED_QUERY_GET_ALL_MEMBERS_FROM_PROJECT,
+                query = "SELECT pm FROM ProjectMember pm WHERE pm.project.id = :projectId")
+})
 @Entity
 public class ProjectMember extends BaseEntity<ProjectMember> {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String NAMED_QUERY_GET_ALL_MEMBERS_FROM_PROJECT = "ProjectMember.getAllMembersFromProject";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -143,6 +153,4 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     protected Object[] getCompareData() {
         return new Object[]{person, project, role, removed};
     }
-
-
 }

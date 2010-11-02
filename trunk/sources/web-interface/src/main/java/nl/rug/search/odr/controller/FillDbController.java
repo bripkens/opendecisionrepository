@@ -132,7 +132,7 @@ public class FillDbController {
         member.setRole(getStakeholderRole("Manager"));
         pro.addMember(member);
 
-        pl.createProject(pro);
+        pl.persist(pro);
 
         pro = new Project();
         pro.setName("OpenPatternRepository");
@@ -158,7 +158,7 @@ public class FillDbController {
         member.setRole(getStakeholderRole("Manager"));
         pro.addMember(member);
 
-        pl.createProject(pro);
+        pl.persist(pro);
 
         clearDone = false;
         projectsDone = true;
@@ -492,17 +492,17 @@ public class FillDbController {
         StakeholderRole role1 = new StakeholderRole();
         role1.setName("Architect");
         role1.setCommon(true);
-        srl.persistRole(role1);
+        srl.persist(role1);
 
         StakeholderRole role2 = new StakeholderRole();
         role2.setName("Manager");
         role2.setCommon(true);
-        srl.persistRole(role2);
+        srl.persist(role2);
 
         StakeholderRole role3 = new StakeholderRole();
         role3.setName("Customer");
         role3.setCommon(true);
-        srl.persistRole(role3);
+        srl.persist(role3);
 
         clearDone = false;
         rolesDone = true;

@@ -15,13 +15,19 @@ import nl.rug.search.odr.StringValidator;
  * @modified Ben
  */
 @NamedQueries(value = {
-    @NamedQuery(name = "State.getInitialState",
+    @NamedQuery(name = "VersionState.getAll",
+                query= "SELECT s FROM VersionState s"),
+    @NamedQuery(name = State.NAMED_QUERY_GET_INITIAL_STATE,
                 query = "SELECT s FROM VersionState s WHERE s.common = TRUE AND s.initialState = TRUE")
 })
 @Entity(name = "VersionState")
 public class State extends BaseEntity<State> {
 
     private static final long serialVersionUID = 1L;
+
+
+    public static final String NAMED_QUERY_GET_INITIAL_STATE = "VersionState.getInitialState";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -126,5 +132,11 @@ public class State extends BaseEntity<State> {
     @Override
     public boolean isPersistable() {
         return statusName != null && actionName != null;
+    }
+
+
+    @Override
+    public String getEntityName() {
+        return "VersionState";
     }
 }
