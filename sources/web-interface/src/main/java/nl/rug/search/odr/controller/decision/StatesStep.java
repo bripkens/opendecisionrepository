@@ -5,11 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
@@ -31,6 +29,8 @@ public class StatesStep implements WizardStep {
     private State state;
 
     private List<ProjectMember> initiators;
+
+
 
 
     public StatesStep(ManageDecisionController wizard) {
@@ -83,6 +83,8 @@ public class StatesStep implements WizardStep {
     }
 
 
+
+
     public List<SelectItem> getStates() {
         List<SelectItem> items = new ArrayList<SelectItem>(states.size());
 
@@ -127,7 +129,7 @@ public class StatesStep implements WizardStep {
         Collection<ProjectMember> allMembers = wizard.getProject().getMembers();
         List<SelectItem> items = new ArrayList<SelectItem>(allMembers.size());
 
-        for(ProjectMember eachMember : allMembers) {
+        for (ProjectMember eachMember : allMembers) {
             if (initiators.contains(eachMember)) {
                 continue;
             }
@@ -148,16 +150,19 @@ public class StatesStep implements WizardStep {
 
 
 
+
     public void initiatorSelectionChangeListener(ValueChangeEvent e) {
         String selection = e.getNewValue().toString();
 
-        if (!StringValidator.isValid(selection, false) || selection.equalsIgnoreCase("Please select")) {
+        if (!StringValidator.isValid(selection, false) ||
+                selection.equalsIgnoreCase(
+                JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))) {
             return;
         }
 
         long projectMemberId = Long.parseLong(selection);
 
-        for(ProjectMember eachMember : wizard.getProject().getMembers()) {
+        for (ProjectMember eachMember : wizard.getProject().getMembers()) {
             if (eachMember.getId().equals(projectMemberId)) {
                 initiators.add(eachMember);
                 return;
@@ -169,7 +174,15 @@ public class StatesStep implements WizardStep {
 
 
     public void removeInitiator(long initiatorId) {
-        for(ProjectMember eachMember : initiators) {
+        if (initiators.size() == 1) {
+            FacesContext.getCurrentInstance().addMessage("manageDecisionForm",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    JsfUtil.evaluateExpressionGet("#{form['decision.wizard.state.initiator.required']}", String.class),
+                    null));
+            return;
+        }
+
+        for (ProjectMember eachMember : initiators) {
             if (eachMember.getId().equals(initiatorId)) {
                 initiators.remove(eachMember);
                 return;

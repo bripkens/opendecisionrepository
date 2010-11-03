@@ -374,6 +374,8 @@ public class ManageDecisionController extends AbstractController {
             project.addDecision(decision);
         } else if (!initialState.equals(version.getState())) {
             createNewVersion();
+        } else {
+            version.setDocumentedWhen(new Date());
         }
 
         pl.merge(project);
@@ -476,6 +478,16 @@ public class ManageDecisionController extends AbstractController {
             return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.update']}", String.class);
         } else {
             return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.create']}", String.class);
+        }
+    }
+
+
+
+    public String getSubmitButtonLabel() {
+        if (isLastStep()) {
+            return JsfUtil.evaluateExpressionGet("#{form['button.submit']}", String.class);
+        } else {
+            return JsfUtil.evaluateExpressionGet("#{form['button.to.last']}", String.class);
         }
     }
     // </editor-fold>

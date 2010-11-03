@@ -222,7 +222,8 @@ public class EssentialsStep implements WizardStep {
         // should not be possible
         if (!StringValidator.isValid(decisionTemplate, false)) {
             return;
-        } else if (decisionTemplate.equalsIgnoreCase("Please select")){
+        } else if (decisionTemplate.equalsIgnoreCase(
+                JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))){
             return;
         }
         this.decisionTemplate = wizard.getDecisionTemplateLocal().

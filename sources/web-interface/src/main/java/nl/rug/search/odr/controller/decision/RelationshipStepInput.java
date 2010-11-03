@@ -74,7 +74,8 @@ public class RelationshipStepInput {
         
         List<SelectItem> items = new ArrayList<SelectItem>(versions.size());
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat(
+                JsfUtil.evaluateExpressionGet("#{common['format.date.time']}", String.class));
 
         String afterMessage = JsfUtil.evaluateExpressionGet("#{form['decision.wizard.decided.after']}", String.class);
 
@@ -105,9 +106,6 @@ public class RelationshipStepInput {
 
 
     public void setType(String type) {
-        if (type == null || type.equalsIgnoreCase("Please select")) {
-            return;
-        }
         this.type = type;
     }
 
@@ -122,10 +120,6 @@ public class RelationshipStepInput {
 
 
     public void setVersion(String version) {
-        if (version == null || version.equalsIgnoreCase("Please select")) {
-            return;
-        }
-        System.out.println("Verion " + version + " selected");
         this.version = version;
     }
 }
