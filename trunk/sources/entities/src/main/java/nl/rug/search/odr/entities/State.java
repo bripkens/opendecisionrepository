@@ -8,6 +8,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -36,6 +38,7 @@ public class State extends BaseEntity<State> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private String statusName;
 
     private String actionName;

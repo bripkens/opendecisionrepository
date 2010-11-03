@@ -48,7 +48,7 @@ public class Iteration extends BaseEntity<Iteration> {
             nullable = false)
     private String name;
 
-    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
+    
     @Column(length = 1000)
     private String description;
 
@@ -56,10 +56,12 @@ public class Iteration extends BaseEntity<Iteration> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date documentedWhen;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @Column(nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date startDate;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @Column
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date endDate;

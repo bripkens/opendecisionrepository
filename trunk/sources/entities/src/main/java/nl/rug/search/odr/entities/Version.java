@@ -21,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -43,11 +45,14 @@ public class Version extends BaseEntity<Version> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date documentedWhen;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date decidedWhen;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private boolean removed;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @ManyToOne
     private State state;
 

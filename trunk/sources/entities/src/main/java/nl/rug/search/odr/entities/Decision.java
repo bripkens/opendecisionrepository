@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -47,10 +50,12 @@ public class Decision extends BaseEntity<Decision> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @Column(length = 50,
             nullable = false)
     private String name;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Version> versions;
@@ -163,6 +168,8 @@ public class Decision extends BaseEntity<Decision> {
     }
 
 
+
+
     public Version getVersion(long versionId) {
         for (Version version : versions) {
             if (version.getId() != null && version.getId().equals(versionId)) {
@@ -172,6 +179,8 @@ public class Decision extends BaseEntity<Decision> {
 
         return null;
     }
+
+
 
 
     public DecisionTemplate getTemplate() {
@@ -273,6 +282,7 @@ public class Decision extends BaseEntity<Decision> {
 
 
 
+
     public Version getFirstVersion() {
         if (versions.isEmpty()) {
             return null;
@@ -315,12 +325,29 @@ public class Decision extends BaseEntity<Decision> {
         }
     }
 
+    public Date getLatestDocumentation() {
+        Date latestDocumentation = null;
+
+        for (Version version : versions) {
+            if (latestDocumentation == null || latestDocumentation.before(version.getDocumentedWhen())) {
+                latestDocumentation = version.getDocumentedWhen();
+            }
+        }
+
+        return latestDocumentation;
+    }
+
+
     public static class DocumentedWhenComparator implements Comparator<Decision> {
 
         @Override
         public int compare(Decision o1, Decision o2) {
-
-            return o1.getCurrentVersion().getDocumentedWhen().compareTo(o2.getCurrentVersion().getDocumentedWhen());
+            return o1.getLatestDocumentation().compareTo(o2.getLatestDocumentation());
         }
     }
+
+
+
+
+    
 }

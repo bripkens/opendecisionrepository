@@ -17,11 +17,15 @@ public interface RequestParameter {
     String UPDATE = "update";
     String DELETE = "delete";
     String CONFIRM = "confirm";
+
     String ID = "id";
-    
     String ITERATION_ID = "iterationId";
     String DECISION_ID = "decisionId";
     String VERSION_ID = "versionId";
+
+    String CHRONOLOGICAL_VIEWPOINT = "chronological";
+    String RELATIONSHIP_VIEWPOINT = "relationship";
+    String STAKEHOLDER_VIEWPOINT = "stakeholder";
 
     String FACES_REDIRECT = "faces-redirect";
 }

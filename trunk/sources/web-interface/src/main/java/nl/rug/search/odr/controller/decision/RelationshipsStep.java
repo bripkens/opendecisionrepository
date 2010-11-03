@@ -103,7 +103,8 @@ public class RelationshipsStep implements WizardStep {
 
         if (!StringValidator.isValid(value, false)) {
             return;
-        } else if (value.equalsIgnoreCase("Please select")) {
+        } else if (value.equalsIgnoreCase(
+                JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))) {
             return;
         }
 

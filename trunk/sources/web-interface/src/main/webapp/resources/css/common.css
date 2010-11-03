@@ -841,16 +841,25 @@ select.error {
     -------------------------------------------------
                     Generic Wizard
 */
-.nextStepButton, .previousStepButton {
+.nextStepButtonTop, .previousStepButtonTop {
     position: absolute;
     top: 12px;
     right: 15px;
 }
-.previousStepButton {
+.previousStepButtonTop {
     right: 150px;
 }
-
-
+form.wizardForm input.nextStepButton,
+form.wizardForm input.previousStepButton,
+form.wizardForm input.confirm,
+form.wizardForm input.abort {
+    position: static;
+    float: left;
+    margin: 20px 0 0 1em;
+}
+form.wizardForm input.abort {
+    margin-left: 0;
+}
 
 /*
     -------------------------------------------------

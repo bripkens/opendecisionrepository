@@ -15,6 +15,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -65,6 +67,7 @@ public class Project extends BaseEntity<Project> {
                orphanRemoval = true)
     private Collection<ProjectMember> members;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Iteration> iterations;
@@ -85,6 +88,7 @@ public class Project extends BaseEntity<Project> {
                orphanRemoval = true)
     private Collection<Requirement> requirements;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Decision> decisions;
