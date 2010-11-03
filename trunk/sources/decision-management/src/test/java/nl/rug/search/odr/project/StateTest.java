@@ -45,4 +45,24 @@ public class StateTest extends AbstractEjbTest {
 
         assertEquals(commonInitialState, sl.getInitialState());
     }
+
+    @Test
+    public void testGetCommonState() {
+        State someState = new State();
+        someState.setActionName("abc");
+        someState.setInitialState(true);
+        someState.setStatusName("cde");
+        sl.persist(someState);
+
+        assertEquals(0, sl.getCommonStates().size());
+
+        someState = new State();
+        someState.setActionName("abc");
+        someState.setInitialState(true);
+        someState.setStatusName("cde");
+        someState.setCommon(true);
+        sl.persist(someState);
+
+        assertEquals(someState, sl.getCommonStates().get(0));
+    }
 }

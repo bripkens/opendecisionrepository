@@ -28,9 +28,11 @@ import nl.rug.search.odr.StringValidator;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "Decision.getAll",
-                query= "SELECT d FROM Decision d"),
+                query = "SELECT d FROM Decision d"),
     @NamedQuery(name = Decision.NAMED_QUERY_IS_NAME_USED,
-                query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name")
+                query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name"),
+    @NamedQuery(name = Decision.NAMED_QUERY_GET_BY_VERSION,
+                query = "SELECT d FROM Decision AS d, IN(d.versions) v WHERE v.id = :id")
 })
 @Entity
 public class Decision extends BaseEntity<Decision> {
@@ -38,6 +40,8 @@ public class Decision extends BaseEntity<Decision> {
     private static final long serialVersionUID = 1L;
 
     public static final String NAMED_QUERY_IS_NAME_USED = "Decision.isNameUsed";
+
+    public static final String NAMED_QUERY_GET_BY_VERSION = "Decision.getByVersion";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -159,6 +163,15 @@ public class Decision extends BaseEntity<Decision> {
     }
 
 
+    public Version getVersion(long versionId) {
+        for (Version version : versions) {
+            if (version.getId() != null && version.getId().equals(versionId)) {
+                return version;
+            }
+        }
+
+        return null;
+    }
 
 
     public DecisionTemplate getTemplate() {
@@ -260,6 +273,26 @@ public class Decision extends BaseEntity<Decision> {
 
 
 
+    public Version getFirstVersion() {
+        if (versions.isEmpty()) {
+            return null;
+        }
+
+        Version firstVersion = versions.iterator().
+                next();
+
+        for (Version v : versions) {
+            if (v.getDecidedWhen().
+                    before(firstVersion.getDecidedWhen())) {
+                firstVersion = v;
+            }
+        }
+
+        return firstVersion;
+    }
+
+
+
 
     @Override
     protected Object[] getCompareData() {
@@ -289,6 +322,5 @@ public class Decision extends BaseEntity<Decision> {
 
             return o1.getCurrentVersion().getDocumentedWhen().compareTo(o2.getCurrentVersion().getDocumentedWhen());
         }
-
     }
 }

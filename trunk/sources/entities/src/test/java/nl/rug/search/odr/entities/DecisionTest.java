@@ -403,6 +403,54 @@ public class DecisionTest {
         assertSame(older, d.getCurrentVersion());
     }
 
+
+
+    @Test
+    public void getFirstVersion() {
+        assertNull(d.getCurrentVersion());
+
+        Version older = new Version();
+        older.setDecidedWhen(new Date());
+
+        Version newer = new Version();
+        newer.setDecidedWhen(new Date(older.getDecidedWhen().getTime() + 1));
+
+        d.addVersion(older);
+
+        assertSame(older, d.getFirstVersion());
+
+        d.addVersion(newer);
+
+        assertSame(older, d.getFirstVersion());
+
+        d.removeVersion(older);
+
+        assertSame(newer, d.getFirstVersion());
+    }
+
+    @Test
+    public void getFirstVersionOtherway() {
+        assertNull(d.getCurrentVersion());
+
+        Version older = new Version();
+        older.setDecidedWhen(new Date());
+
+        Version newer = new Version();
+        newer.setDecidedWhen(new Date(older.getDecidedWhen().getTime() + 1));
+
+        d.addVersion(newer);
+
+        assertSame(newer, d.getFirstVersion());
+
+        d.addVersion(older);
+
+        assertSame(older, d.getFirstVersion());
+
+        d.removeVersion(older);
+
+        assertSame(newer, d.getFirstVersion());
+    }
+
     @Test
     public void comparatorTest() {
         d.setName("AAAAA");

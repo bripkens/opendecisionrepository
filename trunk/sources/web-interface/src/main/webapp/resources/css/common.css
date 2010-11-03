@@ -415,8 +415,26 @@ ul.info li div.text h2 {
     background-image: url(../images/connection_error.png);
 }
 
-
-
+/*
+    -------------------------------------------------
+                    Confirmation or tabular read / browse
+*/
+table.details {
+    width: 600px;
+}
+table.details tr td:first-child {
+    width: 150px;
+    font-size: 1em;
+}
+table.details td {
+    border-bottom: 1px dashed #666;
+    padding: 10px 0;
+    vertical-align: top;
+    font-size: 0.9em;
+}
+table.details tr:last-child td {
+    border: 0;
+}
 /*
     ############################################################################################
                                     Generic form styles
@@ -436,6 +454,9 @@ ul.info li div.text h2 {
 }
 .formSection.last-child, .last, .last-child {
     border-bottom: 0;
+}
+div.formSectionineRemover div.formSection:last-child {
+    border-bottom: none;
 }
 .formSection label {
     float: left;
@@ -771,7 +792,10 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
 table.collection tr:hover,  table.enableHover tr:hover {
     background-color: #f4f2f2;
 }
-
+table td:first-child span,  table th:first-child span {
+    font-size: 0.9em;
+    color: #444;
+}
 /*
     ------- table paginator
 */
@@ -1382,10 +1406,7 @@ p.deleteConfirmationMessage  span {
 .members table td:first-child,  .members table th:first-child {
     width: 350px;
 }
-.members table td:first-child span,  .members table th:first-child span {
-    font-size: 0.9em;
-    color: #444;
-}
+
 /*
     ############################################################################################
                                    Error fixes

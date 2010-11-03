@@ -7,6 +7,7 @@ package nl.rug.search.odr.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -82,10 +83,6 @@ public class Version extends BaseEntity<Version> {
 
     @Override
     public void setId(Long id) {
-        if (id == null) {
-            throw new BusinessException("Id is null");
-        }
-
         this.id = id;
     }
 
@@ -311,5 +308,15 @@ public class Version extends BaseEntity<Version> {
     @Override
     public boolean isPersistable() {
         return documentedWhen != null && decidedWhen != null && state != null && !initiators.isEmpty();
+    }
+
+
+    public static class DecidedWhenComparator implements Comparator<Version> {
+
+        @Override
+        public int compare(Version o1, Version o2) {
+            return o1.decidedWhen.compareTo(o2.decidedWhen);
+        }
+
     }
 }

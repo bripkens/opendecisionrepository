@@ -7,20 +7,21 @@
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
                     xmlns:f="http://java.sun.com/jsf/core"
                     xmlns:odr="http://java.sun.com/jsf/composite/odr">
+    <div class="formSectionineRemover">
+        <ice:repeat value="#{manageDecisionController.templateRelatedStep.componentValues}"
+                    var="item">
 
-    <ice:repeat value="#{manageDecisionController.templateRelatedStep.componentValues}"
-                var="item">
-        
-        <div class="formSection">
-            <ice:outputLabel value="#{item.label}"/>
+            <div class="formSection">
+                <ice:outputLabel value="#{item.label}"/>
 
-            <ice:inputTextarea maxlength="30000"
-                           label="#{item.label}"
-                           value="#{item.value}"
-                           styleClass="shrinked"/>
-            <odr:inputTextareaResizer />
-            <p class="empty" />
-        </div>
-    </ice:repeat>
+                <ice:inputTextarea maxlength="30000"
+                                   label="#{item.label}"
+                                   value="#{item.value}"
+                                   styleClass="shrinked"/>
+                <odr:inputTextareaResizer />
+                <p class="empty" />
+            </div>
+        </ice:repeat>
+    </div>
 
 </ui:composition>

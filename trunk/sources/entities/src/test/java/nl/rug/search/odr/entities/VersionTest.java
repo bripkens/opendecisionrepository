@@ -49,11 +49,6 @@ public class VersionTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void testNullVersionId() {
-        v.setId(null);
-    }
-
 
 
 
@@ -443,5 +438,47 @@ public class VersionTest {
         v.removeAllInitiators();
 
         assertTrue(v.getInitiators().isEmpty());
+    }
+
+
+
+
+    @Test
+    public void testGetVersion() {
+        Decision d = new Decision();
+
+        Version v1 = new Version();
+        v1.setId(1l);
+        d.addVersion(v1);
+
+        Version v2 = new Version();
+        d.addVersion(v2);
+
+        Version v3 = new Version();
+        v3.setId(2l);
+        d.addVersion(v3);
+
+        assertEquals(v3, d.getVersion(v3.getId()));
+        assertEquals(v1, d.getVersion(v1.getId()));
+        assertNull(d.getVersion(5l));
+
+    }
+
+
+
+    @Test
+    public void testDecidedWhenComparator() {
+        Date earlier = new Date();
+        Date later = new Date(earlier.getTime() + 1);
+
+        Version predecessor = new Version();
+        predecessor.setDecidedWhen(earlier);
+
+        Version successor = new Version();
+        successor.setDecidedWhen(later);
+
+        assertTrue(new Version.DecidedWhenComparator().compare(predecessor, successor) < 0);
+
+        assertTrue(new Version.DecidedWhenComparator().compare(successor, predecessor) > 0);
     }
 }

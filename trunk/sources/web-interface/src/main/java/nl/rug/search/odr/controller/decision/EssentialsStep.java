@@ -69,11 +69,14 @@ public class EssentialsStep implements WizardStep {
 
         if (d.getLink() != null) {
             oprLink = d.getLink().getLink();
+        } else {
+            oprLink = null;
         }
 
         selectedRequirements = new ArrayList<Requirement>(wizard.getVersion().getRequirements());
 
         decidedWhen = wizard.getVersion().getDecidedWhen();
+
     }
 
 

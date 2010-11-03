@@ -10,4 +10,9 @@ import nl.rug.search.odr.entities.State;
 public interface StateLocal extends GenericDaoLocal<State, Long> {
 
     public nl.rug.search.odr.entities.State getInitialState();
+
+
+
+
+    public java.util.List<nl.rug.search.odr.entities.State> getCommonStates();
 }

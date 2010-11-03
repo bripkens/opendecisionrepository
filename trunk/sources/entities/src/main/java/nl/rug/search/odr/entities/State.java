@@ -18,7 +18,9 @@ import nl.rug.search.odr.StringValidator;
     @NamedQuery(name = "VersionState.getAll",
                 query= "SELECT s FROM VersionState s"),
     @NamedQuery(name = State.NAMED_QUERY_GET_INITIAL_STATE,
-                query = "SELECT s FROM VersionState s WHERE s.common = TRUE AND s.initialState = TRUE")
+                query = "SELECT s FROM VersionState s WHERE s.common = TRUE AND s.initialState = TRUE"),
+    @NamedQuery(name = State.NAMED_QUERY_GET_COMMON_STATES,
+                query = "SELECT s FROM VersionState s WHERE s.common = TRUE")
 })
 @Entity(name = "VersionState")
 public class State extends BaseEntity<State> {
@@ -28,6 +30,7 @@ public class State extends BaseEntity<State> {
 
     public static final String NAMED_QUERY_GET_INITIAL_STATE = "VersionState.getInitialState";
 
+    public static final String NAMED_QUERY_GET_COMMON_STATES = "VersionState.getCommonStates";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -355,6 +355,16 @@ public class Project extends BaseEntity<Project> {
 
 
 
+    public Decision getDecision(long decisionId) {
+        for(Decision decision : decisions) {
+            if (decision.getId() != null && decision.getId().equals(decisionId)) {
+                return decision;
+            }
+        }
+
+        return null;
+    }
+
 
     public void removeAllDecisions() {
         decisions.clear();

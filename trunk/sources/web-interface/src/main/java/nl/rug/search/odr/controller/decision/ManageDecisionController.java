@@ -22,6 +22,7 @@ import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
@@ -190,6 +191,7 @@ public class ManageDecisionController extends AbstractController {
             if (decision.getId().equals(decisionId)) {
                 dl.makeTransient(decision);
                 this.decision = decision;
+                dl.makeTransient(this.decision);
                 this.initialDecisionName = decision.getName();
                 break;
             }
@@ -205,6 +207,8 @@ public class ManageDecisionController extends AbstractController {
                 vl.makeTransient(version);
                 this.version = version;
 
+                vl.makeTransient(this.version);
+                initialState = version.getState();
                 if (getStepId(currentStep) != 0) {
                     setStep(0);
                     JsfUtil.addJavascriptCall("odr.refresh();");
@@ -368,6 +372,8 @@ public class ManageDecisionController extends AbstractController {
     protected boolean execute() {
         if (!isUpdateRequest()) {
             project.addDecision(decision);
+        } else if (!initialState.equals(version.getState())) {
+            createNewVersion();
         }
 
         pl.merge(project);
@@ -383,6 +389,38 @@ public class ManageDecisionController extends AbstractController {
         setStep(0);
 
         return true;
+    }
+
+
+
+
+    private void createNewVersion() {
+        decision.removeVersion(version);
+
+        Version newVersion = new Version();
+        newVersion.setDocumentedWhen(new Date());
+        newVersion.setDecidedWhen(version.getDecidedWhen());
+        newVersion.setInitiators(version.getInitiators());
+        newVersion.setRequirements(version.getRequirements());
+        newVersion.setState(version.getState());
+        newVersion.setRemoved(version.isRemoved());
+
+        for (Relationship eachRelationship : version.getRelationships()) {
+            Relationship newRelationship = new Relationship();
+            newRelationship.setTarget(eachRelationship.getTarget());
+            newRelationship.setType(eachRelationship.getType());
+            newVersion.addRelationship(newRelationship);
+        }
+
+        decision.addVersion(newVersion);
+
+        Version previousVersion = vl.getById(version.getId());
+
+        if (previousVersion.getDecidedWhen().equals(newVersion.getDecidedWhen())) {
+            newVersion.setDecidedWhen(new Date(newVersion.getDecidedWhen().getTime() + 1));
+        }
+        
+        decision.addVersion(previousVersion);
     }
     // </editor-fold>
 
@@ -458,8 +496,24 @@ public class ManageDecisionController extends AbstractController {
     }
 
 
+
+
     RelationshipTypeLocal getRelationshipTypeLocal() {
         return rtl;
+    }
+
+
+
+
+    DecisionLocal getDecisionLocal() {
+        return dl;
+    }
+
+
+
+
+    StateLocal getStateLocal() {
+        return sl;
     }
     // </editor-fold>
 
