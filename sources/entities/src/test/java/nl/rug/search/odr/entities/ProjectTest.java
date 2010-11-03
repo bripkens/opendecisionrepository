@@ -812,4 +812,24 @@ public class ProjectTest {
 
         assertTrue(new Project.NameComparator().compare(p, p2) < 0);
     }
+
+
+
+    @Test
+    public void testGetDecision() {
+        Decision d1 = new Decision();
+        d1.setId(1l);
+        p.addDecision(d1);
+
+        Decision d2 = new Decision();
+        d2.setId(2l);
+        p.addDecision(d2);
+
+        Decision d3 = new Decision();
+        p.addDecision(d3);
+
+        assertEquals(d1, p.getDecision(d1.getId()));
+        assertEquals(d2, p.getDecision(d2.getId()));
+        assertNull(p.getDecision(3l));
+    }
 }

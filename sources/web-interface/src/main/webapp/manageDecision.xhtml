@@ -6,7 +6,6 @@
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 
     <ui:define name="head">
-        <link rel="stylesheet" type="text/css" href="resources/css/calendar.css" />
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -24,7 +23,7 @@
 
     <ui:define name="content">
         <div>
-            <ice:form id="manageDecisionForm" partialSubmit="false" rendered="#{manageDecisionController.valid}">
+            <ice:form id="manageDecisionForm" partialSubmit="true" rendered="#{manageDecisionController.valid}">
 
 
 

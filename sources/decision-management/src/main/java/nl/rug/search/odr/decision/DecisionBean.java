@@ -34,4 +34,14 @@ public class DecisionBean extends GenericDaoBean<Decision, Long> implements Deci
                 setParameter("name", decisionName).
                 getSingleResult() > 0;
     }
+
+
+
+
+    @Override
+    public Decision getByVersion(long versionId) {
+        return manager.createNamedQuery(Decision.NAMED_QUERY_GET_BY_VERSION, Decision.class).
+                setParameter("id", versionId).
+                getSingleResult();
+    }
 }

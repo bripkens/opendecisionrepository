@@ -1,5 +1,6 @@
 package nl.rug.search.odr.project;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,12 @@ public class StateBean extends GenericDaoBean<State, Long> implements StateLocal
     }
 
 
+
+    @Override
+    public List<State> getCommonStates() {
+        return manager.createNamedQuery(State.NAMED_QUERY_GET_COMMON_STATES).
+                getResultList();
+    }
 
 
     @Override

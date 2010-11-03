@@ -9,8 +9,11 @@ import javax.faces.model.SelectItem;
 import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
+import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.entities.Decision;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.RelationshipType;
+import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.util.JsfUtil;
 
 /**
@@ -21,8 +24,9 @@ public class RelationshipsStep implements WizardStep {
 
     private final ManageDecisionController wizard;
 
+    private List<RelationshipStepInput> relationships;
 
-    private List<Decision> selectedDecisions;
+    private List<RelationshipType> types;
 
 
     public RelationshipsStep(ManageDecisionController wizard) {
@@ -42,7 +46,24 @@ public class RelationshipsStep implements WizardStep {
 
     @Override
     public void focus() {
-        selectedDecisions = new ArrayList<Decision>();
+        types = wizard.getRelationshipTypeLocal().getPublicTypes();
+
+        relationships = new ArrayList<RelationshipStepInput>();
+        Version version = wizard.getVersion();
+        DecisionLocal dl = wizard.getDecisionLocal();
+
+        for (Relationship relationship : version.getRelationships()) {
+            Version target = relationship.getTarget();
+            Decision targetDecision = dl.getByVersion(target.getId());
+
+            RelationshipStepInput input = new RelationshipStepInput(relationship,
+                    targetDecision,
+                    target.getId().toString(),
+                    relationship.getType().getId().toString(),
+                    wizard.getVersion().getDecidedWhen());
+
+            relationships.add(input);
+        }
     }
 
 
@@ -50,40 +71,81 @@ public class RelationshipsStep implements WizardStep {
 
     @Override
     public void blur() {
+        Version version = wizard.getVersion();
+        version.removeAllRelationships();
+
+
+        for (RelationshipStepInput input : relationships) {
+            RelationshipType type = getRelationshipType(Long.parseLong(input.getType()));
+            Version target = input.getDecision().getVersion(Long.parseLong(input.getVersion()));
+
+            Relationship relationship = input.getRelationship();
+            relationship.setType(type);
+            relationship.setTarget(target);
+
+            version.addRelationship(relationship);
+        }
     }
+
+    private RelationshipType getRelationshipType(long id) {
+        for (RelationshipType type : types) {
+            if (type.getId().equals(id)) {
+                return type;
+            }
+        }
+
+        throw new RuntimeException("Invalid relationship type id");
+    }
+
 
     public void decisionSelectionChangeListener(ValueChangeEvent e) {
         String value = (String) e.getNewValue();
 
         if (!StringValidator.isValid(value, false)) {
             return;
-        } else if (value.equalsIgnoreCase("Please select")){
+        } else if (value.equalsIgnoreCase("Please select")) {
             return;
         }
 
         long id = Long.parseLong(e.getNewValue().toString());
 
-        for(Decision decision : wizard.getProject().getDecisions()) {
+        for (Decision decision : wizard.getProject().getDecisions()) {
             if (decision.getId().equals(id)) {
-                selectedDecisions.add(decision);
+                RelationshipStepInput relationship = new RelationshipStepInput(null,
+                        decision,
+                        null,
+                        null,
+                        wizard.getVersion().getDecidedWhen());
+                relationships.add(relationship);
                 return;
             }
         }
     }
+
+
+
 
     public List<SelectItem> getAvailableDecisions() {
         Collection<Decision> allDecisions = wizard.getProject().getDecisions();
 
         List<SelectItem> items = new ArrayList<SelectItem>(allDecisions.size());
 
-        for(Decision decision : allDecisions) {
+        String afterMessage = JsfUtil.evaluateExpressionGet("#{form['decision.wizard.decided.after']}", String.class);
+
+        for (Decision decision : allDecisions) {
             if (decision.getId().equals(wizard.getDecision().getId())) {
                 continue;
-            } else if (selectedDecisions.contains(decision)) {
+            } else if (relationshipContainsDecision(decision)) {
                 continue;
             }
 
-            SelectItem item = new SelectItem(decision.getId(), decision.getName());
+            String label = decision.getName();
+            if (decision.getFirstVersion().getDecidedWhen().after(wizard.getVersion().getDecidedWhen())) {
+                label = label.concat(" ").concat(afterMessage);
+            }
+
+            SelectItem item;
+            item = new SelectItem(decision.getId(), label);
             items.add(item);
         }
 
@@ -92,24 +154,42 @@ public class RelationshipsStep implements WizardStep {
         return items;
     }
 
-    public List<Decision> getRelationships() {
-        Collections.sort(selectedDecisions, new Decision.NameComparator());
 
-        return selectedDecisions;
+
+
+    private boolean relationshipContainsDecision(Decision decision) {
+        for (RelationshipStepInput relationship : relationships) {
+            if (relationship.getDecision().equals(decision)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
+
+
+
+    public List<RelationshipStepInput> getRelationships() {
+        return relationships;
+    }
+
+
+
+
     public void removeRelationship(long decisionId) {
-        for (Decision decision : selectedDecisions) {
-            if (decision.getId().equals(decisionId)) {
-                selectedDecisions.remove(decision);
+        for (RelationshipStepInput relationship : relationships) {
+            if (relationship.getDecision().getId().equals(decisionId)) {
+                relationships.remove(relationship);
                 return;
             }
         }
     }
 
-    public List<SelectItem> getRelationshipTypes() {
-        List<RelationshipType> types = wizard.getRelationshipTypeLocal().getPublicTypes();
 
+
+
+    public List<SelectItem> getRelationshipTypes() {
         List<SelectItem> items = new ArrayList<SelectItem>(types.size());
 
         for (RelationshipType type : types) {
@@ -120,6 +200,9 @@ public class RelationshipsStep implements WizardStep {
 
         return items;
     }
+
+
+
 
     @Override
     public String getStepName() {

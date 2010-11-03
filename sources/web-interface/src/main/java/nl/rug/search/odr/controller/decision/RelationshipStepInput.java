@@ -1,27 +1,55 @@
-
 package nl.rug.search.odr.controller.decision;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import javax.faces.model.SelectItem;
 import nl.rug.search.odr.entities.Decision;
-import nl.rug.search.odr.entities.RelationshipType;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 public class RelationshipStepInput {
+
     private Decision decision;
 
-    private RelationshipType type;
+    private String type;
 
-    private Version version;
+    private String version;
+
+    private Relationship relationship;
+
+    private final Date decidedWhen;
 
 
+    public RelationshipStepInput(Relationship relationship, Decision decision, String version, String type, Date decidedWhen) {
+        this.decision = decision;
+        this.type = type;
+        this.version = version;
+        this.relationship = relationship;
+        this.decidedWhen = decidedWhen;
 
-
-    public RelationshipStepInput() {
+        if (this.version == null) {
+            this.version = decision.getCurrentVersion().getId().toString();
+        }
     }
 
+
+
+
+    public Relationship getRelationship() {
+        if (relationship == null) {
+            relationship = new Relationship();
+        }
+        
+        return relationship;
+    }
 
 
 
@@ -39,28 +67,65 @@ public class RelationshipStepInput {
 
 
 
-    public RelationshipType getType() {
+    public List<SelectItem> getVersions() {
+        List<Version> versions = new ArrayList<Version>(decision.getVersions());
+
+        Collections.sort(versions, Collections.reverseOrder(new Version.DecidedWhenComparator()));
+        
+        List<SelectItem> items = new ArrayList<SelectItem>(versions.size());
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        String afterMessage = JsfUtil.evaluateExpressionGet("#{form['decision.wizard.decided.after']}", String.class);
+
+        for (Version version : versions) {
+            String label = version.getState().getStatusName().
+                    concat(" - ").
+                    concat(format.format(version.getDecidedWhen()));
+
+            if (decidedWhen.before(version.getDecidedWhen())) {
+                label = label.concat(" ").
+                        concat(afterMessage);
+            }
+
+            items.add(new SelectItem(version.getId(), label));
+        }
+
+        return items;
+    }
+
+
+
+
+    public String getType() {
         return type;
     }
 
 
 
 
-    public void setType(RelationshipType type) {
+    public void setType(String type) {
+        if (type == null || type.equalsIgnoreCase("Please select")) {
+            return;
+        }
         this.type = type;
     }
 
 
 
 
-    public Version getVersion() {
+    public String getVersion() {
         return version;
     }
 
 
 
 
-    public void setVersion(Version version) {
+    public void setVersion(String version) {
+        if (version == null || version.equalsIgnoreCase("Please select")) {
+            return;
+        }
+        System.out.println("Verion " + version + " selected");
         this.version = version;
     }
 }

@@ -8,8 +8,53 @@
                     xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <p>
-        <ice:outputText value="States" nospan="true"/>
-    </p>
+    <div class="formSection">
+        <ice:outputLabel value="#{form['label.state']}" for="inState"/>
+        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+        <ice:selectOneMenu id="inState"
+                           label="#{form['label.state']}"
+                           required="true"
+                           value="#{manageDecisionController.statesStep.state}">
+            <f:selectItems value="#{manageDecisionController.statesStep.states}" />
+        </ice:selectOneMenu>
+        <p class="empty increasedPadding" />
+    </div>
+
+
+    <div class="formSection last">
+        <ice:outputLabel value="#{form['label.initiators']}" for="inInitiators"/>
+        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+        <ice:selectOneMenu id="inInitiators"
+                           label="#{form['label.initiators']}"
+                           required="true"
+                           immediate="true"
+                           partialSubmit="true"
+                           valueChangeListener="#{manageDecisionController.statesStep.initiatorSelectionChangeListener}">
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
+            <f:selectItems value="#{manageDecisionController.statesStep.availableInitiators}" />
+        </ice:selectOneMenu>
+
+        <ice:dataTable value="#{manageDecisionController.statesStep.initiators}" var="item"
+                       styleClass="collection"
+                       style="margin-left: 100px; padding-top: 15px;">
+            <ice:column>
+                <ice:outputText value="#{item.person.name}" nospan="true"/>
+                <span>&lt;<ice:outputText value="#{item.person.email}" nospan="true"/>&gt;</span>
+            </ice:column>
+            <ice:column styleClass="navigationColumn">
+                <ice:commandLink value=""
+                                 action="#{manageDecisionController.statesStep.removeInitiator(item.id)}"
+                                 immediate="true"
+                                 styleClass="columnNavigationLink">
+                    <img alt="#{common.remove}"
+                         src="resources/images/removeSmall.png"
+                         width="14"
+                         height="14"/>
+                </ice:commandLink>
+            </ice:column>
+        </ice:dataTable>
+
+        <p />
+    </div>
 
 </ui:composition>
