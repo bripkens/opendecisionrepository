@@ -29,6 +29,8 @@ public class RelationshipsStep implements WizardStep {
     private List<RelationshipType> types;
 
 
+
+
     public RelationshipsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
     }
@@ -87,6 +89,9 @@ public class RelationshipsStep implements WizardStep {
         }
     }
 
+
+
+
     private RelationshipType getRelationshipType(long id) {
         for (RelationshipType type : types) {
             if (type.getId().equals(id)) {
@@ -96,6 +101,8 @@ public class RelationshipsStep implements WizardStep {
 
         throw new RuntimeException("Invalid relationship type id");
     }
+
+
 
 
     public void decisionSelectionChangeListener(ValueChangeEvent e) {
@@ -135,6 +142,8 @@ public class RelationshipsStep implements WizardStep {
 
         for (Decision decision : allDecisions) {
             if (decision.getId().equals(wizard.getDecision().getId())) {
+                continue;
+            } else if (decision.isRemoved()) {
                 continue;
             } else if (relationshipContainsDecision(decision)) {
                 continue;

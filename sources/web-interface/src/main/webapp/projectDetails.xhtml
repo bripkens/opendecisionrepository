@@ -32,16 +32,16 @@
                 <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
             </ice:form>
         </div>
-        <div id="deleteDeleteConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+        <div id="deleteDecisionConfirmationPopup" class="modalPopup deleteConfirmationPopup">
             <h1><ice:outputText value="#{page['projectDetails.decision.delete']}" nospan="true" /></h1>
 
             <p class="deleteConfirmationMessage">
                 <ice:outputText value="#{page['projectDetails.decision.delete.message']}" nospan="true"/>
-                <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
+                <ice:outputText value="#{projectDetailsController.decisionToDelete.name}" />?
             </p>
             <ice:form rendered="#{projectDetailsController.valid}" id="confitmDecisionDeleteForm">
 
-                <ice:commandButton action="#{projectDetailsController.deleteIteration}"
+                <ice:commandButton action="#{projectDetailsController.deleteDecisionConfirmed(projectDetailsController.decisionToDelete)}"
                                    value="#{form['button.delete']}"
                                    styleClass="abort"
                                    id="confirmDecisionDeleteButton"/>

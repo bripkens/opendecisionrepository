@@ -182,4 +182,11 @@ public class StateTest {
         assertEquals(common, s.getCompareData()[2]);
         assertEquals(initialState, s.getCompareData()[3]);
     }
+
+
+
+    @Test
+    public void testGetEntityName() {
+        assertNotNull(s.getEntityName());
+    }
 }

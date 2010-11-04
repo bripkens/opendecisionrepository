@@ -43,4 +43,11 @@ public class BaseEntityTest {
 
         assertEquals(person1, person2);
     }
+
+    @Test
+    public void testGetEntityName() {
+        Person person1 = new Person();
+
+        assertEquals(Person.class.getSimpleName(), person1.getEntityName());
+    }
 }

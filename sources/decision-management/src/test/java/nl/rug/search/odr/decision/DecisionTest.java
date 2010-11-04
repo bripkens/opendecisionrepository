@@ -39,4 +39,23 @@ public class DecisionTest extends AbstractEjbTest {
 
         assertEquals(decisionId, (long) d.getId());
     }
+
+
+    @Test
+    public void testDelete() {
+        Decision d = new Decision();
+        d.setName("bdadsa");
+        Version v = new Version();
+        d.addVersion(v);
+        v = new Version();
+        d.addVersion(v);
+
+        dl.persist(d);
+
+        dl.delete(d);
+
+        d = dl.getById(d.getId());
+
+        assertTrue(d.isRemoved());
+    }
 }

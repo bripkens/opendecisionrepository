@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Decision;
+import nl.rug.search.odr.entities.Version;
 
 /**
  *
@@ -44,4 +45,17 @@ public class DecisionBean extends GenericDaoBean<Decision, Long> implements Deci
                 setParameter("id", versionId).
                 getSingleResult();
     }
+
+
+
+
+    @Override
+    public void delete(Decision entity) {
+        entity.remove();
+
+        merge(entity);
+    }
+
+
+
 }

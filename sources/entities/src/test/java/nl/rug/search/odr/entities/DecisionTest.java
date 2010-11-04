@@ -360,6 +360,7 @@ public class DecisionTest {
 
 
 
+
     @Test
     public void getCurrentVersion() {
         assertNull(d.getCurrentVersion());
@@ -375,10 +376,25 @@ public class DecisionTest {
 
         assertSame(newer, d.getCurrentVersion());
 
+        newer.setRemoved(true);
+
+        assertSame(older, d.getCurrentVersion());
+
+        newer.setRemoved(false);
+
+        assertSame(newer, d.getCurrentVersion());
+
         d.removeVersion(newer);
 
         assertSame(older, d.getCurrentVersion());
+
+        d.removeVersion(older);
+
+        assertNull(d.getCurrentVersion());
     }
+
+
+
 
     @Test
     public void getCurrentVersionOtherway() {
@@ -405,6 +421,7 @@ public class DecisionTest {
 
 
 
+
     @Test
     public void getFirstVersion() {
         assertNull(d.getCurrentVersion());
@@ -423,10 +440,30 @@ public class DecisionTest {
 
         assertSame(older, d.getFirstVersion());
 
+        older.setRemoved(true);
+
+        assertSame(newer, d.getFirstVersion());
+
+        newer.setRemoved(true);
+
+        assertNull(d.getFirstVersion());
+
+        older.setRemoved(false);
+        newer.setRemoved(false);
+
+        assertSame(older, d.getFirstVersion());
+
         d.removeVersion(older);
 
         assertSame(newer, d.getFirstVersion());
+
+        d.removeVersion(newer);
+
+        assertNull(d.getFirstVersion());
     }
+
+
+
 
     @Test
     public void getFirstVersionOtherway() {
@@ -451,6 +488,9 @@ public class DecisionTest {
         assertSame(newer, d.getFirstVersion());
     }
 
+
+
+
     @Test
     public void comparatorTest() {
         d.setName("AAAAA");
@@ -463,9 +503,31 @@ public class DecisionTest {
 
 
     @Test
+    public void testGetLatestDocumentation() {
+        Date before = new Date();
+        Date after = new Date(before.getTime() + 1l);
+                
+        Version v1 = new Version();
+        v1.setDocumentedWhen(before);
+        d.addVersion(v1);
+        
+        Version v2 = new Version();
+        v2.setDocumentedWhen(after);
+        d.addVersion(v2);
+        
+        assertSame(v2.getDocumentedWhen(), d.getLatestDocumentation());
+
+        v1.setDocumentedWhen(after);
+        v2.setDocumentedWhen(before);
+        assertSame(v1.getDocumentedWhen(), d.getLatestDocumentation());
+    }
+
+
+    @Test
     public void documentedWhenComparatorTest() {
         Date before = new Date();
         Date after = new Date(before.getTime() + 1l);
+        Date evenLater = new Date();
 
         Version v = new Version();
         v.setDocumentedWhen(before);
@@ -477,6 +539,7 @@ public class DecisionTest {
         v2.setDocumentedWhen(after);
         v2.setDecidedWhen(after);
         d2.addVersion(v2);
+        
 
         assertSame(v, d.getCurrentVersion());
         assertSame(before, d.getCurrentVersion().getDocumentedWhen());
@@ -486,5 +549,46 @@ public class DecisionTest {
 
 
         assertTrue(new Decision.DocumentedWhenComparator().compare(d, d2) < 0);
+
+    }
+
+
+
+
+    @Test
+    public void testIsRemoved() {
+        Version v1 = new Version();
+        d.addVersion(v1);
+
+        Version v2 = new Version();
+        d.addVersion(v2);
+
+        assertFalse(d.isRemoved());
+
+        v1.setRemoved(true);
+
+        assertFalse(d.isRemoved());
+
+        v2.setRemoved(true);
+
+        assertTrue(d.isRemoved());
+    }
+
+
+
+
+    @Test
+    public void restRemove() {
+        Version v1 = new Version();
+        d.addVersion(v1);
+
+        Version v2 = new Version();
+        d.addVersion(v2);
+
+        assertFalse(d.isRemoved());
+
+        d.remove();
+
+        assertTrue(d.isRemoved());
     }
 }

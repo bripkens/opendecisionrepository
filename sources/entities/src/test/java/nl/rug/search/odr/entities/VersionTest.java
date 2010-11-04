@@ -48,6 +48,10 @@ public class VersionTest {
 
 
 
+    @Test(expected=BusinessException.class)
+    public void testIdNull() {
+        v.setId(null);
+    }
 
 
 
