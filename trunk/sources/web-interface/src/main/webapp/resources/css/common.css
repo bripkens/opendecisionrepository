@@ -455,7 +455,7 @@ table.details tr:last-child td {
 .formSection.last-child, .last, .last-child {
     border-bottom: 0;
 }
-div.formSectionineRemover div.formSection:last-child {
+div.formSectionineRemover div.formSection:last-child, form div.formSection:last-child {
     border-bottom: none;
 }
 .formSection label {
@@ -1140,7 +1140,7 @@ div#backgroundPopup {
     opacity: 0.7;
     z-index: 3;
 }
-div#deleteConfirmationPopup {
+div.deleteConfirmationPopup {
     width: 400px;
 
     padding: 10px;
@@ -1158,13 +1158,13 @@ div#deleteConfirmationPopup {
     background-color: white;
 }
 
-div#deleteConfirmationPopup h1 {
+div.deleteConfirmationPopup h1 {
     color: #48a659;
     margin-bottom: 0.5em;
     font-size: 1.5em;
 }
 
-div#deleteConfirmationPopup input {
+div.deleteConfirmationPopup input, div.deleteConfirmationPopup input.abort {
     position: static;
     margin: 10px 0 0 10px;
 }

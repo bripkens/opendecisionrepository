@@ -15,12 +15,12 @@
     </ui:define>
 
     <ui:define name="bodyBegin">
-        <div id="deleteConfirmationPopup" class="modalPopup">
-            <h1>Delete iteration</h1>
+        <div id="deleteIterationConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+            <h1><ice:outputText value="#{page['projectDetails.iteration.delete']}" nospan="true" /></h1>
 
             <p class="deleteConfirmationMessage">
-            <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
-            <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
+                <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
+                <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
             </p>
             <ice:form rendered="#{projectDetailsController.valid}" id="confitmIterationDeleteForm">
 
@@ -28,6 +28,23 @@
                                    value="#{form['button.delete']}"
                                    styleClass="abort"
                                    id="confirmIterationDeleteButton"/>
+
+                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
+            </ice:form>
+        </div>
+        <div id="deleteDeleteConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+            <h1><ice:outputText value="#{page['projectDetails.decision.delete']}" nospan="true" /></h1>
+
+            <p class="deleteConfirmationMessage">
+                <ice:outputText value="#{page['projectDetails.decision.delete.message']}" nospan="true"/>
+                <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
+            </p>
+            <ice:form rendered="#{projectDetailsController.valid}" id="confitmDecisionDeleteForm">
+
+                <ice:commandButton action="#{projectDetailsController.deleteIteration}"
+                                   value="#{form['button.delete']}"
+                                   styleClass="abort"
+                                   id="confirmDecisionDeleteButton"/>
 
                 <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
             </ice:form>

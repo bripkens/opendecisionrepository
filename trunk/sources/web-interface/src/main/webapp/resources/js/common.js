@@ -395,7 +395,10 @@ odr.hideDecisionAddForm = function() {
     odr.toggling.toggleSlide("#decisionQuickAddContainer");
 }
 odr.showIterationDeleteForm = function() {
-    odr.popup.show("deleteConfirmationPopup");
+    odr.popup.show("deleteIterationConfirmationPopup");
+}
+odr.showDecisionDeleteForm = function() {
+    odr.popup.show("deleteDecisionConfirmationPopup");
 }
 odr.datetimepickerValidationFix = function() {
     j(".datetimepickerDateInput").focus().blur();
