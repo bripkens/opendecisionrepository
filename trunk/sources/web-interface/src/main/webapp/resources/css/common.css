@@ -538,16 +538,20 @@ div.formSectionineRemover div.formSection:last-child, form div.formSection:last-
     width: 487px;
     height: 150px;
 }
-.formSection input.memberAdd {
+.formSection input.add, .formSection select.add {
     position: absolute;
+    left: auto;
     right: 137px;
     top: 0px;
-    width: 350px;
+    width: 356px;
 }
 .formSection input[type=submit].add {
     position: absolute;
     right: 0;
     top: 2px;
+    margin: 0;
+    width: 125px;
+    background-image: url(http://localhost:8080/web-interface/resources/images/formButton.png);
 }
 .formSection div.datePopup input[type=image] {
     background-color:white;
@@ -841,13 +845,11 @@ select.error {
     -------------------------------------------------
                     Generic Wizard
 */
-.nextStepButtonTop, .previousStepButtonTop {
+form.wizardForm input.toLastStepButton {
     position: absolute;
     top: 12px;
     right: 15px;
-}
-.previousStepButtonTop {
-    right: 150px;
+    margin: 0;
 }
 form.wizardForm input.nextStepButton,
 form.wizardForm input.previousStepButton,
@@ -1309,29 +1311,27 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .decisionWizardRelationships {
 
 }
-.decisionWizardRelationships .typeLabel {
-    position: absolute;
-    left: 0;
-    top: 25px;
+.decisionWizardRelationships .targetLabel {
+    position: static;
+    margin-left: 15px;
 }
 .decisionWizardRelationships .versionLabel {
     position: absolute;
-    left: 260px;
+    left: 0px;
     top: 25px;
 }
 .decisionWizardRelationships .type {
-    position: absolute;
-    top: 25px;
-    left: 45px;
+    position: static;
     height: 19px;
-    width: 200px;
+    width: auto;
+    margin-left: 15px;
 }
 .decisionWizardRelationships .version {
     position: absolute;
     top: 25px;
-    left:325px;
+    left:100px;
     height: 19px;
-    width: 275px;
+    width: 502px;
 }
 .decisionWizardRelationships a {
     position: absolute;

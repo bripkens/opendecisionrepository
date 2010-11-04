@@ -26,5 +26,10 @@ public interface DecisionTemplateLocal extends GenericDaoLocal<DecisionTemplate,
 
 
     public nl.rug.search.odr.entities.DecisionTemplate getByName(java.lang.String name);
+
+
+
+
+    public nl.rug.search.odr.entities.DecisionTemplate getSmallestTemplate();
     
 }

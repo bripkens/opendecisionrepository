@@ -13,12 +13,19 @@
         <ice:selectOneMenu id="inRelationship"
                            label="#{form['decision.wizard.relationship.add']}"
                            partialSubmit="true"
-                           valueChangeListener="#{manageDecisionController.relationshipsStep.decisionSelectionChangeListener}"
-                           styleClass="small"
-                           immediate="true">
+                           styleClass="add"
+                           immediate="true"
+                           style="width: 330px;"
+                           value="#{manageDecisionController.relationshipsStep.selectedDecisionId}">
             <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
             <f:selectItems value="#{manageDecisionController.relationshipsStep.availableDecisions}" />
         </ice:selectOneMenu>
+
+        <ice:commandButton action="#{manageDecisionController.relationshipsStep.addRelationship(manageDecisionController.relationshipsStep.selectedDecisionId)}"
+                           value="#{form['button.add']}"
+                           styleClass="confirm add"
+                           partialSubmit="false"
+                           id="manageDecisionRelationshipAddButton"/>
 
         <p class="empty increasedPadding" />
     </div>
@@ -30,9 +37,8 @@
     <div class="formSectionineRemover">
         <ice:repeat value="#{manageDecisionController.relationshipsStep.relationships}" var="item">
             <div class="formSection decisionWizardRelationships">
-                <ice:outputText value="#{item.decision.name}" styleClass="decisionLabel" />
-                <ice:outputText value="#{form['label.type']}" styleClass="typeLabel" />
-                <ice:outputText value="#{form['label.version']}" styleClass="versionLabel" />
+                <ice:outputText value="#{manageDecisionController.decision.name}" styleClass="decisionLabel" />
+
 
                 <ice:selectOneMenu label="#{form['label.relationship.type']}"
                                    required="true"
@@ -41,6 +47,9 @@
                                    immediate="true">
                     <f:selectItems value="#{manageDecisionController.relationshipsStep.relationshipTypes}" />
                 </ice:selectOneMenu>
+
+                <ice:outputText value="#{item.decision.name}" styleClass="targetLabel" />
+                <ice:outputText value="#{form['label.version']}" styleClass="versionLabel" />
 
                 <ice:selectOneMenu label="#{form['label.version']}"
                                    required="true"

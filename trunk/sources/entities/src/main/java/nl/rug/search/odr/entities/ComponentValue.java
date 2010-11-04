@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import java.util.Comparator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -99,5 +100,17 @@ public class ComponentValue extends BaseEntity<ComponentValue> {
     @Override
     protected Object[] getCompareData() {
         return new Object[]{value};
+    }
+
+
+
+    public static class OrderComparator implements Comparator<ComponentValue> {
+
+        @Override
+        public int compare(ComponentValue o1, ComponentValue o2) {
+            return o1.getComponent().getOrder() - o2.getComponent().getOrder();
+        }
+        
+
     }
 }

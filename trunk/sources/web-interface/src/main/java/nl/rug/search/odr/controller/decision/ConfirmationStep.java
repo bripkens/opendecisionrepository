@@ -2,12 +2,14 @@ package nl.rug.search.odr.controller.decision;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.ComponentValue;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.TemplateComponent;
 import nl.rug.search.odr.util.JsfUtil;
 
 /**
@@ -58,7 +60,20 @@ public class ConfirmationStep implements WizardStep {
 
 
     public List<ComponentValue> getComponentValues() {
-        return new ArrayList<ComponentValue>(wizard.getDecision().getValues());
+        Collection<ComponentValue> values = wizard.getDecision().getValues();
+        List<ComponentValue> result = new ArrayList<ComponentValue>(values.size());
+
+        Collection<TemplateComponent> templateComponents = wizard.getDecision().getTemplate().getComponents();
+
+        for (ComponentValue value : values) {
+            if (templateComponents.contains(value.getComponent())) {
+                result.add(value);
+            }
+        }
+
+        Collections.sort(result, new ComponentValue.OrderComparator());
+
+        return result;
     }
 
     public List<Requirement> getRequirements() {

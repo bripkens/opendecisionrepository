@@ -28,7 +28,7 @@ public class RelationshipsStep implements WizardStep {
 
     private List<RelationshipType> types;
 
-
+    private String selectedDecisionId;
 
 
     public RelationshipsStep(ManageDecisionController wizard) {
@@ -48,6 +48,8 @@ public class RelationshipsStep implements WizardStep {
 
     @Override
     public void focus() {
+        selectedDecisionId = null;
+
         types = wizard.getRelationshipTypeLocal().getPublicTypes();
 
         relationships = new ArrayList<RelationshipStepInput>();
@@ -105,9 +107,8 @@ public class RelationshipsStep implements WizardStep {
 
 
 
-    public void decisionSelectionChangeListener(ValueChangeEvent e) {
-        String value = (String) e.getNewValue();
 
+    public void addRelationship(String value) {
         if (!StringValidator.isValid(value, false)) {
             return;
         } else if (value.equalsIgnoreCase(
@@ -115,7 +116,7 @@ public class RelationshipsStep implements WizardStep {
             return;
         }
 
-        long id = Long.parseLong(e.getNewValue().toString());
+        long id = Long.parseLong(value);
 
         for (Decision decision : wizard.getProject().getDecisions()) {
             if (decision.getId().equals(id)) {
@@ -125,11 +126,12 @@ public class RelationshipsStep implements WizardStep {
                         null,
                         wizard.getVersion().getDecidedWhen());
                 relationships.add(relationship);
+                selectedDecisionId = null;
                 return;
             }
         }
-    }
 
+    }
 
 
 
@@ -209,6 +211,20 @@ public class RelationshipsStep implements WizardStep {
         Collections.sort(items, new SelectItemComparator());
 
         return items;
+    }
+
+
+
+
+    public String getSelectedDecisionId() {
+        return selectedDecisionId;
+    }
+
+
+
+
+    public void setSelectedDecisionId(String selectedDecisionId) {
+        this.selectedDecisionId = selectedDecisionId;
     }
 
 

@@ -84,14 +84,23 @@ public class TemplateRelatedStep implements WizardStep {
     @Override
     public void blur() {
         Decision d = wizard.getDecision();
-        d.removeAllValues();
 
         for (TemplateComponentInput value : componentValues) {
+            removeValueWithComponent(d, value.getComponentValue().getComponent());
             d.addValue(value.getComponentValue());
         }
     }
 
 
+
+    private void removeValueWithComponent(Decision decision, TemplateComponent component) {
+        for (ComponentValue value : decision.getValues()) {
+            if (value.getComponent().equals(component)) {
+                decision.removeValue(value);
+                return;
+            }
+        }
+    }
 
 
     public List<TemplateComponentInput> getComponentValues() {

@@ -30,7 +30,7 @@ public class StatesStep implements WizardStep {
 
     private List<ProjectMember> initiators;
 
-
+    private String selectedInitiator;
 
 
     public StatesStep(ManageDecisionController wizard) {
@@ -50,6 +50,7 @@ public class StatesStep implements WizardStep {
 
     @Override
     public void focus() {
+        selectedInitiator = null;
         initiators = new ArrayList<ProjectMember>(wizard.getVersion().getInitiators());
         states = wizard.getStateLocal().getCommonStates();
         state = wizard.getVersion().getState();
@@ -151,20 +152,19 @@ public class StatesStep implements WizardStep {
 
 
 
-    public void initiatorSelectionChangeListener(ValueChangeEvent e) {
-        String selection = e.getNewValue().toString();
-
-        if (!StringValidator.isValid(selection, false) ||
-                selection.equalsIgnoreCase(
+    public void addInitiator() {
+        if (!StringValidator.isValid(selectedInitiator, false) ||
+                selectedInitiator.equalsIgnoreCase(
                 JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))) {
             return;
         }
 
-        long projectMemberId = Long.parseLong(selection);
+        long projectMemberId = Long.parseLong(selectedInitiator);
 
         for (ProjectMember eachMember : wizard.getProject().getMembers()) {
             if (eachMember.getId().equals(projectMemberId)) {
                 initiators.add(eachMember);
+                selectedInitiator = null;
                 return;
             }
         }
@@ -189,4 +189,21 @@ public class StatesStep implements WizardStep {
             }
         }
     }
+
+
+
+
+    public String getSelectedInitiator() {
+        return selectedInitiator;
+    }
+
+
+
+
+    public void setSelectedInitiator(String selectedInitiator) {
+        this.selectedInitiator = selectedInitiator;
+    }
+
+
+    
 }

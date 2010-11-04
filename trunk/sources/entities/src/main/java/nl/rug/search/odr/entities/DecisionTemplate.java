@@ -22,11 +22,11 @@ import nl.rug.search.odr.StringValidator;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "DecisionTemplate.getAll",
-                query= "SELECT dt FROM DecisionTemplate dt"),
+                query = "SELECT dt FROM DecisionTemplate dt"),
     @NamedQuery(name = DecisionTemplate.NAMED_QUERY_IS_NAME_USED,
                 query = "SELECT COUNT(t) FROM DecisionTemplate t WHERE LOWER(t.name) = :name"),
-    @NamedQuery(name= DecisionTemplate.NAMED_QUERY_GET_BY_NAME,
-                query="SELECT t FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
+    @NamedQuery(name = DecisionTemplate.NAMED_QUERY_GET_BY_NAME,
+                query = "SELECT t FROM DecisionTemplate t WHERE LOWER(t.name) = :name")
 })
 @Entity
 public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
@@ -34,6 +34,7 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
     private static final long serialVersionUID = 1L;
 
     public static final String NAMED_QUERY_IS_NAME_USED = "DecisionTemplate.isNameUsed";
+
     public static final String NAMED_QUERY_GET_BY_NAME = "DecisionTemplate.getByName";
 
     @Id
@@ -160,14 +161,11 @@ public class DecisionTemplate extends BaseEntity<DecisionTemplate> {
         return new Object[]{name};
     }
 
-
-
     public static class NameComparator implements Comparator<DecisionTemplate> {
 
         @Override
         public int compare(DecisionTemplate o1, DecisionTemplate o2) {
             return o1.name.compareToIgnoreCase(o2.name);
         }
-
     }
 }

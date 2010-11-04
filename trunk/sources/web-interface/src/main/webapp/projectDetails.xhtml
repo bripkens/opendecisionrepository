@@ -19,8 +19,8 @@
             <h1><ice:outputText value="#{page['projectDetails.iteration.delete']}" nospan="true" /></h1>
 
             <p class="deleteConfirmationMessage">
-                <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
-                <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
+            <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
+            <ice:outputText value="#{projectDetailsController.iterationToDeleteName}" />?
             </p>
             <ice:form rendered="#{projectDetailsController.valid}" id="confitmIterationDeleteForm">
 
@@ -36,8 +36,8 @@
             <h1><ice:outputText value="#{page['projectDetails.decision.delete']}" nospan="true" /></h1>
 
             <p class="deleteConfirmationMessage">
-                <ice:outputText value="#{page['projectDetails.decision.delete.message']}" nospan="true"/>
-                <ice:outputText value="#{projectDetailsController.decisionToDelete.name}" />?
+            <ice:outputText value="#{page['projectDetails.decision.delete.message']}" nospan="true"/>
+            <ice:outputText value="#{projectDetailsController.decisionToDelete.name}" />?
             </p>
             <ice:form rendered="#{projectDetailsController.valid}" id="confitmDecisionDeleteForm">
 
@@ -181,7 +181,7 @@
                     <h3><ice:outputText value="#{form['decision.new']}" nospan="true" /></h3>
 
 
-                    <div class="formSection last">
+                    <div class="formSection">
                         <ice:outputLabel value="#{form['label.name']}" for="inDecisionName"/>
                         <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
                         <ice:inputText id="inDecisionName"
@@ -196,12 +196,24 @@
                         </ice:inputText>
                         <p>
                         <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
-                        <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                        <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255;
                         <ice:outputText value="#{form['constraint.decisionname']}" nospan="true" />
                         </p>
                     </div>
 
+
+                    <div class="formSection last">
+                        <ice:outputLabel value="#{form['label.state']}" for="inState"/>
+                        <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                        <ice:selectOneMenu id="inState"
+                                           label="#{form['label.state']}"
+                                           required="true"
+                                           style="left: 95px;"
+                                           value="#{projectDetailsController.state}">
+                            <f:selectItems value="#{projectDetailsController.states}" />
+                        </ice:selectOneMenu>
+                        <p class="empty increasedPadding" />
+                    </div>
 
 
                     <ice:commandButton action="#{projectDetailsController.addDecision}"
