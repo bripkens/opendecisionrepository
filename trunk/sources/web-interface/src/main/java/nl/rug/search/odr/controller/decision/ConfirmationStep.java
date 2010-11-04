@@ -74,6 +74,10 @@ public class ConfirmationStep implements WizardStep {
         List<Dto> dtos = new ArrayList<Dto>();
 
         for(Relationship eachRelationship : relationships) {
+            if (eachRelationship.getTarget().isRemoved()) {
+                continue;
+            }
+
             Dto dto = new Dto();
             dto.setTargetName(wizard.getDecisionLocal().getByVersion(eachRelationship.getTarget().getId()).getName());
             dto.setTypeName(eachRelationship.getType().getName());

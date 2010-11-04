@@ -88,6 +88,9 @@ public class Version extends BaseEntity<Version> {
 
     @Override
     public void setId(Long id) {
+        if (id == null) {
+            throw new BusinessException("Id is null");
+        }
         this.id = id;
     }
 

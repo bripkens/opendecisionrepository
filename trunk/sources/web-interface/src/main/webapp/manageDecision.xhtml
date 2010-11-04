@@ -47,29 +47,34 @@
                                    rendered="#{!manageDecisionController.firstStep}"
                                    value="#{form['button.previous']}"
                                    id="previousStepButton"
+                                   partialSubmit="false"
                                    styleClass="previousStepButton"/>
 
                 <ice:commandButton action="#{manageDecisionController.nextStep}"
                                    rendered="#{!manageDecisionController.lastStep}"
                                    value="#{form['button.next']}"
                                    id="nextStepButton"
+                                   partialSubmit="false"
                                    styleClass="nextStepButton"/>
 
                 <ice:commandButton action="#{manageDecisionController.submitForm}"
                                    value="#{manageDecisionController.submitButtonLabel}"
                                    styleClass="confirm"
+                                   partialSubmit="false"
                                    id="manageDecisionSubmitButton"/>
 
                 <ice:commandButton action="#{manageDecisionController.previousStep}"
                                    rendered="#{!manageDecisionController.firstStep}"
                                    value="#{form['button.previous']}"
                                    id="previousStepButtonTop"
+                                   partialSubmit="false"
                                    styleClass="previousStepButtonTop"/>
 
                 <ice:commandButton action="#{manageDecisionController.nextStep}"
                                    rendered="#{!manageDecisionController.lastStep}"
                                    value="#{form['button.next']}"
                                    id="nextStepButtonTop"
+                                   partialSubmit="false"
                                    styleClass="nextStepButtonTop"/>
             </ice:form>
         </div>

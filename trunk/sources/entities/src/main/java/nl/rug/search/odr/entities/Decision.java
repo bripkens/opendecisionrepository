@@ -267,12 +267,12 @@ public class Decision extends BaseEntity<Decision> {
             return null;
         }
 
-        Version currentVersion = versions.iterator().
-                next();
+        Version currentVersion = null;
 
         for (Version v : versions) {
-            if (v.getDecidedWhen().
-                    after(currentVersion.getDecidedWhen())) {
+            if (currentVersion == null && !v.isRemoved()) {
+                currentVersion = v;
+            } else if (!v.isRemoved() && v.getDecidedWhen().after(currentVersion.getDecidedWhen())) {
                 currentVersion = v;
             }
         }
@@ -288,12 +288,12 @@ public class Decision extends BaseEntity<Decision> {
             return null;
         }
 
-        Version firstVersion = versions.iterator().
-                next();
+        Version firstVersion = null;
 
         for (Version v : versions) {
-            if (v.getDecidedWhen().
-                    before(firstVersion.getDecidedWhen())) {
+            if (firstVersion == null && !v.isRemoved()) {
+                firstVersion = v;
+            } else if (!v.isRemoved() && v.getDecidedWhen().before(firstVersion.getDecidedWhen())) {
                 firstVersion = v;
             }
         }
@@ -304,9 +304,46 @@ public class Decision extends BaseEntity<Decision> {
 
 
 
+    public boolean isRemoved() {
+        for (Version version : versions) {
+            if (!version.isRemoved()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+
+
+    public void remove() {
+        for (Version version : versions) {
+            version.setRemoved(true);
+        }
+    }
+
+
+
+
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name, link};
+    }
+
+
+
+
+    public Date getLatestDocumentation() {
+        Date latestDocumentation = null;
+
+        for (Version version : versions) {
+            if (latestDocumentation == null || latestDocumentation.before(version.getDocumentedWhen())) {
+                latestDocumentation = version.getDocumentedWhen();
+            }
+        }
+
+        return latestDocumentation;
     }
 
 
@@ -325,19 +362,6 @@ public class Decision extends BaseEntity<Decision> {
         }
     }
 
-    public Date getLatestDocumentation() {
-        Date latestDocumentation = null;
-
-        for (Version version : versions) {
-            if (latestDocumentation == null || latestDocumentation.before(version.getDocumentedWhen())) {
-                latestDocumentation = version.getDocumentedWhen();
-            }
-        }
-
-        return latestDocumentation;
-    }
-
-
     public static class DocumentedWhenComparator implements Comparator<Decision> {
 
         @Override
@@ -345,9 +369,4 @@ public class Decision extends BaseEntity<Decision> {
             return o1.getLatestDocumentation().compareTo(o2.getLatestDocumentation());
         }
     }
-
-
-
-
-    
 }

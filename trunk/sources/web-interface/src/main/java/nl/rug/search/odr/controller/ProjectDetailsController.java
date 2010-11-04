@@ -1,15 +1,11 @@
 package nl.rug.search.odr.controller;
 
-import com.icesoft.faces.context.effects.JavascriptContext;
 import com.sun.faces.util.MessageFactory;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -25,12 +21,13 @@ import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.decision.DecisionLocal;
+import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Version;
-import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.StateLocal;
 
@@ -48,6 +45,9 @@ public class ProjectDetailsController {
     @EJB
     private StateLocal sl;
 
+    @EJB
+    DecisionLocal dl;
+
     private long id;
 
     private Project project;
@@ -61,6 +61,8 @@ public class ProjectDetailsController {
     private String iterationToDeleteName;
 
     public static final String USED_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
+
+    private Decision decisionToDelete;
 
     // <editor-fold defaultstate="collapsed" desc="construction">
 
@@ -195,9 +197,18 @@ public class ProjectDetailsController {
 
 
     public void deleteDecision(Decision d) {
-        // TODO implement
-        System.out.println("Delete decision: " + d.getName());
+        decisionToDelete = d;
+
+        JsfUtil.addJavascriptCall("odr.showDecisionDeleteForm();");
     }
+
+
+    public void deleteDecisionConfirmed(Decision d) {
+        dl.delete(d);
+
+        JsfUtil.addJavascriptCall("odr.popup.hide();");
+    }
+
 
     // </editor-fold>
 
@@ -221,6 +232,13 @@ public class ProjectDetailsController {
                         }));
             }
         }
+    }
+
+
+
+
+    public Decision getDecisionToDelete() {
+        return decisionToDelete;
     }
     // </editor-fold>
 
@@ -418,7 +436,13 @@ public class ProjectDetailsController {
             return Collections.emptyList();
         }
 
-        List<Decision> resultDecisions = new ArrayList<Decision>(decisions);
+        List<Decision> resultDecisions = new ArrayList<Decision>(decisions.size());
+
+        for(Decision decision : decisions) {
+            if (!decision.isRemoved()) {
+                resultDecisions.add(decision);
+            }
+        }
 
         Collections.sort(resultDecisions, Collections.reverseOrder(new Decision.DocumentedWhenComparator()));
 

@@ -274,7 +274,7 @@ public class ManageDecisionController extends AbstractController {
             return false;
         }
 
-        if (essentialsStep.getDecisionTemplateAsObject().
+        if (essentialsStep.getDecisionTemplateAsObject() == null || essentialsStep.getDecisionTemplateAsObject().
                 getComponents().
                 isEmpty()) {
             return true;

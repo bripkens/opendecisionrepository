@@ -80,6 +80,10 @@ public class RelationshipStepInput {
         String afterMessage = JsfUtil.evaluateExpressionGet("#{form['decision.wizard.decided.after']}", String.class);
 
         for (Version version : versions) {
+            if (version.isRemoved()) {
+                continue;
+            }
+
             String label = version.getState().getStatusName().
                     concat(" - ").
                     concat(format.format(version.getDecidedWhen()));

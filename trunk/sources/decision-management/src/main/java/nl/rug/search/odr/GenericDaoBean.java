@@ -64,8 +64,7 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
     @Override
     public List<T> getAll() {
-        return (List<T>) manager.
-                createNamedQuery(getEntityName().concat(".getAll")).
+        return (List<T>) manager.createNamedQuery(getEntityName().concat(".getAll")).
                 getResultList();
     }
 
@@ -74,7 +73,11 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
     @Override
     public void merge(T entity) {
-        entity = manager.merge(entity);
+        if (entity.isPersistable()) {
+            entity = manager.merge(entity);
+        } else {
+            throw new BusinessException("Entity is not persistable.");
+        }
     }
 
 
@@ -86,10 +89,13 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     }
 
 
+
+
     @Override
     public void delete(T entity) {
         manager.remove(manager.find(getEntityType(), entity.getId()));
     }
+
 
 
 
@@ -103,6 +109,7 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
     protected String getEntityName() {
         return entityName;
     }
+
 
 
 
