@@ -83,4 +83,4 @@
   </tbody>
 </table>
 
-http://opendecisionrepository.googlecode.com/svn/wiki/images/activity-diagram-add-modify-decision.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/decision-wizard.png
