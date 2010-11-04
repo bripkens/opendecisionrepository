@@ -1,19 +1,14 @@
 
 package nl.rug.search.odr.decision;
 
-import nl.rug.search.odr.entities.Decision;
-import java.util.Date;
 import nl.rug.search.odr.AbstractEjbTest;
-import nl.rug.search.odr.entities.ProjectMember;
-import nl.rug.search.odr.entities.State;
-import nl.rug.search.odr.entities.Version;
-import org.junit.Test;
 import org.junit.Before;
-import static org.junit.Assert.*;
+import org.junit.Ignore;
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class VersionTest extends AbstractEjbTest {
 
     private DecisionLocal dl;

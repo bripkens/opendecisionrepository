@@ -13,20 +13,23 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.decision.DecisionLocal;
-import nl.rug.search.odr.decision.VersionLocal;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.StateLocal;
@@ -46,7 +49,10 @@ public class ProjectDetailsController {
     private StateLocal sl;
 
     @EJB
-    DecisionLocal dl;
+    private DecisionLocal dl;
+
+    @EJB
+    private DecisionTemplateLocal dtl;
 
     private long id;
 
@@ -64,6 +70,10 @@ public class ProjectDetailsController {
 
     private Decision decisionToDelete;
 
+    private List<State> states;
+
+    private State state;
+    private State initialState;
     // <editor-fold defaultstate="collapsed" desc="construction">
 
 
@@ -91,6 +101,9 @@ public class ProjectDetailsController {
 
         getProject();
 
+        states = sl.getCommonStates();
+        initialState = sl.getInitialState();
+        state = initialState;
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
             return;
@@ -114,6 +127,7 @@ public class ProjectDetailsController {
 
     public void decisionAddCanceled(ActionEvent e) {
         decisionName = null;
+        state = initialState;
     }
 
 
@@ -134,12 +148,12 @@ public class ProjectDetailsController {
 
         Decision d = new Decision();
         d.setName(decisionName);
-
+        d.setTemplate(dtl.getSmallestTemplate());
         Version initialVersion = new Version();
         Date currentdate = new Date();
         initialVersion.setDecidedWhen(currentdate);
         initialVersion.setDocumentedWhen(currentdate);
-        initialVersion.setState(sl.getInitialState());
+        initialVersion.setState(state);
 
         Collection<ProjectMember> initiators = new ArrayList<ProjectMember>(1);
         initiators.add(getProjectMember());
@@ -153,6 +167,8 @@ public class ProjectDetailsController {
 
         // reloading the project to get the new id
         project = pl.getById(project.getId());
+
+        state = initialState;
 
         JsfUtil.addJavascriptCall("odr.hideDecisionAddForm();");
     }
@@ -203,6 +219,8 @@ public class ProjectDetailsController {
     }
 
 
+
+
     public void deleteDecisionConfirmed(Decision d) {
         dl.delete(d);
 
@@ -213,7 +231,6 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="validator">
-
 
     public void checkDecisionName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
         String newName = value.toString().trim();
@@ -243,12 +260,23 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+    public List<SelectItem> getStates() {
+        List<SelectItem> items = new ArrayList<SelectItem>(states.size());
+
+        for (State state : states) {
+            items.add(new SelectItem(state.getId(), state.getStatusName()));
+        }
+
+        Collections.sort(items, new SelectItemComparator());
+
+        return items;
+    }
+
 
 
 
     public String getCreateIterationLink() {
-        return new QueryStringBuilder().
-                setUrl("manageIteration.html").
+        return new QueryStringBuilder().setUrl("manageIteration.html").
                 append(RequestParameter.ID, project.getId()).
                 toString();
     }
@@ -257,8 +285,7 @@ public class ProjectDetailsController {
 
 
     public String getEditIterationLink(Iteration it) {
-        return new QueryStringBuilder().
-                setUrl("manageIteration.html").
+        return new QueryStringBuilder().setUrl("manageIteration.html").
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.ITERATION_ID, it.getId()).
                 toString();
@@ -268,8 +295,7 @@ public class ProjectDetailsController {
 
 
     public String getEditDecisionLink(Decision d) {
-        return new QueryStringBuilder().
-                setUrl("manageDecision.html").
+        return new QueryStringBuilder().setUrl("manageDecision.html").
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, d.getId()).
                 append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
@@ -280,8 +306,7 @@ public class ProjectDetailsController {
 
 
     public String getCreateDecisionLink() {
-        return new QueryStringBuilder().
-                setUrl("manageDecision.html").
+        return new QueryStringBuilder().setUrl("manageDecision.html").
                 append(RequestParameter.ID, project.getId()).
                 appendBolean(RequestParameter.CREATE).
                 toString();
@@ -438,7 +463,7 @@ public class ProjectDetailsController {
 
         List<Decision> resultDecisions = new ArrayList<Decision>(decisions.size());
 
-        for(Decision decision : decisions) {
+        for (Decision decision : decisions) {
             if (!decision.isRemoved()) {
                 resultDecisions.add(decision);
             }
@@ -448,5 +473,29 @@ public class ProjectDetailsController {
 
         return resultDecisions;
     }
+
+
+
+
+    public String getState() {
+        return state.getId().toString();
+    }
+
+
+
+
+    public void setState(String stateString) {
+        long stateId = Long.parseLong(stateString);
+
+        for(State state : states) {
+            if (state.getId().equals(stateId)) {
+                this.state = state;
+                return;
+            }
+        }
+    }
+
+
+
     // </editor-fold>
 }

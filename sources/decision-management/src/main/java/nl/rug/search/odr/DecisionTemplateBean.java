@@ -1,5 +1,6 @@
 package nl.rug.search.odr;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,5 +48,22 @@ public class DecisionTemplateBean extends GenericDaoBean<DecisionTemplate, Long>
         return entityManager.createNamedQuery(DecisionTemplate.NAMED_QUERY_GET_BY_NAME, DecisionTemplate.class).
                 setParameter("name", name).
                 getSingleResult();
+    }
+
+
+
+    @Override
+    public DecisionTemplate getSmallestTemplate() {
+        DecisionTemplate template = null;
+
+        for(DecisionTemplate currentTemplate : getAll()) {
+            if (template == null) {
+                template = currentTemplate;
+            } else if (currentTemplate.getComponents().size() < template.getComponents().size()) {
+                template = currentTemplate;
+            }
+        }
+
+        return template;
     }
 }

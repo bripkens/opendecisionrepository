@@ -13,6 +13,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.Decision;
@@ -44,6 +45,8 @@ public class EssentialsStep implements WizardStep {
     private Collection<Requirement> selectedRequirements;
 
     private Date decidedWhen;
+
+    private String selectedRequirement;
     // </editor-fold>
 
 
@@ -62,6 +65,8 @@ public class EssentialsStep implements WizardStep {
     // <editor-fold defaultstate="collapsed" desc="action called by parent component">
     @Override
     public void focus() {
+        selectedRequirement = null;
+
         Decision d = wizard.getDecision();
 
         decisionName = d.getName();
@@ -108,25 +113,25 @@ public class EssentialsStep implements WizardStep {
 
 
 
-
-    // <editor-fold defaultstate="collapsed" desc="listeners">
-    public void requirementSelectionChangeListener(ValueChangeEvent e) {
-        String selectedRequirement = e.getNewValue().
-                toString();
-
+    // <editor-fold defaultstate="collapsed" desc="action">
+    public void addRequirement() {
         for (Requirement requirement : wizard.getProject().
                 getRequirements()) {
             if (requirement.getName().
                     equals(selectedRequirement) && !selectedRequirements.contains(requirement)) {
                 selectedRequirements.add(requirement);
+                selectedRequirement = null;
                 return;
             }
         }
     }
+    // </editor-fold>
 
 
 
 
+
+    // <editor-fold defaultstate="collapsed" desc="listeners">
     public void removeRequirement(long id) {
         for (Requirement requirement : selectedRequirements) {
             if (requirement.getId().
@@ -284,14 +289,7 @@ public class EssentialsStep implements WizardStep {
             }
         }
 
-        Collections.sort(allRequirements, new Comparator<SelectItem>() {
-
-            @Override
-            public int compare(SelectItem o1, SelectItem o2) {
-                return o1.getLabel().
-                        compareToIgnoreCase(o2.getLabel());
-            }
-        });
+        Collections.sort(allRequirements, new SelectItemComparator());
 
         return allRequirements;
     }
@@ -328,6 +326,20 @@ public class EssentialsStep implements WizardStep {
     @Override
     public String getStepName() {
         return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.essentials']}", String.class);
+    }
+
+
+
+
+    public String getSelectedRequirement() {
+        return selectedRequirement;
+    }
+
+
+
+
+    public void setSelectedRequirement(String selectedRequirement) {
+        this.selectedRequirement = selectedRequirement;
     }
     // </editor-fold>
 }

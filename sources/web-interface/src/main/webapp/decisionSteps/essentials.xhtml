@@ -49,10 +49,18 @@
                            required="true"
                            immediate="true"
                            partialSubmit="true"
-                           valueChangeListener="#{manageDecisionController.essentialsStep.requirementSelectionChangeListener}">
+                           styleClass="add"
+                           value="#{manageDecisionController.essentialsStep.selectedRequirement}">
             <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
             <f:selectItems value="#{manageDecisionController.essentialsStep.availableRequirements}" />
         </ice:selectOneMenu>
+
+        <ice:commandButton action="#{manageDecisionController.essentialsStep.addRequirement}"
+                           value="#{form['button.add']}"
+                           styleClass="add"
+                           partialSubmit="true"
+                           immediate="true"
+                           id="manageDecisionRequirementAddButton"/>
 
         <ice:dataTable value="#{manageDecisionController.essentialsStep.selectedRequirements}" var="item"
                        styleClass="collection">

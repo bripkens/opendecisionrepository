@@ -48,8 +48,8 @@ public class ManageDecisionController extends AbstractController {
     public static final Class<?>[] STEP_ORDER = new Class<?>[]{
         EssentialsStep.class,
         TemplateRelatedStep.class,
-        RelationshipsStep.class,
         StatesStep.class,
+        RelationshipsStep.class,
         ConfirmationStep.class
     };
     // </editor-fold>
@@ -483,13 +483,6 @@ public class ManageDecisionController extends AbstractController {
 
 
 
-    public String getSubmitButtonLabel() {
-        if (isLastStep()) {
-            return JsfUtil.evaluateExpressionGet("#{form['button.submit']}", String.class);
-        } else {
-            return JsfUtil.evaluateExpressionGet("#{form['button.to.last']}", String.class);
-        }
-    }
     // </editor-fold>
 
 

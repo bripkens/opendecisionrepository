@@ -16,7 +16,7 @@ import nl.rug.search.odr.StringValidator;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "TemplateComponent.getAll",
-                query= "SELECT t FROM TemplateComponent t")
+                query = "SELECT t FROM TemplateComponent t")
 })
 @Entity
 public class TemplateComponent extends BaseEntity<TemplateComponent> {
@@ -27,7 +27,8 @@ public class TemplateComponent extends BaseEntity<TemplateComponent> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50,
+            nullable = false)
     private String label;
 
     @Column(name = "componentOrder")

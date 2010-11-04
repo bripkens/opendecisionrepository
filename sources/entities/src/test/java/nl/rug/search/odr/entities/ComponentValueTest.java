@@ -79,4 +79,21 @@ public class ComponentValueTest {
 
         assertEquals("12345", c.getCompareData()[0]);
     }
+
+
+    @Test
+    public void testOrderComparator() {
+        ComponentValue smallerValue = new ComponentValue();
+        TemplateComponent component = new TemplateComponent();
+        component.setOrder(5);
+        smallerValue.setComponent(component);
+
+        ComponentValue biggerValue = new ComponentValue();
+        component = new TemplateComponent();
+        component.setOrder(10);
+        biggerValue.setComponent(component);
+
+        assertTrue(new ComponentValue.OrderComparator().compare(smallerValue, biggerValue) < 0);
+        assertTrue(new ComponentValue.OrderComparator().compare(biggerValue, smallerValue) > 0);
+    }
 }
