@@ -16,7 +16,7 @@ public class LoginTest extends AbstractSelenseTestCase {
 
     public static void logout(Selenium selenium){
         selenium.click("logoutForm:logoutButton");
-        waitForPageToLoad(selenium);
+        sleep(1000);
     }
 
 
@@ -30,62 +30,62 @@ public class LoginTest extends AbstractSelenseTestCase {
 
 
 
-    public void testLoginErrorVisibilityNoInput() throws Exception {
-        assertFalse(selenium.isVisible("loginForm:loginErrorMessage"));
-        selenium.click("loginForm:loginButton");
-
-        waitForAjaxRequest();
-
-        assertTrue(selenium.isVisible("loginForm:loginErrorMessage"));
-    }
-
-
-
-
-    public void testLoginErrorVisibilitySomeInput() throws Exception {
-        assertFalse(selenium.isVisible("loginForm:loginErrorMessage"));
-        selenium.type("loginForm:inLoginEmail", "someweirdaddress");
-        selenium.type("loginForm:inLoginPassword", "dsadsa");
-        selenium.click("loginForm:loginButton");
-
-        waitForAjaxRequest();
-
-        assertTrue(selenium.isVisible("loginForm:loginErrorMessage"));
-    }
-
-
-
-
-    public void testValidLogin() throws Exception {
-        RegistrationTest.registerUserWithDefaulCredentials(selenium);
-
-        waitForAjaxRequest();
-
-        open();
-
-        loginUserWithDefaulCredentials(selenium);
-
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
-
-        verifyTrue(selenium.isElementPresent("logoutForm:logoutButton"));
-    }
-
-
-
-
-    public void testLoginAndLogout() {
-        RegistrationTest.registerUserWithDefaulCredentials(selenium);
-
-        waitForAjaxRequest();
-
-        open();
-
-        loginUserWithDefaulCredentials(selenium);
-
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
-        selenium.click("logoutForm:logoutButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
-
-        verifyTrue(selenium.isTextPresent("Register"));
-    }
+//    public void testLoginErrorVisibilityNoInput() throws Exception {
+//        assertFalse(selenium.isVisible("loginForm:loginErrorMessage"));
+//        selenium.click("loginForm:loginButton");
+//
+//        waitForAjaxRequest();
+//
+//        assertTrue(selenium.isVisible("loginForm:loginErrorMessage"));
+//    }
+//
+//
+//
+//
+//    public void testLoginErrorVisibilitySomeInput() throws Exception {
+//        assertFalse(selenium.isVisible("loginForm:loginErrorMessage"));
+//        selenium.type("loginForm:inLoginEmail", "someweirdaddress");
+//        selenium.type("loginForm:inLoginPassword", "dsadsa");
+//        selenium.click("loginForm:loginButton");
+//
+//        waitForAjaxRequest();
+//
+//        assertTrue(selenium.isVisible("loginForm:loginErrorMessage"));
+//    }
+//
+//
+//
+//
+//    public void testValidLogin() throws Exception {
+//        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+//
+//        waitForAjaxRequest();
+//
+//        open();
+//
+//        loginUserWithDefaulCredentials(selenium);
+//
+//        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+//
+//        verifyTrue(selenium.isElementPresent("logoutForm:logoutButton"));
+//    }
+//
+//
+//
+//
+//    public void testLoginAndLogout() {
+//        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+//
+//        waitForAjaxRequest();
+//
+//        open();
+//
+//        loginUserWithDefaulCredentials(selenium);
+//
+//        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+//        selenium.click("logoutForm:logoutButton");
+//        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+//
+//        verifyTrue(selenium.isTextPresent("Register"));
+//    }
 }

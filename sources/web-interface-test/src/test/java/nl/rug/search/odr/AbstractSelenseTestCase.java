@@ -55,6 +55,11 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
     }
 
 
+    public void addRelationships() {
+        open("fillDb.html");
+        selenium.click("fillDatabaseForm:addRelationshipTypes");
+        waitForAjaxRequest();
+    }
 
 
     /**

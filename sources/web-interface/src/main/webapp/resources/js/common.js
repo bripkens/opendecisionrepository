@@ -163,7 +163,7 @@ odr.Toggling = function() {
     }
 
     this.toggleSlideElement = function(element) {
-        if (odr.isVisible(element)) {
+        if (!odr.isVisible(element)) {
             element.slideDown();
         } else {
             element.slideUp();
@@ -183,7 +183,7 @@ odr.Toggling = function() {
     }
 
     this.toggleFadeElement = function(element) {
-        if (odr.isVisible(element)) {
+        if (!odr.isVisible(element)) {
             element.fadeIn();
         } else {
             element.fadeOut();
