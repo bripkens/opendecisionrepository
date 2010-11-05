@@ -31,6 +31,8 @@ public class RelationshipsStep implements WizardStep {
     private String selectedDecisionId;
 
 
+
+
     public RelationshipsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
     }
@@ -107,7 +109,6 @@ public class RelationshipsStep implements WizardStep {
 
 
 
-
     public void addRelationship(String value) {
         if (!StringValidator.isValid(value, false)) {
             return;
@@ -132,6 +133,7 @@ public class RelationshipsStep implements WizardStep {
         }
 
     }
+
 
 
 
@@ -233,5 +235,25 @@ public class RelationshipsStep implements WizardStep {
     @Override
     public String getStepName() {
         return JsfUtil.evaluateExpressionGet("#{form['decision.wizard.headline.relationships']}", String.class);
+    }
+
+
+
+
+    public boolean containsDecidedAfterDecisions() {
+        Version decisionVersion = wizard.getVersion();
+
+        for (RelationshipStepInput input : relationships) {
+            Version target = input.getDecision().getVersion(Long.parseLong(input.getVersion()));
+
+            if (decisionVersion.getDecidedWhen().before(target.getDecidedWhen())) {
+                JsfUtil.addJavascriptCall("j('#decisionAfterInformation').slideDown();");
+                return false;
+            }
+        }
+
+        JsfUtil.addJavascriptCall("j('#decisionAfterInformation').slideUp();");
+
+        return true;
     }
 }

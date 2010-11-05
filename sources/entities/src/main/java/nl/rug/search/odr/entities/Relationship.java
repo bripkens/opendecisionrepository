@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -22,10 +24,12 @@ public class Relationship extends BaseEntity<Relationship> {
 
     private static final long serialVersionUID = 1L;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     @ManyToOne
     private RelationshipType type;
 
