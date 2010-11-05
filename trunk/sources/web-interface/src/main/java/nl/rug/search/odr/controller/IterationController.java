@@ -106,7 +106,6 @@ public class IterationController {
                 getRequest();
 
         // <editor-fold defaultstate="collapsed" desc="get Project Id">
-        System.out.println("Project Id ist : " + request.getParameter(RequestParameter.ID));
 
         if (request.getParameter(RequestParameter.ID) != null) {
             str_projectId = request.getParameter(RequestParameter.ID);
@@ -237,16 +236,7 @@ public class IterationController {
 
     public void submitForm() {
 
-        System.out.println("iterationname: " + iterationName);
-        System.out.println("iterationdescription: " + iterationDescription);
-        System.out.println("start:  " + startDate.toString());
-        System.out.println("end: " + endDate.toString());
-        System.out.println("isupdate: " + isUpdate);
-        System.out.println("#############");
-
-
         if (getCurrentMessages().isEmpty()) {
-            System.out.println("is Empty");
             iteration.setName(iterationName);
             iteration.setDescription(iterationDescription);
 

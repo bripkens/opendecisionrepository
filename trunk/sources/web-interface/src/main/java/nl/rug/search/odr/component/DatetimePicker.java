@@ -100,12 +100,9 @@ public class DatetimePicker extends UIInput implements NamingContainer {
         int minute = (Integer) minuteComponent.getValue();
 
         int amount = isValidDate(day, month, year);
-        System.out.println("tage sind: " + amount);
         if (amount != -1 && amount != 0) {
-            System.out.println(amount + "." + month + "." + year);
             return new GregorianCalendar(year, month, amount, hour, minute).getTime();
         } else {
-            System.out.println(day + "." + month + "." + year);
             return new GregorianCalendar(year, month - 1, day, hour, minute).getTime();
         }
     }
