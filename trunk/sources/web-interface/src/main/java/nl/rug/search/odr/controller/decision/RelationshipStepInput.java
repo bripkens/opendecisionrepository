@@ -35,8 +35,15 @@ public class RelationshipStepInput {
         this.relationship = relationship;
         this.decidedWhen = decidedWhen;
 
-        if (this.version == null) {
+        
+        if (version == null) {
             this.version = decision.getCurrentVersion().getId().toString();
+        }
+
+        Version v = decision.getVersion(Long.parseLong(this.version));
+
+        if (v.getDecidedWhen().after(decidedWhen)) {
+             JsfUtil.addJavascriptCall("odr.toggling.slideDown('#decisionAfterInformation');");
         }
     }
 
@@ -125,5 +132,11 @@ public class RelationshipStepInput {
 
     public void setVersion(String version) {
         this.version = version;
+
+        Version v = decision.getVersion(Long.parseLong(this.version));
+
+        if (v.getDecidedWhen().after(decidedWhen)) {
+             JsfUtil.addJavascriptCall("odr.toggling.slideDown('#decisionAfterInformation');");
+        }
     }
 }

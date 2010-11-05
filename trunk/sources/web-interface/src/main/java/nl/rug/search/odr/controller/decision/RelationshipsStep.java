@@ -32,7 +32,6 @@ public class RelationshipsStep implements WizardStep {
 
 
 
-
     public RelationshipsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
     }
@@ -70,6 +69,7 @@ public class RelationshipsStep implements WizardStep {
 
             relationships.add(input);
         }
+
     }
 
 
@@ -195,6 +195,7 @@ public class RelationshipsStep implements WizardStep {
         for (RelationshipStepInput relationship : relationships) {
             if (relationship.getDecision().getId().equals(decisionId)) {
                 relationships.remove(relationship);
+                versionSelectionChanged(null);
                 return;
             }
         }
@@ -240,20 +241,24 @@ public class RelationshipsStep implements WizardStep {
 
 
 
-    public boolean containsDecidedAfterDecisions() {
+    public void versionSelectionChanged(ValueChangeEvent e) {
         Version decisionVersion = wizard.getVersion();
 
         for (RelationshipStepInput input : relationships) {
-            Version target = input.getDecision().getVersion(Long.parseLong(input.getVersion()));
+            Version target;
+
+            if (e != null && input.getVersion().equalsIgnoreCase(e.getOldValue().toString())) {
+                target = input.getDecision().getVersion(Long.parseLong(e.getNewValue().toString()));
+            } else {
+                target = input.getDecision().getVersion(Long.parseLong(input.getVersion()));
+            }
 
             if (decisionVersion.getDecidedWhen().before(target.getDecidedWhen())) {
-                JsfUtil.addJavascriptCall("j('#decisionAfterInformation').slideDown();");
-                return false;
+                JsfUtil.addJavascriptCall("odr.toggling.slideDown('#decisionAfterInformation');");
+                return;
             }
         }
 
         JsfUtil.addJavascriptCall("j('#decisionAfterInformation').slideUp();");
-
-        return true;
     }
 }

@@ -28,6 +28,7 @@ import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.project.StateLocal;
+import nl.rug.search.odr.util.AuthenticationUtil;
 
 /**
  * 
@@ -145,6 +146,10 @@ public class ManageDecisionController extends AbstractController {
             setUpDecisionSpecific(result);
         } else if (project == null) {
             result.executeErrorAction();
+        } else if (!pl.isMember(AuthenticationUtil.getUserId(), project.getId())) {
+            project = null;
+            decision = null;
+            version = null;
         }
     }
 
