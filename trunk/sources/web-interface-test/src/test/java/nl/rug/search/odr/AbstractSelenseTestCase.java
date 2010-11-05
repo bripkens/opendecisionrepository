@@ -28,7 +28,12 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
     }
 
 
-
+    public void addAll() {
+        addStakeholderRoles();
+        addStates();
+        addTemplates();
+        addRelationshipTypess();
+    }
 
     public void addStakeholderRoles() {
         open("fillDb.html");
@@ -55,7 +60,7 @@ public abstract class AbstractSelenseTestCase extends SeleneseTestCase implement
     }
 
 
-    public void addRelationships() {
+    public void addRelationshipTypess() {
         open("fillDb.html");
         selenium.click("fillDatabaseForm:addRelationshipTypes");
         waitForAjaxRequest();

@@ -71,7 +71,8 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     public void testcreateIteration() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
-        addStakeholderRoles();
+        addAll();
+
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createDefaultIteration(selenium, "ODR");
@@ -84,7 +85,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     public void testDatePickerInIteration() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
-        addStakeholderRoles();
+        addAll();
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createIteration(selenium, "ODR",
@@ -105,7 +106,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     public void testWrongName() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
-        addStakeholderRoles();
+        addAll();
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
@@ -124,7 +125,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     public void testUpdateName() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
-        addStakeholderRoles();
+        addAll();
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
@@ -152,7 +153,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     public void testUpdateWrongDate() {
         RegistrationTest.registerUserWithDefaulCredentials(selenium);
         LoginTest.loginUserWithDefaulCredentials(selenium);
-        addStakeholderRoles();
+        addAll();
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
@@ -175,7 +176,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         selenium.click("//option[@value='2']");
         selenium.fireEvent("iterationForm:_t45:startDate:Day", "blur");
         waitForAjaxRequest();
-        verifyEquals("März", selenium.getSelectedLabel("iterationForm:_t45:startDate:Month"));
+        verifyEquals("MÃ¤rz", selenium.getSelectedLabel("iterationForm:_t45:startDate:Month"));
         verifyEquals("03", selenium.getSelectedLabel("iterationForm:_t45:startDate:Day"));
     }
 
@@ -190,7 +191,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
             case 1:
                 return "Februar";
             case 2:
-                return "März";
+                return "MÃ¤rz";
             case 3:
                 return "April";
             case 4:
