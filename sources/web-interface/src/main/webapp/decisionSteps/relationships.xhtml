@@ -31,7 +31,7 @@
         
         <odr:informationWidget id="decisionAfterInformation"
                                text="#{form['decision.wizard.relationship.after.information']}"
-                               visible="#{manageDecisionController.relationshipsStep.containsDecidedAfterDecisions}"/>
+                               visible="false"/>
 
         <p class="empty increasedPadding" />
     </div>
@@ -61,7 +61,8 @@
                                    required="true"
                                    styleClass="version"
                                    value="#{item.version}"
-                                   immediate="true">
+                                   immediate="true"
+                                   valueChangeListener="#{manageDecisionController.relationshipsStep.versionSelectionChanged}">
                     <f:selectItems value="#{item.versions}" />
                 </ice:selectOneMenu>
 

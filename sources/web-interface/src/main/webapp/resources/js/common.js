@@ -174,6 +174,14 @@ odr.Toggling = function() {
         odr.toggling.toggleSlideElement(j(elementSelector));
     }
 
+    this.slideDown = function(elementSelector) {
+
+        element = j(elementSelector);
+        if (!odr.isVisible(element)) {
+            element.slideDown();
+        }
+    }
+
     this.toggleFadeElement = function(element) {
         if (odr.isVisible(element)) {
             element.fadeIn();
@@ -297,7 +305,7 @@ odr.Popup = function() {
  * Some helper functions
  */
 odr.isVisible = function(element) {
-    return element.css("display") == "none";
+    return element.is(":visible");
 }
 
 odr.refresh = function() {

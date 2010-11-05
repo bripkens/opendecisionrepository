@@ -66,7 +66,9 @@ public class ConfirmationStep implements WizardStep {
         Collection<TemplateComponent> templateComponents = wizard.getDecision().getTemplate().getComponents();
 
         for (ComponentValue value : values) {
-            if (templateComponents.contains(value.getComponent())) {
+            if (value.getValue() == null || value.getValue().isEmpty()) {
+                continue;
+            } else if (templateComponents.contains(value.getComponent())) {
                 result.add(value);
             }
         }
