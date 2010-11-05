@@ -46,16 +46,17 @@ public class Decision extends BaseEntity<Decision> {
 
     public static final String NAMED_QUERY_GET_BY_VERSION = "Decision.getByVersion";
 
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Column(length = 50,
             nullable = false)
     private String name;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Version> versions;

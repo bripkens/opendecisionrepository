@@ -49,10 +49,12 @@ public class Project extends BaseEntity<Project> {
 
     public static final String NAMED_QUERY_GET_BY_NAME = "Project.getByName";
 
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Column(length = 50,
             nullable = false,
             unique = true,
@@ -88,7 +90,7 @@ public class Project extends BaseEntity<Project> {
                orphanRemoval = true)
     private Collection<Requirement> requirements;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Decision> decisions;

@@ -18,7 +18,9 @@
 .pointer{
     cursor: pointer;
 }
-
+.hidden {
+    display: none;
+}
 
 
 /*
@@ -779,6 +781,7 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
     text-indent: 5px;
     border-bottom-left-radius: 5px;
     -moz-border-radius-bottomleft: 5px;
+    -webkit-bottom-left-radius: 5px;
 }
 
 /*
@@ -1440,7 +1443,45 @@ p.deleteConfirmationMessage  span {
 .members table td:first-child,  .members table th:first-child {
     width: 350px;
 }
-
+/*
+    ############################################################################################
+                                   Widgets
+*/
+.formSection .informationWidget, .formSection .errorWidget {
+    border-radius: 5px;
+    padding: 7px;
+    position: relative;
+    top: 15px;
+    width: 550px;
+    margin: 0 auto;
+    font-size: 0.9em;
+    clear: both;
+}
+.formSection .informationWidget div.icon, .formSection .errorWidget div.icon {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 1px 10px 0 0;
+    background-repeat: no-repeat;
+}
+.formSection .informationWidget {
+    border: 1px solid #FCEFA1;
+    background-color: #fbf9ee;
+}
+.formSection .informationWidget span {
+    font-weight: bold;
+}
+.formSection .informationWidget div.icon {
+    background-image: url(../images/connection_warning.png);
+}
+.formSection .errorWidget {
+    border: 1px solid #cd0a0a;
+    background-color: #fef1ec;
+    color: #cd0a0a;
+}
+.formSection .errorWidget div.icon {
+    background-image: url(../images/connection_error.png);
+}
 /*
     ############################################################################################
                                    Error fixes

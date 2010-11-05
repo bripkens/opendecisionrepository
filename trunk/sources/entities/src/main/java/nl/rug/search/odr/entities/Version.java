@@ -38,6 +38,7 @@ public class Version extends BaseEntity<Version> {
 
     private static final long serialVersionUID = 1L;
 
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -49,16 +50,17 @@ public class Version extends BaseEntity<Version> {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date decidedWhen;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     private boolean removed;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @ManyToOne
     private State state;
 
     @ManyToMany
     private Collection<Requirement> requirements;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Relationship> relationships;

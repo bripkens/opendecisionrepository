@@ -11,28 +11,28 @@
 // Usage:
 //
 //		// Capture right click
-//		$("#selector").rightClick( function(e) {
+//		j("#selector").rightClick( function(e) {
 //			// Do something
 //		});
 //		
 //		// Capture right mouse down
-//		$("#selector").rightMouseDown( function(e) {
+//		j("#selector").rightMouseDown( function(e) {
 //			// Do something
 //		});
 //		
 //		// Capture right mouseup
-//		$("#selector").rightMouseUp( function(e) {
+//		j("#selector").rightMouseUp( function(e) {
 //			// Do something
 //		});
 //		
 //		// Disable context menu on an element
-//		$("#selector").noContext();
+//		j("#selector").noContext();
 // 
 // History:
 //
 //		1.01 - Updated (20 December 2008)
 //		     - References to 'this' now work the same way as other jQuery plugins, thus
-//		       the el parameter has been deprecated.  Use this or $(this) instead
+//		       the el parameter has been deprecated.  Use this or j(this) instead
 //		     - The mouse event is now passed to the callback function
 //		     - Changed license to GNU GPL
 //
@@ -45,70 +45,70 @@
 //
 if(jQuery) (function(){
 	
-	$.extend($.fn, {
+	j.extend(j.fn, {
 		
 		rightClick: function(handler) {
-			$(this).each( function() {
-				$(this).mousedown( function(e) {
+			j(this).each( function() {
+				j(this).mousedown( function(e) {
 					var evt = e;
-					$(this).mouseup( function() {
-						$(this).unbind('mouseup');
+					j(this).mouseup( function() {
+						j(this).unbind('mouseup');
 						if( evt.button == 2 ) {
-							handler.call( $(this), evt );
+							handler.call( j(this), evt );
 							return false;
 						} else {
 							return true;
 						}
 					});
 				});
-				$(this)[0].oncontextmenu = function() {
+				j(this)[0].oncontextmenu = function() {
 					return false;
 				}
 			});
-			return $(this);
+			return j(this);
 		},		
 		
 		rightMouseDown: function(handler) {
-			$(this).each( function() {
-				$(this).mousedown( function(e) {
+			j(this).each( function() {
+				j(this).mousedown( function(e) {
 					if( e.button == 2 ) {
-						handler.call( $(this), e );
+						handler.call( j(this), e );
 						return false;
 					} else {
 						return true;
 					}
 				});
-				$(this)[0].oncontextmenu = function() {
+				j(this)[0].oncontextmenu = function() {
 					return false;
 				}
 			});
-			return $(this);
+			return j(this);
 		},
 		
 		rightMouseUp: function(handler) {
-			$(this).each( function() {
-				$(this).mouseup( function(e) {
+			j(this).each( function() {
+				j(this).mouseup( function(e) {
 					if( e.button == 2 ) {
-						handler.call( $(this), e );
+						handler.call( j(this), e );
 						return false;
 					} else {
 						return true;
 					}
 				});
-				$(this)[0].oncontextmenu = function() {
+				j(this)[0].oncontextmenu = function() {
 					return false;
 				}
 			});
-			return $(this);
+			return j(this);
 		},
 		
 		noContext: function() {
-			$(this).each( function() {
-				$(this)[0].oncontextmenu = function() {
+			j(this).each( function() {
+				j(this)[0].oncontextmenu = function() {
 					return false;
 				}
 			});
-			return $(this);
+			return j(this);
 		}
 		
 	});

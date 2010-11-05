@@ -34,10 +34,16 @@
         <ice:selectOneMenu id="inTemplate"
                            label="#{form['label.template']}"
                            required="true"
-                           value="#{manageDecisionController.essentialsStep.decisionTemplate}">
+                           value="#{manageDecisionController.essentialsStep.decisionTemplate}"
+                           onchange="j('#templateChangeInformation').slideDown();">
             <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
             <f:selectItems value="#{manageDecisionController.essentialsStep.decisionTemplates}" />
         </ice:selectOneMenu>
+
+        <odr:informationWidget id="templateChangeInformation"
+                               text="#{form['decision.wizard.essentials.template.information']}"
+                               visible="false"/>
+
         <p class="empty increasedPadding" />
     </div>
 
@@ -83,13 +89,10 @@
         <p />
     </div>
 
-    <div class="formSection">
-        <odr:datetimepicker value="#{manageDecisionController.essentialsStep.decidedWhen}"
-                            dateLabel="#{form['label.date']}"
-                            hourLabel="#{form['label.time']}"
-                            minuteLabel=":"/>
-        <p class="empty" style="padding-top: 5px;"/>
-    </div>
+    <odr:datetimespanpicker value="#{manageDecisionController.essentialsStep.decidedWhen}"
+                                id="startDate"
+                                dateLabel="#{form['label.date']}"/>
+
 
     <div class="formSection last">
         <ice:outputLabel value="#{form['label.opr.link']}" for="inOprLink"/>

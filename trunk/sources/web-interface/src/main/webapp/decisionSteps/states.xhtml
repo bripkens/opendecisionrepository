@@ -5,7 +5,8 @@
                     xmlns:ui="http://java.sun.com/jsf/facelets"
                     xmlns:h="http://java.sun.com/jsf/html"
                     xmlns:ice="http://www.icesoft.com/icefaces/component"
-                    xmlns:f="http://java.sun.com/jsf/core">
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
 
     <div class="formSection">
@@ -14,9 +15,15 @@
         <ice:selectOneMenu id="inState"
                            label="#{form['label.state']}"
                            required="true"
-                           value="#{manageDecisionController.statesStep.state}">
+                           value="#{manageDecisionController.statesStep.state}"
+                           onchange="j('#stateChangeInformation').slideDown();">
             <f:selectItems value="#{manageDecisionController.statesStep.states}" />
         </ice:selectOneMenu>
+
+        <odr:informationWidget id="stateChangeInformation"
+                               text="#{form['decision.wizard.state.change.information']}"
+                               visible="false"/>
+
         <p class="empty increasedPadding" />
     </div>
 
