@@ -15,76 +15,75 @@
     </ui:define>
 
     <ui:define name="content">
-        <ice:form id="iterationForm" >
+        <ice:form id="iterationForm" partialSubmit="false">
             <h1><h:outputText value="#{form['iteration.heading']}"/></h1>
 
+            <div class="formSectionineRemover">
 
-            <div class="formSection">
-                <ice:outputLabel value="#{form['label.name']}" for="inName"/>
-                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
-                <ice:inputText id="inName"
-                               label="#{form['label.name']}"
-                               maxlength="255"
-                               value="#{iterationController.name}"
-                               partialSubmit="true"
-                               required="true">
-                    <f:validateLength minimum="3" maximum="30" />
+                <div class="formSection">
+                    <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+                    <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                    <ice:inputText id="inName"
+                                   label="#{form['label.name']}"
+                                   maxlength="255"
+                                   value="#{iterationController.name}"
+                                   partialSubmit="true"
+                                   required="true">
+                        <f:validateLength minimum="3" maximum="30" />
+                        <f:validator validatorId="RegexValidator" />
+                        <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
 
-                    <f:validator validatorId="RegexValidator" />
-                    <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                        <f:validator validatorId="UserNameValidator" />
+                    </ice:inputText>
+                    <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
+                    <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                    <ice:outputText value="#{form['constraint.username']}" nospan="true" />
+                    </p>
+                </div>
 
-                    <f:validator validatorId="UserNameValidator" />
-                </ice:inputText>
-                <p>
-                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
-                <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
-                <ice:outputText value="#{form['constraint.username']}" nospan="true" />
-                </p>
+
+
+
+
+                <div class="formSection">
+                    <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
+                    <ice:inputTextarea id="inDescription"
+                                   label="#{form['label.description']}"
+                                   maxlength="255"
+                                   partialSubmit="true"
+                                   value="#{iterationController.description}">
+                    </ice:inputTextarea>
+                    <p>
+                    <ice:outputText value="#{form['iteration.description']}" nospan="true" /> 0;
+                    </p>
+                </div>
+
+                <odr:datespan
+                    endDate="#{iterationController.endDate}"
+                    startDate="#{iterationController.startDate}"
+                    startDateLabel="Start Date"
+                    endDateLabel="End Date"
+                    />
+
+                <!--Submit Button-->
+                <ice:commandButton actionListener="#{iterationController.submitForm}"
+                                   id="submit"
+                                   partialSubmit="true"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"/>
+
+
+                <!--Reset Button-->
+                <ice:commandButton actionListener="#{iterationController.abortForm}"
+                                   id="reset"
+                                   value="#{form['button.cancel']}"
+                                   immediate="true"
+                                   partialSubmit="true"
+                                   styleClass="abort"
+                                   type="abort" />
             </div>
-
-
-
-
-
-            <div class="formSection">
-                <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
-                <ice:inputText id="inDescription"
-                               label="#{form['label.description']}"
-                               maxlength="255"
-                               partialSubmit="true"
-                               value="#{iterationController.description}">
-                </ice:inputText>
-                <p>
-                <ice:outputText value="#{form['iteration.description']}" nospan="true" /> 0;
-                </p>
-            </div>
-
-
-            <odr:datetimespanpicker startValue="#{iterationController.startDate}"
-                                    endValue="#{iterationController.endDate}"
-                                    endDateLabel="End date"
-                                    startDateLabel="Start date"
-                                    hourLabel="Time:"
-                                    minuteLabel=":"
-                                    value="#{iterationController.dummy}"/>
-
-
-            <!--Submit Button-->
-            <ice:commandButton actionListener="#{iterationController.submitForm}"
-                               immediate="true"
-                               partialSubmit="true"
-                               value="#{form['button.submit']}"
-                               styleClass="confirm"/>
-
-
-            <!--Reset Button-->
-            <ice:commandButton actionListener="#{iterationController.abortForm}"
-                               value="#{form['button.cancel']}"
-                               partialSubmit="true"
-                               styleClass="abort"
-                               type="abort" />
-
         </ice:form>
     </ui:define>
 

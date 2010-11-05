@@ -204,14 +204,6 @@ public class ProjectDetailsController {
 
 
 
-    public void editIteration(Iteration it) {
-        // TODO implement
-        System.out.println("Edit iteration: " + it.getName());
-    }
-
-
-
-
     public void deleteDecision(Decision d) {
         decisionToDelete = d;
 

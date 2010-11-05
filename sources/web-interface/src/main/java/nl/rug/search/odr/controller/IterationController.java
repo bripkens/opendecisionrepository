@@ -1,6 +1,7 @@
 package nl.rug.search.odr.controller;
 
-import java.io.IOException;
+import com.sun.faces.context.flash.ELFlash;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -9,7 +10,11 @@ import nl.rug.search.odr.entities.Iteration;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
@@ -22,7 +27,6 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
-import nl.rug.search.odr.project.ProjectMemberLocal;
 
 /**
  *
@@ -72,7 +76,7 @@ public class IterationController {
 
     private boolean isUpdate = false;
 
-private Object dummy;
+    private Object dummy;
 
 
 
@@ -232,32 +236,46 @@ private Object dummy;
 
 
     public void submitForm() {
-        iteration.setName(iterationName);
-        iteration.setDescription(iterationDescription);
 
-        iteration.setStartDate(startDate);
-        iteration.setEndDate(endDate);
+        System.out.println("iterationname: " + iterationName);
+        System.out.println("iterationdescription: " + iterationDescription);
+        System.out.println("start:  " + startDate.toString());
+        System.out.println("end: " + endDate.toString());
+        System.out.println("isupdate: " + isUpdate);
+        System.out.println("#############");
 
 
-        //TODO IF THE MEMBER ALSO BE SAVED
+        if (getCurrentMessages().isEmpty()) {
+            System.out.println("is Empty");
+            iteration.setName(iterationName);
+            iteration.setDescription(iterationDescription);
 
-        if (isUpdate) {
-            il.merge(iteration);
-        } else {
-            iteration.setDocumentedWhen(new Date());
-            iteration.setProjectMember(member);
-            project.addIteration(iteration);
-            pl.merge(project);
+            if(iteration.getEndDate().before(startDate)){
+                iteration.setEndDate(endDate);
+            }
+            iteration.setStartDate(startDate);
+            iteration.setEndDate(endDate);
+
+            //TODO IF THE MEMBER ALSO BE SAVED
+
+            if (isUpdate) {
+                il.merge(iteration);
+            } else {
+                iteration.setDocumentedWhen(new Date());
+                iteration.setProjectMember(member);
+                project.addIteration(iteration);
+                pl.merge(project);
+            }
+            JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
+
         }
-
-        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
     }
 
 
 
 
     public void abortForm() {
-        JsfUtil.redirect("/projects.html");
+        JsfUtil.redirect("/p/"+ project.getName());
     }
 
     // <editor-fold defaultstate="collapsed" desc="comboBox values">
@@ -400,4 +418,16 @@ private Object dummy;
         this.startDate = startDate;
     }
     // </editor-fold>
+
+
+
+
+    public List<FacesMessage> getCurrentMessages() {
+        List<FacesMessage> result = new ArrayList<FacesMessage>();
+        Iterator<FacesMessage> iter = FacesContext.getCurrentInstance().getMessages();
+        while (iter.hasNext()) {
+            result.add(iter.next());
+        }
+        return result;
+    }
 }

@@ -604,6 +604,10 @@ div.formSectionineRemover div.formSection:last-child, form div.formSection:last-
 .formSection table.memberSelect td:last-child {
     width: 20px;
 }
+table a.columnNavigationLink{
+    text-decoration: none;
+}
+
 table a.columnNavigationLink img {
     position: relative;
     top: 2px;
@@ -1076,14 +1080,31 @@ table.iceSelInpDate tbody tr td table{
     position: relative;
 }
 .formSection .datetimepicker select {
-    width: 40px;
+    width: 80px;
     position: absolute;
 }
 .formSection .datetimepicker .datetimepickerMinute {
-    left: 498px;
+    left:500px;
+    width:50px;
 }
 .formSection .datetimepicker .datetimepickerHour {
-    left: 440px;
+    left:420px;
+    width:50px;
+}
+
+.formSection .datetimepicker .datetimepickerYear {
+    left:300px;
+    width:60px;
+}
+
+.formSection .datetimepicker .datetimepickerMonth {
+    left:114px;
+    width:100px;
+}
+
+.formSection .datetimepicker .datetimepickerDay {
+    left:  235px;
+    width: 45px;
 }
 .formSection .datetimepicker .iceSelInpDateInput {
     position: absolute;
@@ -1100,20 +1121,19 @@ table.iceSelInpDate tbody tr td table{
     left: 345px;
     display: none;
 }
-.formSection .datetimepicker .datetimepickerHourLabel {
-    position: absolute;
-    left: 390px;
-    top: 5px;
+.formSection .datetimepicker .datetimepickerMinuteLabel{
+    left:481px;
+    position:absolute;
 }
-.formSection .datetimepicker .datetimepickerMinuteLabel {
+
+.formSection .datetimepicker .datetimepickerTimeLabel {
     position: absolute;
-    left: 485px;
-    top: 5px;
+    left: 370px;
 }
+
 .formSection .datetimepicker .datetimepickerTimeZone {
-    position: absolute;
-    left: 545px;
-    top: 5px;
+    left:555px;
+    position:absolute;
 }
 .formSection .datetimepicker table.date {
     float:right;
@@ -1125,10 +1145,15 @@ table.iceSelInpDate tbody tr td table{
     border: 1px solid #bd0000;
 }
 
+.formSection .datetimepicker label{
+    float: left;
+    position: relative;
+    top: 4px;
+}
 
-
-
-
+.formSection p.datepicker{
+    padding-top: 10px;
+}
 /*
     -------------------------------------------------
                     Popup
