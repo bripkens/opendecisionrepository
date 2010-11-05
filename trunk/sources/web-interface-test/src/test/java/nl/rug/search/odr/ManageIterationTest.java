@@ -45,13 +45,22 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         waitForPageToLoad(selenium);
         selenium.type("iterationForm:inName", name);
         selenium.type("iterationForm:inDescription", description);
-        selenium.type("iterationForm:_t46:startDate:date", start.get(Calendar.YEAR) + "-" + start.get(Calendar.MONTH) + "-" + start.
-                get(Calendar.DAY_OF_MONTH));
-        selenium.type("iterationForm:_t46:endDate:date", end.get(Calendar.YEAR) + "-" + end.get(Calendar.MONTH) + "-" + end.
-                get(Calendar.DAY_OF_MONTH));
+        selenium.select("iterationForm:_t45:startDate:Month", "label=" + getMonth(start.get(Calendar.MONTH)));
+        selenium.select("iterationForm:_t45:startDate:Day", "label=" + getNumberFormat(start.get(Calendar.DAY_OF_MONTH)));
+        selenium.select("iterationForm:_t45:startDate:Year", "label=" + start.get(Calendar.YEAR));
+        selenium.select("iterationForm:_t45:startDate:Hour", "label=" + start.get(Calendar.HOUR_OF_DAY));
+        selenium.select("iterationForm:_t45:startDate:Minute", "label=" + start.get(Calendar.MINUTE));
+
+        selenium.select("iterationForm:_t45:endDate:Month", "label=" + getMonth(end.get(Calendar.MONTH)));
+        selenium.select("iterationForm:_t45:endDate:Day", "label=" + getNumberFormat(end.get(Calendar.DAY_OF_MONTH)));
+        selenium.select("iterationForm:_t45:endDate:Year", "label=" + end.get(Calendar.YEAR));
+        selenium.select("iterationForm:_t45:endDate:Hour", "label=" + end.get(Calendar.HOUR_OF_DAY));
+        selenium.select("iterationForm:_t45:endDate:Minute", "label=" + end.get(Calendar.MINUTE));
+
         selenium.fireEvent("iterationForm:inName", "blur");
         waitForAjaxRequest();
         selenium.click("iterationForm:submit");
+        waitForAjaxRequest();
 
     }
 
@@ -64,12 +73,11 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         LoginTest.loginUserWithDefaulCredentials(selenium);
         addStakeholderRoles();
         ManageProjectTest.createDefaultProject(selenium);
-        open("p/ODR");
+        open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createDefaultIteration(selenium, "ODR");
-        verifyTrue(selenium.isTextPresent("first Iteration"));
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent(iterationName));
     }
-
-
 
 
     @Test
@@ -80,11 +88,142 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         ManageProjectTest.createDefaultProject(selenium);
         open("p/".concat(ManageProjectTest.PROJECT_NAME));
         ManageIterationTest.createIteration(selenium, "ODR",
-                new GregorianCalendar(2010, 1, 1, 12, 1).getTime(),
+                new GregorianCalendar(2010, 7, 1, 12, 1).getTime(),
                 "long description", "ODR",
-                new GregorianCalendar(2010, 1, 2, 12, 1).getTime(),
-                new GregorianCalendar(2010, 0, 1, 12, 1).getTime());
-        verifyTrue(selenium.isTextPresent("start date is after end date"));
+                new GregorianCalendar(2010, 1, 2, 3, 45).getTime(),
+                new GregorianCalendar(2010, 3, 1, 12, 56).getTime());
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("start date after end date"));
+        return;
 
+    }
+
+
+
+
+    @Test
+    public void testWrongName() {
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+        addStakeholderRoles();
+        ManageProjectTest.createDefaultProject(selenium);
+        open("p/".concat(ManageProjectTest.PROJECT_NAME));
+        ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
+                new GregorianCalendar(2010, 7, 1, 12, 1).getTime(),
+                "long description", "It",
+                new GregorianCalendar(2010, 1, 2, 3, 45).getTime(),
+                new GregorianCalendar(2010, 3, 1, 12, 56).getTime());
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("Has less than allowed 3 chars"));
+        return;
+    }
+
+
+
+
+    public void testUpdateName() {
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+        addStakeholderRoles();
+        ManageProjectTest.createDefaultProject(selenium);
+        open("p/".concat(ManageProjectTest.PROJECT_NAME));
+        ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
+                new GregorianCalendar(2010, 2, 2, 12, 1).getTime(),
+                "long description", "Iteration",
+                new GregorianCalendar(2010, 1, 2, 3, 45).getTime(),
+                new GregorianCalendar(2010, 3, 1, 12, 56).getTime());
+        waitForAjaxRequest();
+        waitForPageToLoad();
+        selenium.click("//tr[@id='j_idt61:iterationTable:0']/td[3]/a[2]/img");
+        waitForPageToLoad();
+        String iterationName1 = "iteration2";
+        selenium.type("iterationForm:inName", iterationName1);
+        selenium.fireEvent("iterationForm:inName", "blur");
+        waitForAjaxRequest();
+        selenium.click("iterationForm:submit");
+
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent(iterationName1));
+    }
+
+
+
+
+    public void testUpdateWrongDate() {
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+        addStakeholderRoles();
+        ManageProjectTest.createDefaultProject(selenium);
+        open("p/".concat(ManageProjectTest.PROJECT_NAME));
+        ManageIterationTest.createIteration(selenium, ManageProjectTest.PROJECT_NAME,
+                new GregorianCalendar(2010, 2, 2, 12, 1).getTime(),
+                "long description", "Iteration",
+                new GregorianCalendar(2010, 1, 2, 3, 45).getTime(),
+                new GregorianCalendar(2010, 3, 10, 12, 56).getTime());
+        waitForAjaxRequest();
+        waitForPageToLoad();
+        selenium.click("//tr[@id='j_idt61:iterationTable:0']/td[3]/a[2]/img");
+        waitForPageToLoad();
+        String iterationName1 = "iteration2";
+        selenium.type("iterationForm:inName", iterationName1);
+        selenium.type("iterationForm:inDescription", "asdfasdf2");
+        selenium.select("iterationForm:_t45:startDate:Month", "label=Dezember");
+        selenium.click("//select[@id='iterationForm:_t45:startDate:Month']/option[12]");
+        selenium.select("iterationForm:_t45:startDate:Day", "label=31");
+        selenium.click("//option[@value='31']");
+        selenium.select("iterationForm:_t45:startDate:Month", "label=Februar");
+        selenium.click("//option[@value='2']");
+        selenium.fireEvent("iterationForm:_t45:startDate:Day", "blur");
+        waitForAjaxRequest();
+        verifyEquals("März", selenium.getSelectedLabel("iterationForm:_t45:startDate:Month"));
+        verifyEquals("03", selenium.getSelectedLabel("iterationForm:_t45:startDate:Day"));
+    }
+
+
+
+
+    private static String getMonth(int month) {
+        month -= 1;
+        switch (month) {
+            case 0:
+                return "Januar";
+            case 1:
+                return "Februar";
+            case 2:
+                return "März";
+            case 3:
+                return "April";
+            case 4:
+                return "Mai";
+            case 5:
+                return "Juni";
+            case 6:
+                return "Juli";
+            case 7:
+                return "August";
+            case 8:
+                return "September";
+            case 9:
+                return "Oktober";
+            case 10:
+                return "November";
+            case 11:
+                return "Dezember";
+            default:
+                return "null";
+
+        }
+
+    }
+
+
+
+
+    private static String getNumberFormat(int number) {
+        if (number < 10) {
+            return 0 + "" + number;
+        } else {
+            return number + "";
+        }
     }
 }
