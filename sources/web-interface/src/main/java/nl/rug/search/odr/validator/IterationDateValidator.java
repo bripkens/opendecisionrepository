@@ -47,8 +47,6 @@ public class IterationDateValidator implements Validator {
                 gr_now.get(Calendar.DAY_OF_MONTH),
                 0, 1);
 
-//        System.out.println("NOW   " + gr_now.get(Calendar.DAY_OF_YEAR) + "" + gr_now.get(Calendar.YEAR));
-//        System.out.println("VALUE   " + gr_time.get(Calendar.DAY_OF_YEAR) + "" + gr_time.get(Calendar.YEAR));
 
         //Date is in the past
         if (gr_now.after(gr_time)) {
