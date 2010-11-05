@@ -63,8 +63,9 @@
                 <odr:datespan
                     endDate="#{iterationController.endDate}"
                     startDate="#{iterationController.startDate}"
-                    startDateLabel="Start Date"
-                    endDateLabel="End Date"
+                    startDateLabel="#{form['iteration.startDate']}"
+                    endDateLabel="#{form['iteration.endDate']}"
+                    timeLabel="#{form['label.date']}"
                     />
 
                 <!--Submit Button-->
