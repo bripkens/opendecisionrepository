@@ -40,7 +40,7 @@ public class Datespan extends UIInput implements NamingContainer {
         Date endDate = (Date) endComponent.getValue();
 
         if (startDate.after(endDate)) {
-            throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, JsfUtil.evaluateExpressionGet("#{page['datetimeSpanPicker.wrongOrder']}", String.class), JsfUtil.evaluateExpressionGet("#{page['datetimeSpanPicker.wrongOrder']}", String.class)));
+            throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, JsfUtil.evaluateExpressionGet("#{page['datetimePicker.wrongOrder']}", String.class), JsfUtil.evaluateExpressionGet("#{page['datetimePicker.wrongOrder']}", String.class)));
         }
 
         return new Object();
