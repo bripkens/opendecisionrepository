@@ -7,37 +7,36 @@
       xml:lang="en">
 
     <composite:interface componentType="nl.rug.search.odr.component.DatetimeSpanPicker">
-        <composite:attribute name="value" type="java.lang.Object"/>
-        <composite:attribute name="startValue" type="java.util.Date"/>
-        <composite:attribute name="endValue" type="java.util.Date"/>
-
-        <composite:attribute name="startDateLabel" type="java.lang.String" default="" />
-        <composite:attribute name="endDateLabel" type="java.lang.String" default="" />
-
-        <composite:attribute name="hourLabel" type="java.lang.String" default="" />
-        <composite:attribute name="minuteLabel" type="java.lang.String" default="" />
-        <composite:attribute name="datePattern" type="java.lang.String" default="yyyy-MM-dd" />
+        <composite:attribute name="value" type="java.util.Date"/>
+        <composite:attribute name="dateLabel" type="java.lang.String"/>
+        <composite:attribute name="seperatorLabel" type="java.lang.String"/>
     </composite:interface>
 
     <composite:implementation>
         <div class="formSection">
-            <odr:datetimepicker hourLabel="#{cc.attrs.hourLabel}"
-                                minuteLabel="#{cc.attrs.minuteLabel}"
-                                datePattern="#{cc.attrs.datePattern}"
-                                dateLabel="#{cc.attrs.startDateLabel}"
-                                value="#{cc.attrs.startValue}"
-                                id="startDate"/>
-            <p class="empty"/>
+            <div class="datetimepicker">
+                <ice:outputLabel value="#{cc.attrs.dateLabel}" styleClass="datetimepickerDateLabel"/>
+                <ice:selectOneMenu id="Day" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerDay">
+                    <f:selectItems value="#{datesController.day}" />
+                </ice:selectOneMenu>
+                <ice:selectOneMenu id="Month" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerMonth">
+                    <f:selectItems value="#{datesController.month}" />
+                </ice:selectOneMenu>
+                <ice:selectOneMenu id="Year" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerYear">
+                    <f:selectItems value="#{datesController.year}" />
+                </ice:selectOneMenu>
+                <ice:outputLabel value="Time:" styleClass="datetimepickerTimeLabel"/>
+                <ice:selectOneMenu id="Hour" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerHour">
+                    <f:selectItems value="#{datesController.hours}" />
+                </ice:selectOneMenu>
+                <ice:outputLabel value="#{cc.attrs.seperatorLabel}" styleClass="datetimepickerMinuteLabel"/>
+                <ice:selectOneMenu id="Minute" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerMinute">
+                    <f:selectItems value="#{datesController.minutes}" />
+                </ice:selectOneMenu>
+                <ice:outputLabel value="#{timeZoneController.timeZone.getDisplayName(timeZone.inDaylightTime(date), TimeZone.SHORT)}" styleClass="datetimepickerTimeZone"/>
+            </div>
+            <p class="datepicker">mm-dd-yyyy</p>
         </div>
-        <div class="formSection">
-            <odr:datetimepicker hourLabel="#{cc.attrs.hourLabel}"
-                                minuteLabel="#{cc.attrs.minuteLabel}"
-                                datePattern="#{cc.attrs.datePattern}"
-                                dateLabel="#{cc.attrs.endDateLabel}"
-                                value="#{cc.attrs.endValue}"
-                                id="endDate"/>
-            <p class="empty"/>
-        </div>
-        
+
     </composite:implementation>
 </html>
