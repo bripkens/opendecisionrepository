@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.model.SelectItem;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -34,11 +35,11 @@ public class DatesController {
         day = getStringArray(1, 31);
         year = getStringArray(1900, 2100);
         month = new LinkedHashMap<String, Integer>();
-        String[] names = new DateFormatSymbols().getMonths();
+
+        String months = JsfUtil.evaluateExpressionGet("#{common['page.dates.month']}", String.class);
+        String[] names = months.split(",");
         for (int i = 0; i < 12; i++) {
             month.put(names[i], i + 1);
-
-
         }
 
     }
