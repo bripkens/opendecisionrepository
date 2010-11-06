@@ -43,9 +43,10 @@ odr.handleSize = 6;
 odr.rx = 10;
 odr.ry = 10;
 
-// dragging mouse leave threshold
-odr.draggingThreshold = 10;
-
+// containers for layering
+odr.lineContainer = "lines";
+odr.handleContainer = "handles";
+odr.nodeContainer = "nodes";
 
 /*
  * Variables
@@ -53,7 +54,8 @@ odr.draggingThreshold = 10;
 odr.idCounter = 0;
 odr.svg;
 odr.dragPreviousEvent = new Array();
-
+odr.elementToDrag = new Array();
+odr.itemToDrag = new Array();
 
 j(document).ready(function() {
     odr.register = new odr.Register();
@@ -63,11 +65,7 @@ j(document).ready(function() {
     });
 
     j("#addNode").click(function(e) {
-        //        source = new odr.Node();
-        //        source.width = 200;
-        //        source.height = 30;
-        //        source.center(500, 100);
-        //        odr.register.addItem(source);
+        
         //
         //
         //        target = new odr.Node();
@@ -76,20 +74,42 @@ j(document).ready(function() {
         //        target.center(500, 400);
         //        odr.register.addItem(target);
 
-        handle = new odr.Handle();
-        handle.x = 210;
-        handle.y = 305;
-        handle.draw();
+        source = new odr.Node();
+        source.width = 200;
+        source.height = 30;
+        source.center(500, 100);
+        source.draw();
 
-    //        relationship = new odr.Relationship();
-    //        relationship.setSource(source);
-    //        relationship.setTarget(target);
-    //        relationship.addHandle(handle);
-    //        odr.register.addItem(relationship);
-    //        relationship.draw();
-    //
-    //        source.draw();
-    //        target.draw();
+        target = new odr.Node();
+        target.width = 200;
+        target.height = 30;
+        target.center(500, 500);
+        target.draw();
+
+        handle1 = new odr.Handle();
+        handle1.x = 220;
+        handle1.y = 320;
+
+        handle2 = new odr.Handle();
+        handle2.x = 300;
+        handle2.y = 320;
+
+        handle3 = new odr.Handle();
+        handle3.x = 400;
+        handle3.y = 320;
+
+        relationship = new odr.Relationship();
+        relationship.setSource(source);
+        relationship.setTarget(target);
+        relationship.addHandle(handle1);
+        relationship.addHandle(handle2);
+        relationship.addHandle(handle3);
+
+
+        relationship.draw();
+        handle1.draw();
+        handle2.draw();
+        handle3.draw();
     });
 
     j("." + odr.toggle).click(odr.toggleMenu);
@@ -102,6 +122,10 @@ odr.drawInitial = function(svg) {
     odr.svg = svg;
 
     odr.svg.style('@import "resources/css/graph.css";');
+
+    odr.svg.group(odr.lineContainer);
+    odr.svg.group(odr.nodeContainer);
+    odr.svg.group(odr.handleContainer);
 }
 
 odr.toggleMenu = function() {
@@ -134,6 +158,8 @@ odr.resize = function() {
     j("." + odr.menu).css({
         "height" : document.documentElement.clientHeight
     });
+
+    j("#" + odr.targetId + " svg").attr("height", document.documentElement.clientHeight);
 }
 
 Function.prototype.createDelegate = function(scope) {
@@ -143,8 +169,6 @@ Function.prototype.createDelegate = function(scope) {
         return fn.apply(scope, arguments);
     }
 }
-
-
 
 
 
@@ -221,10 +245,11 @@ odr.enableDragging = function(element) {
     element.mouseup(odr.dragStop);
 }
 
-odr.elementToDrag = new Array();
-odr.itemToDrag = new Array();
-
 odr.dragStart = function(e) {
+    if(e.ctrlKey) {
+        return false;
+    }
+
     button = e.button;
     odr.elementToDrag[button] = j(this);
     odr.dragPreviousEvent[button] = e;
@@ -233,28 +258,37 @@ odr.dragStart = function(e) {
 
     odr.itemToDrag[button] = odr.register.getItem(j(this).attr("id"));
     odr.itemToDrag[button].callback.dragStart();
+
+    return false;
 }
 
 odr.dragging = function(e) {
     button = e.button;
     if (odr.dragPreviousEvent[button] == undefined) {
-        odr.elementToDrag[button].unbind("mousemove", odr.nodeMouseMove);
-        return;
+        j("body").unbind("mousemove");
+        return false;
     }
-
     
     odr.itemToDrag[button].x = odr.itemToDrag[button].x + (e.pageX - odr.dragPreviousEvent[button].pageX);
     odr.itemToDrag[button].y = odr.itemToDrag[button].y + (e.pageY - odr.dragPreviousEvent[button].pageY);
     odr.dragPreviousEvent[button] = e;
 
     odr.itemToDrag[button].callback.dragging();
+
+    return false;
 }
 
 
 odr.dragStop = function(e) {
+    button = e.button;
+
+    if (odr.itemToDrag[button] == undefined) {
+        return;
+    }
+
     j("#" + odr.targetId).removeClass(odr.gridClass);
 
-    odr.elementToDrag[button].unbind("mousemove", odr.dragging);
+    j("body").unbind("mousemove");
     odr.dragPreviousEvent[button] = undefined;
     
     odr.itemToDrag[button].callback.dragEnd();
@@ -292,6 +326,7 @@ odr.Register = function() {
 
 odr.Node = function() {
     this.id = odr.nodeIdPrefix + odr.idCounter++;
+    odr.register.addItem(this);
     this.text = "";
     this.value = undefined;
 
@@ -315,19 +350,25 @@ odr.Node = function() {
 
         j("#" + this.id).remove();
 
-        odr.svg.rect(this.x, this.y, this.width, this.height, odr.rx, odr.ry, {
+        parent = parent = j("#" + odr.nodeContainer);
+
+        odr.svg.rect(parent, this.x, this.y, this.width, this.height, odr.rx, odr.ry, {
             "class" : odr.nodeClass,
             "id" : this.id
         });
 
         element = j("#" + this.id);
         odr.enableDragging(element);
+
+        this.callback.draw();
     }
 
     this.redraw = function() {
         element = j("#" + this.id);
         element.attr("x", this.x);
         element.attr("y", this.y);
+
+        this.callback.redraw();
     }
 
     this.center = function(x, y) {
@@ -341,22 +382,78 @@ odr.Node = function() {
         this.x = x - this.width / 2;
         this.y = y - this.height / 2;
     }
+
+    this.callback.dragging(function() {
+        this.redraw();
+    }.createDelegate(this));
+
+    this.callback.dragEnd(function() {
+        this.snapPosition();
+        this.redraw();
+    }.createDelegate(this));
 }
 
 odr.Relationship = function() {
     this.id = odr.relationshipIdPrefix + odr.idCounter++;
+    odr.register.addItem(this);
+    
     this.source = undefined;
     this.target = undefined;
+    
     this.text = "";
     this.handles = new Array();
     this.value = undefined;
+    
+    this.callback = new odr.Callback();
 
     this.addHandle = function(handle) {
-        this.handles[handle.id] = handle;
+        this.handles[this.handles.length] = handle;
+        handle.parent = this;
+    }
+
+    this.addHandleBetween = function(first, second, handle) {
+        if (this.source.id == first.id) {
+            this.handles.splice(0, 0, handle);
+            handle.parent = this;
+            this.draw();
+            return;
+        }
+
+        for(i = 0; i < this.handles.length; i++) {
+            if (this.handles[i].id == first.id) {
+                if (i+1 == this.handles.length) {
+                    this.handles[this.handles.length] = handle;
+                    handle.parent = this;
+                }
+                else {
+                    this.handles.splice(i+1, 0, handle);
+                    handle.parent = this;
+                }
+                this.draw();
+                return;
+            }
+        }
     }
 
     this.getHandle = function(handleId) {
-        return this.handles[handleId];
+        for(i = 0; i < this.handles.length; i++) {
+            if (this.handles[i] == handleId) {
+                return this.handles[i];
+            }
+        }
+        
+        return undefined;
+    }
+
+    this.removeHandle = function(handleId) {
+        for(i = 0; i < this.handles.length; i++) {
+            if (this.handles[i].id == handleId) {
+                this.handles[i].remove();
+                this.handles.splice(i, 1);
+                this.draw();
+                return;
+            }
+        }
     }
 
     this.setSource = function(source) {
@@ -370,96 +467,103 @@ odr.Relationship = function() {
     this.draw = function() {
         j("#" + this.id).remove();
 
-        parent = odr.svg.group(this.id, {
+        parent = j("#" + odr.lineContainer);
+        parent = odr.svg.group(parent, this.id, {
             "class" : odr.relationshipClass
         });
 
 
-        element = this.source.center();
+        element = this.source;
 
-        for (var i in this.handles) {
-            odr.svg.line(parent, element.x, element.y, this.handles[i].x, this.handles[i].y);
-            this.handles[i].draw();
+        for (i = 0; i < this.handles.length; i++) {
+            line = new odr.Line();
+            line.parent = this;
+            line.setStart(element);
+            line.setEnd(this.handles[i]);
+            line.draw(parent);
+
             element = this.handles[i];
         }
 
-        targetPosition = this.target.center();
-
-        odr.svg.line(parent, element.x, element.y, targetPosition.x, targetPosition.y);
+        line = new odr.Line(this);
+        line.setStart(element);
+        line.setEnd(this.target);
+        line.draw(parent);
     }
 
     this.redraw = function() {
     }
 }
 
-odr.Line = function() {
+odr.Line = function(parent) {
     this.id = odr.lineIdPrefix + odr.idCounter++;
     odr.register.addItem(this);
 
     this.start = undefined;
     this.end = undefined;
     this.value = undefined;
-    this.callback = new odr.Callback();
+    this.parent = parent;
 
     this.setStart = function(element) {
+        if (this.start != undefined) {
+            this.start.callback.unbind("redraw", this.redraw);
+        }
+
         this.start = element;
-        element.callback.dragging(this.redraw);
-        element.callback.dragEnd(this.redraw);
+        this.start.callback.redraw(this.redraw.createDelegate(this));
     }
 
     this.setEnd = function(element) {
+        if (this.end != undefined) {
+            this.end.callback.redraw("redraw", this.redraw);
+        }
+
         this.end = element;
-        element.callback.dragging(this.redraw);
-        element.callback.dragEnd(this.redraw);
+        this.end.callback.redraw(this.redraw.createDelegate(this));
     }
 
-    this.draw = function(parent) {
+    this.draw = function(parent2) {
         j("#" + this.id).remove();
-        odr.svg.line(parent,
-            this.start.x,
-            this.start.y,
-            this.end.x,
-            this.end.y,
+        odr.svg.line(parent2,
+            this.start.center().x,
+            this.start.center().y,
+            this.end.center().x,
+            this.end.center().y,
             {
+                "class" : odr.lineClass,
                 "id" : this.id,
-                "class" : odr.lineClass
             });
 
-        this.callback.draw();
+        j("#" + this.id).bind("click", {
+            self:this
+        }, this.onClick);
+    }
+
+    this.onClick = function(e) {
+        var self = e.data.self;
+
+        handle = new odr.Handle();
+        handle.x = e.pageX;
+        handle.y = e.pageY;
+        handle.draw();
+        
+        self.parent.addHandleBetween(self.start, self.end, handle);
     }
 
     this.redraw = function() {
         element = j("#" + this.id);
 
-        element.attr("x1", this.start.x);
-        element.attr("y1", this.start.y);
-        element.attr("x2", this.end.x);
-        element.attr("y2", this.end.y);
-
-        this.callback.redraw();
-    }
-
-    this.remove = function() {
-        j("#" + this.id).remove();
-        odr.register.removeItem(this.id);
-
-        if (this.start != undefined) {
-            this.start.callback.unbind("dragging", this.redraw);
-            this.start.callback.unbind("dragEnd", this.redraw);
-        }
-
-        if (this.end != undefined) {
-            this.end.callback.unbind("dragging", this.redraw);
-            this.end.callback.unbind("dragEnd", this.redraw);
-        }
-
-        this.callback.remove();
+        element.attr("x1", this.start.center().x);
+        element.attr("y1", this.start.center().y);
+        element.attr("x2", this.end.center().x);
+        element.attr("y2", this.end.center().y);
     }
 }
 
-odr.Handle = function() {
+odr.Handle = function(parent) {
     this.id = odr.dragHandleIdPrefix + odr.idCounter++;
     odr.register.addItem(this);
+    this.parent = parent;
     this.x = 0;
     this.y = 0;
     this.value = undefined;
@@ -469,11 +573,12 @@ odr.Handle = function() {
         odr.snapPosition(this);
     }
 
-    this.draw = function(parent) {
+    this.draw = function() {
         this.snapPosition();
 
         j("#" + this.id).remove();
 
+        parent = parent = j("#" + odr.handleContainer);
         odr.svg.circle(parent, this.x, this.y, odr.handleSize, {
             "class" : odr.dragHandleClass,
             "id" : this.id
@@ -482,7 +587,20 @@ odr.Handle = function() {
         element = j("#" + this.id);
         odr.enableDragging(element);
 
+        j("#" + this.id).bind("click", {
+            self:this
+        }, this.onClick);
+
         this.callback.draw();
+    }
+
+    this.onClick = function(e) {
+        if(!e.ctrlKey) {
+            return;
+        }
+
+        var self = e.data.self;
+        self.parent.removeHandle(self.id);
     }
 
     this.redraw = function() {
@@ -493,10 +611,20 @@ odr.Handle = function() {
         this.callback.redraw();
     }
 
+    this.center = function(x, y) {
+        if (x == undefined && y == undefined) {
+            return {
+                "x" : this.x,
+                "y" : this.y
+            };
+        }
+
+        this.x = x;
+        this.y = y;
+    }
+
     this.remove = function() {
         j("#" + this.id).remove();
-        odr.register.removeItem(this.id);
-        this.callback.remove();
     }
 
     this.callback.dragging(function() {
@@ -576,7 +704,6 @@ odr.Callback = function() {
     this.fire = function(listeners) {
         for(i = 0; i < listeners.length; i++) {
             listeners[i]();
-            return;
         }
     }
 
