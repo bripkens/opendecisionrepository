@@ -48,6 +48,9 @@ odr.lineContainer = "lines";
 odr.handleContainer = "handles";
 odr.nodeContainer = "nodes";
 
+odr.svgStyleUrl = "resources/css/graph.css";
+odr.svgStyle = '@import "' + odr.svgStyleUrl + '";';
+
 /*
  * Variables
  */
@@ -114,14 +117,17 @@ j(document).ready(function() {
 
     j("." + odr.toggle).click(odr.toggleMenu);
 
+    odr.prepareExport();
+
     j(window).resize(odr.resize);
+    j("#" + odr.targetId + " svg").attr("height", document.documentElement.clientHeight);
     odr.resize();
 });
 
 odr.drawInitial = function(svg) {
     odr.svg = svg;
 
-    odr.svg.style('@import "resources/css/graph.css";');
+    odr.svg.style(odr.svgStyle);
 
     odr.svg.group(odr.lineContainer);
     odr.svg.group(odr.nodeContainer);
@@ -158,8 +164,6 @@ odr.resize = function() {
     j("." + odr.menu).css({
         "height" : document.documentElement.clientHeight
     });
-
-    j("#" + odr.targetId + " svg").attr("height", document.documentElement.clientHeight);
 }
 
 Function.prototype.createDelegate = function(scope) {
@@ -254,7 +258,7 @@ odr.dragStart = function(e) {
     odr.elementToDrag[button] = j(this);
     odr.dragPreviousEvent[button] = e;
     j("body").mousemove(odr.dragging);
-    j("#" + odr.targetId).addClass(odr.gridClass);
+    j("body").addClass(odr.gridClass);
 
     odr.itemToDrag[button] = odr.register.getItem(j(this).attr("id"));
     odr.itemToDrag[button].callback.dragStart();
@@ -286,7 +290,7 @@ odr.dragStop = function(e) {
         return;
     }
 
-    j("#" + odr.targetId).removeClass(odr.gridClass);
+    j("body").removeClass(odr.gridClass);
 
     j("body").unbind("mousemove");
     odr.dragPreviousEvent[button] = undefined;
@@ -297,6 +301,33 @@ odr.dragStop = function(e) {
 
 
 
+
+
+
+
+
+/*
+ * Export
+ */
+odr.prepareExport = function() {
+    j("div.export ul li").click(function() {
+
+        format = j(this).attr("class");
+
+        j.get(odr.svgStyleUrl, function(cssStyle) {
+            form = j("div.export form");
+
+            dataInput = form.children("input#data");
+            dataInput.val(j("#" + odr.targetId).html().replace(odr.svgStyle, cssStyle));
+
+            formatInput = form.children("input#format");
+            formatInput.val(format);
+
+            form.submit();
+        });
+        
+    })
+}
 
 
 
@@ -531,15 +562,15 @@ odr.Line = function(parent) {
             this.end.center().y,
             {
                 "class" : odr.lineClass,
-                "id" : this.id,
+                "id" : this.id
             });
 
-        j("#" + this.id).bind("click", {
+        j("#" + this.id).bind("mousedown", {
             self:this
-        }, this.onClick);
+        }, this.onMouseDown);
     }
 
-    this.onClick = function(e) {
+    this.onMouseDown = function(e) {
         var self = e.data.self;
 
         handle = new odr.Handle();

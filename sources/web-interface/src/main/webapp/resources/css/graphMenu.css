@@ -1,0 +1,106 @@
+body {
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+    font-size: 12px;
+}
+.menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    border-right: 1px solid black;
+    background-color: #efefef;
+    z-index: 4;
+    width: 300px;
+}
+.menu.open {
+    left: 0px;
+}
+.menu.closed {
+    left: -283px;
+}
+.opener, .closer {
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    right: -4px;
+    border-left: 1px solid black;
+    background-repeat: repeat-y;
+    cursor: pointer;
+}
+.closer {
+    background-image: url(../images/arrow-previous.gif);
+}
+.opener {
+    background-image: url(../images/arrow-next.gif);
+}
+.grid {
+    background-image: url(../images/grid.png);
+}
+
+
+
+
+
+
+
+
+.export {
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    top: -211px;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 20px 0 10px 0;
+}
+.export:hover {
+    top: -15px;
+}
+.export form {
+    visibility: hidden;
+}
+.export div {
+    text-transform: uppercase;
+    border-top: 1px solid black;
+    position: absolute;
+    width: 200px;
+    height: 18px;
+    padding: 2px 0 0;
+    bottom: 0;
+    border-bottom-left-radius: 15px 15px;
+    border-bottom-right-radius: 15px 15px;
+    background-color: #efefef;
+    text-align: center;
+}
+.export ul {
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+}
+.export ul li {
+    width: 90px;
+    height: 48px;
+    float: left;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    padding: 50px 10px 0 0;
+    text-align: center;
+    cursor: pointer;
+}
+.export ul li.jpeg {
+    background-image: url(../images/file_jpg.png);
+}
+.export ul li.png {
+    background-image: url(../images/file_png.png);
+}
+.export ul li.pdf {
+    background-image: url(../images/file_pdf.png);
+}
+.export ul li.svg {
+    background-image: url(../images/file_svg.png);
+}

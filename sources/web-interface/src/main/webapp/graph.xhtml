@@ -13,12 +13,26 @@
         <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
         <script type="text/javascript" src="resources/js/graph.js"></script>
 
+        <link rel="stylesheet" type="text/css" href="resources/css/graphMenu.css" />
     </head>
     <body>
         <div class="menu closed">
             <div class="toggle opener" />
             <span id="addNode">Add node</span><br />
             <span id="addHandle">Add handle</span>
+        </div>
+        <div class="export">
+            <ul>
+                <li class="jpeg">JPEG image</li>
+                <li class="png">PNG image</li>
+                <li class="svg">SVG image</li>
+                <li class="pdf">PDF document</li>
+            </ul>
+            <form method="post" action="diagram.png">
+                <input type="hidden" id="data" name="data"/>
+                <input type="hidden" id="format" name="format"/>
+            </form>
+            <div>Export</div>
         </div>
         <div id="svgTarget" />
     </body>
