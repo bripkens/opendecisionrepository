@@ -56,7 +56,6 @@ odr.idCounter = 0;
 odr.canvas;
 odr.ctx;
 
-
 j(document).ready(function() {
 
     odr.canvas = document.getElementById("canvas");
