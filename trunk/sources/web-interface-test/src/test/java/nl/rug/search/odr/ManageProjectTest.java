@@ -36,6 +36,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
     public static void createProject(Selenium selenium, String ProjectName, String ProjectDescription,
                                      String OtherMember, String UserRole, String OtherMemberRole) {
         open(selenium, "projects.html");
+        sleep(1000);
         selenium.click("link=here");
         waitForPageToLoad(selenium);
 
@@ -61,8 +62,6 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 
         addStakeholderRoles();
         addStates();
-
-        selenium.setSpeed("1000");
 
         createDefaultProject(selenium);
 

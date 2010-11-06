@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="resources/css/graph.css" ?>
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg" version="1.1"
+    contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <script xlink:href="./resources/js/jquery-1.4.2.min.js" />
+    <script xlink:href="./resources/js/jquery-ui-1.8.5.custom.min.js" />
+    <script xlink:href="./resources/js/graph.js" />
+
+    <circle cx="40" cy="40" r="24"
+                        style="stroke:#006600; fill:#00cc00"/>
+
+
+    <rect class="node" x="100" y="100" width="200" height="40" rx="10" ry="10" zIndex="5" />
+
+    <g>
+        <path d="M 24.583333333333332 295.75714285714287 L 73.75 281.4 122.91666666666666 253.64285714285714 172.08333333333331 206.74285714285713 221.25 157.92857142857144 270.41666666666663 124.42857142857144 319.5833333333333 109.1142857142857 368.75 115.81428571428575 417.91666666666663 150.27142857142857 467.0833333333333 201 516.25 249.81428571428572 565.4166666666666 277.57142857142856"
+            class="relationship"
+            z-index="3"/>
+    </g>
+</svg>
