@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+    </ui:define>
+
+    <ui:define name="content">
+        <form action="diagram.png" method="post">
+            <textarea id="data" name="data" cols="60" rows="6"></textarea>
+            <select id="format" name="format">
+                <option value="jpeg">jpg</option>
+                <option value="png">png</option>
+                <option value="pdf">pdf</option>
+                <option value="svg">svg</option>
+            </select>
+            <input type="submit" value="Send" />
+        </form>
+    </ui:define>
+
+    <ui:define name="sidebar">
+    </ui:define>
+</ui:composition>

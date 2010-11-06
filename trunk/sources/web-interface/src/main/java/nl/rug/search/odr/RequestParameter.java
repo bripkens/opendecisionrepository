@@ -28,4 +28,11 @@ public interface RequestParameter {
     String STAKEHOLDER_VIEWPOINT = "stakeholder";
 
     String FACES_REDIRECT = "faces-redirect";
+
+    String FORMAT = "format";
+    String DATA = "data";
+    String FORMAT_PNG = "png";
+    String FORMAT_JPEG = "jpeg";
+    String FORMAT_PDF = "pdf";
+    String FORMAT_SVG = "svg";
 }
