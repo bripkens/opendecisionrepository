@@ -52,7 +52,7 @@ odr.draggingThreshold = 10;
  */
 odr.idCounter = 0;
 odr.svg;
-odr.dragPreviousEvent = undefined;
+odr.dragPreviousEvent = new Array();
 
 
 j(document).ready(function() {
@@ -221,41 +221,43 @@ odr.enableDragging = function(element) {
     element.mouseup(odr.dragStop);
 }
 
-odr.elementToDrag = undefined;
-odr.itemToDrag = undefined;
+odr.elementToDrag = new Array();
+odr.itemToDrag = new Array();
 
 odr.dragStart = function(e) {
-    odr.elementToDrag = j(this);
-    odr.dragPreviousEvent = e;
+    button = e.button;
+    odr.elementToDrag[button] = j(this);
+    odr.dragPreviousEvent[button] = e;
     j("body").mousemove(odr.dragging);
     j("#" + odr.targetId).addClass(odr.gridClass);
 
-    odr.itemToDrag = odr.register.getItem(j(this).attr("id"));
-    odr.itemToDrag.callback.dragStart();
+    odr.itemToDrag[button] = odr.register.getItem(j(this).attr("id"));
+    odr.itemToDrag[button].callback.dragStart();
 }
 
 odr.dragging = function(e) {
-    if (odr.dragPreviousEvent == undefined) {
-        odr.elementToDrag.unbind("mousemove", odr.nodeMouseMove);
+    button = e.button;
+    if (odr.dragPreviousEvent[button] == undefined) {
+        odr.elementToDrag[button].unbind("mousemove", odr.nodeMouseMove);
         return;
     }
 
     
-    odr.itemToDrag.x = odr.itemToDrag.x + (e.pageX - odr.dragPreviousEvent.pageX);
-    odr.itemToDrag.y = odr.itemToDrag.y + (e.pageY - odr.dragPreviousEvent.pageY);
-    odr.dragPreviousEvent = e;
+    odr.itemToDrag[button].x = odr.itemToDrag[button].x + (e.pageX - odr.dragPreviousEvent[button].pageX);
+    odr.itemToDrag[button].y = odr.itemToDrag[button].y + (e.pageY - odr.dragPreviousEvent[button].pageY);
+    odr.dragPreviousEvent[button] = e;
 
-    odr.itemToDrag.callback.dragging();
+    odr.itemToDrag[button].callback.dragging();
 }
 
 
 odr.dragStop = function(e) {
     j("#" + odr.targetId).removeClass(odr.gridClass);
 
-    odr.elementToDrag.unbind("mousemove", odr.dragging);
-    odr.dragPreviousEvent = undefined;
+    odr.elementToDrag[button].unbind("mousemove", odr.dragging);
+    odr.dragPreviousEvent[button] = undefined;
     
-    odr.itemToDrag.callback.dragEnd();
+    odr.itemToDrag[button].callback.dragEnd();
 }
 
 
