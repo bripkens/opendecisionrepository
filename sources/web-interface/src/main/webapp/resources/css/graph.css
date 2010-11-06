@@ -49,5 +49,6 @@ svg {
     cursor: pointer;
 }
 .node:hover, .line:hover, .dragHandle:hover {
-    stroke: red;
+    stroke: blue;
+    stroke-width: 3;
 }
