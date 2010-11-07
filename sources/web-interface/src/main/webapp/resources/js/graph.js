@@ -37,6 +37,9 @@ odr.dragHandleIdPrefix = "dragHandle";
 odr.lineIdPrefix = "line";
 
 // menu
+odr.smallMenu = "smallMenu";
+odr.smallMenuCollapsedSize = "-15px"
+odr.smallMenuAnimationDuration = 500;
 odr.menu = "menu";
 odr.toggle = "toggle";
 odr.open = "open";
@@ -86,6 +89,21 @@ odr.itemToDrag = new Array();
 
 j(document).ready(function() {
     odr.register = new odr.Register();
+
+//odr.smallMenu = "smallMenu";
+//odr.smallMenuCollapsedSize = "-15px;"
+
+    j("." + odr.smallMenu).mouseenter(function() {
+        j(this).stop(true, false).animate({
+           "top" : odr.smallMenuCollapsedSize
+        }, odr.smallMenuAnimationDuration);
+    });
+
+    j("." + odr.smallMenu).mouseleave(function() {
+        j(this).stop(true, false).animate({
+           "top" : (j(this).height() + 11) * -1
+        }, odr.smallMenuAnimationDuration);
+    });
 
     j("#" + odr.targetId).svg({
         onLoad: odr.drawInitial
