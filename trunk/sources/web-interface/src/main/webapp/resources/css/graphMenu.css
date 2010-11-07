@@ -5,40 +5,10 @@ body {
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
     font-size: 12px;
 }
-.menu {
-    position: fixed;
-    left: 0;
-    top: 0;
-    border-right: 1px solid black;
-    background-color: #efefef;
-    z-index: 4;
-    width: 300px;
-}
-.menu.open {
-    left: 0px;
-}
-.menu.closed {
-    left: -283px;
-}
-.opener, .closer {
-    width: 20px;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    right: -4px;
-    border-left: 1px solid black;
-    background-repeat: repeat-y;
-    cursor: pointer;
-}
-.closer {
-    background-image: url(../images/arrow-previous.gif);
-}
-.opener {
-    background-image: url(../images/arrow-next.gif);
-}
 .grid {
     background-image: url(../images/grid.png);
 }
+
 .smallMenu input.error {
     color: #bd0000;
     border: 1px solid #bd0000;
@@ -47,6 +17,9 @@ body {
 
 
 
+/*
+ * Abstract menu
+ */
 
 .smallMenu {
     background-color: white;
@@ -60,10 +33,7 @@ body {
     position: fixed;
     padding: 20px 0 10px 0;
 }
-.smallMenu:hover {
-    top: -15px;
-}
-.smallMenu div {
+.smallMenu .title {
     text-transform: uppercase;
     border-top: 1px solid black;
     position: absolute;
@@ -80,11 +50,53 @@ body {
     background-color: #efefef;
     text-align: center;
 }
+
+
+
+
+
+
+
+
+
+
+/*
+ * Project menu
+ */
+.project {
+    width: 200px;
+    height: 120px;
+    left: 0;
+    top: -131px;
+}
+
+
+
+
+
+
+
+/*
+ * Decision menu
+ */
+.decision {
+    width: 300px;
+    height: 400px;
+    top: -411px;
+    left: 202px;
+}
+
+
+
+
+/*
+ * Zoom menu
+ */
 .zoom {
     width: 120px;
     height: 70px;
+    left: 504px;
     top: -81px;
-    right: 202px;
 }
 .zoom input {
     width: 70px;
@@ -115,11 +127,22 @@ body {
     top: 22px;
 }
 
+
+
+
+
+
+
+
+
+/*
+ * Export menu
+ */
 .export {
     width: 200px;
     height: 200px;
     top: -211px;
-    right: 0;
+    left: 626px;
 }
 .export form {
     visibility: hidden;
