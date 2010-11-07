@@ -254,6 +254,8 @@ odr.dragStart = function(e) {
         return false;
     }
 
+    console.log("drag start");
+
     button = e.button;
     odr.elementToDrag[button] = j(this);
     odr.dragPreviousEvent[button] = e;
@@ -286,7 +288,7 @@ odr.dragging = function(e) {
 odr.dragStop = function(e) {
     button = e.button;
 
-    if (odr.itemToDrag[button] == undefined) {
+    if (odr.itemToDrag[button] == undefined || e.ctrlKey) {
         return;
     }
 
@@ -294,7 +296,9 @@ odr.dragStop = function(e) {
 
     j("body").unbind("mousemove");
     odr.dragPreviousEvent[button] = undefined;
-    
+
+    console.log("drag end");
+
     odr.itemToDrag[button].callback.dragEnd();
 }
 
@@ -355,10 +359,11 @@ odr.Register = function() {
     }
 }
 
-odr.Node = function() {
+odr.Node = function(parent) {
     this.id = odr.nodeIdPrefix + odr.idCounter++;
     odr.register.addItem(this);
     this.text = "";
+    this.parent = parent;
     this.value = undefined;
 
     this.x = 0;
@@ -421,6 +426,7 @@ odr.Node = function() {
     this.callback.dragEnd(function() {
         this.snapPosition();
         this.redraw();
+        this.parent.optimizePath();
     }.createDelegate(this));
 }
 
@@ -481,7 +487,6 @@ odr.Relationship = function() {
             if (this.handles[i].id == handleId) {
                 this.handles[i].remove();
                 this.handles.splice(i, 1);
-                this.draw();
                 return;
             }
         }
@@ -489,10 +494,12 @@ odr.Relationship = function() {
 
     this.setSource = function(source) {
         this.source = source;
+        this.source.parent = this;
     }
 
     this.setTarget = function(target) {
         this.target = target;
+        this.target.parent = this;
     }
 
     this.draw = function() {
@@ -523,6 +530,50 @@ odr.Relationship = function() {
     }
 
     this.redraw = function() {
+    }
+
+    this.optimizePath = function() {
+        console.log("optimizing path");
+        firstX = this.source.center().x;
+        firstY = this.source.center().y;
+        secondX = undefined;
+        secondY = undefined;
+        thirdX = undefined;
+        thirdY = undefined;
+
+        for(i = 0; i < this.handles.length; i++) {
+            if (secondX == undefined) {
+                secondX = this.handles[i].center().x;
+                secondY = this.handles[i].center().y;
+                continue;
+            }
+
+            thirdX = this.handles[i].center().x;
+            thirdY = this.handles[i].center().y;
+
+
+            if ((firstX == secondX && secondX == thirdX) || (firstY == secondY && secondY == thirdY)) {
+                this.removeHandle(this.handles[i-1].id);
+            }
+
+            firstX = secondX;
+            firstY = secondY;
+            secondX = thirdX;
+            secondY = thirdY;
+        }
+
+        if (secondX == undefined) {
+            return;
+        }
+
+        thirdX = this.target.center().x;
+        thirdY = this.target.center().y;
+
+        if ((firstX == secondX && secondX == thirdX) || (firstY == secondY && secondY == thirdY)) {
+            this.removeHandle(this.handles[this.handles.length - 1].id);
+        }
+
+        this.draw();
     }
 }
 
@@ -565,12 +616,12 @@ odr.Line = function(parent) {
                 "id" : this.id
             });
 
-        j("#" + this.id).bind("mousedown", {
+        j("#" + this.id).bind("click", {
             self:this
-        }, this.onMouseDown);
+        }, this.onClick);
     }
 
-    this.onMouseDown = function(e) {
+    this.onClick = function(e) {
         var self = e.data.self;
 
         handle = new odr.Handle();
@@ -632,6 +683,7 @@ odr.Handle = function(parent) {
 
         var self = e.data.self;
         self.parent.removeHandle(self.id);
+        self.parent.draw();
     }
 
     this.redraw = function() {
@@ -665,6 +717,7 @@ odr.Handle = function(parent) {
     this.callback.dragEnd(function() {
         this.snapPosition();
         this.redraw();
+        this.parent.optimizePath();
     }.createDelegate(this));
 }
 
