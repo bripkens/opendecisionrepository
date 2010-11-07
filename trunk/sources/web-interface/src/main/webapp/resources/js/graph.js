@@ -7,7 +7,24 @@ var j = jQuery.noConflict();
 
 // svg container
 odr.targetId = "svgTarget";
-
+odr.svgContainerPadding = {
+    x : 10,
+    y : 10
+};
+odr.svgContainerInitialSize = {
+    width : "auto",
+    height : "auto"
+}
+odr.viewportScrollMargin = {
+    x : 30,
+    y : 30
+}
+odr.scrollSpeed = {
+    up : -10,
+    down : 10,
+    left : -10,
+    right : 10
+}
 // nodes and other visualizations
 odr.nodeClass = "node";
 odr.relationshipClass = "relationship";
@@ -31,8 +48,8 @@ odr.closer = "closer";
 
 // grid
 odr.grid = {
-    x : 20,
-    y : 20
+    x : 10,
+    y : 10
 };
 odr.gridClass = "grid";
 
@@ -51,6 +68,11 @@ odr.nodeContainer = "nodes";
 odr.svgStyleUrl = "resources/css/graph.css";
 odr.svgStyle = '@import "' + odr.svgStyleUrl + '";';
 
+// scale
+odr.scale = 1
+odr.inputSetScale = "inputSetScale";
+odr.inputScale = "inputScale";
+odr.errorClass = "error";
 /*
  * Variables
  */
@@ -59,6 +81,8 @@ odr.svg;
 odr.dragPreviousEvent = new Array();
 odr.elementToDrag = new Array();
 odr.itemToDrag = new Array();
+
+
 
 j(document).ready(function() {
     odr.register = new odr.Register();
@@ -69,23 +93,15 @@ j(document).ready(function() {
 
     j("#addNode").click(function(e) {
         
-        //
-        //
-        //        target = new odr.Node();
-        //        target.width = 200;
-        //        target.height = 30;
-        //        target.center(500, 400);
-        //        odr.register.addItem(target);
-
         source = new odr.Node();
         source.width = 200;
-        source.height = 30;
+        source.height = 40;
         source.center(500, 100);
         source.draw();
 
         target = new odr.Node();
         target.width = 200;
-        target.height = 30;
+        target.height = 40;
         target.center(500, 500);
         target.draw();
 
@@ -113,14 +129,17 @@ j(document).ready(function() {
         handle1.draw();
         handle2.draw();
         handle3.draw();
+
+        odr.assertContainerSize();
     });
 
     j("." + odr.toggle).click(odr.toggleMenu);
 
     odr.prepareExport();
 
+    odr.prepareZoom();
+
     j(window).resize(odr.resize);
-    j("#" + odr.targetId + " svg").attr("height", document.documentElement.clientHeight);
     odr.resize();
 });
 
@@ -128,6 +147,21 @@ odr.drawInitial = function(svg) {
     odr.svg = svg;
 
     odr.svg.style(odr.svgStyle);
+
+    container = j("#" + odr.targetId + " svg");
+    if (odr.svgContainerInitialSize.width == "auto") {
+        container.attr("width", document.documentElement.clientWidth);
+    } else {
+        container.attr("width", odr.svgContainerInitialSize.width);
+    }
+
+    if (odr.svgContainerInitialSize.height == "auto") {
+        container.attr("height", document.documentElement.clientHeight);
+    } else {
+        container.attr("height", odr.svgContainerInitialSize.height);
+    }
+
+
 
     odr.svg.group(odr.lineContainer);
     odr.svg.group(odr.nodeContainer);
@@ -163,6 +197,48 @@ odr.toggleMenu = function() {
 odr.resize = function() {
     j("." + odr.menu).css({
         "height" : document.documentElement.clientHeight
+    });
+}
+
+odr.assertContainerSize = function(elementId) {
+
+    container = j("#" + odr.targetId + " svg");
+
+    containerWidth = 0;
+    containerHeight = 0;
+
+    selector = undefined;
+
+    if (elementId != undefined) {
+        selector = "#" + elementId;
+        containerWidth = container.attr("width");
+        containerHeight = container.attr("height");
+    } else {
+        selector = "." + odr.nodeClass + ", ." + odr.dragHandleClass;
+    }
+
+    j(selector).each(function() {
+        currentElement = odr.register.getItem(j(this).attr("id"));
+        lowerRightCorner = currentElement.lowerRightCorner();
+
+        lowerRightCorner.x *= odr.scale;
+        lowerRightCorner.y *= odr.scale;
+
+        if (lowerRightCorner.x > containerWidth) {
+            containerWidth = lowerRightCorner.x;
+        }
+
+        if (lowerRightCorner.y > containerHeight) {
+            containerHeight = lowerRightCorner.y;
+        }
+    });
+
+    container.attr("width", containerWidth);
+    container.attr("height", containerHeight);
+    parent = container.parent();
+    parent.css({
+        width :  containerWidth,
+        height : containerHeight
     });
 }
 
@@ -254,8 +330,6 @@ odr.dragStart = function(e) {
         return false;
     }
 
-    console.log("drag start");
-
     button = e.button;
     odr.elementToDrag[button] = j(this);
     odr.dragPreviousEvent[button] = e;
@@ -275,21 +349,54 @@ odr.dragging = function(e) {
         return false;
     }
     
-    odr.itemToDrag[button].x = odr.itemToDrag[button].x + (e.pageX - odr.dragPreviousEvent[button].pageX);
-    odr.itemToDrag[button].y = odr.itemToDrag[button].y + (e.pageY - odr.dragPreviousEvent[button].pageY);
+    odr.itemToDrag[button].x = odr.itemToDrag[button].x + ((e.pageX - odr.dragPreviousEvent[button].pageX) * (1 / odr.scale));
+    odr.itemToDrag[button].y = odr.itemToDrag[button].y + ((e.pageY - odr.dragPreviousEvent[button].pageY) * (1 / odr.scale));
     odr.dragPreviousEvent[button] = e;
 
     odr.itemToDrag[button].callback.dragging();
 
+    odr.assertContainerSize(odr.itemToDrag[button].id);
+
+
+    viewportWidth = j(window).width();
+    viewportHeight = j(window).height();
+    scrollLeft = j(window).scrollLeft();
+    scrollTop = j(window).scrollTop();
+    lowerRightCorner = odr.itemToDrag[button].lowerRightCorner();
+    topLeftCorner = odr.itemToDrag[button].topLeftCorner();
+
+    scrollX = 0;
+    scrollY = 0;
+    
+    doScrollRight = lowerRightCorner.x - scrollLeft > viewportWidth - odr.viewportScrollMargin.x;
+    doScrollLeft = topLeftCorner.x - scrollLeft < odr.viewportScrollMargin.x;
+    doScrollDown = lowerRightCorner.y > viewportHeight - odr.viewportScrollMargin.y - scrollTop;
+    doScrollUp = topLeftCorner.y < scrollTop + odr.viewportScrollMargin.y;
+
+    if (doScrollRight) {
+        scrollX = odr.scrollSpeed.right;
+    } else if (doScrollLeft) {
+        scrollX = odr.scrollSpeed.left;
+    }
+
+    if (doScrollUp) {
+        scrollY = odr.scrollSpeed.up;
+    } else if (doScrollDown) {
+        scrollY = odr.scrollSpeed.down;
+    }
+
+    window.scrollBy(scrollX, scrollY);
+
     return false;
 }
+
 
 
 odr.dragStop = function(e) {
     button = e.button;
 
     if (odr.itemToDrag[button] == undefined || e.ctrlKey) {
-        return;
+        return false;
     }
 
     j("body").removeClass(odr.gridClass);
@@ -297,9 +404,11 @@ odr.dragStop = function(e) {
     j("body").unbind("mousemove");
     odr.dragPreviousEvent[button] = undefined;
 
-    console.log("drag end");
-
     odr.itemToDrag[button].callback.dragEnd();
+
+    odr.assertContainerSize();
+
+    return false;
 }
 
 
@@ -335,10 +444,49 @@ odr.prepareExport = function() {
 
 
 
+/*
+ * Zoom
+ */
+odr.prepareZoom = function() {
+    j("#" + odr.inputSetScale).click(odr.handleScaleInput);
 
+    j("#" + odr.inputScale).keyup(function(e) {
+        if(e.keyCode == 13) {
+            odr.handleScaleInput();
+        }
+    });
 
+    j("#" + odr.inputScale).val(odr.scale * 100);
+}
 
+odr.handleScaleInput = function() {
+    scaleInput = j("#" + odr.inputScale);
 
+    newScale = scaleInput.val();
+
+    newScale = parseFloat(newScale);
+
+    if (isNaN(newScale)) {
+        scaleInput.addClass(odr.errorClass);
+        return;
+    }
+
+    scaleInput.removeClass(odr.errorClass);
+
+    odr.setScale(newScale);
+}
+
+odr.setScale = function(newScale) {
+    odr.scale = newScale / 100;
+
+    transformAttribute = "scale(" + odr.scale + ")";
+
+    j("#" + odr.handleContainer).attr("transform", transformAttribute);
+    j("#" + odr.lineContainer).attr("transform", transformAttribute);
+    j("#" + odr.nodeContainer).attr("transform", transformAttribute);
+
+    odr.assertContainerSize();
+}
 
 /*
  * Classes
@@ -357,6 +505,7 @@ odr.Register = function() {
     this.removeItem = function(itemId) {
         this.items[itemId] = undefined;
     }
+
 }
 
 odr.Node = function(parent) {
@@ -417,6 +566,20 @@ odr.Node = function(parent) {
 
         this.x = x - this.width / 2;
         this.y = y - this.height / 2;
+    }
+
+    this.lowerRightCorner = function() {
+        return {
+            x : this.x + this.width + 5,
+            y : this.y + this.height + 5
+        };
+    }
+
+    this.topLeftCorner = function() {
+        return {
+            x : this.x,
+            y : this.y
+        }
     }
 
     this.callback.dragging(function() {
@@ -533,7 +696,6 @@ odr.Relationship = function() {
     }
 
     this.optimizePath = function() {
-        console.log("optimizing path");
         firstX = this.source.center().x;
         firstY = this.source.center().y;
         secondX = undefined;
@@ -625,8 +787,8 @@ odr.Line = function(parent) {
         var self = e.data.self;
 
         handle = new odr.Handle();
-        handle.x = e.pageX;
-        handle.y = e.pageY;
+        handle.x = e.pageX  * (1 / odr.scale);
+        handle.y = e.pageY  * (1 / odr.scale);
         handle.draw();
         
         self.parent.addHandleBetween(self.start, self.end, handle);
@@ -708,6 +870,20 @@ odr.Handle = function(parent) {
 
     this.remove = function() {
         j("#" + this.id).remove();
+    }
+
+    this.lowerRightCorner = function() {
+        return {
+            x : this.x + (odr.handleSize / 2) + 5,
+            y : this.y + (odr.handleSize / 2) + 5
+        }
+    }
+
+    this.topLeftCorner = function() {
+        return {
+            x : this.x - (odr.handleSize / 2),
+            y : this.y - (odr.handleSize / 2)
+        }
     }
 
     this.callback.dragging(function() {
@@ -806,7 +982,7 @@ odr.Callback = function() {
         } else if ("dragEnd" == event) {
             listeners = this.listeners.dragEnd;
         } else {
-            console.log("Invalid event name");
+            alert("Invalid item name");
             return;
         }
 

@@ -39,43 +39,90 @@ body {
 .grid {
     background-image: url(../images/grid.png);
 }
+.smallMenu input.error {
+    color: #bd0000;
+    border: 1px solid #bd0000;
+}
 
 
 
 
 
-
-
-
-.export {
-    width: 200px;
-    height: 200px;
-    position: fixed;
-    top: -211px;
-    right: 0;
+.smallMenu {
     background-color: white;
     border: 1px solid black;
-    border-radius: 15px;
+    border-bottom-left-radius: 15px 15px;
+    border-bottom-right-radius: 15px 15px;
+    -moz-border-radius-bottomright: 15px;
+    -moz-border-radius-bottomleft: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
+    position: fixed;
     padding: 20px 0 10px 0;
 }
-.export:hover {
+.smallMenu:hover {
     top: -15px;
 }
-.export form {
-    visibility: hidden;
-}
-.export div {
+.smallMenu div {
     text-transform: uppercase;
     border-top: 1px solid black;
     position: absolute;
-    width: 200px;
+    width: inherit;
     height: 18px;
     padding: 2px 0 0;
     bottom: 0;
+    -moz-border-radius-bottomright: 15px;
+    -moz-border-radius-bottomleft: 15px;
+    -webkit-border-bottom-right-radius: 15px;
+    -webkit-border-bottom-left-radius: 15px;
     border-bottom-left-radius: 15px 15px;
     border-bottom-right-radius: 15px 15px;
     background-color: #efefef;
     text-align: center;
+}
+.zoom {
+    width: 120px;
+    height: 70px;
+    top: -81px;
+    right: 202px;
+}
+.zoom input {
+    width: 70px;
+    border: 1px solid #4F4F4F;
+    background-color: #F4F2F2;
+    color: #4F4F4F;
+    height: 18px;
+    font: normal normal normal 13px/normal arial, sans-serif;
+    padding: 0 3px;
+    position: relative;
+    left: 8px;
+}
+.zoom input[type=submit] {
+    top: 5px;
+    width: 103px;
+    background-image: url(../images/buttonConfirm103.png);
+    border: 0;
+    color: white;
+    height: 21px;
+    font-size: 0.9em;
+}
+.zoom input[type=submit]:active {
+    background-image: url(../images/buttonConfirmActive103.png);
+}
+.zoom span {
+    position: absolute;
+    right: 14px;
+    top: 22px;
+}
+
+.export {
+    width: 200px;
+    height: 200px;
+    top: -211px;
+    right: 0;
+}
+.export form {
+    visibility: hidden;
 }
 .export ul {
     list-style: none;
