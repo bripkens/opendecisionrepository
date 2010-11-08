@@ -33,16 +33,22 @@
 <li> Essential information
 <ul>
 <LI>Name text field _(required, must be unique in the project, minimum number of characters: 3)_</LI>
-<LI>Menu to select a template _(required)_</LI>
-<LI>Date field with date picker _(required)_</LI>
+<LI>Menu to select a template _(required)_. Previously entered data in the second step should not get lost when changing the template. Also provide a help notification that states that the information will not be lost when changing the template.</LI>
+<LI>Date field with date picker _(required)_ which can be used to specify a date on which the decision was made. The default value should be the current date.</LI>
 <li>Menu to select requirements, which are drivers for this decision</li>
-<li>OPR link text field</li>
+<li>Open Pattern repository link text field. This text field should contain the link to a documented pattern in the Open Pattern Repository.</li>
 </ul>
 </li>
 
 <li> Template related information
 <ul>
-<li>Several text areas, which depend on the selected template.</li>
+<li>Several text areas, which depend on the selected template are shown. Also, the information which is stored in the Open Pattern Repository (linked by previously entered OPR link) will be displayed so that it can be used to documented this specific decision.</li>
+</ul>
+</li>
+
+<li> State
+<ul>
+<li>This step should provide functionality to set the current state and the members, which are responsible for the state transition.</li>
 </ul>
 </li>
 
@@ -52,11 +58,7 @@
 </ul>
 </li>
 
-<li> State
-<ul>
-<li>This step should provide functionality to set the current state and the members, which are responsible for the state transition.</li>
-</ul>
-</li>
+
 
 <li> Overview
 <ul>
