@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4">User is authorized to create decisions</td>
+      <td colspan="4">The user is a member of the project for which he wants to create a new decision.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
