@@ -4,7 +4,7 @@
       <th>ID</th>
       <td>UC-5</td>
       <th>Name</th>
-      <td>browse projects</td>
+      <td>browse project</td>
       <th>Package</th>
       <td>Project Management</td>
     </tr>
