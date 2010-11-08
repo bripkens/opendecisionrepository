@@ -41,8 +41,12 @@
 <LI>Relationships from the decision to other related decisions with the relationship type.</LI>
 <li>Incoming relationships, i.e. relationships in which the decision acts as the target. This includes information about the relationship type.</li>
 <li>Requirements that substantiate the decision</li>
+<li>Buttons to navigate to the previous version (only shown if there is a previous version) and a button to navigate to the following version (only shown if there is a following version). A click on one of these buttons will show information about the
+previous version of the decision</li>
 </UL>
 </LI>
+<li>The user selects "previous version".</li>
+
 </OL>
       </td>
     </tr>
