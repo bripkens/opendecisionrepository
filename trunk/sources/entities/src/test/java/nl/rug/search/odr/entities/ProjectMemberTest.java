@@ -144,4 +144,22 @@ public class ProjectMemberTest {
         assertEquals(role, m.getCompareData()[2]);
         assertEquals(removed, m.getCompareData()[3]);
     }
+
+
+
+    @Test
+    public void testNameComparator() {
+        Person pSmall = new Person();
+        pSmall.setName("aaa");
+        ProjectMember pmSmall = new ProjectMember();
+        pmSmall.setPerson(pSmall);
+
+        Person pBig = new Person();
+        pBig.setName("bbb");
+        ProjectMember pmBig = new ProjectMember();
+        pmBig.setPerson(pBig);
+
+        assertTrue(new ProjectMember.NameComparator().compare(pmSmall, pmBig) < 0);
+
+    }
 }

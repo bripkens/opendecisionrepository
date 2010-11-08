@@ -1,8 +1,13 @@
 
 package nl.rug.search.odr.decision;
 
+import java.util.List;
+import nl.rug.search.odr.project.RelationshipTypeBean;
+import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.entities.Decision;
+import nl.rug.search.odr.entities.Relationship;
+import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Version;
 import org.junit.Test;
 import org.junit.Before;
@@ -14,10 +19,14 @@ import static org.junit.Assert.*;
 public class DecisionTest extends AbstractEjbTest {
 
     private DecisionLocal dl;
+    private RelationshipTypeLocal rtl;
+    private VersionLocal vl;
 
     @Before
     public void setUp() {
         dl = lookUp(DecisionBean.class, DecisionLocal.class);
+        rtl = lookUp(RelationshipTypeBean.class, RelationshipTypeLocal.class);
+        vl = lookUp(VersionBean.class, VersionLocal.class);
     }
 
     @Test
@@ -58,4 +67,7 @@ public class DecisionTest extends AbstractEjbTest {
 
         assertTrue(d.isRemoved());
     }
+
+
+  
 }

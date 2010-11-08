@@ -249,7 +249,7 @@
                             <ice:outputText value="#{item.currentVersion.state.statusName}" styleClass="small"/>
                         </ice:column>
                         <ice:column  styleClass="navigationColumn">
-                            <a href="#" class="columnNavigationLink">
+                            <a href="#{projectDetailsController.getDetailDecisionLink(item)}" class="columnNavigationLink">
                                 <img alt="#{common.read}"
                                      src="resources/images/inspect.png"
                                      width="14"

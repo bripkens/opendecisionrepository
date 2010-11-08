@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{decisionDetailsController.decision.name}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="content">
+        <f:subview id="decisionDetailsContentSubview" rendered="#{decisionDetailsController.valid}">
+            <h1><ice:outputText value="#{decisionDetailsController.decision.name}" nospan="true" /></h1>
+
+            <div class="projectDetailsActions">
+                <a href="#{decisionDetailsController.updateLink}"
+                   id="updateLink"
+                   title="#{page['decision.details.edit.decision']}"
+                   style="text-decoration: none;">
+                    <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
+                </a>
+            </div>
+
+            <ice:repeat value="#{decisionDetailsController.values}" var="item">
+                <h2><ice:outputText value="#{item.component.label}" nospan="true" /></h2>
+                <p><ice:outputText value="#{item.value}" nospan="true" /></p>
+            </ice:repeat>
+        </f:subview>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        <f:subview id="decisionDetailsSidebarSubview" rendered="#{decisionDetailsController.valid}">
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/impact.png" alt="impact" />
+                        </div>
+                        <div class="text">
+                            <h2><ice:outputText value="#{page['decision.details.abstract.headline']}" nospan="true" /></h2>
+                            <ice:outputFormat value="#{page['decision.details.abstract.state']}">
+                                <f:param value="#{decisionDetailsController.version.state.statusName}" />
+                            </ice:outputFormat><br />
+
+                            <ice:outputText value="#{page['decision.details.abstract.initiators']}" /><br />
+                            <ul class="subList">
+                                <ice:repeat value="#{decisionDetailsController.initiators}" var="item">
+                                    <li>
+                                    <ice:outputFormat value="#{page['decision.details.abstract.initiator']}">
+                                        <f:param value="#{item.person.name}" />
+                                        <f:param value="#{item.person.email}" />
+                                    </ice:outputFormat>
+                                    </li>
+                                </ice:repeat>
+                            </ul>
+
+                            <ice:outputFormat value="#{page['decision.details.abstract.template']}">
+                                <f:param value="#{decisionDetailsController.decision.template.name}" />
+                            </ice:outputFormat><br />
+
+                            <ice:outputFormat value="#{page['decision.details.abstract.decided.when']}">
+                                <f:param value="#{decisionDetailsController.version.decidedWhen}" />
+                            </ice:outputFormat><br />
+
+                            <ice:outputFormat value="#{page['decision.details.abstract.documented.when']}">
+                                <f:param value="#{decisionDetailsController.version.documentedWhen}" />
+                            </ice:outputFormat><br />
+
+<!-- <ice:outputFormat value="#{page['decision.details.abstract.version.id']}">
+    <f:param value="#{decisionDetailsController.version.id}" />
+</ice:outputFormat>-->
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/wildcard.png" alt="wildcard" />
+                        </div>
+                        <div class="text">
+                            <h2><ice:outputText value="#{page['decision.details.requirements.headline']}" nospan="true" /></h2>
+                            <ul class="subList">
+                                <ice:repeat value="#{decisionDetailsController.requirements}" var="item">
+                                    <li>
+                                    <ice:outputText value="#{item.name}" />
+                                    </li>
+                                </ice:repeat>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/relationship.png" alt="relationships" />
+                        </div>
+                        <div class="text">
+                            <h2><ice:outputText value="#{page['decision.details.relationship.outgoing.headline']}" nospan="true" /></h2>
+                            <ul class="subList">
+                                <ice:repeat value="#{decisionDetailsController.relationships}" var="item">
+                                    <li>
+                                    <ice:outputFormat value="#{page['decision.details.relationship.outgoing']}">
+                                        <f:param value="#{item.type.name}" />
+                                        <f:param value="#{decisionDetailsController.getDecisionName(item.target.id)}" />
+                                    </ice:outputFormat>
+                                    </li>
+                                </ice:repeat>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!--                <li>
+                                        <div class="header">
+                                            <img src="resources/images/relationship.png" alt="information" />
+                                        </div>
+                                        <div class="text">
+                                            <h2><ice:outputText value="#{page['decision.details.relationship.incoming.headline']}" nospan="true" /></h2>
+                                            <ul class="subList">
+                                                <ice:repeat value="#{decisionDetailsController.relationships}" var="item">
+                                                    <li>
+                                                    <ice:outputFormat value="#{page['decision.details.relationship.incoming']}">
+                                                        <f:param value="#{item.type.name}" />
+                                                        <f:param value="#{decisionDetailsController.getDecisionName(item.target.id)}" />
+                                                    </ice:outputFormat>
+                                                    </li>
+                                                </ice:repeat>
+                                            </ul>
+                                        </div>
+                                    </li>-->
+
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/relationship.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <h2><ice:outputText value="#{page['decision.details.history.headline']}" nospan="true" /></h2>
+                            <ul class="subList">
+                                <ice:repeat value="#{decisionDetailsController.future}" var="item">
+                                    <li>
+                                    <ice:outputFormat value="#{page['decision.details.history.entry']}">
+                                        <f:param value="#{item.state.statusName}" />
+                                        <f:param value="#{item.decidedWhen}" />
+                                    </ice:outputFormat>
+                                    <a href="#{decisionDetailsController.getDecisionLink(item.versionId)}" title="#{page['decision.details.history.more']}">
+                                        <ice:outputText value="#{page['decision.details.history.more']}" nospan="true" />
+                                    </a>
+                                    </li>
+                                </ice:repeat>
+                                <li><ice:outputText value="#{page['decision.details.history.current.version']}" nospan="true" /></li>
+                                <ice:repeat value="#{decisionDetailsController.history}" var="item">
+                                    <li>
+                                    <ice:outputFormat value="#{page['decision.details.history.entry']}">
+                                        <f:param value="#{item.state.statusName}" />
+                                        <f:param value="#{item.decidedWhen}" />
+                                    </ice:outputFormat>
+                                    <a href="#{decisionDetailsController.getDecisionLink(item.versionId)}" title="#{page['decision.details.history.more']}">
+                                        <ice:outputText value="#{page['decision.details.history.more']}" nospan="true" />
+                                    </a>
+                                    </li>
+                                </ice:repeat>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </f:subview>
+    </ui:define>
+</ui:composition>
