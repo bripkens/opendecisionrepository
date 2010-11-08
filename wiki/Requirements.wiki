@@ -86,7 +86,7 @@ The requirements are documented in use case form. Some of these requirements con
 || UC-2 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_2 login] ||
 || UC-3 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_3 create project] ||
 || UC-4 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_4 edit project] ||
-|| UC-5 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 browse projects] ||
+|| UC-5 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 browse project] ||
 || UC-6 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_6 delete project] ||
 || UC-7 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_7 create iteration] ||
 || UC-9 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_9 edit iteration] ||
