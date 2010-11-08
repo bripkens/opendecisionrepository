@@ -32,12 +32,15 @@
 <LI>The system provide the user with detailed information about the current version of the decision
 <UL>
 <LI>name</LI>
-<LI>problem</LI>
-<LI>arguments</LI>
-<LI>decision</LI>
-<LI>opr-link</LI>
-<LI>actions</LI>
-<LI>status changes on this decision and who has approved these changes</LI>
+<li>The date on which the decision was made (decided when)</li>
+<li>The date on which the decision was changed</li>
+<LI>selected decision template</LI>
+<LI>textual elements (arguments) that have been specified according to the selected decision template</LI>
+<LI>The link to the Open Pattern Repository</LI>
+<LI>Current state of the decision and the initiators for that state.</LI>
+<LI>Relationships from the decision to other related decisions with the relationship type.</LI>
+<li>Incoming relationships, i.e. relationships in which the decision acts as the target. This includes information about the relationship type.</li>
+<li>Requirements that substantiate the decision</li>
 </UL>
 </LI>
 </OL>
