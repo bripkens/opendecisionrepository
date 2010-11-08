@@ -115,7 +115,7 @@ public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializab
 
     @Override
     public void persist(T entity) {
-        if (entity.isPersistable()) {
+        if (isPersistable(entity)) {
             manager.persist(entity);
         } else {
             throw new BusinessException("Entity is not persistable.");

@@ -59,7 +59,7 @@ public class DecisionTemplateTest extends AbstractEjbTest {
         dtl.persist(small);
 
         DecisionTemplate big = new DecisionTemplate();
-        big.setName("Foobar");
+        big.setName("Foobar2");
         big.addComponent(getSomeComponent());
         dtl.persist(big);
 
