@@ -358,13 +358,38 @@ p {
 .iceDatTblCol1, .iceDatTblCol2, .iceDatTblColHdr1, .iceDatTblColHdr2 {
     border-bottom: 1px solid #dedddd;
 }
-li {
+ul li {
     list-style-type: disc;
     list-style-position: inside;
 }
 
 ul, div.text ul {
     margin-left: 1em;
+}
+.toc {
+    border-radius: 15px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    font-size: 0.9em;
+    background-color: #efefef;
+    float: right;
+    padding: 7px 10px 7px 35px;
+    margin: 10px 0px 0px 20px;
+    width: auto;
+    border: 1px solid gray;
+}
+.toc ol {
+    list-style-type: decimal;
+    
+}
+.toc h4 {
+    font-weight: bold;
+    font-size: 1em;
+    font-style: normal;
+
 }
 p.small {
     font-size: 0.9em;
@@ -394,6 +419,9 @@ ul.info li div.text h2 {
     text-align: right;
     width: 55px;
     padding-right: 2px;
+}
+.textualElements p, p.textualElement {
+    text-align: justify;
 }
 /*
     -------------------------------------------------

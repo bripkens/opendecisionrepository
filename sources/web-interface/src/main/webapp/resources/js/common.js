@@ -47,6 +47,13 @@ odr.init = function() {
 
     odr.popup = new odr.Popup();
     odr.popup.init();
+
+    // anchor fix for base.href
+    j("a.anchorLink").each(function() {
+       element = j(this);
+       href = window.location.href;
+       element.attr("href", window.location.href.split("#")[0] + element.attr("href"));
+    });
 }
 
 

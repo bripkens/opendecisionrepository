@@ -25,10 +25,29 @@
                 </a>
             </div>
 
-            <ice:repeat value="#{decisionDetailsController.values}" var="item">
-                <h2><ice:outputText value="#{item.component.label}" nospan="true" /></h2>
-                <p><ice:outputText value="#{item.value}" nospan="true" /></p>
-            </ice:repeat>
+            <div class="textualElements">
+                <f:subview id="textualElementSubview" rendered="#{decisionDetailsController.hasValues()}">
+                    <div class="toc">
+                        <h4>Contents</h4>
+                        <ol>
+                            <ice:repeat value="#{decisionDetailsController.values}" var="item" rendered="#{decisionDetailsController.hasValues()}">
+                                <li>
+                                    <a href="##{item.component.label}" class="anchorLink">
+                                        <ice:outputText value="#{item.component.label}" nospan="true" />
+                                    </a>
+                                </li>
+                            </ice:repeat>
+                        </ol>
+                    </div>
+
+                    <ice:repeat value="#{decisionDetailsController.values}" var="item">
+                        <h2><a name="#{item.component.label}"><ice:outputText value="#{item.component.label}" nospan="true" /></a></h2>
+                        <p><ice:outputText value="#{item.value}" nospan="true" /></p>
+                    </ice:repeat>
+                </f:subview>
+
+                <ice:outputText value="#{page['decision.details.no.values']}" rendered="#{!decisionDetailsController.hasValues()}" />
+            </div>
         </f:subview>
     </ui:define>
 
@@ -103,8 +122,10 @@
                                     <li>
                                     <ice:outputFormat value="#{page['decision.details.relationship.outgoing']}">
                                         <f:param value="#{item.type.name}" />
-                                        <f:param value="#{decisionDetailsController.getDecisionName(item.target.id)}" />
                                     </ice:outputFormat>
+                                    <a href="#{item.decisionLink}">
+                                        <ice:outputText value="#{item.decision.name}" nospan="true" />
+                                    </a>
                                     </li>
                                 </ice:repeat>
                             </ul>
