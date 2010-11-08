@@ -95,11 +95,6 @@ The requirements are documented in use case form. Some of these requirements con
 || UC-12 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_12 browse decisions] ||
 || UC-13 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_13 edit decision] ||
 || UC-14 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 delete decision] ||
-|| UC-15 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 create relationship] ||
-|| UC-16 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 read relationship] ||
-|| UC-17 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 edit relationship] ||
-|| UC-18 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_18 delete relationship] ||
-|| UC-19 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_19 change status] ||
 
 
 
