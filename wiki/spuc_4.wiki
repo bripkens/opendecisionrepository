@@ -41,7 +41,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Postconditions</b></td>
-      <td colspan="4"></td>
+      <td colspan="4">The modified version is saved. Eventually removed members are marked as removed. Adding them back to the project will restore all their actions.</td>
     </tr>
   </tbody>
 </table>
