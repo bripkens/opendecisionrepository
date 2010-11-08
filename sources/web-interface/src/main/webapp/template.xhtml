@@ -19,7 +19,7 @@
             </title>
 
             <link rel="stylesheet" type="text/css" href="resources/css/common.css" />
-            
+
             <link rel="icon" href="resources/images/icon.png" type="image/png" />
 
             <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
@@ -36,7 +36,7 @@
                     <img src="resources/images/odr_logo.png" alt="#{common['page.logo.description']}" width="45" height="45"/>
                 </div>
                 <div id="navigation">
-                    
+
                     <div>
                         <ul>
                             <li class="current">
@@ -51,10 +51,15 @@
                         </ul>
                     </div>
                 </div>
+                <ul id="shortlinks">
+                    <li>
+                        <a href="fillDb.html"><img src="resources/images/archiv.png" /></a>
+                    </li>
+                </ul>
                 <ice:outputConnectionStatus disconnectedLabel="#{common['connection.status.lost']}"
                                             cautionLabel="#{common['connection.status.caution']}"
                                             showPopupOnDisconnect="true"/>
-                
+
                 <div id="userMenu">
                     <div>
                         <div>
@@ -78,16 +83,15 @@
 
                 <div id="sidebar">
                     <ui:insert name="sidebar">sidebar</ui:insert>
-                    Fill the Database using this <a href="fillDb.html">page</a>.
                 </div>
 
 
             </div>
-<!--                        <div id="footer">
-                            <hr style="height: 1px; border-top: 1px;"/>
-                            <ice:outputText value="#{common['page.footer']} " nospan="true" />
+            <!--                        <div id="footer">
+                                        <hr style="height: 1px; border-top: 1px;"/>
+                                        <ice:outputText value="#{common['page.footer']} " nospan="true" />
 
-                        </div>-->
+                                    </div>-->
         </h:body>
     </html>
 </f:view>

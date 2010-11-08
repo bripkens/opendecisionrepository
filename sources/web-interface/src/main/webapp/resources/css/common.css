@@ -428,10 +428,10 @@ ul.info li div.text h2 {
                     Connection status
 */
 .iceOutConStatDisconnect, .iceOutConStatCaution, .iceOutConStatInactv, .iceOutConStatActv {
-    width: 20px;
+    width: 100px;
     height: 25px;
     position: absolute;
-    left: 300px;
+    left: 330px;
     top: 60px;
     text-indent: 24px;
     font-size: 0.9em;
