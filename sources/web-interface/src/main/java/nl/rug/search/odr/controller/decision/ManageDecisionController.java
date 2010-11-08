@@ -419,9 +419,17 @@ public class ManageDecisionController extends AbstractController {
             newVersion.addRelationship(newRelationship);
         }
 
-        decision.addVersion(newVersion);
+        
 
         Version previousVersion = vl.getById(version.getId());
+
+        
+
+        if (newVersion.getDecidedWhen().equals(previousVersion.getDecidedWhen())) {
+            newVersion.setDecidedWhen(new Date(newVersion.getDecidedWhen().getTime() + 1));
+        }
+
+        decision.addVersion(newVersion);
 
         if (previousVersion.getDecidedWhen().equals(newVersion.getDecidedWhen())) {
             newVersion.setDecidedWhen(new Date(newVersion.getDecidedWhen().getTime() + 1));

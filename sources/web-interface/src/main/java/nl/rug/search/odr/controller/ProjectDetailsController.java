@@ -284,7 +284,13 @@ public class ProjectDetailsController {
     }
 
 
-
+    public String getDetailDecisionLink(Decision d) {
+        return new QueryStringBuilder().setUrl("decisionDetails.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.DECISION_ID, d.getId()).
+                append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
+                toString();
+    }
 
     public String getEditDecisionLink(Decision d) {
         return new QueryStringBuilder().setUrl("manageDecision.html").

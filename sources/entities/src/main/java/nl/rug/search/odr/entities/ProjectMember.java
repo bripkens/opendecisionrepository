@@ -1,5 +1,6 @@
 package nl.rug.search.odr.entities;
 
+import java.util.Comparator;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -152,5 +153,17 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     @Override
     protected Object[] getCompareData() {
         return new Object[]{person, project, role, removed};
+    }
+
+
+
+
+    public static class NameComparator implements Comparator<ProjectMember> {
+
+        @Override
+        public int compare(ProjectMember o1, ProjectMember o2) {
+            return o1.getPerson().getName().compareToIgnoreCase(o2.getPerson().getName());
+        }
+
     }
 }
