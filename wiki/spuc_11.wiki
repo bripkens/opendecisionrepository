@@ -48,7 +48,7 @@
 
 <li> State
 <ul>
-<li>This step should provide functionality to set the current state and the members, which are responsible for the state transition.</li>
+<li>This step should provide functionality to set the current state and the members, which are responsible for the state transition (hereinafter initiators). A state change will result in a new version of the decision. Show a small notification that explains what happens when changing the state, i.e. explain that a new version will be created and that the user should consider changing the initiators.</li>
 </ul>
 </li>
 
