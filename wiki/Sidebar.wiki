@@ -10,7 +10,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_2 2: login]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_3 3: create project]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_4 4: edit project]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 5: browse projects]
+    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 5: browse project]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_6 6: delete project]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_7 7: create iteration]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_9 9: edit iteration]
