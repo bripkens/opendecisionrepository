@@ -1,4 +1,3 @@
-
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -33,7 +32,8 @@
 <UL>
 <LI>name _(required, must be unique, minimum number of characters: 3)_</LI>
 <LI>description</LI>
-<li>A list of all project members and their roles in the project. Members can be added and removed using this form</li>
+<li>A list of all project members and their roles in the project. Members can be added and removed using this form by specifying their email address and confirming the entry. A new user account will be created if the email address is not registered. A user can later register himself with the email address and will directly be part of the projects to which the email address has been added.
+</li>
 </UL>
 </LI>
 <LI>The user confirms his entries with _submit_.</LI>
