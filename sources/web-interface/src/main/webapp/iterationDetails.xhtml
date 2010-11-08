@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['iteration.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form id="iterationForm" partialSubmit="false">
+            <h1><h:outputText value="#{iterationDetailsController.iteration.name}"/></h1>
+            <table class="details">
+
+                <div class="projectDetailsActions">
+                    <a href="#{iterationDetailsController.updateLink}" id="updateLink" title="#{page['iteration.actions.edit.title']}" style="text-decoration: none;">
+                        <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
+                    </a>
+                </div>
+
+                <tbody>
+                <tr>
+                    <td><ice:outputLabel value="#{form['label.description']}" for="inDescription" /></td>
+                <td> <ice:outputText value="#{iterationDetailsController.iteration.description}"/></td>
+                </tr>
+                <tr>
+                    <td><ice:outputLabel value="#{form['iteration.startDate']}" for="inStartDate" /></td>
+                <td><ice:outputText value="#{iterationDetailsController.iteration.startDate}">
+                    <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
+                </ice:outputText>
+                </td>
+                </tr>
+                <tr>
+                    <td><ice:outputLabel value="#{form['iteration.endDate']}" for="inEndDate" /></td>
+                <td><ice:outputText value="#{iterationDetailsController.iteration.endDate}">
+                    <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
+                </ice:outputText>
+                </td>
+                </tr>
+                <tr>
+                    <td><ice:outputLabel value="#{form['iteration.duration']}" for="inDuration" /></td>
+                <td> <ice:outputFormat value="#{form['iteration.duration.value']}">
+                    <f:param value="#{iterationDetailsController.days}" />
+                    <f:param value="#{iterationDetailsController.hours}" />
+                    <f:param value="#{iterationDetailsController.minutes}" />
+                </ice:outputFormat></td>
+                </tr>
+                <tr>
+                    <td> <ice:outputLabel value="#{form['iteration.documentedBy']}" for="inCreator" /></td>
+                <td><ice:outputText value="#{iterationDetailsController.iteration.projectMember.person.name}"/></td>
+                </tr>
+                <tr>
+                    <td><ice:outputLabel value="#{form['iteration.creationdate']}" for="inDocumentedBy" /></td>
+                <td><ice:outputText value="#{iterationDetailsController.iteration.documentedWhen}">
+                    <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
+                </ice:outputText>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--Back Button-->
+            <ice:commandButton actionListener="#{iterationDetailsController.abortForm}"
+                               id="reset"
+                               style="margin-top:10px"
+                               value="#{form['button.backtoproject']}"
+                               immediate="true"
+                               partialSubmit="true"
+                               type="abort" />
+
+
+        </ice:form>
+    </ui:define>
+
+    <!--SIDEBAR-->
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>Iwas tolles :D</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

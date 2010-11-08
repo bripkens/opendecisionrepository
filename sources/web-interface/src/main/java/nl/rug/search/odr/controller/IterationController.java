@@ -20,6 +20,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
@@ -254,11 +255,21 @@ public class IterationController {
                 iteration.setDocumentedWhen(new Date());
                 iteration.setProjectMember(member);
                 project.addIteration(iteration);
+                il.persist(iteration);
+                System.out.println("erfolgreich persistiert");
                 pl.merge(project);
             }
-            JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
 
+             JsfUtil.redirect(new QueryStringBuilder().setUrl("/iterationDetails.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.ITERATION_ID, iteration.getId()).
+                toString());
         }
+    }
+
+    public boolean isValidDate(){
+        System.out.println("checkt");
+        return true;
     }
 
 

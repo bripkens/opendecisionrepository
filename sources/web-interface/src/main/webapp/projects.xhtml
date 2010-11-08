@@ -36,11 +36,20 @@
                 <ice:column id="col">
                     <ice:outputText value="#{project.role.name}" id="project"/>
                 </ice:column>
+
+                <ice:column styleClass="navigationColumn">
+                    <a href="#" class="columnNavigationLink">
+                        <img alt="#{common.read}"
+                             src="resources/images/inspect.png"
+                             width="14"
+                             height="14"/>
+                    </a>
+                </ice:column>
             </ice:dataTable>
 
             <p>
-                <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
-                <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
+            <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
+            <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
             </p>
 
         </ice:form>

@@ -73,8 +73,10 @@ public class ProjectDetailsController {
     private List<State> states;
 
     private State state;
+
     private State initialState;
     // <editor-fold defaultstate="collapsed" desc="construction">
+
 
 
 
@@ -252,6 +254,9 @@ public class ProjectDetailsController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+
+
+
     public List<SelectItem> getStates() {
         List<SelectItem> items = new ArrayList<SelectItem>(states.size());
 
@@ -262,6 +267,16 @@ public class ProjectDetailsController {
         Collections.sort(items, new SelectItemComparator());
 
         return items;
+    }
+
+
+
+
+    public String getShowIterationLink(Iteration it) {
+        return new QueryStringBuilder().setUrl("iterationDetails.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.ITERATION_ID, it.getId()).
+                toString();
     }
 
 
@@ -485,15 +500,12 @@ public class ProjectDetailsController {
     public void setState(String stateString) {
         long stateId = Long.parseLong(stateString);
 
-        for(State state : states) {
+        for (State state : states) {
             if (state.getId().equals(stateId)) {
                 this.state = state;
                 return;
             }
         }
     }
-
-
-
     // </editor-fold>
 }
