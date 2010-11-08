@@ -19,11 +19,6 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_12 12: browse decisions]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_13 13: edit decision]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 14: delete decision]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 15: create relationship]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 16: read relationship]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 17: edit relationship]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_18 18: delete relationship]
-    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_19 19: change status]
   * [http://code.google.com/p/opendecisionrepository/wiki/Architecture Architecture]
    * *Description views*
     * [http://code.google.com/p/opendecisionrepository/wiki/OPR_technology_stack OPR technology stack]
