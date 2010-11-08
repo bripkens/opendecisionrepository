@@ -4,8 +4,11 @@
  */
 package nl.rug.search.odr.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,7 +51,6 @@ public class Iteration extends BaseEntity<Iteration> {
             nullable = false)
     private String name;
 
-    
     @Column(length = 1000)
     private String description;
 
@@ -189,7 +191,6 @@ public class Iteration extends BaseEntity<Iteration> {
         }
         this.projectMember = projectMember;
     }
-
 
 
 
