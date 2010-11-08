@@ -45,7 +45,6 @@
 previous version of the decision</li>
 </UL>
 </LI>
-<li>The user selects "previous version".</li>
 
 </OL>
       </td>
