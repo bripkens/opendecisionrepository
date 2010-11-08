@@ -49,3 +49,47 @@ odr.Callback.prototype = {
         }
     }
 }
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              DrawableItem class
+ */
+
+odr.DrawableItem = function() {
+    odr.Callback.call(this);
+    this.id = odr.DrawableItem.idCounter++;
+}
+odr.DrawableItem.idCounter = 0;
+odr.DrawableItem.prototype = {
+    id : -1
+}
+extend(odr.DrawableItem, odr.Callback);
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Registry class
+ */
+odr.Registry = function() {
+    this.items = new Array();
+}
+odr.Registry.prototype = {
+    items : null,
+    add : function(item) {
+        this.items[item.id()] = item;
+    },
+    get : function(itemId) {
+        return this.items[itemId];
+    },
+    remove : function(itemId) {
+        alert("Not implemented: odr.Registry.remove");
+    }
+}
