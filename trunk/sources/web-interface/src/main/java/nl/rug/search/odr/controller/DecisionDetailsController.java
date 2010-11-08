@@ -21,6 +21,7 @@ import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
+import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
@@ -145,7 +146,9 @@ public class DecisionDetailsController {
     }
 
 
-
+    public boolean hasValues() {
+        return decision != null && !decision.getValues().isEmpty();
+    }
 
     public List<ComponentValue> getValues() {
         List<ComponentValue> values = new ArrayList<ComponentValue>(decision.getValues());
@@ -176,16 +179,23 @@ public class DecisionDetailsController {
 
 
 
-    public List<Relationship> getRelationships() {
-        return new ArrayList<Relationship>(version.getRelationships());
+    public List<RelationshipDto> getRelationships() {
+        Collection<Relationship> relationships = version.getRelationships();
+
+        List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
+
+        for(Relationship eachRelationship : relationships) {
+            RelationshipDto dto = new RelationshipDto();
+            dto.setType(eachRelationship.getType());
+            dto.setVersion(eachRelationship.getTarget());
+            dto.setDecision(dl.getByVersion(dto.getVersion().getId()));
+            result.add(dto);
+        }
+
+        return result;
     }
 
 
-
-
-    public String getDecisionName(long versionId) {
-        return dl.getByVersion(versionId).getName();
-    }
 
     public List<HistoryDto> getFuture() {
         Collection<Version> versions = decision.getVersions();
@@ -251,6 +261,63 @@ public class DecisionDetailsController {
     // </editor-fold>
 
 
+    public class RelationshipDto {
+        private RelationshipType type;
+        private Decision decision;
+        private Version version;
+
+
+
+        public String getDecisionLink() {
+            return new QueryStringBuilder().setUrl("decisionDetails.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.DECISION_ID, decision.getId()).
+                append(RequestParameter.VERSION_ID, version.getId()).
+                toString();
+        }
+
+
+        public Decision getDecision() {
+            return decision;
+        }
+
+
+
+
+        public void setDecision(Decision decision) {
+            this.decision = decision;
+        }
+
+
+
+
+        public RelationshipType getType() {
+            return type;
+        }
+
+
+
+
+        public void setType(RelationshipType type) {
+            this.type = type;
+        }
+
+
+
+
+        public Version getVersion() {
+            return version;
+        }
+
+
+
+
+        public void setVersion(Version version) {
+            this.version = version;
+        }
+
+        
+    }
 
     public static class HistoryDto implements Comparable<HistoryDto>{
         private State state;

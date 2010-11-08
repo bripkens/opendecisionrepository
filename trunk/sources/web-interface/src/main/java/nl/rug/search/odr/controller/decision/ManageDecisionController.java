@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestAnalyser;
@@ -159,6 +160,8 @@ public class ManageDecisionController extends AbstractController {
     private void setUpDecisionSpecific(RequestAnalyserDto requestAnalyser) {
         project = requestAnalyser.getProject();
         member = requestAnalyser.getMember();
+
+        pl.makeTransient(project);
 
         String decisionIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.DECISION_ID);
@@ -385,7 +388,31 @@ public class ManageDecisionController extends AbstractController {
 
         pl.merge(project);
 
-        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
+        project = pl.getById(project.getId());
+
+
+        for(Decision d : project.getDecisions()) {
+            if (d.getName().equals(decision.getName())) {
+                decision = d;
+                break;
+            }
+        }
+
+        for(Version v : decision.getVersions()) {
+            if (v.getDocumentedWhen().equals(version.getDocumentedWhen())) {
+                version = v;
+                break;
+            }
+        }
+
+        String url = new QueryStringBuilder().
+                setUrl("/decisionDetails.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.DECISION_ID, decision.getId()).
+                append(RequestParameter.VERSION_ID, version.getId()).
+                toString();
+
+        JsfUtil.redirect(url);
 
         project = null;
         decision = null;
@@ -422,19 +449,15 @@ public class ManageDecisionController extends AbstractController {
         
 
         Version previousVersion = vl.getById(version.getId());
-
-        
+        version = newVersion;
 
         if (newVersion.getDecidedWhen().equals(previousVersion.getDecidedWhen())) {
             newVersion.setDecidedWhen(new Date(newVersion.getDecidedWhen().getTime() + 1));
         }
 
-        decision.addVersion(newVersion);
+        vl.persist(version);
 
-        if (previousVersion.getDecidedWhen().equals(newVersion.getDecidedWhen())) {
-            newVersion.setDecidedWhen(new Date(newVersion.getDecidedWhen().getTime() + 1));
-        }
-        
+        decision.addVersion(newVersion);
         decision.addVersion(previousVersion);
     }
     // </editor-fold>
