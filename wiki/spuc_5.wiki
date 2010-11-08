@@ -20,7 +20,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
+      <td colspan="4">The user is a member of the project.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
