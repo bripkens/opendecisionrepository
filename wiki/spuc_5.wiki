@@ -34,8 +34,8 @@
 <li>name</li>
 <li>description</li>
 <li>all project members</li>
-<li>the names of all decisions</li>
-<li>the names of all iterations in descending order sorted by their end date</li>
+<li>the names of all decisions in descending order sorted by the date of the last change</li>
+<li>the names of all iterations in descending order sorted by end date</li>
 </ul></LI>
 </OL>
       
