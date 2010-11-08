@@ -1,4 +1,3 @@
-
 <table border="1" cellspacing="0" cellpadding="5" width="650">
   <thead>
     <tr>
@@ -21,15 +20,16 @@
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
-      <td colspan="4"></td>
+      <td colspan="4">The user is a member of the project for which he wants to browse through the decisions.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
       
 <OL>
+<li>UC-5 specifies how the user gets an overview about all decisions. This use case starts when the user selects a specific decision in the decision overview (which is part of the project detail view).</li>
 <LI>The user chooses a decision</LI>
-<LI>The system provide the user with detailed information about this project
+<LI>The system provide the user with detailed information about the current version of the decision
 <UL>
 <LI>name</LI>
 <LI>problem</LI>
