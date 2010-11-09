@@ -35,7 +35,7 @@
 <LI>TODO category</LI>
 <LI>description</LI>
 <LI>start date</LI>
-<LI>start date</LI>
+<LI>end date</LI>
 <LI>duration of the iteration</LI>
 <LI>documented by</LI>
 <LI>creation date</LI>
