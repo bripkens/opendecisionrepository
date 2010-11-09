@@ -9,4 +9,5 @@ import nl.rug.search.odr.entities.Iteration;
  */
 public interface IterationLocal extends GenericDaoLocal<Iteration, Long> {
 
+       public boolean isIntersection(Iteration entity);
 }
