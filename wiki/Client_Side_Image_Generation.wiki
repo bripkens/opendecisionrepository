@@ -1,0 +1,30 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>Client side image generation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>Decisions need to be visualized.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Client side image generation will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Client side image generation enables the user to modify the diagram and also reduces server load significantly.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li><<replaces>> Server side image generation</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
