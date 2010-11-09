@@ -13,6 +13,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_5 5: browse project]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_6 6: delete project]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_7 7: create iteration]
+    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_8 8: browse iteration]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_9 9: edit iteration]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_10 10: delete iteration]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_11 11: create decision]
