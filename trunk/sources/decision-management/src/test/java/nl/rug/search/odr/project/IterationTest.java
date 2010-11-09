@@ -283,7 +283,7 @@ public class IterationTest extends AbstractEjbTest {
         // </editor-fold>
 
         // <editor-fold defaultstate="collapsed" desc="createIterationToProject">
-        GregorianCalendar start2012 = new GregorianCalendar(2012, 1, 10);
+        GregorianCalendar start1940 = new GregorianCalendar(1940, 1, 10);
         GregorianCalendar end2012 = new GregorianCalendar(2012, 1, 12);
 
         GregorianCalendar start2010 = new GregorianCalendar(2010, 1, 15);
@@ -320,7 +320,7 @@ public class IterationTest extends AbstractEjbTest {
         Iteration earlyIteration = new Iteration();
         Date date = new Date();
         earlyIteration.setDescription("ccc");
-        earlyIteration.setName("third");
+        earlyIteration.setName("early");
         earlyIteration.setProjectMember(member3);
         earlyIteration.setStartDate(start1950.getTime());
         earlyIteration.setDocumentedWhen(date);
@@ -362,7 +362,23 @@ public class IterationTest extends AbstractEjbTest {
         assertFalse(iterationLocal.isIntersection(laterIteration, project.getId()));
         assertTrue(iterationLocal.isIntersection(startDateIntersectionIteration, project.getId()));
         assertTrue(iterationLocal.isIntersection(endDateIntersectionIteration, project.getId()));
-       
+
+        project.addIteration(earlyIteration);
+        projectLocal.merge(project);
+
+
+        List<Iteration>  iterations = iterationLocal.getAll();
+        for (int i = 0; i < iterations.size(); i++) {
+            if(iterations.get(i).getName().equals("early")){
+                earlyIteration = iterations.get(i);
+                break;
+            }
+
+        }
+
+        earlyIteration.setStartDate(start1940.getTime());
+        assertFalse(iterationLocal.isIntersection(earlyIteration, project.getId()));
+
 
 
 //        try {

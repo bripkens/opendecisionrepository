@@ -35,11 +35,17 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
 
     @Override
     public boolean isIntersection(Iteration entity, long projectId) {
+    long iterationId = -1;
+    if(entity.getId() != null){
+        System.out.println("hat die id "+ entity.getId());
+        iterationId = entity.getId();
+    }
 
         return entityManager.createNamedQuery(Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES, Long.class).
                 setParameter("startDate", entity.getStartDate()).
                 setParameter("endDate", entity.getEndDate()).
                 setParameter("pid", projectId).
+                setParameter("iterationId", iterationId).
                 getSingleResult() != 0;
     }
 }
