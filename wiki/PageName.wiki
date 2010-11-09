@@ -1,0 +1,57 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <td width="70">UC-17</td>
+      <th>Name</th>
+      <td>Browse iterations</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Get an overview over all iterations and provide a detail view for a single iteration.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">The user is a member of the project for which he wants to browse through the iterations.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>All iterationa are be visiable at the project details page</LI>
+<LI>The user chooses a iteration</LI>
+<LI>The system provide the user with detailed information about the current version of the iteration
+<UL>
+<LI>name</LI>
+<LI>TODO category</LI>
+<LI>description</LI>
+<LI>start date</LI>
+<LI>start date</LI>
+<LI>duration of the iteration</LI>
+<LI>documented by</LI>
+<LI>creation date</LI>
+</UL>
+</LI>
+
+</OL>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
