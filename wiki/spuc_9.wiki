@@ -26,7 +26,7 @@
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The user clicks on _modify project_</LI>
+<LI>The user clicks on _modify iteration_</LI>
 <LI>See use case *create iteration step 2*</LI>
 <LI>See use case *create iteration step 3*</LI>
 <Li>The system saves the modifications.</Li>
