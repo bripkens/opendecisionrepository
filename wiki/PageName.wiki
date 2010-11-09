@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th width="30">ID</th>
-      <td width="70">UC-17</td>
+      <td width="70">UC-8</td>
       <th>Name</th>
       <td>Browse iterations</td>
       <th>Package</th>
