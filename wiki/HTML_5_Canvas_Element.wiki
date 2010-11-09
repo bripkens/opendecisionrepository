@@ -16,7 +16,7 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>Enables maximum user interaction, but makes export functionality an issue. Also drag handles are hard to manage as no event listeners can be attached to visual elements (elements that are drawn on the canvas). HTML 5 recommendations are still subject to changes and not widely supported.</td>
+      <td>Enables maximum user interaction, but makes export functionality an issue. Also drag handles are hard to manage as no event listeners can be attached to visual elements (elements that are drawn on the canvas). HTML 5 recommendations are likely to changes and not widely supported.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
