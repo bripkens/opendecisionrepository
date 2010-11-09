@@ -2,6 +2,7 @@ package nl.rug.search.odr.util;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.SessionAttribute;
 
 /**
@@ -25,7 +26,7 @@ public abstract class ErrorUtil {
                 new String[]{SessionAttribute.ERROR_TITLE, SessionAttribute.ERROR_CONTENT},
                 new String[]{headline, content});
 
-        JsfUtil.redirect("/error.html");
+        JsfUtil.redirect(Filename.ERROR_WITH_LEADING_SLASH);
     }
 
 

@@ -22,9 +22,9 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
 
 
     public static final String FIRST_ROLE_SELECT_ID = "manageProjectForm:j_idt60:j_idt72";
-    public static final String SECOND_ROLE_SELECT_ID = "manageProjectForm:j_idt60:0:j_idt75";
-    public static final String THIRD_ROLE_SELECT_ID = "manageProjectForm:j_idt60:1:j_idt75";
-    public static final String FIRST_REMOVE_LINK_ID = "manageProjectForm:j_idt60:0:j_idt78";
+    public static final String SECOND_ROLE_SELECT_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[1]/td[2]/select";
+    public static final String THIRD_ROLE_SELECT_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[2]/td[2]/select";
+    public static final String FIRST_REMOVE_LINK_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[1]/td[3]/a";
 
     public static void createDefaultProject(Selenium selenium) {
         createProject(selenium, PROJECT_NAME, PROJECT_DESCRIPTION, OTHER_MEMBER, USER_ROLE, OTHER_MEMBER_ROLE);
@@ -36,8 +36,8 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
     public static void createProject(Selenium selenium, String ProjectName, String ProjectDescription,
                                      String OtherMember, String UserRole, String OtherMemberRole) {
         open(selenium, "projects.html");
-        sleep(1000);
-        selenium.click("link=here");
+        sleep(2000);
+        selenium.click("sidebarCreateProjectLink");
         waitForPageToLoad(selenium);
 
         sleep(1000);

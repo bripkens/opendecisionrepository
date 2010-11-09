@@ -17,6 +17,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
@@ -273,7 +274,7 @@ public class ProjectDetailsController {
 
 
     public String getShowIterationLink(Iteration it) {
-        return new QueryStringBuilder().setUrl("iterationDetails.html").
+        return new QueryStringBuilder().setUrl(Filename.ITERATION_DETAILS).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.ITERATION_ID, it.getId()).
                 toString();
@@ -283,7 +284,7 @@ public class ProjectDetailsController {
 
 
     public String getCreateIterationLink() {
-        return new QueryStringBuilder().setUrl("manageIteration.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_ITERATION).
                 append(RequestParameter.ID, project.getId()).
                 toString();
     }
@@ -292,7 +293,7 @@ public class ProjectDetailsController {
 
 
     public String getEditIterationLink(Iteration it) {
-        return new QueryStringBuilder().setUrl("manageIteration.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_ITERATION).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.ITERATION_ID, it.getId()).
                 toString();
@@ -300,7 +301,7 @@ public class ProjectDetailsController {
 
 
     public String getDetailDecisionLink(Decision d) {
-        return new QueryStringBuilder().setUrl("decisionDetails.html").
+        return new QueryStringBuilder().setUrl(Filename.DECISION_DETAILS).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, d.getId()).
                 append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
@@ -308,7 +309,7 @@ public class ProjectDetailsController {
     }
 
     public String getEditDecisionLink(Decision d) {
-        return new QueryStringBuilder().setUrl("manageDecision.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_DECISION).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, d.getId()).
                 append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
@@ -319,7 +320,7 @@ public class ProjectDetailsController {
 
 
     public String getCreateDecisionLink() {
-        return new QueryStringBuilder().setUrl("manageDecision.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_DECISION).
                 append(RequestParameter.ID, project.getId()).
                 appendBolean(RequestParameter.CREATE).
                 toString();
