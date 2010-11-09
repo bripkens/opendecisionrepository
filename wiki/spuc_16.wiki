@@ -1,0 +1,52 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>UC-16</td>
+      <th>Name</th>
+      <td>Quick add decision</td>
+      <th>Package</th>
+      <td>Decision Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Add a decision in a quick manner so that many decision can be added to the system in a short period of time.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4">The user is a member of the project for which he wants to add a decision.</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _quick add decision_</LI>
+<li>The system displays a small form with the following fields
+<ul>
+<li>Name text field _(required, must be unique in the project, minimum number of characters: 3)_</li>
+<li>A menu that allows to select the initial state of the decision. The default initial state is selected.</li>
+<LI>The user confirmes his entries with _submit_</LI>
+<LI>The system saves this new decision and hides the form.</LI>
+</ul>
+</li>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
