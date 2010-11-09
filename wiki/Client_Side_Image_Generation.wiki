@@ -22,7 +22,7 @@
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li><<replaces>> Server side image generation</li>
+<li>`<<replaces>>` Server side image generation</li>
 </ul>
 </td>
     </tr>
