@@ -239,25 +239,25 @@ public class IterationController {
 
     public void submitForm() {
 
-        System.out.println("isIntersection: " + il.isIntersection(iteration));
 
-        if(il.isIntersection(iteration)){
-            FacesContext.getCurrentInstance().addMessage("manageIteration",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    JsfUtil.evaluateExpressionGet("#{form['iteration.error.intersection']}", String.class),
-                    null));
-        }
 
         if (getCurrentMessages().isEmpty()) {
             iteration.setName(iterationName);
             iteration.setDescription(iterationDescription);
 
-            if(iteration.getEndDate().before(startDate)){
+            if (iteration.getEndDate().before(startDate)) {
                 iteration.setEndDate(endDate);
             }
             iteration.setStartDate(startDate);
             iteration.setEndDate(endDate);
 
+            if (il.isIntersection(iteration, projectId)) {
+                FacesContext.getCurrentInstance().addMessage("manageIteration",
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        JsfUtil.evaluateExpressionGet("#{form['iteration.error.intersection']}", String.class),
+                        null));
+                return;
+            }
             //TODO IF THE MEMBER ALSO BE SAVED
 
             if (isUpdate) {
@@ -270,10 +270,10 @@ public class IterationController {
                 pl.merge(project);
             }
 
-             JsfUtil.redirect(new QueryStringBuilder().setUrl(Filename.ITEARTION_DETAILS_WITH_LEADING_SLASH).
-                append(RequestParameter.ID, project.getId()).
-                append(RequestParameter.ITERATION_ID, iteration.getId()).
-                toString());
+            JsfUtil.redirect(new QueryStringBuilder().setUrl(Filename.ITEARTION_DETAILS_WITH_LEADING_SLASH).
+                    append(RequestParameter.ID, project.getId()).
+                    append(RequestParameter.ITERATION_ID, iteration.getId()).
+                    toString());
         }
     }
 
