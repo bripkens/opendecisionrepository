@@ -1,11 +1,12 @@
 package nl.rug.search.odr.project;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.Iteration;
-
 
 /**
  *
@@ -26,13 +27,24 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
             return false;
         }
 
-        System.out.println("ICH BIN IN DER ISPERSISTABLE METHODE!!!!");
-
-        return entityManager.createNamedQuery(Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES, Long.class).
-                setParameter("startDate", entity.getStartDate()).
-                setParameter("endDate", entity.getEndDate()).
-                getSingleResult() == 0;
+        return isIntersection(entity);
     }
 
 
+
+
+    @Override
+    public boolean isIntersection(Iteration entity) {
+
+        List<Iteration> list = entityManager.createNamedQuery(Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES, Iteration.class).
+                setParameter("startDate", entity.getStartDate()).
+                setParameter("endDate", entity.getEndDate()).
+                getResultList();
+
+        for(Iteration i : list){
+            System.out.println(i.getName() + " " +i.getStartDate()+ " " + i.getEndDate());
+        }
+
+        return false;
+    }
 }
