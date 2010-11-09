@@ -1,0 +1,33 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>Scalable Vector Graphics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A way to visualize decisions on the client side needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>Scalable Vector Graphics will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Allows user interaction, wide support through web frameworks like jquery.svg, svgweb or raphael. Zooming is simple and export functionality can easily be achieved through usage of Apache FOP and Apache Batik.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li>`<<caused by>>` Client side image generation</li>
+<li>`<<replaces>>` Image generation in Java</li>
+<li>`<<replaces>>` Graphviz</li>
+<li>`<<replaces>>` HTML 5 Canvas Element</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
