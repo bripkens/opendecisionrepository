@@ -31,7 +31,7 @@ import nl.rug.search.odr.viewpoint.Viewpoint;
     @NamedQuery(name = "Iteration.getAll",
                 query = "SELECT it FROM Iteration it"),
     @NamedQuery(name = Iteration.NAMED_QUERY_CHECK_FOR_OVERLAPPING_DATES,
-                query = "SELECT COUNT(i) FROM Iteration i WHERE :startDate BETWEEN i.startDate AND i.endDate "
+                query = "SELECT i FROM Project AS p, IN (p.iterations) i WHERE p.id = :pid AND :startDate BETWEEN i.startDate AND i.endDate "
                         + "OR :endDate BETWEEN i.startDate AND i.endDate OR i.startDate BETWEEN :startDate AND :endDate "
                         + "OR i.endDate BETWEEN :startDate AND :endDate")
 })
