@@ -32,10 +32,10 @@
 <ul>
 <li>Name text field _(required, must be unique in the project, minimum number of characters: 3)_</li>
 <li>A menu that allows to select the initial state of the decision. The default initial state is selected.</li>
-<LI>The user confirmes his entries with _submit_</LI>
-<LI>The system saves this new decision and hides the form.</LI>
 </ul>
 </li>
+<LI>The user confirmes his entries with _submit_</LI>
+<LI>The system saves this new decision and hides the form.</LI>
 </OL>
       
       </td>
