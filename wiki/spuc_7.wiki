@@ -34,7 +34,7 @@
 <li>TODO *_iteration type (required)_*</li>
 <LI>description</LI>
 <li>start date _(required)_</li>
-<li>end date _(required)_</li>
+<li>end date _(required, must be after start date)_</li>
 </UL>
 <LI>The user confirms his entries with _submit_</LI>
 <Li>The system adds the iteration and saves when the iteration was documented and which user did it.</Li>
