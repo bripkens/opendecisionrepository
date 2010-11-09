@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
@@ -406,7 +407,7 @@ public class ManageDecisionController extends AbstractController {
         }
 
         String url = new QueryStringBuilder().
-                setUrl("/decisionDetails.html").
+                setUrl(Filename.DECISION_DETAILS_WITH_LEADING_SLASH).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, decision.getId()).
                 append(RequestParameter.VERSION_ID, version.getId()).

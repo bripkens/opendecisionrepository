@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.Mode;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.util.JsfUtil;
@@ -228,7 +229,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.persist(sourceProject);
 
-        JsfUtil.redirect("/p/".concat(sourceProject.getName()));
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(sourceProject.getName()));
 
         return true;
     }
@@ -249,7 +250,7 @@ public class ManageProjectController extends AbstractManageController {
 
         pl.merge(sourceProject);
 
-        JsfUtil.redirect("/p/".concat(sourceProject.getName()));
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(sourceProject.getName()));
 
         return true;
     }
@@ -261,7 +262,7 @@ public class ManageProjectController extends AbstractManageController {
     protected boolean handleConfirmedDeleteExecution() {
         pl.delete(sourceProject);
 
-        JsfUtil.redirect("/projects.html");
+        JsfUtil.redirect(Filename.PROJECT_OVERVIEW_LEADING_SLASH);
 
         return true;
     }

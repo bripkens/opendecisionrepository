@@ -36,55 +36,55 @@ public class RegistrationTest extends AbstractSelenseTestCase {
 
 
 
-//    @Test
-//    public void testRegister() {
-//        registerUserWithDefaulCredentials(selenium);
-//
-//        waitForAjaxRequest();
-//
-//        verifyTrue(selenium.isTextPresent("successful"));
-//    }
-//
-//
-//
-//
-//    @Test
-//    public void testValidation() {
-//        registerUserWithDefaulCredentials(selenium);
-//
-//        waitForAjaxRequest();
-//
-//        open();
-//        selenium.click("loginForm:registerLink");
-//        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
-//        selenium.type("registerForm:inName", USER_NAME);
-//        selenium.fireEvent("registerForm:inName", "blur");
-//        waitForAjaxRequest();
-//        verifyTrue(selenium.isTextPresent("User name is not unique"));
-//        selenium.type("registerForm:inPassword", "1234");
-//        selenium.fireEvent("registerForm:inPassword", "blur");
-//        waitForAjaxRequest();
-//        verifyTrue(selenium.isTextPresent("Has less than allowed 5 chars"));
-//        selenium.type("registerForm:inEmail", "wrongFormat");
-//        selenium.fireEvent("registerForm:inEmail", "blur");
-//        waitForAjaxRequest();
-//        verifyTrue(selenium.isTextPresent("Please provide a valid e-mail address"));
-//        selenium.type("registerForm:inEmail", EMAIL);
-//        selenium.fireEvent("registerForm:inEmail", "blur");
-//        waitForAjaxRequest();
-//        verifyTrue(selenium.isTextPresent("This email is already registered"));
-//    }
-//
-//
-//
-//
-//    @Test
-//    public void testRegistrationWhileLoggedIn() {
-//        RegistrationTest.registerUserWithDefaulCredentials(selenium);
-//        LoginTest.loginUserWithDefaulCredentials(selenium);
-//
-//        open("register.html");
-//        verifyTrue(selenium.getLocation().
-//                endsWith("error.html"));
-//    }
+    @Test
+    public void testRegister() {
+        registerUserWithDefaulCredentials(selenium);
+
+        waitForAjaxRequest();
+
+        verifyTrue(selenium.isTextPresent("successful"));
+    }
+
+
+
+
+    @Test
+    public void testValidation() {
+        registerUserWithDefaulCredentials(selenium);
+
+        waitForAjaxRequest();
+
+        open();
+        selenium.click("loginForm:registerLink");
+        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        selenium.type("registerForm:inName", USER_NAME);
+        selenium.fireEvent("registerForm:inName", "blur");
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("User name is not unique"));
+        selenium.type("registerForm:inPassword", "1234");
+        selenium.fireEvent("registerForm:inPassword", "blur");
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("Has less than allowed 5 chars"));
+        selenium.type("registerForm:inEmail", "wrongFormat");
+        selenium.fireEvent("registerForm:inEmail", "blur");
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("Please provide a valid e-mail address"));
+        selenium.type("registerForm:inEmail", EMAIL);
+        selenium.fireEvent("registerForm:inEmail", "blur");
+        waitForAjaxRequest();
+        verifyTrue(selenium.isTextPresent("This email is already registered"));
+    }
+
+
+
+
+    @Test
+    public void testRegistrationWhileLoggedIn() {
+        RegistrationTest.registerUserWithDefaulCredentials(selenium);
+        LoginTest.loginUserWithDefaulCredentials(selenium);
+
+        open("register.html");
+        verifyTrue(selenium.getLocation().
+                endsWith("error.html"));
+    }
 }
