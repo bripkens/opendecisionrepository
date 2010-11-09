@@ -18,8 +18,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
@@ -237,6 +239,15 @@ public class IterationController {
 
     public void submitForm() {
 
+        System.out.println("isIntersection: " + il.isIntersection(iteration));
+
+        if(il.isIntersection(iteration)){
+            FacesContext.getCurrentInstance().addMessage("manageIteration",
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    JsfUtil.evaluateExpressionGet("#{form['iteration.error.intersection']}", String.class),
+                    null));
+        }
+
         if (getCurrentMessages().isEmpty()) {
             iteration.setName(iterationName);
             iteration.setDescription(iterationDescription);
@@ -256,27 +267,21 @@ public class IterationController {
                 iteration.setProjectMember(member);
                 project.addIteration(iteration);
                 il.persist(iteration);
-                System.out.println("erfolgreich persistiert");
                 pl.merge(project);
             }
 
-             JsfUtil.redirect(new QueryStringBuilder().setUrl("/iterationDetails.html").
+             JsfUtil.redirect(new QueryStringBuilder().setUrl(Filename.ITEARTION_DETAILS_WITH_LEADING_SLASH).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.ITERATION_ID, iteration.getId()).
                 toString());
         }
     }
 
-    public boolean isValidDate(){
-        System.out.println("checkt");
-        return true;
-    }
-
 
 
 
     public void abortForm() {
-        JsfUtil.redirect("/p/"+ project.getName());
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT + project.getName());
     }
 
     // <editor-fold defaultstate="collapsed" desc="comboBox values">
