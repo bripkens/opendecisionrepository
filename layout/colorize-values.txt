@@ -1,0 +1,5 @@
+When using gimp, use the following settings for colorize:
+
+360
+94
+-56
