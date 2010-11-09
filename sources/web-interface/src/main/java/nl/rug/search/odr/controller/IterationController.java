@@ -66,34 +66,10 @@ public class IterationController {
 
     private Date startDate = null;
 
-    private String startHour = "";
-
-    private String startMinute = "";
     //
-
     private Date endDate = null;
 
-    private String endHour = "";
-
-    private String endMinute = "";
-
     private boolean isUpdate = false;
-
-    private Object dummy;
-
-
-
-
-    public Object getDummy() {
-        return dummy;
-    }
-
-
-
-
-    public void setDummy(Object dummy) {
-        this.dummy = dummy;
-    }
 
 
 
@@ -165,17 +141,9 @@ public class IterationController {
         } else {
             iterationName = iteration.getName();
             iterationDescription = iteration.getDescription();
-
             startDate = iteration.getStartDate();
-            GregorianCalendar cal = new GregorianCalendar();
-            cal.setTime(startDate);
-            startHour = String.valueOf(cal.get(Calendar.HOUR));
-            startMinute = String.valueOf(cal.get(Calendar.MINUTE));
-
             endDate = iteration.getEndDate();
-            cal.setTime(endDate);
-            endHour = String.valueOf(cal.get(Calendar.HOUR));
-            endMinute = String.valueOf(cal.get(Calendar.MINUTE));
+
         }
 
     }
@@ -251,6 +219,7 @@ public class IterationController {
             iteration.setStartDate(startDate);
             iteration.setEndDate(endDate);
 
+            System.out.println("iterationId: " + iteration.getId());
             if (il.isIntersection(iteration, projectId)) {
                 FacesContext.getCurrentInstance().addMessage("manageIteration",
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -338,62 +307,6 @@ public class IterationController {
 
     public void setDescription(String desciption) {
         iterationDescription = desciption;
-    }
-
-
-
-
-    public String getEndHour() {
-        return endHour;
-    }
-
-
-
-
-    public void setEndHour(String endHour) {
-        this.endHour = endHour;
-    }
-
-
-
-
-    public String getEndMinute() {
-        return endMinute;
-    }
-
-
-
-
-    public void setEndMinute(String endMinute) {
-        this.endMinute = endMinute;
-    }
-
-
-
-
-    public String getStartHour() {
-        return startHour;
-    }
-
-
-
-
-    public void setStartHour(String hour) {
-        startHour = hour;
-    }
-
-
-
-
-    public String getStartMinute() {
-        return startMinute;
-    }
-
-
-
-
-    public void setStartMinute(String minute) {
-        startMinute = minute;
     }
 
 
