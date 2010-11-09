@@ -29,11 +29,11 @@ At the beginning of this document you can find a listing of all the architectura
 || [http://code.google.com/p/opendecisionrepository/wiki/Java_Persistence_API Java Persistence API] || approved ||
 || [http://code.google.com/p/opendecisionrepository/wiki/EclipseLink EclipseLink] || approved ||
 || [http://code.google.com/p/opendecisionrepository/wiki/MySQL MySQL] || approved ||
-|| [http://code.google.com/p/opendecisionrepository/wiki/Server_Side_Image_Generation Server side image generation] || rejected ||
-|| [http://code.google.com/p/opendecisionrepository/wiki/Image_Generation_In_Java Image generation in Java] || rejected ||
-|| [http://code.google.com/p/opendecisionrepository/wiki/Graphviz Graphviz] || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Server_Side_Image_Generation Server side image generation]~~ || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Image_Generation_In_Java Image generation in Java]~~ || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/Graphviz Graphviz]~~ || rejected ||
 || [http://code.google.com/p/opendecisionrepository/wiki/Client_Side_Image_Generation Client side image generation] || approved ||
-|| [http://code.google.com/p/opendecisionrepository/wiki/HTML_5_Canvas_Element HTML 5 Canvas Element] || rejected ||
+|| ~~[http://code.google.com/p/opendecisionrepository/wiki/HTML_5_Canvas_Element HTML 5 Canvas Element]~~ || rejected ||
 || [http://code.google.com/p/opendecisionrepository/wiki/Scalable_Vector_Graphics Scalable Vector Graphics] || approved ||
 || [http://code.google.com/p/opendecisionrepository/wiki/Apache_FOP Apache FOP] || approved ||
 || [http://code.google.com/p/opendecisionrepository/wiki/Apache_Batik Apache Batik] || approved ||
