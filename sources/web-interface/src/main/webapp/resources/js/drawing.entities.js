@@ -399,7 +399,6 @@ odr.Rectangle.prototype = {
     _dragEnd : function() {
         odr.snapPosition(this);
         this.repaint();
-        this.parent().optimizePath();
     },
     _click : function(e) {
         if(e.ctrlKey) {
@@ -519,7 +518,6 @@ odr.Handle.prototype = {
     _dragEnd : function() {
         odr.snapPosition(this);
         this.repaint();
-        this.parent().optimizePath();
     },
     _click : function(e) {
         if(e.ctrlKey) {
@@ -702,12 +700,14 @@ odr.Association.prototype = {
             if (this._source) {
                 this._source.unbind(odr.Callback.types.redraw, this.extendedId());
                 this._source.unbind(odr.Callback.types.visibility, this.extendedId());
+                this._source.unbind(odr.Callback.types.dragEnd, this.extendedId());
                 this._source.parent(undefined);
             }
 
             this._source = source;
             this._source.parent(this);
             this._source.redraw(this.repaint.createDelegate(this), this.extendedId());
+            this._source.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
             this._source.visibility(this.endpointVisibilityChanged.createDelegate(this), this.extendedId());
 
             return this;
@@ -720,12 +720,14 @@ odr.Association.prototype = {
             if (this._target) {
                 this._target.unbind(odr.Callback.types.redraw, this.extendedId());
                 this._target.unbind(odr.Callback.types.visibility, this.extendedId());
-                this._source.parent(undefined);
+                this._target.unbind(odr.Callback.types.dragEnd, this.extendedId());
+                this._target.parent(undefined);
             }
 
             this._target = target;
             this._target.parent(this);
             this._target.redraw(this.repaint.createDelegate(this), this.extendedId());
+            this._target.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
             this._target.visibility(this.endpointVisibilityChanged.createDelegate(this), this.extendedId());
 
             return this;
@@ -736,27 +738,30 @@ odr.Association.prototype = {
     addHandle : function(handle) {
         this._handles[this._handles.length] = handle;
         handle.parent(this);
+        handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
     },
     removeHandle : function(handleId) {
         for(var i = 0; i < this._handles.length; i++) {
             if (this._handles[i].id() == handleId) {
                 this._handles[i].dispose();
+                this._handles[i].unbind(odr.Callback.types.dragEnd, this.extendedId());
                 this._handles.splice(i, 1);
             }
         }
     },
     addHandleAfter : function(element, handle) {
-        //    this.parent.addHandleAfter(this._start(), handle);
         handle.parent(this);
 
         if (this.source().id() == element.id()) {
             this._handles.splice(0, 0, handle);
+            handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
             this.paint();
             return;
         }
 
         for(i = 0; i < this._handles.length; i++) {
             if (this._handles[i].id() == element.id()) {
+                handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
                 if (i+1 == this._handles.length) {
                     this._handles[this._handles.length] = handle;
                 } else {

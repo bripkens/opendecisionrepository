@@ -16,7 +16,6 @@ odr.ready(function() {
 //    rectangle.unbind(odr.Callback.types.draw, "fooTest");
 //    rectangle.paint();
 
-
     var rectangle = new odr.Rectangle();
     rectangle.x(50);
     rectangle.y(200);
@@ -64,6 +63,31 @@ odr.ready(function() {
     association3.source(rectangle3);
     association3.target(rectangle);
     association3.paint();
+
+    j("input[name=radio1]").change(function() {
+        if (j("input[name=radio1]:checked").val() == "hide") {
+            rectangle.visible(false);
+        } else {
+            rectangle.visible(true);
+        }
+    })
+
+
+    j("input[name=radio2]").change(function() {
+        if (j("input[name=radio2]:checked").val() == "hide") {
+            rectangle2.visible(false);
+        } else {
+            rectangle2.visible(true);
+        }
+    })
+
+    j("input[name=radio3]").change(function() {
+        if (j("input[name=radio3]:checked").val() == "hide") {
+            rectangle3.visible(false);
+        } else {
+            rectangle3.visible(true);
+        }
+    })
 
 //    setTimeout(function() {
 //        handle.visible(false);

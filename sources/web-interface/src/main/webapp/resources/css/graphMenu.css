@@ -85,8 +85,19 @@ body {
     top: -411px;
     left: 202px;
 }
-
-
+.decisionSelector {
+    position: relative;
+    margin-bottom: 10px;
+}
+.decisionSelector span {
+    position: relative;
+    left: 5px;
+}
+.decisionRadios {
+    position: absolute;
+    right: 15px;
+    top: -2px;
+}
 
 
 /*
@@ -99,7 +110,7 @@ body {
     top: -81px;
 }
 .zoom input {
-    width: 70px;
+    width: 40px;
     border: 1px solid #4F4F4F;
     background-color: #F4F2F2;
     color: #4F4F4F;
@@ -108,6 +119,9 @@ body {
     padding: 0 3px;
     position: relative;
     left: 8px;
+}
+.zoom input[type=text] {
+    left: 10px;
 }
 .zoom input[type=submit] {
     top: 5px;
@@ -123,8 +137,19 @@ body {
 }
 .zoom span {
     position: absolute;
-    right: 14px;
+    right: 28px;
     top: 22px;
+}
+.zoom img {
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+}
+.zoom #zoomIn {
+    left: 7px;
+}
+.zoom #zoomOut {
+    left: 30px;
 }
 
 

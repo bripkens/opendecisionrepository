@@ -63,6 +63,21 @@ odr.svgContainer = {
     }
 }
 
+odr.scroll = {
+    speed : {
+        up : -50,
+        down : 50,
+        left : -50,
+        right : 50
+    },
+    margin : {
+        up : 100,
+        down : 100,
+        left : 50,
+        right : 50
+    }
+}
+
 odr.css = {
     url : "resources/css/graph.css",
     inlineStyle : '@import "resources/css/graph.css";'
@@ -193,12 +208,12 @@ odr.init(function() {
 
 odr.assertContainerSize = function(elementId) {
 
-    container = odr._svgContainer.children("svg");
+    var container = odr._svgContainer.children("svg");
 
-    containerWidth = 0;
-    containerHeight = 0;
+    var containerWidth = 0;
+    var containerHeight = 0;
 
-    selector = undefined;
+    var selector = undefined;
 
     if (elementId) {
         selector = "#" + elementId;
@@ -209,8 +224,8 @@ odr.assertContainerSize = function(elementId) {
     }
 
     j(selector).each(function() {
-        currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
-        lowerRightCorner = currentElement.bottomRight();
+        var currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+        var lowerRightCorner = currentElement.bottomRight();
 
         lowerRightCorner.x *= odr._scale.level;
         lowerRightCorner.y *= odr._scale.level;
@@ -229,7 +244,7 @@ odr.assertContainerSize = function(elementId) {
 
     container.attr("width", containerWidth);
     container.attr("height", containerHeight);
-    parent = odr._svgContainer;
+    var parent = odr._svgContainer;
     parent.css({
         width :  containerWidth,
         height : containerHeight
@@ -258,7 +273,7 @@ odr.assertContainerSize = function(elementId) {
  *                              Snapping
  */
 odr._round = function(value, roundTo) {
-    modResult = value % roundTo;
+    var modResult = value % roundTo;
 
     if(modResult == 0) {
         return value;
@@ -271,7 +286,7 @@ odr._round = function(value, roundTo) {
 
 
 odr._roundUp = function(value, roundTo) {
-    modResult = value % roundTo;
+    var modResult = value % roundTo;
 
     if(modResult == 0) {
         return value;
@@ -326,7 +341,7 @@ odr._dragStart = function(e) {
         return false;
     }
 
-    button = e.button;
+    var button = e.button;
     odr._dragging.elementToDrag[button] = j(this)
     odr._dragging.previousEvent[button] = e;
     
@@ -361,34 +376,34 @@ odr._drag = function(e) {
     odr.assertContainerSize(odr._dragging.itemToDrag[button].extendedId());
 
 
-//    viewportWidth = j(window).width();
-//    viewportHeight = j(window).height();
-//    scrollLeft = j(window).scrollLeft();
-//    scrollTop = j(window).scrollTop();
-//    lowerRightCorner = odr.itemToDrag[button].lowerRightCorner();
-//    topLeftCorner = odr.itemToDrag[button].topLeftCorner();
-//
-//    scrollX = 0;
-//    scrollY = 0;
-//
-//    doScrollRight = lowerRightCorner.x - scrollLeft > viewportWidth - odr.viewportScrollMargin.x;
-//    doScrollLeft = topLeftCorner.x - scrollLeft < odr.viewportScrollMargin.x;
-//    doScrollDown = lowerRightCorner.y > viewportHeight - odr.viewportScrollMargin.y - scrollTop;
-//    doScrollUp = topLeftCorner.y < scrollTop + odr.viewportScrollMargin.y;
-//
-//    if (doScrollRight) {
-//        scrollX = odr.scrollSpeed.right;
-//    } else if (doScrollLeft) {
-//        scrollX = odr.scrollSpeed.left;
-//    }
-//
-//    if (doScrollUp) {
-//        scrollY = odr.scrollSpeed.up;
-//    } else if (doScrollDown) {
-//        scrollY = odr.scrollSpeed.down;
-//    }
-//
-//    window.scrollBy(scrollX, scrollY);
+    var viewportWidth = j(window).width();
+    var viewportHeight = j(window).height();
+    var scrollLeft = j(window).scrollLeft();
+    var scrollTop = j(window).scrollTop();
+    var lowerRightCorner = odr._dragging.itemToDrag[button].bottomRight();
+    var topLeftCorner = odr._dragging.itemToDrag[button].topLeft();
+
+    var scrollX = 0;
+    var scrollY = 0;
+
+    var doScrollRight = (lowerRightCorner.x * odr._scale.level) - scrollLeft > viewportWidth - odr.scroll.margin.right;
+    var doScrollLeft = (topLeftCorner.x * odr._scale.level) - scrollLeft < odr.scroll.margin.left;
+    var doScrollDown = (lowerRightCorner.y * odr._scale.level) > viewportHeight - odr.scroll.margin.down - scrollTop;
+    var doScrollUp = (topLeftCorner.y * odr._scale.level) < scrollTop + odr.scroll.margin.up;
+
+    if (doScrollRight) {
+        scrollX = odr.scroll.speed.right;
+    } else if (doScrollLeft) {
+        scrollX = odr.scroll.speed.left;
+    }
+
+    if (doScrollUp) {
+        scrollY = odr.scroll.speed.up;
+    } else if (doScrollDown) {
+        scrollY = odr.scroll.speed.down;
+    }
+
+    window.scrollBy(scrollX, scrollY);
 
     return false;
 }
@@ -412,4 +427,39 @@ odr._dragStop = function(e) {
     odr.assertContainerSize();
 
     return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Zooming
+ */
+odr.scale = function(newScale) {
+    if (!newScale) {
+        return odr._scale.level;
+    }
+
+    odr._scale.level = newScale;
+
+    var transformAttribute = "scale(" + odr._scale.level + ")";
+
+    for (var i = 0; i < odr.groups.length; i++) {
+        odr._svg.group(odr.groups[i]);
+        j("#" + odr.groups[i]).attr("transform", transformAttribute);
+    }
+
+    odr.assertContainerSize();
+
+    return odr._scale.level;
 }

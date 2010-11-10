@@ -9,17 +9,17 @@
         <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
 
         <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="resources/js/jquery-ui-1.8.5.custom.min.js"></script>
+<!--        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>-->
         <script type="text/javascript" src="resources/js/jquery.svg.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
 
         <script type="text/javascript" src="resources/js/stacktrace.js"></script>
-        
+
         <script type="text/javascript" src="resources/js/drawing.core.js"></script>
         <script type="text/javascript" src="resources/js/drawing.menu.js"></script>
         <script type="text/javascript" src="resources/js/drawing.entities.js"></script>
         <script type="text/javascript" src="resources/js/drawing.js"></script>
-        
+
         <link rel="stylesheet" type="text/css" href="resources/css/graphMenu.css" />
     </head>
     <body>
@@ -29,16 +29,37 @@
         </div>
         <div class="smallMenu decision">
             <div class="title">Decisions</div>
-            <span id="addNode">Add node</span><br />
-            <span id="addHandle">Add handle</span>
+
+            <div class="decisionSelector">
+                <span>Java Enterprise Edition</span>
+                <div class="decisionRadios">
+                    <input type="radio" id="radio11" name="radio1" value="hide"/><label for="radio11">Hide</label>
+                    <input type="radio" id="radio12" name="radio1" checked="checked" value="show" /><label for="radio12">Show</label>
+                </div>
+            </div>
+            <div class="decisionSelector">
+                <span>Java Programmming Language</span>
+                <div class="decisionRadios">
+                    <input type="radio" id="radio21" name="radio2" value="hide" /><label for="radio11">Hide</label>
+                    <input type="radio" id="radio22" name="radio2" checked="checked" value="show" /><label for="radio12">Show</label>
+                </div>
+            </div>
+            <div class="decisionSelector">
+                <span>Tcl</span>
+                <div class="decisionRadios">
+                    <input type="radio" id="radio31" name="radio3" value="hide" /><label for="radio11">Hide</label>
+                    <input type="radio" id="radio32" name="radio3" checked="checked" value="show" /><label for="radio12">Show</label>
+                </div>
+            </div>
         </div>
 
         <div class="smallMenu zoom">
             <div class="title">Zoom</div>
+            <img id="zoomIn" src="resources/images/expand.gif" width="13" height="13" alt="Zoom in" />
             <input type="text" id="inputScale" />
-            <input type="submit" value="Set scale" id="inputSetScale" />
+            <img id="zoomOut" src="resources/images/collapse.gif" width="13" height="13" alt="Zoom in" />
             <span>%</span>
-            
+            <input type="submit" value="Set scale" id="inputSetScale" />
         </div>
         <div class="smallMenu export">
             <div class="title">Export</div>
@@ -52,7 +73,7 @@
                 <input type="hidden" id="data" name="data"/>
                 <input type="hidden" id="format" name="format"/>
             </form>
-            
+
         </div>
         <div id="svgTarget" />
     </body>
