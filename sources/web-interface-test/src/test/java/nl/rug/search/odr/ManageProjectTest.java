@@ -21,7 +21,7 @@ public class ManageProjectTest extends AbstractSelenseTestCase {
     public static final String OTHER_MEMBER_ROLE = "Customer";
 
 
-    public static final String FIRST_ROLE_SELECT_ID = "manageProjectForm:j_idt60:j_idt72";
+    public static final String FIRST_ROLE_SELECT_ID = "//form[@id='manageProjectForm']/div[3]/table/thead/tr[1]/th[2]/select";
     public static final String SECOND_ROLE_SELECT_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[1]/td[2]/select";
     public static final String THIRD_ROLE_SELECT_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[2]/td[2]/select";
     public static final String FIRST_REMOVE_LINK_ID = "//form[@id='manageProjectForm']/div[3]/table/tbody/tr[1]/td[3]/a";
