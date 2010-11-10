@@ -87,7 +87,7 @@
 
 
 
-        <div class="relative">
+        <div class="relative" id="iterationDiv">
             <h3>#{page['projectDetails.iterations.headline']}</h3>
             <a href="#" class="togglelink collapsable" name="iterationContainer">#{common.toggle}</a>
 
@@ -98,7 +98,7 @@
                     <ice:outputText value="#{page['projectDetails.iterations.add']}" nospan="true"/>
                 </a>
 
-                <ice:form style="margin-top: 10px;">
+                <ice:form style="margin-top: 10px;" id="iterationForm">
 
                     <ice:dataTable id="iterationTable" value="#{projectDetailsController.iterations}" var="item" styleClass="rowhover enableHover ">
 
