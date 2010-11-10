@@ -16,7 +16,7 @@ var j = jQuery.noConflict();
  * ###########################################################################
  *                              Basic settings
  */
-odr.groups = ["package", "lines", "handles", "nodes"]
+odr.groups = ["package", "lines", "associations", "handles", "nodes"]
 
 odr.rectangleSettings = {
     idPrefix : "node",
@@ -35,7 +35,8 @@ odr.handleSettings = {
 
 odr.associationSettings = {
     idPrefix : "relationship",
-    "class" : "relationship"
+    "class" : "relationship",
+    group : "associations"
 }
 
 odr.lineSettings = {
@@ -44,7 +45,7 @@ odr.lineSettings = {
     "group" : "lines"
 }
 
-odr.gridSettings = {
+odr.grid = {
     "class" : "grid",
     width : 10,
     height : 10
@@ -81,10 +82,16 @@ odr._svgContainer = undefined;
 odr._svg = undefined;
 odr._initFunctions = [];
 odr._readyFunctions = [];
+
 odr._scale = {
     level : 1
 }
 
+odr._dragging = {
+    previousEvent : [],
+    elementToDrag : [],
+    itemToDrag : []
+}
 
 
 
@@ -99,11 +106,9 @@ odr.init = function(callback) {
     odr._initFunctions[odr._initFunctions.length] = callback;
 }
 
-
 odr.ready = function(callback) {
     odr._readyFunctions[odr._readyFunctions.length] = callback;
 }
-
 
 j(document).ready(function() {
     for (var i = 0; i < odr._initFunctions.length; i++) {
@@ -229,4 +234,182 @@ odr.assertContainerSize = function(elementId) {
         width :  containerWidth,
         height : containerHeight
     });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Snapping
+ */
+odr._round = function(value, roundTo) {
+    modResult = value % roundTo;
+
+    if(modResult == 0) {
+        return value;
+    } else if (modResult >= (roundTo / 2)) {
+        return value + (roundTo - modResult);
+    } else {
+        return value - value % roundTo;
+    }
+}
+
+
+odr._roundUp = function(value, roundTo) {
+    modResult = value % roundTo;
+
+    if(modResult == 0) {
+        return value;
+    }
+
+    return value + (roundTo - (modResult));
+}
+
+odr.snapPosition = function(element) {
+    if (element.x() != undefined) {
+        element.x(odr._round(element.x(), odr.grid.width));
+    }
+
+    if (element.y() != undefined) {
+        element.y(odr._round(element.y(), odr.grid.height));
+    }
+}
+
+odr.snap = function(element) {
+    odr.snapPosition(element);
+
+    if (element.width() != undefined) {
+        element.width(odr._roundUp(element.width(), odr.grid.width));
+    }
+
+    if (element.height() != undefined) {
+        element.height(odr._roundUp(element.height(), odr.grid.height));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Dragging
+ */
+odr.enableDragging = function(element) {
+    element.mousedown(odr._dragStart);
+    element.mouseup(odr._dragStop);
+}
+
+odr._dragStart = function(e) {
+    if(e.ctrlKey) {
+        return false;
+    }
+
+    button = e.button;
+    odr._dragging.elementToDrag[button] = j(this)
+    odr._dragging.previousEvent[button] = e;
+    
+    j("body").mousemove(odr._drag);
+    j("body").addClass(odr.grid["class"]);
+
+    odr._dragging.itemToDrag[button] = odr.registry.get(j(this).attr("id").removeNonNumbers());
+    odr._dragging.itemToDrag[button].dragStart();
+
+    return false;
+}
+
+odr._drag = function(e) {
+    button = e.button;
+    if (odr._dragging.previousEvent[button] == undefined) {
+        j("body").unbind("mousemove");
+        return false;
+    }
+
+    var oldX = odr._dragging.itemToDrag[button].x();
+    var oldY = odr._dragging.itemToDrag[button].y();
+
+    var deltaX = (e.pageX - odr._dragging.previousEvent[button].pageX) * (1 / odr._scale.level);
+    var deltaY = (e.pageY - odr._dragging.previousEvent[button].pageY) * (1 / odr._scale.level);
+
+    odr._dragging.itemToDrag[button].x(oldX + deltaX);
+    odr._dragging.itemToDrag[button].y(oldY + deltaY);
+    odr._dragging.previousEvent[button] = e;
+
+    odr._dragging.itemToDrag[button].dragging();
+
+    odr.assertContainerSize(odr._dragging.itemToDrag[button].id());
+
+
+//    viewportWidth = j(window).width();
+//    viewportHeight = j(window).height();
+//    scrollLeft = j(window).scrollLeft();
+//    scrollTop = j(window).scrollTop();
+//    lowerRightCorner = odr.itemToDrag[button].lowerRightCorner();
+//    topLeftCorner = odr.itemToDrag[button].topLeftCorner();
+//
+//    scrollX = 0;
+//    scrollY = 0;
+//
+//    doScrollRight = lowerRightCorner.x - scrollLeft > viewportWidth - odr.viewportScrollMargin.x;
+//    doScrollLeft = topLeftCorner.x - scrollLeft < odr.viewportScrollMargin.x;
+//    doScrollDown = lowerRightCorner.y > viewportHeight - odr.viewportScrollMargin.y - scrollTop;
+//    doScrollUp = topLeftCorner.y < scrollTop + odr.viewportScrollMargin.y;
+//
+//    if (doScrollRight) {
+//        scrollX = odr.scrollSpeed.right;
+//    } else if (doScrollLeft) {
+//        scrollX = odr.scrollSpeed.left;
+//    }
+//
+//    if (doScrollUp) {
+//        scrollY = odr.scrollSpeed.up;
+//    } else if (doScrollDown) {
+//        scrollY = odr.scrollSpeed.down;
+//    }
+//
+//    window.scrollBy(scrollX, scrollY);
+
+    return false;
+}
+
+
+
+odr._dragStop = function(e) {
+    button = e.button;
+
+    if (odr._dragging.itemToDrag[button] == undefined || e.ctrlKey) {
+        return false;
+    }
+
+    j("body").removeClass(odr.grid["class"]);
+
+    j("body").unbind("mousemove");
+    odr._dragging.previousEvent[button] = undefined;
+
+    odr._dragging.itemToDrag[button].dragEnd();
+
+    odr.assertContainerSize();
+
+    return false;
 }
