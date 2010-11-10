@@ -31,6 +31,13 @@ odr.ready(function() {
     rectangle2.height(20);
     rectangle2.paint();
 
+    var rectangle3 = new odr.Rectangle();
+    rectangle3.x(500);
+    rectangle3.y(400);
+    rectangle3.width(150);
+    rectangle3.height(20);
+    rectangle3.paint();
+
     var handle = new odr.Handle();
     handle.x(80);
     handle.y(300);
@@ -47,6 +54,16 @@ odr.ready(function() {
     association.addHandle(handle);
     association.addHandle(handle2);
     association.paint();
+
+    var association2 = new odr.Association();
+    association2.source(rectangle3);
+    association2.target(rectangle2);
+    association2.paint();
+
+    var association3 = new odr.Association();
+    association3.source(rectangle3);
+    association3.target(rectangle);
+    association3.paint();
 
 //    setTimeout(function() {
 //        handle.visible(false);

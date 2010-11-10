@@ -265,7 +265,7 @@ odr._round = function(value, roundTo) {
     } else if (modResult >= (roundTo / 2)) {
         return value + (roundTo - modResult);
     } else {
-        return value - value % roundTo;
+        return value - modResult;
     }
 }
 
@@ -294,11 +294,11 @@ odr.snap = function(element) {
     odr.snapPosition(element);
 
     if (element.width() != undefined) {
-        element.width(odr._roundUp(element.width(), odr.grid.width));
+        element.width(odr._roundUp(element.width(), odr.grid.width * 2));
     }
 
     if (element.height() != undefined) {
-        element.height(odr._roundUp(element.height(), odr.grid.height));
+        element.height(odr._roundUp(element.height(), odr.grid.height * 2));
     }
 }
 
@@ -358,7 +358,7 @@ odr._drag = function(e) {
 
     odr._dragging.itemToDrag[button].dragging();
 
-    odr.assertContainerSize(odr._dragging.itemToDrag[button].id());
+    odr.assertContainerSize(odr._dragging.itemToDrag[button].extendedId());
 
 
 //    viewportWidth = j(window).width();
