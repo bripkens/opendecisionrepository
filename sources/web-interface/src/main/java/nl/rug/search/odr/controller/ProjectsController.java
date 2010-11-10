@@ -1,15 +1,11 @@
 package nl.rug.search.odr.controller;
 
 import com.icesoft.faces.component.ext.RowSelectorEvent;
-import com.icesoft.faces.context.effects.BlindUp;
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.context.effects.EffectQueue;
 import com.icesoft.faces.context.effects.Fade;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -39,6 +35,7 @@ public class ProjectsController {
             }
         }
     }
+   
 
 
 

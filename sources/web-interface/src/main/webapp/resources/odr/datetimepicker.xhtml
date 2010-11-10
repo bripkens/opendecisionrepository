@@ -11,10 +11,11 @@
         <composite:attribute name="dateLabel" type="java.lang.String"/>
         <composite:attribute name="seperatorLabel" type="java.lang.String" default=":"/>
         <composite:attribute name="timeLabel" type="java.lang.String" default="Time:"/>
+        <composite:attribute name="idLabel" type="java.lang.String"/>
     </composite:interface>
 
     <composite:implementation>
-        <div class="formSection">
+        <div class="formSection" id="#{cc.attrs.idLabel}">
             <div class="datetimepicker">
                 <ice:outputLabel value="#{cc.attrs.dateLabel}" styleClass="datetimepickerDateLabel"/>
                 <ice:selectOneMenu id="Day" converter="javax.faces.Integer" partialSubmit="true" styleClass="datetimepickerDay">
