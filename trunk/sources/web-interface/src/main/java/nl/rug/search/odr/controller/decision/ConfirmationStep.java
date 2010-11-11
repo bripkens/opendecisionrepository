@@ -63,6 +63,10 @@ public class ConfirmationStep implements WizardStep {
         Collection<ComponentValue> values = wizard.getDecision().getValues();
         List<ComponentValue> result = new ArrayList<ComponentValue>(values.size());
 
+        if (wizard.getDecision().getTemplate() == null || wizard.getDecision().getTemplate().getComponents() == null) {
+            return Collections.emptyList();
+        }
+
         Collection<TemplateComponent> templateComponents = wizard.getDecision().getTemplate().getComponents();
 
         for (ComponentValue value : values) {
