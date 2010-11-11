@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+
+        <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.5.custom.min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.svg.min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
+        <script type="text/javascript" src="resources/js/graph.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="resources/css/graphMenu.css" />
+    </head>
+    <body>
+        <div class="smallMenu project">
+            <div class="title">Project</div>
+            <p>Something like, save changes, reload data, reset data... might be here</p>
+        </div>
+        <div class="smallMenu decision">
+            <div class="title">Decisions</div>
+            <span id="addNode">Add node</span><br />
+            <span id="addHandle">Add handle</span>
+        </div>
+
+        <div class="smallMenu zoom">
+            <div class="title">Zoom</div>
+            <input type="text" id="inputScale" />
+            <input type="submit" value="Set scale" id="inputSetScale" />
+            <span>%</span>
+            
+        </div>
+        <div class="smallMenu export">
+            <div class="title">Export</div>
+            <ul>
+                <li class="jpeg">JPEG image</li>
+                <li class="png">PNG image</li>
+                <li class="svg">SVG image</li>
+                <li class="pdf">PDF document</li>
+            </ul>
+            <form method="post" action="diagram.png">
+                <input type="hidden" id="data" name="data"/>
+                <input type="hidden" id="format" name="format"/>
+            </form>
+            
+        </div>
+        <div id="svgTarget" />
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:ice="http://www.icesoft.com/icefaces/component"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
+    <div class="formSectionineRemover">
+        <ice:repeat value="#{manageDecisionController.templateRelatedStep.componentValues}"
+                    var="item">
+
+            <div class="formSection">
+                <ice:outputLabel value="#{item.label}"/>
+
+                <ice:inputTextarea maxlength="30000"
+                                   label="#{item.label}"
+                                   value="#{item.value}"
+                                   styleClass="shrinked"/>
+                <odr:inputTextareaResizer />
+                <p class="empty" />
+            </div>
+        </ice:repeat>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://www.decisionrepository.com/taglib">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['projects.page.title']}" nospan="true" />
+    </ui:define>
+
+
+    <ui:define name="content">
+
+        <ice:form>
+
+            <h1><h:outputText value="#{page['projects.page.title']}"/></h1>
+
+
+            <ice:dataTable
+                value="#{projectsController.projects}"
+                var="project" styleClass="rowhover enableHover pointer " rendered="#{projectsController.active}">
+
+                <ice:column>
+                    <ice:rowSelector id="selected"
+                                     selectionListener="#{projectsController.rowSelectionListener}"/>
+                    <ice:outputText value="#{project.project.name}" nospan="true"/>
+                </ice:column>
+
+
+
+                <ice:column id="col">
+                    <ice:outputText value="#{project.role.name}" id="project"/>
+                </ice:column>
+
+                <ice:column styleClass="navigationColumn">
+                        <img alt="#{common.read}"
+                             src="resources/images/inspect.png"
+                             width="14"
+                             height="14"/>
+                </ice:column>
+            </ice:dataTable>
+
+            <p>
+            <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
+            <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
+            </p>
+
+        </ice:form>
+
+
+
+
+    </ui:define>
+
+    <!--SIDEBAR-->
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{page['projects.help.title']}" nospan="true"/></h2>
+                        <ice:outputText value="#{page['projects.help.content']}" nospan="true"/>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/create.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <ice:form>
+                            <h2><ice:outputText value="#{page['projects.help.create.title']}" nospan="true"/></h2>
+                            <ice:outputText value="#{page['projects.help.create.text']}" nospan="true" escape="false"/>
+                        </ice:form>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+    </ui:define>
+</ui:composition>

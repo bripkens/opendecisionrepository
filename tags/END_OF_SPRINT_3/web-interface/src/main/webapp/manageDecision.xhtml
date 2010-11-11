@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['decision.wizard.page.title']}" nospan="true"/>
+    </ui:define>
+
+    <ui:define name="belowHeader">
+        <div id="result">
+            <ice:outputText value="#{manageDecisionController.resultMessage}"
+                            styleClass="#{manageDecisionController.resultStyle}"
+                            effect="#{manageDecisionController.resultEffect}"
+                            visible="false" />
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <div>
+            <ice:form id="manageDecisionForm"
+                      partialSubmit="true"
+                      rendered="#{manageDecisionController.valid}"
+                      styleClass="wizardForm">
+
+
+
+                <h1>
+                    <ice:outputFormat value="#{manageDecisionController.headline}">
+                        <f:param value="#{manageDecisionController.currentStep.stepName}" />
+                    </ice:outputFormat>
+                </h1>
+
+                <ui:include src="#{manageDecisionController.currentStep.faceletName}" />
+
+                <ice:commandButton actionListener="#{manageDecisionController.resetForm}"
+                                   value="#{form['button.reset']}"
+                                   styleClass="abort"
+                                   immediate="true"/>
+
+                <ice:commandButton action="#{manageDecisionController.previousStep}"
+                                   rendered="#{!manageDecisionController.firstStep}"
+                                   value="#{form['button.previous']}"
+                                   id="previousStepButton"
+                                   partialSubmit="false"
+                                   styleClass="previousStepButton"/>
+
+                <ice:commandButton action="#{manageDecisionController.nextStep}"
+                                   rendered="#{!manageDecisionController.lastStep}"
+                                   value="#{form['button.next']}"
+                                   id="nextStepButton"
+                                   partialSubmit="false"
+                                   styleClass="nextStepButton"/>
+
+                <ice:commandButton action="#{manageDecisionController.submitForm}"
+                                   rendered="#{manageDecisionController.lastStep}"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"
+                                   partialSubmit="false"
+                                   id="manageDecisionSubmitButton"/>
+
+                <ice:commandButton action="#{manageDecisionController.submitForm}"
+                                   rendered="#{!manageDecisionController.lastStep}"
+                                   value="#{form['button.to.last']}"
+                                   id="toLastStepButtonTop"
+                                   partialSubmit="false"
+                                   styleClass="toLastStepButton"/>
+            </ice:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>help headline</h2>
+                        help content
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>
