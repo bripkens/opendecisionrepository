@@ -463,3 +463,75 @@ odr.scale = function(newScale) {
 
     return odr._scale.level;
 }
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Export
+ */
+odr.beforeExport = function() {
+
+    var container = odr._svgContainer.children("svg");
+
+    var x = null;
+    var y = null;
+    var width = 0;
+    var height = 0;
+
+
+    j("." + odr.rectangleSettings["class"] + ", ." + odr.handleSettings["class"]).each(function() {
+        var currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+
+        var lowerRightCorner = currentElement.bottomRight();
+        lowerRightCorner.x *= odr._scale.level;
+        lowerRightCorner.y *= odr._scale.level;
+
+        var topLeftCorner = currentElement.topLeft();
+        topLeftCorner.x *= odr._scale.level;
+        topLeftCorner.y *= odr._scale.level;
+
+        if (lowerRightCorner.x > width) {
+            width = lowerRightCorner.x;
+        }
+
+        if (lowerRightCorner.y > height) {
+            height = lowerRightCorner.y;
+        }
+
+        if (x == null || topLeftCorner.x < x) {
+            x = topLeftCorner.x;
+        }
+
+        if (y == null || topLeftCorner.y < y) {
+            y = topLeftCorner.y;
+        }
+    });
+
+    width += odr.svgContainer.padding.x
+    height += odr.svgContainer.padding.y;
+
+    x -= odr.svgContainer.padding.x
+    y -= odr.svgContainer.padding.y;
+
+    container.attr("width", width - x);
+    container.attr("height", height - y);
+
+    var viewBox = x + " " + y + " " + (parseInt(width) - parseInt(x)) + " " + (parseInt(height) - parseInt(y));
+
+    container.attr("viewBox", viewBox)
+}
+
+
+odr.afterExport = function() {
+   odr._svgContainer.children("svg").attr("viewBox", "0 0 100% 100%");
+
+    odr.assertContainerSize();
+}

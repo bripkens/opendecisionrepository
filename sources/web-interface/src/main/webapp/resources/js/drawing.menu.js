@@ -107,6 +107,8 @@ odr.ready(odr.prepareZoom);
 odr.ready(function() {
     j("div.export ul li").click(function() {
 
+        odr.beforeExport();
+
         var format = j(this).attr("class");
 
         j.get(odr.css.url, function(cssStyle) {
@@ -119,6 +121,8 @@ odr.ready(function() {
             formatInput.val(format);
 
             form.submit();
+
+            odr.afterExport();
         });
 
     })
