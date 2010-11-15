@@ -19,22 +19,26 @@ odr.ready(function() {
     var rectangle = new odr.Rectangle();
     rectangle.x(50);
     rectangle.y(200);
-    rectangle.width(150);
+    rectangle.width(250);
     rectangle.height(40);
+    rectangle.label("Java Enterprise Edition Version 5.1 in der revision 20000");
     rectangle.paint();
-
+    
+    
     var rectangle2 = new odr.Rectangle();
     rectangle2.x(50);
     rectangle2.y(400);
-    rectangle2.width(150);
+    rectangle2.width(250);
     rectangle2.height(20);
+    rectangle2.label("Java Programming Language");
     rectangle2.paint();
 
     var rectangle3 = new odr.Rectangle();
     rectangle3.x(500);
     rectangle3.y(400);
-    rectangle3.width(150);
+    rectangle3.width(250);
     rectangle3.height(20);
+    rectangle3.label("JavaServer Faces");
     rectangle3.paint();
 
     var handle = new odr.Handle();

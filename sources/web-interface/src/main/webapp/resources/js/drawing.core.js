@@ -16,14 +16,39 @@ var j = jQuery.noConflict();
  * ###########################################################################
  *                              Basic settings
  */
-odr.groups = ["package", "lines", "associations", "handles", "nodes"]
+odr.groups = ["package", "lines", "associations", "handles", "nodes", "texts"]
 
 odr.rectangleSettings = {
     idPrefix : "node",
     "class" : "node",
     group : "nodes",
     rx : 10,
-    ry : 10
+    ry : 10,
+    background : {
+        idPrefix : "nodeBackground",
+        "class" : "nodeBackground"
+    },
+    text : {
+        idPrefix : "nodeText",
+        "class" : "nodeText",
+        measureClass : "textMeasureNodeClass"
+    },
+    overlay : {
+        idPrefix : "nodeOverlay",
+        "class" : "nodeOverlay"
+    },
+    padding: {
+        top : 15,
+        right : 1,
+        bottom : 0,
+        left : 10
+    }
+}
+
+odr.textSettings = {
+    idPrefix : "text",
+    "class" : "text",
+    group : "texts"
 }
 
 odr.handleSettings = {
@@ -356,7 +381,7 @@ odr._dragStart = function(e) {
 }
 
 odr._drag = function(e) {
-    button = e.button;
+    var button = e.button;
     if (odr._dragging.previousEvent[button] == undefined) {
         j("body").unbind("mousemove");
         return false;
@@ -412,7 +437,7 @@ odr._drag = function(e) {
 
 
 odr._dragStop = function(e) {
-    button = e.button;
+    var button = e.button;
 
     if (odr._dragging.itemToDrag[button] == undefined || e.ctrlKey) {
         return false;
@@ -531,6 +556,47 @@ odr.beforeExport = function() {
 }
 
 
-odr.afterExport = function() {
-    odr.assertContainerSize();
+odr.afterExport = odr.assertContainerSize;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                              Meassure text dimensions
+ */
+odr.meassureTextDimensions = function(text, classToAdd) {
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    j(div).css({
+        position: 'absolute',
+        left: -1000,
+        top: -1000,
+        display: 'none'
+    });
+
+    if (classToAdd) {
+        j(div).addClass(classToAdd);
+    }
+
+    j(div).text(text);
+
+    var result = {
+        height: j(div).outerHeight(),
+        width: j(div).outerWidth()
+    }
+
+    j(div).remove();
+
+    return result;
 }
