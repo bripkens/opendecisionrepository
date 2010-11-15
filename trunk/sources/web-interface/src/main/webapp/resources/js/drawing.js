@@ -56,17 +56,20 @@ odr.ready(function() {
     association.target(rectangle2);
     association.addHandle(handle);
     association.addHandle(handle2);
+    association.label("depends on");
     association.paint();
 
-    var association2 = new odr.Association();
-    association2.source(rectangle3);
-    association2.target(rectangle2);
-    association2.paint();
-
-    var association3 = new odr.Association();
-    association3.source(rectangle3);
-    association3.target(rectangle);
-    association3.paint();
+//    var association2 = new odr.Association();
+//    association2.source(rectangle3);
+//    association2.target(rectangle2);
+//    association2.label("caused by");
+//    association2.paint();
+//
+//    var association3 = new odr.Association();
+//    association3.source(rectangle3);
+//    association3.target(rectangle);
+//    association3.label("is alternative for");
+//    association3.paint();
 
     j("input[name=radio1]").change(function() {
         if (j("input[name=radio1]:checked").val() == "hide") {

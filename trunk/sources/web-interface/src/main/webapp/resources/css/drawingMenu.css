@@ -15,14 +15,6 @@ body {
     border: 1px solid #bd0000;
 }
 
-/*
- * Make sure that this css class contains the same values as the CSS
- * class '.node .nodeText' in drawing.css
- */
-.textMeasureNodeClass {
-    font-family: "Verdana", sans-serif;
-    font-size: 12px;
-}
 
 
 /*

@@ -9,10 +9,6 @@ svg {
     stroke: black;
     stroke-width: 1;
 }
-/*
- * Make sure that this css class contains the same values as the CSS
- * class '.textMeasureNodeClass' in drawingMenu.css
- */
 .node .nodeText {
     font-family: "Verdana", sans-serif;
     font-size: 12px;
@@ -35,4 +31,9 @@ svg {
 .text {
     font-family: "Verdana", sans-serif;
     font-size: 13px;
+}
+.relationshipText {
+    fill: darkred;
+    font-size: 11px;
+    cursor: pointer;
 }
