@@ -4,13 +4,35 @@ svg {
     height: 100%;
     z-index: 3;
 }
-.node, .dragHandle, .line {
+.node .nodeBackground {
+    fill: white;
+    stroke: black;
+    stroke-width: 1;
+}
+/*
+ * Make sure that this css class contains the same values as the CSS
+ * class '.textMeasureNodeClass' in drawingMenu.css
+ */
+.node .nodeText {
+    font-family: "Verdana", sans-serif;
+    font-size: 12px;
+}
+.node .nodeOverlay {
+    cursor: pointer;
+    fill: white;
+    opacity: 0;
+}
+.dragHandle, .line {
     fill: white;
     stroke: black;
     stroke-width: 1;
     cursor: pointer;
 }
-.node:hover, .line:hover, .dragHandle:hover {
+.line:hover, .dragHandle:hover {
     stroke: blue;
     stroke-width: 3;
+}
+.text {
+    font-family: "Verdana", sans-serif;
+    font-size: 13px;
 }

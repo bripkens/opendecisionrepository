@@ -291,9 +291,9 @@ odr.Endpoint.prototype = {
     label : function(label) {
         if(label) {
             this._label = label;
+
             return this;
         }
-
         return this._label;
     }
 }
@@ -346,13 +346,40 @@ odr.Rectangle.prototype = {
             parent = j("#" + odr.rectangleSettings.group);
         }
 
-        odr._svg.rect(parent, this.x(), this.y(), this.width(),
-            this.height(), odr.rectangleSettings.rx, odr.rectangleSettings.ry, {
-                "class" : odr.rectangleSettings["class"],
+        var group = odr._svg.group(parent, this.extendedId(), {
+            "class" : odr.rectangleSettings["class"],
                 "id" : this.extendedId()
+        })
+
+        odr._svg.rect(group, this.x(), this.y(), this.width(),
+            this.height(), odr.rectangleSettings.rx, odr.rectangleSettings.ry, {
+                "class" : odr.rectangleSettings.background["class"],
+                "id" : this.backgroundId()
             });
 
-        var element = j("#" + this.extendedId());
+        var text = this.label();
+        if (text) {
+            
+            var textSpans = odr._svg.createText().span(text, {
+                dx : odr.rectangleSettings.padding.left,
+                dy : odr.rectangleSettings.padding.top
+            });
+
+            parent = j("#" + odr.textSettings.group);
+
+            odr._svg.text(group, this.x(), this.y(), textSpans, {
+                "class" : odr.rectangleSettings.text["class"],
+                "id" : this.textId()
+            });
+        }
+
+        odr._svg.rect(group, this.x(), this.y(), this.width(),
+            this.height(), odr.rectangleSettings.rx, odr.rectangleSettings.ry, {
+                "class" : odr.rectangleSettings.overlay["class"],
+                "id" : this.overlayId()
+            });
+
+        var element = j("#" + this.overlayId());
         element.click(this._click.createDelegate(this));
         odr.enableDragging(element);
         this.dragging(this._dragging.createDelegate(this), this.extendedId());
@@ -363,20 +390,24 @@ odr.Rectangle.prototype = {
         odr.Rectangle.superClass.draw.call(this);
     },
     repaint : function() {
-        var element = j("#" + this.extendedId());
-
+        var backgroundElement = j("#" + this.backgroundId());
+        var textElement = j("#" + this.textId());
+        var overlayElement = j("#" + this.overlayId());
+        
         if (!this.visible()) {
-            element.remove();
+            j("#" + this.extendedId()).remove();
             return;
-        } else if (element.size() == 0) {
+        } else if (j("#" + this.extendedId()).size() == 0) {
             this.paint();
             return;
         }
 
-        element.attr("width", this.width());
-        element.attr("height", this.height());
-        element.attr("x", this.x());
-        element.attr("y", this.y());
+        backgroundElement.attr("x", this.x());
+        backgroundElement.attr("y", this.y());
+        overlayElement.attr("x", this.x());
+        overlayElement.attr("y", this.y());
+        textElement.attr("x", this.x());
+        textElement.attr("y", this.y());
 
         odr.assertContainerSize(this.extendedId());
 
@@ -414,6 +445,29 @@ odr.Rectangle.prototype = {
     },
     extendedId : function() {
         return odr.rectangleSettings.idPrefix + this.id();
+    },
+    backgroundId : function() {
+        return odr.rectangleSettings.background.idPrefix + this.id();
+    },
+    textId : function() {
+        return odr.rectangleSettings.text.idPrefix + this.id();
+    },
+    overlayId : function() {
+        return odr.rectangleSettings.overlay.idPrefix + this.id();
+    },
+    label : function(label) {
+        var result = odr.Rectangle.superClass.label.call(this, label);
+
+        if (!label) {
+            return result;
+        }
+
+        var textDimensions = odr.meassureTextDimensions(label, odr.rectangleSettings.text.measureClass);
+
+        this.width(textDimensions.width + odr.rectangleSettings.padding.left + odr.rectangleSettings.padding.right);
+        this.height(textDimensions.height + odr.rectangleSettings.padding.top + odr.rectangleSettings.padding.bottom);
+
+        return result;
     }
 }
 
@@ -630,7 +684,7 @@ odr.Line.prototype = {
         }
     },
     _click : function(e) {
-        handle = new odr.Handle();
+        var handle = new odr.Handle();
         handle.x(e.pageX  * (1 / odr._scale.level));
         handle.y(e.pageY  * (1 / odr._scale.level));
         handle.paint();
@@ -759,7 +813,7 @@ odr.Association.prototype = {
             return;
         }
 
-        for(i = 0; i < this._handles.length; i++) {
+        for(var i = 0; i < this._handles.length; i++) {
             if (this._handles[i].id() == element.id()) {
                 handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
                 if (i+1 == this._handles.length) {
@@ -773,14 +827,14 @@ odr.Association.prototype = {
         }
     },
     optimizePath : function() {
-        firstX = this._source.center().x;
-        firstY = this._source.center().y;
-        secondX = undefined;
-        secondY = undefined;
-        thirdX = undefined;
-        thirdY = undefined;
+        var firstX = this._source.center().x;
+        var firstY = this._source.center().y;
+        var secondX = undefined;
+        var secondY = undefined;
+        var thirdX = undefined;
+        var thirdY = undefined;
 
-        for(i = 0; i < this._handles.length; i++) {
+        for(var i = 0; i < this._handles.length; i++) {
             if (secondX == undefined) {
                 secondX = this._handles[i].center().x;
                 secondY = this._handles[i].center().y;
