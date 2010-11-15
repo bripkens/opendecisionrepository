@@ -31,7 +31,15 @@ odr.rectangleSettings = {
     text : {
         idPrefix : "nodeText",
         "class" : "nodeText",
-        measureClass : "textMeasureNodeClass"
+        measureCSS : {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            visibility : "hidden",
+            "white-space" : "nowrap",
+            'font-family' : '"Verdana", sans-serif',
+            'font-size': '12px'
+        }
     },
     overlay : {
         idPrefix : "nodeOverlay",
@@ -61,7 +69,20 @@ odr.handleSettings = {
 odr.associationSettings = {
     idPrefix : "relationship",
     "class" : "relationship",
-    group : "associations"
+    group : "associations",
+    text : {
+        idPrefix : "relationshipText",
+        "class" : "relationshipText",
+        measureCSS : {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            visibility : "hidden",
+            "white-space" : "nowrap",
+            'font-family' : '"Verdana", sans-serif',
+            'font-size': '12px'
+        }
+    }
 }
 
 odr.lineSettings = {
@@ -232,6 +253,10 @@ odr.init(function() {
 
 
 odr.assertContainerSize = function(elementId) {
+    if (elementId == null) {
+        return;
+    }
+
 
     var container = odr._svgContainer.children("svg");
 
@@ -374,7 +399,10 @@ odr._dragStart = function(e) {
     j("body").mousemove(odr._drag);
     j("body").addClass(odr.grid["class"]);
 
-    odr._dragging.itemToDrag[button] = odr.registry.get(j(this).attr("id").removeNonNumbers());
+    if ((odr._dragging.itemToDrag[button] = odr.registry.get(j(this).attr("id"))) == null) {
+        odr._dragging.itemToDrag[button] = odr.registry.get(j(this).attr("id").removeNonNumbers());
+    }
+    
     odr._dragging.itemToDrag[button].dragStart();
 
     return false;
@@ -575,19 +603,10 @@ odr.afterExport = odr.assertContainerSize;
  * ###########################################################################
  *                              Meassure text dimensions
  */
-odr.meassureTextDimensions = function(text, classToAdd) {
+odr.meassureTextDimensions = function(text, css) {
     var div = document.createElement('div');
     document.body.appendChild(div);
-    j(div).css({
-        position: 'absolute',
-        left: -1000,
-        top: -1000,
-        display: 'none'
-    });
-
-    if (classToAdd) {
-        j(div).addClass(classToAdd);
-    }
+    j(div).css(css);
 
     j(div).text(text);
 
