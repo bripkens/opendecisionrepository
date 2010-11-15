@@ -79,25 +79,58 @@ body {
 /*
  * Decision menu
  */
-.decision {
-    width: 300px;
+.decisions {
+    width: 400px;
     height: 400px;
     top: -411px;
     left: 202px;
 }
+.decisions .overflow {
+    padding-top: 1px;
+    overflow: auto;
+    height: 393px;
+    position: relative;
+    top: -5px;
+}
 .decisionSelector {
     position: relative;
     margin-bottom: 10px;
+    border-bottom: 1px dashed black;
+    padding: 0 0 9px;
+}
+.decisions .decisionSelector:last-child {
+    border-bottom: 0;
 }
 .decisionSelector span {
     position: relative;
     left: 5px;
 }
-.decisionRadios {
+.decisionSelector input[type=button] {
+    color: white;
+    border: 0;
+    font-size: 1em;
+    width: 75px;
+    height: 19px;
+    padding: 0 0 2px 0;
     position: absolute;
-    right: 15px;
-    top: -2px;
+    top: -1px;
+    right: 5px;
 }
+.decisionSelector .show {
+    background-image: url(../images/buttonConfirmSmall.png);
+}
+.decisionSelector .show:active {
+    background-image: url(../images/buttonConfirmActiveSmall.png);
+}
+.decisionSelector .hide {
+    background-image: url(../images/buttonAbortSmall.png);
+}
+.decisionSelector .hide:active {
+    background-image: url(../images/buttonAbortActiveSmall.png);
+}
+
+
+
 
 
 /*
@@ -106,7 +139,7 @@ body {
 .zoom {
     width: 120px;
     height: 70px;
-    left: 504px;
+    left: 604px;
     top: -81px;
 }
 .zoom input {
@@ -167,7 +200,7 @@ body {
     width: 200px;
     height: 200px;
     top: -211px;
-    left: 626px;
+    left: 726px;
 }
 .export form {
     visibility: hidden;

@@ -79,8 +79,8 @@ odr.scroll = {
 }
 
 odr.css = {
-    url : "resources/css/graph.css",
-    inlineStyle : '@import "resources/css/graph.css";'
+    url : "resources/css/drawing.css",
+    inlineStyle : '@import "resources/css/drawing.css";'
 }
 
 
@@ -244,6 +244,7 @@ odr.assertContainerSize = function(elementId) {
 
     container.attr("width", containerWidth);
     container.attr("height", containerHeight);
+    container.attr("viewBox", "0 0 " + containerWidth + " " + containerHeight);
     var parent = odr._svgContainer;
     parent.css({
         width :  containerWidth,
@@ -531,7 +532,5 @@ odr.beforeExport = function() {
 
 
 odr.afterExport = function() {
-   odr._svgContainer.children("svg").attr("viewBox", "0 0 100% 100%");
-
     odr.assertContainerSize();
 }
