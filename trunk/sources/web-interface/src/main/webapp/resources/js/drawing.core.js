@@ -18,6 +18,10 @@ var j = jQuery.noConflict();
  */
 odr.groups = ["package", "lines", "associations", "handles", "nodes", "texts"]
 
+odr.defsSettings = {
+    id : "definitions"
+}
+
 odr.rectangleSettings = {
     idPrefix : "node",
     "class" : "node",
@@ -82,13 +86,21 @@ odr.associationSettings = {
             'font-family' : '"Verdana", sans-serif',
             'font-size': '12px'
         }
+    },
+    arrow : {
+        idPrefix : "arrow",
+        color : "black"
+    },
+    helper : {
+        id : "associationHelper",
+        "class" : "associationHelper"
     }
 }
 
 odr.lineSettings = {
     idPrefix : "line",
     "class" : "line",
-    "group" : "lines"
+    group : "lines"
 }
 
 odr.grid = {
@@ -227,6 +239,8 @@ odr.init(function() {
 
             odr._svg.style(odr.css.inlineStyle);
 
+            odr._svg.defs(odr.defsSettings.id);
+
             for (var i = 0; i < odr.groups.length; i++) {
                 odr._svg.group(odr.groups[i]);
             }
@@ -253,7 +267,7 @@ odr.init(function() {
 
 
 odr.assertContainerSize = function(elementId) {
-    if (elementId == null) {
+    if (elementId == -1) {
         return;
     }
 

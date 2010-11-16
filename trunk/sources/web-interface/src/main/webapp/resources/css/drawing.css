@@ -24,9 +24,12 @@ svg {
     stroke-width: 1;
     cursor: pointer;
 }
-.line:hover, .dragHandle:hover {
-    stroke: blue;
+.dragHandle:hover {
+    stroke: darkred;
     stroke-width: 3;
+}
+.line:hover {
+    stroke: darkred;
 }
 .text {
     font-family: "Verdana", sans-serif;
@@ -36,4 +39,8 @@ svg {
     fill: darkred;
     font-size: 11px;
     cursor: pointer;
+}
+.associationHelper {
+    stroke: darkred;
+    stroke-width: 1;
 }
