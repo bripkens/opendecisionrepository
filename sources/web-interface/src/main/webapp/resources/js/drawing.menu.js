@@ -137,7 +137,7 @@ odr.ready(function() {
  * ###########################################################################
  *                            Export menu
  */
-odr.addNode = function(name, x, y, visible) {
+odr.addNode = function(name, stereotype, x, y, visible) {
     if (visible == undefined) {
         visible = false;
     }
@@ -146,6 +146,7 @@ odr.addNode = function(name, x, y, visible) {
     rectangle.x(x);
     rectangle.y(y);
     rectangle.label(name);
+    rectangle.stereotype(stereotype);
     rectangle.paint();
 
 

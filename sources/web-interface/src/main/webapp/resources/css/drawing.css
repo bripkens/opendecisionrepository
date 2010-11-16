@@ -13,6 +13,11 @@ svg {
     font-family: "Verdana", sans-serif;
     font-size: 12px;
 }
+.node .nodeStereotype {
+    font-family: "Verdana", sans-serif;
+    font-size: 11px;
+    fill: darkred;
+}
 .node .nodeOverlay {
     cursor: pointer;
     fill: white;

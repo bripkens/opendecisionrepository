@@ -312,9 +312,20 @@ extend(odr.Endpoint, odr.Shape);
  */
 odr.Rectangle = function() {
     odr.Endpoint.call(this);
+    this._stereotype = null;
 }
 
 odr.Rectangle.prototype = {
+    _stereotype : null,
+    stereotype : function(stereotype) {
+        if (stereotype) {
+            this._stereotype = stereotype;
+            this.calculateDimensions();
+            return this;
+        }
+
+        return this._stereotype;
+    },
     center : function() {
         return {
             x : this.x() + this.width() / 2,
@@ -358,11 +369,37 @@ odr.Rectangle.prototype = {
             });
 
         var text = this.label();
-        if (text) {
-            
-            var textSpans = odr._svg.createText().span(text, {
-                dx : odr.rectangleSettings.padding.left,
+        var stereotype = this.stereotype();
+        if (stereotype) {
+            var stereotypeDimensions = odr.meassureTextDimensions(this.stereotype(), odr.rectangleSettings.stereotype.measureCSS);
+
+            var textSpans = odr._svg.createText().span(stereotype, {
+                dx : this.width() / 2 - stereotypeDimensions.width / 2,
                 dy : odr.rectangleSettings.padding.top
+            });
+
+            parent = j("#" + odr.textSettings.group);
+
+            odr._svg.text(group, this.x(), this.y(), textSpans, {
+                "class" : odr.rectangleSettings.stereotype["class"],
+                "id" : this.stereotypeId()
+            });
+        }
+
+        if (text) {
+
+            var labelDimensions = odr.meassureTextDimensions(this.label(), odr.rectangleSettings.text.measureCSS);
+
+            var stereotypeOffset = 0;
+
+            if (stereotype) {
+                stereotypeOffset = odr.meassureTextDimensions(this.stereotype(),
+                odr.rectangleSettings.stereotype.measureCSS).height + odr.rectangleSettings.text.stereotypePadding;
+            }
+
+            var textSpans = odr._svg.createText().span(text, {
+                dx : this.width() / 2 - labelDimensions.width / 2,
+                dy : odr.rectangleSettings.padding.top + stereotypeOffset
             });
 
             parent = j("#" + odr.textSettings.group);
@@ -392,6 +429,7 @@ odr.Rectangle.prototype = {
     repaint : function() {
         var backgroundElement = j("#" + this.backgroundId());
         var textElement = j("#" + this.textId());
+        var stereotypeElement = j("#" + this.stereotypeId());
         var overlayElement = j("#" + this.overlayId());
         
         if (!this.visible()) {
@@ -408,6 +446,8 @@ odr.Rectangle.prototype = {
         overlayElement.attr("y", this.y());
         textElement.attr("x", this.x());
         textElement.attr("y", this.y());
+        stereotypeElement.attr("x", this.x());
+        stereotypeElement.attr("y", this.y());
 
         odr.assertContainerSize(this.extendedId());
 
@@ -455,6 +495,9 @@ odr.Rectangle.prototype = {
     overlayId : function() {
         return odr.rectangleSettings.overlay.idPrefix + this.id();
     },
+    stereotypeId : function() {
+        return odr.rectangleSettings.stereotype.idPrefix + this.id();
+    },
     label : function(label) {
         var result = odr.Rectangle.superClass.label.call(this, label);
 
@@ -462,12 +505,38 @@ odr.Rectangle.prototype = {
             return result;
         }
 
-        var textDimensions = odr.meassureTextDimensions(label, odr.rectangleSettings.text.measureCSS);
-
-        this.width(textDimensions.width + odr.rectangleSettings.padding.left + odr.rectangleSettings.padding.right);
-        this.height(textDimensions.height + odr.rectangleSettings.padding.top + odr.rectangleSettings.padding.bottom);
+        this.calculateDimensions();
 
         return result;
+    },
+    calculateDimensions : function() {
+        var labelDimensions;
+        if (this.label() == null) {
+            labelDimensions = {
+                width : 0,
+                height : 0
+            };
+        } else {
+            labelDimensions = odr.meassureTextDimensions(this.label(), odr.rectangleSettings.text.measureCSS);
+        }
+
+        var stereoTypeDimensions;
+
+        if (this.stereotype() == null) {
+            stereoTypeDimensions = {
+                width : 0,
+                height : 0
+            };
+        } else {
+            stereoTypeDimensions = odr.meassureTextDimensions(this.stereotype(), odr.rectangleSettings.stereotype.measureCSS);
+            stereoTypeDimensions.height += odr.rectangleSettings.text.stereotypePadding;
+        }
+
+        var x = Math.max(labelDimensions.width, stereoTypeDimensions.width);
+        var y = labelDimensions.height + stereoTypeDimensions.height;
+
+        this.width(x + odr.rectangleSettings.padding.left + odr.rectangleSettings.padding.right);
+        this.height(y + odr.rectangleSettings.padding.top + odr.rectangleSettings.padding.bottom);
     }
 }
 
@@ -1005,6 +1074,7 @@ odr.Association.prototype = {
             line.end(this._handles[i]);
             this._lines[this._lines.length] = line;
             line.paint(associationGroup);
+            this._handles[i].paint();
 
             element = this._handles[i];
         }
