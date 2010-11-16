@@ -43,6 +43,20 @@ odr.rectangleSettings = {
             "white-space" : "nowrap",
             'font-family' : '"Verdana", sans-serif',
             'font-size': '12px'
+        },
+        stereotypePadding : 0
+    },
+    stereotype : {
+        idPrefix : "nodeStereotype",
+        "class" : "nodeStereotype",
+        measureCSS : {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            visibility : "hidden",
+            "white-space" : "nowrap",
+            'font-family' : '"Verdana", sans-serif',
+            'font-size': '11px'
         }
     },
     overlay : {
@@ -51,9 +65,9 @@ odr.rectangleSettings = {
     },
     padding: {
         top : 15,
-        right : 1,
-        bottom : 0,
-        left : 10
+        right : 5,
+        bottom : -10,
+        left : 15
     }
 }
 

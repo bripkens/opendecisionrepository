@@ -5,13 +5,13 @@
 
 odr.ready(function() {
 
-    var rectangle = odr.addNode("Java Programming Language", 50, 200, true);
+    var rectangle = odr.addNode("Java Programming Language", "approved", 50, 200, true);
     
-    var rectangle2 = odr.addNode("Java Enterprise Edition", 50, 350);
+    var rectangle2 = odr.addNode("Java Enterprise Edition", "approved", 50, 350);
 
-    var rectangle3 = odr.addNode("Tcl", 500, 300, true);
+    var rectangle3 = odr.addNode("Tcl", "rejected", 500, 300, true);
 
-    var rectangle4 = odr.addNode("PHP", 500, 380);
+    var rectangle4 = odr.addNode("PHP", "considered", 500, 380);
 
     var handle = new odr.Handle();
     handle.x(80);
