@@ -55,15 +55,15 @@ odr.init(function() {
 odr.prepareZoom = function() {
     j("#" + odr.zoomMenu.inputButton).click(odr.handleScaleInput);
 
-     j("#" + odr.zoomMenu.inButton).click(function() {
-         odr.scale(odr.scale() + 0.1);
-         j("#" + odr.zoomMenu.inputField).val(Math.round(odr.scale() * 100));
-     });
+    j("#" + odr.zoomMenu.inButton).click(function() {
+        odr.scale(odr.scale() + 0.1);
+        j("#" + odr.zoomMenu.inputField).val(Math.round(odr.scale() * 100));
+    });
 
-     j("#" + odr.zoomMenu.outButton).click(function() {
-         odr.scale(odr.scale() - 0.1);
-         j("#" + odr.zoomMenu.inputField).val(Math.round(odr.scale() * 100));
-     });
+    j("#" + odr.zoomMenu.outButton).click(function() {
+        odr.scale(odr.scale() - 0.1);
+        j("#" + odr.zoomMenu.inputField).val(Math.round(odr.scale() * 100));
+    });
 
     j("#" + odr.zoomMenu.inputField).keyup(function(e) {
         if(e.keyCode == 13) {
@@ -127,4 +127,67 @@ odr.ready(function() {
 
     })
 });
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                            Export menu
+ */
+odr.addNode = function(name, x, y, visible) {
+    if (visible == undefined) {
+        visible = false;
+    }
+
+    var rectangle = new odr.Rectangle();
+    rectangle.x(x);
+    rectangle.y(y);
+    rectangle.label(name);
+    rectangle.paint();
+
+
+    var container = j(document.createElement("div")).
+    addClass("decisionSelector").
+    appendTo("div.decisions div.overflow").
+    append(j(document.createElement("span")).text(name));
+
+    container.html(container.html() + '<input type="button" class="hide" value="Hide"/>');
+
+    var button = container.children("input");
+
+    button.click(function() {
+        if (button.hasClass("hide")) {
+            button.removeClass("hide");
+            button.addClass("show");
+            button.val("Show");
+
+            rectangle.visible(false);
+        } else {
+            button.removeClass("show");
+            button.addClass("hide");
+            button.val("Hide");
+
+            rectangle.visible(true);
+        }
+    });
+
+    rectangle.visibility(function() {
+        if (rectangle.visible()) {
+            button.removeClass("show");
+            button.addClass("hide");
+            button.val("Hide");
+        } else {
+            button.removeClass("hide");
+            button.addClass("show");
+            button.val("Show");
+        }
+    }, "menuListener");
+
+    rectangle.visible(visible);
+
+    return rectangle;
+}
 
