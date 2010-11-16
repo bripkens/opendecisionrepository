@@ -611,12 +611,14 @@ odr.Line = function() {
     this._start = null;
     this._end = null;
     this._arrow = false;
+    this._lastParent = null;
 }
 
 odr.Line.prototype = {
     _start : null,
     _end : null,
     _arrow : false,
+    _lastParent : null,
     start : function(start) {
         if (start) {
             if (this._start) {
@@ -652,40 +654,33 @@ odr.Line.prototype = {
         return this._end;
     },
     paint : function(parent) {
+        this._lastParent = parent;
         j("#" + this.extendedId()).remove();
 
+        var settings = {
+            "class" : odr.lineSettings["class"],
+            "id" : this.extendedId()
+        };
+
+        if (this._arrow) {
+            this.drawArrow(parent);
+            settings["marker-end"] = "url(#" + odr.associationSettings.arrow.idPrefix + this.parent().id() + ")"
+        }
 
         odr._svg.line(parent,
             this._start.center().x,
             this._start.center().y,
             this._end.center().x,
-            this._end.center().y, {
-                "class" : odr.lineSettings["class"],
-                "id" : this.extendedId()
-            });
+            this._end.center().y, settings);
 
         var element = j("#" + this.extendedId());
         element.click(this._click.createDelegate(this));
 
-        if (this._arrow) {
-            this.drawArrow(parent);
-        }
-
         odr.Line.superClass.draw.call(this);
     },
     drawArrow : function(parent) {
-        j("#fooArrow").remove();
-
-        var topLeft = this._end.topLeft();
-        var bottomRight = this._end.bottomRight();
-        var topRight = {
-            x : bottomRight.x,
-            y : topLeft.y
-        };
-        var bottomLeft = {
-            x : topLeft.x,
-            y : bottomRight.y
-        };
+        j("#" + odr.associationSettings.arrow.idPrefix + this.parent().id()).remove();
+        
         var centerTarget = this._end.center();
         var centerSource = this._start.center();
         var deltaX = Math.abs(Math.abs(centerTarget.x) - Math.abs(centerSource.x));
@@ -735,24 +730,22 @@ odr.Line.prototype = {
             }
         }
 
-        odr._svg.circle(centerTarget.x + offsetX, centerTarget.y + offsetY, 4, {
-                "id" : "fooArrow",
-                "fill" : "red"
+        var offsetDiagonal = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
+
+        var defs = j("#" + odr.defsSettings.id);
+
+        var marker = odr._svg.marker(defs, odr.associationSettings.arrow.idPrefix + this.parent().id(),
+            offsetDiagonal  + 10, 5, 10, 10, {
+                fill : odr.associationSettings.arrow.color,
+                orient : "auto",
+                viewBox : "0 0 10 10"
             });
+
+        odr._svg.path(marker, odr._svg.createPath().move(0,0).line(10,5).line(0,10).close());
+
     },
     repaint : function() {
-        var element = j("#" + this.extendedId());
-
-        element.attr("x1", this._start.center().x);
-        element.attr("y1", this._start.center().y);
-        element.attr("x2", this._end.center().x);
-        element.attr("y2", this._end.center().y);
-
-        if (this._arrow) {
-            this.drawArrow(parent);
-        }
-
-        odr.Line.superClass.redraw.call(this);
+        this.paint(this._lastParent);
     },
     endpointVisibilityChanged : function() {
         if (!this._start.visible() || !this._end.visible()) {
@@ -836,6 +829,7 @@ odr.Association = function() {
     this._handles = [];
     this._lines = [];
     this._labelPosition = null;
+    this._centerPosition = null;
 }
 
 odr.Association.prototype = {
@@ -845,6 +839,7 @@ odr.Association.prototype = {
     _lines : [],
     _handles : [],
     _labelPosition : null,
+    _centerPosition : null,
     source : function(source) {
         if (source) {
             if (this._source) {
@@ -955,6 +950,7 @@ odr.Association.prototype = {
         }
 
         if (secondX == undefined) {
+            this.calculateCenter();
             return;
         }
 
@@ -966,9 +962,11 @@ odr.Association.prototype = {
             this.removeHandle(this._handles[this._handles.length - 1].id());
         }
 
-
+        
         if (nodeRemoved) {
             this.paint();
+        } else {
+            this.calculateCenter();
         }
     },
     label : function(label) {
@@ -1020,10 +1018,32 @@ odr.Association.prototype = {
         line.paint(associationGroup);
 
         this.setAllHandlesVisible(true);
-
+        this.calculateCenter();
         this.drawAssociationLabel(associationGroup);
 
         odr.Association.superClass.draw.call(this);
+    },
+    calculateCenter : function() {
+        if (this._handles.length == 0) {
+            var start = this._source.center();
+            var end = this._target.center();
+
+            this._centerPosition = {
+                x : (start.x + end.x) / 2,
+                y : (start.y + end.y) / 2
+            };
+        } else if (this._handles.length % 2 != 0) {
+            this._centerPosition = this._handles[parseInt(this._handles.length / 2)].center();
+        } else {
+            var center = parseInt(this._handles.length / 2);
+            var start = this._handles[center - 1].center();
+            var end = this._handles[center].center();
+
+            this._centerPosition = {
+                x : (start.x + end.x) / 2,
+                y : (start.y + end.y) / 2
+            };
+        }
     },
     drawAssociationLabel : function(parent) {
         var point;
@@ -1033,30 +1053,15 @@ odr.Association.prototype = {
             return;
         }
 
+        this.calculateCenter();
+
+        point = this._centerPosition;
+
         if (this._labelPosition != null) {
             point = this._labelPosition;
-        } else if (this._handles.length == 0) {
-            var start = this._source.center();
-            var end = this._target.center();
-
-            point = {
-                x : (start.x + end.x) / 2,
-                y : (start.y + end.y) / 2
-            };
-        } else if (this._handles.length % 2 != 0) {
-            point = this._handles[parseInt(this._handles.length / 2)].center();
         } else {
-            var center = parseInt(this._handles.length / 2);
-            var start = this._handles[center - 1].center();
-            var end = this._handles[center].center();
-
-            point = {
-                x : (start.x + end.x) / 2,
-                y : (start.y + end.y) / 2
-            };
+            this._labelPosition = point;
         }
-
-        this._labelPosition = point;
 
         
         odr._svg.text(parent, point.x, point.y, label, {
@@ -1068,11 +1073,12 @@ odr.Association.prototype = {
         var self = this;
         var htmlElement = j("#" + odr.associationSettings.text.idPrefix + this.id());
         var element = {
+            self : self,
             id : function() {
                 return odr.associationSettings.text.idPrefix + self.id();
             },
             extendedId : function() {
-                return null;
+                return -1;
             },
             x : function(x) {
                 if (x) {
@@ -1112,12 +1118,37 @@ odr.Association.prototype = {
 
             },
             dragging : function() {
+                var helpLine = j("#" + odr.associationSettings.helper.id);
 
+                self.calculateCenter();
+
+                helpLine.attr("x1", self._labelPosition.x);
+                helpLine.attr("y1", self._labelPosition.y);
+                helpLine.attr("x2", self._centerPosition.x);
+                helpLine.attr("y2", self._centerPosition.y);
             },
             dragEnd : function() {
                 
+            },
+            enter : function(e) {
+                var lineGroup = j("#" + odr.lineSettings.group);
+
+                
+
+                odr._svg.line(lineGroup, this._labelPosition.x, this._labelPosition.y,
+                    this._centerPosition.x, this._centerPosition.y, {
+                        id : odr.associationSettings.helper.id,
+                        "class" : odr.associationSettings.helper["class"]
+                    });
+            },
+            out : function(e) {
+                j("#" + odr.associationSettings.helper.id).remove();
             }
         };
+
+        htmlElement.mouseenter(element.enter.createDelegate(this));
+
+        htmlElement.mouseleave(element.out);
 
         odr.registry.add(element);
 
