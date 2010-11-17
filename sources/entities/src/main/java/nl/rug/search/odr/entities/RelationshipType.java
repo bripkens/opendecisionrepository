@@ -8,6 +8,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -26,10 +28,12 @@ public class RelationshipType extends BaseEntity<RelationshipType> {
 
     public static final String NAMED_QUERY_GET_PUBLIC_TYPES = "RelationshipType.getPublicTypes";
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     private String name;
 
     private boolean common;
