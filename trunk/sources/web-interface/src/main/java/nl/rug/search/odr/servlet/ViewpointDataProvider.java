@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nl.rug.search.odr.RequestParameter;
+import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.viewpoint.CircularReferenceResolutionLocal;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
 
@@ -27,7 +29,8 @@ public class ViewpointDataProvider extends HttpServlet {
     @EJB
     private ProjectLocal pl;
 
-
+    @EJB
+    private CircularReferenceResolutionLocal crr;
 
 
     /**
@@ -75,7 +78,11 @@ public class ViewpointDataProvider extends HttpServlet {
                     setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).
                     create();
 
-            out.print(gson.toJson(pl.getById(projectId)));
+            Project p = pl.getById(projectId);
+
+            crr.dissolveCircularRelationships(p);
+
+            out.print(gson.toJson(p));
         } finally {
             out.close();
         }
