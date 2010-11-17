@@ -137,10 +137,15 @@ odr.ready(function() {
  * ###########################################################################
  *                            Export menu
  */
+
+odr._nodes = {};
+
 odr.addNode = function(name, stereotype, x, y, visible) {
     if (visible == undefined) {
         visible = false;
     }
+
+    
 
     var rectangle = new odr.Rectangle();
     rectangle.x(x);
@@ -152,7 +157,7 @@ odr.addNode = function(name, stereotype, x, y, visible) {
 
     var container = j(document.createElement("div")).
     addClass("decisionSelector").
-    appendTo("div.decisions div.overflow").
+    appendTo("div.decisions div.overflowDecisions").
     append(j(document.createElement("span")).text(name));
 
     container.html(container.html() + '<input type="button" class="hide" value="Hide"/>');
@@ -172,6 +177,8 @@ odr.addNode = function(name, stereotype, x, y, visible) {
             button.val("Hide");
 
             rectangle.visible(true);
+
+            odr.assertContainerSize();
         }
     });
 
@@ -187,8 +194,68 @@ odr.addNode = function(name, stereotype, x, y, visible) {
         }
     }, "menuListener");
 
+
+
+
+
+
+
+    if (odr._nodes[stereotype] == undefined) {
+        odr._nodes[stereotype] = [];
+        odr._newStereotype(stereotype, odr._nodes[stereotype]);
+    }
+
+    var items = odr._nodes[stereotype];
+
+    items[items.length] = rectangle;
+
+    rectangle.visibility(function() {
+        var allVisible = true;
+        var allInvisible = true;
+
+        for(var i = 1; i < items.length; i++) {
+            if (items[i].visible()) {
+                allInvisible = false;
+            } else {
+                allVisible = false;
+            }
+        }
+
+        if (allVisible) {
+            items[0].attr("checked", "checked");
+            items[0].attr("checked", true);
+            items[0].get().checked = true;
+            
+        } else if (allInvisible) {
+            items[0].attr("checked", false);
+            items[0].removeAttr("checked");
+            items[0].get().checked = false;
+        }
+    }, "stereotypeListener");
+
     rectangle.visible(visible);
 
     return rectangle;
 }
 
+
+odr._newStereotype = function(name, items) {
+    var container = j(document.createElement("div")).
+    appendTo("div.status div.overflowStatus").
+    append(j(document.createElement("span")).text(name));
+
+    container.html('<input type="checkbox" checked="true" id="stereotypeCheckbox' + name + '"/>' + container.html());
+
+    var checkbox = container.children("input");
+
+    items[0] = checkbox;
+
+    checkbox.change(function() {
+
+        var checked = checkbox.is(":checked");
+        
+        for(var i = 1; i < items.length; i++) {
+            items[i].visible(checked);
+        }
+    });
+}

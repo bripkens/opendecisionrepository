@@ -3,7 +3,7 @@ body {
     margin: 0;
     z-index: 0;
     font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .grid {
@@ -19,7 +19,7 @@ body {
 
 /*
  * Abstract menu
- */
+*/
 
 .smallMenu {
     background-color: white;
@@ -62,7 +62,7 @@ body {
 
 /*
  * Project menu
- */
+*/
 .project {
     width: 200px;
     height: 120px;
@@ -78,24 +78,24 @@ body {
 
 /*
  * Decision menu
- */
+*/
 .decisions {
-    width: 400px;
+    width: 350px;
     height: 400px;
     top: -411px;
-    left: 202px;
+    left: 201px;
 }
-.decisions .overflow {
+.decisions .overflowDecisions {
     padding-top: 5px;
     overflow: auto;
-    height: 393px;
+    height: 389px;
     position: relative;
     top: -5px;
 }
 .decisionSelector {
     position: relative;
     margin-bottom: 10px;
-    border-bottom: 1px dashed black;
+    border-bottom: 1px dashed gray;
     padding: 0 0 9px;
 }
 .decisions .decisionSelector:last-child {
@@ -104,11 +104,12 @@ body {
 .decisionSelector span {
     position: relative;
     left: 5px;
+    font-size: 11px;
 }
 .decisionSelector input[type=button] {
     color: white;
     border: 0;
-    font-size: 1em;
+    font-size: 11px;
     width: 75px;
     height: 19px;
     padding: 0 0 2px 0;
@@ -133,13 +134,53 @@ body {
 
 
 
+
+
+/*
+ * Status menu
+*/
+.status {
+    width: 180px;
+    height: 247px;
+    top: -258px;
+    left: 552px;
+}
+.status p {
+    font-size: 11px;
+    margin: 0 5px 5px;
+}
+.status .overflowStatus {
+    padding-top: 5px;
+    overflow: auto;
+    height: 189px;
+    position: relative;
+    top: -5px;
+}
+.status .overflowStatus div {
+    padding: 0 0 9px;
+}
+.status .overflowStatus div:last-child {
+    border: 0;
+}
+.status .overflowStatus div span {
+    font-size: 11px;
+    padding-left: 5px;
+}
+.status .overflowStatus div input {
+    position: relative;
+    top: 3px;
+}
+
+
+
+
 /*
  * Zoom menu
- */
+*/
 .zoom {
     width: 120px;
     height: 70px;
-    left: 604px;
+    left: 733px;
     top: -81px;
 }
 .zoom input {
@@ -163,7 +204,7 @@ body {
     border: 0;
     color: white;
     height: 21px;
-    font-size: 0.9em;
+    font-size: 11px;
 }
 .zoom input[type=submit]:active {
     background-image: url(../images/buttonConfirmActive103.png);
@@ -179,10 +220,10 @@ body {
     cursor: pointer;
 }
 .zoom #zoomIn {
-    left: 7px;
+    left: 30px;
 }
 .zoom #zoomOut {
-    left: 30px;
+    left: 7px;
 }
 
 
@@ -195,12 +236,12 @@ body {
 
 /*
  * Export menu
- */
+*/
 .export {
     width: 200px;
     height: 200px;
     top: -211px;
-    left: 726px;
+    left: 854px;
 }
 .export form {
     visibility: hidden;
