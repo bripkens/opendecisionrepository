@@ -33,6 +33,7 @@ public class Relationship extends BaseEntity<Relationship> {
     @ManyToOne
     private RelationshipType type;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
     @ManyToOne
     private Version target;
 

@@ -98,7 +98,7 @@ odr.associationSettings = {
             visibility : "hidden",
             "white-space" : "nowrap",
             'font-family' : '"Verdana", sans-serif',
-            'font-size': '12px'
+            'font-size': '11px'
         }
     },
     arrow : {
@@ -298,11 +298,16 @@ odr.assertContainerSize = function(elementId) {
         containerWidth = container.attr("width") - odr.svgContainer.padding.x;
         containerHeight = container.attr("height") - odr.svgContainer.padding.y;
     } else {
-        selector = "." + odr.rectangleSettings["class"] + ", ." + odr.handleSettings["class"];
+        selector = "." + odr.rectangleSettings["class"] + ", ." + odr.handleSettings["class"] + ", ." + odr.associationSettings.text["class"];
     }
 
     j(selector).each(function() {
-        var currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+        var currentElement = odr.registry.get(j(this).attr("id"));
+
+        if (currentElement == undefined) {
+            currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+        }
+
         var lowerRightCorner = currentElement.bottomRight();
 
         lowerRightCorner.x *= odr._scale.level;
@@ -537,7 +542,6 @@ odr.scale = function(newScale) {
     var transformAttribute = "scale(" + odr._scale.level + ")";
 
     for (var i = 0; i < odr.groups.length; i++) {
-        odr._svg.group(odr.groups[i]);
         j("#" + odr.groups[i]).attr("transform", transformAttribute);
     }
 

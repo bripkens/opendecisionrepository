@@ -1139,7 +1139,7 @@ odr.Association.prototype = {
             "id" : odr.associationSettings.text.idPrefix + this.id()
         });
         
-        
+        var textDimensions = odr.meassureTextDimensions(label, odr.associationSettings.text.measureCSS);
         var self = this;
         var htmlElement = j("#" + odr.associationSettings.text.idPrefix + this.id());
         var element = {
@@ -1147,8 +1147,20 @@ odr.Association.prototype = {
             id : function() {
                 return odr.associationSettings.text.idPrefix + self.id();
             },
+            topLeft : function() {
+                return {
+                    x : this.x(),
+                    y : this.y()
+                }
+            },
+            bottomRight : function() {
+                return {
+                    x : this.x() + textDimensions.width,
+                    y : this.y() + textDimensions.height
+                }
+            },
             extendedId : function() {
-                return -1;
+                return this.id();
             },
             x : function(x) {
                 if (x) {
@@ -1171,18 +1183,6 @@ odr.Association.prototype = {
                 }
 
                 return self._labelPosition.y;
-            },
-            bottomRight : function() {
-                return {
-                    x : self._labelPosition.x,
-                    y : self._labelPosition.y
-                }
-            },
-            topLeft : function() {
-                return {
-                    x : self._labelPosition.x,
-                    y : self._labelPosition.y
-                }
             },
             dragStart : function() {
 
@@ -1215,6 +1215,8 @@ odr.Association.prototype = {
                 j("#" + odr.associationSettings.helper.id).remove();
             }
         };
+
+        odr.registry.add(element);
 
         htmlElement.mouseenter(element.enter.createDelegate(this));
 

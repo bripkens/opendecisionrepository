@@ -38,7 +38,7 @@ public class State extends BaseEntity<State> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     private String statusName;
 
     private String actionName;
