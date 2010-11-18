@@ -38,6 +38,10 @@
             <base-name>nl.rug.search.odr.localization.error</base-name>
             <var>error</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>nl.rug.search.odr.localization.visualization</base-name>
+            <var>visual</var>
+        </resource-bundle>
 
         <locale-config>
             <default-locale>en</default-locale>

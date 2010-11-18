@@ -160,7 +160,10 @@ odr.addNode = function(name, stereotype, x, y, visible) {
     appendTo("div.decisions div.overflowDecisions").
     append(j(document.createElement("span")).text(name));
 
-    container.html(container.html() + '<input type="button" class="hide" value="Hide"/>');
+    var showText = j("span#decisionShowButtonText").text();
+    var hideText = j("span#decisionHideButtonText").text();
+
+    container.html(container.html() + '<input type="button" class="hide" value="' + hideText + '"/>');
 
     var button = container.children("input");
 
@@ -168,13 +171,13 @@ odr.addNode = function(name, stereotype, x, y, visible) {
         if (button.hasClass("hide")) {
             button.removeClass("hide");
             button.addClass("show");
-            button.val("Show");
+            button.val(showText);
 
             rectangle.visible(false);
         } else {
             button.removeClass("show");
             button.addClass("hide");
-            button.val("Hide");
+            button.val(hideText);
 
             rectangle.visible(true);
 
@@ -186,11 +189,11 @@ odr.addNode = function(name, stereotype, x, y, visible) {
         if (rectangle.visible()) {
             button.removeClass("show");
             button.addClass("hide");
-            button.val("Hide");
+            button.val(hideText);
         } else {
             button.removeClass("hide");
             button.addClass("show");
-            button.val("Show");
+            button.val(showText);
         }
     }, "menuListener");
 
