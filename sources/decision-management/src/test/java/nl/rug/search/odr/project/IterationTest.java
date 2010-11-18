@@ -43,7 +43,7 @@ public class IterationTest extends AbstractEjbTest {
 
     private StateLocal sl;
 
-    private RequirementLocal rl;
+    private ConcernLocal rl;
 
     private DatabaseCleaner delteh;
 
@@ -60,7 +60,7 @@ public class IterationTest extends AbstractEjbTest {
         vl = lookUp(VersionBean.class, VersionLocal.class);
         al = lookUp(DecisionBean.class, DecisionLocal.class);
         sl = lookUp(StateBean.class, StateLocal.class);
-        rl = lookUp(RequirementBean.class, RequirementLocal.class);
+        rl = lookUp(ConcernBean.class, ConcernLocal.class);
 
     }
 

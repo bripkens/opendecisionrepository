@@ -2,6 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.Comparator;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +42,7 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
     @ManyToOne
     private StakeholderRole role;
 
+    @Column
     private boolean removed;
 
 

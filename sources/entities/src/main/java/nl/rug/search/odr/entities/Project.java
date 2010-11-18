@@ -88,7 +88,7 @@ public class Project extends BaseEntity<Project> {
 
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
-    private Collection<Requirement> requirements;
+    private Collection<Concern> concerns;
 
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @OneToMany(cascade = CascadeType.ALL,
@@ -103,7 +103,7 @@ public class Project extends BaseEntity<Project> {
         iterations = new ArrayList<Iteration>();
         roles = new ArrayList<StakeholderRole>();
         decisions = new ArrayList<Decision>();
-        requirements = new ArrayList<Requirement>();
+        concerns = new ArrayList<Concern>();
         states = new ArrayList<State>();
         relationshipTypes = new ArrayList<RelationshipType>();
     }
@@ -379,47 +379,47 @@ public class Project extends BaseEntity<Project> {
 
 
 
-    public Collection<Requirement> getRequirements() {
-        return Collections.unmodifiableCollection(requirements);
+    public Collection<Concern> getConcerns() {
+        return Collections.unmodifiableCollection(concerns);
     }
 
 
 
 
-    public void setRequirements(Collection<Requirement> requirements) {
-        if (requirements == null) {
-            throw new BusinessException("Requirements is null");
+    public void setConcerns(Collection<Concern> concerns) {
+        if (concerns == null) {
+            throw new BusinessException("Concern is null");
         }
-        this.requirements = requirements;
+        this.concerns = concerns;
     }
 
 
 
 
-    public void addRequirement(Requirement requirement) {
-        if (requirement == null) {
-            throw new BusinessException("Requirement is null");
-        }
-
-        requirements.add(requirement);
-    }
-
-
-
-
-    public void removeRequirement(Requirement requirement) {
-        if (requirement == null) {
-            throw new BusinessException("Requirement is null");
+    public void addConcern(Concern concern) {
+        if (concern == null) {
+            throw new BusinessException("Concern is null");
         }
 
-        requirements.remove(requirement);
+        concerns.add(concern);
     }
 
 
 
 
-    public void removeAllRequirements() {
-        requirements.clear();
+    public void removeConcern(Concern concern) {
+        if (concern == null) {
+            throw new BusinessException("Concern is null");
+        }
+
+        concerns.remove(concern);
+    }
+
+
+
+
+    public void removeAllConcerns() {
+        concerns.clear();
     }
 
 

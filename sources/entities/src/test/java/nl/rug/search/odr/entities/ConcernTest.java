@@ -2,6 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -12,16 +13,16 @@ import org.junit.Test;
  * @author Stefan
  * @modified Ben
  */
-public class RequirementTest {
+public class ConcernTest {
 
-    private Requirement r;
+    private Concern r;
 
 
 
 
     @Before
     public void setUp() {
-        r = new Requirement();
+        r = new Concern();
     }
 
 
@@ -45,10 +46,14 @@ public class RequirementTest {
     }
 
 
-    @Test(expected=BusinessException.class)
+
+
+    @Test(expected = BusinessException.class)
     public void testIdNull() {
         r.setId(null);
     }
+
+
 
 
     @Test
@@ -74,6 +79,7 @@ public class RequirementTest {
     public void testEmptyDescription() {
         r.setDescription("     ");
     }
+
 
 
 
@@ -103,6 +109,7 @@ public class RequirementTest {
 
 
 
+
     @Test
     public void testCompareData() {
         String name = "sadasds";
@@ -116,6 +123,8 @@ public class RequirementTest {
     }
 
 
+
+
     @Test
     public void testIsPersistable() {
         assertFalse(r.isPersistable());
@@ -123,11 +132,31 @@ public class RequirementTest {
         r.setName("1sdasdsa");
 
         assertFalse(r.isPersistable());
-
         r.addInitiator(new ProjectMember());
-
+        assertFalse(r.isPersistable());
+        r.setCreatedWhen(new Date());
         assertTrue(r.isPersistable());
     }
+
+
+
+
+    @Test
+    public void testSetCreatedWhen() {
+        Date now = new Date();
+        r.setCreatedWhen(now);
+        assertEquals(now, r.getCreatedWhen());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetCreatedWhenNull() {
+        r.setCreatedWhen(null);
+    }
+
+
 
 
     @Test
@@ -207,13 +236,67 @@ public class RequirementTest {
         assertTrue(r.getInitiators().isEmpty());
     }
 
+
+
+
     @Test
     public void comparatorTest() {
         r.setName("AAAAA");
 
-        Requirement r2 = new Requirement();
+        Concern r2 = new Concern();
         r2.setName("BBBBB");
 
-        assertTrue(new Requirement.NameComparator().compare(r, r2) < 0);
+        assertTrue(new Concern.NameComparator().compare(r, r2) < 0);
+    }
+
+
+
+
+    @Test
+    public void addTags() {
+        r.addTag("tag1");
+        r.addTag("tag2");
+        r.addTag("tag3");
+        r.addTag("tag4");
+        r.addTag("tag5");
+
+        assertEquals(r.getTags().size(), 5);
+        r.removeTag("tag2");
+        assertFalse(r.getTags().contains("tag2"));
+        assertEquals(r.getTags().size(), 4);
+
+        r.addTag("tag6");
+        assertEquals(r.getTags().size(), 5);
+
+        r.removeAllTags();
+        assertTrue(r.getTags().isEmpty());
+    }
+
+
+
+
+    @Test
+    public void externalIdTest() {
+        String concern = "Concern-1";
+        r.setExternalId(concern);
+        assertEquals(r.getExternalId(), concern);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void externalIdNull() {
+        String concern = null;
+        r.setExternalId(concern);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void externalIdEmpty() {
+        String concern = "             ";
+        r.setExternalId(concern);
     }
 }

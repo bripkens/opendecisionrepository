@@ -49,33 +49,33 @@
 
 
     <div class="formSection">
-        <ice:outputLabel value="#{form['label.requirements']}" for="inRequirement"/>
-        <ice:selectOneMenu id="inRequirement"
-                           label="#{form['label.requirements']}"
+        <ice:outputLabel value="#{form['label.concerns']}" for="inConcerns"/>
+        <ice:selectOneMenu id="inConcerns"
+                           label="#{form['label.concerns']}"
                            required="true"
                            immediate="true"
                            partialSubmit="true"
                            styleClass="add"
-                           value="#{manageDecisionController.essentialsStep.selectedRequirement}">
+                           value="#{manageDecisionController.essentialsStep.selectedConcern}">
             <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
-            <f:selectItems value="#{manageDecisionController.essentialsStep.availableRequirements}" />
+            <f:selectItems value="#{manageDecisionController.essentialsStep.availableConcerns}" />
         </ice:selectOneMenu>
 
-        <ice:commandButton action="#{manageDecisionController.essentialsStep.addRequirement}"
+        <ice:commandButton action="#{manageDecisionController.essentialsStep.addConcern}"
                            value="#{form['button.add']}"
                            styleClass="add"
                            partialSubmit="true"
                            immediate="true"
-                           id="manageDecisionRequirementAddButton"/>
+                           id="manageDecisionConcernAddButton"/>
 
-        <ice:dataTable value="#{manageDecisionController.essentialsStep.selectedRequirements}" var="item"
+        <ice:dataTable value="#{manageDecisionController.essentialsStep.selectedConcerns}" var="item"
                        styleClass="collection">
             <ice:column>
                 <ice:outputText value="#{item.name}" nospan="true" />
             </ice:column>
             <ice:column styleClass="navigationColumn">
                 <ice:commandLink value=""
-                                 action="#{manageDecisionController.essentialsStep.removeRequirement(item.id)}"
+                                 action="#{manageDecisionController.essentialsStep.removeConcern(item.id)}"
                                  immediate="true"
                                  styleClass="columnNavigationLink">
                     <img alt="#{common.remove}"

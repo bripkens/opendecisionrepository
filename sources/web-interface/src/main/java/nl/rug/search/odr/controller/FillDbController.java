@@ -22,7 +22,7 @@ import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.RelationshipType;
-import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.TemplateComponent;
@@ -43,25 +43,20 @@ public class FillDbController {
 
     @EJB
     private StakeholderRoleLocal srl;
-
     @EJB
     private UserLocal ul;
-
     @EJB
     private ProjectLocal pl;
-
     @EJB
     private DecisionTemplateLocal dtl;
-
     @EJB
     private StateLocal sl;
-
     @EJB
     private RelationshipTypeLocal rtl;
-
-    private boolean clearDone, rolesDone, statesDone, 
+    private boolean clearDone, rolesDone, statesDone,
             templatesDone, personsDone, projectsDone, iterationsDone,
-            decisionsDone, requirementsDone, relationshipTypesDone;
+            decisionsDone, concernsDone, relationshipTypesDone;
+
 
 
 
@@ -200,7 +195,7 @@ public class FillDbController {
 
         clearDone = true;
         personsDone = projectsDone = decisionsDone =
-                iterationsDone = requirementsDone = rolesDone =
+                iterationsDone = concernsDone = rolesDone =
                 statesDone = templatesDone = relationshipTypesDone = false;
     }
 
@@ -695,39 +690,45 @@ public class FillDbController {
 
 
 
-    public void addRequirements() {
+    public void addConcerns() {
         Project p = pl.getByName("OpenDecisionRepository");
 
-        Requirement r = new Requirement();
+        Concern r = new Concern();
         r.setName("Web application");
         r.setInitiators(p.getMembers());
-        p.addRequirement(r);
+        r.setCreatedWhen(new Date());
+        p.addConcern(r);
 
-        r = new Requirement();
+        r = new Concern();
         r.setName("Rich Internet Application");
         r.setInitiators(p.getMembers());
-        p.addRequirement(r);
+        r.setCreatedWhen(new Date());
+        p.addConcern(r);
 
-        r = new Requirement();
+        r = new Concern();
         r.setName("Well tested (> 70% test coverage)");
         r.setInitiators(p.getMembers());
-        p.addRequirement(r);
+        r.setCreatedWhen(new Date());
+        p.addConcern(r);
 
-        r = new Requirement();
+        r = new Concern();
         r.setName("Portable to any major OS");
         r.setInitiators(p.getMembers());
-        p.addRequirement(r);
+        r.setCreatedWhen(new Date());
+        p.addConcern(r);
 
-        r = new Requirement();
+        r = new Concern();
         r.setName("Password encryption");
         r.setInitiators(p.getMembers());
-        p.addRequirement(r);
+        r.setCreatedWhen(new Date());
+        p.addConcern(r);
 
         pl.merge(p);
 
         clearDone = false;
-        requirementsDone = true;
+        concernsDone = true;
     }
+
 
 
 
@@ -755,6 +756,7 @@ public class FillDbController {
         clearDone = false;
         relationshipTypesDone = true;
     }
+
 
 
 
@@ -828,15 +830,15 @@ public class FillDbController {
 
 
 
-    public boolean isRequirementsDone() {
-        return requirementsDone;
+    public boolean isConcernsDone() {
+        return concernsDone;
     }
 
 
 
 
-    public void setRequirementsDone(boolean requirementsDone) {
-        this.requirementsDone = requirementsDone;
+    public void setConcernsDone(boolean concernsDone) {
+        this.concernsDone = concernsDone;
     }
 
 
@@ -894,7 +896,4 @@ public class FillDbController {
     public void setRelationshipTypesDone(boolean relationshipTypesDone) {
         this.relationshipTypesDone = relationshipTypesDone;
     }
-
-
-
 }

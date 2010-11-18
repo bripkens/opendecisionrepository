@@ -7,6 +7,7 @@ import org.junit.Ignore;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Ignore
 public class ProjectOverviewTest extends AbstractSelenseTestCase {
 
 

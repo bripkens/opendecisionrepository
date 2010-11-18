@@ -22,6 +22,7 @@ public interface RequestParameter {
     String ITERATION_ID = "iterationId";
     String DECISION_ID = "decisionId";
     String VERSION_ID = "versionId";
+    String CONCERN_ID = "concernId";
 
     String CHRONOLOGICAL_VIEWPOINT = "chronological";
     String RELATIONSHIP_VIEWPOINT = "relationship";

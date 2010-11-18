@@ -17,9 +17,15 @@ public interface Filename {
 
 
 
+    String CONCERN_DETAILS = "concernDetails.html";
+    String CONCERN_DETAILS_WITH_LEADING_SLASH = "/".concat(CONCERN_DETAILS);
+
 
     String ITERATION_DETAILS = "iterationDetails.html";
     String ITEARTION_DETAILS_WITH_LEADING_SLASH = "/".concat(ITERATION_DETAILS);
+
+    String MANAGE_CONCERNS = "manageConcern.html";
+    String MANAGE_CONCERNS_WITH_LEADING_SLASH = "/".concat(MANAGE_CONCERNS);
 
     String MANAGE_ITERATION = "manageIteration.html";
     String MANAGE_ITERATION_WITH_LEADING_SLASH = "/".concat(MANAGE_ITERATION);

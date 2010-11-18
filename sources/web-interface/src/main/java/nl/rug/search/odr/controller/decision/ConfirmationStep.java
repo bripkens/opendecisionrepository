@@ -8,7 +8,7 @@ import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.ComponentValue;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
-import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.TemplateComponent;
 import nl.rug.search.odr.util.JsfUtil;
 
@@ -82,8 +82,8 @@ public class ConfirmationStep implements WizardStep {
         return result;
     }
 
-    public List<Requirement> getRequirements() {
-        return new ArrayList<Requirement>(wizard.getVersion().getRequirements());
+    public List<Concern> getConcerns() {
+        return new ArrayList<Concern>(wizard.getVersion().getConcerns());
     }
 
     public List<ProjectMember> getInitiators() {
