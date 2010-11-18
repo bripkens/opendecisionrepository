@@ -541,15 +541,15 @@ public class ProjectTest {
 
 
     @Test
-    public void setRequirements() {
-        Collection<Requirement> requirements = new ArrayList<Requirement>();
-        Requirement requirement = new Requirement();
-        requirements.add(requirement);
+    public void setConcerns() {
+        Collection<Concern> concerns = new ArrayList<Concern>();
+        Concern concern = new Concern();
+        concerns.add(concern);
 
-        p.setRequirements(requirements);
+        p.setConcerns(concerns);
 
-        assertNotSame(requirements, p.getRequirements());
-        assertSame(requirement, p.getRequirements().
+        assertNotSame(concerns, p.getConcerns());
+        assertSame(concern, p.getConcerns().
                 iterator().
                 next());
     }
@@ -558,22 +558,22 @@ public class ProjectTest {
 
 
     @Test(expected = BusinessException.class)
-    public void setRequirementsNull() {
-        p.setRequirements(null);
+    public void setConcernsNull() {
+        p.setConcerns(null);
     }
 
 
 
 
     @Test
-    public void addRequirement() {
-        Requirement requirement = new Requirement();
-        p.addRequirement(requirement);
+    public void addConcern() {
+        Concern concern = new Concern();
+        p.addConcern(concern);
 
-        assertFalse(p.getRequirements().
+        assertFalse(p.getConcerns().
                 isEmpty());
 
-        assertSame(requirement, p.getRequirements().
+        assertSame(concern, p.getConcerns().
                 iterator().
                 next());
     }
@@ -582,24 +582,24 @@ public class ProjectTest {
 
 
     @Test(expected = BusinessException.class)
-    public void addRequirementNull() {
-        p.addRequirement(null);
+    public void addConcernNull() {
+        p.addConcern(null);
     }
 
 
 
 
     @Test
-    public void removeRequirement() {
-        Requirement requirement = new Requirement();
-        p.addRequirement(requirement);
+    public void removeConcern() {
+        Concern concern = new Concern();
+        p.addConcern(concern);
 
-        assertFalse(p.getRequirements().
+        assertFalse(p.getConcerns().
                 isEmpty());
 
-        p.removeRequirement(requirement);
+        p.removeConcern(concern);
 
-        assertTrue(p.getRequirements().
+        assertTrue(p.getConcerns().
                 isEmpty());
     }
 
@@ -607,21 +607,21 @@ public class ProjectTest {
 
 
     @Test(expected = BusinessException.class)
-    public void removeRequirementNull() {
-        p.removeRequirement(null);
+    public void removeConcernNull() {
+        p.removeConcern(null);
     }
 
 
 
 
     @Test
-    public void removeAllRequirement() {
-        Requirement requirement = new Requirement();
-        p.addRequirement(requirement);
+    public void removeAllConcerns() {
+        Concern concern = new Concern();
+        p.addConcern(concern);
 
-        p.removeAllRequirements();
+        p.removeAllConcerns();
 
-        assertTrue(p.getRequirements().
+        assertTrue(p.getConcerns().
                 isEmpty());
     }
 

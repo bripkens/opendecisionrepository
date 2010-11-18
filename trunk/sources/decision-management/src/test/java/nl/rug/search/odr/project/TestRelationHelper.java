@@ -10,7 +10,7 @@ import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Person;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
-import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
@@ -96,8 +96,8 @@ public class TestRelationHelper {
 
 
 
-    public static Requirement createRequirement(String name) {
-        Requirement re = new Requirement();
+    public static Concern createConcerns(String name) {
+        Concern re = new Concern();
         re.setDescription(name);
         return re;
     }

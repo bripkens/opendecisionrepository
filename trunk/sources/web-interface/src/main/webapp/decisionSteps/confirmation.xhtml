@@ -70,10 +70,10 @@
                 </td>
             </tr>
             <tr>
-                <td><ice:outputText value="#{form['label.requirements']}" nospan="true"/></td>
+                <td><ice:outputText value="#{form['label.concerns']}" nospan="true"/></td>
                 <td>
                     <ul>
-                        <ice:repeat value="#{manageDecisionController.confirmationStep.requirements}" var="item">
+                        <ice:repeat value="#{manageDecisionController.confirmationStep.concerns}" var="item">
                             <li><ice:outputText value="#{item.name}" nospan="true" /></li>
                         </ice:repeat>
                     </ul>

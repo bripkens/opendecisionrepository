@@ -100,9 +100,9 @@
                             <img src="resources/images/wildcard.png" alt="wildcard" />
                         </div>
                         <div class="text">
-                            <h2><ice:outputText value="#{page['decision.details.requirements.headline']}" nospan="true" /></h2>
+                            <h2><ice:outputText value="#{page['decision.details.concerns.headline']}" nospan="true" /></h2>
                             <ul class="subList">
-                                <ice:repeat value="#{decisionDetailsController.requirements}" var="item">
+                                <ice:repeat value="#{decisionDetailsController.concerns}" var="item">
                                     <li>
                                     <ice:outputText value="#{item.name}" />
                                     </li>

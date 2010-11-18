@@ -3,9 +3,9 @@ package nl.rug.search.odr.viewpoint;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
-import nl.rug.search.odr.entities.Requirement;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 
@@ -29,7 +29,7 @@ public class VersionWithoutRelationships {
     @RequiredFor(value = {Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     private State state;
 
-    private Collection<Requirement> requirements;
+    private Collection<Concern> concerns;
 
     @RequiredFor(value = Viewpoint.RELATIONSHIP)
     private Collection<Relationship> relationships;
@@ -46,7 +46,7 @@ public class VersionWithoutRelationships {
         decidedWhen = v.getDecidedWhen();
         removed = v.isRemoved();
         state = v.getState();
-        requirements = v.getRequirements();
+        concerns = v.getConcerns();
         relationships = Collections.emptyList();
         initiators = v.getInitiators();
     }
@@ -71,8 +71,8 @@ public class VersionWithoutRelationships {
 
 
     
-    public void addRequirement(Requirement requirement) {
-        v.addRequirement(requirement);
+    public void addRequirement(Concern concern) {
+        v.addConcern(concern);
     }
 
 
@@ -119,8 +119,8 @@ public class VersionWithoutRelationships {
 
 
     
-    public Collection<Requirement> getRequirements() {
-        return v.getRequirements();
+    public Collection<Concern> getRequirements() {
+        return v.getConcerns();
     }
 
 
@@ -167,8 +167,8 @@ public class VersionWithoutRelationships {
 
 
     
-    public void removeAllRequirements() {
-        v.removeAllRequirements();
+    public void removeAllConcerns() {
+        v.removeAllConcerns();
     }
 
 
@@ -191,8 +191,8 @@ public class VersionWithoutRelationships {
 
 
     
-    public void removeRequirement(Requirement requirement) {
-        v.removeRequirement(requirement);
+    public void removeRequirement(Concern concern) {
+        v.removeConcern(concern);
     }
 
 
@@ -247,8 +247,8 @@ public class VersionWithoutRelationships {
 
 
     
-    public void setRequirements(Collection<Requirement> requirements) {
-        v.setRequirements(requirements);
+    public void setRequirements(Collection<Concern> concern) {
+        v.setConcerns(concern);
     }
 
 

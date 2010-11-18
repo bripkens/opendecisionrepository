@@ -193,15 +193,15 @@ public class VersionTest {
 
 
     @Test
-    public void setRequirements() {
-        Collection<Requirement> requirements = new ArrayList<Requirement>();
-        Requirement r = new Requirement();
-        requirements.add(r);
+    public void setConcerns() {
+        Collection<Concern> concerns = new ArrayList<Concern>();
+        Concern r = new Concern();
+        concerns.add(r);
 
-        v.setRequirements(requirements);
+        v.setConcerns(concerns);
 
-        assertNotSame(requirements, v.getRequirements());
-        assertSame(r, v.getRequirements().
+        assertNotSame(concerns, v.getConcerns());
+        assertSame(r, v.getConcerns().
                 iterator().
                 next());
     }
@@ -210,22 +210,22 @@ public class VersionTest {
 
 
     @Test(expected = BusinessException.class)
-    public void setRequirementsNull() {
-        v.setRequirements(null);
+    public void setConcernsNull() {
+        v.setConcerns(null);
     }
 
 
 
 
     @Test
-    public void addRequirement() {
-        Requirement r = new Requirement();
-        v.addRequirement(r);
+    public void addConcern() {
+        Concern r = new Concern();
+        v.addConcern(r);
 
-        assertFalse(v.getRequirements().
+        assertFalse(v.getConcerns().
                 isEmpty());
 
-        assertSame(r, v.getRequirements().
+        assertSame(r, v.getConcerns().
                 iterator().
                 next());
     }
@@ -234,24 +234,24 @@ public class VersionTest {
 
 
     @Test(expected = BusinessException.class)
-    public void addRequirementNull() {
-        v.addRequirement(null);
+    public void addConcernNull() {
+        v.addConcern(null);
     }
 
 
 
 
     @Test
-    public void removeRequirement() {
-        Requirement r = new Requirement();
-        v.addRequirement(r);
+    public void removeConcern() {
+        Concern r = new Concern();
+        v.addConcern(r);
 
-        assertFalse(v.getRequirements().
+        assertFalse(v.getConcerns().
                 isEmpty());
 
-        v.removeRequirement(r);
+        v.removeConcern(r);
 
-        assertTrue(v.getRequirements().
+        assertTrue(v.getConcerns().
                 isEmpty());
     }
 
@@ -259,21 +259,21 @@ public class VersionTest {
 
 
     @Test(expected = BusinessException.class)
-    public void removeRequirementNull() {
-        v.removeRequirement(null);
+    public void removeConcernNull() {
+        v.removeConcern(null);
     }
 
 
 
 
     @Test
-    public void removeAllRequirement() {
-        Requirement r = new Requirement();
-        v.addRequirement(r);
+    public void removeAllConcerns() {
+        Concern r = new Concern();
+        v.addConcern(r);
 
-        v.removeAllRequirements();
+        v.removeAllConcerns();
 
-        assertTrue(v.getRequirements().
+        assertTrue(v.getConcerns().
                 isEmpty());
     }
 

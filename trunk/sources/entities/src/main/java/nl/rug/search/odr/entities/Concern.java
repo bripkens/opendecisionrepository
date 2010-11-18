@@ -8,13 +8,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 
@@ -24,30 +31,41 @@ import nl.rug.search.odr.StringValidator;
  * @modified Ben
  */
 @NamedQueries(value = {
-    @NamedQuery(name = "Requirement.getAll",
-                query= "SELECT r FROM Requirement r")
+    @NamedQuery(name = "Concern.getAll",
+                query = "SELECT c FROM Concern c"),
+    @NamedQuery(name = Concern.NAMED_QUERY_FIND_SIMILAR_TAGS,
+                query = "SELECT DISTINCT(t) FROM Concern AS c, IN (c.tags) t WHERE t LIKE :keyword")
 })
 @Entity
-public class Requirement extends BaseEntity<Requirement> {
+public class Concern extends BaseEntity<Concern> {
 
+    public static final String NAMED_QUERY_FIND_SIMILAR_TAGS = "Concern.findSimilarTags";
+    public static final String NAMES_QUERY_FIND_ALL_CONCERNS_FOR_PROJECT = "Concern.findAllConcernsForProject";
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private String externalId;
     private String name;
-
     private String description;
+//
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date createdWhen;
+    //
 
     @ManyToMany
     private Collection<ProjectMember> initiators;
 
+    @ElementCollection
+    @CollectionTable(name = "tags")
+    private Collection<String> tags;
 
 
 
-    public Requirement() {
+
+    public Concern() {
         initiators = new ArrayList<ProjectMember>();
+        tags = new ArrayList<String>();
     }
 
 
@@ -102,7 +120,6 @@ public class Requirement extends BaseEntity<Requirement> {
 
 
 
-
     public Collection<ProjectMember> getInitiators() {
         return Collections.unmodifiableCollection(initiators);
     }
@@ -150,6 +167,85 @@ public class Requirement extends BaseEntity<Requirement> {
 
 
 
+    public String getExternalId() {
+        return externalId;
+    }
+
+
+
+
+    public void setExternalId(String externalId) {
+        if (!StringValidator.isValid(externalId)) {
+            throw new BusinessException("Please provide a externalId");
+        }
+        this.externalId = externalId;
+    }
+
+
+
+
+    public Collection<String> getTags() {
+        return tags;
+    }
+
+
+
+
+    public void addTag(String tag) {
+        if (tag == null) {
+            throw new BusinessException("Please provide a tag");
+        }
+        tags.add(tag);
+    }
+
+
+
+
+    public void removeTag(String tag) {
+        if (tag == null) {
+            throw new BusinessException("Please provide a tag");
+        }
+        tags.remove(tag);
+    }
+
+
+
+
+    public void removeAllTags() {
+        tags.clear();
+    }
+
+
+
+
+    public void setTags(Collection<String> tags) {
+        if (tags == null) {
+            throw new BusinessException("Initiator is null");
+        }
+        this.tags = tags;
+    }
+
+
+
+
+    public Date getCreatedWhen() {
+        return createdWhen;
+    }
+
+
+
+
+    public void setCreatedWhen(Date createdWhen) {
+        if (createdWhen == null) {
+            throw new BusinessException("Initiator is null");
+        }
+        this.createdWhen = createdWhen;
+    }
+
+
+
+
+
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name, description};
@@ -160,15 +256,14 @@ public class Requirement extends BaseEntity<Requirement> {
 
     @Override
     public boolean isPersistable() {
-        return name != null && !initiators.isEmpty();
+        return name != null && !initiators.isEmpty() && (createdWhen != null);
     }
 
-    public static class NameComparator implements Comparator<Requirement> {
+    public static class NameComparator implements Comparator<Concern> {
 
         @Override
-        public int compare(Requirement o1, Requirement o2) {
+        public int compare(Concern o1, Concern o2) {
             return o1.name.compareToIgnoreCase(o2.name);
         }
-
     }
 }

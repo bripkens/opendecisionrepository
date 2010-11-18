@@ -474,7 +474,7 @@ table.details tr:last-child td {
     .formSection table.collection       Use this if the contents of the table are the result
                                         of a selection using a combobox or textfield.
                                         Example: Adding stakeholders to a project or adding
-                                                 requirements to a decision
+                                                 concerns to a decision
 
     -------------------------------------------------
                     Form container
@@ -1529,4 +1529,32 @@ ul.subList li, div#help ul.subList li{
 */
 .iceHdnLnk img {
     display: none;
+}
+
+/*
+    ############################################################################################
+                                   Autocomplete
+
+    The following styles the autocomplete function
+*/
+
+.iceSelInpTxtRow, .iceSelInpTxtSelRow {
+    border: 1px solid black;
+    border-top: 1px dashed gray;
+    background-color: white;
+    border-bottom: 0;
+    padding: 5px 3px;
+}
+.iceSelInpTxtSelRow {
+    background-color: lightgray;
+}
+div .iceSelInpTxtRow:first-child, div .iceSelInpTxtSelRow:first-child {
+    border-top: 1px solid black;
+}
+div .iceSelInpTxtRow:last-child, div .iceSelInpTxtSelRow:last-child {
+    border-bottom: 1px solid black;
+}
+
+.iceSelInpTxt div {
+    z-index: 1000;
 }

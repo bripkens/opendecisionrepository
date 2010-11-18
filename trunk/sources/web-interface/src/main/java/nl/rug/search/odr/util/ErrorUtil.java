@@ -74,4 +74,9 @@ public abstract class ErrorUtil {
         ErrorUtil.showErrorMessageUsingExpression("#{error['not.registered.id.heading']}",
                 "#{error['not.registered.id.message']}");
     }
+
+    public static void showNoPermissionToAccessConcernError() {
+        ErrorUtil.showErrorMessageUsingExpression("#{error['no.permission.concern.id.heading']}",
+                "#{error['no.permission.concern.id.message']}");
+    }
 }

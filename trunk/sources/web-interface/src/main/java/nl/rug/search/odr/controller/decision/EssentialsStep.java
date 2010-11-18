@@ -19,7 +19,7 @@ import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.DecisionTemplate;
 import nl.rug.search.odr.entities.OprLink;
-import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.util.JsfUtil;
 
@@ -42,11 +42,11 @@ public class EssentialsStep implements WizardStep {
 
     private String oprLink;
 
-    private Collection<Requirement> selectedRequirements;
+    private Collection<Concern> selectedConcerns;
 
     private Date decidedWhen;
 
-    private String selectedRequirement;
+    private String selectedConcern;
     // </editor-fold>
 
 
@@ -55,7 +55,7 @@ public class EssentialsStep implements WizardStep {
 
     public EssentialsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
-        selectedRequirements = new ArrayList<Requirement>();
+        selectedConcerns = new ArrayList<Concern>();
     }
     // </editor-fold>
 
@@ -65,7 +65,7 @@ public class EssentialsStep implements WizardStep {
     // <editor-fold defaultstate="collapsed" desc="action called by parent component">
     @Override
     public void focus() {
-        selectedRequirement = null;
+        selectedConcern = null;
 
         Decision d = wizard.getDecision();
 
@@ -78,7 +78,7 @@ public class EssentialsStep implements WizardStep {
             oprLink = null;
         }
 
-        selectedRequirements = new ArrayList<Requirement>(wizard.getVersion().getRequirements());
+        selectedConcerns = new ArrayList<Concern>(wizard.getVersion().getConcerns());
 
         decidedWhen = wizard.getVersion().getDecidedWhen();
 
@@ -105,8 +105,8 @@ public class EssentialsStep implements WizardStep {
         }
 
         Version v = wizard.getVersion();
-        v.removeAllRequirements();
-        v.setRequirements(selectedRequirements);
+        v.removeAllConcerns();
+        v.setConcerns(selectedConcerns);
         v.setDecidedWhen(decidedWhen);
     }
     // </editor-fold>
@@ -114,13 +114,13 @@ public class EssentialsStep implements WizardStep {
 
 
     // <editor-fold defaultstate="collapsed" desc="action">
-    public void addRequirement() {
-        for (Requirement requirement : wizard.getProject().
-                getRequirements()) {
-            if (requirement.getName().
-                    equals(selectedRequirement) && !selectedRequirements.contains(requirement)) {
-                selectedRequirements.add(requirement);
-                selectedRequirement = null;
+    public void addConcern() {
+        for (Concern concern : wizard.getProject().
+                getConcerns()) {
+            if (concern.getName().
+                    equals(selectedConcern) && !selectedConcerns.contains(concern)) {
+                selectedConcerns.add(concern);
+                selectedConcern = null;
                 return;
             }
         }
@@ -132,11 +132,11 @@ public class EssentialsStep implements WizardStep {
 
 
     // <editor-fold defaultstate="collapsed" desc="listeners">
-    public void removeRequirement(long id) {
-        for (Requirement requirement : selectedRequirements) {
-            if (requirement.getId().
+    public void removeConcern(long id) {
+        for (Concern concern : selectedConcerns) {
+            if (concern.getId().
                     equals(id)) {
-                selectedRequirements.remove(requirement);
+                selectedConcerns.remove(concern);
                 return;
             }
         }
@@ -274,36 +274,36 @@ public class EssentialsStep implements WizardStep {
 
 
 
-    public Collection<SelectItem> getAvailableRequirements() {
-        Collection<Requirement> allRequirementsImmutable = wizard.getProject().
-                getRequirements();
+    public Collection<SelectItem> getAvailableConcerns() {
+        Collection<Concern> allConcernsImmutable = wizard.getProject().
+                getConcerns();
 
-        List<SelectItem> allRequirements = new ArrayList<SelectItem>(allRequirementsImmutable.size());
+        List<SelectItem> allConcerns = new ArrayList<SelectItem>(allConcernsImmutable.size());
 
-        for (Requirement requirement : allRequirementsImmutable) {
-            if (!selectedRequirements.contains(requirement)) {
+        for (Concern concern : allConcernsImmutable) {
+            if (!selectedConcerns.contains(concern)) {
                 SelectItem item = new SelectItem();
-                item.setValue(requirement.getName());
-                item.setLabel(requirement.getName());
-                allRequirements.add(item);
+                item.setValue(concern.getName());
+                item.setLabel(concern.getName());
+                allConcerns.add(item);
             }
         }
 
-        Collections.sort(allRequirements, new SelectItemComparator());
+        Collections.sort(allConcerns, new SelectItemComparator());
 
-        return allRequirements;
+        return allConcerns;
     }
 
 
 
 
-    public Collection<Requirement> getSelectedRequirements() {
+    public Collection<Concern> getSelectedConcerns() {
 
-        List<Requirement> requirements = (List<Requirement>) selectedRequirements;
+        List<Concern> concerns = (List<Concern>) selectedConcerns;
 
-        Collections.sort(requirements, new Requirement.NameComparator());
+        Collections.sort(concerns, new Concern.NameComparator());
 
-        return selectedRequirements;
+        return selectedConcerns;
     }
 
 
@@ -331,15 +331,15 @@ public class EssentialsStep implements WizardStep {
 
 
 
-    public String getSelectedRequirement() {
-        return selectedRequirement;
+    public String getSelectedConcern() {
+        return selectedConcern;
     }
 
 
 
 
-    public void setSelectedRequirement(String selectedRequirement) {
-        this.selectedRequirement = selectedRequirement;
+    public void setSelectedConcern(String selectedConcern) {
+        this.selectedConcern = selectedConcern;
     }
     // </editor-fold>
 }

@@ -77,10 +77,10 @@
                                action="#{fillDbController.addDecisions}"
                                id="addDecisions"/>
 
-            <p>Requirements <ice:outputText rendered="#{fillDbController.requirementsDone}" value="done!" style="color: green;" /></p>
+            <p>Concerns <ice:outputText rendered="#{fillDbController.concernsDone}" value="done!" style="color: green;" /></p>
             <ice:commandButton value="Do it!"
-                               action="#{fillDbController.addRequirements}"
-                               id="addRequirements"/>
+                               action="#{fillDbController.addConcerns}"
+                               id="addConcerns"/>
             
         </ice:form>
     </ui:define>

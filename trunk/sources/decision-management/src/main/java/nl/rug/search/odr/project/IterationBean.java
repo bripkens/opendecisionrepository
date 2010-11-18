@@ -37,7 +37,6 @@ public class IterationBean extends GenericDaoBean<Iteration, Long> implements It
     public boolean isIntersection(Iteration entity, long projectId) {
     long iterationId = -1;
     if(entity.getId() != null){
-        System.out.println("hat die id "+ entity.getId());
         iterationId = entity.getId();
     }
 

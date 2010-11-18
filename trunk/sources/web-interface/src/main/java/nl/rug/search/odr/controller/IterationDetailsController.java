@@ -1,24 +1,14 @@
 package nl.rug.search.odr.controller;
 
-import com.sun.faces.context.flash.ELFlash;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.entities.Iteration;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestAnalyser;
@@ -28,9 +18,7 @@ import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
-import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
-import org.apache.derby.impl.io.JarStorageFactory;
 
 /**
  *

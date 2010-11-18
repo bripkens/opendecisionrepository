@@ -436,7 +436,7 @@ public class ManageDecisionController extends AbstractController {
         newVersion.setDocumentedWhen(new Date());
         newVersion.setDecidedWhen(version.getDecidedWhen());
         newVersion.setInitiators(version.getInitiators());
-        newVersion.setRequirements(version.getRequirements());
+        newVersion.setConcerns(version.getConcerns());
         newVersion.setState(version.getState());
         newVersion.setRemoved(version.isRemoved());
 

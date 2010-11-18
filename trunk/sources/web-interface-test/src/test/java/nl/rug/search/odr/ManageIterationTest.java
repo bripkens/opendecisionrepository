@@ -4,13 +4,14 @@ import com.thoughtworks.selenium.Selenium;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import org.junit.Ignore;
 import org.junit.Test;
-import sun.rmi.log.LogInputStream;
 
 /**
  *
  * @author Stefan Arians
  */
+@Ignore
 public class ManageIterationTest extends AbstractSelenseTestCase {
 
     private static final String iterationName = "first Iteration";
@@ -18,6 +19,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
     private static final Date startDate = new GregorianCalendar(2010, 2, 23, 3, 23).getTime();
     private static final Date documentedWhen = new GregorianCalendar(2010, 2, 26, 5, 53).getTime();
     private static final Date endDate = new GregorianCalendar(2010, 3, 3, 12, 34).getTime();
+
     private static final String FORM_SECTION_REMOVER = "1";
     private static final String START_DATE = "3";
     private static final String DATE_TIME_PICKER = "1";

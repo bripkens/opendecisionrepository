@@ -38,7 +38,7 @@ public class CircularReferenceResolution implements CircularReferenceResolutionL
                     clonedVersion.setDecidedWhen(originalVersion.getDecidedWhen());
                     clonedVersion.setRemoved(originalVersion.isRemoved());
                     clonedVersion.setState(originalVersion.getState());
-                    clonedVersion.setRequirements(originalVersion.getRequirements());
+                    clonedVersion.setConcerns(originalVersion.getConcerns());
                     clonedVersion.setInitiators(originalVersion.getInitiators());
 
                     r.setTarget(clonedVersion);

@@ -58,7 +58,7 @@ public class Version extends BaseEntity<Version> {
     private State state;
 
     @ManyToMany
-    private Collection<Requirement> requirements;
+    private Collection<Concern> concerns;
 
     @RequiredFor(Viewpoint.RELATIONSHIP)
     @OneToMany(cascade = CascadeType.ALL,
@@ -72,7 +72,7 @@ public class Version extends BaseEntity<Version> {
 
 
     public Version() {
-        requirements = new ArrayList<Requirement>();
+        concerns = new ArrayList<Concern>();
         relationships = new ArrayList<Relationship>();
         initiators = new ArrayList<ProjectMember>();
     }
@@ -167,47 +167,47 @@ public class Version extends BaseEntity<Version> {
 
 
 
-    public Collection<Requirement> getRequirements() {
-        return Collections.unmodifiableCollection(requirements);
+    public Collection<Concern> getConcerns() {
+        return Collections.unmodifiableCollection(concerns);
     }
 
 
 
 
-    public void setRequirements(Collection<Requirement> requirements) {
-        if (requirements == null) {
-            throw new BusinessException("Requirements is null");
+    public void setConcerns(Collection<Concern> concerns) {
+        if (concerns == null) {
+            throw new BusinessException("Concernlist is null");
         }
-        this.requirements = requirements;
+        this.concerns = concerns;
     }
 
 
 
 
-    public void addRequirement(Requirement requirement) {
-        if (requirement == null) {
-            throw new BusinessException("Requirement is null");
-        }
-
-        this.requirements.add(requirement);
-    }
-
-
-
-
-    public void removeRequirement(Requirement requirement) {
-        if (requirement == null) {
-            throw new BusinessException("Requirement is null");
+    public void addConcern(Concern concern) {
+        if (concern == null) {
+            throw new BusinessException("Concern is null");
         }
 
-        this.requirements.remove(requirement);
+        this.concerns.add(concern);
     }
 
 
 
 
-    public void removeAllRequirements() {
-        requirements.clear();
+    public void removeConcern(Concern concern) {
+        if (concern == null) {
+            throw new BusinessException("Concern is null");
+        }
+
+        this.concerns.remove(concern);
+    }
+
+
+
+
+    public void removeAllConcerns() {
+        concerns.clear();
     }
 
 

@@ -22,7 +22,7 @@ import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.RelationshipType;
-import nl.rug.search.odr.entities.Requirement;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
@@ -172,8 +172,8 @@ public class DecisionDetailsController {
 
 
 
-    public List<Requirement> getRequirements() {
-        return new ArrayList<Requirement>(version.getRequirements());
+    public List<Concern> getConcerns() {
+        return new ArrayList<Concern>(version.getConcerns());
     }
 
 
