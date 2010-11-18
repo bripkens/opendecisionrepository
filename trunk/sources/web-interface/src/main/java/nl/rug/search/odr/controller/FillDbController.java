@@ -55,7 +55,7 @@ public class FillDbController {
     private RelationshipTypeLocal rtl;
     private boolean clearDone, rolesDone, statesDone,
             templatesDone, personsDone, projectsDone, iterationsDone,
-            decisionsDone, concernsDone, relationshipTypesDone;
+            decisionsDone, concernsDone, relationshipTypesDone, addAllDone;
 
 
 
@@ -896,4 +896,31 @@ public class FillDbController {
     public void setRelationshipTypesDone(boolean relationshipTypesDone) {
         this.relationshipTypesDone = relationshipTypesDone;
     }
+
+
+
+
+    public void addAll() {
+        addStakeholderRoles();
+        addStates();
+        addDecisionTemplates();
+        addRelationshipTypes();
+        addPersons();
+        addProject();
+        addIterations();
+        addDecisions();
+        addConcerns();
+
+        clearDone = false;
+        addAllDone = true;
+    }
+
+
+
+
+    public boolean isAddAllDone() {
+        return addAllDone;
+    }
+
+    
 }

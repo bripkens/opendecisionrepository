@@ -4,8 +4,12 @@
     "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:svg="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink">
-    <head>
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+    <h:head>
+        <title>#{visual.title}</title>
+
         <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
 
         <script type="text/javascript" src="resources/js/jquery-1.4.2.min.js"></script>
@@ -21,67 +25,43 @@
         <script type="text/javascript" src="resources/js/drawing.js"></script>
 
         <link rel="stylesheet" type="text/css" href="resources/css/drawingMenu.css" />
-    </head>
-    <body>
+    </h:head>
+    <h:body>
+        <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText" styleClass="hidden"/>
+        <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText" styleClass="hidden"/>
         <div class="smallMenu project">
-            <div class="title">Project</div>
+            <div class="title"><ice:outputText value="#{visual['menu.project']}" nospan="true" /></div>
             <p>Something like, save changes, reload data, reset data... might be here</p>
         </div>
         <div class="smallMenu decisions">
-            <div class="title">Decisions</div>
+            <div class="title"><ice:outputText value="#{visual['menu.decisions']}" nospan="true" /></div>
 
             <div class="overflowDecisions">
             </div>
         </div>
         <div class="smallMenu status">
-            <div class="title">Status</div>
+            <div class="title"><ice:outputText value="#{visual['menu.status']}" nospan="true" /></div>
 
-            <p>Checked status are visible, uncheck a status to hide all decisions with the status.</p>
+            <p><ice:outputText value="#{visual['menu.status.help']}" nospan="true" /></p>
 
-            <div class="overflowStatus">
-<!--                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>formulated</span>
-                    
-                </div>
-                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>considered</span>
-                </div>
-                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>rejected</span>
-                </div>
-                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>approved</span>
-                </div>
-                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>challenged</span>
-                </div>
-                <div>
-                    <input type="checkbox" checked="true" />
-                    <span>decided</span>
-                </div>-->
-                
+            <div class="overflowStatus">                
             </div>
         </div>
         <div class="smallMenu zoom">
-            <div class="title">Zoom</div>
-            <img id="zoomOut" src="resources/images/collapse.gif" width="13" height="13" alt="Zoom in" />
+            <div class="title"><ice:outputText value="#{visual['menu.zoom']}" nospan="true" /></div>
+            <img id="zoomOut" src="resources/images/collapse.gif" width="13" height="13" alt="#{visual['menu.zoom.out']}" />
             <input type="text" id="inputScale" />
-            <img id="zoomIn" src="resources/images/expand.gif" width="13" height="13" alt="Zoom in" />
-            <span>%</span>
-            <input type="submit" value="Set scale" id="inputSetScale" />
+            <img id="zoomIn" src="resources/images/expand.gif" width="13" height="13" alt="#{visual['menu.zoom.in']}" />
+            <span><ice:outputText value="#{visual['menu.zoom.percent']}" nospan="true" /></span>
+            <input type="submit" value="#{visual['menu.zoom.set']}" id="inputSetScale" />
         </div>
         <div class="smallMenu export">
-            <div class="title">Export</div>
+            <div class="title"><ice:outputText value="#{visual['menu.export']}" nospan="true" /></div>
             <ul>
-                <li class="jpeg">JPEG image</li>
-                <li class="png">PNG image</li>
-                <li class="svg">SVG image</li>
-                <li class="pdf">PDF document</li>
+                <li class="jpeg"><ice:outputText value="#{visual['menu.export.jpeg']}" nospan="true" /></li>
+                <li class="png"><ice:outputText value="#{visual['menu.export.png']}" nospan="true" /></li>
+                <li class="svg"><ice:outputText value="#{visual['menu.export.svg']}" nospan="true" /></li>
+                <li class="pdf"><ice:outputText value="#{visual['menu.export.pdf']}" nospan="true" /></li>
             </ul>
             <form method="post" action="diagram.png">
                 <input type="hidden" id="data" name="data"/>
@@ -90,5 +70,5 @@
 
         </div>
         <div id="svgTarget" />
-    </body>
+    </h:body>
 </html>

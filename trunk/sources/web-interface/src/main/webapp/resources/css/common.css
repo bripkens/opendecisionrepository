@@ -28,7 +28,7 @@
     ############################################################################################
                                     Generic page styles
 
-    green:       #48a659
+    green:       darkred
     lightgray:   #4f4f4f
     gray:        #f4f2f2
     dark-gray:   #666
@@ -97,7 +97,7 @@ body {
     position: relative;
     top: 5.192em;
     height: 0.13em;
-    background-color: #48a659;
+    background-color: darkred;
 }
 ul#shortlinks {
     float:left;
@@ -138,7 +138,7 @@ div#navigation{
 }
 div#navigation li.current > a {
     text-decoration: none;
-    color: #009024;
+    color: darkred;
 }
 div#navigation > div {
     height: 100%;
@@ -177,11 +177,11 @@ div#navigation > div  ul {
     font-weight: 700;
 }
 #navigation a:active {
-    color: #009024;
+    color: #b00;
     text-decoration: none;
 }
 #navigation a:hover {
-    color: #009024;
+    color: #b00;
     text-decoration: underline;
 }
 #page {
@@ -197,7 +197,7 @@ div#navigation > div  ul {
     float: left;
     font-size: 0.875em;
     line-height: 1.5em;
-    border-right: 0.08em solid #48a659;
+    border-right: 0.08em solid darkred;
     padding-right: 3em;
     padding-bottom: 2em;
     position: relative;
@@ -243,7 +243,7 @@ div#help {
     margin: .2em .6em 0;
 }
 #help  ul.info > li {
-    background-color: #3d8e4c;
+    background-color: darkred;
     width:  26.94em;
     max-width: 30em;
     margin: .75em 0 .75em 0;
@@ -252,7 +252,7 @@ div#help {
     padding: 0;
 }
 #help  ul.info > li > div.text {
-    background-color: #48a659;
+    background-color: #a00;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: right top;
@@ -323,7 +323,7 @@ div#help {
     list-style-position: inside;
 }
 h1 {
-    color: #48a659;
+    color: darkred;
     margin-top: 0.5em;
     margin-bottom: 1.2em;
     font-size: 1.5em;
@@ -337,7 +337,7 @@ h2 {
 }
 
 h3 {
-    color: #48A659;
+    color: darkred;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
     font-size: 1.1em;
@@ -660,7 +660,7 @@ table a.columnNavigationLink img {
     z-index: 34;
 }
 .success {
-    background-color: #48a659;
+    background-color: darkred;
     color: #fff;
     display: block;
     padding: 0.5em;
@@ -778,7 +778,7 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
 }
 
 .information {
-    color: #48a659;
+    color: darkred;
 }
 /*
     ------- textarea bigger, smaller buttons
@@ -1219,7 +1219,7 @@ div.deleteConfirmationPopup {
 }
 
 div.deleteConfirmationPopup h1 {
-    color: #48a659;
+    color: darkred;
     margin-bottom: 0.5em;
     font-size: 1.5em;
 }
@@ -1450,7 +1450,7 @@ input#iterationForm:date1_cb{
 
 p.deleteConfirmationMessage  span {
     font-weight: bold;
-    color: #48A659;
+    color: darkred;
 }
 .quickAddDecisionLink img {
     position: relative;
