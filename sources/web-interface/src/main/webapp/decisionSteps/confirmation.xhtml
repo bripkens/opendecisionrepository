@@ -31,7 +31,10 @@
                 <td>
                     <ul>
                         <ice:repeat value="#{manageDecisionController.confirmationStep.initiators}" var="item">
-                            <li><ice:outputText value="#{item.person.name}" nospan="true" /></li>
+                            <li>
+                                <ice:outputText value="#{item.person.name}" nospan="true" />
+                                <span class="small">&lt;<ice:outputText value="#{item.person.email}" nospan="true" />&gt;</span>
+                            </li>
                         </ice:repeat>
                     </ul>
                 </td>

@@ -69,10 +69,10 @@
                             <ul class="subList">
                                 <ice:repeat value="#{decisionDetailsController.initiators}" var="item">
                                     <li>
-                                    <ice:outputFormat value="#{page['decision.details.abstract.initiator']}">
-                                        <f:param value="#{item.person.name}" />
-                                        <f:param value="#{item.person.email}" />
-                                    </ice:outputFormat>
+                                    <ice:outputText value="#{item.person.name}" nospan="true" />
+                                    <span class="small" style="color: white;">
+                                        &lt;<ice:outputText value="#{item.person.email}" nospan="true" />&gt;
+                                    </span>
                                     </li>
                                 </ice:repeat>
                             </ul>

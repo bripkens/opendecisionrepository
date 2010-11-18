@@ -160,6 +160,68 @@ public class ProjectMemberTest {
         pmBig.setPerson(pBig);
 
         assertTrue(new ProjectMember.NameComparator().compare(pmSmall, pmBig) < 0);
+    }
 
+
+    @Test
+    public void testNameComparatorNameFirstSmaller() {
+        Person pSmall = new Person();
+        pSmall.setEmail("a@a.de");
+        ProjectMember pmSmall = new ProjectMember();
+        pmSmall.setPerson(pSmall);
+
+        Person pBig = new Person();
+        pBig.setName("bbb");
+        ProjectMember pmBig = new ProjectMember();
+        pmBig.setPerson(pBig);
+
+        assertTrue(new ProjectMember.NameComparator().compare(pmSmall, pmBig) < 0);
+    }
+
+
+
+    @Test
+    public void testNameComparatorNameSecondSmaller() {
+        Person bigger = new Person();
+        bigger.setName("bbb");
+        ProjectMember biggerPm = new ProjectMember();
+        biggerPm.setPerson(bigger);
+
+        Person smaller = new Person();
+        smaller.setEmail("a@a.de");
+        ProjectMember smallerPm = new ProjectMember();
+        smallerPm.setPerson(smaller);
+
+        assertTrue(new ProjectMember.NameComparator().compare(biggerPm, smallerPm) > 0);
+    }
+
+    @Test
+    public void testNameComparatorNameSecondSmallerOtherway() {
+        Person bigger = new Person();
+        bigger.setEmail("b@b.de");
+        ProjectMember biggerPm = new ProjectMember();
+        biggerPm.setPerson(bigger);
+
+        Person smaller = new Person();
+        smaller.setName("aaa");
+        ProjectMember smallerPm = new ProjectMember();
+        smallerPm.setPerson(smaller);
+
+        assertTrue(new ProjectMember.NameComparator().compare(biggerPm, smallerPm) > 0);
+    }
+
+    @Test
+    public void testNameComparatorNameSecondBiggerOtherway() {
+        Person bigger = new Person();
+        bigger.setEmail("b@b.de");
+        ProjectMember biggerPm = new ProjectMember();
+        biggerPm.setPerson(bigger);
+
+        Person smaller = new Person();
+        smaller.setEmail("c@c.de");
+        ProjectMember smallerPm = new ProjectMember();
+        smallerPm.setPerson(smaller);
+
+        assertTrue(new ProjectMember.NameComparator().compare(biggerPm, smallerPm) < 0);
     }
 }

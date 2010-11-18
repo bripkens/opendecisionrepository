@@ -162,7 +162,19 @@ public class ProjectMember extends BaseEntity<ProjectMember> {
 
         @Override
         public int compare(ProjectMember o1, ProjectMember o2) {
-            return o1.getPerson().getName().compareToIgnoreCase(o2.getPerson().getName());
+            String compareDataO1 = o1.getPerson().getName();
+
+            if (compareDataO1 == null) {
+                compareDataO1 = o1.getPerson().getEmail();
+            }
+
+            String compareDataO2 = o2.getPerson().getName();
+
+            if (compareDataO2 == null) {
+                compareDataO2 = o2.getPerson().getEmail();
+            }
+
+            return compareDataO1.compareToIgnoreCase(compareDataO2);
         }
 
     }
