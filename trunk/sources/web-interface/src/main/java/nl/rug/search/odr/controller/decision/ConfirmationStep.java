@@ -5,11 +5,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import nl.rug.search.odr.WizardStep;
+import nl.rug.search.odr.controller.DecisionDetailsController.DescriptionDto;
 import nl.rug.search.odr.entities.ComponentValue;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.TemplateComponent;
+import nl.rug.search.odr.util.CustomWikiModel;
 import nl.rug.search.odr.util.JsfUtil;
 
 /**
@@ -59,7 +61,7 @@ public class ConfirmationStep implements WizardStep {
     }
 
 
-    public List<ComponentValue> getComponentValues() {
+    public List<DescriptionDto> getComponentValues() {
         Collection<ComponentValue> values = wizard.getDecision().getValues();
         List<ComponentValue> result = new ArrayList<ComponentValue>(values.size());
 
@@ -79,7 +81,18 @@ public class ConfirmationStep implements WizardStep {
 
         Collections.sort(result, new ComponentValue.OrderComparator());
 
-        return result;
+        List<DescriptionDto> resultDescriptions = new ArrayList<DescriptionDto>();
+
+        CustomWikiModel cwm = new CustomWikiModel();
+
+        for(ComponentValue value : result) {
+            DescriptionDto dto = new DescriptionDto();
+            dto.setContent(cwm.wikiToHtml(value.getValue()));
+            dto.setHeadline(value.getComponent().getLabel());
+            resultDescriptions.add(dto);
+        }
+
+        return resultDescriptions;
     }
 
     public List<Concern> getConcerns() {

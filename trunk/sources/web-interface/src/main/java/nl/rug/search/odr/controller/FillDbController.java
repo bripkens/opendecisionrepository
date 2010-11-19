@@ -900,7 +900,11 @@ public class FillDbController {
 
 
 
-    public void addAll() {
+    public void doEverything() {
+        DatabaseCleaner.bruteForceCleanup();
+
+        SessionUtil.resetSession();
+
         addStakeholderRoles();
         addStates();
         addDecisionTemplates();
@@ -913,6 +917,8 @@ public class FillDbController {
 
         clearDone = false;
         addAllDone = true;
+
+        login();
     }
 
 

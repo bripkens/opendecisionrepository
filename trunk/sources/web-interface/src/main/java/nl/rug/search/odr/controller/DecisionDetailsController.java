@@ -1,5 +1,6 @@
 package nl.rug.search.odr.controller;
 
+import info.bliki.wiki.model.WikiModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,6 +27,7 @@ import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.util.CustomWikiModel;
 import nl.rug.search.odr.util.ErrorUtil;
 
 /**
@@ -150,12 +152,25 @@ public class DecisionDetailsController {
         return decision != null && !decision.getValues().isEmpty();
     }
 
-    public List<ComponentValue> getValues() {
+    public List<DescriptionDto> getValues() {
         List<ComponentValue> values = new ArrayList<ComponentValue>(decision.getValues());
 
         Collections.sort(values, new ComponentValue.OrderComparator());
 
-        return values;
+        List<DescriptionDto> valuesWithHtmlSyntax = new ArrayList<DescriptionDto>(values.size());
+
+        CustomWikiModel wcm = new CustomWikiModel();
+
+
+        for(ComponentValue value : values) {
+            DescriptionDto description = new DescriptionDto();
+            description.setContent(wcm.wikiToHtml(value.getValue()));
+            description.setHeadline(value.getComponent().getLabel());
+
+            valuesWithHtmlSyntax.add(description);
+        }
+
+        return valuesWithHtmlSyntax;
     }
 
 
@@ -260,6 +275,40 @@ public class DecisionDetailsController {
     }
     // </editor-fold>
 
+    public static class DescriptionDto {
+        private String headline;
+        private String content;
+
+
+
+
+        public String getContent() {
+            return content;
+        }
+
+
+
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+
+
+
+        public String getHeadline() {
+            return headline;
+        }
+
+
+
+
+        public void setHeadline(String headline) {
+            this.headline = headline;
+        }
+
+        
+    }
 
     public class RelationshipDto {
         private RelationshipType type;
