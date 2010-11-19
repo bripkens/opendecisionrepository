@@ -29,26 +29,6 @@ public class DecisionTest extends AbstractEjbTest {
         vl = lookUp(VersionBean.class, VersionLocal.class);
     }
 
-    @Test
-    public void getByVersion() {
-        Decision d = new Decision();
-        d.setName("Foobar");
-        Version v = new Version();
-        d.addVersion(v);
-
-        dl.persist(d);
-
-        d = dl.getById(d.getId());
-
-        long decisionId = d.getId();
-
-        v = d.getVersions().iterator().next();
-
-        d = dl.getByVersion(v.getId());
-
-        assertEquals(decisionId, (long) d.getId());
-    }
-
 
     @Test
     public void testDelete() {

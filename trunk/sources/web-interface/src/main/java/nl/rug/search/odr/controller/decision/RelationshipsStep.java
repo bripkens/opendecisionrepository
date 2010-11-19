@@ -59,7 +59,7 @@ public class RelationshipsStep implements WizardStep {
 
         for (Relationship relationship : version.getOutgoingRelationships()) {
             Version target = relationship.getTarget();
-            Decision targetDecision = dl.getByVersion(target.getId());
+            Decision targetDecision = target.getDecision();
 
             RelationshipStepInput input = new RelationshipStepInput(relationship,
                     targetDecision,

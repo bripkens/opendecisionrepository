@@ -113,7 +113,7 @@ public class ConfirmationStep implements WizardStep {
             }
 
             Dto dto = new Dto();
-            dto.setTargetName(wizard.getDecisionLocal().getByVersion(eachRelationship.getTarget().getId()).getName());
+            dto.setTargetName(eachRelationship.getTarget().getDecision().getName());
             dto.setTypeName(eachRelationship.getType().getName());
 
             dtos.add(dto);

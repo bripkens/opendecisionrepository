@@ -21,7 +21,6 @@ public abstract class DatabaseCleaner {
         {"COMPONENTVALUE", "ID"},
         {"DECISION", "ID"},
         {"DECISION_COMPONENTVALUE", "DECISION_ID"},
-        {"DECISION_VERSION", "DECISION_ID"},
         {"DECISIONTEMPLATE", "ID"},
         {"DECISIONTEMPLATE_TEMPLATECOMPONENT", "DECISIONTEMPLATE_ID"},
         {"ITERATION", "ID"},

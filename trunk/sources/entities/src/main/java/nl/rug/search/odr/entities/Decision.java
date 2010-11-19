@@ -33,9 +33,7 @@ import nl.rug.search.odr.viewpoint.Viewpoint;
     @NamedQuery(name = "Decision.getAll",
                 query = "SELECT d FROM Decision d"),
     @NamedQuery(name = Decision.NAMED_QUERY_IS_NAME_USED,
-                query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name"),
-    @NamedQuery(name = Decision.NAMED_QUERY_GET_BY_VERSION,
-                query = "SELECT d FROM Decision AS d, IN(d.versions) v WHERE v.id = :id")
+                query = "SELECT COUNT(d) FROM Decision d WHERE d.id = :id AND LOWER(d.name) = :name")
 })
 @Entity
 public class Decision extends BaseEntity<Decision> {
@@ -43,8 +41,6 @@ public class Decision extends BaseEntity<Decision> {
     private static final long serialVersionUID = 1L;
 
     public static final String NAMED_QUERY_IS_NAME_USED = "Decision.isNameUsed";
-
-    public static final String NAMED_QUERY_GET_BY_VERSION = "Decision.getByVersion";
 
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
@@ -58,6 +54,7 @@ public class Decision extends BaseEntity<Decision> {
 
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @OneToMany(cascade = CascadeType.ALL,
+               mappedBy = "decision",
                orphanRemoval = true)
     private Collection<Version> versions;
 
@@ -143,10 +140,13 @@ public class Decision extends BaseEntity<Decision> {
 
 
     public void addVersion(Version version) {
-        if (version == null) {
-            throw new BusinessException("Version is null.");
-        }
+        version.setDecision(this);
+    }
 
+
+
+
+    void internalAddVersion(Version version) {
         versions.add(version);
     }
 
@@ -161,10 +161,13 @@ public class Decision extends BaseEntity<Decision> {
 
 
     public void removeVersion(Version version) {
-        if (version == null) {
-            throw new BusinessException("Version is null.");
-        }
+        version.setDecision(null);
+    }
 
+
+
+
+    void internalRemoveVersion(Version version) {
         versions.remove(version);
     }
 

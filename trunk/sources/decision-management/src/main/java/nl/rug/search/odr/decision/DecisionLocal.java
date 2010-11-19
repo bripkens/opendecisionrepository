@@ -15,6 +15,4 @@ public interface DecisionLocal  extends GenericDaoLocal<Decision, Long>  {
 
 
 
-    public nl.rug.search.odr.entities.Decision getByVersion(long versionId);
-
 }
