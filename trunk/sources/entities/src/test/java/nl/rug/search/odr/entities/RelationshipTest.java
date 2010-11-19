@@ -4,7 +4,7 @@ import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-
+import static nl.rug.search.odr.Assert.*;
 /**
  *
  * @author Ben
@@ -50,6 +50,23 @@ public class RelationshipTest {
         r.setId(null);
     }
 
+
+
+
+    @Test
+    public void testSetSource() {
+        Version source = new Version();
+
+        r.setSource(source);
+
+        assertSame(source, r.getSource());
+
+        containsReference(source.getOutgoingRelationships(), r);
+    }
+
+
+
+    
 
 
 
@@ -103,6 +120,11 @@ public class RelationshipTest {
 
         r.setType(new RelationshipType());
 
+        assertFalse(r.isPersistable());
+
+
+        r.setSource(new Version());
+
         assertTrue(r.isPersistable());
     }
 
@@ -114,6 +136,10 @@ public class RelationshipTest {
         assertFalse(r.isPersistable());
 
         r.setType(new RelationshipType());
+
+        assertFalse(r.isPersistable());
+
+        r.setSource(new Version());
 
         assertFalse(r.isPersistable());
 

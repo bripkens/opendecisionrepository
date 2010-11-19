@@ -17,7 +17,7 @@ import nl.rug.search.odr.viewpoint.Viewpoint;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "Relationship.getAll",
-                query= "SELECT r FROM Relationship r")
+                query = "SELECT r FROM Relationship r")
 })
 @Entity
 public class Relationship extends BaseEntity<Relationship> {
@@ -32,6 +32,10 @@ public class Relationship extends BaseEntity<Relationship> {
     @RequiredFor(Viewpoint.RELATIONSHIP)
     @ManyToOne
     private RelationshipType type;
+
+    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @ManyToOne
+    private Version source;
 
     @RequiredFor(Viewpoint.RELATIONSHIP)
     @ManyToOne
@@ -59,6 +63,28 @@ public class Relationship extends BaseEntity<Relationship> {
 
 
 
+    public Version getSource() {
+        return source;
+    }
+
+
+
+
+    public void setSource(Version source) {
+        if (this.source != null) {
+            this.source.internalRemoveOutgoingRelationship(this);
+        }
+
+        this.source = source;
+
+        if (this.source != null) {
+            source.internalAddOutgoingRelationship(this);
+        }
+    }
+
+
+
+
     public RelationshipType getType() {
         return type;
     }
@@ -73,8 +99,6 @@ public class Relationship extends BaseEntity<Relationship> {
 
         this.type = type;
     }
-
-
 
 
 
@@ -100,7 +124,7 @@ public class Relationship extends BaseEntity<Relationship> {
 
     @Override
     public boolean isPersistable() {
-        return type != null && target != null;
+        return type != null && target != null && source != null;
     }
 
 

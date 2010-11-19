@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
+import static nl.rug.search.odr.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -484,5 +485,21 @@ public class VersionTest {
         assertTrue(new Version.DecidedWhenComparator().compare(predecessor, successor) < 0);
 
         assertTrue(new Version.DecidedWhenComparator().compare(successor, predecessor) > 0);
+    }
+
+
+
+
+
+    @Test
+    public void testAddOutgoingRelationship() {
+        Relationship r = new Relationship();
+        v.addOutgoingRelationship(r);
+        assertSame(v, r.getSource());
+        assertTrue(containsReference(v.getOutgoingRelationships(), r));
+
+        Version v2 = new Version();
+        r.setSource(v2);
+        assertFalse(containsReference(v.getOutgoingRelationships(), r));
     }
 }

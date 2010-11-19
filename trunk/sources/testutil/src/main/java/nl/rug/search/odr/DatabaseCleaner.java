@@ -44,7 +44,6 @@ public abstract class DatabaseCleaner {
         {"TAGS", "CONCERN_ID"},
         {"VERSION", "ID"},
         {"VERSION_PROJECTMEMBER", "VERSION_ID"},
-        {"VERSION_RELATIONSHIP", "VERSION_ID"},
         {"VERSION_CONCERN", "VERSION_ID"},
         {"VERSIONSTATE", "ID"}};
 

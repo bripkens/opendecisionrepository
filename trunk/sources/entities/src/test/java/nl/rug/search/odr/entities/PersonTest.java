@@ -244,7 +244,7 @@ public class PersonTest {
         ProjectMember member = new ProjectMember();
         p.addMembership(member);
 
-        assertTrue(assertContainsReference(p.getMemberships(), member));
+        assertTrue(containsReference(p.getMemberships(), member));
     }
 
 
@@ -257,7 +257,7 @@ public class PersonTest {
 
         p.removeMembership(member);
 
-        assertFalse(assertContainsReference(p.getMemberships(), member));
+        assertFalse(containsReference(p.getMemberships(), member));
     }
 
 
