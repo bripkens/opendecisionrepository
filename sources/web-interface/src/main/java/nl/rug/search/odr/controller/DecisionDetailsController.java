@@ -203,7 +203,7 @@ public class DecisionDetailsController {
             RelationshipDto dto = new RelationshipDto();
             dto.setType(eachRelationship.getType());
             dto.setVersion(eachRelationship.getTarget());
-            dto.setDecision(dl.getByVersion(dto.getVersion().getId()));
+            dto.setDecision(dto.getVersion().getDecision());
             result.add(dto);
         }
 

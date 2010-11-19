@@ -49,7 +49,8 @@ public class VersionTest {
 
 
 
-    @Test(expected=BusinessException.class)
+
+    @Test(expected = BusinessException.class)
     public void testIdNull() {
         v.setId(null);
     }
@@ -368,6 +369,7 @@ public class VersionTest {
 
 
 
+
     @Test
     public void setProjectMembers() {
         Collection<ProjectMember> initiators = new ArrayList<ProjectMember>();
@@ -471,6 +473,7 @@ public class VersionTest {
 
 
 
+
     @Test
     public void testDecidedWhenComparator() {
         Date earlier = new Date();
@@ -490,7 +493,6 @@ public class VersionTest {
 
 
 
-
     @Test
     public void testAddOutgoingRelationship() {
         Relationship r = new Relationship();
@@ -501,5 +503,91 @@ public class VersionTest {
         Version v2 = new Version();
         r.setSource(v2);
         assertFalse(containsReference(v.getOutgoingRelationships(), r));
+    }
+
+
+
+
+    @Test
+    public void testRemoveAllIncomingRelationships() {
+        Collection<Relationship> relationships = new ArrayList<Relationship>();
+        relationships.add(new Relationship());
+
+        v.setIncomingRelationships(relationships);
+
+        assertNotSame(relationships, v.getIncomingRelationships());
+        assertFalse(v.getIncomingRelationships().isEmpty());
+
+        v.removeAllIncomingRelationships();
+
+        assertTrue(v.getIncomingRelationships().isEmpty());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testSetIncomingRelationshipsNull() {
+        v.setIncomingRelationships(null);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testAddIncomingRelationshipNull() {
+        v.addIncomingRelationship(null);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void testRemoveIncomingRelationshipNull() {
+        v.removeIncomingRelationship(null);
+    }
+
+
+
+
+    @Test
+    public void addIncomingRelationship() {
+        Relationship r = new Relationship();
+        v.addIncomingRelationship(r);
+
+        assertTrue(containsReference(v.getIncomingRelationships(), r));
+
+        v.removeIncomingRelationship(r);
+
+        assertFalse(containsReference(v.getIncomingRelationships(), r));
+    }
+
+
+
+
+    @Test
+    public void setDecision() {
+        Decision d = new Decision();
+
+        v.setDecision(d);
+
+        assertSame(d, v.getDecision());
+
+        assertTrue(containsReference(d.getVersions(), v));
+
+        Decision d2 = new Decision();
+
+        v.setDecision(d2);
+
+        assertSame(d2, v.getDecision());
+
+        assertFalse(containsReference(d.getVersions(), v));
+        assertTrue(containsReference(d2.getVersions(), v));
+
+        v.setDecision(null);
+
+
+        assertNull(v.getDecision());
+        assertFalse(containsReference(d2.getVersions(), v));
     }
 }

@@ -215,11 +215,6 @@ public class DecisionTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void addNullVersion() {
-        d.addVersion(null);
-    }
-
 
 
 
@@ -237,11 +232,6 @@ public class DecisionTest {
 
 
 
-
-    @Test(expected = BusinessException.class)
-    public void removeNullVersion() {
-        d.removeVersion(null);
-    }
 
 
 

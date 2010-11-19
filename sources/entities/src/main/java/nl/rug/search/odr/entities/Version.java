@@ -43,6 +43,9 @@ public class Version extends BaseEntity<Version> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    private Decision decision;
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date documentedWhen;
 
@@ -66,6 +69,12 @@ public class Version extends BaseEntity<Version> {
                orphanRemoval = true)
     private Collection<Relationship> outgoingRelationships;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @OneToMany(cascade = CascadeType.ALL,
+               mappedBy = "target",
+               orphanRemoval = true)
+    private Collection<Relationship> incomingRelationships;
+
     @ManyToMany
     private Collection<ProjectMember> initiators;
 
@@ -75,6 +84,7 @@ public class Version extends BaseEntity<Version> {
     public Version() {
         concerns = new ArrayList<Concern>();
         outgoingRelationships = new ArrayList<Relationship>();
+        incomingRelationships = new ArrayList<Relationship>();
         initiators = new ArrayList<ProjectMember>();
     }
 
@@ -95,6 +105,28 @@ public class Version extends BaseEntity<Version> {
             throw new BusinessException("Id is null");
         }
         this.id = id;
+    }
+
+
+
+
+    public Decision getDecision() {
+        return decision;
+    }
+
+
+
+
+    public void setDecision(Decision decision) {
+        if (this.decision != null) {
+            this.decision.internalRemoveVersion(this);
+        }
+
+        this.decision = decision;
+
+        if (decision != null) {
+            decision.internalAddVersion(this);
+        }
     }
 
 
@@ -273,6 +305,116 @@ public class Version extends BaseEntity<Version> {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Collection<Relationship> getIncomingRelationships() {
+        return Collections.unmodifiableCollection(incomingRelationships);
+    }
+
+
+
+
+    public void setIncomingRelationships(Collection<Relationship> relationships) {
+        if (relationships == null) {
+            throw new BusinessException("Relationships is null");
+        }
+
+        this.incomingRelationships = relationships;
+    }
+
+
+
+
+    public void addIncomingRelationship(Relationship relationship) {
+        if (relationship == null) {
+            throw new BusinessException("Relationship is null");
+        }
+
+        relationship.setTarget(this);
+    }
+
+
+
+
+    void internalAddIncomingRelationship(Relationship relationship) {
+        incomingRelationships.add(relationship);
+    }
+
+
+
+
+    public void removeIncomingRelationship(Relationship relationship) {
+        if (relationship == null) {
+            throw new BusinessException("Relationship is null");
+        }
+
+        relationship.setTarget(null);
+    }
+
+
+
+
+    void internalRemoveIncomingRelationship(Relationship relationship) {
+        incomingRelationships.remove(relationship);
+    }
+
+
+
+
+    public void removeAllIncomingRelationships() {
+        incomingRelationships.clear();
+    }
 
 
     public Collection<ProjectMember> getInitiators() {

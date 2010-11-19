@@ -51,13 +51,16 @@ public class Relationship extends BaseEntity<Relationship> {
 
 
 
-    public void setTarget(Version version) {
-        if (version == null) {
-            throw new BusinessException("Version is null");
+    public void setTarget(Version target) {
+        if (this.target != null) {
+            this.target.internalRemoveIncomingRelationship(this);
         }
 
-        this.target = version;
+        this.target = target;
 
+        if (this.target != null) {
+            target.internalAddIncomingRelationship(this);
+        }
     }
 
 

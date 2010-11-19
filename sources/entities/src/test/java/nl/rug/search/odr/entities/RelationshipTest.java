@@ -77,15 +77,18 @@ public class RelationshipTest {
         r.setTarget(target);
 
         assertSame(target, r.getTarget());
+        assertTrue(containsReference(target.getIncomingRelationships(), r));
+
+        Version newTarget = new Version();
+        r.setTarget(newTarget);
+
+        assertSame(newTarget, r.getTarget());
+        assertFalse(containsReference(target.getIncomingRelationships(), r));
+        assertTrue(containsReference(newTarget.getIncomingRelationships(), r));
     }
 
 
 
-
-    @Test(expected = BusinessException.class)
-    public void testSetTargetNull() {
-        r.setTarget(null);
-    }
 
 
 
