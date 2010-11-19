@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class Assert {
 
-    public static <T> boolean assertContainsReference(Collection<T> collection, T item) {
+    public static <T> boolean containsReference(Collection<T> collection, T item) {
         for (T currentItem : collection) {
             if (currentItem == item) {
                 return true;

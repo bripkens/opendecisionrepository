@@ -31,7 +31,7 @@ import nl.rug.search.odr.viewpoint.Viewpoint;
  */
 @NamedQueries(value = {
     @NamedQuery(name = "Version.getAll",
-                query= "SELECT v FROM Version v")
+                query = "SELECT v FROM Version v")
 })
 @Entity
 public class Version extends BaseEntity<Version> {
@@ -62,6 +62,7 @@ public class Version extends BaseEntity<Version> {
 
     @RequiredFor(Viewpoint.RELATIONSHIP)
     @OneToMany(cascade = CascadeType.ALL,
+               mappedBy = "source",
                orphanRemoval = true)
     private Collection<Relationship> outgoingRelationships;
 
@@ -236,6 +237,13 @@ public class Version extends BaseEntity<Version> {
             throw new BusinessException("Relationship is null");
         }
 
+        relationship.setSource(this);
+    }
+
+
+
+
+    void internalAddOutgoingRelationship(Relationship relationship) {
         outgoingRelationships.add(relationship);
     }
 
@@ -247,6 +255,13 @@ public class Version extends BaseEntity<Version> {
             throw new BusinessException("Relationship is null");
         }
 
+        relationship.setSource(null);
+    }
+
+
+
+
+    void internalRemoveOutgoingRelationship(Relationship relationship) {
         outgoingRelationships.remove(relationship);
     }
 
@@ -320,13 +335,11 @@ public class Version extends BaseEntity<Version> {
         return documentedWhen != null && decidedWhen != null && state != null && !initiators.isEmpty();
     }
 
-
     public static class DecidedWhenComparator implements Comparator<Version> {
 
         @Override
         public int compare(Version o1, Version o2) {
             return o1.decidedWhen.compareTo(o2.decidedWhen);
         }
-
     }
 }
