@@ -9,7 +9,7 @@ import org.junit.Ignore;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-
+@Ignore
 public abstract class AbstractSelenseTestCase extends SeleneseTestCase implements Settings {
 
     @Override

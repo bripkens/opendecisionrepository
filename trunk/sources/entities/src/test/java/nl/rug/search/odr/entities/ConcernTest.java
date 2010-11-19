@@ -7,6 +7,7 @@ import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import sun.security.provider.certpath.BuildStep;
 
 /**
  *
@@ -62,22 +63,6 @@ public class ConcernTest {
         r.setDescription(description);
 
         assertEquals(description, r.getDescription());
-    }
-
-
-
-
-    @Test(expected = BusinessException.class)
-    public void testNullDescription() {
-        r.setDescription(null);
-    }
-
-
-
-
-    @Test(expected = RuntimeException.class)
-    public void testEmptyDescription() {
-        r.setDescription("     ");
     }
 
 
@@ -240,13 +225,28 @@ public class ConcernTest {
 
 
     @Test
-    public void comparatorTest() {
+    public void comparatorTestName() {
         r.setName("AAAAA");
 
         Concern r2 = new Concern();
         r2.setName("BBBBB");
 
         assertTrue(new Concern.NameComparator().compare(r, r2) < 0);
+    }
+
+
+
+
+    @Test
+    public void comparatorTestExternalId() {
+        r.setExternalId("1");
+
+        Concern r2 = new Concern();
+        r2.setExternalId("2");
+
+        Concern.ExternalIdComparator com = new Concern.ExternalIdComparator();
+        
+        assertTrue(com.compare(r, r2) < 0);
     }
 
 
@@ -275,6 +275,43 @@ public class ConcernTest {
 
 
 
+    @Test(expected = BusinessException.class)
+    public void addTagNull() {
+        r.addTag(null);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void removeTagNull() {
+        r.addTag("tag1");
+        r.removeTag(null);
+    }
+
+
+
+
+    @Test
+    public void setTags() {
+        Collection<String> tags = new ArrayList<String>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tags.add("tag3");
+        r.setTags(tags);
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void setTagsNull() {
+        r.setTags(null);
+    }
+
+
+
+
     @Test
     public void externalIdTest() {
         String concern = "Concern-1";
@@ -298,5 +335,23 @@ public class ConcernTest {
     public void externalIdEmpty() {
         String concern = "             ";
         r.setExternalId(concern);
+    }
+
+
+
+
+    @Test
+    public void previousVerison() {
+        Long id = 1L;
+        r.setGroup(id);
+        assertEquals(id, r.getGroup());
+    }
+
+
+
+
+    @Test(expected = BusinessException.class)
+    public void previousVerisonNull() {
+        r.setGroup(null);
     }
 }
