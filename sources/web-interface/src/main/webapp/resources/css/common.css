@@ -263,6 +263,12 @@ div#help {
     padding: .5em 0 .5em .5em;
     line-height: 1.5em;
 }
+#help  ul.info > li > div.text a {
+    color: white;
+}
+#help  ul.info > li > div.text a:active, #help  ul.info > li > div.text a:hover {
+    color: white;
+}
 #help  ul.comments  li {
     background-color: #bebebe;
     width:  26.94em;
