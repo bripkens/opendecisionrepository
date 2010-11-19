@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['concern.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="content">
+
+
+        <ice:form partialSubmit="true" >
+
+            <ice:dataTable id="dataList"
+                           border="1"
+                           value="#{concernTableController.allConcerns}"
+                           rows="20"
+                           var="concern"
+                           sortColumn="#{concernTableController.sortColumn}"
+                           sortAscending="#{concernTableController.ascending}">
+
+
+
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:commandSortHeader columnName="bild" arrow="true" >
+                        </ice:commandSortHeader>
+                    </f:facet>
+                    <ice:commandLink action="#{concern.setSelected(true)}">
+                                               <ice:graphicImage id="expandContractImage"
+                                              value="http://component-showcase.icefaces.org/component-showcase/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
+                                              style="border: 0px solid;"/>
+                           </ice:commandLink>
+                </ice:column>
+
+                <!--  ID -->
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:commandSortHeader columnName="Id" arrow="true" >
+                            <ice:outputText value="ExternalID"/>
+                        </ice:commandSortHeader>
+                    </f:facet>
+                    <ice:outputText value="#{concern.concer.externalId}"></ice:outputText>
+                </ice:column>
+
+                <!--                         Titel-->
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:commandSortHeader columnName="Name" arrow="true" >
+                            <ice:outputText value="Name"/>
+                        </ice:commandSortHeader>
+                    </f:facet>
+                    <ice:outputText value="#{concern.concer.name}"></ice:outputText>
+                </ice:column>
+
+                <!--                          Autor-->
+                <ice:column>
+                    <f:facet name="header">
+                        <ice:commandSortHeader columnName="Description" arrow="true" >
+                            <ice:outputText value="Description"/>
+                        </ice:commandSortHeader>
+                    </f:facet>
+                    <ice:outputText value="#{concern.concer.description}"></ice:outputText>
+                </ice:column>
+
+            </ice:dataTable>
+        </ice:form>
+
+
+    </ui:define>
+</ui:composition>

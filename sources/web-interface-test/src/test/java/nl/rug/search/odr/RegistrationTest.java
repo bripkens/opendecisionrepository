@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@Ignore
+
 public class RegistrationTest extends AbstractSelenseTestCase {
 
     public static final String USER_NAME = "Ben Ripkens";

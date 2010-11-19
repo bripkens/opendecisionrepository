@@ -14,11 +14,13 @@
             <div class="formSection">
                 <ice:outputLabel value="#{item.label}"/>
 
-                <ice:inputTextarea maxlength="30000"
+                <ice:inputTextarea maxlength="1000"
                                    label="#{item.label}"
                                    value="#{item.value}"
                                    styleClass="shrinked wikiSyntax"
-                                   partialSubmit="false"/>
+                                   partialSubmit="false">
+                <f:validateLength minimum="0" maximum="1000" />
+                </ice:inputTextarea>
                 <odr:inputTextareaResizer />
                 <p class="empty" />
             </div>

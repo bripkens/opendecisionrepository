@@ -46,16 +46,19 @@ public class Concern extends BaseEntity<Concern> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String externalId;
+    @Column(nullable = false,
+            length = 255)
     private String name;
+    @Column(length = 1000)
     private String description;
+    @Column(name = "parentId")
+    private Long group;
 //
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdWhen;
     //
-
     @ManyToMany
     private Collection<ProjectMember> initiators;
-
     @ElementCollection
     @CollectionTable(name = "tags")
     private Collection<String> tags;
@@ -98,8 +101,24 @@ public class Concern extends BaseEntity<Concern> {
 
 
     public void setDescription(String description) {
-        StringValidator.isValid(description);
         this.description = description;
+    }
+
+
+
+
+    public Long getGroup() {
+        return group;
+    }
+
+
+
+
+    public void setGroup(Long group) {
+        if (group == null) {
+            throw new BusinessException("Please provide a previous version");
+        }
+        this.group = group;
     }
 
 
@@ -175,9 +194,7 @@ public class Concern extends BaseEntity<Concern> {
 
 
     public void setExternalId(String externalId) {
-        if (!StringValidator.isValid(externalId)) {
-            throw new BusinessException("Please provide a externalId");
-        }
+        StringValidator.isValid(externalId);
         this.externalId = externalId;
     }
 
@@ -245,7 +262,6 @@ public class Concern extends BaseEntity<Concern> {
 
 
 
-
     @Override
     protected Object[] getCompareData() {
         return new Object[]{name, description};
@@ -264,6 +280,14 @@ public class Concern extends BaseEntity<Concern> {
         @Override
         public int compare(Concern o1, Concern o2) {
             return o1.name.compareToIgnoreCase(o2.name);
+        }
+    }
+
+    public static class ExternalIdComparator implements Comparator<Concern> {
+
+        @Override
+        public int compare(Concern o1, Concern o2) {
+            return o1.externalId.compareTo(o2.externalId);
         }
     }
 }

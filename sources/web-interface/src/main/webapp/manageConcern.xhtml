@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['concern.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form id="concernForm" partialSubmit="true">
+            <h1><h:outputText value="#{form['concern.heading']}"/></h1>
+
+            <div class="formSectionineRemover">
+
+                <div class="formSection">
+                    <ice:outputLabel value="#{form['label.concern.number']}" for="inExternalId"/>
+                    <ice:inputText id="inExternalId"
+                                   label="#{form['label.concern.number']}"
+                                   value="#{concernController.externalId}"
+                                   partialSubmit="true">
+                        <f:validateLength minimum="1" maximum="50" />
+                        <f:validator validatorId="RegexValidator" />
+                        <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
+                    </ice:inputText>
+                    <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 1;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 50;
+                    <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
+                    <ice:outputText value="#{form['constraint.concernname']}" nospan="true" />
+                    </p>
+                </div>
+
+
+                <div class="formSection">
+                    <ice:outputLabel value="#{form['label.name']}" for="inName" />
+                    <ice:inputText id="inName"
+                                   label="#{form['label.name']}"
+                                   maxlength="100"
+                                   partialSubmit="true"
+                                   value="#{concernController.name}">
+                        <f:validateLength minimum="3" maximum="100" />
+                        <f:validator validatorId="UserNameValidator" />
+                    </ice:inputText>
+                    <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 100;
+                    <ice:outputText value="#{form['constraint.username']}" nospan="true" />
+                    </p>
+                </div>
+
+
+
+                <div class="formSection">
+                    <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
+                    <ice:inputTextarea id="inDescription"
+                                       label="#{form['label.description']}"
+                                       maxlength="500"
+                                       partialSubmit="true"
+                                       value="#{concernController.description}">
+                    </ice:inputTextarea>
+                    <p>
+                    <ice:outputText value="#{form['label.optional']}" nospan="true" />;
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 0;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 500;
+                    </p>
+                </div>
+
+
+
+
+
+
+
+                <div class="formSection ConcernsTags last">
+                    <ice:outputLabel value="#{form['label.tags']}" for="inTags" style="position: absolute" />
+                    <ice:repeat var="item" value="#{concernController.allTags}">
+                        <ice:selectInputText value="#{item.value}"
+                                             label="Tag"
+                                             rows="10"
+                                             width="155"
+                                             partialSubmit="true"
+                                             valueChangeListener="#{concernController.tagValueChanged}"
+                                             style="float: right; position: relative; margin: 5px; z-index: 500" >
+                            <f:selectItems value="#{concernController.tagPossibilities}" />
+                        </ice:selectInputText>
+
+                    </ice:repeat>
+                    <p class="empty" />
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!--Submit Button-->
+                <ice:commandButton actionListener="#{concernController.submitForm}"
+                                   id="submit"
+                                   partialSubmit="true"
+                                   value="#{form['button.submit']}"
+                                   styleClass="confirm"/>
+
+
+                <!--Reset Button-->
+                <ice:commandButton actionListener="#{concernController.abortForm}"
+                                   id="reset"
+                                   value="#{form['button.cancel']}"
+                                   immediate="true"
+                                   partialSubmit="true"
+                                   styleClass="abort"
+                                   type="abort" />
+            </div>
+        </ice:form>
+    </ui:define>
+
+    <!--SIDEBAR-->
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li class="messages">
+                    <div class="header"></div>
+                    <div class="text">
+                        <ice:messages layout="list"
+                                      errorClass="error"
+                                      warnClass="warning"
+                                      fatalClass="fatal"
+                                      infoClass="information" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2>Iwas tolles :D</h2>
+                        content?
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

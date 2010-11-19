@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@Ignore
+
 public class ManageProjectTest extends AbstractSelenseTestCase {
 
     public static final String PROJECT_NAME = "OpenDecisionRepository";

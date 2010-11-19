@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author Stefan Arians
  */
-@Ignore
+
 public class ManageIterationTest extends AbstractSelenseTestCase {
 
     private static final String iterationName = "first Iteration";
@@ -343,7 +343,7 @@ public class ManageIterationTest extends AbstractSelenseTestCase {
         selenium.click("//form[@id='iterationForm']/table/tbody/tr[1]/td[3]/a[3]/img");
         selenium.click("confitmIterationDeleteForm:confirmIterationDeleteButton");
         waitForAjaxRequest();
-        sleep(750);
+        sleep(1500);
         verifyFalse(selenium.isTextPresent("milestone"));
     }
 

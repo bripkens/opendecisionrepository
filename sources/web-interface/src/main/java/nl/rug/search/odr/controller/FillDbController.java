@@ -27,6 +27,7 @@ import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.TemplateComponent;
 import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.project.ConcernLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.project.StakeholderRoleLocal;
@@ -51,6 +52,8 @@ public class FillDbController {
     private DecisionTemplateLocal dtl;
     @EJB
     private StateLocal sl;
+    @EJB
+    private ConcernLocal cl;
     @EJB
     private RelationshipTypeLocal rtl;
     private boolean clearDone, rolesDone, statesDone,
@@ -698,30 +701,41 @@ public class FillDbController {
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
         p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
+
 
         r = new Concern();
         r.setName("Rich Internet Application");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
         p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
 
         r = new Concern();
         r.setName("Well tested (> 70% test coverage)");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
         p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
 
         r = new Concern();
         r.setName("Portable to any major OS");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
         p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
 
         r = new Concern();
         r.setName("Password encryption");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
         p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
 
         pl.merge(p);
 
@@ -927,6 +941,4 @@ public class FillDbController {
     public boolean isAddAllDone() {
         return addAllDone;
     }
-
-    
 }
