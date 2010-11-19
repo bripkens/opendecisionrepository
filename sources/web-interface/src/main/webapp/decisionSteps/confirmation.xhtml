@@ -49,8 +49,8 @@
             </tr>
             <ice:repeat value="#{manageDecisionController.confirmationStep.componentValues}" var="item">
                 <tr>
-                    <td><ice:outputText value="#{item.component.label}" nospan="true"/></td>
-                    <td><ice:outputText value="#{item.value}" nospan="true" /></td>
+                    <td><ice:outputText value="#{item.headline}" nospan="true"/></td>
+                    <td><ice:outputText value="#{item.content}" nospan="true" escape="false"/></td>
                 </tr>
             </ice:repeat>
             <tr>

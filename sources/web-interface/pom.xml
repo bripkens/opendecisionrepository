@@ -23,6 +23,11 @@
             <url>http://download.java.net/maven/2</url>
         </repository>
         <repository>
+            <id>info.bliki</id>
+            <name>Repository hosting the info bliki artifacts</name>
+            <url>http://gwtwiki.googlecode.com/svn/maven-repository/</url>
+        </repository>
+        <repository>
             <id>icefaces-snapshots</id>
             <name>Repository hosting icefaces 2 beta</name>
             <url>http://anonsvn.icefaces.org/repo/maven2/snapshots</url>
@@ -39,6 +44,11 @@
         </repository>
     </repositories>
     <dependencies>
+        <dependency>
+            <groupId>info.bliki.wiki</groupId>
+            <artifactId>bliki-core</artifactId>
+            <version>3.0.15</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-codec</artifactId>

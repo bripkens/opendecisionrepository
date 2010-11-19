@@ -243,7 +243,7 @@ div#help {
     margin: .2em .6em 0;
 }
 #help  ul.info > li {
-    background-color: darkred;
+    background-color: #600;
     width:  26.94em;
     max-width: 30em;
     margin: .75em 0 .75em 0;
@@ -252,7 +252,7 @@ div#help {
     padding: 0;
 }
 #help  ul.info > li > div.text {
-    background-color: #a00;
+    background-color: darkred;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: right top;
@@ -335,7 +335,14 @@ h2 {
     margin-top: 1em;
     margin-bottom: 0.5em;
 }
-
+.firstTopLinkRemover h2:first-child a.topLink {
+    display: none;
+}
+h2 a.topLink {
+    position: relative;
+    top: -3px;
+    left: 5px;
+}
 h3 {
     color: darkred;
     margin-top: 1.5em;
@@ -383,7 +390,7 @@ ul, div.text ul {
 }
 .toc ol {
     list-style-type: decimal;
-    
+
 }
 .toc h4 {
     font-weight: bold;
@@ -827,8 +834,9 @@ input[type=submit].abort:active,  input[type=submit].abort:focus, input[type=sub
 }
 .formSection table.collection {
     font-size: 0.9em;
-    padding: 35px 0 6px 10px;
+    padding: 35px 0 15px 10px;
     width: 500px;
+    float: right;
 }
 table.collection tr:hover,  table.enableHover tr:hover {
     background-color: #f4f2f2;
@@ -1366,6 +1374,15 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .formSection textarea.shrinked {
     height: 40px;
 }
+.formSection textarea.wikiSyntax {
+    background-image: url(http://www.patternrepository.com:8080/WebInterface/images/wikiSyntax.png);
+    background-position: 95% 100%;
+    background-repeat: no-repeat;
+    min-height: 150px;
+}
+.formSection textarea.wikiSyntax:active, .formSection textarea.wikiSyntax:focus {
+    background-image: none;
+}
 .decisionWizardRelationships {
 
 }
@@ -1452,13 +1469,7 @@ p.deleteConfirmationMessage  span {
     font-weight: bold;
     color: darkred;
 }
-.quickAddDecisionLink img {
-    position: relative;
-    top: 1px;
-}
-.quickAddDecisionLink span {
-    margin-left: 5px;
-}
+
 
 .exampleBoxCol1 {
     padding: 7px;

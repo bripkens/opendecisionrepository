@@ -15,6 +15,12 @@ public class BusinessException extends RuntimeException {
     }
 
 
+    public BusinessException(Throwable cause) {
+        super(cause);
+    }
+
+
+
     /**
      * Constructs an instance of <code>BusinessException</code> with the specified detail message.
      * @param msg the detail message.
