@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
@@ -234,7 +235,13 @@ public class DecisionDetailsController {
         List<HistoryDto> future = new ArrayList<HistoryDto>(versions.size() - 1);
 
         for(Version eachVersion : versions) {
-            if (eachVersion.getId() != version.getId() && eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) > 0) {
+            boolean after;
+
+            after = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) > 0 ||
+                    (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0 &&
+                    eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) > 0);
+
+            if (eachVersion.getId() != version.getId() && after) {
                 HistoryDto dto = new HistoryDto();
                 dto.setDecidedWhen(eachVersion.getDecidedWhen());
                 dto.setDocumentedWhen(eachVersion.getDocumentedWhen());
@@ -254,7 +261,13 @@ public class DecisionDetailsController {
         List<HistoryDto> history = new ArrayList<HistoryDto>(versions.size() - 1);
 
         for(Version eachVersion : versions) {
-            if (eachVersion.getId() != version.getId() && eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) < 0) {
+            boolean before;
+
+            before = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) < 0 ||
+                    (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0 &&
+                    eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) < 0);
+
+            if (eachVersion.getId() != version.getId() && before) {
                 HistoryDto dto = new HistoryDto();
                 dto.setDecidedWhen(eachVersion.getDecidedWhen());
                 dto.setDocumentedWhen(eachVersion.getDocumentedWhen());
@@ -270,10 +283,16 @@ public class DecisionDetailsController {
     }
 
 
+    public String getConcernLink(Concern concern) {
+        return new QueryStringBuilder().setUrl(Filename.CONCERN_DETAILS).
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.CONCERN_GROUP_ID, concern.getGroup()).
+                toString();
+    }
 
 
     public String getDecisionLink(long versionId) {
-        return new QueryStringBuilder().setUrl("decisionDetails.html").
+        return new QueryStringBuilder().setUrl(Filename.DECISION_DETAILS).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, decision.getId()).
                 append(RequestParameter.VERSION_ID, versionId).
@@ -284,13 +303,15 @@ public class DecisionDetailsController {
 
 
     public String getUpdateLink() {
-        return new QueryStringBuilder().setUrl("manageDecision.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_DECISION).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, decision.getId()).
                 append(RequestParameter.VERSION_ID, version.getId()).
                 toString();
     }
     // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="dtos">
 
     public static class DescriptionDto {
         private String headline;
@@ -437,7 +458,13 @@ public class DecisionDetailsController {
 
         @Override
         public int compareTo(HistoryDto o) {
-            return o.decidedWhen.compareTo(decidedWhen);
+            int result = o.decidedWhen.compareTo(decidedWhen);
+
+            if (result == 0) {
+                result = o.documentedWhen.compareTo(documentedWhen);
+            }
+
+            return result;
         }
 
 
@@ -454,4 +481,6 @@ public class DecisionDetailsController {
             return versionId;
         }
     }
+
+    // </editor-fold>
 }

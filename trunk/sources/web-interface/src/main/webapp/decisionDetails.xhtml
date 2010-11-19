@@ -110,7 +110,9 @@
                             <ul class="subList">
                                 <ice:repeat value="#{decisionDetailsController.concerns}" var="item">
                                     <li>
-                                    <ice:outputText value="#{item.name}" />
+                                        <a href="#{decisionDetailsController.getConcernLink(item)}">
+                                            <ice:outputText value="#{item.name}" nospan="true"/>
+                                        </a>
                                     </li>
                                 </ice:repeat>
                             </ul>

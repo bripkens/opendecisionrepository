@@ -23,6 +23,7 @@ public interface RequestParameter {
     String DECISION_ID = "decisionId";
     String VERSION_ID = "versionId";
     String CONCERN_ID = "concernId";
+    String CONCERN_GROUP_ID = "concernGroupId";
 
     String CHRONOLOGICAL_VIEWPOINT = "chronological";
     String RELATIONSHIP_VIEWPOINT = "relationship";
