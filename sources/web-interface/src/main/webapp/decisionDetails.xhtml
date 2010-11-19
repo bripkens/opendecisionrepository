@@ -124,7 +124,7 @@
                         <div class="text">
                             <h2><ice:outputText value="#{page['decision.details.relationship.outgoing.headline']}" nospan="true" /></h2>
                             <ul class="subList">
-                                <ice:repeat value="#{decisionDetailsController.relationships}" var="item">
+                                <ice:repeat value="#{decisionDetailsController.outgoingRelationships}" var="item">
                                     <li>
                                     <ice:outputFormat value="#{page['decision.details.relationship.outgoing']}">
                                         <f:param value="#{item.type.name}" />
@@ -138,24 +138,26 @@
                         </div>
                     </li>
 
-                    <!--                <li>
-                                        <div class="header">
-                                            <img src="resources/images/relationship.png" alt="information" />
-                                        </div>
-                                        <div class="text">
-                                            <h2><ice:outputText value="#{page['decision.details.relationship.incoming.headline']}" nospan="true" /></h2>
-                                            <ul class="subList">
-                                                <ice:repeat value="#{decisionDetailsController.relationships}" var="item">
-                                                    <li>
-                                                    <ice:outputFormat value="#{page['decision.details.relationship.incoming']}">
-                                                        <f:param value="#{item.type.name}" />
-                                                        <f:param value="#{decisionDetailsController.getDecisionName(item.target.id)}" />
-                                                    </ice:outputFormat>
-                                                    </li>
-                                                </ice:repeat>
-                                            </ul>
-                                        </div>
-                                    </li>-->
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/relationship.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <h2><ice:outputText value="#{page['decision.details.relationship.incoming.headline']}" nospan="true" /></h2>
+                            <ul class="subList">
+                                <ice:repeat value="#{decisionDetailsController.incomingRelationships}" var="item">
+                                    <li>
+                                        <a href="#{item.decisionLink}">
+                                            <ice:outputText value="#{item.decision.name}" nospan="true" />
+                                        </a>
+                                    <ice:outputFormat value="#{page['decision.details.relationship.incoming']}">
+                                        <f:param value="#{item.type.name}" />
+                                    </ice:outputFormat>
+                                    </li>
+                                </ice:repeat>
+                            </ul>
+                        </div>
+                    </li>
 
                     <li>
                         <div class="header">

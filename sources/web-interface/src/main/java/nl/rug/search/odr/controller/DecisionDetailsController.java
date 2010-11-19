@@ -194,7 +194,7 @@ public class DecisionDetailsController {
 
 
 
-    public List<RelationshipDto> getRelationships() {
+    public List<RelationshipDto> getOutgoingRelationships() {
         Collection<Relationship> relationships = version.getOutgoingRelationships();
 
         List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
@@ -210,6 +210,23 @@ public class DecisionDetailsController {
         return result;
     }
 
+
+    public List<RelationshipDto> getIncomingRelationships() {
+        Collection<Relationship> relationships = version.getIncomingRelationships();
+
+        List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
+
+        for(Relationship eachRelationship : relationships) {
+            RelationshipDto dto = new RelationshipDto();
+            dto.setType(eachRelationship.getType());
+            dto.setVersion(eachRelationship.getSource());
+            dto.setDecision(dto.getVersion().getDecision());
+            result.add(dto);
+        }
+
+        return result;
+    }
+    
 
 
     public List<HistoryDto> getFuture() {
