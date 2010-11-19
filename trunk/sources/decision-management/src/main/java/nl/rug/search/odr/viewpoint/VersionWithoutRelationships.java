@@ -64,7 +64,7 @@ public class VersionWithoutRelationships {
 
     
     public void addRelationship(Relationship relationship) {
-        v.addRelationship(relationship);
+        v.addOutgoingRelationship(relationship);
     }
 
 
@@ -112,7 +112,7 @@ public class VersionWithoutRelationships {
 
     
     public Collection<Relationship> getRelationships() {
-        return v.getRelationships();
+        return v.getOutgoingRelationships();
     }
 
 
@@ -160,7 +160,7 @@ public class VersionWithoutRelationships {
 
     
     public void removeAllRelationships() {
-        v.removeAllRelationships();
+        v.removeAllOutgoingRelationships();
     }
 
 
@@ -184,7 +184,7 @@ public class VersionWithoutRelationships {
 
     
     public void removeRelationship(Relationship relationship) {
-        v.removeRelationship(relationship);
+        v.removeOutgoingRelationship(relationship);
     }
 
 
@@ -232,7 +232,7 @@ public class VersionWithoutRelationships {
 
     
     public void setRelationships(Collection<Relationship> relationships) {
-        v.setRelationships(relationships);
+        v.setOutgoingRelationships(relationships);
     }
 
 

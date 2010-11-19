@@ -195,7 +195,7 @@ public class DecisionDetailsController {
 
 
     public List<RelationshipDto> getRelationships() {
-        Collection<Relationship> relationships = version.getRelationships();
+        Collection<Relationship> relationships = version.getOutgoingRelationships();
 
         List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
 

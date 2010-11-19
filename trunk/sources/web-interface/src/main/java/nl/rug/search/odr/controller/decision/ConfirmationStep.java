@@ -104,7 +104,7 @@ public class ConfirmationStep implements WizardStep {
     }
 
     public List<Dto> getRelationships() {
-        Collection<Relationship> relationships = wizard.getVersion().getRelationships();
+        Collection<Relationship> relationships = wizard.getVersion().getOutgoingRelationships();
         List<Dto> dtos = new ArrayList<Dto>();
 
         for(Relationship eachRelationship : relationships) {
