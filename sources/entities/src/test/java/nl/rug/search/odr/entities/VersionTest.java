@@ -286,10 +286,10 @@ public class VersionTest {
         Relationship relationship = new Relationship();
         relationships.add(relationship);
 
-        v.setRelationships(relationships);
+        v.setOutgoingRelationships(relationships);
 
-        assertNotSame(relationships, v.getRelationships());
-        assertSame(relationship, v.getRelationships().
+        assertNotSame(relationships, v.getOutgoingRelationships());
+        assertSame(relationship, v.getOutgoingRelationships().
                 iterator().
                 next());
     }
@@ -299,7 +299,7 @@ public class VersionTest {
 
     @Test(expected = BusinessException.class)
     public void setRelationshipsNull() {
-        v.setRelationships(null);
+        v.setOutgoingRelationships(null);
     }
 
 
@@ -308,12 +308,12 @@ public class VersionTest {
     @Test
     public void addRelationship() {
         Relationship relationship = new Relationship();
-        v.addRelationship(relationship);
+        v.addOutgoingRelationship(relationship);
 
-        assertFalse(v.getRelationships().
+        assertFalse(v.getOutgoingRelationships().
                 isEmpty());
 
-        assertSame(relationship, v.getRelationships().
+        assertSame(relationship, v.getOutgoingRelationships().
                 iterator().
                 next());
     }
@@ -323,7 +323,7 @@ public class VersionTest {
 
     @Test(expected = BusinessException.class)
     public void addRelationshipNull() {
-        v.addRelationship(null);
+        v.addOutgoingRelationship(null);
     }
 
 
@@ -332,14 +332,14 @@ public class VersionTest {
     @Test
     public void removeRelationship() {
         Relationship relationship = new Relationship();
-        v.addRelationship(relationship);
+        v.addOutgoingRelationship(relationship);
 
-        assertFalse(v.getRelationships().
+        assertFalse(v.getOutgoingRelationships().
                 isEmpty());
 
-        v.removeRelationship(relationship);
+        v.removeOutgoingRelationship(relationship);
 
-        assertTrue(v.getRelationships().
+        assertTrue(v.getOutgoingRelationships().
                 isEmpty());
     }
 
@@ -348,7 +348,7 @@ public class VersionTest {
 
     @Test(expected = BusinessException.class)
     public void removeRelationshipNull() {
-        v.removeRelationship(null);
+        v.removeOutgoingRelationship(null);
     }
 
 
@@ -357,11 +357,11 @@ public class VersionTest {
     @Test
     public void removeAllRelationship() {
         Relationship relationship = new Relationship();
-        v.addRelationship(relationship);
+        v.addOutgoingRelationship(relationship);
 
-        v.removeAllRelationships();
+        v.removeAllOutgoingRelationships();
 
-        assertTrue(v.getRelationships().
+        assertTrue(v.getOutgoingRelationships().
                 isEmpty());
     }
 

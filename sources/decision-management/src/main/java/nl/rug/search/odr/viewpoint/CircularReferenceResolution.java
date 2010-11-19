@@ -27,7 +27,7 @@ public class CircularReferenceResolution implements CircularReferenceResolutionL
 
         for (Decision d : p.getDecisions()) {
             for (Version v : d.getVersions()) {
-                for (Relationship r : v.getRelationships()) {
+                for (Relationship r : v.getOutgoingRelationships()) {
                     manager.detach(r);
 
                     Version originalVersion = r.getTarget();

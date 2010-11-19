@@ -440,11 +440,11 @@ public class ManageDecisionController extends AbstractController {
         newVersion.setState(version.getState());
         newVersion.setRemoved(version.isRemoved());
 
-        for (Relationship eachRelationship : version.getRelationships()) {
+        for (Relationship eachRelationship : version.getOutgoingRelationships()) {
             Relationship newRelationship = new Relationship();
             newRelationship.setTarget(eachRelationship.getTarget());
             newRelationship.setType(eachRelationship.getType());
-            newVersion.addRelationship(newRelationship);
+            newVersion.addOutgoingRelationship(newRelationship);
         }
 
         

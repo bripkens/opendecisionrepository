@@ -57,7 +57,7 @@ public class RelationshipsStep implements WizardStep {
         Version version = wizard.getVersion();
         DecisionLocal dl = wizard.getDecisionLocal();
 
-        for (Relationship relationship : version.getRelationships()) {
+        for (Relationship relationship : version.getOutgoingRelationships()) {
             Version target = relationship.getTarget();
             Decision targetDecision = dl.getByVersion(target.getId());
 
@@ -78,7 +78,7 @@ public class RelationshipsStep implements WizardStep {
     @Override
     public void blur() {
         Version version = wizard.getVersion();
-        version.removeAllRelationships();
+        version.removeAllOutgoingRelationships();
 
 
         for (RelationshipStepInput input : relationships) {
@@ -89,7 +89,7 @@ public class RelationshipsStep implements WizardStep {
             relationship.setType(type);
             relationship.setTarget(target);
 
-            version.addRelationship(relationship);
+            version.addOutgoingRelationship(relationship);
         }
     }
 

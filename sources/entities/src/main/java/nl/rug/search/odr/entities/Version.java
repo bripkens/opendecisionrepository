@@ -63,7 +63,7 @@ public class Version extends BaseEntity<Version> {
     @RequiredFor(Viewpoint.RELATIONSHIP)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
-    private Collection<Relationship> relationships;
+    private Collection<Relationship> outgoingRelationships;
 
     @ManyToMany
     private Collection<ProjectMember> initiators;
@@ -73,7 +73,7 @@ public class Version extends BaseEntity<Version> {
 
     public Version() {
         concerns = new ArrayList<Concern>();
-        relationships = new ArrayList<Relationship>();
+        outgoingRelationships = new ArrayList<Relationship>();
         initiators = new ArrayList<ProjectMember>();
     }
 
@@ -213,48 +213,48 @@ public class Version extends BaseEntity<Version> {
 
 
 
-    public Collection<Relationship> getRelationships() {
-        return Collections.unmodifiableCollection(relationships);
+    public Collection<Relationship> getOutgoingRelationships() {
+        return Collections.unmodifiableCollection(outgoingRelationships);
     }
 
 
 
 
-    public void setRelationships(Collection<Relationship> relationships) {
+    public void setOutgoingRelationships(Collection<Relationship> relationships) {
         if (relationships == null) {
             throw new BusinessException("Relationships is null");
         }
 
-        this.relationships = relationships;
+        this.outgoingRelationships = relationships;
     }
 
 
 
 
-    public void addRelationship(Relationship relationship) {
+    public void addOutgoingRelationship(Relationship relationship) {
         if (relationship == null) {
             throw new BusinessException("Relationship is null");
         }
 
-        relationships.add(relationship);
+        outgoingRelationships.add(relationship);
     }
 
 
 
 
-    public void removeRelationship(Relationship relationship) {
+    public void removeOutgoingRelationship(Relationship relationship) {
         if (relationship == null) {
             throw new BusinessException("Relationship is null");
         }
 
-        relationships.remove(relationship);
+        outgoingRelationships.remove(relationship);
     }
 
 
 
 
-    public void removeAllRelationships() {
-        relationships.clear();
+    public void removeAllOutgoingRelationships() {
+        outgoingRelationships.clear();
     }
 
 
