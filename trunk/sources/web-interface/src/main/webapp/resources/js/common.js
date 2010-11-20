@@ -54,6 +54,10 @@ odr.init = function() {
        href = window.location.href;
        element.attr("href", window.location.href.split("#")[0] + element.attr("href"));
     });
+
+    j(".initDisabled").each(function() {
+        j(this).attr("disabled", true);
+    })
 }
 
 
@@ -417,4 +421,22 @@ odr.showDecisionDeleteForm = function() {
 }
 odr.datetimepickerValidationFix = function() {
     j(".datetimepickerDateInput").focus().blur();
+}
+odr.decisionWizardSearchOne = function(start) {
+    if (start) {
+        j('#ajaxLoaderBar').css('display', 'block');
+    } else {
+        j('#ajaxLoaderBar').css('display', 'none');
+    }
+
+    odr.decisionWizardStepOneDisableRetrieve(start);
+}
+odr.decisionWizardStepOneDisableRetrieve = function(disable) {
+    if (disable) {
+        j("#manageDecisionSidebarForm\\:inSelectExternal").attr("disabled", true);
+        j("#manageDecisionSidebarForm\\:manageDecisionSelectExternalId").attr("disabled", true);
+    } else {
+        j("#manageDecisionSidebarForm\\:inSelectExternal").removeAttr("disabled");
+        j("#manageDecisionSidebarForm\\:manageDecisionSelectExternalId").removeAttr("disabled");
+    }
 }

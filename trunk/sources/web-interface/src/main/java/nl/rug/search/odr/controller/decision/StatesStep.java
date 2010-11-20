@@ -33,6 +33,8 @@ public class StatesStep implements WizardStep {
     private String selectedInitiator;
 
 
+
+
     public StatesStep(ManageDecisionController wizard) {
         this.wizard = wizard;
     }
@@ -43,6 +45,14 @@ public class StatesStep implements WizardStep {
     @Override
     public String getFaceletName() {
         return "decisionSteps/states.xhtml";
+    }
+
+
+
+
+    @Override
+    public String getSidebarFaceletName() {
+        return "decisionSteps/statesSidebar.xhtml";
     }
 
 
@@ -153,8 +163,8 @@ public class StatesStep implements WizardStep {
 
 
     public void addInitiator() {
-        if (!StringValidator.isValid(selectedInitiator, false) ||
-                selectedInitiator.equalsIgnoreCase(
+        if (!StringValidator.isValid(selectedInitiator, false)
+            || selectedInitiator.equalsIgnoreCase(
                 JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))) {
             return;
         }
@@ -203,7 +213,4 @@ public class StatesStep implements WizardStep {
     public void setSelectedInitiator(String selectedInitiator) {
         this.selectedInitiator = selectedInitiator;
     }
-
-
-    
 }

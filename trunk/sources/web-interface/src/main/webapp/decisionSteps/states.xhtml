@@ -33,12 +33,11 @@
         <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
         <ice:selectOneMenu id="inInitiators"
                            label="#{form['label.initiators']}"
-                           required="true"
                            immediate="true"
                            partialSubmit="true"
                            styleClass="add"
                            value="#{manageDecisionController.statesStep.selectedInitiator}">
-            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
             <f:selectItems value="#{manageDecisionController.statesStep.availableInitiators}" />
         </ice:selectOneMenu>
 

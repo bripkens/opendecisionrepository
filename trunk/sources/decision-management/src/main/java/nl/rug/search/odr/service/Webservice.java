@@ -9,14 +9,17 @@ import nl.rug.search.odr.service.opr.OprWebservice;
  */
 public enum Webservice {
 
-    OPR(OprWebservice.class);
+    OPR("OPR", OprWebservice.class);
+
+    private String name;
 
     private final Class<? extends AbstractWebservice> service;
 
 
 
 
-    private Webservice(Class<? extends AbstractWebservice> service) {
+    private Webservice(String name, Class<? extends AbstractWebservice> service) {
+        this.name = name;
         this.service = service;
     }
 
@@ -32,4 +35,14 @@ public enum Webservice {
             throw new BusinessException(ex);
         }
     }
+
+
+
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+
 }

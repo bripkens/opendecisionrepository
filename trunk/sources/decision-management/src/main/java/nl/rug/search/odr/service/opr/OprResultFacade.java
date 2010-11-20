@@ -14,7 +14,7 @@ class OprResultFacade implements Result {
     private final nl.rug.search.opr.entities.Result oprResult;
     private final OprWebservice service;
 
-
+    private List<Paragraph> paragraphs;
 
     OprResultFacade(nl.rug.search.opr.entities.Result oprResult, OprWebservice service) {
         this.oprResult = oprResult;
@@ -32,7 +32,11 @@ class OprResultFacade implements Result {
 
     @Override
     public List<Paragraph> getDocumentation() {
-        return service.getDocumentation(oprResult.getId());
+        if (paragraphs == null) {
+            paragraphs = service.getDocumentation(oprResult.getId());
+        }
+        
+        return paragraphs;
     }
 
 }

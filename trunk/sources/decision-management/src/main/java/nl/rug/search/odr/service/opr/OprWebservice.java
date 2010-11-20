@@ -3,6 +3,7 @@ package nl.rug.search.odr.service.opr;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -30,7 +31,7 @@ public class OprWebservice implements AbstractWebservice {
 
     private static final String GET_URL = "http://www.patternrepository.com:8080/WebServices/resources/pattern/";
 
-
+    private static final String DESCRIPTION_TO_REMOVE = "Example/Figure";
 
 
     @Override
@@ -38,7 +39,7 @@ public class OprWebservice implements AbstractWebservice {
         try {
             Unmarshaller u = ContextHolder.CONTEXT.createUnmarshaller();
 
-            URL url = new URL(SEARCH_URL.concat(query));
+            URL url = new URL(SEARCH_URL.concat(URLEncoder.encode(query,"UTF-8")));
 
             JAXBElement<ResultList> result = (JAXBElement<ResultList>) u.unmarshal(url.openStream());
 
@@ -94,6 +95,10 @@ public class OprWebservice implements AbstractWebservice {
         List<Paragraph> result = new ArrayList<Paragraph>(pattern.getContent().size());
 
         for (Content content : pattern.getContent()) {
+            if (content.getName().equals(DESCRIPTION_TO_REMOVE)) {
+                continue;
+            }
+
             Paragraph p = new ParagraphImpl(content.getName(), content.getText());
             result.add(p);
         }
