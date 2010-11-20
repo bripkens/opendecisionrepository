@@ -122,6 +122,14 @@ public class ConfirmationStep implements WizardStep {
         return dtos;
     }
 
+
+
+
+    @Override
+    public String getSidebarFaceletName() {
+        return "decisionSteps/confirmationSidebar.xhtml";
+    }
+
     public static class Dto {
         private String typeName;
         private String targetName;

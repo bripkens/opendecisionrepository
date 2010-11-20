@@ -44,7 +44,10 @@ public class RelationshipsStep implements WizardStep {
         return "decisionSteps/relationships.xhtml";
     }
 
-
+    @Override
+    public String getSidebarFaceletName() {
+        return "decisionSteps/relationshipsSidebar.xhtml";
+    }
 
 
     @Override

@@ -114,6 +114,7 @@ public class EssentialsStep implements WizardStep {
 
 
     // <editor-fold defaultstate="collapsed" desc="action">
+
     public void addConcern() {
         for (Concern concern : wizard.getProject().
                 getConcerns()) {
@@ -126,7 +127,6 @@ public class EssentialsStep implements WizardStep {
         }
     }
     // </editor-fold>
-
 
 
 
@@ -189,6 +189,14 @@ public class EssentialsStep implements WizardStep {
 
 
 
+    @Override
+    public String getSidebarFaceletName() {
+        return "decisionSteps/essentialsSidebar.xhtml";
+    }
+
+
+
+
     public String getDecisionName() {
         return decisionName;
     }
@@ -228,7 +236,7 @@ public class EssentialsStep implements WizardStep {
         if (!StringValidator.isValid(decisionTemplate, false)) {
             return;
         } else if (decisionTemplate.equalsIgnoreCase(
-                JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))){
+                JsfUtil.evaluateExpressionGet("#{form['label.pleaseSelect']}", String.class))) {
             return;
         }
         this.decisionTemplate = wizard.getDecisionTemplateLocal().

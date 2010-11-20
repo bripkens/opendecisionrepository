@@ -579,18 +579,21 @@ div.formSectionineRemover div.formSection:last-child, form div.formSection:last-
     font: 14px/1.5em arial,sans-serif;
     height: 25px;
 }
+.formSection input[disabled=true], .formSection input[disabled=disabled], .formSection select[disabled=true], .formSection select[disabled=disabled]  {
+    opacity: 0.5;
+}
 .formSection textarea {
     width: 487px;
     height: 150px;
 }
-.formSection input.add, .formSection select.add {
+.formSection input.add, .formSection select.add,.formSection input.add-dis {
     position: absolute;
     left: auto;
     right: 137px;
     top: 0px;
     width: 356px;
 }
-.formSection input[type=submit].add {
+.formSection input[type=submit].add, .formSection input[type=submit].add-dis {
     position: absolute;
     right: 0;
     top: 2px;
@@ -1422,6 +1425,39 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 .decisionWizardRelationships p {
     margin-top: 25px;
 }
+.templateRelatedSidebar {
+    font-size: 0.9em;
+}
+.templateRelatedSidebar input[type=text] {
+    position: relative;
+    right: 135px;
+    width: 200px;
+}
+.templateRelatedSidebar .searchError {
+    color: darkred;
+    font-size: 13px;
+    left: 140px;
+    position: absolute;
+    top: 33px;
+}
+.templateRelatedSidebar .retrieveError {
+    color: darkred;
+    float: left;
+    font-size: 13px;
+    left: -30px;
+    position: relative;
+    top: 33px;
+}
+.templateRelatedSidebar .ajaxLoader {
+    display: none;
+    position: relative;
+    top: 20px;
+    left: 138px;
+}
+.templateRelatedSidebar select {
+    width: 208px;
+    left: 145px;
+}
 /*
     ############################################################################################
                                     Project details
@@ -1561,6 +1597,7 @@ ul.subList li, div#help ul.subList li{
     background-color: white;
     border-bottom: 0;
     padding: 5px 3px;
+    font-size: 0.9em;
 }
 .iceSelInpTxtSelRow {
     background-color: lightgray;
