@@ -86,6 +86,11 @@
             <ice:commandButton value="Do it!"
                                action="#{fillDbController.addConcerns}"
                                id="addConcerns"/>
+
+            <p>Relationships <ice:outputText rendered="#{fillDbController.relationshipsDone}" value="done!" style="color: green;" /></p>
+            <ice:commandButton value="Do it!"
+                               action="#{fillDbController.addRelationships}"
+                               id="addRelationships"/>
             
         </ice:form>
     </ui:define>

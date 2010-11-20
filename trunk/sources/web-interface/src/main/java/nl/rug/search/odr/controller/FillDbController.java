@@ -3,6 +3,7 @@ package nl.rug.search.odr.controller;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,6 +14,7 @@ import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.DatabaseCleaner;
 import nl.rug.search.odr.DecisionTemplateLocal;
+import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.util.SessionUtil;
 import nl.rug.search.odr.entities.Decision;
@@ -23,6 +25,7 @@ import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Concern;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.StakeholderRole;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.TemplateComponent;
@@ -44,21 +47,31 @@ public class FillDbController {
 
     @EJB
     private StakeholderRoleLocal srl;
+
     @EJB
     private UserLocal ul;
+
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private DecisionTemplateLocal dtl;
+
     @EJB
     private StateLocal sl;
+
     @EJB
     private ConcernLocal cl;
+
     @EJB
     private RelationshipTypeLocal rtl;
+
+    @EJB
+    private DecisionLocal dl;
+
     private boolean clearDone, rolesDone, statesDone,
             templatesDone, personsDone, projectsDone, iterationsDone,
-            decisionsDone, concernsDone, relationshipTypesDone, addAllDone;
+            decisionsDone, concernsDone, relationshipTypesDone, addAllDone, relationshipsDone;
 
 
 
@@ -264,7 +277,7 @@ public class FillDbController {
         p.addDecision(d);
 
         d = new Decision();
-        d.setName("OPR technology tstack");
+        d.setName("OPR technology stack");
         d.setTemplate(getTemplate("Quick add form"));
         v = new Version();
         v.setDecidedWhen(new Date());
@@ -353,6 +366,17 @@ public class FillDbController {
 
         d = new Decision();
         d.setName("Icefaces 2.0-beta1");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Icefaces 2.0-beta2");
         d.setTemplate(getTemplate("Quick add form"));
         v = new Version();
         v.setDecidedWhen(new Date());
@@ -450,6 +474,94 @@ public class FillDbController {
         d.addVersion(v);
         p.addDecision(d);
 
+        d = new Decision();
+        d.setName("Client side image generation");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Apache FOP");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Apache Batik");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Scalable Vector Graphics");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("approved"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Server side image generation");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Image generation in Java");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("HTML 5 Canvas Element");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
+        d = new Decision();
+        d.setName("Graphviz");
+        d.setTemplate(getTemplate("Quick add form"));
+        v = new Version();
+        v.setDecidedWhen(new Date());
+        v.setDocumentedWhen(new Date());
+        v.setInitiators(p.getMembers());
+        v.setState(getState("rejected"));
+        d.addVersion(v);
+        p.addDecision(d);
+
         pl.merge(p);
 
         clearDone = false;
@@ -463,28 +575,87 @@ public class FillDbController {
         Project p = pl.getByName("OpenDecisionRepository");
 
         Iteration it1 = new Iteration();
-        it1.setName("Milestone 1");
-        it1.setDescription("The first milestone");
+        it1.setName("Analysis and design");
         it1.setProjectMember(p.getMembers().iterator().next());
         it1.setDocumentedWhen(new Date());
-        it1.setStartDate(it1.getDocumentedWhen());
-        it1.setEndDate(new Date(it1.getStartDate().getTime() + 6000000));
+        it1.setStartDate(getDate(2010, 9, 1));
+        it1.setEndDate(getDate(2010, 9, 25));
 
         Iteration it2 = new Iteration();
-        it2.setName("Milestone 2");
-        it2.setDescription("The second milestone");
+        it2.setName("Sprint 1");
         it2.setProjectMember(p.getMembers().iterator().next());
         it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 1));
-        it2.setStartDate(it2.getDocumentedWhen());
-        it2.setEndDate(new Date(it2.getStartDate().getTime() + 6000000));
+        it2.setStartDate(getDate(2010, 9, 27));
+        it2.setEndDate(getDate(2010, 10, 9));
 
         p.addIteration(it1);
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 2");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 2));
+        it2.setStartDate(getDate(2010, 10, 18));
+        it2.setEndDate(getDate(2010, 10, 30));
+
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 3");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 3));
+        it2.setStartDate(getDate(2010, 11, 1));
+        it2.setEndDate(getDate(2010, 11, 13));
+
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 4");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 4));
+        it2.setStartDate(getDate(2010, 11, 15));
+        it2.setEndDate(getDate(2010, 11, 27));
+
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 5");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 5));
+        it2.setStartDate(getDate(2010, 11, 29));
+        it2.setEndDate(getDate(2010, 12, 11));
+
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 6");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 6));
+        it2.setStartDate(getDate(2010, 12, 13));
+        it2.setEndDate(getDate(2010, 12, 25));
+
+        p.addIteration(it2);
+
+        it2 = new Iteration();
+        it2.setName("Sprint 7 / release sprint");
+        it2.setProjectMember(p.getMembers().iterator().next());
+        it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 7));
+        it2.setStartDate(getDate(2011, 1, 10));
+        it2.setEndDate(getDate(2011, 1, 29));
+
         p.addIteration(it2);
 
         pl.merge(p);
 
         clearDone = false;
         iterationsDone = true;
+    }
+
+
+
+
+    private Date getDate(int year, int month, int day) {
+        return new GregorianCalendar(year, month - 1, day).getTime();
     }
 
 
@@ -700,15 +871,17 @@ public class FillDbController {
         r.setName("Web application");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-1");
         p.addConcern(r);
         cl.persist(r);
         r.setGroup(r.getId());
 
 
         r = new Concern();
-        r.setName("Rich Internet Application");
+        r.setName("Data integrity");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-2");
         p.addConcern(r);
         cl.persist(r);
         r.setGroup(r.getId());
@@ -717,6 +890,7 @@ public class FillDbController {
         r.setName("Well tested (> 70% test coverage)");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-10");
         p.addConcern(r);
         cl.persist(r);
         r.setGroup(r.getId());
@@ -725,6 +899,7 @@ public class FillDbController {
         r.setName("Portable to any major OS");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-11");
         p.addConcern(r);
         cl.persist(r);
         r.setGroup(r.getId());
@@ -733,6 +908,16 @@ public class FillDbController {
         r.setName("Password encryption");
         r.setInitiators(p.getMembers());
         r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-12");
+        p.addConcern(r);
+        cl.persist(r);
+        r.setGroup(r.getId());
+
+        r = new Concern();
+        r.setName("OPR corporate layour");
+        r.setInitiators(p.getMembers());
+        r.setCreatedWhen(new Date());
+        r.setExternalId("NFR-4");
         p.addConcern(r);
         cl.persist(r);
         r.setGroup(r.getId());
@@ -773,6 +958,134 @@ public class FillDbController {
 
 
 
+
+    public RelationshipType getRelationshipType(String name) {
+        for (RelationshipType r : rtl.getAll()) {
+            if (r.getName().equalsIgnoreCase(name)) {
+                return r;
+            }
+        }
+
+        throw new RuntimeException();
+    }
+
+
+
+
+    public void addRelationships() {
+        Project p = pl.getByName("OpenDecisionRepository");
+        Decision oprTech = getDecision(p.getDecisions(), "OPR technology stack");
+        Decision java = getDecision(p.getDecisions(), "Java Programming language");
+        Decision tcl = getDecision(p.getDecisions(), "Tcl");
+        Decision xowiki = getDecision(p.getDecisions(), "xowiki");
+        Decision javaee = getDecision(p.getDecisions(), "Java Enterprise Edition");
+        Decision glassfish = getDecision(p.getDecisions(), "Glassfish");
+        Decision jsf = getDecision(p.getDecisions(), "JavaServer Faces");
+        Decision icefaces = getDecision(p.getDecisions(), "Icefaces");
+        Decision jpa = getDecision(p.getDecisions(), "Java Persistence API");
+        Decision mysql = getDecision(p.getDecisions(), "MySQL");
+        Decision eclipselink = getDecision(p.getDecisions(), "Eclipselink");
+        Decision ejb = getDecision(p.getDecisions(), "Enterprise Java Beans");
+        Decision ice18 = getDecision(p.getDecisions(), "Icefaces 1.8");
+        Decision ice201 = getDecision(p.getDecisions(), "Icefaces 2.0-beta1");
+        Decision ice202 = getDecision(p.getDecisions(), "Icefaces 2.0-beta2");
+        Decision jsf12 = getDecision(p.getDecisions(), "JavaServer Faces 1.2");
+        Decision jsf2 = getDecision(p.getDecisions(), "JavaServer Faces 2");
+        Decision glassfish2 = getDecision(p.getDecisions(), "Glassfish 2");
+        Decision glassfish3 = getDecision(p.getDecisions(), "Glassfish 3");
+        Decision ejb3 = getDecision(p.getDecisions(), "Enterprise Java Beans 3");
+        Decision ejb31 = getDecision(p.getDecisions(), "Enterprise Java Beans 3.1");
+        Decision jee5 = getDecision(p.getDecisions(), "Java Enterprise Edition 5");
+        Decision jee6 = getDecision(p.getDecisions(), "Java Enterprise Edition 6");
+        Decision client = getDecision(p.getDecisions(), "Client side image generation");
+        Decision fop = getDecision(p.getDecisions(), "Apache FOP");
+        Decision batik = getDecision(p.getDecisions(), "Apache Batik");
+        Decision svg = getDecision(p.getDecisions(), "Scalable Vector Graphics");
+        Decision server = getDecision(p.getDecisions(), "Server side image generation");
+        Decision javaImg = getDecision(p.getDecisions(), "Image generation in Java");
+        Decision html5 = getDecision(p.getDecisions(), "HTML 5 Canvas Element");
+        Decision graphviz = getDecision(p.getDecisions(), "Graphviz");
+
+        RelationshipType causedBy = getRelationshipType("caused by");
+        RelationshipType alternative = getRelationshipType("is alternative for");
+        RelationshipType replaces = getRelationshipType("replaces");
+        RelationshipType depends = getRelationshipType("depends on");
+
+        createRelationship(java, tcl, alternative);
+        createRelationship(java, oprTech, causedBy);
+        createRelationship(xowiki, tcl, depends);
+        createRelationship(javaee, oprTech, causedBy);
+        createRelationship(javaee, java, depends);
+        createRelationship(jee5, javaee, causedBy);
+        createRelationship(jee5, java, depends);
+        createRelationship(jee5, glassfish2, depends);
+        createRelationship(jee6, javaee, causedBy);
+        createRelationship(jee6, jee5, replaces);
+        createRelationship(jee6, java, depends);
+        createRelationship(jee6, glassfish3, depends);
+        createRelationship(glassfish, oprTech, causedBy);
+        createRelationship(glassfish2, glassfish, causedBy);
+        createRelationship(glassfish2, ice18, causedBy);
+        createRelationship(glassfish3,glassfish, causedBy);
+        createRelationship(glassfish3, glassfish2, replaces);
+        createRelationship(glassfish3, ice202, causedBy);
+        createRelationship(jsf, oprTech, causedBy);
+        createRelationship(jsf12, jsf, causedBy);
+        createRelationship(jsf12, ice18, causedBy);
+        createRelationship(jsf2, jsf, causedBy);
+        createRelationship(jsf2, jsf12, replaces);
+        createRelationship(jsf2, ice202, causedBy);
+        createRelationship(icefaces, oprTech, causedBy);
+        createRelationship(ice18, icefaces, causedBy);
+        createRelationship(ice201, icefaces, causedBy);
+        createRelationship(ice201, ice18, replaces);
+        createRelationship(ice202, icefaces, causedBy);
+        createRelationship(ice202, ice201, replaces);
+        createRelationship(ejb, oprTech, causedBy);
+        createRelationship(ejb3, ejb, causedBy);
+        createRelationship(ejb, glassfish2, depends);
+        createRelationship(ejb31, ejb, causedBy);
+        createRelationship(ejb31, ejb3, replaces);
+        createRelationship(ejb31, glassfish3, depends);
+        createRelationship(jpa, oprTech, causedBy);
+        createRelationship(jpa, java, depends);
+        createRelationship(eclipselink, oprTech, causedBy);
+        createRelationship(eclipselink, java, depends);
+        createRelationship(mysql, oprTech, causedBy);
+        createRelationship(javaImg, server, causedBy);
+        createRelationship(graphviz, server, causedBy);
+        createRelationship(client, server, replaces);
+        createRelationship(html5, client, causedBy);
+        createRelationship(svg, client, causedBy);
+        createRelationship(svg, javaImg, replaces);
+        createRelationship(svg, graphviz, replaces);
+        createRelationship(svg, html5, replaces);
+        createRelationship(fop, java, depends);
+        createRelationship(fop, svg, causedBy);
+        createRelationship(batik, java, depends);
+        createRelationship(batik, svg, causedBy);
+
+        pl.merge(p);
+
+        relationshipsDone = true;
+    }
+
+    private void createRelationship(Decision source, Decision target, RelationshipType type) {
+        Relationship r = new Relationship();
+        r.setSource(source.getCurrentVersion());
+        r.setTarget(target.getCurrentVersion());
+        r.setType(type);
+    }
+
+    private Decision getDecision(Collection<Decision> allDecisions, String name) {
+        for(Decision d : allDecisions) {
+            if (d.getName().equalsIgnoreCase(name)) {
+                return d;
+            }
+        }
+
+        throw new RuntimeException();
+    }
 
     public boolean isClearDone() {
         return clearDone;
@@ -928,6 +1241,7 @@ public class FillDbController {
         addIterations();
         addDecisions();
         addConcerns();
+        addRelationships();
 
         clearDone = false;
         addAllDone = true;
@@ -940,5 +1254,19 @@ public class FillDbController {
 
     public boolean isAddAllDone() {
         return addAllDone;
+    }
+
+
+
+
+    public boolean isRelationshipsDone() {
+        return relationshipsDone;
+    }
+
+
+
+
+    public void setRelationshipsDone(boolean relationshipsDone) {
+        this.relationshipsDone = relationshipsDone;
     }
 }
