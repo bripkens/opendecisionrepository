@@ -1,5 +1,6 @@
 package nl.rug.search.odr.viewpoint;
 
+import java.util.Comparator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -125,5 +126,15 @@ public class Node extends BaseEntity<Node> {
 
 
 
-//    public s
+    public static class DecisionNameComparator implements Comparator<Node> {
+
+
+
+
+        @Override
+        public int compare(Node o1, Node o2) {
+            return o1.version.getDecision().getName().compareToIgnoreCase(o2.version.getDecision().getName());
+        }
+
+    }
 }

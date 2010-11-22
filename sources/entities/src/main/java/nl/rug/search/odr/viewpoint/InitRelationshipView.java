@@ -1,5 +1,6 @@
 package nl.rug.search.odr.viewpoint;
 
+import java.util.Collections;
 import java.util.Date;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
@@ -34,6 +35,7 @@ public class InitRelationshipView {
         visualization.setDocumentedWhen(new Date());
 
         addNodes();
+        sortNodes();
         addAssociations();
 
         return visualization;
@@ -54,6 +56,11 @@ public class InitRelationshipView {
         }
     }
 
+
+
+    private void sortNodes() {
+        Collections.sort(visualization.getNodes(), new Node.DecisionNameComparator());
+    }
 
 
 
