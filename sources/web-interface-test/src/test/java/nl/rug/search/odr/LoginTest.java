@@ -66,7 +66,7 @@ public class LoginTest extends AbstractSelenseTestCase {
 
         loginUserWithDefaulCredentials(selenium);
 
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
 
         verifyTrue(selenium.isElementPresent("logoutForm:logoutButton"));
     }
@@ -83,9 +83,9 @@ public class LoginTest extends AbstractSelenseTestCase {
 
         loginUserWithDefaulCredentials(selenium);
 
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
         selenium.click("logoutForm:logoutButton");
-        selenium.waitForPageToLoad(TIMEOUT_MILLIS);
+        waitForPageToLoad();
 
         verifyTrue(selenium.isTextPresent("Register"));
     }

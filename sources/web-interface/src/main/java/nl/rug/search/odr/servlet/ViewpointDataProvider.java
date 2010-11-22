@@ -15,8 +15,10 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.viewpoint.CircularReferenceResolutionLocal;
+import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
+import nl.rug.search.odr.viewpoint.Visualization;
 
 /**
  *
@@ -28,9 +30,6 @@ public class ViewpointDataProvider extends HttpServlet {
 
     @EJB
     private ProjectLocal pl;
-
-    @EJB
-    private CircularReferenceResolutionLocal crr;
 
 
     /**
@@ -80,9 +79,11 @@ public class ViewpointDataProvider extends HttpServlet {
 
             Project p = pl.getById(projectId);
 
-            crr.dissolveCircularRelationships(p);
+            InitRelationshipView relationshipView = new InitRelationshipView(point, p);
 
-            out.print(gson.toJson(p));
+            Visualization v = relationshipView.getView();
+
+            out.print(gson.toJson(v));
         } finally {
             out.close();
         }

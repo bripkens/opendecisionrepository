@@ -5,10 +5,7 @@ import static org.junit.Assert.*;
 
 import javax.ejb.embeddable.EJBContainer;
 
-import javax.naming.Context;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 
 /**
@@ -16,37 +13,14 @@ import org.junit.Ignore;
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 @Ignore
-public class AbstractEjbTest {
+public abstract class AbstractEjbTest {
 
 
-    private final static EJBContainer ejbC;
-    private final static Context ctx;
- //   private final static TestDeleteHelperLocal deleteHelper;
-
-    static {
-        ejbC = EJBContainer.createEJBContainer();
-
-        ctx = ejbC.getContext();
-
-        //deleteHelper = EjbUtil.lookUp(TestDeleteHelper.class, TestDeleteHelperLocal.class);
-       
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-        // Moved to class initialization block to reduce test execution time
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-        // the ejb container should be closed, but to reduce test execution time
-        // it has been removed.
-//        ejbC.close();
-    }
+    private static EJBContainer ejbC;
 
     @Before
     public void tearDown() {
-//        new DatabaseCleaner().delete();
+        ejbC = ContainerHolder.container;
         DatabaseCleaner.bruteForceCleanup();
     }
 
@@ -58,5 +32,9 @@ public class AbstractEjbTest {
         assertNotNull("Looked up class " + classType.getName() + " is null.", lookedUpClass);
 
         return lookedUpClass;
+    }
+
+    private static class ContainerHolder {
+        private static EJBContainer container = EJBContainer.createEJBContainer();
     }
 }

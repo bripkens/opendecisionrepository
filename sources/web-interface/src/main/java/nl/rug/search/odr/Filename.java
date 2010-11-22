@@ -1,6 +1,9 @@
 
 package nl.rug.search.odr;
 
+import javax.servlet.annotation.WebServlet;
+import nl.rug.search.odr.servlet.ViewpointDataProvider;
+
 /**
  *
  * @author Stefan
@@ -37,4 +40,7 @@ public interface Filename {
 
     String MANAGE_DECISION = "manageDecision.html";
     String MANAGE_DECISION_WITH_LEADING_SLASH = "/".concat(MANAGE_DECISION);
+
+    String VIEWPOINT_DATA_PROVIDER = ((WebServlet) ViewpointDataProvider.class.getAnnotations()[0]).urlPatterns()[0].substring(1);
+    String VIEWPOINT_DATA_PROVIDER_WITH_LEADING_SLASH = "/".concat(VIEWPOINT_DATA_PROVIDER);
 }
