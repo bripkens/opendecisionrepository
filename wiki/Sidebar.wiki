@@ -22,6 +22,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 14: delete decision]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 15: Retrieve RSS feed]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 16: Quick add decision]
+    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 17: Relationship view]
   * *Architecture*
    * *Description views*
     * [http://code.google.com/p/opendecisionrepository/wiki/OPR_technology_stack OPR technology stack]
