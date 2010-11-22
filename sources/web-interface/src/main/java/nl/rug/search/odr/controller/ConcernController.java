@@ -50,12 +50,13 @@ public class ConcernController {
     private Collection<String> autoComplete;
     private boolean isUpdate = false;
     private ProjectMember member;
+    private long groupId;
+    private Concern newestGroupConcern;
     //attributes
     private String externalId = "";
     private String name = "";
     private String description = "";
     private ArrayList<Item> tags;
-
     //final Strings
     public static final String EXTERNALID_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.EXTERNALIDALREADYINUSE";
@@ -81,7 +82,6 @@ public class ConcernController {
             autoComplete = new ArrayList<String>();
             tags = new ArrayList<Item>();
             member = result.getMember();
-            System.out.println("isValid");
             setUpConcernSpecific(result);
         } else if (project == null) {
             result.executeErrorAction();
@@ -102,29 +102,56 @@ public class ConcernController {
         String concernIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.CONCERN_ID);
 
+        String groupIdParameter = requestAnalyser.getRequest().
+                getParameter(RequestParameter.CONCERN_GROUP_ID);
+
         if (concernIdParameter == null) {
             isUpdate = false;
         } else {
             try {
                 concernId = Long.parseLong(concernIdParameter);
                 isUpdate = true;
+                for (Concern con : project.getConcerns()) {
+                    if (con.getId().equals(concernId)) {
+                        concern = con;
+                        break;
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                ErrorUtil.showIterationIdNotRegisteredError();
+                return;
+            }
+        }
+
+        if (groupIdParameter != null) {
+            System.out.println("###################1#########################");
+            try {
+                groupId = Long.parseLong(groupIdParameter);
+                System.out.println("######### Group Id =" + groupId + "#############");
+                newestGroupConcern = null;
+                for (Concern con : project.getConcerns()) {
+                    if (newestGroupConcern == null || con.getGroup().equals(groupId)
+                                                      && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen())) {
+                        System.out.println("###############2#######################");
+                        newestGroupConcern = con;
+                    }
+
+                }
             } catch (NumberFormatException ex) {
                 ErrorUtil.showIterationIdNotRegisteredError();
                 return;
             }
 
-            boolean permission = false;
 
-            getConcernFromDb(concernId);
-            if (project.getConcerns().contains(concern)) {
-                permission = true;
-            }
+        }
 
-
-            if (!permission) {
-                ErrorUtil.showNoPermissionToAccessConcernError();
-                return;
-            }
+        if (newestGroupConcern != null && concern == null) {
+            System.out.println("NUr ne group angegeben");
+            concern = newestGroupConcern;
+        } else if (newestGroupConcern == null && concern == null) {
+            System.out.println("################ beides null");
+            ErrorUtil.showNoPermissionToAccessConcernError();
+            return;
         }
 
 
@@ -139,18 +166,11 @@ public class ConcernController {
             }
         }
         int numberToAdd = 3 - (tags.size() % 3);
-        for (int i = 0; i < numberToAdd; i++) {
+        for (int i = 0;
+                i < numberToAdd;
+                i++) {
             tags.add(new Item(""));
         }
-
-    }
-
-
-
-
-    private Concern getConcernFromDb(long id) {
-        concern = concernLocal.getById(id);
-        return concern;
     }
 
 
@@ -158,6 +178,15 @@ public class ConcernController {
 
     public Concern getConcern() {
         return concern;
+
+
+    }
+
+
+
+
+    public boolean isValid() {
+        return concern != null;
     }
 
 
@@ -165,8 +194,12 @@ public class ConcernController {
 
     public void submitForm() {
         Long groupId = 0L;
+
+
         if (isUpdate) {
             groupId = concern.getGroup();
+
+
         }
         concern = new Concern();
         concern.setExternalId(externalId);
@@ -174,16 +207,26 @@ public class ConcernController {
         concern.setDescription(description);
 
         HashSet set = new HashSet();
+
+
         for (Item item : tags) {
             if (!item.getValue().isEmpty()) {
                 set.add(item);
+
+
             }
         }
 
         int counter = 0;
+
+
         for (Item item : tags) {
             if (!item.getValue().isEmpty()) {
                 counter++;
+
+
+
+
             }
         }
 
@@ -192,25 +235,38 @@ public class ConcernController {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     JsfUtil.evaluateExpressionGet("#{form['concern.error.doubleEntrie']}", String.class),
                     null));
+
+
+
             return;
         }
 
         concern.removeAllTags();
+
+
         for (Item tag : tags) {
             if (!tag.getValue().isEmpty()) {
                 System.out.println(tags.size() + "<- size | tag added -> " + tag.getValue());
                 concern.addTag(tag.getValue());
+
+
             }
         }
         if (isUpdate) {
             concern.setGroup(groupId);
+
+
         }
         concern.setCreatedWhen(new Date());
         concern.setInitiator(member);
         project.addConcern(concern);
         concernLocal.persist(concern);
+
+
         if (!isUpdate) {
             concern.setGroup(concern.getId());
+
+
         }
         projectLocal.merge(project);
 
@@ -219,6 +275,8 @@ public class ConcernController {
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, concern.getId()).
                 toString());
+
+
     }
 
 
@@ -226,16 +284,22 @@ public class ConcernController {
 
     public void abortForm() {
         JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT + project.getName());
+
+
     }
 
 
 
 
     public String getupdateLink() {
+        System.out.println(concern + " ist concern null?");
+        System.out.println(project.getId() + " ist project null?");
         return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, concern.getId()).
                 toString();
+
+
     }
 
 
@@ -243,6 +307,8 @@ public class ConcernController {
 
     public Collection<Item> getAllTags() {
         return tags;
+
+
     }
 
 
@@ -251,23 +317,38 @@ public class ConcernController {
     public void tagValueChanged(ValueChangeEvent e) {
         if (e.getNewValue().equals(e.getOldValue())) {
             return;
+
+
         }
 
         this.autoComplete.clear();
+
+
         this.autoComplete = concernLocal.getPossibleStrings(e.getNewValue().toString());
 
+
+
         int counter = 0;
-        for (int i = 0; i < tags.size(); i++) {
+
+
+        for (int i = 0; i
+                        < tags.size(); i++) {
             if (tags.get(i).getValue().isEmpty()) {
                 counter++;
+
+
             }
         }
         if (counter > 1) {
             return;
+
+
         } else if (counter == 0 || counter == 1 && e.getOldValue().toString().isEmpty()) {
             tags.add(new Item(""));
             tags.add(new Item(""));
             tags.add(new Item(""));
+
+
         }
 
     }
@@ -278,8 +359,12 @@ public class ConcernController {
     public boolean getReadOnly() {
         if (isUpdate) {
             return true;
+
+
         }
         return false;
+
+
     }
 
 
@@ -288,6 +373,8 @@ public class ConcernController {
 
     public String getDescription() {
         return description;
+
+
     }
 
 
@@ -295,6 +382,8 @@ public class ConcernController {
 
     public void setDescription(String description) {
         this.description = description;
+
+
     }
 
 
@@ -302,6 +391,8 @@ public class ConcernController {
 
     public String getExternalId() {
         return externalId;
+
+
     }
 
 
@@ -309,6 +400,8 @@ public class ConcernController {
 
     public void setExternalId(String externalId) {
         this.externalId = externalId;
+
+
     }
 
 
@@ -316,6 +409,8 @@ public class ConcernController {
 
     public String getName() {
         return name;
+
+
     }
 
 
@@ -323,6 +418,8 @@ public class ConcernController {
 
     public void setName(String name) {
         this.name = name;
+
+
     }
 
     // </editor-fold>
@@ -367,12 +464,20 @@ public class ConcernController {
     public void validateName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
         String name = value.toString();
 
+
+
         boolean inUse = false;
+
+
         for (Concern concern : project.getConcerns()) {
             if (concern.getName().equals(name) && !name.isEmpty()) {
                 if (!concern.getId().equals(concernId)) {
                     inUse = true;
+
+
                     break;
+
+
                 }
             }
         }
@@ -383,6 +488,8 @@ public class ConcernController {
                     new Object[]{
                         MessageFactory.getLabel(fc, uic)
                     }));
+
+
         }
     }
 
@@ -392,12 +499,27 @@ public class ConcernController {
 
     public Collection<SelectItem> getTagPossibilities() {
         Collection<SelectItem> items = new ArrayList<SelectItem>();
+
+
         for (String s : this.autoComplete) {
             if (!tags.contains(new Item(s))) {
                 items.add(new SelectItem(s, s));
+
+
             }
         }
         return items;
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public class Item {

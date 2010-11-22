@@ -419,6 +419,9 @@ odr.showIterationDeleteForm = function() {
 odr.showDecisionDeleteForm = function() {
     odr.popup.show("deleteDecisionConfirmationPopup");
 }
+odr.showConcernDeleteForm = function() {
+    odr.popup.show("deleteConcernConfirmationPopup");
+}
 odr.datetimepickerValidationFix = function() {
     j(".datetimepickerDateInput").focus().blur();
 }
