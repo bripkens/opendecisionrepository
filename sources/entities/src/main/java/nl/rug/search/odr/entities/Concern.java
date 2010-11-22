@@ -18,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -57,6 +58,7 @@ public class Concern extends BaseEntity<Concern> {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdWhen;
     //
+    @ManyToOne
     private ProjectMember initiator;
     @ElementCollection
     @CollectionTable(name = "tags")
