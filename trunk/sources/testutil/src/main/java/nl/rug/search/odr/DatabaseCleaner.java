@@ -37,7 +37,6 @@ public abstract class DatabaseCleaner {
         {"RELATIONSHIP", "ID"},
         {"RELATIONSHIPTYPE", "ID"},
         {"CONCERN", "ID"},
-        {"CONCERN_PROJECTMEMBER", "CONCERN_ID"},
         {"STAKEHOLDERROLE", "ID"},
         {"TEMPLATECOMPONENT", "ID"},
         {"TAGS", "CONCERN_ID"},
