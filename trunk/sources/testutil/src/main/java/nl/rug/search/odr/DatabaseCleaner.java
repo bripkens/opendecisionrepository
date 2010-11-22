@@ -15,7 +15,7 @@ public abstract class DatabaseCleaner {
 
     public static final String DRIVER_CLASS = "org.apache.derby.jdbc.ClientDriver";
 
-    public static final int ITERATIONS = 3;
+    public static final int ITERATIONS = 4;
 
     public static final String[][] TABLES = new String[][]{
         {"COMPONENTVALUE", "ID"},
@@ -43,7 +43,14 @@ public abstract class DatabaseCleaner {
         {"VERSION", "ID"},
         {"VERSION_PROJECTMEMBER", "VERSION_ID"},
         {"VERSION_CONCERN", "VERSION_ID"},
-        {"VERSIONSTATE", "ID"}};
+        {"VERSIONSTATE", "ID"},
+        {"ASSOCIATION", "ID"},
+        {"ASSOCIATION_HANDLE", "ASSOCIATION_ID"},
+        {"HANDLE", "ID"},
+        {"NODE", "ID"},
+        {"VISUALIZATION", "ID"},
+        {"VISUALIZATION_ASSOCIATION", "VISUALIZATION_ID"},
+        {"VISUALIZATION_NODE", "VISUALIZATION_ID"}};
 
 
     // <editor-fold defaultstate="collapsed" desc="Make only changes to the variables.">
@@ -107,7 +114,7 @@ public abstract class DatabaseCleaner {
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Can't read table contents. Trying to read column " + TABLES[tableId][1]
-                    + " from table " + TABLES[tableId][0], ex);
+                                       + " from table " + TABLES[tableId][0], ex);
         }
 
     }

@@ -1,6 +1,14 @@
 package nl.rug.search.odr.viewpoint;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import nl.rug.search.odr.entities.BaseEntity;
 import nl.rug.search.odr.entities.Relationship;
 
@@ -8,23 +16,37 @@ import nl.rug.search.odr.entities.Relationship;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Entity
 public class Association extends BaseEntity<Association> {
 
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 
+    @ManyToOne
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Relationship relationship;
 
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private List<Handle> handles;
 
 
 
 
-    public void addHAndle(Handle handle) {
+    public Association() {
+        handles = new ArrayList<Handle>();
+    }
+
+
+
+
+
+    public void addHandle(Handle handle) {
         handles.add(handle);
     }
 
@@ -99,6 +121,6 @@ public class Association extends BaseEntity<Association> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {};
+        return new Object[]{};
     }
 }

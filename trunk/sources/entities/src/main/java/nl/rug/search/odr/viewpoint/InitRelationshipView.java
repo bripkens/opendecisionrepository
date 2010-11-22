@@ -1,6 +1,5 @@
 package nl.rug.search.odr.viewpoint;
 
-import java.util.BitSet;
 import java.util.Date;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;

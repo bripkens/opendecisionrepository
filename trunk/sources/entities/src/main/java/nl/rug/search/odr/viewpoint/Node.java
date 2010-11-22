@@ -1,21 +1,28 @@
 package nl.rug.search.odr.viewpoint;
 
-import nl.rug.search.odr.BusinessException;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import nl.rug.search.odr.entities.BaseEntity;
-import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Version;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Entity
 public class Node extends BaseEntity<Node> {
 
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 
+    @ManyToOne
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Version version;
 

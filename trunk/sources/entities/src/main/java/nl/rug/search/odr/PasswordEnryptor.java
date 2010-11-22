@@ -1,8 +1,8 @@
 
 package nl.rug.search.odr;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
-import org.jasypt.util.password.StrongPasswordEncryptor;
 
 /**
  *
@@ -10,7 +10,7 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
  */
 public abstract class PasswordEnryptor {
 
-    private static final PasswordEncryptor encryptor = new StrongPasswordEncryptor();
+    private static final PasswordEncryptor encryptor = new BasicPasswordEncryptor();
 
     public static String encryptPassword(String password) {
         return encryptor.encryptPassword(password);
