@@ -75,7 +75,6 @@ public class FillDbController {
 
 
 
-
     public void addPersons() {
         Person p1 = new Person();
         p1.setName("Ben Ripkens");
@@ -869,7 +868,7 @@ public class FillDbController {
 
         Concern r = new Concern();
         r.setName("Web application");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-1");
         p.addConcern(r);
@@ -879,7 +878,7 @@ public class FillDbController {
 
         r = new Concern();
         r.setName("Data integrity");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-2");
         p.addConcern(r);
@@ -888,7 +887,7 @@ public class FillDbController {
 
         r = new Concern();
         r.setName("Well tested (> 70% test coverage)");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-10");
         p.addConcern(r);
@@ -897,7 +896,7 @@ public class FillDbController {
 
         r = new Concern();
         r.setName("Portable to any major OS");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-11");
         p.addConcern(r);
@@ -906,7 +905,7 @@ public class FillDbController {
 
         r = new Concern();
         r.setName("Password encryption");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-12");
         p.addConcern(r);
@@ -915,7 +914,7 @@ public class FillDbController {
 
         r = new Concern();
         r.setName("OPR corporate layour");
-        r.setInitiators(p.getMembers());
+        r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-4");
         p.addConcern(r);

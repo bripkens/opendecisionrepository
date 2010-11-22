@@ -55,6 +55,7 @@ public class ConcernController {
     private String name = "";
     private String description = "";
     private ArrayList<Item> tags;
+
     //final Strings
     public static final String EXTERNALID_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.EXTERNALIDALREADYINUSE";
@@ -205,7 +206,7 @@ public class ConcernController {
             concern.setGroup(groupId);
         }
         concern.setCreatedWhen(new Date());
-        concern.addInitiator(member);
+        concern.setInitiator(member);
         project.addConcern(concern);
         concernLocal.persist(concern);
         if (!isUpdate) {
