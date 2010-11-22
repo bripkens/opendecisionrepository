@@ -57,6 +57,7 @@ public class ConcernController {
     private String name = "";
     private String description = "";
     private ArrayList<Item> tags;
+    private String concernIdParameter;
     //final Strings
     public static final String EXTERNALID_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.EXTERNALIDALREADYINUSE";
@@ -99,7 +100,7 @@ public class ConcernController {
     private void setUpConcernSpecific(RequestAnalyserDto requestAnalyser) {
         project = requestAnalyser.getProject();
 
-        String concernIdParameter = requestAnalyser.getRequest().
+        concernIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.CONCERN_ID);
 
         String groupIdParameter = requestAnalyser.getRequest().
@@ -124,39 +125,26 @@ public class ConcernController {
         }
 
         if (groupIdParameter != null) {
-            System.out.println("###################1#########################");
+
             try {
                 groupId = Long.parseLong(groupIdParameter);
-                System.out.println("######### Group Id =" + groupId + "#############");
                 newestGroupConcern = null;
                 for (Concern con : project.getConcerns()) {
+
                     if (newestGroupConcern == null || (con.getGroup().equals(groupId)
-                                                      && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen()))) {
-                        System.out.println("###############2#######################");
+                                                       && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen()))) {
                         newestGroupConcern = con;
                     }
-
                 }
             } catch (NumberFormatException ex) {
                 ErrorUtil.showIterationIdNotRegisteredError();
                 return;
             }
-
-
         }
 
-        if (newestGroupConcern != null && concern == null) {
-            System.out.println("NUr ne group angegeben");
-            concern = newestGroupConcern;
-        } else if (newestGroupConcern == null && concern == null) {
-            System.out.println("################ beides null");
-            ErrorUtil.showNoPermissionToAccessConcernError();
-            return;
-        }
 
 
         if (isUpdate) {
-
             this.name = concern.getName();
             this.description = concern.getDescription();
             this.externalId = concern.getExternalId();
@@ -164,7 +152,17 @@ public class ConcernController {
             for (String s : concern.getTags()) {
                 this.tags.add(new Item(s));
             }
+        } else {
+            concern = new Concern();
         }
+
+        if (newestGroupConcern != null && concernIdParameter == null) {
+            concern = newestGroupConcern;
+        } else if (concern == null) {
+            ErrorUtil.showNoPermissionToAccessConcernError();
+            return;
+        }
+
         int numberToAdd = 3 - (tags.size() % 3);
         for (int i = 0;
                 i < numberToAdd;
@@ -178,8 +176,6 @@ public class ConcernController {
 
     public Concern getConcern() {
         return concern;
-
-
     }
 
 
@@ -193,14 +189,6 @@ public class ConcernController {
 
 
     public void submitForm() {
-        Long groupId = 0L;
-
-
-        if (isUpdate) {
-            groupId = concern.getGroup();
-
-
-        }
         concern = new Concern();
         concern.setExternalId(externalId);
         concern.setName(name);
@@ -208,25 +196,16 @@ public class ConcernController {
 
         HashSet set = new HashSet();
 
-
         for (Item item : tags) {
             if (!item.getValue().isEmpty()) {
                 set.add(item);
-
-
             }
         }
 
         int counter = 0;
-
-
         for (Item item : tags) {
             if (!item.getValue().isEmpty()) {
                 counter++;
-
-
-
-
             }
         }
 
@@ -235,9 +214,6 @@ public class ConcernController {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     JsfUtil.evaluateExpressionGet("#{form['concern.error.doubleEntrie']}", String.class),
                     null));
-
-
-
             return;
         }
 
@@ -248,35 +224,25 @@ public class ConcernController {
             if (!tag.getValue().isEmpty()) {
                 System.out.println(tags.size() + "<- size | tag added -> " + tag.getValue());
                 concern.addTag(tag.getValue());
-
-
             }
         }
         if (isUpdate) {
             concern.setGroup(groupId);
-
-
         }
         concern.setCreatedWhen(new Date());
         concern.setInitiator(member);
         project.addConcern(concern);
         concernLocal.persist(concern);
 
-
         if (!isUpdate) {
             concern.setGroup(concern.getId());
-
-
         }
         projectLocal.merge(project);
-
 
         JsfUtil.redirect(new QueryStringBuilder().setUrl(Filename.CONCERN_DETAILS_WITH_LEADING_SLASH).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, concern.getId()).
                 toString());
-
-
     }
 
 
@@ -284,8 +250,6 @@ public class ConcernController {
 
     public void abortForm() {
         JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT + project.getName());
-
-
     }
 
 
@@ -298,8 +262,6 @@ public class ConcernController {
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, concern.getId()).
                 toString();
-
-
     }
 
 
@@ -307,8 +269,6 @@ public class ConcernController {
 
     public Collection<Item> getAllTags() {
         return tags;
-
-
     }
 
 
@@ -317,8 +277,6 @@ public class ConcernController {
     public void tagValueChanged(ValueChangeEvent e) {
         if (e.getNewValue().equals(e.getOldValue())) {
             return;
-
-
         }
 
         this.autoComplete.clear();
@@ -335,8 +293,6 @@ public class ConcernController {
                         < tags.size(); i++) {
             if (tags.get(i).getValue().isEmpty()) {
                 counter++;
-
-
             }
         }
         if (counter > 1) {
@@ -347,8 +303,6 @@ public class ConcernController {
             tags.add(new Item(""));
             tags.add(new Item(""));
             tags.add(new Item(""));
-
-
         }
 
     }
@@ -359,8 +313,6 @@ public class ConcernController {
     public boolean getReadOnly() {
         if (isUpdate) {
             return true;
-
-
         }
         return false;
 
@@ -504,8 +456,6 @@ public class ConcernController {
         for (String s : this.autoComplete) {
             if (!tags.contains(new Item(s))) {
                 items.add(new SelectItem(s, s));
-
-
             }
         }
         return items;

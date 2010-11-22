@@ -32,6 +32,27 @@
                 <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
             </ice:form>
         </div>
+
+
+        <div id="deleteConcernConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+            <h1><ice:outputText value="#{page['projectDetails.concern.delete']}" nospan="true" /></h1>
+
+            <p class="deleteConfirmationMessage">
+            <ice:outputText value="#{form['concern.delete.confirmation']}" nospan="true"/>
+            <ice:outputText value="#{projectDetailsController.concernToDeleteName}" />?
+            </p>
+            <ice:form rendered="#{projectDetailsController.valid}" id="confitmConcernDeleteForm">
+
+                <ice:commandButton action="#{projectDetailsController.deleteConcern}"
+                                   value="#{form['button.delete']}"
+                                   styleClass="abort"
+                                   id="confirmConcernDeleteButton"/>
+
+                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
+            </ice:form>
+        </div>
+
+
         <div id="deleteDecisionConfirmationPopup" class="modalPopup deleteConfirmationPopup">
             <h1><ice:outputText value="#{page['projectDetails.decision.delete']}" nospan="true" /></h1>
 
@@ -153,6 +174,64 @@
         </div>
 
 
+
+        <!--        CONCERNS-->
+
+        <div class="relative" id="iterationDiv">
+            <h3>#{page['projectDetails.concern.headline']}</h3>
+            <a href="#" class="togglelink collapsable" name="concernContainer">#{common.toggle}</a>
+
+            <div id="concernContainer" class="toggleContainer" >
+
+                <a href="#{projectDetailsController.createConcernLink}" id="addConcernLink">
+                    <ice:outputText value="#{page['projectDetails.concern.add']}" nospan="true"/>
+                </a>
+
+                <ice:form style="margin-top: 10px;" id="concernForm">
+
+                    <ice:dataTable id="concernTable" value="#{projectDetailsController.concerns}" var="item" styleClass="rowhover enableHover ">
+
+                        <ice:column>
+                            <ice:outputText value="#{item.name}" styleClass="iterationName" nospan="true"/>
+                            <ice:outputText value="#{item.id}" styleClass="iterationId" visible="false" />
+                        </ice:column>
+
+
+
+                        <ice:column styleClass="navigationColumn">
+                            <a href="#{projectDetailsController.getShowConcernLink(item)}" class="columnNavigationLink">
+                                <img alt="#{common.read}"
+                                     src="resources/images/inspect.png"
+                                     width="14"
+                                     height="14"/>
+                            </a>
+
+                            <a href="#{projectDetailsController.getEditConcernLink(item)}" class="columnNavigationLink">
+                                <img alt="#{common.edit}"
+                                     src="resources/images/pencilSmall.png"
+                                     width="14"
+                                     height="14"/>
+                            </a>
+
+                            <ice:commandLink value=""
+                                             actionListener="#{projectDetailsController.showDeleteConcernConfirmation}"
+                                             styleClass="columnNavigationLink">
+                                <img alt="#{common.remove}"
+                                     src="resources/images/removeSmall.png"
+                                     width="14"
+                                     height="14"/>
+                                <f:attribute value="#{item}" name="concern" />
+
+                            </ice:commandLink>
+                        </ice:column>
+
+                    </ice:dataTable>
+
+                </ice:form>
+            </div>
+        </div>
+
+        <!--        //CONCERNS-->
 
 
 

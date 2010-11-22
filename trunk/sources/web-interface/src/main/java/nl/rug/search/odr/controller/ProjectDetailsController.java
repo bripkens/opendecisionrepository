@@ -26,6 +26,7 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.decision.DecisionLocal;
+import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
@@ -45,36 +46,24 @@ public class ProjectDetailsController {
 
     @EJB
     private ProjectLocal pl;
-
     @EJB
     private StateLocal sl;
-
     @EJB
     private DecisionLocal dl;
-
     @EJB
     private DecisionTemplateLocal dtl;
-
     private long id;
-
     private Project project;
-
     private String decisionName;
-
     private String projectId;
-
     private long iterationToDeleteId;
-
+    private long concernToDeleteId;
     private String iterationToDeleteName;
-
+    private String concernToDeleteName;
     public static final String USED_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
-
     private Decision decisionToDelete;
-
     private List<State> states;
-
     private State state;
-
     private State initialState;
     // <editor-fold defaultstate="collapsed" desc="construction">
 
@@ -191,6 +180,63 @@ public class ProjectDetailsController {
 
 
 
+    public long getConcernToDeleteId() {
+        return concernToDeleteId;
+    }
+
+
+
+
+    public void setConcernToDeleteId(long concernToDeleteId) {
+        this.concernToDeleteId = concernToDeleteId;
+    }
+
+
+
+
+    public String getConcernToDeleteName() {
+        return concernToDeleteName;
+    }
+
+
+
+
+    public void setConcernToDeleteName(String concernToDeleteName) {
+        this.concernToDeleteName = concernToDeleteName;
+    }
+
+
+
+
+
+    public void showDeleteConcernConfirmation(ActionEvent e) {
+        Concern co = (Concern) e.getComponent().getAttributes().get("concern");
+
+        concernToDeleteId = co.getId();
+        concernToDeleteName = co.getName();
+
+        JsfUtil.addJavascriptCall("odr.showConcernDeleteForm();");
+    }
+
+
+
+
+    public void deleteConcern() {
+        for (Concern co : project.getConcerns()) {
+            if (co.getId().equals(concernToDeleteId)) {
+                project.removeConcern(co);
+                break;
+            }
+        }
+
+        pl.merge(project);
+
+        JsfUtil.addJavascriptCall("odr.popup.hide();");
+    }
+
+
+
+
     public void deleteIteration() {
         for (Iteration it : project.getIterations()) {
             if (it.getId().equals(iterationToDeleteId)) {
@@ -283,8 +329,27 @@ public class ProjectDetailsController {
 
 
 
+    public String getShowConcernLink(Concern co) {
+        return new QueryStringBuilder().setUrl(Filename.CONCERN_DETAILS).
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.CONCERN_ID, co.getId()).
+                toString();
+    }
+
+
+
+
     public String getCreateIterationLink() {
         return new QueryStringBuilder().setUrl(Filename.MANAGE_ITERATION).
+                append(RequestParameter.ID, project.getId()).
+                toString();
+    }
+
+
+
+
+    public String getCreateConcernLink() {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
                 append(RequestParameter.ID, project.getId()).
                 toString();
     }
@@ -300,6 +365,18 @@ public class ProjectDetailsController {
     }
 
 
+
+
+    public String getEditConcernLink(Concern co) {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.CONCERN_ID, co.getId()).
+                toString();
+    }
+
+
+
+
     public String getDetailDecisionLink(Decision d) {
         return new QueryStringBuilder().setUrl(Filename.DECISION_DETAILS).
                 append(RequestParameter.ID, project.getId()).
@@ -307,6 +384,9 @@ public class ProjectDetailsController {
                 append(RequestParameter.VERSION_ID, d.getCurrentVersion().getId()).
                 toString();
     }
+
+
+
 
     public String getEditDecisionLink(Decision d) {
         return new QueryStringBuilder().setUrl(Filename.MANAGE_DECISION).
@@ -414,6 +494,47 @@ public class ProjectDetailsController {
         Collections.sort(iterations, Collections.reverseOrder(new Iteration.EndDateComparator()));
 
         return iterations;
+    }
+
+
+
+
+    public Collection<Concern> getConcerns() {
+        if (project == null) {
+            return null;
+        }
+
+        Collection<Concern> unmodifiableCollection = project.getConcerns();
+
+        if (unmodifiableCollection.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Concern> concerns = new ArrayList(unmodifiableCollection);
+
+
+        Collections.sort(concerns, new Concern.GroupDateComparator());
+
+        for (int i = 0; i < concerns.size(); i++) {
+            System.out.println(concerns.get(i).getName() + " date: " + concerns.get(i).getCreatedWhen());
+
+        }
+
+        Long groupId = null;
+        List<Concern> onlyNewest = new ArrayList<Concern>();
+
+        for (Concern con : concerns) {
+            System.out.println("alte Group id " + groupId);
+            System.out.println("Group Id ist " + con.getGroup());
+            if (groupId == null || !groupId.equals(con.getGroup())) {
+                System.out.println("ist das einzige " + con.getName() + con.getGroup());
+                onlyNewest.add(con);
+                groupId = con.getGroup();
+            }
+        }
+
+        Collections.reverse(onlyNewest);
+
+        return onlyNewest;
     }
 
 
