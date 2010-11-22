@@ -27,6 +27,9 @@
         <link rel="stylesheet" type="text/css" href="resources/css/drawingMenu.css" />
     </h:head>
     <h:body>
+        <ice:outputText value="#{diagramController.requestError}" id="externalVarRequestError" styleClass="hidden"/>
+        <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId" styleClass="hidden"/>
+        <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText" styleClass="hidden"/>
         <div class="smallMenu project">

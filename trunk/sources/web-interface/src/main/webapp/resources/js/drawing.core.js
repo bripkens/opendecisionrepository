@@ -150,6 +150,10 @@ odr.scroll = {
     }
 }
 
+odr.drag = {
+    extensionsMultiplier : 3
+}
+
 odr.css = {
     url : "resources/css/drawing.css",
     inlineStyle : '@import "resources/css/drawing.css";'
@@ -260,15 +264,15 @@ odr.init(function() {
             }
 
             if (odr.svgContainer.initialSize.width == "auto") {
-                odr._svgContainer.attr("width", document.documentElement.clientWidth);
+                odr._svgContainer.css("width", document.documentElement.clientWidth);
             } else {
-                odr._svgContainer.attr("width", odr.svgContainer.initialSize.width);
+                odr._svgContainer.css("width", odr.svgContainer.initialSize.width);
             }
 
             if (odr.svgContainer.initialSize.height == "auto") {
-                odr._svgContainer.attr("height", document.documentElement.clientHeight);
+                odr._svgContainer.css("height", document.documentElement.clientHeight);
             } else {
-                odr._svgContainer.attr("height", odr.svgContainer.initialSize.height);
+                odr._svgContainer.css("height", odr.svgContainer.initialSize.height);
             }
         }
     });
@@ -425,6 +429,18 @@ odr._dragStart = function(e) {
         return false;
     }
 
+    var container = odr._svgContainer.children("svg");
+
+    var containerWidth = container.attr("width") * odr.drag.extensionsMultiplier
+    var containerHeight = container.attr("height") * odr.drag.extensionsMultiplier
+    container.attr("width", containerWidth);
+    container.attr("height", containerHeight);
+    container.attr("viewBox", "0 0 " + containerWidth + " " + containerHeight);
+    odr._svgContainer.css({
+        width :  containerWidth,
+        height : containerHeight
+    });
+
     var button = e.button;
     odr._dragging.elementToDrag[button] = j(this)
     odr._dragging.previousEvent[button] = e;
@@ -573,8 +589,12 @@ odr.beforeExport = function() {
     var height = 0;
 
 
-    j("." + odr.rectangleSettings["class"] + ", ." + odr.handleSettings["class"]).each(function() {
-        var currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+    j("." + odr.rectangleSettings["class"] + ", ." + odr.handleSettings["class"] + ", ." + odr.associationSettings.text["class"]).each(function() {
+        var currentElement = odr.registry.get(j(this).attr("id"));
+
+        if (currentElement == undefined) {
+            currentElement = odr.registry.get(j(this).attr("id").removeNonNumbers());
+        }
 
         var lowerRightCorner = currentElement.bottomRight();
         lowerRightCorner.x *= odr._scale.level;
