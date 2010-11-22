@@ -30,14 +30,20 @@
 <LI>The user chooses _relationship view_</LI>
 <li>The system shows a work space which provides the following functionality
 <ul>
-<li>Visualization of decisions using rectangles. Each rectangle should contain the name of the decision and it's current status.</li>
-<li>Visualization of associations using lines. Each line should have label which describes the relationship type. A line should be shown that connects the label with the relationship line when the mouse is moved over the label.</li>
+<li>Visualization of decisions using rectangles (hereinafter nodes). Each rectangle should contain the name of the decision and it's current status.</li>
+<li>Visualization of relationships using lines (hereinafter association). Each line should have a label which describes the relationship type. A line should be shown that connects the label with the relationship line when the mouse is moved over the label. An arrow should be shown at the end of an association to visualize the direction of the relationship.</li>
 <li>Drag handles can be added to associations by clicking on the association line. The purpose of these drag handles is to modify the direction of the line.</li>
 <li>It shall be possible to remove drag handles.</li>
 <li>Drag handles should be removed if they are not necessary, i.e. when the direction of the line wouldn't change if one or more drag handles are removed.</li>
 <li>Dragging of nodes and drag handles should be possible by clicking on one of them and holding the mouse key. The node / drag handle should follow the mouse until the mouse button is released.</li>
+<li>The viewport should automatically modify itself when a node or drag handle is moved to the edge of the viewport. The purpose if that all elements stay visible to the user while dragging.</li>
 <li>Nodes and drag handles should align themselves to a grid, which allows easier alignment. Upon dragging, the grid should be shown.</li>
+<li>It must be possible to show and hide single decisions and their relationships, but also all decisions of the same status using a single mouse click.</li>
+<li>It should be possible to zoom. All the functionality shall be available while being in a non-default zoom level, i.e. not at 100%.</li>
+<li>It should be possible to export the diagram to lossless (PNG, SVG, PDF with vector graphic) and lossy (JPEG) formats.</li>
 </ul>
+<li>After the user chooses save.</li>
+<li>The system saves the positions of all nodes, drag handles and visibility settings.</li>
 </li>
 </OL>
       
