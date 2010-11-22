@@ -57,8 +57,7 @@ public class Concern extends BaseEntity<Concern> {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdWhen;
     //
-    @ManyToMany
-    private Collection<ProjectMember> initiators;
+    private ProjectMember initiator;
     @ElementCollection
     @CollectionTable(name = "tags")
     private Collection<String> tags;
@@ -67,7 +66,6 @@ public class Concern extends BaseEntity<Concern> {
 
 
     public Concern() {
-        initiators = new ArrayList<ProjectMember>();
         tags = new ArrayList<String>();
     }
 
@@ -139,48 +137,19 @@ public class Concern extends BaseEntity<Concern> {
 
 
 
-    public Collection<ProjectMember> getInitiators() {
-        return Collections.unmodifiableCollection(initiators);
+    public ProjectMember getInitiators() {
+        return initiator;
     }
 
 
 
 
-    public void setInitiators(Collection<ProjectMember> initiators) {
-        if (initiators == null) {
-            throw new BusinessException("Initiators is null");
-        }
-
-        this.initiators = initiators;
-    }
-
-
-
-
-    public void addInitiator(ProjectMember initiator) {
+    public void setInitiator(ProjectMember initiator) {
         if (initiator == null) {
             throw new BusinessException("Initiator is null");
         }
 
-        this.initiators.add(initiator);
-    }
-
-
-
-
-    public void removeInitiator(ProjectMember initiator) {
-        if (initiator == null) {
-            throw new BusinessException("Initiator is null");
-        }
-
-        this.initiators.remove(initiator);
-    }
-
-
-
-
-    public void removeAllInitiators() {
-        initiators.clear();
+        this.initiator = initiator;
     }
 
 
@@ -272,7 +241,7 @@ public class Concern extends BaseEntity<Concern> {
 
     @Override
     public boolean isPersistable() {
-        return name != null && !initiators.isEmpty() && (createdWhen != null);
+        return name != null && initiator != null && (createdWhen != null);
     }
 
     public static class NameComparator implements Comparator<Concern> {
