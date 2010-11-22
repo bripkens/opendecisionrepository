@@ -41,7 +41,6 @@ import nl.rug.search.odr.StringValidator;
 public class Concern extends BaseEntity<Concern> {
 
     public static final String NAMED_QUERY_FIND_SIMILAR_TAGS = "Concern.findSimilarTags";
-    public static final String NAMES_QUERY_FIND_ALL_CONCERNS_FOR_PROJECT = "Concern.findAllConcernsForProject";
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,7 +54,7 @@ public class Concern extends BaseEntity<Concern> {
     @Column(name = "parentId")
     private Long group;
 //
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createdWhen;
     //
     @ManyToOne
@@ -259,6 +258,27 @@ public class Concern extends BaseEntity<Concern> {
         @Override
         public int compare(Concern o1, Concern o2) {
             return o1.externalId.compareTo(o2.externalId);
+        }
+    }
+
+    public static class GroupDateComparator implements Comparator<Concern> {
+
+        int group ;
+        @Override
+        public int compare(Concern o1, Concern o2) {
+            group =  o1.group.compareTo(o2.group);
+
+            if(group == 0){
+                if (o1.createdWhen.compareTo(o2.createdWhen) == 1) {
+                    return -1;
+                } else if (o1.createdWhen.compareTo(o2.createdWhen) == -1) {
+                    return 1;
+                }else{
+                    return 0;
+                }
+            } else{
+                return group;
+            }
         }
     }
 }
