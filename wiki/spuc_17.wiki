@@ -42,7 +42,7 @@
 <li>It should be possible to zoom. All the functionality shall be available while being in a non-default zoom level, i.e. not at 100%.</li>
 <li>It should be possible to export the diagram to lossless (PNG, SVG, PDF with vector graphic) and lossy (JPEG) formats.</li>
 </ul>
-<li>After the user chooses save.</li>
+<li>The user chooses save.</li>
 <li>The system saves the positions of all nodes, drag handles and visibility settings.</li>
 </li>
 </OL>
