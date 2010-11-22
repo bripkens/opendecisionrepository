@@ -33,7 +33,6 @@ public class ConcernTest {
     public void testInitialization() {
         assertNull(r.getId());
         assertNull(r.getDescription());
-        assertTrue(r.getInitiators().isEmpty());
     }
 
 
@@ -117,7 +116,7 @@ public class ConcernTest {
         r.setName("1sdasdsa");
 
         assertFalse(r.isPersistable());
-        r.addInitiator(new ProjectMember());
+        r.setInitiator(new ProjectMember());
         assertFalse(r.isPersistable());
         r.setCreatedWhen(new Date());
         assertTrue(r.isPersistable());
@@ -146,14 +145,11 @@ public class ConcernTest {
 
     @Test
     public void setProjectMembers() {
-        Collection<ProjectMember> initiators = new ArrayList<ProjectMember>();
         ProjectMember initiator = new ProjectMember();
-        initiators.add(initiator);
 
-        r.setInitiators(initiators);
+        r.setInitiator(initiator);
 
-        assertNotSame(initiators, r.getInitiators());
-        assertSame(initiator, r.getInitiators().iterator().next());
+        assertSame(initiator, r.getInitiators());
     }
 
 
@@ -161,28 +157,7 @@ public class ConcernTest {
 
     @Test(expected = BusinessException.class)
     public void setProjectMembersNull() {
-        r.setInitiators(null);
-    }
-
-
-
-
-    @Test
-    public void addProjectMember() {
-        ProjectMember initiator = new ProjectMember();
-        r.addInitiator(initiator);
-
-        assertFalse(r.getInitiators().isEmpty());
-
-        assertSame(initiator, r.getInitiators().iterator().next());
-    }
-
-
-
-
-    @Test(expected = BusinessException.class)
-    public void addProjectMemberNull() {
-        r.addInitiator(null);
+        r.setInitiator(null);
     }
 
 
@@ -191,34 +166,10 @@ public class ConcernTest {
     @Test
     public void removeProjectMember() {
         ProjectMember initiator = new ProjectMember();
-        r.addInitiator(initiator);
+        r.setInitiator(initiator);
 
-        assertFalse(r.getInitiators().isEmpty());
+        assertFalse(r.getInitiators() == null);
 
-        r.removeInitiator(initiator);
-
-        assertTrue(r.getInitiators().isEmpty());
-    }
-
-
-
-
-    @Test(expected = BusinessException.class)
-    public void removeProjectMemberNull() {
-        r.removeInitiator(null);
-    }
-
-
-
-
-    @Test
-    public void removeAllProjectMember() {
-        ProjectMember initiator = new ProjectMember();
-        r.addInitiator(initiator);
-
-        r.removeAllInitiators();
-
-        assertTrue(r.getInitiators().isEmpty());
     }
 
 
@@ -245,7 +196,7 @@ public class ConcernTest {
         r2.setExternalId("2");
 
         Concern.ExternalIdComparator com = new Concern.ExternalIdComparator();
-        
+
         assertTrue(com.compare(r, r2) < 0);
     }
 
