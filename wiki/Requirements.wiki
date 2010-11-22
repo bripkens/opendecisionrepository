@@ -97,7 +97,7 @@ The requirements are documented in use case form. Some of these requirements con
 || UC-14 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_14 delete decision] ||
 || UC-15 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 Retrieve RSS feed] ||
 || UC-16 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 Quick add decision] ||
-
+|| UC-17 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 Relationship view] ||
 
 
 
