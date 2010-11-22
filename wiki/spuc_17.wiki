@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>ID</th>
-      <td>UC-16</td>
+      <td>UC-17</td>
       <th>Name</th>
       <td>Relationship view</td>
       <th>Package</th>
