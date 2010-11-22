@@ -1,15 +1,22 @@
 
 package nl.rug.search.odr.viewpoint;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import nl.rug.search.odr.entities.BaseEntity;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+@Entity
 public class Handle extends BaseEntity<Handle>{
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 

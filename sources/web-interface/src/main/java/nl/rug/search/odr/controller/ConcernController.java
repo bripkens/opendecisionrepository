@@ -130,8 +130,8 @@ public class ConcernController {
                 System.out.println("######### Group Id =" + groupId + "#############");
                 newestGroupConcern = null;
                 for (Concern con : project.getConcerns()) {
-                    if (newestGroupConcern == null || con.getGroup().equals(groupId)
-                                                      && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen())) {
+                    if (newestGroupConcern == null || (con.getGroup().equals(groupId)
+                                                      && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen()))) {
                         System.out.println("###############2#######################");
                         newestGroupConcern = con;
                     }

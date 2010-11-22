@@ -3,31 +3,50 @@ package nl.rug.search.odr.viewpoint;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import nl.rug.search.odr.entities.BaseEntity;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class Visualization extends BaseEntity<Visualization>{
+@Entity
+public class Visualization extends BaseEntity<Visualization> {
 
     private static final long serialVersionUID = 1l;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private String name;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Date documentedWhen;
 
+    @Enumerated(EnumType.STRING)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Viewpoint type;
 
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private List<Node> nodes;
 
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private List<Association> associations;
 
@@ -132,6 +151,7 @@ public class Visualization extends BaseEntity<Visualization>{
 
 
 
+
     public boolean containsVersion(long versionId) {
         for (Node node : nodes) {
             if (node.getVersion().getId().equals(versionId)) {
@@ -141,6 +161,7 @@ public class Visualization extends BaseEntity<Visualization>{
 
         return false;
     }
+
 
 
 
@@ -191,6 +212,6 @@ public class Visualization extends BaseEntity<Visualization>{
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[] {documentedWhen, name, type};
+        return new Object[]{documentedWhen, name, type};
     }
 }

@@ -913,7 +913,7 @@ public class FillDbController {
         r.setGroup(r.getId());
 
         r = new Concern();
-        r.setName("OPR corporate layour");
+        r.setName("OPR corporate layout");
         r.setInitiator(p.getMembers().iterator().next());
         r.setCreatedWhen(new Date());
         r.setExternalId("NFR-4");
