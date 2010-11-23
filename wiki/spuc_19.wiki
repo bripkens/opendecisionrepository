@@ -1,0 +1,54 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <td>UC-18</td>
+      <th>Name</th>
+      <td>create concern</td>
+      <th>Package</th>
+      <td>Project Management</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="2" width="100"><b>Actors</b></td>
+      <td colspan="4">User</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Goal</b></td>
+      <td colspan="4">Create a concern</td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Preconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Basic flow</b></td>
+      <td colspan="4"> 
+      
+<OL>
+<LI>The user chooses _add concern_</LI>
+<LI>The system displays a form with the following fields:
+<UL>
+<LI>ID (This field should describes the external ID for this concern eg. concern-1) _(minimum number of characters: 1)_</LI>
+<LI>name _(minimum number of characters: 3)_</LI>
+<LI>description _(minimum number of characters: 1000)_</LI>
+<LI>textboxes (as many as you want) to define tags</LI>
+</UL>
+</LI>
+<LI>The user confirms his entries with _submit_.</LI>
+<LI>The system saves this new concern</LI>
+</OL>
+      
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Variations</b></td>
+      <td colspan="4"></td>
+    </tr>
+    <tr>
+      <td colspan="2"><b>Postconditions</b></td>
+      <td colspan="4"></td>
+    </tr>
+  </tbody>
+</table>
