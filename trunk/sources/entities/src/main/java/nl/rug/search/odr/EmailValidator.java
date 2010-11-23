@@ -7,6 +7,8 @@ package nl.rug.search.odr;
  */
 public abstract class EmailValidator {
 
+
+
     public static boolean isValidEmailAddress(String email) {
         return org.apache.commons.validator.EmailValidator.getInstance().isValid(email);
     }

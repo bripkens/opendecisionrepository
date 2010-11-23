@@ -178,14 +178,14 @@ public class ConcernController {
         Concern newestGroupConcern = new Concern();
         newestGroupConcern.setCreatedWhen(new Date(0L));
         for (Concern con : project.getConcerns()) {
-            System.out.println("durchläuft gerade " + con.getId());
+            System.out.println("durchlaeuft gerade " + con.getId());
             if (con.getGroup().equals(groupId) && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen())) {
                 System.out.println("concernId" + con.getId() + " : groupId " + con.getGroup());
                 newestGroupConcern = con;
             }
         }
 
-        System.out.println(newestGroupConcern + " ist der concern mit dem höchsten datum der group " + groupId);
+        System.out.println(newestGroupConcern + " ist der concern mit dem hoechsten datum der group " + groupId);
 
         return newestGroupConcern;
     }

@@ -259,41 +259,35 @@ public class VisualizationTest {
 
     @Test
     public void testContainsVersion() {
+        v = new Visualization();
+
         Node n1 = new Node();
-//        n1.setId(1l);
-        Version v1 = new Version();
-//        v1.setId(1l);
-        n1.setVersion(v1);
+        n1.setVisible(true);
+        n1.setVersion(new Version());
+        n1.getVersion().setDecidedWhen(new Date());
 
         Node n2 = new Node();
-//        n2.setId(2l);
-        Version v2 = new Version();
-//        v2.setId(2l);
-        n2.setVersion(v2);
+        n2.setVisible(false);
+        n2.setVersion(new Version());
+        n2.getVersion().setDecidedWhen(new Date(new Date().getTime() + 10));
 
-        assertSame(n1.getVersion(), v1);
-        assertSame(n2.getVersion(), v2);
-        assertNotSame(n1, n2);
-        assertNotSame(n1.getVersion(), n2.getVersion());
-        assertNotSame(v2, v1);
-
-        assertFalse(v.containsVersion(v2));
-        assertFalse(v.containsVersion(v2));
+        assertFalse(v.containsVersion(n1.getVersion()));
+        assertFalse(v.containsVersion(n2.getVersion()));
 
         v.addNode(n1);
 
-        assertTrue(v.containsVersion(v1));
-        assertFalse(v.containsVersion(v2));
+        assertTrue(v.containsVersion(n1.getVersion()));
+        assertFalse(v.containsVersion(n2.getVersion()));
 
         v.addNode(n2);
 
-        assertTrue(v.containsVersion(v1));
-        assertTrue(v.containsVersion(v2));
+        assertTrue(v.containsVersion(n1.getVersion()));
+        assertTrue(v.containsVersion(n2.getVersion()));
 
         v.removeNode(n2);
 
-        assertFalse(v.containsVersion(v2));
-        assertTrue(v.containsVersion(v1));
+        assertFalse(v.containsVersion(n2.getVersion()));
+        assertTrue(v.containsVersion(n1.getVersion()));
         
     }
 }

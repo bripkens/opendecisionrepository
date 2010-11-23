@@ -66,7 +66,7 @@ public class InitRelationshipView {
 
     private void addAssociations() {
         for (Node node : visualization.getNodes()) {
-            for (Relationship eachRelationship :node.getVersion().getOutgoingRelationships()) {
+            for (Relationship eachRelationship : node.getVersion().getOutgoingRelationships()) {
 
                 if (!visualization.containsVersion(eachRelationship.getTarget())) {
                     continue;
