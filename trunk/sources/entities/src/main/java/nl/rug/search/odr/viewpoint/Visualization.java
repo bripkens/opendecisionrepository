@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import nl.rug.search.odr.entities.BaseEntity;
+import nl.rug.search.odr.entities.Version;
 
 /**
  *
@@ -152,9 +153,9 @@ public class Visualization extends BaseEntity<Visualization> {
 
 
 
-    public boolean containsVersion(long versionId) {
+    public boolean containsVersion(Version v) {
         for (Node node : nodes) {
-            if (node.getVersion().getId().equals(versionId)) {
+            if (node.getVersion().equals(v)) {
                 return true;
             }
         }
