@@ -51,6 +51,7 @@ public class ConcernController {
     private boolean isUpdate = false;
     private ProjectMember member;
     private long groupId;
+    private long group;
     private Concern newestGroupConcern;
     //attributes
     private String externalId = "";
@@ -96,15 +97,42 @@ public class ConcernController {
 
 
 
+    /*
+     * searches the newest Concern with the group parameter
+     */
 
-    private void setUpConcernSpecific(RequestAnalyserDto requestAnalyser) {
-        project = requestAnalyser.getProject();
+    private Concern getGroupParameter(RequestAnalyserDto requestAnalyser) {
+        String groupIdParameter = requestAnalyser.getRequest().getParameter(RequestParameter.CONCERN_GROUP_ID);
 
+        if (groupIdParameter != null) {
+            try {
+                groupId = Long.parseLong(groupIdParameter);
+                newestGroupConcern = null;
+                for (Concern con : project.getConcerns()) {
+                    if (newestGroupConcern == null || (con.getGroup().equals(groupId)
+                            && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen()))) {
+                        newestGroupConcern = con;
+                    }
+                }
+            } catch (NumberFormatException ex) {
+                ErrorUtil.showIterationIdNotRegisteredError();
+                return null;
+            }
+            return newestGroupConcern;
+        }
+        return null;
+    }
+
+
+    /*
+     * returns the specific concern 
+     */
+
+
+    private Concern getConernIdParameter(RequestAnalyserDto requestAnalyser) {
         concernIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.CONCERN_ID);
-
-        String groupIdParameter = requestAnalyser.getRequest().
-                getParameter(RequestParameter.CONCERN_GROUP_ID);
+        Concern temp = new Concern();
 
         if (concernIdParameter == null) {
             isUpdate = false;
@@ -112,55 +140,52 @@ public class ConcernController {
             try {
                 concernId = Long.parseLong(concernIdParameter);
                 isUpdate = true;
+
                 for (Concern con : project.getConcerns()) {
                     if (con.getId().equals(concernId)) {
-                        concern = con;
+                        temp = con;
                         break;
                     }
                 }
             } catch (NumberFormatException ex) {
                 ErrorUtil.showIterationIdNotRegisteredError();
-                return;
+                return null;
             }
+            return temp;
+        }
+        return null;
+    }
+
+
+
+
+    private void setUpConcernSpecific(RequestAnalyserDto requestAnalyser) {
+        project = requestAnalyser.getProject();
+
+        Concern temp1 = getGroupParameter(requestAnalyser);
+        if (temp1 != null) {
+            concern = temp1;
         }
 
-        if (groupIdParameter != null) {
+        Concern temp = getConernIdParameter(requestAnalyser);
+        if (temp != null) {
+            concern = temp;
+        }
 
-            try {
-                groupId = Long.parseLong(groupIdParameter);
-                newestGroupConcern = null;
-                for (Concern con : project.getConcerns()) {
-
-                    if (newestGroupConcern == null || (con.getGroup().equals(groupId)
-                                                       && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen()))) {
-                        newestGroupConcern = con;
-                    }
-                }
-            } catch (NumberFormatException ex) {
-                ErrorUtil.showIterationIdNotRegisteredError();
-                return;
-            }
+        if (temp1 == null && temp == null) {
+            concern = new Concern();
         }
 
 
-
-        if (isUpdate) {
+        if (temp != null) {
             this.name = concern.getName();
             this.description = concern.getDescription();
             this.externalId = concern.getExternalId();
+            this.group = concern.getGroup();
 
             for (String s : concern.getTags()) {
                 this.tags.add(new Item(s));
             }
-        } else {
-            concern = new Concern();
-        }
-
-        if (newestGroupConcern != null && concernIdParameter == null) {
-            concern = newestGroupConcern;
-        } else if (concern == null) {
-            ErrorUtil.showNoPermissionToAccessConcernError();
-            return;
         }
 
         int numberToAdd = 3 - (tags.size() % 3);
@@ -227,7 +252,7 @@ public class ConcernController {
             }
         }
         if (isUpdate) {
-            concern.setGroup(groupId);
+            concern.setGroup(group);
         }
         concern.setCreatedWhen(new Date());
         concern.setInitiator(member);
