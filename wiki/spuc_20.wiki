@@ -16,7 +16,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Create a concern</td>
+      <td colspan="4">Edit a concern</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
