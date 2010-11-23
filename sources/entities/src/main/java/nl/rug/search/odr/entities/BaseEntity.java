@@ -30,12 +30,12 @@ public abstract class BaseEntity<T extends BaseEntity<T>> implements Serializabl
     @Override
     public final boolean equals(final Object other) {
 
-        if (other == null) {
-            return false;
-        }
-
         if (this == other) {
             return true;
+        }
+
+        if (other == null) {
+            return false;
         }
 
         if (! (other instanceof BaseEntity)) {
