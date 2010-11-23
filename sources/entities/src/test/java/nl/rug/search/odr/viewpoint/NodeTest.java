@@ -1,5 +1,6 @@
 package nl.rug.search.odr.viewpoint;
 
+import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Version;
 import org.junit.Test;
 import org.junit.Before;
@@ -118,5 +119,28 @@ public class NodeTest {
         assertEquals(x, data[0]);
         assertEquals(y, data[1]);
         assertEquals(visisble, data[2]);
+    }
+
+
+
+
+
+    @Test
+    public void testNameComparator() {
+        Node n1 = new Node();
+        Version v1 = new Version();
+        Decision d1 = new Decision();
+        d1.setName("aaaaa");
+        v1.setDecision(d1);
+        n1.setVersion(v1);
+
+        Node n2 = new Node();
+        Version v2 = new Version();
+        Decision d2 = new Decision();
+        d2.setName("bbbbb");
+        v2.setDecision(d2);
+        n2.setVersion(v2);
+
+        assertTrue(new Node.DecisionNameComparator().compare(n1, n2) < 0);
     }
 }

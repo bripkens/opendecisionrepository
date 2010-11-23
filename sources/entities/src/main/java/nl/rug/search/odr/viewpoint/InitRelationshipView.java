@@ -65,12 +65,13 @@ public class InitRelationshipView {
 
 
     private void addAssociations() {
-        for (Decision eachDecision : project.getDecisions()) {
-            for (Relationship eachRelationship : eachDecision.getCurrentVersion().getOutgoingRelationships()) {
+        for (Node node : visualization.getNodes()) {
+            for (Relationship eachRelationship :node.getVersion().getOutgoingRelationships()) {
 
-                if (!visualizationContainBothEndpoints(eachRelationship)) {
+                if (!visualization.containsVersion(eachRelationship.getTarget())) {
                     continue;
                 }
+
 
                 Association association = new Association();
                 association.setRelationship(eachRelationship);
@@ -81,12 +82,6 @@ public class InitRelationshipView {
 
 
 
-
-    private boolean visualizationContainBothEndpoints(Relationship relationship) {
-        return visualization.containsVersion(relationship.getSource().getId())
-               && visualization.containsVersion(relationship.getTarget().getId());
-
-    }
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
