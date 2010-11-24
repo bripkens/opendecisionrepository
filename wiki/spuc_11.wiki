@@ -35,14 +35,13 @@
 <LI>Name text field _(required, must be unique in the project, minimum number of characters: 3)_</LI>
 <LI>Menu to select a template _(required)_. Previously entered data in the second step should not get lost when changing the template. Also provide a help notification that states that the information will not be lost when changing the template.</LI>
 <LI>Date field with date picker _(required)_ which can be used to specify a date on which the decision was made. The default value should be the current date.</LI>
-<li>Menu to select requirements, which are drivers for this decision</li>
-<li>Open Pattern repository link text field. This text field should contain the link to a documented pattern in the Open Pattern Repository.</li>
+<li>Menu to select concerns, which are drivers for this decision</li>
 </ul>
 </li>
 
 <li> Template related information
 <ul>
-<li>Several text areas, which depend on the selected template are shown. Also, the information which is stored in the Open Pattern Repository (linked by previously entered OPR link) will be displayed so that it can be used to documented this specific decision.</li>
+<li>Several text areas, which depend on the selected template are shown. Also, information can be retrieved from the Open Pattern repository by searching for keywords and then selecting a pattern or technology. Upon selection, the textual description should be displayed to the user.</li>
 </ul>
 </li>
 
