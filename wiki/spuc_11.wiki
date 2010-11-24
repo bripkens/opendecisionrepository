@@ -53,7 +53,7 @@
 
 <li> Relationships
 <ul>
-<li>Menu to add, modify and remove relationships for a decision.</li>
+<li>Menu to add, modify and remove relationships for a decision. A notification should be displayed when a relationship to a decision is created which is logically impossible, i.e. when the target decision has been made after the decision that is currently created.</li>
 </ul>
 </li>
 
