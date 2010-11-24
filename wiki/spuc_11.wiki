@@ -6,7 +6,7 @@
       <th>Name</th>
       <td>create decision</td>
       <th>Package</th>
-      <td>Dcision Management</td>
+      <td>Decision Management</td>
     </tr>
   </thead>
   <tbody>
