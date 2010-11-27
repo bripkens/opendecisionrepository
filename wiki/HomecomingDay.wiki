@@ -5,7 +5,7 @@ The following presentation was given by Stefan Arians and Ben Ripkens at the Fon
 
 <wiki:video url="http://www.youtube.com/watch?v=Xu7ixyRRFGw" width="640" height="480"/>
 
-=Presentation as seperate images=
+=Presentation as separate images=
 http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide1.png
 ----
 http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide2.png
