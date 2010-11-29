@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
+import nl.rug.search.odr.viewpoint.Visualization;
 
 /**
  *
@@ -90,12 +92,13 @@ public class Project extends BaseEntity<Project> {
                orphanRemoval = true)
     private Collection<Concern> concerns;
 
-    @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Decision> decisions;
 
-
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private List<Visualization> visualizations;
 
 
     public Project() {
@@ -106,6 +109,7 @@ public class Project extends BaseEntity<Project> {
         concerns = new ArrayList<Concern>();
         states = new ArrayList<State>();
         relationshipTypes = new ArrayList<RelationshipType>();
+        visualizations = new ArrayList<Visualization>();
     }
 
 
@@ -516,6 +520,35 @@ public class Project extends BaseEntity<Project> {
 
 
 
+
+    public void addVisualization(Visualization v) {
+        assert v != null;
+
+        visualizations.add(v);
+    }
+
+
+    public void removeVisualization(Visualization v) {
+        assert v != null;
+
+        visualizations.remove(v);
+    }
+
+
+    public void setViusliations(List<Visualization> visualizations) {
+        assert visualizations != null;
+
+        this.visualizations = visualizations;
+    }
+
+
+    public List<Visualization> getVisualizations() {
+        return Collections.unmodifiableList(visualizations);
+    }
+
+    public void removeAllVisualizations() {
+        visualizations.clear();
+    }
 
     @Override
     public boolean isPersistable() {

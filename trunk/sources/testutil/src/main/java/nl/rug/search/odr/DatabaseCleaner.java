@@ -33,6 +33,7 @@ public abstract class DatabaseCleaner {
         {"PROJECT_CONCERN", "PROJECT_ID"},
         {"PROJECT_STAKEHOLDERROLE", "PROJECT_ID"},
         {"PROJECT_VERSIONSTATE", "PROJECT_ID"},
+        {"PROJECT_VISUALIZATION", "PROJECT_ID"},
         {"PROJECTMEMBER", "ID"},
         {"RELATIONSHIP", "ID"},
         {"RELATIONSHIPTYPE", "ID"},
