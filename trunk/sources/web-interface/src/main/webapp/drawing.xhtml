@@ -17,7 +17,7 @@
         <link rel="icon" href="resources/images/icon.png" type="image/png" />
 
         <script type="text/javascript" src="resources/js/jquery-1.4.4.min.js"></script>
-
+        <script type="text/javascript" src="resources/js/jquery.json-2.2.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svg.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
 
@@ -34,11 +34,14 @@
         <ice:outputText value="#{diagramController.requestError}" id="externalVarRequestError" styleClass="hidden"/>
         <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId" styleClass="hidden"/>
         <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
+        <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText" styleClass="hidden"/>
         <div class="smallMenu project">
             <div class="title"><ice:outputText value="#{visual['menu.project']}" nospan="true" /></div>
-            <p>Something like, save changes, reload data, reset data... might be here</p>
+            <ul>
+                <li id="save"><ice:outputText value="#{visual['menu.project.save']}" nospan="true" /></li>
+            </ul>
         </div>
         <div class="smallMenu decisions">
             <div class="title"><ice:outputText value="#{visual['menu.decisions']}" nospan="true" /></div>

@@ -17,7 +17,6 @@ public class Handle extends BaseEntity<Handle>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP, Viewpoint.STAKEHOLDER_INVOLVEMENT})

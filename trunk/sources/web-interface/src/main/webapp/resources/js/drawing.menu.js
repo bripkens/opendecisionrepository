@@ -133,9 +133,76 @@ odr.ready(function() {
 
 
 
+
+
 /*
  * ###########################################################################
- *                            Export menu
+ *                            Projects menu
+ */
+odr.ready(function() {
+    j("#save").click(odr._saveAll);
+});
+odr._saveAll = function() {
+    for(var i in odr._allRectangles) {
+        var currentRectangle = odr._allRectangles[i];
+        var value = currentRectangle.value();
+        
+        value.X = currentRectangle.x();
+        value.Y = currentRectangle.y();
+        value.Visible = currentRectangle.visible();
+    }
+
+    for(var i in odr._allAssociations) {
+        var currentAssociation = odr._allAssociations[i];
+        var value = currentAssociation.value();
+
+        var handles = currentAssociation.handles();
+
+        var handlesForValue = [];
+
+        for (var k = 0; k < handles.length; k++) {
+            var currentHandle = handles[k];
+
+            handlesForValue[handlesForValue.length] = {
+                x : currentHandle.x(),
+                y : currentHandle.y()
+            };
+        }
+
+        value.Handles = handlesForValue;
+    }
+
+//    console.log(odr._requestedData);
+
+    var targetUrl = j("#externalVarTargetUrl").text();
+    
+    j.ajax({
+        url : targetUrl,
+        data : {
+            "data" : j.toJSON(odr._requestedData, 4)
+        },
+        dataType : "json",
+        type : "POST",
+        success : function(data, textStatus, XMLHttpRequest) {
+            alert("Success: " + data + "; Status: " + textStatus);
+        },
+        error : function(data, textStatus, errorThrown) {
+            alert("Error: " + data + "; Status: " + textStatus);
+        }
+    });
+};
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *            Utility functionality to make use of the menu
  */
 
 odr._nodes = {};

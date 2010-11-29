@@ -65,6 +65,10 @@ public class DiagramController {
         return Filename.VIEWPOINT_DATA_PROVIDER;
     }
 
+    public String getDataTargetUrl() {
+        return Filename.VIEWPOINT_DATA_RECEIVER;
+    }
+
     public ProjectMember getMember() {
         return member;
     }

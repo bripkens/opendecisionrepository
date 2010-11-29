@@ -184,8 +184,11 @@ odr._dragging = {
     itemToDrag : []
 }
 
-
-
+// the following two variables are used by drawing.js and drawing.menu.js. They are holding
+// references to all rectangles and nodes
+odr._allRectangles = {};
+odr._allAssociations = {};
+odr._requestedData = {};
 
 
 
