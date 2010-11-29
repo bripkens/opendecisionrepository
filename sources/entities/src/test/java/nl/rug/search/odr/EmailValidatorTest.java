@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
  */
 public class EmailValidatorTest {
 
+
     @Test
     public void testValidEmail() {
         assertTrue(EmailValidator.isValidEmailAddress("foo@foo.de"));

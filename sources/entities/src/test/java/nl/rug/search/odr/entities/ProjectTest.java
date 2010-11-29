@@ -2,8 +2,11 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.viewpoint.Visualization;
 import static org.junit.Assert.*;
+import static nl.rug.search.odr.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -832,4 +835,46 @@ public class ProjectTest {
         assertEquals(d2, p.getDecision(d2.getId()));
         assertNull(p.getDecision(3l));
     }
+
+
+
+
+
+    @Test
+    public void testVisualizations() {
+        Visualization v1 = new Visualization();
+        v1.setName("Visualization 1");
+        Visualization v2 = new Visualization();
+        v2.setName("Visualization 2");
+
+        p.addVisualization(v1);
+
+        assertTrue(containsReference(p.getVisualizations(), v1));
+        assertFalse(containsReference(p.getVisualizations(), v2));
+
+        p.addVisualization(v2);
+
+        assertTrue(containsReference(p.getVisualizations(), v1));
+        assertTrue(containsReference(p.getVisualizations(), v2));
+
+        p.removeVisualization(v1);
+
+        assertFalse(containsReference(p.getVisualizations(), v1));
+        assertTrue(containsReference(p.getVisualizations(), v2));
+
+        p.removeAllVisualizations();
+
+        assertFalse(containsReference(p.getVisualizations(), v1));
+        assertFalse(containsReference(p.getVisualizations(), v2));
+
+        List<Visualization> visualizations = new ArrayList<Visualization>();
+        visualizations.add(v1);
+        visualizations.add(v2);
+
+        p.setViusliations(visualizations);
+
+        assertTrue(containsReference(p.getVisualizations(), v1));
+        assertTrue(containsReference(p.getVisualizations(), v2));
+    }
+
 }
