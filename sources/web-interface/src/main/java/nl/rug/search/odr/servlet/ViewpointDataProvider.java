@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
-import nl.rug.search.odr.viewpoint.CircularReferenceResolutionLocal;
+import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
@@ -44,12 +45,40 @@ public class ViewpointDataProvider extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
+            // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
+            return;
+        }
+        
+        long userId = AuthenticationUtil.getUserId(request.getSession());
+
         long projectId;
 
         try {
             projectId = Long.parseLong(request.getParameter(RequestParameter.ID));
         } catch (NumberFormatException ex) {
             out.println("Invalid id");
+            return;
+        }
+
+        Project p = pl.getById(projectId);
+
+        if (p == null) {
+            // TODO: Inform the user that the project is not existing? This only happens when the user is abusing the system
+            return;
+        }
+
+        boolean isMember = false;
+
+        for(ProjectMember pm : p.getMembers()) {
+            if (pm.getPerson().getId().equals(userId)) {
+                isMember = true;
+                break;
+            }
+        }
+
+        if (!isMember) {
+            // TODO: Inform the user that he is not a member of the project? This only happens when the user is abusing the system
             return;
         }
 
@@ -76,8 +105,6 @@ public class ViewpointDataProvider extends HttpServlet {
                     setDateFormat("yyyy-MM-dd HH:mm z").
                     setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).
                     create();
-
-            Project p = pl.getById(projectId);
 
             InitRelationshipView relationshipView = new InitRelationshipView(point, p);
 

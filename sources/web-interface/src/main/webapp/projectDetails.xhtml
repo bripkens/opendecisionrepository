@@ -389,7 +389,13 @@
             </div>
         </div>
 
+        <f:subview rendered="#{projectDetailsController.valid}" id="visualizationsSubView">
+            <h3><ice:outputText value="#{page['projectDetails.visualizations']}" nospan="true" /></h3>
 
+            <a href="#{projectDetailsController.relationshipViewLink}">
+                <ice:outputText value="#{page['projectDetails.visualizations.relationship']}" nospan="true" />
+            </a>
+        </f:subview>
 
     </ui:define>
 
