@@ -15,6 +15,7 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.project.VisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
@@ -31,6 +32,11 @@ public class ViewpointDataProvider extends HttpServlet {
 
     @EJB
     private ProjectLocal pl;
+
+    @EJB
+    private VisualizationLocal vl;
+
+
 
 
     /**
@@ -49,7 +55,7 @@ public class ViewpointDataProvider extends HttpServlet {
             // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
             return;
         }
-        
+
         long userId = AuthenticationUtil.getUserId(request.getSession());
 
         long projectId;
@@ -70,7 +76,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         boolean isMember = false;
 
-        for(ProjectMember pm : p.getMembers()) {
+        for (ProjectMember pm : p.getMembers()) {
             if (pm.getPerson().getId().equals(userId)) {
                 isMember = true;
                 break;
@@ -81,6 +87,11 @@ public class ViewpointDataProvider extends HttpServlet {
             // TODO: Inform the user that he is not a member of the project? This only happens when the user is abusing the system
             return;
         }
+
+
+
+
+
 
         String stakeholderParam = request.getParameter(RequestParameter.STAKEHOLDER_VIEWPOINT);
         String relationshipParam = request.getParameter(RequestParameter.RELATIONSHIP_VIEWPOINT);
@@ -93,11 +104,11 @@ public class ViewpointDataProvider extends HttpServlet {
 
         try {
             if (paramCounter != 1) {
-                out.println("Illegal amount of parameters");
+                // TODO: Inform the user about the illegal amount of parameters?  This only happens when the user is abusing the system
                 return;
             }
 
-            Viewpoint point =  (stakeholderParam != null) ? Viewpoint.STAKEHOLDER_INVOLVEMENT : Viewpoint.CHRONOLOGICAL;
+            Viewpoint point = (stakeholderParam != null) ? Viewpoint.STAKEHOLDER_INVOLVEMENT : Viewpoint.CHRONOLOGICAL;
             point = (relationshipParam != null) ? Viewpoint.RELATIONSHIP : point;
 
             Gson gson = new GsonBuilder().setExclusionStrategies(new ViewpointExclusionStrategy(point)).
@@ -106,14 +117,60 @@ public class ViewpointDataProvider extends HttpServlet {
                     setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).
                     create();
 
-            InitRelationshipView relationshipView = new InitRelationshipView(point, p);
-
-            Visualization v = relationshipView.getView();
+            Visualization v = getVisualization(p, point);
 
             out.print(gson.toJson(v));
         } finally {
             out.close();
         }
+    }
+
+
+
+
+    private Visualization getVisualization(Project p, Viewpoint point) {
+        if (point == Viewpoint.RELATIONSHIP) {
+            return getRelationshipVisualization(p);
+        }
+
+        throw new UnsupportedOperationException("Only the relationship viewpoint is supported");
+    }
+
+
+
+
+    private Visualization getRelationshipVisualization(Project p) {
+        Visualization existingVisualization = null;
+
+        for (Visualization v : p.getVisualizations()) {
+            if (v.getType() == Viewpoint.RELATIONSHIP) {
+                existingVisualization = v;
+            }
+        }
+
+        if (existingVisualization == null) {
+            existingVisualization = initRelationshipView(p);
+        }
+
+        return existingVisualization;
+    }
+
+
+
+
+    private Visualization initRelationshipView(Project p) {
+        InitRelationshipView relationshipView = new InitRelationshipView(Viewpoint.RELATIONSHIP, p);
+
+        Visualization v = relationshipView.getView();
+
+        p.addVisualization(v);
+        vl.persist(v);
+        pl.merge(p);
+
+        // we are retrieving the visualization again from the database to get all IDs right
+        v = vl.getById(v.getId());
+
+        return v;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -161,3 +218,6 @@ public class ViewpointDataProvider extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
+
+
+

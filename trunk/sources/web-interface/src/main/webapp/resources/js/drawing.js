@@ -18,7 +18,7 @@ odr.ready(function() {
         "id" : projectId,
         "relationship" : true
     }, function(data) {
-//        console.log(data);
+        console.log(data);
 
         var allNodes = data.Nodes;
 
