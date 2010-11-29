@@ -104,8 +104,6 @@ public class TranscoderServlet extends HttpServlet {
         try {
             t.transcode(input, output);
         } catch (TranscoderException ex) {
-            System.out.println("###################");
-            ex.printStackTrace();
             throw new ServletException(ex.getMessage(), ex);
 
         }
