@@ -219,7 +219,6 @@ public class IterationController {
             iteration.setStartDate(startDate);
             iteration.setEndDate(endDate);
 
-            System.out.println("iterationId: " + iteration.getId());
             if (il.isIntersection(iteration, projectId)) {
                 FacesContext.getCurrentInstance().addMessage("manageIteration",
                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
