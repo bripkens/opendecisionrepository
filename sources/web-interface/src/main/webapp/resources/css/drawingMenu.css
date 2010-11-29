@@ -69,6 +69,15 @@ body {
     left: 0;
     top: -131px;
 }
+.project ul {
+    padding: 0 0 0 10px;
+    margin: 0;
+}
+.project ul li {
+    cursor: pointer;
+    list-style: none;
+    font-size: 13px;
+}
 
 
 

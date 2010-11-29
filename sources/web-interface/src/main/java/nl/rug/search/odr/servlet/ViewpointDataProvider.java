@@ -17,6 +17,7 @@ import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.VisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
+import nl.rug.search.odr.util.GsonUtil;
 import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
@@ -111,11 +112,7 @@ public class ViewpointDataProvider extends HttpServlet {
             Viewpoint point = (stakeholderParam != null) ? Viewpoint.STAKEHOLDER_INVOLVEMENT : Viewpoint.CHRONOLOGICAL;
             point = (relationshipParam != null) ? Viewpoint.RELATIONSHIP : point;
 
-            Gson gson = new GsonBuilder().setExclusionStrategies(new ViewpointExclusionStrategy(point)).
-                    serializeNulls().
-                    setDateFormat("yyyy-MM-dd HH:mm z").
-                    setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).
-                    create();
+            Gson gson = GsonUtil.getDefaultGson(new ViewpointExclusionStrategy(point));
 
             Visualization v = getVisualization(p, point);
 

@@ -2,8 +2,6 @@
  * Author: Ben Ripkens <bripkens.dev@gmail.com>
  */
 
-odr.__allRectangles = {};
-
 odr.ready(function() {
 
     var requestError = j("#externalVarRequestError").text();
@@ -18,7 +16,8 @@ odr.ready(function() {
         "id" : projectId,
         "relationship" : true
     }, function(data) {
-        console.log(data);
+        odr._requestedData = data;
+//        console.log(data);
 
         var allNodes = data.Nodes;
 
@@ -43,7 +42,7 @@ odr.ready(function() {
 
             rectangle.value(currentNode);
 
-            odr.__allRectangles[currentNode.Version.Id] = rectangle;
+            odr._allRectangles[currentNode.Version.Id] = rectangle;
         }
 
         var allRelationships = data.Associations;
@@ -51,8 +50,8 @@ odr.ready(function() {
         for(var i = 0; i < allRelationships.length; i++) {
             var currentRelationship = allRelationships[i];
 
-            var source = odr.__allRectangles[currentRelationship.Relationship.Source.Id];
-            var target = odr.__allRectangles[currentRelationship.Relationship.Target.Id];
+            var source = odr._allRectangles[currentRelationship.Relationship.Source.Id];
+            var target = odr._allRectangles[currentRelationship.Relationship.Target.Id];
             var type = currentRelationship.Relationship.Type.Name;
 
             var association = new odr.Association();
@@ -60,6 +59,10 @@ odr.ready(function() {
             association.target(target);
             association.label(type);
             association.paint();
+
+            association.value(currentRelationship);
+
+            odr._allAssociations[currentRelationship.Id] = association;
         }
     });
     

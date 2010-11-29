@@ -986,6 +986,9 @@ odr.Association.prototype = {
             }
         }
     },
+    handles : function() {
+        return this._handles;
+    },
     optimizePath : function() {
         var firstX = this._source.center().x;
         var firstY = this._source.center().y;
