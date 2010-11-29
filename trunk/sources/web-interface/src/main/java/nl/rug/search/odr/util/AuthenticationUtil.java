@@ -1,6 +1,7 @@
 
 package nl.rug.search.odr.util;
 
+import javax.servlet.http.HttpSession;
 import nl.rug.search.odr.SessionAttribute;
 import nl.rug.search.odr.entities.Person;
 
@@ -25,6 +26,10 @@ public abstract class AuthenticationUtil {
         return (Long) SessionUtil.getSingleValue(SessionAttribute.USER_ID);
     }
 
+    public static long getUserId(HttpSession session) {
+        return (Long) session.getAttribute(SessionAttribute.USER_ID);
+    }
+
     public static String getUserName() {
         return SessionUtil.getSingleValue(SessionAttribute.USER_NAME).toString();
     }
@@ -33,4 +38,11 @@ public abstract class AuthenticationUtil {
         return SessionUtil.getSingleValue(SessionAttribute.USER_ID) != null;
     }
 
+    public static boolean isAuthenticated(HttpSession session) {
+        if (session == null) {
+            return false;
+        }
+
+        return session.getAttribute(SessionAttribute.USER_ID) != null;
+    }
 }

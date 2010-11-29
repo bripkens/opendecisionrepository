@@ -328,6 +328,12 @@ public class ProjectDetailsController {
 
 
 
+    public String getRelationshipViewLink() {
+        return new QueryStringBuilder().setUrl(Filename.DRAWING).
+                append(RequestParameter.ID, project.getId()).
+                toString();
+    }
+
 
     public String getShowConcernLink(Concern co) {
         return new QueryStringBuilder().setUrl(Filename.CONCERN_DETAILS).
