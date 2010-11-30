@@ -385,6 +385,7 @@ public class ManageDecisionController extends AbstractController {
             createNewVersion();
         } else {
             version.setDocumentedWhen(new Date());
+            removeOldRelationships();
         }
 
         pl.merge(project);
@@ -429,6 +430,8 @@ public class ManageDecisionController extends AbstractController {
 
 
 
+
+
     private void createNewVersion() {
         decision.removeVersion(version);
 
@@ -461,6 +464,30 @@ public class ManageDecisionController extends AbstractController {
         decision.addVersion(newVersion);
         decision.addVersion(previousVersion);
     }
+
+
+
+
+
+
+
+
+
+
+    private void removeOldRelationships() {
+        Version previousVersion = vl.getById(version.getId());
+
+        for(Relationship oldRelationship : previousVersion.getOutgoingRelationships()) {
+            if (!version.getOutgoingRelationships().contains(oldRelationship)) {
+                Version oldTarget = oldRelationship.getTarget();
+                oldRelationship.setTarget(null);
+                vl.merge(oldTarget);
+            }
+        }
+    }
+
+
+
     // </editor-fold>
 
 
