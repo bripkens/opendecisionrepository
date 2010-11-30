@@ -144,6 +144,7 @@ odr.ready(function() {
 });
 odr._saveAll = function() {
     odr.setSaveText();
+    odr.loadPopupIcon();
     odr.showWaitAnimation();
 
     for(var i in odr._allRectangles) {
@@ -191,14 +192,17 @@ odr._saveAll = function() {
         dataType : "json",
         type : "POST",
         success : function(data, textStatus, XMLHttpRequest) {
-            alert("Success: " + data + "; Status: " + textStatus);
+            odr.setSuccessText();
+            odr.successPopupIcon();
+            j(".clickBlocker").hide();
+            odr.hideWaitAnimation(4000);
         },
         error : function(data, textStatus, errorThrown) {
-            alert("Error: " + data + "; Status: " + textStatus);
+            odr.setErrorText();
+            odr.errorPopupIcon();
+            odr.hideWaitAnimation(4000);
         }
     });
-
-    odr.hideWaitAnimation();
 };
 
 
@@ -428,7 +432,11 @@ odr._newStereotype = function(name, items) {
  * ###########################################################################
  *                                  Loading animation
  */
-odr.showWaitAnimation = function() {
+odr.showWaitAnimation = function(animationSpeed) {
+    if (animationSpeed == undefined) {
+        animationSpeed = "fast";
+    }
+
     var windowWidth = j(document).width();
     var windowHeight = j(document).height();
     var popupHeight = j(".loader").height();
@@ -444,19 +452,51 @@ odr.showWaitAnimation = function() {
         "left": windowWidth/2-popupWidth/2
     });
 
-    j(".clickBlocker").fadeIn("fast");
-    j(".loader").fadeIn("fast");
+    j(".clickBlocker").fadeIn(animationSpeed);
+    j(".loader").fadeIn(animationSpeed);
 }
 
-odr.hideWaitAnimation = function() {
-    j(".clickBlocker").fadeOut("fast");
-    j(".loader").fadeOut("fast")
+odr.hideWaitAnimation = function(animationSpeed) {
+    if (animationSpeed == undefined) {
+        animationSpeed = "fast";
+    }
+
+    j(".loader").fadeOut(animationSpeed);
+    j(".clickBlocker").fadeOut(animationSpeed);
+}
+
+odr.popupIcon = function(url) {
+    j(".loader").css("background-image", "url(" + url + ")");
+}
+
+odr.loadPopupIcon = function() {
+    odr.popupIcon("resources/images/ajax-loader-circle.gif");
+}
+
+odr.errorPopupIcon = function() {
+    odr.popupIcon("resources/images/error-big.png");
+}
+
+odr.successPopupIcon = function() {
+    odr.popupIcon("resources/images/success-big.png");
+}
+
+odr.popupText = function(text) {
+    j(".loader").children("span").text(text);
+}
+
+odr.setSuccessText = function() {
+    odr.popupText(j("#successText").text());
+}
+
+odr.setErrorText = function() {
+    odr.popupText(j("#errorText").text());
 }
 
 odr.setSaveText = function() {
-    j(".loader").children("span").text(j("#savingText").text());
+    odr.popupText(j("#savingText").text());
 }
 
 odr.setLoadingText = function() {
-    j(".loader").children("span").text(j("#loadingText").text());
+    odr.popupText(j("#loadingText").text());
 }
