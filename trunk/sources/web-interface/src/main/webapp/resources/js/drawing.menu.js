@@ -143,6 +143,9 @@ odr.ready(function() {
     j("#save").click(odr._saveAll);
 });
 odr._saveAll = function() {
+    odr.setSaveText();
+    odr.showWaitAnimation();
+
     for(var i in odr._allRectangles) {
         var currentRectangle = odr._allRectangles[i];
         var value = currentRectangle.value();
@@ -194,6 +197,8 @@ odr._saveAll = function() {
             alert("Error: " + data + "; Status: " + textStatus);
         }
     });
+
+    odr.hideWaitAnimation();
 };
 
 
@@ -408,4 +413,50 @@ odr._newStereotype = function(name, items) {
             items[i].visible(checked);
         }
     });
+}
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###########################################################################
+ *                                  Loading animation
+ */
+odr.showWaitAnimation = function() {
+    var windowWidth = j(document).width();
+    var windowHeight = j(document).height();
+    var popupHeight = j(".loader").height();
+    var popupWidth = j(".loader").width();
+
+    j(".clickBlocker").css({
+        "height": windowHeight,
+        "width": windowWidth
+    });
+
+    j(".loader").css({
+        "top": windowHeight/2-popupHeight/2,
+        "left": windowWidth/2-popupWidth/2
+    });
+
+    j(".clickBlocker").fadeIn("fast");
+    j(".loader").fadeIn("fast");
+}
+
+odr.hideWaitAnimation = function() {
+    j(".clickBlocker").fadeOut("fast");
+    j(".loader").fadeOut("fast")
+}
+
+odr.setSaveText = function() {
+    j(".loader").children("span").text(j("#savingText").text());
+}
+
+odr.setLoadingText = function() {
+    j(".loader").children("span").text(j("#loadingText").text());
 }

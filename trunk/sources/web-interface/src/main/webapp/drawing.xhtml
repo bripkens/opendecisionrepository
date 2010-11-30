@@ -17,7 +17,6 @@
         <link rel="icon" href="resources/images/icon.png" type="image/png" />
 
         <script type="text/javascript" src="resources/js/jquery-1.4.4.min.js"></script>
-        <script type="text/javascript" src="resources/js/json2.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svg.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
 
@@ -37,6 +36,8 @@
         <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText" styleClass="hidden"/>
         <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText" styleClass="hidden"/>
+        <ice:outputText value="#{visual['loader.text.load']}" id="loadingText" styleClass="hidden"/>
+        <ice:outputText value="#{visual['loader.text.save']}" id="savingText" styleClass="hidden"/>
         <div class="smallMenu project">
             <div class="title"><ice:outputText value="#{visual['menu.project']}" nospan="true" /></div>
             <ul>
@@ -77,7 +78,12 @@
                 <input type="hidden" id="data" name="data"/>
                 <input type="hidden" id="format" name="format"/>
             </form>
-
+        </div>
+        <div class="clickBlocker"/>
+        <div class="loader">
+            <span>
+                <ice:outputText id="loaderText" value="#{visual['loader.text.load']}" nospan="true"/>
+            </span>
         </div>
         <div id="svgTarget" />
     </h:body>

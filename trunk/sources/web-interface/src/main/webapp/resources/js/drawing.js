@@ -3,6 +3,8 @@
  */
 
 odr.ready(function() {
+    odr.setLoadingText();
+    odr.showWaitAnimation();
 
     var requestError = j("#externalVarRequestError").text();
     if (requestError == "true") {
@@ -82,5 +84,6 @@ odr.ready(function() {
             odr._allAssociations[currentRelationship.Id] = association;
         }
     });
-    
+
+    odr.hideWaitAnimation();
 })
