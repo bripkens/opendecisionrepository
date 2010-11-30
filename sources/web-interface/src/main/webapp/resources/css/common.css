@@ -1450,9 +1450,9 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
 }
 .templateRelatedSidebar .ajaxLoader {
     display: none;
-    position: relative;
-    top: 20px;
-    left: 138px;
+    position: absolute;
+    top: 30px;
+    left: 144px;
 }
 .templateRelatedSidebar select {
     width: 208px;

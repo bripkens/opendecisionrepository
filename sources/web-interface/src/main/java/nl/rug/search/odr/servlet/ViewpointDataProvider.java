@@ -50,10 +50,12 @@ public class ViewpointDataProvider extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         PrintWriter out = response.getWriter();
 
         if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
             // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
+            response.sendError(303);
             return;
         }
 
@@ -64,7 +66,8 @@ public class ViewpointDataProvider extends HttpServlet {
         try {
             projectId = Long.parseLong(request.getParameter(RequestParameter.ID));
         } catch (NumberFormatException ex) {
-            out.println("Invalid id");
+            // TODO change to a more appropriate error value
+            response.sendError(303);
             return;
         }
 
@@ -72,6 +75,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (p == null) {
             // TODO: Inform the user that the project is not existing? This only happens when the user is abusing the system
+            response.sendError(303);
             return;
         }
 
@@ -86,6 +90,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (!isMember) {
             // TODO: Inform the user that he is not a member of the project? This only happens when the user is abusing the system
+            response.sendError(303);
             return;
         }
 
@@ -106,6 +111,7 @@ public class ViewpointDataProvider extends HttpServlet {
         try {
             if (paramCounter != 1) {
                 // TODO: Inform the user about the illegal amount of parameters?  This only happens when the user is abusing the system
+                response.sendError(303);
                 return;
             }
 
