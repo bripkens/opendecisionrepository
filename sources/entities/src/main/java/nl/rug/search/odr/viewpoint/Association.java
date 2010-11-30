@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import nl.rug.search.odr.entities.BaseEntity;
 import nl.rug.search.odr.entities.Relationship;
 
@@ -32,6 +33,7 @@ public class Association extends BaseEntity<Association> {
 
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
+    @OrderColumn
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private List<Handle> handles;
 

@@ -1,8 +1,6 @@
 package nl.rug.search.odr.servlet;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,6 +16,8 @@ import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.VisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
+import nl.rug.search.odr.viewpoint.Association;
+import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;

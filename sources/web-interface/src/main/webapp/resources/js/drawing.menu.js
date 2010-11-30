@@ -172,8 +172,6 @@ odr._saveAll = function() {
         value.Handles = handlesForValue;
     }
 
-        console.log(odr._requestedData);
-
     var targetUrl = j("#externalVarTargetUrl").text();
     
     j.ajax({

@@ -28,6 +28,7 @@ import nl.rug.search.odr.project.VisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
 import nl.rug.search.odr.viewpoint.Association;
+import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.Node;
 import nl.rug.search.odr.viewpoint.Visualization;
 
@@ -185,10 +186,6 @@ public class ViewpointDataReceiver extends HttpServlet {
     private void copyAssociationInformation(Visualization source, Visualization target) {
         for (Association eachAssociationInSource : source.getAssociations()) {
             Association associationInTarget = getAssociation(eachAssociationInSource.getId(), target.getAssociations());
-
-            if (!eachAssociationInSource.getHandles().isEmpty()) {
-                System.out.println("Handles: " + eachAssociationInSource.getHandles().size());
-            }
 
             associationInTarget.setHandles(eachAssociationInSource.getHandles());
         }
