@@ -394,7 +394,7 @@ odr.Rectangle.prototype = {
 
             if (stereotype) {
                 stereotypeOffset = odr.meassureTextDimensions(this.stereotype(),
-                odr.rectangleSettings.stereotype.measureCSS).height + odr.rectangleSettings.text.stereotypePadding;
+                    odr.rectangleSettings.stereotype.measureCSS).height + odr.rectangleSettings.text.stereotypePadding;
             }
 
             var textSpans = odr._svg.createText().span(text, {

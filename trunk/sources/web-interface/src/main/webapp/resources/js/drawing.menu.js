@@ -156,6 +156,11 @@ odr._saveAll = function() {
         var currentAssociation = odr._allAssociations[i];
         var value = currentAssociation.value();
 
+        if (currentAssociation._labelPosition != null) {
+            value.LabelX = currentAssociation._labelPosition.x;
+            value.LabelY = currentAssociation._labelPosition.y;
+        }
+
         var handles = currentAssociation.handles();
 
         var handlesForValue = [];
@@ -234,6 +239,10 @@ odr._createJSONString = function(data) {
 
         json.push('{"Id":',
             currentAssociation.Id,
+            ',"LabelX":',
+            currentAssociation.LabelX,
+            ',"LabelY":',
+            currentAssociation.LabelY,
             ',"Handles":[');
 
         for(var k = 0; k < currentAssociation.Handles.length; k++) {

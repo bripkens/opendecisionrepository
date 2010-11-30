@@ -95,4 +95,15 @@ public class AssociationTest {
 
         assertTrue(association.isPersistable());
     }
+
+
+
+    @Test
+    public void testLabelPosition() {
+        association.setLabelX(5);
+        association.setLabelY(10);
+
+        assertEquals(5, association.getLabelX());
+        assertEquals(10, association.getLabelY());
+    }
 }
