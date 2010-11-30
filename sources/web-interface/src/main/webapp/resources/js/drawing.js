@@ -54,6 +54,14 @@ odr.ready(function() {
             var type = currentRelationship.Relationship.Type.Name;
 
             var association = new odr.Association();
+            if (currentRelationship.LabelX != 0 && currentRelationship.LabelY != 0) {
+
+                association._labelPosition = {
+                    x : currentRelationship.LabelX,
+                    y : currentRelationship.LabelY
+                }
+            
+            }
             association.source(source);
             association.target(target);
             association.label(type);

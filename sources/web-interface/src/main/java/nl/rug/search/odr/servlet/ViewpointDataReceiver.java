@@ -187,6 +187,8 @@ public class ViewpointDataReceiver extends HttpServlet {
         for (Association eachAssociationInSource : source.getAssociations()) {
             Association associationInTarget = getAssociation(eachAssociationInSource.getId(), target.getAssociations());
 
+            associationInTarget.setLabelX(eachAssociationInSource.getLabelX());
+            associationInTarget.setLabelY(eachAssociationInSource.getLabelY());
             associationInTarget.setHandles(eachAssociationInSource.getHandles());
         }
     }

@@ -27,6 +27,12 @@ public class Association extends BaseEntity<Association> {
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Long id;
 
+    @RequiredFor(Viewpoint.RELATIONSHIP)
+    private int labelX;
+
+    @RequiredFor(Viewpoint.RELATIONSHIP)
+    private int labelY;
+
     @ManyToOne
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private Relationship relationship;
@@ -43,7 +49,6 @@ public class Association extends BaseEntity<Association> {
     public Association() {
         handles = new ArrayList<Handle>();
     }
-
 
 
 
@@ -113,6 +118,34 @@ public class Association extends BaseEntity<Association> {
 
 
 
+    public int getLabelX() {
+        return labelX;
+    }
+
+
+
+
+    public void setLabelX(int labelX) {
+        this.labelX = labelX;
+    }
+
+
+
+
+    public int getLabelY() {
+        return labelY;
+    }
+
+
+
+
+    public void setLabelY(int labelY) {
+        this.labelY = labelY;
+    }
+
+
+
+
     @Override
     public boolean isPersistable() {
         return relationship != null;
@@ -125,4 +158,11 @@ public class Association extends BaseEntity<Association> {
     protected Object[] getCompareData() {
         return new Object[]{};
     }
+
+
+
+
 }
+
+
+
