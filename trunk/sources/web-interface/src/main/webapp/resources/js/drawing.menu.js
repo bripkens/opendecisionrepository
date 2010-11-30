@@ -175,13 +175,12 @@ odr._saveAll = function() {
         console.log(odr._requestedData);
 
     var targetUrl = j("#externalVarTargetUrl").text();
-    //    console.log(JSON.stringify(odr._requestedData, 4))
-    //    console.log(foo);
-    console.log(odr._createJSONString(odr._requestedData));
+    
     j.ajax({
         url : targetUrl,
         data : {
-            "data" : odr._createJSONString(odr._requestedData)
+            "data" : odr._createJSONString(odr._requestedData),
+            "id" : j("#externalVarProjectId").text()
         },
         dataType : "json",
         type : "POST",

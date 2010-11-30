@@ -57,7 +57,17 @@ odr.ready(function() {
             association.source(source);
             association.target(target);
             association.label(type);
+
+            for(var k = 0; k < currentRelationship.Handles.length; k++) {
+                var handle = new odr.Handle();
+                handle.x(currentRelationship.Handles[k].X);
+                handle.y(currentRelationship.Handles[k].Y);
+                association.addHandle(handle);
+            }
+
             association.paint();
+
+
 
             association.value(currentRelationship);
 
