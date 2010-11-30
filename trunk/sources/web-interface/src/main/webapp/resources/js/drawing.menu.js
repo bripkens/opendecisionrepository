@@ -164,23 +164,24 @@ odr._saveAll = function() {
             var currentHandle = handles[k];
 
             handlesForValue[handlesForValue.length] = {
-                x : currentHandle.x(),
-                y : currentHandle.y()
+                X : currentHandle.x(),
+                Y : currentHandle.y()
             };
         }
 
         value.Handles = handlesForValue;
     }
 
-//    console.log(odr._requestedData);
+        console.log(odr._requestedData);
 
     var targetUrl = j("#externalVarTargetUrl").text();
-    console.log(JSON.stringify(odr._requestedData, 4))
-    
+    //    console.log(JSON.stringify(odr._requestedData, 4))
+    //    console.log(foo);
+    console.log(odr._createJSONString(odr._requestedData));
     j.ajax({
         url : targetUrl,
         data : {
-            "data" : JSON.stringify(odr._requestedData, 4)
+            "data" : odr._createJSONString(odr._requestedData)
         },
         dataType : "json",
         type : "POST",
@@ -192,6 +193,78 @@ odr._saveAll = function() {
         }
     });
 };
+
+
+/*
+ * The following function could be replaced by a JavaScript JSON serializer like
+ * JSON2 or the jquery json plugin. But for some reason, every quote is escaped.
+ *
+ * http://groups.google.com/group/google-gson/browse_thread/thread/98249309c8455a91
+ *
+ * One good thing about this approach is that only the absolutely necessary information is sent to the server.
+ */
+odr._createJSONString = function(data) {
+    var json = [];
+
+    json.push('{"Id":',
+        data.Id,
+        ',"Nodes":[');
+
+
+    for (var i = 0; i < data.Nodes.length; i++) {
+        var currentNode = data.Nodes[i];
+
+        json.push('{"Id":',
+            currentNode.Id,
+            ',"Visible":',
+            currentNode.Visible,
+            ',"X":',
+            currentNode.X,
+            ',"Y":',
+            currentNode.Y,
+            '}'
+            );
+
+        if (i+1 != data.Nodes.length) {
+            json.push(',');
+        }
+    }
+
+    json.push('],"Associations":[');
+
+    for(var i = 0; i < data.Associations.length; i++) {
+        var currentAssociation = data.Associations[i];
+
+        json.push('{"Id":',
+            currentAssociation.Id,
+            ',"Handles":[');
+
+        for(var k = 0; k < currentAssociation.Handles.length; k++) {
+            var currentHandle = currentAssociation.Handles[k];
+
+            json.push('{"X":',
+                currentHandle.X,
+                ',"Y":',
+                currentHandle.Y,
+                '}');
+
+            if (k+1 != currentAssociation.Handles.length) {
+                json.push(',');
+            }
+        }
+
+        json.push("]}");
+
+        if (i+1 != data.Associations.length) {
+            json.push(',');
+        }
+    }
+    
+    json.push(']}');
+
+    return json.join("");
+}
+
 
 
 

@@ -37,6 +37,9 @@ public class ViewpointDataReceiver extends HttpServlet {
 
         String data = request.getParameter("data");
 
+        System.out.println(data);
+        System.out.println("########################################################################");
+
         Gson gson = GsonUtil.getDefaultGson();
 
         Visualization v = gson.fromJson(data, Visualization.class);

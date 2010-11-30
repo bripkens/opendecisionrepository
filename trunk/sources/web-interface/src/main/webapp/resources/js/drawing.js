@@ -17,7 +17,6 @@ odr.ready(function() {
         "relationship" : true
     }, function(data) {
         odr._requestedData = data;
-//        console.log(data);
 
         var allNodes = data.Nodes;
 
