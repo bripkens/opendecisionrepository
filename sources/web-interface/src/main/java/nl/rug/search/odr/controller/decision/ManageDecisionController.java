@@ -393,22 +393,21 @@ public class ManageDecisionController extends AbstractController {
         project = pl.getById(project.getId());
 
 
-        for(Decision d : project.getDecisions()) {
+        for (Decision d : project.getDecisions()) {
             if (d.getName().equals(decision.getName())) {
                 decision = d;
                 break;
             }
         }
 
-        for(Version v : decision.getVersions()) {
+        for (Version v : decision.getVersions()) {
             if (v.getDocumentedWhen().equals(version.getDocumentedWhen())) {
                 version = v;
                 break;
             }
         }
 
-        String url = new QueryStringBuilder().
-                setUrl(Filename.DECISION_DETAILS_WITH_LEADING_SLASH).
+        String url = new QueryStringBuilder().setUrl(Filename.DECISION_DETAILS_WITH_LEADING_SLASH).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.DECISION_ID, decision.getId()).
                 append(RequestParameter.VERSION_ID, version.getId()).
@@ -426,8 +425,6 @@ public class ManageDecisionController extends AbstractController {
 
         return true;
     }
-
-
 
 
 
@@ -450,7 +447,7 @@ public class ManageDecisionController extends AbstractController {
             newVersion.addOutgoingRelationship(newRelationship);
         }
 
-        
+
 
         Version previousVersion = vl.getById(version.getId());
         version = newVersion;
@@ -468,16 +465,10 @@ public class ManageDecisionController extends AbstractController {
 
 
 
-
-
-
-
-
-
     private void removeOldRelationships() {
         Version previousVersion = vl.getById(version.getId());
 
-        for(Relationship oldRelationship : previousVersion.getOutgoingRelationships()) {
+        for (Relationship oldRelationship : previousVersion.getOutgoingRelationships()) {
             if (!version.getOutgoingRelationships().contains(oldRelationship)) {
                 Version oldTarget = oldRelationship.getTarget();
                 oldRelationship.setTarget(null);
@@ -489,9 +480,6 @@ public class ManageDecisionController extends AbstractController {
 
 
     // </editor-fold>
-
-
-
 
     // <editor-fold defaultstate="collapsed" desc="getter which return calculated values">
     public boolean isUpdateRequest() {
@@ -548,9 +536,6 @@ public class ManageDecisionController extends AbstractController {
 
 
     // </editor-fold>
-
-
-
 
     // <editor-fold defaultstate="collapsed" desc="getter which return EJBs">
     DecisionTemplateLocal getDecisionTemplateLocal() {
@@ -733,3 +718,6 @@ public class ManageDecisionController extends AbstractController {
     }
     // </editor-fold>
 }
+
+
+
