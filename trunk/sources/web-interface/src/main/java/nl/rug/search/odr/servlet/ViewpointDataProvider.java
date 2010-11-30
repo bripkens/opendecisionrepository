@@ -156,7 +156,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
     private Visualization initRelationshipView(Project p) {
-        InitRelationshipView relationshipView = new InitRelationshipView(Viewpoint.RELATIONSHIP, p);
+        InitRelationshipView relationshipView = new InitRelationshipView(p);
 
         Visualization v = relationshipView.getView();
 
