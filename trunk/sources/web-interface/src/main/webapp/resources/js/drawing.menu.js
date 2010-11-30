@@ -175,11 +175,12 @@ odr._saveAll = function() {
 //    console.log(odr._requestedData);
 
     var targetUrl = j("#externalVarTargetUrl").text();
+    console.log(JSON.stringify(odr._requestedData, 4))
     
     j.ajax({
         url : targetUrl,
         data : {
-            "data" : j.toJSON(odr._requestedData, 4)
+            "data" : JSON.stringify(odr._requestedData, 4)
         },
         dataType : "json",
         type : "POST",
