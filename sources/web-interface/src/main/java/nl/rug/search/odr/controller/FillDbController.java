@@ -1042,7 +1042,7 @@ public class FillDbController {
         createRelationship(ice202, ice201, replaces);
         createRelationship(ejb, oprTech, causedBy);
         createRelationship(ejb3, ejb, causedBy);
-        createRelationship(ejb, glassfish2, depends);
+        createRelationship(ejb3, glassfish2, depends);
         createRelationship(ejb31, ejb, causedBy);
         createRelationship(ejb31, ejb3, replaces);
         createRelationship(ejb31, glassfish3, depends);
