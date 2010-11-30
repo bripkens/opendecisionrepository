@@ -520,19 +520,12 @@ public class ProjectDetailsController {
 
         Collections.sort(concerns, new Concern.GroupDateComparator());
 
-        for (int i = 0; i < concerns.size(); i++) {
-            System.out.println(concerns.get(i).getName() + " date: " + concerns.get(i).getCreatedWhen());
-
-        }
 
         Long groupId = null;
         List<Concern> onlyNewest = new ArrayList<Concern>();
 
         for (Concern con : concerns) {
-            System.out.println("alte Group id " + groupId);
-            System.out.println("Group Id ist " + con.getGroup());
             if (groupId == null || !groupId.equals(con.getGroup())) {
-                System.out.println("ist das einzige " + con.getName() + con.getGroup());
                 onlyNewest.add(con);
                 groupId = con.getGroup();
             }
