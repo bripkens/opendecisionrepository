@@ -108,7 +108,6 @@ public class InitRelationshipViewTest {
         RelationshipViewVisualization v = irv.getView();
 
         assertSame(project, irv.getProject());
-        assertEquals(Viewpoint.RELATIONSHIP, v.getType());
         assertFalse(v.containsVersion(v11));
         assertTrue(v.containsVersion(v12));
         assertFalse(v.containsVersion(v21));

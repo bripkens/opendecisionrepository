@@ -9,7 +9,6 @@ import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Version;
-import nl.rug.search.odr.viewpoint.Node;
 
 /**
  *
@@ -53,7 +52,7 @@ public class InitRelationshipView {
                 continue;
             }
 
-            Node node = new Node();
+            RelationshipViewNode node = new RelationshipViewNode();
             node.setVersion(eachDecision.getCurrentVersion());
             visualization.addNode(node);
         }
@@ -63,14 +62,14 @@ public class InitRelationshipView {
 
 
     private void sortNodes() {
-        Collections.sort(visualization.getNodes(), new Node.DecisionNameComparator());
+        Collections.sort(visualization.getNodes(), new RelationshipViewNode.DecisionNameComparator());
     }
 
 
 
 
     private void addAssociations() {
-        for (Node node : visualization.getNodes()) {
+        for (RelationshipViewNode node : visualization.getNodes()) {
             for (Relationship eachRelationship : node.getVersion().getOutgoingRelationships()) {
 
                 if (!visualization.containsVersion(eachRelationship.getTarget())) {
@@ -103,10 +102,10 @@ public class InitRelationshipView {
 
 
     private void removeNodesWithRemovedDecisions() {
-        Iterator<Node> it = visualization.getNodes().iterator();
+        Iterator<RelationshipViewNode> it = visualization.getNodes().iterator();
 
         while (it.hasNext()) {
-            Node n = it.next();
+            RelationshipViewNode n = it.next();
 
             if (n.getVersion().getDecision().isRemoved()) {
                 it.remove();
@@ -134,7 +133,7 @@ public class InitRelationshipView {
 
 
     private void replaceOldVersions() {
-        for (Node node : visualization.getNodes()) {
+        for (RelationshipViewNode node : visualization.getNodes()) {
             Version currentVersion = node.getVersion().getDecision().getCurrentVersion();
 
             if (!node.getVersion().equals(currentVersion)) {
@@ -190,7 +189,7 @@ public class InitRelationshipView {
     private void addNewNodes() {
         for (Decision d : project.getDecisions()) {
             if (!d.isRemoved() && !visualizationContainsDecision(d)) {
-                Node node = new Node();
+                RelationshipViewNode node = new RelationshipViewNode();
                 node.setVersion(d.getCurrentVersion());
                 addNewRelationshipsWithVersion(node.getVersion());
                 visualization.addNode(node);
@@ -202,7 +201,7 @@ public class InitRelationshipView {
 
 
     private boolean visualizationContainsDecision(Decision d) {
-        for (Node n : visualization.getNodes()) {
+        for (RelationshipViewNode n : visualization.getNodes()) {
             if (n.getVersion().getDecision().equals(d)) {
                 return true;
             }

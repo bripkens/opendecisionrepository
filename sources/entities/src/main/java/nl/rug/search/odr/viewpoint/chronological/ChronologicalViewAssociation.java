@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.viewpoint.AbstractAssociation;

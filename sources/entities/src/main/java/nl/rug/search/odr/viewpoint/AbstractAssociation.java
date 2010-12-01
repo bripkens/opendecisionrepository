@@ -22,19 +22,19 @@ public abstract class AbstractAssociation extends BaseEntity<AbstractAssociation
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL, Viewpoint.STAKEHOLDER_INVOLVEMENT})
     private Long id;
 
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL, Viewpoint.STAKEHOLDER_INVOLVEMENT})
     private int labelX;
 
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL, Viewpoint.STAKEHOLDER_INVOLVEMENT})
     private int labelY;
 
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     @OrderColumn
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL, Viewpoint.STAKEHOLDER_INVOLVEMENT})
     private List<Handle> handles;
 
 

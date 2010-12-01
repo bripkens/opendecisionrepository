@@ -33,7 +33,8 @@
             <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId"/>
             <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl"/>
             <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl"/>
-            <ice:outputText value="#{diagramController.backUrl}" id="externalVarBackUrl"/>
+            <ice:outputText value="#{diagramController.backUrl}" id="externalVarBackUrl"
+                            rendered="#{!diagramController.requestError}"/>
 
             <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText"/>
             <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText"/>

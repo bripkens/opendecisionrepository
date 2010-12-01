@@ -1,5 +1,6 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewNode;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Version;
 import org.junit.Test;
@@ -10,16 +11,16 @@ import static org.junit.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class NodeTest {
+public class RelationshipViewNodeTest {
 
-    private Node n;
+    private RelationshipViewNode n;
 
 
 
 
     @Before
     public void setUp() {
-        n = new Node();
+        n = new RelationshipViewNode();
     }
 
 
@@ -127,20 +128,20 @@ public class NodeTest {
 
     @Test
     public void testNameComparator() {
-        Node n1 = new Node();
+        RelationshipViewNode n1 = new RelationshipViewNode();
         Version v1 = new Version();
         Decision d1 = new Decision();
         d1.setName("aaaaa");
         v1.setDecision(d1);
         n1.setVersion(v1);
 
-        Node n2 = new Node();
+        RelationshipViewNode n2 = new RelationshipViewNode();
         Version v2 = new Version();
         Decision d2 = new Decision();
         d2.setName("bbbbb");
         v2.setDecision(d2);
         n2.setVersion(v2);
 
-        assertTrue(new Node.DecisionNameComparator().compare(n1, n2) < 0);
+        assertTrue(new RelationshipViewNode.DecisionNameComparator().compare(n1, n2) < 0);
     }
 }

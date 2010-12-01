@@ -24,13 +24,13 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
-import nl.rug.search.odr.project.VisualizationLocal;
+import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
-import nl.rug.search.odr.viewpoint.RelationshipViewAssociation;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.viewpoint.Handle;
-import nl.rug.search.odr.viewpoint.Node;
-import nl.rug.search.odr.viewpoint.Visualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewNode;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  *
@@ -43,7 +43,7 @@ public class ViewpointDataReceiver extends HttpServlet {
     private ProjectLocal pl;
 
     @EJB
-    private VisualizationLocal vl;
+    private RelationshipViewVisualizationLocal vl;
 
     private static final Logger logger = Logger.getLogger(ViewpointDataReceiver.class.getName());
 
@@ -118,10 +118,10 @@ public class ViewpointDataReceiver extends HttpServlet {
 
         Gson gson = GsonUtil.getDefaultGson();
 
-        Visualization v = null;
+        RelationshipViewVisualization v = null;
 
         try {
-            v = gson.fromJson(data, Visualization.class);
+            v = gson.fromJson(data, RelationshipViewVisualization.class);
         } catch (JsonParseException ex) {
             // TODO: Inform user that malformed data has been sent to the system.
             // This only happens when the user is abusing the system
@@ -130,9 +130,9 @@ public class ViewpointDataReceiver extends HttpServlet {
             return;
         }
 
-        Visualization visualizationFromDatabase = null;
+        RelationshipViewVisualization visualizationFromDatabase = null;
 
-        for (Visualization eachVisualization : p.getVisualizations()) {
+        for (RelationshipViewVisualization eachVisualization : p.getRelationshipViews()) {
             if (eachVisualization.getId().equals(v.getId())) {
                 visualizationFromDatabase = eachVisualization;
                 break;
@@ -160,7 +160,7 @@ public class ViewpointDataReceiver extends HttpServlet {
         }
     } 
 
-    private void copyModifiedData(Visualization source, Visualization target) {
+    private void copyModifiedData(RelationshipViewVisualization source, RelationshipViewVisualization target) {
         target.setName(source.getName());
         target.setDocumentedWhen(new Date());
 
@@ -170,9 +170,9 @@ public class ViewpointDataReceiver extends HttpServlet {
         vl.merge(target);
     }
 
-    private void copyNodeInformation(Visualization source, Visualization target) {
-        for(Node eachNodeInSource : source.getNodes()) {
-            Node nodeInTarget = getNode(eachNodeInSource.getId(), target.getNodes());
+    private void copyNodeInformation(RelationshipViewVisualization source, RelationshipViewVisualization target) {
+        for(RelationshipViewNode eachNodeInSource : source.getNodes()) {
+            RelationshipViewNode nodeInTarget = getNode(eachNodeInSource.getId(), target.getNodes());
             
             nodeInTarget.setVisible(eachNodeInSource.isVisible());
             nodeInTarget.setX(eachNodeInSource.getX());
@@ -180,8 +180,8 @@ public class ViewpointDataReceiver extends HttpServlet {
         }
     }
 
-    private Node getNode(long id, Collection<Node> nodes) {
-        for(Node n : nodes) {
+    private RelationshipViewNode getNode(long id, Collection<RelationshipViewNode> nodes) {
+        for(RelationshipViewNode n : nodes) {
             if (n.getId().equals(id)) {
                 return n;
             }
@@ -190,7 +190,7 @@ public class ViewpointDataReceiver extends HttpServlet {
         throw new MalformedJsonException("Could not find node with id: " + id);
     }
 
-    private void copyAssociationInformation(Visualization source, Visualization target) {
+    private void copyAssociationInformation(RelationshipViewVisualization source, RelationshipViewVisualization target) {
         for (RelationshipViewAssociation eachAssociationInSource : source.getAssociations()) {
             RelationshipViewAssociation associationInTarget = getAssociation(eachAssociationInSource.getId(), target.getAssociations());
 
