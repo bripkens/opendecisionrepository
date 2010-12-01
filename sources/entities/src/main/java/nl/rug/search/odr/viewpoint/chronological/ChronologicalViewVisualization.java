@@ -41,18 +41,6 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
 
 
 
-    public boolean containsVersion(Version v) {
-        for (ChronologicalViewNode node : getNodes()) {
-            if (node.getVersion() != null && node.getVersion().equals(v)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
-
     @Override
     public void addNode(ChronologicalViewNode node) {
         nodes.add(node);

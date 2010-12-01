@@ -4,12 +4,12 @@
  */
 package nl.rug.search.odr.viewpoint.chronological;
 
-import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,6 +61,7 @@ public class InitChronologicalView {
 
 
     // <editor-fold defaultstate="collapsed" desc="get view step one">
+
 
     private void assignVersionsToStakeholderGroups() {
         for (Decision d : project.getDecisions()) {
@@ -152,20 +153,106 @@ public class InitChronologicalView {
     }
     // </editor-fold>
 
-
     // <editor-fold defaultstate="collapsed" desc="get view step three">
+
+
+
     private void addNodesToVisualization() {
-//        Iteration previousIteration = null;
-//
-//        for(IterationSpan span : columnsForIterations) {
-//            visualization.ad
-//        }
+        // Can't do anything when this thing is empty
+        if (columnsForIterations.isEmpty()) {
+            return;
+        }
+
+        IterationSpan currentSpan = null, nextSpan = null;
+
+        currentSpan = columnsForIterations.get(0);
+
+        for (int i = 0; i < columnsForIterations.size(); i++) {
+            if (i + 1 < columnsForIterations.size()) {
+                nextSpan = columnsForIterations.get(i + 1);
+            } else {
+                nextSpan = null;
+            }
+
+            ChronologicalViewNode iterationNode = addIterationNode(currentSpan.it);
+
+            if (currentSpan.getOrderedVersions().isEmpty() && nextSpan == null) {
+                iterationNode.setEndPoint(true);
+            } else if (currentSpan.getOrderedVersions().isEmpty()) {
+                ChronologicalViewAssociation associationToNextIteration = new ChronologicalViewAssociation();
+                associationToNextIteration.setSourceIteration(currentSpan.it);
+                associationToNextIteration.setTargetIteration(nextSpan.it);
+                visualization.addAssociation(associationToNextIteration);
+            }
+
+
+
+            for (List<Version> versionGroup : currentSpan.getOrderedVersions()) {
+                Version previousVersion = null;
+                for (int j = 0; j < versionGroup.size(); j++) {
+                    Version currentVersion = versionGroup.get(j);
+
+                    ChronologicalViewNode versionNode = addVersionNode(currentVersion);
+
+                    ChronologicalViewAssociation association = new ChronologicalViewAssociation();
+
+                    if (previousVersion != null) {
+                        association.setSourceVersion(previousVersion);
+                    } else {
+                        association.setSourceIteration(currentSpan.it);
+                    }
+
+                    association.setTargetVersion(currentVersion);
+
+                    visualization.addAssociation(association);
+
+                    if (j + 1 == versionGroup.size() && nextSpan == null) {
+                        versionNode.setEndPoint(true);
+                    } else if (j + 1 == versionGroup.size() && nextSpan != null) {
+                        ChronologicalViewAssociation associationToNextIteration = new ChronologicalViewAssociation();
+                        associationToNextIteration.setSourceVersion(currentVersion);
+                        associationToNextIteration.setTargetIteration(nextSpan.it);
+                        visualization.addAssociation(associationToNextIteration);
+                    }
+
+                    previousVersion = currentVersion;
+                }
+            }
+
+
+
+
+            // needs to stay at the end
+            currentSpan = nextSpan;
+        }
+    }
+
+
+
+
+    private ChronologicalViewNode addIterationNode(Iteration it) {
+        ChronologicalViewNode node = new ChronologicalViewNode();
+        node.setIteration(it);
+        visualization.addNode(node);
+        return node;
+    }
+
+
+
+
+    private ChronologicalViewNode addVersionNode(Version v) {
+        ChronologicalViewNode node = new ChronologicalViewNode();
+        node.setVersion(v);
+        visualization.addNode(node);
+
+        return node;
     }
     // </editor-fold>
 
 
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+
     public Project getProject() {
         return project;
     }
@@ -204,10 +291,11 @@ public class InitChronologicalView {
 
 
 
+
         public List<List<Version>> getOrderedVersions() {
             List<List<Version>> allVersionsInGroups = new ArrayList<List<Version>>(versionsForStakeholderGroups.size());
 
-            for(Entry<Long[], List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
+            for (Entry<Long[], List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
 
                 Collections.sort(entry.getValue(), new Version.DecidedWhenComparator());
 
@@ -216,6 +304,7 @@ public class InitChronologicalView {
 
             return allVersionsInGroups;
         }
+
 
 
 
