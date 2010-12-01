@@ -69,6 +69,10 @@ public class DiagramController {
         return Filename.VIEWPOINT_DATA_RECEIVER;
     }
 
+    public String getBackUrl() {
+        return RequestParameter.PROJECT_PATH_SHORT.substring(1).concat(project.getName());
+    }
+
     public ProjectMember getMember() {
         return member;
     }

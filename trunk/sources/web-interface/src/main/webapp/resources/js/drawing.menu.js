@@ -141,6 +141,12 @@ odr.ready(function() {
  */
 odr.ready(function() {
     j("#save").click(odr._saveAll);
+    j("#back").click(function() {
+        window.location = j("#externalVarBackUrl").text();
+    });
+    j("#refresh").click(function() {
+        window.location = window.location;
+    });
 });
 odr._saveAll = function() {
     odr.setSaveText();
@@ -430,7 +436,7 @@ odr._newStereotype = function(name, items) {
 
 /*
  * ###########################################################################
- *                                  Loading animation
+ *                         Loading animation and status
  */
 odr.showWaitAnimation = function(animationSpeed) {
     if (animationSpeed == undefined) {

@@ -108,15 +108,28 @@ body {
     top: -131px;
 }
 .project ul {
-    padding: 0 0 0 10px;
+    padding: 0 0 0 35px;
     margin: 0;
 }
 .project ul li {
     cursor: pointer;
     list-style: none;
     font-size: 13px;
+    line-height: 20px;
 }
-
+.project ul li span {
+    position: relative;
+    bottom: 3px;
+}
+.project ul li#save {
+    list-style-image: url(../images/floppy_disk_16.png);
+}
+.project ul li#back {
+    list-style-image: url(../images/home_16.png);
+}
+.project ul li#refresh {
+    list-style-image: url(../images/refresh_16.png);
+}
 
 
 
