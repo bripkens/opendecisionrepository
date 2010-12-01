@@ -1,8 +1,5 @@
 package nl.rug.search.odr.controller;
 
-import com.icesoft.faces.component.ext.RowSelectorEvent;
-import java.awt.ItemSelectable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,8 +28,8 @@ public class ConcernTableController {
     private List<Item> items;
     private String sortColumn;
     private boolean ascending;
-    private List<Item> subItems;
     private List<Item> list;
+    private int listSize;
 
 
 
@@ -40,13 +37,13 @@ public class ConcernTableController {
     @PostConstruct
     public void getConcernsFromDb() {
         items = new ArrayList<Item>();
-        subItems = new ArrayList<Item>();
         List<Concern> con = new ArrayList<Concern>();
         con = concernLocal.getAll();
 
         for (Concern concern : con) {
             Item item = new Item();
             item.setConcer(concern);
+            item.setSubConcern(false);
             items.add(item);
         }
         sortColumn = "Id";
@@ -59,40 +56,80 @@ public class ConcernTableController {
     public List<Item> getAllConcerns() {
         Set set = new HashSet();
         list = new ArrayList<Item>();
-        System.out.println("###########ALL ITEMS");
-        for(Item ite : items){
-            System.out.println(ite.concer.getName());
-        }
 
 
         for (int i = 0; i < items.size(); i++) {
             if (!set.contains(items.get(i).concer.getGroup())) {
-                System.out.println(items.get(i).getConcer().getName() + "noch nicht in der liste");
+                if (list.size() % 2 == 0) {
+                    items.get(i).colored = true;
+                }
                 list.add(items.get(i));
                 set.add(items.get(i).concer.getGroup());
             } else {
-                System.out.println(items.get(i).getConcer().getName() + "bereits in der liste");
                 set.add(items.get(i).concer.getGroup());
             }
 
-            if(items.get(i).isSelected()){
-                System.out.println("hole mir subconcerns");
-                getSubConcern(items.get(i));
+            List<Item> allsubs = getSubConcern(items.get(i));
+
+            if (items.get(i).isSelected()) {
+                list.addAll(allsubs);
+            }
+            if (allsubs.size() > 0) {
+                items.get(i).setHasSub(true);
             }
         }
+        sort();
+        listSize = 0;
+        for (int i = 0; i < list.size(); i++) {
+            list.get(i).setRowNumber(i + 1);
+            if (list.get(i).isSelected()) {
+                listSize = i + 1;
+                if (list.get(i).isEven()) {
+                    for (int o = 0; o < list.size() - i - 1; o++) {
+                        if (list.get(o + i + 1).concer.getGroup().equals(list.get(i).concer.getGroup())) {
+                            list.get(o + i + 1).setWhite(true);
+                            listSize++;
+                        }
+
+                    }
+                } else {
+                    for (int j = 0; j < list.size() - i - 1; j++) {
+                        if (list.get(j + i + 1).concer.getGroup().equals(list.get(i).concer.getGroup())) {
+                            list.get(j + i + 1).setWhite(false);
+                            listSize++;
+                        }
+                    }
+                }
+            }
+        }
+
         return list;
     }
 
 
 
 
-    public void getSubConcern(Item item) {
+    public int getListSize() {
+            return listSize;
+    }
+
+
+
+
+    public List<Item> getSubConcern(Item item) {
+        List<Item> temp = new ArrayList<Item>();
         for (Item it : items) {
             if (it.getConcer().getGroup().equals(item.getConcer().getGroup())) {
-                System.out.println("hat subConcerns");
-                list.add(it);
+                if (!list.contains(it)) {
+                    it.setSubConcern(true);
+                    if (list.size() % 2 == 0) {
+                        it.colored = true;
+                    }
+                    temp.add(it);
+                }
             }
         }
+        return temp;
     }
 
 
@@ -113,7 +150,6 @@ public class ConcernTableController {
 
 
     public void setSortColumn(String sortColumn) {
-        System.out.println("sortColumn ist" + sortColumn);
         this.sortColumn = sortColumn;
     }
 
@@ -128,7 +164,6 @@ public class ConcernTableController {
 
 
     public void setAscending(boolean ascending) {
-        System.out.println("isAscending ist" + ascending);
         this.ascending = ascending;
     }
 
@@ -147,13 +182,89 @@ public class ConcernTableController {
             comparator = Collections.reverseOrder(comparator);
         }
 
-        Collections.sort(items, comparator);
+        Collections.sort(list, comparator);
     }
 
     public static class Item {
 
         private boolean selected;
+        private List<Item> subItems = new ArrayList<Item>();
         private Concern concer;
+        private boolean subConcern = false;
+        private boolean colored = false;
+        private int rowNumber;
+        private boolean white;
+        private boolean hasSub = false;
+
+
+
+
+        public boolean isHasSub() {
+            return hasSub;
+        }
+
+
+
+
+        public void setHasSub(boolean hasSub) {
+            this.hasSub = hasSub;
+        }
+
+
+
+
+        public List<Item> getSubItems() {
+            return subItems;
+        }
+
+
+
+
+        public void setSubItems(List<Item> subItems) {
+            this.subItems = subItems;
+        }
+
+
+
+
+        public void addSubItem(Item item) {
+            subItems.add(item);
+        }
+
+
+
+
+        public boolean isWhite() {
+            return white;
+        }
+
+
+
+
+        public void setWhite(boolean white) {
+            this.white = white;
+        }
+
+
+
+
+        public int getRowNumber() {
+            return rowNumber;
+        }
+
+
+
+
+        public boolean isEven() {
+            return rowNumber % 2 == 0;
+        }
+
+
+
+
+        public void setRowNumber(int rowNumber) {
+            this.rowNumber = rowNumber;
+        }
 
 
 
@@ -170,8 +281,35 @@ public class ConcernTableController {
                 this.selected = false;
             } else {
                 this.selected = selected;
-                System.out.println(concer.getName() + " ist " + this.selected);
             }
+        }
+
+
+
+
+        public boolean isColored() {
+            return colored;
+        }
+
+
+
+
+        public void setColored(boolean colored) {
+            this.colored = colored;
+        }
+
+
+
+
+        public boolean isSubConcern() {
+            return subConcern;
+        }
+
+
+
+
+        public void setSubConcern(boolean subConcern) {
+            this.subConcern = subConcern;
         }
 
 
