@@ -1,5 +1,7 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -7,6 +9,7 @@ import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.viewpoint.Node;
 
 /**
  *
@@ -17,7 +20,7 @@ public class InitRelationshipView {
 
     private final Project project;
 
-    private Visualization visualization;
+    private RelationshipViewVisualization visualization;
 
 
 
@@ -30,9 +33,8 @@ public class InitRelationshipView {
     // <editor-fold defaultstate="collapsed" desc="creation of an initial view">
 
 
-    public Visualization getView() {
-        visualization = new Visualization();
-        visualization.setType(Viewpoint.RELATIONSHIP);
+    public RelationshipViewVisualization getView() {
+        visualization = new RelationshipViewVisualization();
         visualization.setDocumentedWhen(new Date());
 
         addNodes();
@@ -88,7 +90,7 @@ public class InitRelationshipView {
     // <editor-fold defaultstate="collapsed" desc="update view">
 
 
-    public void updateView(Visualization visualization) {
+    public void updateView(RelationshipViewVisualization visualization) {
         this.visualization = visualization;
 
         removeNodesWithRemovedDecisions();
