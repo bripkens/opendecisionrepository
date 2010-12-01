@@ -49,41 +49,41 @@ public class Visualization extends BaseEntity<Visualization> {
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     @RequiredFor(Viewpoint.RELATIONSHIP)
-    private List<Association> associations;
+    private List<RelationshipViewAssociation> associations;
 
 
 
 
     public Visualization() {
         nodes = new ArrayList<Node>();
-        associations = new ArrayList<Association>();
+        associations = new ArrayList<RelationshipViewAssociation>();
     }
 
 
 
 
-    public void addAssociation(Association association) {
+    public void addAssociation(RelationshipViewAssociation association) {
         associations.add(association);
     }
 
 
 
 
-    public void removeAssociation(Association association) {
+    public void removeAssociation(RelationshipViewAssociation association) {
         associations.remove(association);
     }
 
 
 
 
-    public List<Association> getAssociations() {
+    public List<RelationshipViewAssociation> getAssociations() {
         return associations;
     }
 
 
 
 
-    public void setAssociations(List<Association> associations) {
+    public void setAssociations(List<RelationshipViewAssociation> associations) {
         this.associations = associations;
     }
 

@@ -24,6 +24,7 @@ public abstract class DatabaseCleaner {
         {"DECISIONTEMPLATE", "ID"},
         {"DECISIONTEMPLATE_TEMPLATECOMPONENT", "DECISIONTEMPLATE_ID"},
         {"ITERATION", "ID"},
+        {"NODE", "ID"},
         {"OPRLINK", "ID"},
         {"PERSON", "ID"},
         {"PROJECT", "ID"},
@@ -38,6 +39,8 @@ public abstract class DatabaseCleaner {
         {"RELATIONSHIP", "ID"},
         {"RELATIONSHIPTYPE", "ID"},
         {"CONCERN", "ID"},
+        {"RELATIONSHIPVIEWASSOCIATION", "ID"},
+        {"RELATIONSHIPVIEWASSOCIATION_HANDLE", "RELATIONSHIPVIEWASSOCIATION_ID"},
         {"STAKEHOLDERROLE", "ID"},
         {"TEMPLATECOMPONENT", "ID"},
         {"TAGS", "CONCERN_ID"},
@@ -45,12 +48,9 @@ public abstract class DatabaseCleaner {
         {"VERSION_PROJECTMEMBER", "VERSION_ID"},
         {"VERSION_CONCERN", "VERSION_ID"},
         {"VERSIONSTATE", "ID"},
-        {"ASSOCIATION", "ID"},
-        {"ASSOCIATION_HANDLE", "ASSOCIATION_ID"},
         {"HANDLE", "ID"},
-        {"NODE", "ID"},
         {"VISUALIZATION", "ID"},
-        {"VISUALIZATION_ASSOCIATION", "VISUALIZATION_ID"},
+        {"VISUALIZATION_RELATIONSHIPVIEWASSOCIATION", "VISUALIZATION_ID"},
         {"VISUALIZATION_NODE", "VISUALIZATION_ID"}};
 
 
@@ -115,7 +115,7 @@ public abstract class DatabaseCleaner {
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Can't read table contents. Trying to read column " + TABLES[tableId][1]
-                                       + " from table " + TABLES[tableId][0], ex);
+                    + " from table " + TABLES[tableId][0], ex);
         }
 
     }
@@ -146,3 +146,6 @@ public abstract class DatabaseCleaner {
     }
     // </editor-fold>
 }
+
+
+

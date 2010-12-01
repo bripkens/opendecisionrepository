@@ -16,7 +16,7 @@ import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.VisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
-import nl.rug.search.odr.viewpoint.Association;
+import nl.rug.search.odr.viewpoint.RelationshipViewAssociation;
 import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;

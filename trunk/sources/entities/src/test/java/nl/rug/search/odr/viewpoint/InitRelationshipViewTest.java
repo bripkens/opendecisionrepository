@@ -118,7 +118,7 @@ public class InitRelationshipViewTest {
 
 
     private boolean containsRelationship(Visualization v, Relationship r) {
-        for (Association a : v.getAssociations()) {
+        for (RelationshipViewAssociation a : v.getAssociations()) {
             if (a.getRelationship() == r) {
                 return true;
             }

@@ -76,7 +76,7 @@ public class InitRelationshipView {
                 }
 
 
-                Association association = new Association();
+                RelationshipViewAssociation association = new RelationshipViewAssociation();
                 association.setRelationship(eachRelationship);
                 visualization.addAssociation(association);
             }
@@ -117,10 +117,10 @@ public class InitRelationshipView {
 
 
     private void removeRelationshipsWithVersion(Version v) {
-        Iterator<Association> it = visualization.getAssociations().iterator();
+        Iterator<RelationshipViewAssociation> it = visualization.getAssociations().iterator();
 
         while (it.hasNext()) {
-            Association a = it.next();
+            RelationshipViewAssociation a = it.next();
 
             if (a.getRelationship().getSource().equals(v) || a.getRelationship().getTarget().equals(v)) {
                 it.remove();
@@ -155,7 +155,7 @@ public class InitRelationshipView {
             }
 
 
-            Association association = new Association();
+            RelationshipViewAssociation association = new RelationshipViewAssociation();
             association.setRelationship(r);
             visualization.addAssociation(association);
         }
@@ -167,7 +167,7 @@ public class InitRelationshipView {
             }
 
 
-            Association association = new Association();
+            RelationshipViewAssociation association = new RelationshipViewAssociation();
             association.setRelationship(r);
             visualization.addAssociation(association);
         }
@@ -175,7 +175,7 @@ public class InitRelationshipView {
 
 
     private boolean containsRelationship(Relationship r) {
-        for(Association a : visualization.getAssociations()) {
+        for(RelationshipViewAssociation a : visualization.getAssociations()) {
             if (a.getRelationship().equals(r)) {
                 return true;
             }
