@@ -6,7 +6,12 @@
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
                 xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
-    <ui:define name="head">
+    <ui:define name="head" >
+        <script type="text/javascript" src="resources/js/IterationCalendar.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -15,6 +20,9 @@
     </ui:define>
 
     <ui:define name="content">
+        <ice:outputText value="#{iterationController.projectId}" id="externalVarProjectId" styleClass="hidden"/>
+        <ice:outputText value="#{iterationController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
+
         <ice:form id="iterationForm" partialSubmit="false">
             <h1><h:outputText value="#{form['iteration.heading']}"/></h1>
 
@@ -45,20 +53,20 @@
 
 
 
-
-
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
                     <ice:inputTextarea id="inDescription"
-                                   label="#{form['label.description']}"
-                                   maxlength="255"
-                                   partialSubmit="true"
-                                   value="#{iterationController.description}">
+                                       label="#{form['label.description']}"
+                                       maxlength="255"
+                                       partialSubmit="true"
+                                       value="#{iterationController.description}">
                     </ice:inputTextarea>
                     <p>
                     <ice:outputText value="#{form['iteration.description']}" nospan="true" /> 0;
                     </p>
                 </div>
+
+
 
                 <odr:datespan
                     endDate="#{iterationController.endDate}"
@@ -86,6 +94,8 @@
                                    type="abort" />
             </div>
         </ice:form>
+
+
     </ui:define>
 
     <!--SIDEBAR-->
@@ -103,12 +113,10 @@
                     </div>
                 </li>
                 <li>
-                    <div class="header">
-                        <img src="resources/images/info.png" alt="information" />
+                    <div class="header" style="position: absolute">
+                        <img src="resources/images/cal.png" alt="Calendar" />
                     </div>
-                    <div class="text">
-                        <h2>Iwas tolles :D</h2>
-                        content?
+                    <div class="text" style="position: relative">
                     </div>
                 </li>
             </ul>

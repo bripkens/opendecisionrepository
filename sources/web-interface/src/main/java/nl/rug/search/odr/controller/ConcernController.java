@@ -119,28 +119,9 @@ public class ConcernController {
             return;
         }
 
-//        Concern temp1 = getGroupParameter(concernGroupIdParameter);
-//        if (temp1 != null) {
-//            System.out.println("Group concern wurde eingelesen");
-//            isUpdate = true;
-//            concern = temp1;
-//        }
-//
-//        Concern temp = getConernIdParameter(concernIdParameter);
-//        if (temp != null) {
-//            System.out.println("concern mit id wurde eingelesen");
-//            isUpdate = true;
-//            concern = temp;
-//        }
-//
-//        if (temp1 == null && temp == null) {
-//            System.out.println("neuer concern wurde erstellt");
-//            concern = new Concern();
-//        }
-
 
         if (isUpdate) {
-            System.out.println("handelt sich um ein update. daten werden in klassenvariablen gespeichert");
+
             this.name = concern.getName();
             this.description = concern.getDescription();
             this.externalId = concern.getExternalId();
@@ -178,14 +159,10 @@ public class ConcernController {
         Concern newestGroupConcern = new Concern();
         newestGroupConcern.setCreatedWhen(new Date(0L));
         for (Concern con : project.getConcerns()) {
-            System.out.println("durchlaeuft gerade " + con.getId());
             if (con.getGroup().equals(groupId) && con.getCreatedWhen().after(newestGroupConcern.getCreatedWhen())) {
-                System.out.println("concernId" + con.getId() + " : groupId " + con.getGroup());
                 newestGroupConcern = con;
             }
         }
-
-        System.out.println(newestGroupConcern + " ist der concern mit dem hoechsten datum der group " + groupId);
 
         return newestGroupConcern;
     }
@@ -217,7 +194,6 @@ public class ConcernController {
             }
         }
 
-        System.out.println(temp.getName() + " war der concern mit der id " + concernId);
         return temp;
     }
 
@@ -328,16 +304,13 @@ public class ConcernController {
 
         this.autoComplete.clear();
 
-
         this.autoComplete = concernLocal.getPossibleStrings(e.getNewValue().toString());
-
 
 
         int counter = 0;
 
 
-        for (int i = 0; i
-                        < tags.size(); i++) {
+        for (int i = 0; i < tags.size(); i++) {
             if (tags.get(i).getValue().isEmpty()) {
                 counter++;
             }
@@ -431,12 +404,9 @@ public class ConcernController {
 //        if (value == null) {
 //            return;
 //        }
-//        System.out.println("1");
 //
 //        String externalId = value.toString();
-//        System.out.println("2");
 //        boolean inUse = false;
-//        System.out.println(project + " : project");
 //        for (Concern concern : project.getConcerns()) {
 //            if (concern.getExternalId() != null && concern.getExternalId().equals(externalId)) {
 //                if (!concern.getId().equals(concernId)) {
@@ -445,7 +415,6 @@ public class ConcernController {
 //                }
 //            }
 //        }
-//        System.out.println("3");
 //        if (inUse) {
 //            throw new ValidatorException(MessageFactory.getMessage(
 //                    fc,
@@ -454,7 +423,6 @@ public class ConcernController {
 //                        MessageFactory.getLabel(fc, uic)
 //                    }));
 //        }
-//        System.out.println("4");
 //    }
 //
 //

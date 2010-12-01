@@ -47,6 +47,22 @@
                             <li><ice:outputText value="#{tag}"/></li>
                         </ice:repeat></ul></td>
                 </tr>
+
+                <tr>
+                    <td><ice:outputLabel value="#{form['label.initiators']}" for="inCreator" /></td>
+                    <td><ice:outputText value="#{concernController.concern.initiators.person.name}">
+                </ice:outputText>
+                </td>
+                </tr>
+
+                <tr>
+                    <td><ice:outputLabel value="#{form['concern.creationdate']}" for="inCreationDate" /></td>
+                    <td><ice:outputText value="#{concernController.concern.createdWhen}">
+                    <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
+                </ice:outputText>
+                </td>
+                </tr>
+
                 </tbody>
             </table>
 

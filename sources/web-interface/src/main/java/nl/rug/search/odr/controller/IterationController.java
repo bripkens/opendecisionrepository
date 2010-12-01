@@ -177,6 +177,14 @@ public class IterationController {
         return null;
     }
 
+    public long getProjectId(){
+        return projectId;
+    }
+
+    public String getDataRequestUrl() {
+        return Filename.ITERATION_DATA_PROVIDER;
+    }
+
 
 
 
