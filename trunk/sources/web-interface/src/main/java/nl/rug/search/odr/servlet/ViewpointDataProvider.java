@@ -13,15 +13,15 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
-import nl.rug.search.odr.project.VisualizationLocal;
+import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
-import nl.rug.search.odr.viewpoint.RelationshipViewAssociation;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.viewpoint.Handle;
-import nl.rug.search.odr.viewpoint.InitRelationshipView;
+import nl.rug.search.odr.viewpoint.relationship.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
-import nl.rug.search.odr.viewpoint.Visualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  *
@@ -35,9 +35,11 @@ public class ViewpointDataProvider extends HttpServlet {
     private ProjectLocal pl;
 
     @EJB
-    private VisualizationLocal vl;
+    private RelationshipViewVisualizationLocal vl;
 
     public static final int ERROR_CODE = 303;
+
+
 
 
     /**
@@ -120,7 +122,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
             Gson gson = GsonUtil.getDefaultGson(new ViewpointExclusionStrategy(point));
 
-            Visualization v = getVisualization(p, point);
+            RelationshipViewVisualization v = getVisualization(p, point);
 
             out.print(gson.toJson(v));
         } finally {
@@ -131,7 +133,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private Visualization getVisualization(Project p, Viewpoint point) {
+    private RelationshipViewVisualization getVisualization(Project p, Viewpoint point) {
         if (point == Viewpoint.RELATIONSHIP) {
             return getRelationshipVisualization(p);
         }
@@ -142,13 +144,14 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private Visualization getRelationshipVisualization(Project p) {
-        Visualization existingVisualization = null;
+    private RelationshipViewVisualization getRelationshipVisualization(Project p) {
+        RelationshipViewVisualization existingVisualization = null;
 
-        for (Visualization v : p.getVisualizations()) {
-            if (v.getType() == Viewpoint.RELATIONSHIP) {
-                existingVisualization = v;
-            }
+        for (RelationshipViewVisualization v : p.getRelationshipViews()) {
+            existingVisualization = v;
+
+            // for now we just quit at this point. May be changed to support multiple relationship views
+            break;
         }
 
         if (existingVisualization == null) {
@@ -163,12 +166,12 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private Visualization initRelationshipView(Project p) {
+    private RelationshipViewVisualization initRelationshipView(Project p) {
         InitRelationshipView relationshipView = new InitRelationshipView(p);
 
-        Visualization v = relationshipView.getView();
+        RelationshipViewVisualization v = relationshipView.getView();
 
-        p.addVisualization(v);
+        p.addRelationshipView(v);
         vl.persist(v);
         pl.merge(p);
 
@@ -181,7 +184,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private void updateRelationshipView(Project p, Visualization v) {
+    private void updateRelationshipView(Project p, RelationshipViewVisualization v) {
         InitRelationshipView relationshipView = new InitRelationshipView(p);
 
         relationshipView.updateView(v);

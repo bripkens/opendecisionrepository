@@ -1,18 +1,9 @@
 package nl.rug.search.odr.viewpoint.relationship;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
-import nl.rug.search.odr.entities.BaseEntity;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.viewpoint.AbstractAssociation;
 import nl.rug.search.odr.viewpoint.RequiredFor;

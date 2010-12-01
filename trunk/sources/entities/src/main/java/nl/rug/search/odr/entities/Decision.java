@@ -42,12 +42,12 @@ public class Decision extends BaseEntity<Decision> {
 
     public static final String NAMED_QUERY_IS_NAME_USED = "Decision.isNameUsed";
 
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @RequiredFor(Viewpoint.RELATIONSHIP)
+    @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL})
     @Column(length = 50,
             nullable = false)
     private String name;

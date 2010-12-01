@@ -6,7 +6,6 @@ import nl.rug.search.odr.entities.Version;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
-import nl.rug.search.odr.viewpoint.Node;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import org.junit.Test;
 import org.junit.Before;
@@ -39,7 +38,6 @@ public class RelationshipViewVisualizationTest {
         assertTrue(v.getAssociations().isEmpty());
         assertTrue(v.getNodes().isEmpty());
         assertNull(v.getDocumentedWhen());
-        assertEquals(Viewpoint.RELATIONSHIP, v.getType());
     }
 
 
@@ -83,8 +81,8 @@ public class RelationshipViewVisualizationTest {
 
     @Test
     public void testNodes() {
-        Node n1 = new Node();
-        Node n2 = new Node();
+        RelationshipViewNode n1 = new RelationshipViewNode();
+        RelationshipViewNode n2 = new RelationshipViewNode();
 
         v.addNode(n1);
 
@@ -106,7 +104,7 @@ public class RelationshipViewVisualizationTest {
         assertFalse(containsReference(v.getNodes(), n1));
         assertFalse(containsReference(v.getNodes(), n2));
 
-        List<Node> nodes = new ArrayList<Node>();
+        List<RelationshipViewNode> nodes = new ArrayList<RelationshipViewNode>();
         nodes.add(n1);
 
         v.setNodes(nodes);
@@ -196,7 +194,7 @@ public class RelationshipViewVisualizationTest {
 
         assertFalse(v.isPersistable());
 
-        v.addNode(new Node());
+        v.addNode(new RelationshipViewNode());
 
         assertTrue(v.isPersistable());
     }
@@ -214,7 +212,7 @@ public class RelationshipViewVisualizationTest {
 
         assertFalse(v.isPersistable());
 
-        v.addNode(new Node());
+        v.addNode(new RelationshipViewNode());
 
         assertTrue(v.isPersistable());
     }
@@ -244,12 +242,12 @@ public class RelationshipViewVisualizationTest {
     public void testContainsVersion() {
         v = new RelationshipViewVisualization();
 
-        Node n1 = new Node();
+        RelationshipViewNode n1 = new RelationshipViewNode();
         n1.setVisible(true);
         n1.setVersion(new Version());
         n1.getVersion().setDecidedWhen(new Date());
 
-        Node n2 = new Node();
+        RelationshipViewNode n2 = new RelationshipViewNode();
         n2.setVisible(false);
         n2.setVersion(new Version());
         n2.getVersion().setDecidedWhen(new Date(new Date().getTime() + 10));

@@ -9,17 +9,17 @@ import java.io.Serializable;
 import javax.ejb.Stateless;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.BaseEntity;
-import nl.rug.search.odr.viewpoint.Visualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  *
  * @author ben
  */
 @Stateless
-public class VisualizationBean extends GenericDaoBean<Visualization, Long> implements VisualizationLocal {
+public class RelationshipVIewVisualizationBean extends GenericDaoBean<RelationshipViewVisualization, Long> implements RelationshipViewVisualizationLocal {
 
     @Override
-    public boolean isPersistable(Visualization entity) {
+    public boolean isPersistable(RelationshipViewVisualization entity) {
         return entity.isPersistable();
     }
 

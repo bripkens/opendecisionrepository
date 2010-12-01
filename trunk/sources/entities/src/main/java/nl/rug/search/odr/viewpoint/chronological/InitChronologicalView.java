@@ -27,7 +27,7 @@ public class InitChronologicalView {
 
     private final Project project;
 
-    private RelationshipViewVisualization visualization;
+    private ChronologicalViewVisualization visualization;
 
     private Map<Long[], List<Version>> versionsForStakeholderGroups;
 
@@ -43,8 +43,8 @@ public class InitChronologicalView {
 
 
 
-    public RelationshipViewVisualization getView() {
-        visualization = new RelationshipViewVisualization();
+    public ChronologicalViewVisualization getView() {
+        visualization = new ChronologicalViewVisualization();
 
         versionsForStakeholderGroups = new HashMap<Long[], List<Version>>();
         columnsForIterations = new ArrayList<IterationSpan>();
@@ -155,7 +155,11 @@ public class InitChronologicalView {
 
     // <editor-fold defaultstate="collapsed" desc="get view step three">
     private void addNodesToVisualization() {
-        
+//        Iteration previousIteration = null;
+//
+//        for(IterationSpan span : columnsForIterations) {
+//            visualization.ad
+//        }
     }
     // </editor-fold>
 
