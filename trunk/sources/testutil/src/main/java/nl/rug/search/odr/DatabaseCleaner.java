@@ -1,68 +1,27 @@
 package nl.rug.search.odr;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public abstract class DatabaseCleaner {
+public class DatabaseCleaner implements DatabaseSettings {
 
-    public static final String CONNECTION_STRING = "jdbc:derby://127.0.0.1:1527/sun-appserv-samples";
-
-    public static final String DRIVER_CLASS = "org.apache.derby.jdbc.ClientDriver";
-
-    public static final int ITERATIONS = 4;
-
-    public static final String[][] TABLES = new String[][]{
-        {"CHRONOLOGICALVIEWASSOCIATION", "ID"},
-        {"CHRONOLOGICALVIEWASSOCIATION_HANDLE", "CHRONOLOGICALVIEWASSOCIATION_ID"},
-        {"CHRONOLOGICALVIEWNODE", "ID"},
-        {"CHRONOLOGICALVIEWVISUALIZATION", "ID"},
-        {"CHRONOLOGICALVIEWVISUALIZATION_CHRONOLOGICALVIEWNODE", "CHRONOLOGICALVIEWVISUALIZATION_ID"},
-        {"CHRONOLOGICALVIEWVISUALIZATION_CHRONOLOGICALVIEWASSOCIATION", "CHRONOLOGICALVIEWVISUALIZATION_ID"},
-        {"COMPONENTVALUE", "ID"},
-        {"CONCERN", "ID"},
-        {"DECISION", "ID"},
-        {"DECISION_COMPONENTVALUE", "DECISION_ID"},
-        {"DECISIONTEMPLATE", "ID"},
-        {"DECISIONTEMPLATE_TEMPLATECOMPONENT", "DECISIONTEMPLATE_ID"},
-        {"HANDLE", "ID"},
-        {"ITERATION", "ID"},
-        {"OPRLINK", "ID"},
-        {"PERSON", "ID"},
-        {"PROJECT", "ID"},
-        {"PROJECT_DECISION", "PROJECT_ID"},
-        {"PROJECT_ITERATION", "PROJECT_ID"},
-        {"PROJECT_RELATIONSHIPTYPE", "PROJECT_ID"},
-        {"PROJECT_CONCERN", "PROJECT_ID"},
-        {"PROJECT_STAKEHOLDERROLE", "PROJECT_ID"},
-        {"PROJECT_VERSIONSTATE", "PROJECT_ID"},
-        {"PROJECT_RELATIONSHIPVIEWVISUALIZATION", "PROJECT_ID"},
-        {"PROJECTMEMBER", "ID"},
-        {"RELATIONSHIP", "ID"},
-        {"RELATIONSHIPTYPE", "ID"},
-        {"RELATIONSHIPVIEWASSOCIATION", "ID"},
-        {"RELATIONSHIPVIEWASSOCIATION_HANDLE", "RELATIONSHIPVIEWASSOCIATION_ID"},
-        {"RELATIONSHIPVIEWNODE", "ID"},
-        {"RELATIONSHIPVIEWVISUALIZATION", "ID"},
-        {"RELATIONSHIPVIEWVISUALIZATION_RELATIONSHIPVIEWNODE", "RELATIONSHIPVIEWVISUALIZATION_ID"},
-        {"RELATIONSHIPVIEWVISUALIZATION_RELATIONSHIPVIEWASSOCIATION", "RELATIONSHIPVIEWVISUALIZATION_ID"},
-        {"STAKEHOLDERROLE", "ID"},
-        {"TAGS", "CONCERN_ID"},
-        {"TEMPLATECOMPONENT", "ID"},
-        {"VERSION", "ID"},
-        {"VERSION_PROJECTMEMBER", "VERSION_ID"},
-        {"VERSION_CONCERN", "VERSION_ID"},
-        {"VERSIONSTATE", "ID"}
-    };
+    // <editor-fold defaultstate="collapsed" desc="don't changed anything below this comment">
+    private static final Logger logger = Logger.getLogger(DatabaseCleaner.class.getName());
 
 
 
-    // <editor-fold defaultstate="collapsed" desc="Make only changes to the variables.">
 
     static {
         try {
@@ -77,81 +36,217 @@ public abstract class DatabaseCleaner {
 
 
 
-    public static void bruteForceCleanup() {
-        Connection con;
+    private final int iterations;
 
+    private Connection con;
+
+    private List<String> tableNames = new ArrayList<String>();
+
+
+
+
+    public DatabaseCleaner(int iterations) {
+        this.iterations = iterations;
+    }
+
+
+
+
+    public DatabaseCleaner clear() {
+        try {
+            establishConnection();
+
+            analyseDatabase();
+
+            boolean entriesLeft = clearDatabase();
+
+            if (entriesLeft) {
+                logger.log(Level.WARNING, "The specified amount of {0} iterations was not enough to clear "
+                        + "the whole database.", iterations);
+            }
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                }
+            }
+        }
+
+        return this;
+    }
+
+
+
+
+    private void establishConnection() {
         try {
             con = DriverManager.getConnection(CONNECTION_STRING);
         } catch (SQLException ex) {
-            throw new RuntimeException("Can't establish a connection to the database", ex);
+            throw new RuntimeException("An exception occured while trying to connect to the database.", ex);
         }
 
 
-        for (int i = 0; i < ITERATIONS; i++) {
-            clearDatabase(con);
-        }
-
-
-        try {
-            con.close();
-        } catch (SQLException ex) {
-        }
     }
 
 
 
 
-    private static void clearDatabase(Connection con) {
-        for (int i = 0; i < TABLES.length; i++) {
-            clearTable(con, i);
-        }
-    }
-
-
-
-
-    private static void clearTable(Connection con, int tableId) {
+    private void analyseDatabase() {
         try {
-            ResultSet result = con.createStatement().
-                    executeQuery("SELECT ".concat(TABLES[tableId][1]).
-                    concat(" FROM ").
-                    concat(TABLES[tableId][0]));
+            DatabaseMetaData metaData = con.getMetaData();
+
+            ResultSet result = metaData.getTables(null, null, "%", new String[]{"TABLE"});
 
             while (result.next()) {
-                deleteRow(con, tableId, result.getLong(1));
+                String tableName = result.getString("TABLE_NAME");
+
+                if (!shouldBeSkipped(tableName)) {
+                    tableNames.add(tableName);
+                }
             }
         } catch (SQLException ex) {
-            throw new RuntimeException("Can't read table contents. Trying to read column " + TABLES[tableId][1]
-                    + " from table " + TABLES[tableId][0], ex);
+            throw new RuntimeException("An exception occured while trying to analyse the database.", ex);
         }
-
     }
 
 
 
 
-    private static void deleteRow(Connection con, int tableId, long rowId) {
+    private boolean shouldBeSkipped(String name) {
+        for (String skipTableName : SKIP_TABLES) {
+            if (skipTableName.equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+
+    private boolean clearDatabase() {
+        boolean entriesLeft = true;
+
+        for (int i = 0; i < iterations && entriesLeft; i++) {
+            entriesLeft = clearTables();
+
+            if (!entriesLeft) {
+                logger.log(Level.INFO, "No database entries left after {0} iteration(s).", i + 1);
+            }
+        }
+
+        return entriesLeft;
+    }
+
+
+
+
+    private boolean clearTables() {
+        boolean entriesLeft = false;
+
+        for (String tableName : tableNames) {
+            entriesLeft = clearSingleTable(tableName) || entriesLeft;
+        }
+
+        return entriesLeft;
+    }
+
+
+
+
+    private boolean clearSingleTable(String tableName) {
+        try {
+            boolean entriesLeft = false;
+
+            ResultSet result = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE).
+                    executeQuery("SELECT * FROM ".concat(tableName));
+
+            while (result.next()) {
+                entriesLeft = deleteRow(result) || entriesLeft;
+            }
+
+            return entriesLeft;
+        } catch (SQLException ex) {
+            throw new RuntimeException("Can't read table contents from table ".concat(tableName), ex);
+        }
+    }
+
+
+
+
+    private boolean deleteRow(ResultSet result) {
+        try {
+            result.deleteRow();
+
+            return false;
+        } catch (SQLException ex) {
+            return true;
+        }
+    }
+
+
+
+
+    public DatabaseCleaner dropAllTables() {
+        clear();
 
         try {
-            con.createStatement().
-                    executeUpdate("DELETE FROM ".concat(TABLES[tableId][0]).
-                    concat(" WHERE ").
-                    concat(TABLES[tableId][1]).
-                    concat(" = ").
-                    concat(String.valueOf(rowId)));
+            establishConnection();
 
-        } catch (SQLException ex) {
-            // may be thrown because of constraints, don't do anything
+            analyseDatabase();
+
+            dropTables();
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                }
+            }
         }
+
+        return this;
+    }
+
+
+
+
+    private void dropTables() {
+
+        for (int i = 0; i < iterations && !tableNames.isEmpty(); i++) {
+            Iterator<String> tableNamesIt = tableNames.iterator();
+
+            while (tableNamesIt.hasNext()) {
+                try {
+                    con.createStatement().executeUpdate("DROP TABLE ".concat(tableNamesIt.next()));
+                    tableNamesIt.remove();
+                } catch (SQLException ex) {
+                }
+            }
+
+        }
+    }
+
+
+
+
+    public static void bruteForceCleanup() {
+        new DatabaseCleaner(ITERATIONS).clear();
     }
 
 
 
 
     public static void main(String[] args) {
-        DatabaseCleaner.bruteForceCleanup();
+        new DatabaseCleaner(ITERATIONS).clear();
     }
+
     // </editor-fold>
+
+
+
 }
 
 
