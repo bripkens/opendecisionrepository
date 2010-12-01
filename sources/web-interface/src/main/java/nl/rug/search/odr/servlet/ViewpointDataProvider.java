@@ -37,7 +37,7 @@ public class ViewpointDataProvider extends HttpServlet {
     @EJB
     private VisualizationLocal vl;
 
-
+    public static final int ERROR_CODE = 303;
 
 
     /**
@@ -55,7 +55,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
             // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -67,7 +67,7 @@ public class ViewpointDataProvider extends HttpServlet {
             projectId = Long.parseLong(request.getParameter(RequestParameter.ID));
         } catch (NumberFormatException ex) {
             // TODO change to a more appropriate error value
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -75,7 +75,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (p == null) {
             // TODO: Inform the user that the project is not existing? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -90,7 +90,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (!isMember) {
             // TODO: Inform the user that he is not a member of the project? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -111,7 +111,7 @@ public class ViewpointDataProvider extends HttpServlet {
         try {
             if (paramCounter != 1) {
                 // TODO: Inform the user about the illegal amount of parameters?  This only happens when the user is abusing the system
-                response.sendError(303);
+                response.sendError(ERROR_CODE);
                 return;
             }
 

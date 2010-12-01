@@ -47,6 +47,8 @@ public class ViewpointDataReceiver extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(ViewpointDataReceiver.class.getName());
 
+    public static final int ERROR_CODE = 303;
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -61,7 +63,7 @@ public class ViewpointDataReceiver extends HttpServlet {
 
         if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
             // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -73,7 +75,7 @@ public class ViewpointDataReceiver extends HttpServlet {
         if (data == null || projectIdParameter == null) {
             // TODO: Inform user that request parameter are missing
             // This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -84,7 +86,7 @@ public class ViewpointDataReceiver extends HttpServlet {
         } catch (NumberFormatException ex) {
             // TODO: Inform user that the project id is invalid
             // This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -93,7 +95,7 @@ public class ViewpointDataReceiver extends HttpServlet {
 
         if (p == null) {
             // TODO: Inform the user that the project is not existing? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -108,7 +110,7 @@ public class ViewpointDataReceiver extends HttpServlet {
 
         if (!isMember) {
             // TODO: Inform the user that he is not a member of the project? This only happens when the user is abusing the system
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -124,7 +126,7 @@ public class ViewpointDataReceiver extends HttpServlet {
             // TODO: Inform user that malformed data has been sent to the system.
             // This only happens when the user is abusing the system
             logger.log(Level.WARNING, "Malformed data has been sent to the server which can't be parsed.", ex);
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -142,7 +144,7 @@ public class ViewpointDataReceiver extends HttpServlet {
             // Most of the time this happens when the user is abusing the system but it could
             // also happen if some other user deletes the visualization
             logger.log(Level.WARNING, "Visualization is not part of the project.");
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
 
@@ -153,7 +155,7 @@ public class ViewpointDataReceiver extends HttpServlet {
             // are editing the data of a project at the same time.
             logger.log(Level.WARNING, "Malformed data has been sent to the server which could be parsed but "
                     + "contains content-related errors.", ex);
-            response.sendError(303);
+            response.sendError(ERROR_CODE);
             return;
         }
     } 

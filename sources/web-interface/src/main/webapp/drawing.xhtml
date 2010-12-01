@@ -20,8 +20,6 @@
         <script type="text/javascript" src="resources/js/jquery.svg.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.svgdom.min.js"></script>
 
-        <script type="text/javascript" src="resources/js/stacktrace.js"></script>
-
         <script type="text/javascript" src="resources/js/drawing.core.js"></script>
         <script type="text/javascript" src="resources/js/drawing.menu.js"></script>
         <script type="text/javascript" src="resources/js/drawing.entities.js"></script>
@@ -30,20 +28,28 @@
         <link rel="stylesheet" type="text/css" href="resources/css/drawingMenu.css" />
     </h:head>
     <h:body>
-        <ice:outputText value="#{diagramController.requestError}" id="externalVarRequestError" styleClass="hidden"/>
-        <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId" styleClass="hidden"/>
-        <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
-        <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl" styleClass="hidden"/>
-        <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText" styleClass="hidden"/>
-        <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText" styleClass="hidden"/>
-        <ice:outputText value="#{visual['loader.text.load']}" id="loadingText" styleClass="hidden"/>
-        <ice:outputText value="#{visual['loader.text.save']}" id="savingText" styleClass="hidden"/>
-        <ice:outputText value="#{visual['loader.text.success']}" id="successText" styleClass="hidden"/>
-        <ice:outputText value="#{visual['loader.text.error']}" id="errorText" styleClass="hidden"/>
+        <div class="hidden">
+            <ice:outputText value="#{diagramController.requestError}" id="externalVarRequestError"/>
+            <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId"/>
+            <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl"/>
+            <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl"/>
+            <ice:outputText value="#{diagramController.backUrl}" id="externalVarBackUrl"/>
+
+            <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText"/>
+            <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText"/>
+
+            <ice:outputText value="#{visual['loader.text.load']}" id="loadingText"/>
+            <ice:outputText value="#{visual['loader.text.save']}" id="savingText"/>
+            <ice:outputText value="#{visual['loader.text.success']}" id="successText"/>
+            <ice:outputText value="#{visual['loader.text.error']}" id="errorText"/>
+        </div>
+
         <div class="smallMenu project">
             <div class="title"><ice:outputText value="#{visual['menu.project']}" nospan="true" /></div>
             <ul>
-                <li id="save"><ice:outputText value="#{visual['menu.project.save']}" nospan="true" /></li>
+                <li id="save"><ice:outputText value="#{visual['menu.project.save']}"/></li>
+                <li id="refresh"><ice:outputText value="#{visual['menu.project.refresh']}"/></li>
+                <li id="back"><ice:outputText value="#{visual['menu.project.back']}"/></li>
             </ul>
         </div>
         <div class="smallMenu decisions">
