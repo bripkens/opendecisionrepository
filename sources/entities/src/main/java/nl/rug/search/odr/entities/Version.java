@@ -63,13 +63,11 @@ public class Version extends BaseEntity<Version> {
     @ManyToMany
     private Collection<Concern> concerns;
 
-    
     @OneToMany(cascade = CascadeType.ALL,
                mappedBy = "source",
                orphanRemoval = true)
     private Collection<Relationship> outgoingRelationships;
 
-    
     @OneToMany(cascade = CascadeType.ALL,
                mappedBy = "target",
                orphanRemoval = true)
@@ -307,57 +305,6 @@ public class Version extends BaseEntity<Version> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Collection<Relationship> getIncomingRelationships() {
         return Collections.unmodifiableCollection(incomingRelationships);
     }
@@ -415,6 +362,8 @@ public class Version extends BaseEntity<Version> {
     public void removeAllIncomingRelationships() {
         incomingRelationships.clear();
     }
+
+
 
 
     public Collection<ProjectMember> getInitiators() {
@@ -477,11 +426,25 @@ public class Version extends BaseEntity<Version> {
         return documentedWhen != null && decidedWhen != null && state != null && !initiators.isEmpty();
     }
 
+
+
+
     public static class DecidedWhenComparator implements Comparator<Version> {
 
         @Override
         public int compare(Version o1, Version o2) {
             return o1.decidedWhen.compareTo(o2.decidedWhen);
         }
+
+
+
+
     }
+
+
+
+
 }
+
+
+

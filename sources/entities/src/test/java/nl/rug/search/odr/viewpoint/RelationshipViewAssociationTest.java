@@ -12,16 +12,16 @@ import static nl.rug.search.odr.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class AssociationTest {
+public class RelationshipViewAssociationTest {
 
-    private Association association;
+    private RelationshipViewAssociation association;
 
 
 
 
     @Before
     public void setUp() {
-        association = new Association();
+        association = new RelationshipViewAssociation();
     }
 
 

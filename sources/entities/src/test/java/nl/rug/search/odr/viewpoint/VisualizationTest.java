@@ -141,8 +141,8 @@ public class VisualizationTest {
 
     @Test
     public void testAssociations() {
-        Association a1 = new Association();
-        Association a2 = new Association();
+        RelationshipViewAssociation a1 = new RelationshipViewAssociation();
+        RelationshipViewAssociation a2 = new RelationshipViewAssociation();
 
         v.addAssociation(a1);
 
@@ -164,7 +164,7 @@ public class VisualizationTest {
         assertFalse(containsReference(v.getAssociations(), a1));
         assertFalse(containsReference(v.getAssociations(), a2));
 
-        List<Association> associations = new ArrayList<Association>();
+        List<RelationshipViewAssociation> associations = new ArrayList<RelationshipViewAssociation>();
         associations.add(a1);
 
         v.setAssociations(associations);

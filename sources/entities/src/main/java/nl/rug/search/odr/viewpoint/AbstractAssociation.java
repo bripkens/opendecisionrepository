@@ -3,22 +3,20 @@ package nl.rug.search.odr.viewpoint;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import nl.rug.search.odr.entities.BaseEntity;
-import nl.rug.search.odr.entities.Relationship;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@Entity
-public class Association extends BaseEntity<Association> {
+@MappedSuperclass
+public abstract class AbstractAssociation extends BaseEntity<AbstractAssociation> {
 
     private static final long serialVersionUID = 1l;
 
@@ -33,10 +31,6 @@ public class Association extends BaseEntity<Association> {
     @RequiredFor(Viewpoint.RELATIONSHIP)
     private int labelY;
 
-    @ManyToOne
-    @RequiredFor(Viewpoint.RELATIONSHIP)
-    private Relationship relationship;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     @OrderColumn
@@ -46,7 +40,7 @@ public class Association extends BaseEntity<Association> {
 
 
 
-    public Association() {
+    public AbstractAssociation() {
         handles = new ArrayList<Handle>();
     }
 
@@ -60,43 +54,8 @@ public class Association extends BaseEntity<Association> {
 
 
 
-    public void removeHandle(Handle handle) {
-        handles.remove(handle);
-    }
-
-
-
-
     public List<Handle> getHandles() {
         return handles;
-    }
-
-
-
-
-    public void setHandles(List<Handle> handles) {
-        this.handles = handles;
-    }
-
-
-
-
-    public void removeAllHandles() {
-        handles.clear();
-    }
-
-
-
-
-    public Relationship getRelationship() {
-        return relationship;
-    }
-
-
-
-
-    public void setRelationship(Relationship relationship) {
-        this.relationship = relationship;
     }
 
 
@@ -110,23 +69,8 @@ public class Association extends BaseEntity<Association> {
 
 
 
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-
-
     public int getLabelX() {
         return labelX;
-    }
-
-
-
-
-    public void setLabelX(int labelX) {
-        this.labelX = labelX;
     }
 
 
@@ -139,24 +83,44 @@ public class Association extends BaseEntity<Association> {
 
 
 
+    public void removeAllHandles() {
+        handles.clear();
+    }
+
+
+
+
+    public void removeHandle(Handle handle) {
+        handles.remove(handle);
+    }
+
+
+
+
+    public void setHandles(List<Handle> handles) {
+        this.handles = handles;
+    }
+
+
+
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+
+
+    public void setLabelX(int labelX) {
+        this.labelX = labelX;
+    }
+
+
+
+
     public void setLabelY(int labelY) {
         this.labelY = labelY;
-    }
-
-
-
-
-    @Override
-    public boolean isPersistable() {
-        return relationship != null;
-    }
-
-
-
-
-    @Override
-    protected Object[] getCompareData() {
-        return new Object[]{};
     }
 
 
