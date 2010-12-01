@@ -29,7 +29,7 @@ public class ChronologicalViewNode extends AbstractNode {
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private Iteration iteration;
 
-
+    private boolean endPoint;
 
 
     public Iteration getIteration() {
@@ -56,6 +56,18 @@ public class ChronologicalViewNode extends AbstractNode {
     }
 
 
+
+
+    public boolean isEndPoint() {
+        return endPoint;
+    }
+
+
+
+
+    public void setEndPoint(boolean endPoint) {
+        this.endPoint = endPoint;
+    }
 
 
     @Override

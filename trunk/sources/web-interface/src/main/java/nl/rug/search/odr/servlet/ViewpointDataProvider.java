@@ -16,11 +16,13 @@ import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
+import nl.rug.search.odr.viewpoint.AbstractVisualization;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.relationship.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
+import nl.rug.search.odr.viewpoint.chronological.InitChronologicalView;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
@@ -122,7 +124,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
             Gson gson = GsonUtil.getDefaultGson(new ViewpointExclusionStrategy(point));
 
-            RelationshipViewVisualization v = getVisualization(p, point);
+            AbstractVisualization v = getVisualization(p, point);
 
             out.print(gson.toJson(v));
         } finally {
@@ -133,12 +135,15 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private RelationshipViewVisualization getVisualization(Project p, Viewpoint point) {
+    private AbstractVisualization getVisualization(Project p, Viewpoint point) {
         if (point == Viewpoint.RELATIONSHIP) {
             return getRelationshipVisualization(p);
+        } else if (point == Viewpoint.CHRONOLOGICAL) {
+            return getChronologicalVisualization(p);
         }
 
-        throw new UnsupportedOperationException("Only the relationship viewpoint is supported");
+        throw new UnsupportedOperationException("Viewpoint " +
+                point + " is not supported.");
     }
 
 
@@ -195,9 +200,18 @@ public class ViewpointDataProvider extends HttpServlet {
         v = vl.getById(v.getId());
     }
 
+
+
+
+    private AbstractVisualization getChronologicalVisualization(Project p) {
+        InitChronologicalView icv = new InitChronologicalView(p);
+
+        return icv.getView();
+    }
+
+
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
-
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -239,6 +253,10 @@ public class ViewpointDataProvider extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+
+
+
 }
 
 
