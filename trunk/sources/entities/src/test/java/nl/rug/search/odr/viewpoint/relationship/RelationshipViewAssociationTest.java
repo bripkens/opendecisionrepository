@@ -1,8 +1,10 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import java.util.ArrayList;
 import java.util.List;
 import nl.rug.search.odr.entities.Relationship;
+import nl.rug.search.odr.viewpoint.Handle;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;

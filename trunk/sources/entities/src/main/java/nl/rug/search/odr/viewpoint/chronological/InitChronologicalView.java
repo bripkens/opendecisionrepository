@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.chronological;
 
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,7 +27,7 @@ public class InitChronologicalView {
 
     private final Project project;
 
-    private Visualization visualization;
+    private RelationshipViewVisualization visualization;
 
     private Map<Long[], List<Version>> versionsForStakeholderGroups;
 
@@ -42,9 +43,8 @@ public class InitChronologicalView {
 
 
 
-    public Visualization getView() {
-        visualization = new Visualization();
-        visualization.setType(Viewpoint.CHRONOLOGICAL);
+    public RelationshipViewVisualization getView() {
+        visualization = new RelationshipViewVisualization();
 
         versionsForStakeholderGroups = new HashMap<Long[], List<Version>>();
         columnsForIterations = new ArrayList<IterationSpan>();

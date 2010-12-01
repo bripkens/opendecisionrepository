@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.viewpoint.Visualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 import static org.junit.Assert.*;
 import static nl.rug.search.odr.Assert.*;
 import org.junit.Before;
@@ -842,39 +842,39 @@ public class ProjectTest {
 
     @Test
     public void testVisualizations() {
-        Visualization v1 = new Visualization();
+        RelationshipViewVisualization v1 = new RelationshipViewVisualization();
         v1.setName("Visualization 1");
-        Visualization v2 = new Visualization();
+        RelationshipViewVisualization v2 = new RelationshipViewVisualization();
         v2.setName("Visualization 2");
 
-        p.addVisualization(v1);
+        p.addRelationshipView(v1);
 
-        assertTrue(containsReference(p.getVisualizations(), v1));
-        assertFalse(containsReference(p.getVisualizations(), v2));
+        assertTrue(containsReference(p.getRelationshipViews(), v1));
+        assertFalse(containsReference(p.getRelationshipViews(), v2));
 
-        p.addVisualization(v2);
+        p.addRelationshipView(v2);
 
-        assertTrue(containsReference(p.getVisualizations(), v1));
-        assertTrue(containsReference(p.getVisualizations(), v2));
+        assertTrue(containsReference(p.getRelationshipViews(), v1));
+        assertTrue(containsReference(p.getRelationshipViews(), v2));
 
-        p.removeVisualization(v1);
+        p.removeRelationshipView(v1);
 
-        assertFalse(containsReference(p.getVisualizations(), v1));
-        assertTrue(containsReference(p.getVisualizations(), v2));
+        assertFalse(containsReference(p.getRelationshipViews(), v1));
+        assertTrue(containsReference(p.getRelationshipViews(), v2));
 
-        p.removeAllVisualizations();
+        p.removeAllRelationshipViews();
 
-        assertFalse(containsReference(p.getVisualizations(), v1));
-        assertFalse(containsReference(p.getVisualizations(), v2));
+        assertFalse(containsReference(p.getRelationshipViews(), v1));
+        assertFalse(containsReference(p.getRelationshipViews(), v2));
 
-        List<Visualization> visualizations = new ArrayList<Visualization>();
+        List<RelationshipViewVisualization> visualizations = new ArrayList<RelationshipViewVisualization>();
         visualizations.add(v1);
         visualizations.add(v2);
 
-        p.setViusliations(visualizations);
+        p.setRelationshipViews(visualizations);
 
-        assertTrue(containsReference(p.getVisualizations(), v1));
-        assertTrue(containsReference(p.getVisualizations(), v2));
+        assertTrue(containsReference(p.getRelationshipViews(), v1));
+        assertTrue(containsReference(p.getRelationshipViews(), v2));
     }
 
 }

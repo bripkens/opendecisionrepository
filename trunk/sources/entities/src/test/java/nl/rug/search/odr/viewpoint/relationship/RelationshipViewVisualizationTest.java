@@ -1,9 +1,13 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.entities.Version;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import nl.rug.search.odr.viewpoint.Node;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -13,16 +17,16 @@ import static nl.rug.search.odr.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class VisualizationTest {
+public class RelationshipViewVisualizationTest {
 
-    private Visualization v;
+    private RelationshipViewVisualization v;
 
 
 
 
     @Before
     public void setUp() {
-        v = new Visualization();
+        v = new RelationshipViewVisualization();
     }
 
 
@@ -35,7 +39,7 @@ public class VisualizationTest {
         assertTrue(v.getAssociations().isEmpty());
         assertTrue(v.getNodes().isEmpty());
         assertNull(v.getDocumentedWhen());
-        assertNull(v.getType());
+        assertEquals(Viewpoint.RELATIONSHIP, v.getType());
     }
 
 
@@ -73,16 +77,6 @@ public class VisualizationTest {
     }
 
 
-
-
-    @Test
-    public void testViewpoint() {
-        Viewpoint type = Viewpoint.CHRONOLOGICAL;
-
-        v.setType(type);
-
-        assertEquals(type, v.getType());
-    }
 
 
 
@@ -202,10 +196,6 @@ public class VisualizationTest {
 
         assertFalse(v.isPersistable());
 
-        v.setType(type);
-
-        assertFalse(v.isPersistable());
-
         v.addNode(new Node());
 
         assertTrue(v.isPersistable());
@@ -217,7 +207,6 @@ public class VisualizationTest {
     @Test
     public void testIsPersistableOtherway() {
         Date now = new Date();
-        Viewpoint type = Viewpoint.RELATIONSHIP;
 
         assertFalse(v.isPersistable());
 
@@ -226,10 +215,6 @@ public class VisualizationTest {
         assertFalse(v.isPersistable());
 
         v.addNode(new Node());
-
-        assertFalse(v.isPersistable());
-
-        v.setType(type);
 
         assertTrue(v.isPersistable());
     }
@@ -241,17 +226,15 @@ public class VisualizationTest {
     public void testCompareData() {
         String name = "someDiagram";
         Date now = new Date();
-        Viewpoint type = Viewpoint.STAKEHOLDER_INVOLVEMENT;
 
         v.setDocumentedWhen(now);
         v.setName(name);
-        v.setType(type);
 
-        Object[] data = v.getCompareData();
+        RelationshipViewVisualization v2 = new RelationshipViewVisualization();
+        v2.setDocumentedWhen(now);
+        v2.setName(name);
 
-        assertEquals(now, data[0]);
-        assertEquals(name, data[1]);
-        assertEquals(type, data[2]);
+        assertEquals(v2, v);
     }
 
 
@@ -259,7 +242,7 @@ public class VisualizationTest {
 
     @Test
     public void testContainsVersion() {
-        v = new Visualization();
+        v = new RelationshipViewVisualization();
 
         Node n1 = new Node();
         n1.setVisible(true);

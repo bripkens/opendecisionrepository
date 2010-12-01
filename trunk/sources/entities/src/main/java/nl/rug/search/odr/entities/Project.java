@@ -18,7 +18,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
-import nl.rug.search.odr.viewpoint.Visualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  *
@@ -98,7 +98,7 @@ public class Project extends BaseEntity<Project> {
 
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
-    private List<Visualization> visualizations;
+    private List<RelationshipViewVisualization> relationshipViews;
 
 
     public Project() {
@@ -109,7 +109,7 @@ public class Project extends BaseEntity<Project> {
         concerns = new ArrayList<Concern>();
         states = new ArrayList<State>();
         relationshipTypes = new ArrayList<RelationshipType>();
-        visualizations = new ArrayList<Visualization>();
+        relationshipViews = new ArrayList<RelationshipViewVisualization>();
     }
 
 
@@ -521,33 +521,33 @@ public class Project extends BaseEntity<Project> {
 
 
 
-    public void addVisualization(Visualization v) {
+    public void addRelationshipView(RelationshipViewVisualization v) {
         assert v != null;
 
-        visualizations.add(v);
+        relationshipViews.add(v);
     }
 
 
-    public void removeVisualization(Visualization v) {
+    public void removeRelationshipView(RelationshipViewVisualization v) {
         assert v != null;
 
-        visualizations.remove(v);
+        relationshipViews.remove(v);
     }
 
 
-    public void setViusliations(List<Visualization> visualizations) {
+    public void setRelationshipViews(List<RelationshipViewVisualization> visualizations) {
         assert visualizations != null;
 
-        this.visualizations = visualizations;
+        this.relationshipViews = visualizations;
     }
 
 
-    public List<Visualization> getVisualizations() {
-        return Collections.unmodifiableList(visualizations);
+    public List<RelationshipViewVisualization> getRelationshipViews() {
+        return Collections.unmodifiableList(relationshipViews);
     }
 
-    public void removeAllVisualizations() {
-        visualizations.clear();
+    public void removeAllRelationshipViews() {
+        relationshipViews.clear();
     }
 
     @Override

@@ -1,10 +1,15 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
+import nl.rug.search.odr.viewpoint.relationship.InitRelationshipView;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.entities.Relationship;
 import java.util.Date;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.Version;
+import nl.rug.search.odr.viewpoint.AbstractAssociation;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
@@ -100,7 +105,7 @@ public class InitRelationshipViewTest {
 
 
         InitRelationshipView irv = new InitRelationshipView(project);
-        Visualization v = irv.getView();
+        RelationshipViewVisualization v = irv.getView();
 
         assertSame(project, irv.getProject());
         assertEquals(Viewpoint.RELATIONSHIP, v.getType());
@@ -117,9 +122,9 @@ public class InitRelationshipViewTest {
 
 
 
-    private boolean containsRelationship(Visualization v, Relationship r) {
-        for (RelationshipViewAssociation a : v.getAssociations()) {
-            if (a.getRelationship() == r) {
+    private boolean containsRelationship(RelationshipViewVisualization v, Relationship r) {
+        for (AbstractAssociation a : v.getAssociations()) {
+            if (((RelationshipViewAssociation) a).getRelationship() == r) {
                 return true;
             }
         }
@@ -206,7 +211,7 @@ public class InitRelationshipViewTest {
 
 
         InitRelationshipView irv = new InitRelationshipView(project);
-        Visualization v = irv.getView();
+        RelationshipViewVisualization v = irv.getView();
         assertTrue(containsRelationship(v, r3));
 
 

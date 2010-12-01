@@ -1,4 +1,4 @@
-package nl.rug.search.odr.viewpoint;
+package nl.rug.search.odr.viewpoint.relationship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import nl.rug.search.odr.entities.BaseEntity;
 import nl.rug.search.odr.entities.Relationship;
+import nl.rug.search.odr.viewpoint.AbstractAssociation;
+import nl.rug.search.odr.viewpoint.RequiredFor;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *

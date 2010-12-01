@@ -176,6 +176,14 @@
                                     <artifactId>cobertura-maven-plugin</artifactId>
                                     <version>2.4</version>
                                     <configuration>
+                                        <instrumentation>
+                                            <ignores>
+                                                <ignore>nl.rug.search.opr.entities.*</ignore>
+                                            </ignores>
+                                            <excludes>
+                                                <exclude>nl/rug/search/opr/**/*.class</exclude>
+                                            </excludes>
+                                        </instrumentation>
                                         <formats>
                                             <format>xml</format>
                                             <format>html</format>
