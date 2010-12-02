@@ -29,7 +29,7 @@ public class InitChronologicalView {
 
     private ChronologicalViewVisualization visualization;
 
-    private Map<Long[], List<Version>> versionsForStakeholderGroups;
+    private Map<List<Long>, List<Version>> versionsForStakeholderGroups;
 
     private List<IterationSpan> columnsForIterations;
 
@@ -46,7 +46,7 @@ public class InitChronologicalView {
     public ChronologicalViewVisualization getView() {
         visualization = new ChronologicalViewVisualization();
 
-        versionsForStakeholderGroups = new HashMap<Long[], List<Version>>();
+        versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
         columnsForIterations = new ArrayList<IterationSpan>();
 
         assignVersionsToStakeholderGroups();
@@ -81,7 +81,7 @@ public class InitChronologicalView {
 
 
     private void assignVersionToStakeholderGroup(Version v) {
-        Long[] identification = generateProjectMemberIdentification(v);
+        List<Long> identification = generateProjectMemberIdentification(v);
 
         List<Version> versions = versionsForStakeholderGroups.get(identification);
 
@@ -103,17 +103,16 @@ public class InitChronologicalView {
      * @param v The version for which the identification should be generated
      * @return  the identification
      */
-    private Long[] generateProjectMemberIdentification(Version v) {
+    private List<Long> generateProjectMemberIdentification(Version v) {
         Collection<ProjectMember> initiators = v.getInitiators();
 
-        Long[] identification = new Long[initiators.size()];
+        List<Long> identification = new ArrayList<Long>(initiators.size());
 
-        int i = 0;
         for (ProjectMember pm : initiators) {
-            identification[i++] = pm.getId();
+            identification.add(pm.getId());
         }
 
-        Arrays.sort(identification);
+        Collections.sort(identification);
 
         return identification;
     }
@@ -136,7 +135,7 @@ public class InitChronologicalView {
 
 
     private void addVersionsWhichWereMadeDuringIteration(IterationSpan ispan) {
-        for (Entry<Long[], List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
+        for (Entry<List<Long>, List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
             for (Version version : entry.getValue()) {
                 if (createdDuringIteration(ispan.it, version)) {
                     ispan.addVersion(entry.getKey(), version);
@@ -265,20 +264,20 @@ public class InitChronologicalView {
 
         private Iteration it;
 
-        private Map<Long[], List<Version>> versionsForStakeholderGroups;
+        private Map<List<Long>, List<Version>> versionsForStakeholderGroups;
 
 
 
 
         public IterationSpan(Iteration it) {
             this.it = it;
-            this.versionsForStakeholderGroups = new HashMap<Long[], List<Version>>();
+            this.versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
         }
 
 
 
 
-        public void addVersion(Long[] group, Version v) {
+        public void addVersion(List<Long> group, Version v) {
             List<Version> versions = versionsForStakeholderGroups.get(group);
 
             if (versions == null) {
@@ -295,7 +294,7 @@ public class InitChronologicalView {
         public List<List<Version>> getOrderedVersions() {
             List<List<Version>> allVersionsInGroups = new ArrayList<List<Version>>(versionsForStakeholderGroups.size());
 
-            for (Entry<Long[], List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
+            for (Entry<List<Long>, List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
 
                 Collections.sort(entry.getValue(), new Version.DecidedWhenComparator());
 
