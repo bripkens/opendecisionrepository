@@ -239,7 +239,7 @@ public class ProjectDetailsController {
     public void deleteConcern() {
         for (Concern co : project.getConcerns()) {
             if (co.getId().equals(concernToDeleteId)) {
-                project.removeConcern(co);
+                project.removeConcernsByGroup(co);
                 break;
             }
         }
