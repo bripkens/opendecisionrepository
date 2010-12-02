@@ -424,19 +424,22 @@ public class Project extends BaseEntity<Project> {
         if (this.concerns.isEmpty()) {
             return Collections.emptyList();
         }
-        List<Concern> concerns = new ArrayList(this.concerns);
-        Collections.sort(concerns, new Concern.GroupDateComparator());
-        Collections.reverse(concerns);
+        List<Concern> concernList = new ArrayList(this.concerns);
+
+        Collections.sort(concernList, new Concern.GroupDateComparator());
 
         Long groupId = null;
         List<Concern> onlyNewest = new ArrayList<Concern>();
 
-        for (Concern con : concerns) {
+        for (Concern con : concernList) {
             if (groupId == null || !groupId.equals(con.getGroup())) {
                 onlyNewest.add(con);
                 groupId = con.getGroup();
             }
         }
+
+        Collections.reverse(onlyNewest);
+
         return onlyNewest;
     }
 
