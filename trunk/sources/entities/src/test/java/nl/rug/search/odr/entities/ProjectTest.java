@@ -847,52 +847,52 @@ public class ProjectTest {
         Concern co_1 = new Concern();
         co_1.setName("1");
         co_1.setGroup(1L);
-        co_1.setCreatedWhen(new Date());
+        co_1.setCreatedWhen(new Date(1000));
 
         Concern co_2 = new Concern();
         co_2.setName("2");
         co_2.setGroup(2L);
-        co_2.setCreatedWhen(new Date());
+        co_2.setCreatedWhen(new Date(2000));
 
         Concern co_3 = new Concern();
         co_3.setName("3");
         co_3.setGroup(3L);
-        co_3.setCreatedWhen(new Date());
+        co_3.setCreatedWhen(new Date(3000));
 
         Concern co_4 = new Concern();
         co_4.setName("4");
         co_4.setGroup(4L);
-        co_4.setCreatedWhen(new Date());
+        co_4.setCreatedWhen(new Date(4000));
 
         Concern co_2_1 = new Concern();
         co_2_1.setName("2_1");
         co_2_1.setGroup(2L);
-        co_2_1.setCreatedWhen(new Date());
+        co_2_1.setCreatedWhen(new Date(5000));
 
         Concern co_2_2 = new Concern();
         co_2_2.setName("2_2");
         co_2_2.setGroup(2L);
-        co_2_2.setCreatedWhen(new Date());
+        co_2_2.setCreatedWhen(new Date(6000));
 
         Concern co_3_1 = new Concern();
         co_3_1.setName("3_1");
         co_3_1.setGroup(3L);
-        co_3_1.setCreatedWhen(new Date());
+        co_3_1.setCreatedWhen(new Date(7000));
 
         Concern co_1_1 = new Concern();
         co_1_1.setName("1_1");
         co_1_1.setGroup(1L);
-        co_1_1.setCreatedWhen(new Date());
+        co_1_1.setCreatedWhen(new Date(8000));
 
         Concern co_3_3 = new Concern();
         co_3_3.setName("3_3");
         co_3_3.setGroup(3L);
-        co_3_3.setCreatedWhen(new Date());
+        co_3_3.setCreatedWhen(new Date(9000));
 
         Concern co_5 = new Concern();
         co_5.setName("5");
         co_5.setGroup(5L);
-        co_5.setCreatedWhen(new Date());
+        co_5.setCreatedWhen(new Date(10000));
 
         p.addConcern(co_1);
         p.addConcern(co_2);
@@ -906,7 +906,6 @@ public class ProjectTest {
         p.addConcern(co_5);
 
         List<Concern> newestVersions = p.getDestinctConcerns();
-
 
         assertEquals(co_5, newestVersions.get(0));
         assertEquals(co_4, newestVersions.get(1));
