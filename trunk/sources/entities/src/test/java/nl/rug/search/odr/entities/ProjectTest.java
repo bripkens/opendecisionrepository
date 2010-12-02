@@ -2,6 +2,7 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
@@ -100,13 +101,13 @@ public class ProjectTest {
     @Test(expected = BusinessException.class)
     public void testNameTooLong() {
         p.setName("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                + " ");
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                  + " ");
     }
 
 
@@ -806,6 +807,7 @@ public class ProjectTest {
 
 
 
+
     @Test
     public void comparatorTest() {
         p.setName("AAAAA");
@@ -815,6 +817,7 @@ public class ProjectTest {
 
         assertTrue(new Project.NameComparator().compare(p, p2) < 0);
     }
+
 
 
 
@@ -836,6 +839,82 @@ public class ProjectTest {
         assertNull(p.getDecision(3l));
     }
 
+
+
+
+    @Test
+    public void testGetDestinctConcerns() {
+        Concern co_1 = new Concern();
+        co_1.setName("1");
+        co_1.setGroup(1L);
+        co_1.setCreatedWhen(new Date());
+
+        Concern co_2 = new Concern();
+        co_2.setName("2");
+        co_2.setGroup(2L);
+        co_2.setCreatedWhen(new Date());
+
+        Concern co_3 = new Concern();
+        co_3.setName("3");
+        co_3.setGroup(3L);
+        co_3.setCreatedWhen(new Date());
+
+        Concern co_4 = new Concern();
+        co_4.setName("4");
+        co_4.setGroup(4L);
+        co_4.setCreatedWhen(new Date());
+
+        Concern co_2_1 = new Concern();
+        co_2_1.setName("2_1");
+        co_2_1.setGroup(2L);
+        co_2_1.setCreatedWhen(new Date());
+
+        Concern co_2_2 = new Concern();
+        co_2_2.setName("2_2");
+        co_2_2.setGroup(2L);
+        co_2_2.setCreatedWhen(new Date());
+
+        Concern co_3_1 = new Concern();
+        co_3_1.setName("3_1");
+        co_3_1.setGroup(3L);
+        co_3_1.setCreatedWhen(new Date());
+
+        Concern co_1_1 = new Concern();
+        co_1_1.setName("1_1");
+        co_1_1.setGroup(1L);
+        co_1_1.setCreatedWhen(new Date());
+
+        Concern co_3_3 = new Concern();
+        co_3_3.setName("3_3");
+        co_3_3.setGroup(3L);
+        co_3_3.setCreatedWhen(new Date());
+
+        Concern co_5 = new Concern();
+        co_5.setName("5");
+        co_5.setGroup(5L);
+        co_5.setCreatedWhen(new Date());
+
+        p.addConcern(co_1);
+        p.addConcern(co_2);
+        p.addConcern(co_3);
+        p.addConcern(co_4);
+        p.addConcern(co_2_1);
+        p.addConcern(co_2_2);
+        p.addConcern(co_3_1);
+        p.addConcern(co_1_1);
+        p.addConcern(co_3_3);
+        p.addConcern(co_5);
+
+        List<Concern> newestVersions = p.getDestinctConcerns();
+
+
+        assertEquals(co_5, newestVersions.get(0));
+        assertEquals(co_4, newestVersions.get(1));
+        assertEquals(co_3_3, newestVersions.get(2));
+        assertEquals(co_2_2, newestVersions.get(3));
+        assertEquals(co_1_1, newestVersions.get(4));
+
+    }
 
 
 
@@ -876,5 +955,4 @@ public class ProjectTest {
         assertTrue(containsReference(p.getRelationshipViews(), v1));
         assertTrue(containsReference(p.getRelationshipViews(), v2));
     }
-
 }

@@ -42,63 +42,50 @@ import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
-
     public static final String NAMED_QUERY_IS_NAME_USED = "Project.isNameUsed";
-
     public static final String NAMED_QUERY_GET_ALL_PROJECTS_FROM_USER = "Project.getAllProjectsFromUser";
-
     public static final String NAMED_QUERY_IS_MEMBER = "Project.isMember";
-
     public static final String NAMED_QUERY_GET_BY_NAME = "Project.getByName";
-
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Column(length = 50,
             nullable = false,
             unique = true,
             updatable = false)
     private String name;
-
     @Column(length = 1000)
     private String description;
-
     @OneToMany(mappedBy = "project",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<ProjectMember> members;
-
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Iteration> iterations;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<StakeholderRole> roles;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<State> states;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<RelationshipType> relationshipTypes;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Concern> concerns;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Decision> decisions;
-
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private List<RelationshipViewVisualization> relationshipViews;
+
+
 
 
     public Project() {
@@ -365,8 +352,9 @@ public class Project extends BaseEntity<Project> {
 
 
 
+
     public Decision getDecision(long decisionId) {
-        for(Decision decision : decisions) {
+        for (Decision decision : decisions) {
             if (decision.getId() != null && decision.getId().equals(decisionId)) {
                 return decision;
             }
@@ -374,6 +362,8 @@ public class Project extends BaseEntity<Project> {
 
         return null;
     }
+
+
 
 
     public void removeAllDecisions() {
@@ -424,6 +414,30 @@ public class Project extends BaseEntity<Project> {
 
     public void removeAllConcerns() {
         concerns.clear();
+    }
+
+
+
+
+    public List<Concern> getDestinctConcerns() {
+
+        if (this.concerns.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Concern> concerns = new ArrayList(this.concerns);
+        Collections.sort(concerns, new Concern.GroupDateComparator());
+        Collections.reverse(concerns);
+
+        Long groupId = null;
+        List<Concern> onlyNewest = new ArrayList<Concern>();
+
+        for (Concern con : concerns) {
+            if (groupId == null || !groupId.equals(con.getGroup())) {
+                onlyNewest.add(con);
+                groupId = con.getGroup();
+            }
+        }
+        return onlyNewest;
     }
 
 
@@ -528,11 +542,15 @@ public class Project extends BaseEntity<Project> {
     }
 
 
+
+
     public void removeRelationshipView(RelationshipViewVisualization v) {
         assert v != null;
 
         relationshipViews.remove(v);
     }
+
+
 
 
     public void setRelationshipViews(List<RelationshipViewVisualization> visualizations) {
@@ -542,13 +560,21 @@ public class Project extends BaseEntity<Project> {
     }
 
 
+
+
     public List<RelationshipViewVisualization> getRelationshipViews() {
         return Collections.unmodifiableList(relationshipViews);
     }
 
+
+
+
     public void removeAllRelationshipViews() {
         relationshipViews.clear();
     }
+
+
+
 
     @Override
     public boolean isPersistable() {
