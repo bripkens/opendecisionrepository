@@ -79,4 +79,9 @@ public abstract class ErrorUtil {
         ErrorUtil.showErrorMessageUsingExpression("#{error['no.permission.concern.id.heading']}",
                 "#{error['no.permission.concern.id.message']}");
     }
+
+    public static void showInvalidParametersError() {
+        ErrorUtil.showErrorMessageUsingExpression("#{error['invalid.parameter.heading']}",
+                "#{error['invalid.parameter.message']}");
+    }
 }

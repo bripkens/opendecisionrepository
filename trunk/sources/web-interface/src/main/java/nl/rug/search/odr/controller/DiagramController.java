@@ -7,13 +7,14 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
-import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.util.ErrorUtil;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -33,10 +34,15 @@ public class DiagramController {
 
     private ProjectMember member;
 
+    private Viewpoint point;
+
     private boolean requestError;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="construction">
+
+
+
     @PostConstruct
     private void setUp() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().
@@ -53,6 +59,14 @@ public class DiagramController {
             return;
         }
 
+        point = RequestAnalyser.getViewpoint(request);
+
+        if (point == null) {
+            ErrorUtil.showInvalidParametersError();
+            requestError = true;
+            return;
+        }
+
         project = result.getProject();
         member = result.getMember();
         requestError = false;
@@ -61,17 +75,60 @@ public class DiagramController {
 
 
     // <editor-fold defaultstate="collapsed" desc="getter and setter">
+
+
     public String getDataRequestUrl() {
         return Filename.VIEWPOINT_DATA_PROVIDER;
     }
+
+
+
 
     public String getDataTargetUrl() {
         return Filename.VIEWPOINT_DATA_RECEIVER;
     }
 
+
+    public String getProjectIdParameter() {
+        return RequestParameter.ID;
+    }
+
+    public String getDataParameter() {
+        return RequestParameter.DATA;
+    }
+
     public String getBackUrl() {
         return RequestParameter.PROJECT_PATH_SHORT.substring(1).concat(project.getName());
     }
+
+
+    public String getChronologicalViewParameterName() {
+        return RequestParameter.CHRONOLOGICAL_VIEWPOINT;
+    }
+
+    public String getRelationshipViewParameterName() {
+        return RequestParameter.RELATIONSHIP_VIEWPOINT;
+    }
+
+    public String getStakeholderInvolvementViewParameterName() {
+        return RequestParameter.STAKEHOLDER_VIEWPOINT;
+    }
+
+    public String getViewpointParameter() {
+        switch (point) {
+            case CHRONOLOGICAL:
+                return RequestParameter.CHRONOLOGICAL_VIEWPOINT;
+            case RELATIONSHIP:
+                return RequestParameter.RELATIONSHIP_VIEWPOINT;
+            case STAKEHOLDER_INVOLVEMENT:
+                return RequestParameter.STAKEHOLDER_VIEWPOINT;
+        }
+
+        throw new RuntimeException("Unknown viewpoint.");
+    }
+
+
+
 
     public ProjectMember getMember() {
         return member;
@@ -114,4 +171,9 @@ public class DiagramController {
     // </editor-fold>
 
 
+
+
 }
+
+
+

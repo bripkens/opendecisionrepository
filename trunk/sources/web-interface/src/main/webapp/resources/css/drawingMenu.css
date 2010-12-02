@@ -7,6 +7,10 @@ body {
     font-size: 11px;
 }
 
+.hidden {
+    display: none;
+}
+
 .grid {
     background-image: url(../images/grid.png);
 }
@@ -165,6 +169,10 @@ body {
     position: relative;
     left: 5px;
     font-size: 11px;
+}
+.decisionSelector span.stereotype {
+    color: darkred;
+    left: 12px;
 }
 .decisionSelector input[type=button] {
     color: white;

@@ -46,24 +46,40 @@ public class ProjectDetailsController {
 
     @EJB
     private ProjectLocal pl;
+
     @EJB
     private StateLocal sl;
+
     @EJB
     private DecisionLocal dl;
+
     @EJB
     private DecisionTemplateLocal dtl;
+
     private long id;
+
     private Project project;
+
     private String decisionName;
+
     private String projectId;
+
     private long iterationToDeleteId;
+
     private long concernToDeleteId;
+
     private String iterationToDeleteName;
+
     private String concernToDeleteName;
+
     public static final String USED_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
+
     private Decision decisionToDelete;
+
     private List<State> states;
+
     private State state;
+
     private State initialState;
     // <editor-fold defaultstate="collapsed" desc="construction">
 
@@ -208,7 +224,6 @@ public class ProjectDetailsController {
 
 
 
-
     public void showDeleteConcernConfirmation(ActionEvent e) {
         Concern co = (Concern) e.getComponent().getAttributes().get("concern");
 
@@ -328,11 +343,25 @@ public class ProjectDetailsController {
 
 
 
+
     public String getRelationshipViewLink() {
         return new QueryStringBuilder().setUrl(Filename.DRAWING).
                 append(RequestParameter.ID, project.getId()).
+                appendBolean(RequestParameter.RELATIONSHIP_VIEWPOINT).
                 toString();
     }
+
+
+
+
+    public String getChronologicalViewLink() {
+        return new QueryStringBuilder().setUrl(Filename.DRAWING).
+                append(RequestParameter.ID, project.getId()).
+                appendBolean(RequestParameter.CHRONOLOGICAL_VIEWPOINT).
+                toString();
+    }
+
+
 
 
     public String getShowConcernLink(Concern co) {
@@ -630,3 +659,6 @@ public class ProjectDetailsController {
     }
     // </editor-fold>
 }
+
+
+
