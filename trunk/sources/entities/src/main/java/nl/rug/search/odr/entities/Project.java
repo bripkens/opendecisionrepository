@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -591,6 +592,29 @@ public class Project extends BaseEntity<Project> {
     protected Object[] getCompareData() {
         return new Object[]{name, description};
     }
+
+
+
+
+    public void removeConcernsByGroup(Concern con) {
+        Iterator<Concern> it = concerns.iterator();
+        while (it.hasNext()) {
+            Concern currentConcern = it.next();
+            if (currentConcern.getGroup().equals(con.getGroup())) {
+                it.remove();
+                removeLinksToConcern(currentConcern);
+            }
+        }
+    }
+
+    private void removeLinksToConcern(Concern concern){
+        for(Decision decision : decisions){
+            for(Version version : decision.getVersions()){
+                version.removeConcern(concern);
+            }
+        }
+    }
+
 
     public static class NameComparator implements Comparator<Project> {
 
