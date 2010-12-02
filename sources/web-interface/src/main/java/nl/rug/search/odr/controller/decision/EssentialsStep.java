@@ -283,8 +283,8 @@ public class EssentialsStep implements WizardStep {
 
 
     public Collection<SelectItem> getAvailableConcerns() {
-        Collection<Concern> allConcernsImmutable = wizard.getProject().
-                getConcerns();
+        List<Concern> allConcernsImmutable = wizard.getProject().
+                getDestinctConcerns();
 
         List<SelectItem> allConcerns = new ArrayList<SelectItem>(allConcernsImmutable.size());
 

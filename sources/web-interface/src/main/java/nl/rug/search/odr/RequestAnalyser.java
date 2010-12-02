@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.viewpoint.Viewpoint;
 
 /**
  *
@@ -49,10 +50,15 @@ public class RequestAnalyser {
         if (!AuthenticationUtil.isAuthtenticated()) {
 
             result.setErrorAction(new Runnable() {
+
                 @Override
                 public void run() {
                     ErrorUtil.showNotAuthenticatedError();
                 }
+
+
+
+
             });
         }
     }
@@ -71,10 +77,15 @@ public class RequestAnalyser {
         if (projectIdParameter == null) {
 
             result.setErrorAction(new Runnable() {
+
                 @Override
                 public void run() {
                     ErrorUtil.showInvalidIdError();
                 }
+
+
+
+
             });
             return;
         }
@@ -86,10 +97,15 @@ public class RequestAnalyser {
         } catch (NumberFormatException e) {
 
             result.setErrorAction(new Runnable() {
+
                 @Override
                 public void run() {
                     ErrorUtil.showInvalidIdError();
                 }
+
+
+
+
             });
             return;
         }
@@ -99,10 +115,15 @@ public class RequestAnalyser {
         if (result.getProject() == null) {
 
             result.setErrorAction(new Runnable() {
+
                 @Override
                 public void run() {
                     ErrorUtil.showIdNotRegisteredError();
                 }
+
+
+
+
             });
         }
     }
@@ -129,12 +150,43 @@ public class RequestAnalyser {
 
 
         result.setErrorAction(new Runnable() {
+
             @Override
             public void run() {
                 ErrorUtil.showNoMemberError();
             }
+
+
+
+
         });
     }
+
+
+
+
+    public static Viewpoint getViewpoint(HttpServletRequest request) {
+        String stakeholderParam = request.getParameter(RequestParameter.STAKEHOLDER_VIEWPOINT);
+        String relationshipParam = request.getParameter(RequestParameter.RELATIONSHIP_VIEWPOINT);
+        String chronologicalParam = request.getParameter(RequestParameter.CHRONOLOGICAL_VIEWPOINT);
+
+        int paramCounter = 0;
+        paramCounter += stakeholderParam != null ? 1 : 0;
+        paramCounter += relationshipParam != null ? 1 : 0;
+        paramCounter += chronologicalParam != null ? 1 : 0;
+
+        if (paramCounter != 1) {
+            return null;
+        }
+
+        Viewpoint point = (stakeholderParam != null) ? Viewpoint.STAKEHOLDER_INVOLVEMENT : Viewpoint.CHRONOLOGICAL;
+        point = (relationshipParam != null) ? Viewpoint.RELATIONSHIP : point;
+
+        return point;
+    }
+
+
+
 
     public static class RequestAnalyserDto {
 
@@ -210,5 +262,16 @@ public class RequestAnalyser {
                 errorAction.run();
             }
         }
+
+
+
+
     }
+
+
+
+
 }
+
+
+

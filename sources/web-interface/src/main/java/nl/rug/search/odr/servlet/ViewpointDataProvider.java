@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
@@ -100,31 +101,23 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-
-
-
-        String stakeholderParam = request.getParameter(RequestParameter.STAKEHOLDER_VIEWPOINT);
-        String relationshipParam = request.getParameter(RequestParameter.RELATIONSHIP_VIEWPOINT);
-        String chronologicalParam = request.getParameter(RequestParameter.CHRONOLOGICAL_VIEWPOINT);
-
-        int paramCounter = 0;
-        paramCounter += stakeholderParam != null ? 1 : 0;
-        paramCounter += relationshipParam != null ? 1 : 0;
-        paramCounter += chronologicalParam != null ? 1 : 0;
-
         try {
-            if (paramCounter != 1) {
+            Viewpoint point = RequestAnalyser.getViewpoint(request);
+
+            if (point == null) {
                 // TODO: Inform the user about the illegal amount of parameters?  This only happens when the user is abusing the system
                 response.sendError(ERROR_CODE);
                 return;
             }
 
-            Viewpoint point = (stakeholderParam != null) ? Viewpoint.STAKEHOLDER_INVOLVEMENT : Viewpoint.CHRONOLOGICAL;
-            point = (relationshipParam != null) ? Viewpoint.RELATIONSHIP : point;
-
             Gson gson = GsonUtil.getDefaultGson(new ViewpointExclusionStrategy(point));
 
             AbstractVisualization v = getVisualization(p, point);
+
+            if (v == null) {
+                response.sendError(ERROR_CODE);
+                return;
+            }
 
             out.print(gson.toJson(v));
         } finally {
@@ -142,8 +135,7 @@ public class ViewpointDataProvider extends HttpServlet {
             return getChronologicalVisualization(p);
         }
 
-        throw new UnsupportedOperationException("Viewpoint " +
-                point + " is not supported.");
+        return null;
     }
 
 

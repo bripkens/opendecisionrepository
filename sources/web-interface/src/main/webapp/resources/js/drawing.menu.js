@@ -188,13 +188,17 @@ odr._saveAll = function() {
     }
 
     var targetUrl = j("#externalVarTargetUrl").text();
-    
+
+    var projectIdParameter = j("#externalVarProjectIdParameterName").text();
+    var dataParameter = j("#externalVarDataParameterName").text();
+
+    var parameter = {};
+    parameter[projectIdParameter] = j("#externalVarProjectId").text();
+    parameter[dataParameter] = odr._createJSONString(odr._requestedData);
+
     j.ajax({
         url : targetUrl,
-        data : {
-            "data" : odr._createJSONString(odr._requestedData),
-            "id" : j("#externalVarProjectId").text()
-        },
+        data : parameter,
         dataType : "json",
         type : "POST",
         success : function(data, textStatus, XMLHttpRequest) {
@@ -320,7 +324,8 @@ odr.addNode = function(name, stereotype, x, y, visible) {
     var container = j(document.createElement("div")).
     addClass("decisionSelector").
     appendTo("div.decisions div.overflowDecisions").
-    append(j(document.createElement("span")).text(name));
+    append(j(document.createElement("span")).text(name)).
+    append(j(document.createElement("span")).text(stereotype).addClass("stereotype"));
 
     var showText = j("span#decisionShowButtonText").text();
     var hideText = j("span#decisionHideButtonText").text();

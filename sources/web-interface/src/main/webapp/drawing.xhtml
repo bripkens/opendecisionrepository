@@ -30,19 +30,33 @@
     <h:body>
         <div class="hidden">
             <ice:outputText value="#{diagramController.requestError}" id="externalVarRequestError"/>
-            <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId"/>
-            <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl"/>
-            <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl"/>
-            <ice:outputText value="#{diagramController.backUrl}" id="externalVarBackUrl"
-                            rendered="#{!diagramController.requestError}"/>
 
-            <ice:outputText value="#{visual['menu.decisions.show']}" id="decisionShowButtonText"/>
-            <ice:outputText value="#{visual['menu.decisions.hide']}" id="decisionHideButtonText"/>
-
+            <ice:outputText value="#{visual['menu.nodes.show']}" id="decisionShowButtonText"/>
+            <ice:outputText value="#{visual['menu.nodes.hide']}" id="decisionHideButtonText"/>
             <ice:outputText value="#{visual['loader.text.load']}" id="loadingText"/>
             <ice:outputText value="#{visual['loader.text.save']}" id="savingText"/>
             <ice:outputText value="#{visual['loader.text.success']}" id="successText"/>
             <ice:outputText value="#{visual['loader.text.error']}" id="errorText"/>
+            <ice:outputText value="#{visual['label.iteration']}" id="iterationStereotype"/>
+            
+            <ice:outputText value="#{diagramController.dataRequestUrl}" id="externalVarRequestUrl"/>
+            <ice:outputText value="#{diagramController.dataTargetUrl}" id="externalVarTargetUrl"/>
+            <ice:outputText value="#{diagramController.dataParameter}" id="externalVarDataParameterName"/>
+            <ice:outputText value="#{diagramController.projectIdParameter}" id="externalVarProjectIdParameterName"/>
+
+            <ice:outputText value="#{diagramController.chronologicalViewParameterName}"
+                            id="externalVarChronologicalViewpointParameterName" />
+            <ice:outputText value="#{diagramController.relationshipViewParameterName}"
+                            id="externalVarRelationshipViewpointParameterName" />
+            <ice:outputText value="#{diagramController.stakeholderInvolvementViewParameterName}"
+                            id="externalVarStakeholderInvolvementViewpointParameterName" />
+
+            <ice:outputText value="#{diagramController.project.id}" id="externalVarProjectId"
+                            rendered="#{!diagramController.requestError}"/>
+            <ice:outputText value="#{diagramController.viewpointParameter}" id="externalVarViewpointParameterName"
+                            rendered="#{!diagramController.requestError}"/>
+            <ice:outputText value="#{diagramController.backUrl}" id="externalVarBackUrl"
+                            rendered="#{!diagramController.requestError}"/>
         </div>
 
         <div class="smallMenu project">
@@ -54,7 +68,7 @@
             </ul>
         </div>
         <div class="smallMenu decisions">
-            <div class="title"><ice:outputText value="#{visual['menu.decisions']}" nospan="true" /></div>
+            <div class="title"><ice:outputText value="#{visual['menu.nodes']}" nospan="true" /></div>
 
             <div class="overflowDecisions">
             </div>
