@@ -156,7 +156,10 @@ odr.drag = {
 
 odr.css = {
     url : "resources/css/drawing.css",
-    inlineStyle : '@import "resources/css/drawing.css";'
+    inlineStyle : '@import "resources/css/drawing.css";',
+    decisionClass : "decision",
+    iterationClass : "iteration",
+    disconnectedClass : "disconnected"
 }
 
 

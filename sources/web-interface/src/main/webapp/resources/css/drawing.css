@@ -9,6 +9,12 @@ svg {
     stroke: black;
     stroke-width: 1;
 }
+.node .disconnected {
+    fill: lightcoral;
+}
+.node .iteration {
+    fill: lightgoldenrodyellow;
+}
 .node .nodeText {
     font-family: "Verdana", sans-serif;
     font-size: 12px;

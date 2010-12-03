@@ -313,10 +313,30 @@ extend(odr.Endpoint, odr.Shape);
 odr.Rectangle = function() {
     odr.Endpoint.call(this);
     this._stereotype = null;
+    this._round = true;
+    this._extraClasses = "";
 }
 
 odr.Rectangle.prototype = {
     _stereotype : null,
+    _round : true,
+    _extraClasses : "",
+    extraClasses : function(extraClasses) {
+        if (extraClasses != undefined) {
+            this._extraClasses = extraClasses;
+            return this;
+        }
+
+        return this._extraClasses;
+    },
+    round : function(round) {
+        if (round != undefined) {
+            this._round = round;
+            return this;
+        }
+
+        return this._round;
+    },
     stereotype : function(stereotype) {
         if (stereotype) {
             this._stereotype = stereotype;
@@ -362,9 +382,16 @@ odr.Rectangle.prototype = {
             "id" : this.extendedId()
         })
 
+        var rx = 0, ry = 0;
+
+        if (this._round) {
+            rx = odr.rectangleSettings.rx;
+            ry = odr.rectangleSettings.ry;
+        }
+
         odr._svg.rect(group, this.x(), this.y(), this.width(),
-            this.height(), odr.rectangleSettings.rx, odr.rectangleSettings.ry, {
-                "class" : odr.rectangleSettings.background["class"],
+            this.height(), rx, ry, {
+                "class" : odr.rectangleSettings.background["class"] + " " + this._extraClasses,
                 "id" : this.backgroundId()
             });
 
@@ -411,7 +438,7 @@ odr.Rectangle.prototype = {
         }
 
         odr._svg.rect(group, this.x(), this.y(), this.width(),
-            this.height(), odr.rectangleSettings.rx, odr.rectangleSettings.ry, {
+            this.height(), rx, ry, {
                 "class" : odr.rectangleSettings.overlay["class"],
                 "id" : this.overlayId()
             });

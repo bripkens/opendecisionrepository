@@ -71,7 +71,7 @@ odr._handleRelationshipViewGet = function(data) {
             y = 50;
         }
 
-        var rectangle = odr.addNode(name, state, x, y, visible);
+        var rectangle = odr.addNode(name, state, state, x, y, visible, true, odr.css.decisionClass);
 
         rectangle.value(currentNode);
 
@@ -135,16 +135,30 @@ odr._handleChronologicalViewGet = function(data) {
 
         var name = null;
         var stereotype = null;
+        var stereotypeToShow = null;
         var id = null;
+        var round;
+        var extraClasses = null;
 
         if (currentNode.Iteration != null) {
             id = currentNode.Iteration.Id;
             name = currentNode.Iteration.Name;
+            stereotypeToShow = currentNode.Iteration.EndDate;
             stereotype = stereotypeForIterations;
+            round = false;
+            extraClasses = odr.css.iterationClass;
         } else {
             id = currentNode.Version.Id;
             name = currentNode.Version.Decision.Name;
+            stereotypeToShow = currentNode.Version.State.StatusName;
             stereotype = currentNode.Version.State.StatusName;
+            round = true;
+
+            if (currentNode.Disconnected) {
+                extraClasses = odr.css.disconnectedClass;
+            } else {
+                extraClasses = odr.css.decisionClass;
+            }
         }
 
         var visible = currentNode.Visible;
@@ -157,7 +171,7 @@ odr._handleChronologicalViewGet = function(data) {
             y = 50;
         }
 
-        var rectangle = odr.addNode(name, stereotype, x, y, visible);
+        var rectangle = odr.addNode(name, stereotype, stereotypeToShow, x, y, visible, round, extraClasses);
 
         rectangle.value(currentNode);
 
