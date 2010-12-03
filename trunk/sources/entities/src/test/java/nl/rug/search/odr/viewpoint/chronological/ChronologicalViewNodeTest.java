@@ -132,11 +132,13 @@ public class ChronologicalViewNodeTest {
         int y = 5;
         boolean visisble = true;
         boolean endpoint = true;
+        boolean disconnected = false;
 
         n.setX(x);
         n.setY(y);
         n.setVisible(visisble);
         n.setEndPoint(endpoint);
+        n.setDisconnected(disconnected);
 
         Object[] data = n.getCompareData();
 
@@ -144,6 +146,7 @@ public class ChronologicalViewNodeTest {
         assertEquals(y, data[1]);
         assertEquals(visisble, data[2]);
         assertEquals(endpoint, data[3]);
+        assertEquals(disconnected, data[4]);
     }
 
 
@@ -160,26 +163,14 @@ public class ChronologicalViewNodeTest {
 
 
 
-
     @Test
-    public void testNameComparator() {
-        ChronologicalViewNode n1 = new ChronologicalViewNode();
-        Version v1 = new Version();
-        Decision d1 = new Decision();
-        d1.setName("aaaaa");
-        v1.setDecision(d1);
-        n1.setVersion(v1);
+    public void testSetDisconnected() {
+        boolean disconnected = true;
 
-        ChronologicalViewNode n2 = new ChronologicalViewNode();
-        Version v2 = new Version();
-        Decision d2 = new Decision();
-        d2.setName("bbbbb");
-        v2.setDecision(d2);
-        n2.setVersion(v2);
+        n.setDisconnected(disconnected);
 
-        assertTrue(new ChronologicalViewNode.DecisionNameComparator().compare(n1, n2) < 0);
+        assertEquals(disconnected, n.isDisconnected());
     }
-
 
 
 

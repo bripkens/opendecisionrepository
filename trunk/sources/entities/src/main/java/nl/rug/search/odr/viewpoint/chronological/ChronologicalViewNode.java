@@ -1,6 +1,7 @@
 package nl.rug.search.odr.viewpoint.chronological;
 
 import java.util.Comparator;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -21,15 +22,21 @@ public class ChronologicalViewNode extends AbstractNode {
 
     private static final long serialVersionUID = 1l;
 
-    @ManyToOne(optional=true)
+    @ManyToOne(optional = true)
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private Version version;
 
-    @ManyToOne(optional=true)
+    @ManyToOne(optional = true)
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private Iteration iteration;
 
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private boolean endPoint;
+
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
+    private boolean disconnected;
+
+
 
 
     public Iteration getIteration() {
@@ -42,6 +49,8 @@ public class ChronologicalViewNode extends AbstractNode {
     public void setIteration(Iteration iteration) {
         this.iteration = iteration;
     }
+
+
 
 
     public Version getVersion() {
@@ -70,6 +79,22 @@ public class ChronologicalViewNode extends AbstractNode {
     }
 
 
+
+
+    public boolean isDisconnected() {
+        return disconnected;
+    }
+
+
+
+
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
+    }
+
+
+
+
     @Override
     public boolean isPersistable() {
         return (version != null || iteration != null) && !(version != null && iteration != null);
@@ -80,20 +105,42 @@ public class ChronologicalViewNode extends AbstractNode {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{getX(), getY(), isVisible(), endPoint};
+        return new Object[]{getX(), getY(), isVisible(), endPoint, disconnected};
     }
 
 
 
-    public static class DecisionNameComparator implements Comparator<ChronologicalViewNode> {
 
-
-
+    public static class DateComparator implements Comparator<ChronologicalViewNode> {
 
         @Override
         public int compare(ChronologicalViewNode o1, ChronologicalViewNode o2) {
-            return o1.version.getDecision().getName().compareToIgnoreCase(o2.version.getDecision().getName());
+            Date d1 = null, d2 = null;
+
+            if (o1.version != null) {
+                d1 = o1.version.getDecidedWhen();
+            } else {
+                d1 = o1.iteration.getStartDate();
+            }
+
+            if (o2.version != null) {
+                d2 = o2.version.getDecidedWhen();
+            } else {
+                d2 = o2.iteration.getStartDate();
+            }
+
+            return d1.compareTo(d2);
         }
 
+
+
+
     }
+
+
+
+
 }
+
+
+

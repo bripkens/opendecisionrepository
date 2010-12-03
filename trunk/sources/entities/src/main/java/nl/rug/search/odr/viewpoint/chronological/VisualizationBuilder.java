@@ -66,11 +66,11 @@ class VisualizationBuilder {
         ChronologicalViewNode iterationNode = addIterationNode(currentBlock.getIteration());
 
 
-        if (currentBlock.getOrderedVersions().isEmpty() && nextBlock == null) {
+        if (currentBlock.getVersions().isEmpty() && nextBlock == null) {
             // if there is nothing after this node, set the marker value 'endPoint' to true which indicates that
             // this node as no outgoing associations
             iterationNode.setEndPoint(true);
-        } else if (currentBlock.getOrderedVersions().isEmpty()) {
+        } else if (currentBlock.getVersions().isEmpty()) {
             // connect this iteration node to the next iteration node if no versions have been created during this
             // iteration
             addAssociation(null, currentBlock.getIteration(), null, nextBlock.getIteration());
@@ -114,7 +114,7 @@ class VisualizationBuilder {
 
 
     private void handleVersionGroupRelated() {
-        for (List<Version> versionGroup : currentBlock.getOrderedVersions()) {
+        for (List<Version> versionGroup : currentBlock.getVersions()) {
 
             Version previousVersion = null;
 
@@ -131,7 +131,7 @@ class VisualizationBuilder {
 
                 if (j + 1 == versionGroup.size() && nextBlock == null) {
                     versionNode.setEndPoint(true);
-                } else if (j + 1 == versionGroup.size() && nextBlock != null) {
+                } else if (j + 1 == versionGroup.size()) {
                     addAssociation(currentVersion, null, null, nextBlock.getIteration());
                 }
 
