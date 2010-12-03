@@ -8,6 +8,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 import static org.junit.Assert.*;
 import static nl.rug.search.odr.Assert.*;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -919,7 +920,7 @@ public class ProjectTest {
 
 
     @Test
-    public void testVisualizations() {
+    public void testRelationshipVisualization() {
         RelationshipViewVisualization v1 = new RelationshipViewVisualization();
         v1.setName("Visualization 1");
         RelationshipViewVisualization v2 = new RelationshipViewVisualization();
@@ -953,5 +954,45 @@ public class ProjectTest {
 
         assertTrue(containsReference(p.getRelationshipViews(), v1));
         assertTrue(containsReference(p.getRelationshipViews(), v2));
+    }
+
+
+
+
+    @Test
+    public void testChronologicalVisualization() {
+        ChronologicalViewVisualization v1 = new ChronologicalViewVisualization();
+        v1.setName("Visualization 1");
+        ChronologicalViewVisualization v2 = new ChronologicalViewVisualization();
+        v2.setName("Visualization 2");
+
+        p.addChronologicalView(v1);
+
+        assertTrue(containsReference(p.getChronologicalViews(), v1));
+        assertFalse(containsReference(p.getChronologicalViews(), v2));
+
+        p.addChronologicalView(v2);
+
+        assertTrue(containsReference(p.getChronologicalViews(), v1));
+        assertTrue(containsReference(p.getChronologicalViews(), v2));
+
+        p.removeChronologicalView(v1);
+
+        assertFalse(containsReference(p.getChronologicalViews(), v1));
+        assertTrue(containsReference(p.getChronologicalViews(), v2));
+
+        p.removeAllChronologicalViews();
+
+        assertFalse(containsReference(p.getChronologicalViews(), v1));
+        assertFalse(containsReference(p.getChronologicalViews(), v2));
+
+        List<ChronologicalViewVisualization> visualizations = new ArrayList<ChronologicalViewVisualization>();
+        visualizations.add(v1);
+        visualizations.add(v2);
+
+        p.setChronologicalViews(visualizations);
+
+        assertTrue(containsReference(p.getChronologicalViews(), v1));
+        assertTrue(containsReference(p.getChronologicalViews(), v2));
     }
 }

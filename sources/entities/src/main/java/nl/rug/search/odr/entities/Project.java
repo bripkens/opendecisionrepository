@@ -19,6 +19,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
@@ -34,8 +35,8 @@ import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
                 query = "SELECT pm FROM ProjectMember pm WHERE pm.person.id = :userId AND pm.removed = false"),
     @NamedQuery(name = Project.NAMED_QUERY_IS_MEMBER,
                 query = "SELECT COUNT(pm)"
-                        + " FROM ProjectMember pm "
-                        + " WHERE pm.person.id = :userId AND pm.project.id = :projectId AND pm.removed = false"),
+    + " FROM ProjectMember pm "
+    + " WHERE pm.person.id = :userId AND pm.project.id = :projectId AND pm.removed = false"),
     @NamedQuery(name = Project.NAMED_QUERY_GET_BY_NAME,
                 query = "SELECT p FROM Project p WHERE lower(p.name) = :name")
 })
@@ -43,48 +44,67 @@ import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 public class Project extends BaseEntity<Project> {
 
     private static final long serialVersionUID = 1L;
+
     public static final String NAMED_QUERY_IS_NAME_USED = "Project.isNameUsed";
+
     public static final String NAMED_QUERY_GET_ALL_PROJECTS_FROM_USER = "Project.getAllProjectsFromUser";
+
     public static final String NAMED_QUERY_IS_MEMBER = "Project.isMember";
+
     public static final String NAMED_QUERY_GET_BY_NAME = "Project.getByName";
+
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @RequiredFor({Viewpoint.CHRONOLOGICAL, Viewpoint.RELATIONSHIP})
     @Column(length = 50,
             nullable = false,
             unique = true,
             updatable = false)
     private String name;
+
     @Column(length = 1000)
     private String description;
+
     @OneToMany(mappedBy = "project",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<ProjectMember> members;
+
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Iteration> iterations;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<StakeholderRole> roles;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<State> states;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<RelationshipType> relationshipTypes;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Concern> concerns;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private Collection<Decision> decisions;
+
     @OneToMany(cascade = CascadeType.ALL,
                orphanRemoval = true)
     private List<RelationshipViewVisualization> relationshipViews;
+
+    @OneToMany(cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private List<ChronologicalViewVisualization> chronologicalViews;
 
 
 
@@ -98,6 +118,7 @@ public class Project extends BaseEntity<Project> {
         states = new ArrayList<State>();
         relationshipTypes = new ArrayList<RelationshipType>();
         relationshipViews = new ArrayList<RelationshipViewVisualization>();
+        chronologicalViews = new ArrayList<ChronologicalViewVisualization>();
     }
 
 
@@ -580,6 +601,47 @@ public class Project extends BaseEntity<Project> {
 
 
 
+    public void addChronologicalView(ChronologicalViewVisualization v) {
+        assert v != null;
+
+        chronologicalViews.add(v);
+    }
+
+
+
+
+    public void removeChronologicalView(ChronologicalViewVisualization v) {
+        assert v != null;
+
+        chronologicalViews.remove(v);
+    }
+
+
+
+
+    public void setChronologicalViews(List<ChronologicalViewVisualization> visualizations) {
+        assert visualizations != null;
+
+        this.chronologicalViews = visualizations;
+    }
+
+
+
+
+    public List<ChronologicalViewVisualization> getChronologicalViews() {
+        return Collections.unmodifiableList(chronologicalViews);
+    }
+
+
+
+
+    public void removeAllChronologicalViews() {
+        chronologicalViews.clear();
+    }
+
+
+
+
     @Override
     public boolean isPersistable() {
         return name != null && !members.isEmpty();
@@ -592,6 +654,7 @@ public class Project extends BaseEntity<Project> {
     protected Object[] getCompareData() {
         return new Object[]{name, description};
     }
+
 
 
 
@@ -616,11 +679,23 @@ public class Project extends BaseEntity<Project> {
     }
 
 
+
     public static class NameComparator implements Comparator<Project> {
 
         @Override
         public int compare(Project o1, Project o2) {
             return o1.name.compareToIgnoreCase(o2.name);
         }
+
+
+
+
     }
+
+
+
+
 }
+
+
+

@@ -43,7 +43,7 @@ public class RelationshipViewVisualization extends AbstractVisualization<Relatio
 
     public boolean containsVersion(Version v) {
         for (RelationshipViewNode node : getNodes()) {
-            if (node.getVersion().equals(v)) {
+            if (node.getVersion() != null && node.getVersion().equals(v)) {
                 return true;
             }
         }

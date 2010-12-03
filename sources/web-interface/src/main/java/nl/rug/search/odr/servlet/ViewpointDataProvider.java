@@ -13,6 +13,7 @@ import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.project.ChronologicalViewVisualizationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
@@ -23,6 +24,7 @@ import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.relationship.InitRelationshipView;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import nl.rug.search.odr.viewpoint.chronological.InitChronologicalView;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
@@ -38,7 +40,10 @@ public class ViewpointDataProvider extends HttpServlet {
     private ProjectLocal pl;
 
     @EJB
-    private RelationshipViewVisualizationLocal vl;
+    private RelationshipViewVisualizationLocal rvl;
+
+    @EJB
+    private ChronologicalViewVisualizationLocal cvl;
 
     public static final int ERROR_CODE = 303;
 
@@ -169,11 +174,11 @@ public class ViewpointDataProvider extends HttpServlet {
         RelationshipViewVisualization v = relationshipView.getView();
 
         p.addRelationshipView(v);
-        vl.persist(v);
+        rvl.persist(v);
         pl.merge(p);
 
         // we are retrieving the visualization again from the database to get all IDs right
-        v = vl.getById(v.getId());
+        v = rvl.getById(v.getId());
 
         return v;
     }
@@ -186,21 +191,47 @@ public class ViewpointDataProvider extends HttpServlet {
 
         relationshipView.updateView(v);
 
-        vl.merge(v);
+        rvl.merge(v);
 
         // we are retrieving the visualization again from the database to get all IDs right
-        v = vl.getById(v.getId());
+        v = rvl.getById(v.getId());
     }
 
 
 
 
     private AbstractVisualization getChronologicalVisualization(Project p) {
-        InitChronologicalView icv = new InitChronologicalView(p);
+        ChronologicalViewVisualization existingVisualization = null;
 
-        return icv.getView();
+        for (ChronologicalViewVisualization v : p.getChronologicalViews()) {
+            existingVisualization = v;
+
+            // for now we just quit at this point. May be changed to support multiple relationship views
+            break;
+        }
+
+        if (existingVisualization == null) {
+            existingVisualization = initChronologicalView(p);
+        }
+
+        return existingVisualization;
     }
 
+
+    private ChronologicalViewVisualization initChronologicalView(Project p) {
+        InitChronologicalView icv = new InitChronologicalView(p);
+
+        ChronologicalViewVisualization v = icv.getView();
+
+        p.addChronologicalView(v);
+        cvl.persist(v);
+        pl.merge(p);
+
+        // we are retrieving the visualization again from the database to get all IDs right
+        v = cvl.getById(v.getId());
+
+        return v;
+    }
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

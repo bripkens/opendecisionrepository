@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +46,7 @@ public class InitChronologicalView {
 
     public ChronologicalViewVisualization getView() {
         visualization = new ChronologicalViewVisualization();
+        visualization.setDocumentedWhen(new Date());
 
         versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
         columnsForIterations = new ArrayList<IterationSpan>();
