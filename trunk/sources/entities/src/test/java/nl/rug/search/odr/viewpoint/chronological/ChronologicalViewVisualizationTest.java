@@ -1,7 +1,5 @@
-package nl.rug.search.odr.viewpoint.relationship;
+package nl.rug.search.odr.viewpoint.chronological;
 
-import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
-import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
 import nl.rug.search.odr.entities.Version;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +14,16 @@ import static nl.rug.search.odr.Assert.*;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class RelationshipViewVisualizationTest {
+public class ChronologicalViewVisualizationTest {
 
-    private RelationshipViewVisualization v;
+    private ChronologicalViewVisualization v;
 
 
 
 
     @Before
     public void setUp() {
-        v = new RelationshipViewVisualization();
+        v = new ChronologicalViewVisualization();
     }
 
 
@@ -81,8 +79,8 @@ public class RelationshipViewVisualizationTest {
 
     @Test
     public void testNodes() {
-        RelationshipViewNode n1 = new RelationshipViewNode();
-        RelationshipViewNode n2 = new RelationshipViewNode();
+        ChronologicalViewNode n1 = new ChronologicalViewNode();
+        ChronologicalViewNode n2 = new ChronologicalViewNode();
 
         v.addNode(n1);
 
@@ -104,7 +102,7 @@ public class RelationshipViewVisualizationTest {
         assertFalse(containsReference(v.getNodes(), n1));
         assertFalse(containsReference(v.getNodes(), n2));
 
-        List<RelationshipViewNode> nodes = new ArrayList<RelationshipViewNode>();
+        List<ChronologicalViewNode> nodes = new ArrayList<ChronologicalViewNode>();
         nodes.add(n1);
 
         v.setNodes(nodes);
@@ -133,8 +131,8 @@ public class RelationshipViewVisualizationTest {
 
     @Test
     public void testAssociations() {
-        RelationshipViewAssociation a1 = new RelationshipViewAssociation();
-        RelationshipViewAssociation a2 = new RelationshipViewAssociation();
+        ChronologicalViewAssociation a1 = new ChronologicalViewAssociation();
+        ChronologicalViewAssociation a2 = new ChronologicalViewAssociation();
 
         v.addAssociation(a1);
 
@@ -156,7 +154,7 @@ public class RelationshipViewVisualizationTest {
         assertFalse(containsReference(v.getAssociations(), a1));
         assertFalse(containsReference(v.getAssociations(), a2));
 
-        List<RelationshipViewAssociation> associations = new ArrayList<RelationshipViewAssociation>();
+        List<ChronologicalViewAssociation> associations = new ArrayList<ChronologicalViewAssociation>();
         associations.add(a1);
 
         v.setAssociations(associations);
@@ -194,7 +192,7 @@ public class RelationshipViewVisualizationTest {
 
         assertFalse(v.isPersistable());
 
-        v.addNode(new RelationshipViewNode());
+        v.addNode(new ChronologicalViewNode());
 
         assertTrue(v.isPersistable());
     }
@@ -212,7 +210,7 @@ public class RelationshipViewVisualizationTest {
 
         assertFalse(v.isPersistable());
 
-        v.addNode(new RelationshipViewNode());
+        v.addNode(new ChronologicalViewNode());
 
         assertTrue(v.isPersistable());
     }
@@ -228,7 +226,7 @@ public class RelationshipViewVisualizationTest {
         v.setDocumentedWhen(now);
         v.setName(name);
 
-        RelationshipViewVisualization v2 = new RelationshipViewVisualization();
+        ChronologicalViewVisualization v2 = new ChronologicalViewVisualization();
         v2.setDocumentedWhen(now);
         v2.setName(name);
 
@@ -240,14 +238,14 @@ public class RelationshipViewVisualizationTest {
 
     @Test
     public void testContainsVersion() {
-        v = new RelationshipViewVisualization();
+        v = new ChronologicalViewVisualization();
 
-        RelationshipViewNode n1 = new RelationshipViewNode();
+        ChronologicalViewNode n1 = new ChronologicalViewNode();
         n1.setVisible(true);
         n1.setVersion(new Version());
         n1.getVersion().setDecidedWhen(new Date());
 
-        RelationshipViewNode n2 = new RelationshipViewNode();
+        ChronologicalViewNode n2 = new ChronologicalViewNode();
         n2.setVisible(false);
         n2.setVersion(new Version());
         n2.getVersion().setDecidedWhen(new Date(new Date().getTime() + 10));
@@ -276,6 +274,5 @@ public class RelationshipViewVisualizationTest {
 
         assertTrue(v.containsVersion(n2.getVersion()));
         assertFalse(v.containsVersion(n1.getVersion()));
-        
     }
 }

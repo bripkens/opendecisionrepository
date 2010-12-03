@@ -153,6 +153,7 @@ odr._saveAll = function() {
     odr.loadPopupIcon();
     odr.showWaitAnimation();
 
+
     for(var i in odr._allRectangles) {
         var currentRectangle = odr._allRectangles[i];
         var value = currentRectangle.value();
@@ -191,10 +192,13 @@ odr._saveAll = function() {
 
     var projectIdParameter = j("#externalVarProjectIdParameterName").text();
     var dataParameter = j("#externalVarDataParameterName").text();
-
+    var viewpointParameter = j("#externalVarViewpointParameterName").text();
+    
     var parameter = {};
     parameter[projectIdParameter] = j("#externalVarProjectId").text();
     parameter[dataParameter] = odr._createJSONString(odr._requestedData);
+    parameter[viewpointParameter] = true;
+
 
     j.ajax({
         url : targetUrl,
@@ -210,7 +214,6 @@ odr._saveAll = function() {
         error : function(data, textStatus, errorThrown) {
             odr.setErrorText();
             odr.errorPopupIcon();
-            odr.hideWaitAnimation(4000);
         }
     });
 };

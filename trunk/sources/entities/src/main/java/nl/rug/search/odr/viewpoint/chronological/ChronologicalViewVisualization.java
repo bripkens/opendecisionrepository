@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.Version;
+import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.viewpoint.AbstractVisualization;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
@@ -39,6 +39,15 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
     }
 
 
+
+    public boolean containsVersion(Version v) {
+        for (ChronologicalViewNode node : getNodes()) {
+            if (node.getVersion() != null && node.getVersion().equals(v)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     @Override

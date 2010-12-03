@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.rug.search.odr.servlet;
 
 import com.google.gson.Gson;
@@ -11,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -20,15 +20,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import nl.rug.search.odr.MalformedJsonException;
+import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
+import nl.rug.search.odr.project.ChronologicalViewVisualizationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.GsonUtil;
+import nl.rug.search.odr.viewpoint.AbstractAssociation;
+import nl.rug.search.odr.viewpoint.AbstractNode;
+import nl.rug.search.odr.viewpoint.AbstractVisualization;
+import nl.rug.search.odr.viewpoint.Viewpoint;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
-import nl.rug.search.odr.viewpoint.Handle;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewNode;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
@@ -36,20 +42,27 @@ import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
  *
  * @author ben
  */
-@WebServlet(name="ViewpointDataReceiver", urlPatterns={"/ViewpointDataReceiver"})
+@WebServlet(name = "ViewpointDataReceiver",
+            urlPatterns = {"/ViewpointDataReceiver"})
 public class ViewpointDataReceiver extends HttpServlet {
 
     @EJB
     private ProjectLocal pl;
 
     @EJB
-    private RelationshipViewVisualizationLocal vl;
+    private RelationshipViewVisualizationLocal rvl;
+
+    @EJB
+    private ChronologicalViewVisualizationLocal cvl;
 
     private static final Logger logger = Logger.getLogger(ViewpointDataReceiver.class.getName());
 
     public static final int ERROR_CODE = 303;
 
-    /** 
+
+
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
@@ -57,9 +70,18 @@ public class ViewpointDataReceiver extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
+        Viewpoint point = RequestAnalyser.getViewpoint(request);
+
+        if (point == null) {
+            // TODO notify the user that the viewpoint request parameter is invalid, i.e. he specified more than
+            // one viewpoint or he declared none.
+            response.sendError(ERROR_CODE);
+            return;
+        }
 
         if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
             // TODO inform the user that he is not logged in? This only happens when the user is abusing the system
@@ -130,14 +152,9 @@ public class ViewpointDataReceiver extends HttpServlet {
             return;
         }
 
-        RelationshipViewVisualization visualizationFromDatabase = null;
+        AbstractVisualization visualizationFromDatabase = null;
 
-        for (RelationshipViewVisualization eachVisualization : p.getRelationshipViews()) {
-            if (eachVisualization.getId().equals(v.getId())) {
-                visualizationFromDatabase = eachVisualization;
-                break;
-            }
-        }
+        visualizationFromDatabase = getVisualization(v.getId(), p, point);
 
         if (visualizationFromDatabase == null) {
             // TODO: Inform the user that the visualization does not belong to the project?
@@ -158,30 +175,70 @@ public class ViewpointDataReceiver extends HttpServlet {
             response.sendError(ERROR_CODE);
             return;
         }
-    } 
 
-    private void copyModifiedData(RelationshipViewVisualization source, RelationshipViewVisualization target) {
+
+
+        updateVisualization(point, visualizationFromDatabase);
+    }
+
+
+
+
+    private AbstractVisualization getVisualization(long id, Project p, Viewpoint type) {
+        List<? extends AbstractVisualization> visualizations = null;
+
+
+        switch (type) {
+            case CHRONOLOGICAL:
+                visualizations = p.getChronologicalViews();
+                break;
+            case RELATIONSHIP:
+                visualizations = p.getRelationshipViews();
+                break;
+            case STAKEHOLDER_INVOLVEMENT:
+                throw new RuntimeException("Currently not possible to save stakeholder involvement views.");
+            default:
+                throw new RuntimeException("Unsupported visualization type.");
+        }
+
+        for (AbstractVisualization v : visualizations) {
+            if (v.getId().equals(id)) {
+                return v;
+            }
+        }
+
+        return null;
+    }
+
+
+
+
+    private void copyModifiedData(RelationshipViewVisualization source, AbstractVisualization target) {
         target.setName(source.getName());
         target.setDocumentedWhen(new Date());
 
         copyNodeInformation(source, target);
         copyAssociationInformation(source, target);
-
-        vl.merge(target);
     }
 
-    private void copyNodeInformation(RelationshipViewVisualization source, RelationshipViewVisualization target) {
-        for(RelationshipViewNode eachNodeInSource : source.getNodes()) {
-            RelationshipViewNode nodeInTarget = getNode(eachNodeInSource.getId(), target.getNodes());
-            
+
+
+
+    private void copyNodeInformation(RelationshipViewVisualization source, AbstractVisualization target) {
+        for (AbstractNode eachNodeInSource : source.getNodes()) {
+            AbstractNode nodeInTarget = getNode(eachNodeInSource.getId(), target.getNodes());
+
             nodeInTarget.setVisible(eachNodeInSource.isVisible());
             nodeInTarget.setX(eachNodeInSource.getX());
             nodeInTarget.setY(eachNodeInSource.getY());
         }
     }
 
-    private RelationshipViewNode getNode(long id, Collection<RelationshipViewNode> nodes) {
-        for(RelationshipViewNode n : nodes) {
+
+
+
+    private AbstractNode getNode(long id, Collection<AbstractNode> nodes) {
+        for (AbstractNode n : nodes) {
             if (n.getId().equals(id)) {
                 return n;
             }
@@ -190,9 +247,13 @@ public class ViewpointDataReceiver extends HttpServlet {
         throw new MalformedJsonException("Could not find node with id: " + id);
     }
 
-    private void copyAssociationInformation(RelationshipViewVisualization source, RelationshipViewVisualization target) {
+
+
+
+    private void copyAssociationInformation(RelationshipViewVisualization source, AbstractVisualization target) {
         for (RelationshipViewAssociation eachAssociationInSource : source.getAssociations()) {
-            RelationshipViewAssociation associationInTarget = getAssociation(eachAssociationInSource.getId(), target.getAssociations());
+            AbstractAssociation associationInTarget = getAssociation(eachAssociationInSource.getId(), target.
+                    getAssociations());
 
             associationInTarget.setLabelX(eachAssociationInSource.getLabelX());
             associationInTarget.setLabelY(eachAssociationInSource.getLabelY());
@@ -200,8 +261,11 @@ public class ViewpointDataReceiver extends HttpServlet {
         }
     }
 
-    private RelationshipViewAssociation getAssociation(long id, Collection<RelationshipViewAssociation> associations) {
-        for (RelationshipViewAssociation a : associations) {
+
+
+
+    private AbstractAssociation getAssociation(long id, Collection<AbstractAssociation> associations) {
+        for (AbstractAssociation a : associations) {
             if (a.getId().equals(id)) {
                 return a;
             }
@@ -210,8 +274,26 @@ public class ViewpointDataReceiver extends HttpServlet {
         throw new MalformedJsonException("Could not find association with id: " + id);
     }
 
+
+
+
+    private void updateVisualization(Viewpoint viewpoint, AbstractVisualization visualization) {
+        if (viewpoint == Viewpoint.CHRONOLOGICAL) {
+            cvl.merge((ChronologicalViewVisualization) visualization);
+        } else if (viewpoint == Viewpoint.RELATIONSHIP) {
+            rvl.merge((RelationshipViewVisualization) visualization);
+        } else if (viewpoint == Viewpoint.STAKEHOLDER_INVOLVEMENT) {
+            throw new RuntimeException("It's currently not possible to save stakeholder involvement views");
+        } else {
+            throw new RuntimeException("Unsupported viewpoint");
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+
+
+
+    /**
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
@@ -220,11 +302,14 @@ public class ViewpointDataReceiver extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+
+
+
+    /**
      * Returns a short description of the servlet.
      * @return a String containing servlet description
      */
@@ -233,4 +318,10 @@ public class ViewpointDataReceiver extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+
+
+
 }
+
+
+

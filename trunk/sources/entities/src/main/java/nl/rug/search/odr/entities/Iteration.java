@@ -45,6 +45,7 @@ public class Iteration extends BaseEntity<Iteration> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @RequiredFor(Viewpoint.CHRONOLOGICAL)
     private Long id;
 
     @RequiredFor(Viewpoint.CHRONOLOGICAL)

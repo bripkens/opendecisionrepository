@@ -80,7 +80,7 @@ public class ChronologicalViewNode extends AbstractNode {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{getX(), getY(), isVisible()};
+        return new Object[]{getX(), getY(), isVisible(), endPoint};
     }
 
 

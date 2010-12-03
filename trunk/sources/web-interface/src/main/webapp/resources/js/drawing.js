@@ -121,8 +121,6 @@ odr._handleRelationshipViewGet = function(data) {
 
 
 odr._handleChronologicalViewGet = function(data) {
-    console.log(data);
-
     odr._requestedData = data;
 
     var allNodes = data.Nodes;
@@ -164,6 +162,56 @@ odr._handleChronologicalViewGet = function(data) {
         rectangle.value(currentNode);
 
         odr._allRectangles[id] = rectangle;
+    }
+
+    var allRelationships = data.Associations;
+
+    for(var i = 0; i < allRelationships.length; i++) {
+        var currentRelationship = allRelationships[i];
+
+        var sourceId;
+        var targetId;
+
+        if (currentRelationship.SourceIteration != null) {
+            sourceId = currentRelationship.SourceIteration.Id;
+        } else {
+            sourceId = currentRelationship.SourceVersion.Id;
+        }
+
+        if (currentRelationship.TargetIteration != null) {
+            targetId = currentRelationship.TargetIteration.Id;
+        } else {
+            targetId = currentRelationship.TargetVersion.Id;
+        }
+
+        var source = odr._allRectangles[sourceId];
+        var target = odr._allRectangles[targetId];
+
+        var association = new odr.Association();
+        if (currentRelationship.LabelX != 0 && currentRelationship.LabelY != 0) {
+
+            association._labelPosition = {
+                x : currentRelationship.LabelX,
+                y : currentRelationship.LabelY
+            }
+
+        }
+        
+        association.source(source);
+        association.target(target);
+
+        for(var k = 0; k < currentRelationship.Handles.length; k++) {
+            var handle = new odr.Handle();
+            handle.x(currentRelationship.Handles[k].X);
+            handle.y(currentRelationship.Handles[k].Y);
+            association.addHandle(handle);
+        }
+
+        association.paint();
+
+        association.value(currentRelationship);
+
+        odr._allAssociations[currentRelationship.Id] = association;
     }
 
     odr.hideWaitAnimation();
