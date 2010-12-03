@@ -309,18 +309,26 @@ odr._createJSONString = function(data) {
 
 odr._nodes = {};
 
-odr.addNode = function(name, stereotype, x, y, visible) {
+odr.addNode = function(name, stereotype, stereotypeToShow, x, y, visible, round, extraClasses) {
     if (visible == undefined) {
         visible = false;
     }
 
-    
+    if (round == undefined) {
+        round = true;
+    }
+
+    if (extraClasses == undefined) {
+        extraClasses = "";
+    }
 
     var rectangle = new odr.Rectangle();
     rectangle.x(x);
     rectangle.y(y);
     rectangle.label(name);
-    rectangle.stereotype(stereotype);
+    rectangle.stereotype(stereotypeToShow);
+    rectangle.round(round);
+    rectangle.extraClasses(extraClasses);
     rectangle.paint();
 
 
