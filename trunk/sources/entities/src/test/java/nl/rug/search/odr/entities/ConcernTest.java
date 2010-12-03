@@ -2,12 +2,14 @@ package nl.rug.search.odr.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import nl.rug.search.odr.BusinessException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import sun.security.provider.certpath.BuildStep;
 
 /**
  *
@@ -305,4 +307,119 @@ public class ConcernTest {
     public void previousVerisonNull() {
         r.setGroup(null);
     }
+
+
+
+
+    @Test
+    public void testGroupDateComparator() {
+        Concern co_1 = new Concern();
+        co_1.setName("1");
+        co_1.setGroup(1L);
+        co_1.setCreatedWhen(new Date(1000));
+
+        Concern co_2 = new Concern();
+        co_2.setName("2");
+        co_2.setGroup(2L);
+        co_2.setCreatedWhen(new Date(2000));
+
+        Concern co_3 = new Concern();
+        co_3.setName("3");
+        co_3.setGroup(3L);
+        co_3.setCreatedWhen(new Date(3000));
+
+        Concern co_4 = new Concern();
+        co_4.setName("4");
+        co_4.setGroup(4L);
+        co_4.setCreatedWhen(new Date(4000));
+
+        Concern co_2_1 = new Concern();
+        co_2_1.setName("2_1");
+        co_2_1.setGroup(2L);
+        co_2_1.setCreatedWhen(new Date(5000));
+
+        Concern co_2_2 = new Concern();
+        co_2_2.setName("2_2");
+        co_2_2.setGroup(2L);
+        co_2_2.setCreatedWhen(new Date(6000));
+
+        Concern co_3_1 = new Concern();
+        co_3_1.setName("3_1");
+        co_3_1.setGroup(3L);
+        co_3_1.setCreatedWhen(new Date(7000));
+
+        Concern co_1_1 = new Concern();
+        co_1_1.setName("1_1");
+        co_1_1.setGroup(1L);
+        co_1_1.setCreatedWhen(new Date(8000));
+
+        Concern co_3_3 = new Concern();
+        co_3_3.setName("3_3");
+        co_3_3.setGroup(3L);
+        co_3_3.setCreatedWhen(new Date(9000));
+
+        List<Concern> concerns = new ArrayList<Concern>();
+        concerns.add(co_1);
+        concerns.add(co_2);
+        concerns.add(co_3);
+        concerns.add(co_4);
+        concerns.add(co_2_1);
+        concerns.add(co_2_2);
+        concerns.add(co_3_1);
+        concerns.add(co_1_1);
+        concerns.add(co_3_3);
+
+        Collections.sort(concerns, new Concern.GroupDateComparator());
+
+        assertEquals(co_1_1.getName(), concerns.get(0).getName());
+        assertEquals(co_1.getName(), concerns.get(1).getName());
+        assertEquals(co_2_2.getName(), concerns.get(2).getName());
+        assertEquals(co_2_1.getName(), concerns.get(3).getName());
+        assertEquals(co_2.getName(), concerns.get(4).getName());
+        assertEquals(co_3_3.getName(), concerns.get(5).getName());
+        assertEquals(co_3_1.getName(), concerns.get(6).getName());
+        assertEquals(co_3.getName(), concerns.get(7).getName());
+        assertEquals(co_4.getName(), concerns.get(8).getName());
+    }
+    
+    @Test
+    public void testGroupDateCompareTo() {
+        Concern co_1 = new Concern();
+        co_1.setName("1");
+        co_1.setGroup(1L);
+        co_1.setCreatedWhen(new Date(1000));
+
+        Concern co_2 = new Concern();
+        co_2.setName("2");
+        co_2.setGroup(2L);
+        co_2.setCreatedWhen(new Date(2000));
+
+        Comparator<Concern> comparator = new Concern.GroupDateComparator();
+
+        assertTrue(comparator.compare(co_1, co_2) < 0);
+
+        co_1.setGroup(3l);
+        assertTrue(comparator.compare(co_1, co_2) > 0);
+
+        co_1.setCreatedWhen(new Date(3000));
+        assertTrue(comparator.compare(co_1, co_2) > 0);
+
+        co_2.setGroup(1L);
+        assertTrue(comparator.compare(co_1, co_2) > 0);
+
+        co_1.setGroup(1l);
+        co_1.setCreatedWhen(new Date(4000));
+        assertTrue(comparator.compare(co_1, co_2) < 0);
+
+
+        co_2.setCreatedWhen(new Date(4000));
+        assertTrue(comparator.compare(co_1, co_2) == 0);
+    }
+
+
+
+
 }
+
+
+

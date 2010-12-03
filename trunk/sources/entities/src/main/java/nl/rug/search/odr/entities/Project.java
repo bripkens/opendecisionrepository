@@ -660,6 +660,8 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeConcernsByGroup(Concern con) {
+        assert con != null;
+        
         Iterator<Concern> it = concerns.iterator();
         while (it.hasNext()) {
             Concern currentConcern = it.next();
