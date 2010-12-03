@@ -15,12 +15,15 @@ class ViewBlock implements Comparable<ViewBlock> {
 
     private Map<List<Long>, List<Version>> versionsForStakeholderGroups;
 
+    private boolean ordered;
+
 
 
 
     public ViewBlock(Iteration it) {
         this.iteration = it;
         this.versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
+        ordered = true;
     }
 
 
@@ -33,17 +36,23 @@ class ViewBlock implements Comparable<ViewBlock> {
             versionsForStakeholderGroups.put(group, versions);
         }
         versions.add(v);
+        ordered = false;
     }
 
 
 
 
-    public List<List<Version>> getOrderedVersions() {
+    public List<List<Version>> getVersions() {
         List<List<Version>> allVersionsInGroups = new ArrayList<List<Version>>(versionsForStakeholderGroups.size());
         for (Entry<List<Long>, List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
-            Collections.sort(entry.getValue(), new Version.DecidedWhenComparator());
+            if (!ordered) {
+                Collections.sort(entry.getValue(), new Version.DecidedWhenComparator());
+            }
             allVersionsInGroups.add(entry.getValue());
         }
+
+        ordered = true;
+
         return allVersionsInGroups;
     }
 
@@ -55,8 +64,17 @@ class ViewBlock implements Comparable<ViewBlock> {
     }
 
 
+
+
     @Override
     public int compareTo(ViewBlock o) {
         return iteration.getStartDate().compareTo(o.iteration.getStartDate());
     }
+
+
+
+
 }
+
+
+

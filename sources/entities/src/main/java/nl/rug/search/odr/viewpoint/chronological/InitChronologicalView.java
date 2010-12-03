@@ -56,6 +56,10 @@ public class InitChronologicalView {
 
         visualization = new VisualizationBuilder(visualization, blocks).build().getVisualization();
 
+        addDisconnectedVersions();
+
+        visualization.sortNodes(new ChronologicalViewNode.DateComparator());
+
         return visualization;
     }
 
@@ -152,14 +156,33 @@ public class InitChronologicalView {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="get view step three">
+    private void addDisconnectedVersions() {
+        for (Decision decision : project.getDecisions()) {
+            if (decision.isRemoved()) {
+                continue;
+            }
 
+            for (Version v : decision.getVersions()) {
+                if (!v.isRemoved() && !visualization.containsVersion(v)) {
+                    ChronologicalViewNode node = new ChronologicalViewNode();
+                    node.setVersion(v);
+                    node.setDisconnected(true);
+                    visualization.addNode(node);
+                }
+
+
+            }
+        }
+    }
+    // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
     public Project getProject() {
         return project;
     }
-
+    // </editor-fold>
 
 
 
