@@ -5,12 +5,10 @@
 package nl.rug.search.odr.viewpoint.chronological;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,7 +30,7 @@ public class InitChronologicalView {
 
     private Map<List<Long>, List<Version>> versionsForStakeholderGroups;
 
-    private List<IterationSpan> columnsForIterations;
+    private List<ViewBlock> blocks;
 
 
 
@@ -49,14 +47,14 @@ public class InitChronologicalView {
         visualization.setDocumentedWhen(new Date());
 
         versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
-        columnsForIterations = new ArrayList<IterationSpan>();
+        blocks = new ArrayList<ViewBlock>();
 
         assignVersionsToStakeholderGroups();
         assignVersionsToIterations();
 
-        Collections.sort(columnsForIterations);
+        Collections.sort(blocks);
 
-        addNodesToVisualization();
+        visualization = new VisualizationBuilder(visualization, blocks).build().getVisualization();
 
         return visualization;
     }
@@ -126,21 +124,21 @@ public class InitChronologicalView {
 
     private void assignVersionsToIterations() {
         for (Iteration it : project.getIterations()) {
-            IterationSpan span = new IterationSpan(it);
+            ViewBlock span = new ViewBlock(it);
 
             addVersionsWhichWereMadeDuringIteration(span);
-            columnsForIterations.add(span);
+            blocks.add(span);
         }
     }
 
 
 
 
-    private void addVersionsWhichWereMadeDuringIteration(IterationSpan ispan) {
+    private void addVersionsWhichWereMadeDuringIteration(ViewBlock block) {
         for (Entry<List<Long>, List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
             for (Version version : entry.getValue()) {
-                if (createdDuringIteration(ispan.it, version)) {
-                    ispan.addVersion(entry.getKey(), version);
+                if (createdDuringIteration(block.getIteration(), version)) {
+                    block.addVersion(entry.getKey(), version);
                 }
             }
         }
@@ -154,169 +152,12 @@ public class InitChronologicalView {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="get view step three">
-
-
-
-    private void addNodesToVisualization() {
-        // Can't do anything when this thing is empty
-        if (columnsForIterations.isEmpty()) {
-            return;
-        }
-
-        IterationSpan currentSpan = null, nextSpan = null;
-
-        currentSpan = columnsForIterations.get(0);
-
-        for (int i = 0; i < columnsForIterations.size(); i++) {
-            if (i + 1 < columnsForIterations.size()) {
-                nextSpan = columnsForIterations.get(i + 1);
-            } else {
-                nextSpan = null;
-            }
-
-            ChronologicalViewNode iterationNode = addIterationNode(currentSpan.it);
-
-            if (currentSpan.getOrderedVersions().isEmpty() && nextSpan == null) {
-                iterationNode.setEndPoint(true);
-            } else if (currentSpan.getOrderedVersions().isEmpty()) {
-                ChronologicalViewAssociation associationToNextIteration = new ChronologicalViewAssociation();
-                associationToNextIteration.setSourceIteration(currentSpan.it);
-                associationToNextIteration.setTargetIteration(nextSpan.it);
-                visualization.addAssociation(associationToNextIteration);
-            }
-
-
-
-            for (List<Version> versionGroup : currentSpan.getOrderedVersions()) {
-                Version previousVersion = null;
-                for (int j = 0; j < versionGroup.size(); j++) {
-                    Version currentVersion = versionGroup.get(j);
-
-                    ChronologicalViewNode versionNode = addVersionNode(currentVersion);
-
-                    ChronologicalViewAssociation association = new ChronologicalViewAssociation();
-
-                    if (previousVersion != null) {
-                        association.setSourceVersion(previousVersion);
-                    } else {
-                        association.setSourceIteration(currentSpan.it);
-                    }
-
-                    association.setTargetVersion(currentVersion);
-
-                    visualization.addAssociation(association);
-
-                    if (j + 1 == versionGroup.size() && nextSpan == null) {
-                        versionNode.setEndPoint(true);
-                    } else if (j + 1 == versionGroup.size() && nextSpan != null) {
-                        ChronologicalViewAssociation associationToNextIteration = new ChronologicalViewAssociation();
-                        associationToNextIteration.setSourceVersion(currentVersion);
-                        associationToNextIteration.setTargetIteration(nextSpan.it);
-                        visualization.addAssociation(associationToNextIteration);
-                    }
-
-                    previousVersion = currentVersion;
-                }
-            }
-
-
-
-
-            // needs to stay at the end
-            currentSpan = nextSpan;
-        }
-    }
-
-
-
-
-    private ChronologicalViewNode addIterationNode(Iteration it) {
-        ChronologicalViewNode node = new ChronologicalViewNode();
-        node.setIteration(it);
-        visualization.addNode(node);
-        return node;
-    }
-
-
-
-
-    private ChronologicalViewNode addVersionNode(Version v) {
-        ChronologicalViewNode node = new ChronologicalViewNode();
-        node.setVersion(v);
-        visualization.addNode(node);
-
-        return node;
-    }
-    // </editor-fold>
-
 
 
     // <editor-fold defaultstate="collapsed" desc="getter">
 
     public Project getProject() {
         return project;
-    }
-    // </editor-fold>
-
-
-
-
-    private static class IterationSpan implements Comparable<IterationSpan> {
-
-        private Iteration it;
-
-        private Map<List<Long>, List<Version>> versionsForStakeholderGroups;
-
-
-
-
-        public IterationSpan(Iteration it) {
-            this.it = it;
-            this.versionsForStakeholderGroups = new HashMap<List<Long>, List<Version>>();
-        }
-
-
-
-
-        public void addVersion(List<Long> group, Version v) {
-            List<Version> versions = versionsForStakeholderGroups.get(group);
-
-            if (versions == null) {
-                versions = new ArrayList<Version>();
-                versionsForStakeholderGroups.put(group, versions);
-            }
-
-            versions.add(v);
-        }
-
-
-
-
-        public List<List<Version>> getOrderedVersions() {
-            List<List<Version>> allVersionsInGroups = new ArrayList<List<Version>>(versionsForStakeholderGroups.size());
-
-            for (Entry<List<Long>, List<Version>> entry : versionsForStakeholderGroups.entrySet()) {
-
-                Collections.sort(entry.getValue(), new Version.DecidedWhenComparator());
-
-                allVersionsInGroups.add(entry.getValue());
-            }
-
-            return allVersionsInGroups;
-        }
-
-
-
-
-        @Override
-        public int compareTo(IterationSpan o) {
-            return it.getStartDate().compareTo(o.it.getStartDate());
-        }
-
-
-
-
     }
 
 
