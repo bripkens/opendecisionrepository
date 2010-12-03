@@ -102,13 +102,13 @@ public class ProjectTest {
     @Test(expected = BusinessException.class)
     public void testNameTooLong() {
         p.setName("aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
-                  + " ");
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + "aoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjknaaoiugghkpiugizfgvhbjkjoiugzfgvhjbkjoihugbjkna"
+                + " ");
     }
 
 
@@ -844,6 +844,15 @@ public class ProjectTest {
 
 
     @Test
+    public void testGetDestinctConcernsIsEmpty() {
+        List<Concern> concerns = p.getDestinctConcerns();
+        assertTrue(concerns.isEmpty());
+    }
+
+
+
+
+    @Test
     public void testGetDestinctConcerns() {
         Concern co_1 = new Concern();
         co_1.setName("1");
@@ -960,6 +969,111 @@ public class ProjectTest {
 
 
     @Test
+    public void testRemoveConcernsByGroup() {
+        Concern co_2_1 = new Concern();
+        co_2_1.setId(1L);
+        co_2_1.setName("2_1");
+        co_2_1.setGroup(2L);
+        co_2_1.setCreatedWhen(new Date(5000));
+        p.addConcern(co_2_1);
+
+        Concern co_2_2 = new Concern();
+        co_2_2.setId(2L);
+        co_2_2.setName("2_2");
+        co_2_2.setGroup(2L);
+        co_2_2.setCreatedWhen(new Date(6000));
+        p.addConcern(co_2_2);
+
+        Concern co_3_1 = new Concern();
+        co_3_1.setId(3L);
+        co_3_1.setName("3_1");
+        co_3_1.setGroup(3L);
+        co_3_1.setCreatedWhen(new Date(7000));
+        p.addConcern(co_3_1);
+
+        Concern co_1_1 = new Concern();
+        co_1_1.setId(4L);
+        co_1_1.setName("1_1");
+        co_1_1.setGroup(1L);
+        co_1_1.setCreatedWhen(new Date(8000));
+        p.addConcern(co_1_1);
+
+        Decision decision1 = new Decision();
+        Version version1_1 = new Version();
+        version1_1.addConcern(co_1_1);
+        decision1.addVersion(version1_1);
+        p.addDecision(decision1);
+
+        Decision decision2_1 = new Decision();
+        Version version2_1 = new Version();
+        version2_1.addConcern(co_2_1);
+        decision2_1.addVersion(version2_1);
+        p.addDecision(decision2_1);
+
+        Decision decision2_2 = new Decision();
+        Version version2_2 = new Version();
+        version2_2.addConcern(co_2_2);
+        decision2_2.addVersion(version2_2);
+        p.addDecision(decision2_2);
+
+        p.addDecision(decision1);
+        p.addDecision(decision2_1);
+        p.addDecision(decision2_2);
+
+        assertTrue(p.getConcerns().contains(co_2_1));
+        assertTrue(p.getConcerns().contains(co_2_2));
+        assertTrue(p.getConcerns().contains(co_3_1));
+        assertTrue(p.getConcerns().contains(co_1_1));
+
+        assertFalse(hasNoLinkToDecision(co_2_1));
+        assertFalse(hasNoLinkToDecision(co_2_2));
+        p.removeConcernsByGroup(co_2_1);
+        assertTrue(hasNoLinkToDecision(co_2_1));
+        assertTrue(hasNoLinkToDecision(co_2_2));
+
+        assertFalse(p.getConcerns().contains(co_2_1));
+
+        hasNoLinkToDecision(co_2_1);
+
+        assertFalse(p.getConcerns().contains(co_2_2));
+        assertTrue(p.getConcerns().contains(co_3_1));
+        assertTrue(p.getConcerns().contains(co_1_1));
+
+
+        assertFalse(hasNoLinkToDecision(co_1_1));
+        p.removeConcernsByGroup(co_1_1);
+        assertTrue(hasNoLinkToDecision(co_1_1));
+
+        assertFalse(p.getConcerns().contains(co_1_1));
+
+        p.removeConcernsByGroup(co_3_1);
+        assertFalse(p.getConcerns().contains(co_3_1));
+        assertTrue(hasNoLinkToDecision(co_3_1));
+
+        assertTrue(p.getConcerns().isEmpty());
+
+
+    }
+
+
+
+
+    private boolean hasNoLinkToDecision(Concern con) {
+        int i = 0;
+        for (Decision decision : p.getDecisions()) {
+            for (Version version : decision.getVersions()) {
+                if (version.getConcerns().contains(con)) {
+                    i++;
+                }
+            }
+        }
+        return i == 0;
+    }
+
+
+
+
+    @Test
     public void testChronologicalVisualization() {
         ChronologicalViewVisualization v1 = new ChronologicalViewVisualization();
         v1.setName("Visualization 1");
@@ -995,4 +1109,11 @@ public class ProjectTest {
         assertTrue(containsReference(p.getChronologicalViews(), v1));
         assertTrue(containsReference(p.getChronologicalViews(), v2));
     }
+
+
+
+
 }
+
+
+
