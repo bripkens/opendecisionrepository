@@ -27,6 +27,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_20 20: edit concern]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_21 21: browse concern]
     * [http://code.google.com/p/opendecisionrepository/wiki/spuc_22 22: delete concern]
+    * [http://code.google.com/p/opendecisionrepository/wiki/spuc_23 23: Chronological view]
   * *Architecture*
    * *Description views*
     * [http://code.google.com/p/opendecisionrepository/wiki/OPR_technology_stack OPR technology stack]
