@@ -21,7 +21,7 @@ svg {
 }
 .node .nodeStereotype {
     font-family: "Verdana", sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     fill: darkred;
 }
 .node .nodeOverlay {
