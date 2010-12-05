@@ -56,7 +56,7 @@ odr.rectangleSettings = {
             visibility : "hidden",
             "white-space" : "nowrap",
             'font-family' : '"Verdana", sans-serif',
-            'font-size': '11px'
+            'font-size': '12px'
         }
     },
     overlay : {
@@ -638,7 +638,7 @@ odr.beforeExport = function() {
 
     var viewBox = x + " " + y + " " + (parseInt(width) - parseInt(x)) + " " + (parseInt(height) - parseInt(y));
 
-    container.attr("viewBox", viewBox)
+    container.attr("viewBox", viewBox);
 }
 
 
