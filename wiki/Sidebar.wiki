@@ -62,6 +62,8 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Apache_Batik Apache Batik]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
+  * *Visualization*
+   * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve visualization from server]
  * *[http://code.google.com/p/opendecisionrepository/wiki/Stats Statistics]*
  * *[http://code.google.com/p/opendecisionrepository/wiki/Glossary Glossary]*
  * *[http://code.google.com/p/opendecisionrepository/wiki/Bibliography Bibliography]*
