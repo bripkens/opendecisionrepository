@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+        <script type="text/javascript" src="resources/js/sh_main.min.js"></script>
+        <script type="text/javascript" src="resources/js/sh_latex.min.js"></script>t>
+
+        <script type="text/javascript">
+         j(document).ready(function() {
+             sh_highlightDocument();
+         });
+        </script>
+
+        <link type="text/css" rel="stylesheet" href="resources/css/sh_the.min.css" />
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        To Latex
+    </ui:define>
+
+    <ui:define name="content">
+        <div>
+            <pre class="sh_latex">
+\documentclass[11pt,a4paper,oneside]{report}
+
+\begin{document}
+    \title{How to Structure a LaTeX Document}
+    \author{Andrew Roberts}
+    \date{December 2004}
+    \maketitle
+\ref{sec:appendix:complete-domain-model}.
+\end{document}
+            </pre>
+        </div>
+    </ui:define>
+
+    <ui:define name="sidebar">
+    </ui:define>
+</ui:composition>
