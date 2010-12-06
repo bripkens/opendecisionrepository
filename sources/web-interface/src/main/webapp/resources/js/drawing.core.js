@@ -3,10 +3,11 @@
  */
 
 
-/*
- * Don't change the following two lines
+/**
+ * @namespace The namespace for the whole drawing JavaScript.
  */
 var odr = odr || {};
+
 var j = jQuery.noConflict();
 
 
