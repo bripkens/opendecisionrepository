@@ -23,19 +23,32 @@
     </ui:define>
 
     <ui:define name="content">
-        <div>
+        <ice:panelGroup rendered="#{toLatexController.valid}">
             <pre class="sh_latex">
-\documentclass[11pt,a4paper,oneside]{report}
+\documentclass{article}
 
 \begin{document}
-    \title{How to Structure a LaTeX Document}
-    \author{Andrew Roberts}
-    \date{December 2004}
+    \title{#{toLatexController.project.name}}
+    \author{#{toLatexController.member.person.name}}
+    \date{\today}
+
     \maketitle
-\ref{sec:appendix:complete-domain-model}.
+    \newpage
+
+    \tableofcontents
+    \newpage
+
+    \section{Iterations}
+    \label{sec:iterations}
+
+    \begin{description}
+<ice:repeat value="#{toLatexController.makeModifiable(toLatexController.project.iterations)}" var="iteration"><!--
+-->        \item [#{iteration.name}] #{iteration.description}
+</ice:repeat><!--
+-->    \end{description}
 \end{document}
             </pre>
-        </div>
+        </ice:panelGroup>
     </ui:define>
 
     <ui:define name="sidebar">
