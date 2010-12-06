@@ -22,7 +22,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb breadCrumbSource="#{iterationController.navigationBar}" />
+        <odr:breadcrumb  breadCrumbSource="#{iterationController.navigationBar}" />
 
 
         <ice:outputText value="#{iterationController.projectId}" id="externalVarProjectId" styleClass="hidden"/>
@@ -109,7 +109,7 @@
             <ul class="info">
                 <li class="messages">
                     <div class="header"></div>
-                    <div class="text">
+                    <div class="text ">
                         <ice:messages layout="list"
                                       errorClass="error"
                                       warnClass="warning"
@@ -121,7 +121,10 @@
                     <div class="header" style="position: absolute">
                         <img src="resources/images/cal.png" alt="Calendar" />
                     </div>
-                    <div class="text" style="position: relative">
+                    <div class="text iterationtext">
+                        <h2>#{page['iteration.calendar.head']}</h2>
+                         <p>#{page['iteration.calendar.text']}</p>
+                        <div align="center" id="datepicker" ></div>
                     </div>
                 </li>
             </ul>
