@@ -16,7 +16,7 @@
     </tr>
     <tr>
       <td colspan="2"><b>Goal</b></td>
-      <td colspan="4">Get an overview about all relationships by looking at the relationship view for a project</td>
+      <td colspan="4">Get an overview about all relationships by looking at the relationship view for a project and / or modify the diagram and save the modifications.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Preconditions</b></td>
@@ -36,7 +36,7 @@
 <li>It shall be possible to remove drag handles.</li>
 <li>Drag handles should be removed if they are not necessary, i.e. when the direction of the line wouldn't change if one or more drag handles are removed.</li>
 <li>Dragging of nodes and drag handles should be possible by clicking on one of them and holding the mouse key. The node / drag handle should follow the mouse until the mouse button is released.</li>
-<li>The viewport should automatically modify itself when a node or drag handle is moved to the edge of the viewport. The purpose if that all elements stay visible to the user while dragging.</li>
+<li>The viewport should automatically modify itself when a node or drag handle is moved to the edge of the viewport. The purpose is that all elements stay visible to the user while dragging.</li>
 <li>Nodes and drag handles should align themselves to a grid, which allows easier alignment. Upon dragging, the grid should be shown.</li>
 <li>It must be possible to show and hide single decisions and their relationships, but also all decisions of the same status using a single mouse click.</li>
 <li>It should be possible to zoom. All the functionality shall be available while being in a non-default zoom level, i.e. not at 100%.</li>
