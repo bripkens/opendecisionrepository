@@ -1709,3 +1709,8 @@ div .iceSelInpTxtRow:last-child, div .iceSelInpTxtSelRow:last-child {
 .navigationbar span:last-child{
     display: none;
 }
+
+.iterationtext{
+    height:250px;
+    margin-bottom: 2px;
+}

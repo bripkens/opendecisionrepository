@@ -71,6 +71,15 @@ function checkDates (data, month, year){
                 colortd(t, name, i);
                 t++;
             }
+        } else if(startMonth < mo && endMonth > mo && startYear == year && endYear == year){
+            for(var a = 0; a <31; a++){
+                alert(a);
+                colortd(a, name, i)
+            }
+        }else if(startMonth < mo && startYear == year && endYear > year){
+            for(var b = 0; b < 31; b++){
+                colortd(b, name, i)
+            }
         }
     }
 }
@@ -83,7 +92,7 @@ function colortd(t, name, i){
                 j(this).children("span").css("background-color", "#7CCD7C" );
             }
             else{
-                j(this).children("span").css("background-color", "#EE3B3B" );
+                j(this).children("span").css("background-color", "#EEB422" );
             }
         }
     })

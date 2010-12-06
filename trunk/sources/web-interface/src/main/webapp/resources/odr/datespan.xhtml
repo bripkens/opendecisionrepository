@@ -20,14 +20,6 @@
 
     <composite:implementation>
 
-        <div class="relative" id="iterationDiv">
-            <p>Do you need a calendar? </p>
-            <a href="#" class="togglelink collapsable" name="iterationContainer">#{common.toggle}</a>
-            <div id="iterationContainer" class="toggleContainer" style="display: none">
-                <div align="center" id="datepicker" ></div>
-            </div>
-        </div>
-
 
         <odr:datetimepicker value="#{cc.attrs.startDate}" 
                             id="startDate"
