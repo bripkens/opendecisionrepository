@@ -154,14 +154,17 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
                 iterationEqual = true;
             }
 
+            if (!iterationEqual) {
+                continue;
+            }
+
             if (node.getVersion() == null && version == null) {
                 versionEqual = true;
             } else if (node.getVersion() != null && node.getVersion().equals(version)) {
                 versionEqual = true;
             }
 
-
-            if (iterationEqual && versionEqual && disconnected == node.isDisconnected() && endpoint == node.isEndPoint()) {
+            if (versionEqual && disconnected == node.isDisconnected() && endpoint == node.isEndPoint()) {
                 return node;
             }
         }
@@ -185,10 +188,18 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
                 sourceIterationEqual = true;
             }
 
+            if (!sourceIterationEqual) {
+                continue;
+            }
+
             if (association.getTargetIteration() == null && targetIteration == null) {
                 targetIterationEqual = true;
             } else if (association.getTargetIteration() != null && association.getTargetIteration().equals(targetIteration)) {
                 targetIterationEqual = true;
+            }
+
+            if (!targetIterationEqual) {
+                continue;
             }
 
             if (association.getSourceVersion() == null && sourceVersion == null) {
@@ -197,13 +208,17 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
                 sourceVersionEqual = true;
             }
 
+            if (!sourceVersionEqual) {
+                continue;
+            }
+
             if (association.getTargetVersion() == null && targetVersion == null) {
                 targetVersionEqual = true;
             } else if (association.getTargetVersion() != null && association.getTargetVersion().equals(targetVersion)) {
                 targetVersionEqual = true;
             }
 
-            if (sourceIterationEqual && sourceVersionEqual && targetIterationEqual && targetVersionEqual) {
+            if (targetVersionEqual) {
                 return association;
             }
         }
