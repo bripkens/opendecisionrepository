@@ -334,78 +334,19 @@ public class InitChronologicalViewTest {
 
 
     private boolean containsNodeWith(ChronologicalViewVisualization v, Iteration i, Version version, boolean endpoint) {
-        return containsNodeWith(v, i, version, endpoint, null);
+        return containsNodeWith(v, i, version, endpoint, false);
     }
 
 
-    private boolean containsNodeWith(ChronologicalViewVisualization v, Iteration i, Version version, boolean endpoint, Boolean disconnected) {
-        for (ChronologicalViewNode node : v.getNodes()) {
-            boolean iterationEqual = false, versionEqual = false;
-
-            if (node.getIteration() == null && i == null) {
-                iterationEqual = true;
-            } else if (node.getIteration() != null && node.getIteration().equals(i)) {
-                iterationEqual = true;
-            }
-
-            if (node.getVersion() == null && version == null) {
-                versionEqual = true;
-            } else if (node.getVersion() != null && node.getVersion().equals(version)) {
-                versionEqual = true;
-            }
-
-            if (iterationEqual && versionEqual) {
-                if (disconnected != null && disconnected.equals(node.isDisconnected())) {
-                    return true;
-                } else if (disconnected != null) {
-                    return false;
-                }
-                
-                return endpoint == node.isEndPoint();
-            }
-        }
-
-        return false;
+    private boolean containsNodeWith(ChronologicalViewVisualization v, Iteration i, Version version, boolean endpoint, boolean disconnected) {
+        return v.getNode(i, version, endpoint, disconnected) != null;
     }
 
 
     private boolean containsAssociationWith(ChronologicalViewVisualization v, Iteration sourceIteration,
             Version sourceVersion, Iteration targetIteration, Version targetVersion) {
 
-        for (ChronologicalViewAssociation association : v.getAssociations()) {
-            boolean sourceIterationEqual = false, sourceVersionEqual = false, targetIterationEqual = false,
-                    targetVersionEqual = false;
-
-            if (association.getSourceIteration() == null && sourceIteration == null) {
-                sourceIterationEqual = true;
-            } else if (association.getSourceIteration() != null && association.getSourceIteration().equals(sourceIteration)) {
-                sourceIterationEqual = true;
-            }
-
-            if (association.getTargetIteration() == null && targetIteration == null) {
-                targetIterationEqual = true;
-            } else if (association.getTargetIteration() != null && association.getTargetIteration().equals(targetIteration)) {
-                targetIterationEqual = true;
-            }
-
-            if (association.getSourceVersion() == null && sourceVersion == null) {
-                sourceVersionEqual = true;
-            } else if (association.getSourceVersion() != null && association.getSourceVersion().equals(sourceVersion)) {
-                sourceVersionEqual = true;
-            }
-
-            if (association.getTargetVersion() == null && targetVersion == null) {
-                targetVersionEqual = true;
-            } else if (association.getTargetVersion() != null && association.getTargetVersion().equals(targetVersion)) {
-                targetVersionEqual = true;
-            }
-
-            if (sourceIterationEqual && sourceVersionEqual && targetIterationEqual && targetVersionEqual) {
-                return true;
-            }
-        }
-
-        return false;
+        return v.getAssociation(sourceIteration, sourceVersion, targetIteration, targetVersion) != null;
     }
 
 

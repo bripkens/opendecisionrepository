@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.viewpoint.AbstractVisualization;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
+import org.eclipse.persistence.history.AsOfClause;
 
 /**
  *
@@ -42,6 +44,7 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
 
 
 
+
     public boolean containsVersion(Version v) {
         for (ChronologicalViewNode node : getNodes()) {
             if (node.getVersion() != null && node.getVersion().equals(v)) {
@@ -50,6 +53,8 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
         }
         return false;
     }
+
+
 
 
     @Override
@@ -130,9 +135,84 @@ public class ChronologicalViewVisualization extends AbstractVisualization<Chrono
     }
 
 
+
+
     void sortNodes(Comparator<ChronologicalViewNode> comp) {
         Collections.sort(nodes, comp);
     }
+
+
+
+
+    public ChronologicalViewNode getNode(Iteration i, Version version, boolean endpoint, boolean disconnected) {
+        for (ChronologicalViewNode node : getNodes()) {
+            boolean iterationEqual = false, versionEqual = false;
+
+            if (node.getIteration() == null && i == null) {
+                iterationEqual = true;
+            } else if (node.getIteration() != null && node.getIteration().equals(i)) {
+                iterationEqual = true;
+            }
+
+            if (node.getVersion() == null && version == null) {
+                versionEqual = true;
+            } else if (node.getVersion() != null && node.getVersion().equals(version)) {
+                versionEqual = true;
+            }
+
+
+            if (iterationEqual && versionEqual && disconnected == node.isDisconnected() && endpoint == node.isEndPoint()) {
+                return node;
+            }
+        }
+
+        return null;
+    }
+
+
+
+
+    public ChronologicalViewAssociation getAssociation(Iteration sourceIteration,
+            Version sourceVersion, Iteration targetIteration, Version targetVersion) {
+
+        for (ChronologicalViewAssociation association : getAssociations()) {
+            boolean sourceIterationEqual = false, sourceVersionEqual = false, targetIterationEqual = false,
+                    targetVersionEqual = false;
+
+            if (association.getSourceIteration() == null && sourceIteration == null) {
+                sourceIterationEqual = true;
+            } else if (association.getSourceIteration() != null && association.getSourceIteration().equals(sourceIteration)) {
+                sourceIterationEqual = true;
+            }
+
+            if (association.getTargetIteration() == null && targetIteration == null) {
+                targetIterationEqual = true;
+            } else if (association.getTargetIteration() != null && association.getTargetIteration().equals(targetIteration)) {
+                targetIterationEqual = true;
+            }
+
+            if (association.getSourceVersion() == null && sourceVersion == null) {
+                sourceVersionEqual = true;
+            } else if (association.getSourceVersion() != null && association.getSourceVersion().equals(sourceVersion)) {
+                sourceVersionEqual = true;
+            }
+
+            if (association.getTargetVersion() == null && targetVersion == null) {
+                targetVersionEqual = true;
+            } else if (association.getTargetVersion() != null && association.getTargetVersion().equals(targetVersion)) {
+                targetVersionEqual = true;
+            }
+
+            if (sourceIterationEqual && sourceVersionEqual && targetIterationEqual && targetVersionEqual) {
+                return association;
+            }
+        }
+
+        return null;
+    }
+
+
+
 
 }
 
