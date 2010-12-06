@@ -26,6 +26,7 @@ import nl.rug.search.odr.viewpoint.Viewpoint;
 import nl.rug.search.odr.viewpoint.ViewpointExclusionStrategy;
 import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import nl.rug.search.odr.viewpoint.chronological.InitChronologicalView;
+import nl.rug.search.odr.viewpoint.chronological.UpdateChronologicalView;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
@@ -212,10 +213,14 @@ public class ViewpointDataProvider extends HttpServlet {
 
         if (existingVisualization == null) {
             existingVisualization = initChronologicalView(p);
+        } else {
+            existingVisualization = updateChronologicalView(p, existingVisualization);
         }
 
         return existingVisualization;
     }
+
+
 
 
     private ChronologicalViewVisualization initChronologicalView(Project p) {
@@ -234,7 +239,28 @@ public class ViewpointDataProvider extends HttpServlet {
     }
 
 
+
+
+    private ChronologicalViewVisualization updateChronologicalView(Project p,
+            ChronologicalViewVisualization existingVisualization) {
+        ChronologicalViewVisualization updatedVisualization;
+        updatedVisualization = new UpdateChronologicalView(p, existingVisualization).getView();
+
+        p.removeChronologicalView(existingVisualization);
+        p.addChronologicalView(updatedVisualization);
+
+        cvl.persist(updatedVisualization);
+        pl.merge(p);
+
+        // we are retrieving the visualization again from the database to get all IDs right
+        updatedVisualization = cvl.getById(updatedVisualization.getId());
+
+        return updatedVisualization;
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
 
     /**
      * Handles the HTTP <code>GET</code> method.
