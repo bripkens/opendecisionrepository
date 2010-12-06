@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:odr="http://www.decisionrepository.com/taglib">
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
     </ui:define>
@@ -15,42 +15,43 @@
 
 
     <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{projectsController.navigationBar}" />
 
-        <ice:form>
+            <ice:form>
 
-            <h1><h:outputText value="#{page['projects.page.title']}"/></h1>
-
-
-            <ice:dataTable
-                value="#{projectsController.projects}"
-                var="project" styleClass="rowhover enableHover pointer " rendered="#{projectsController.active}">
-
-                <ice:column>
-                    <ice:rowSelector id="selected"
-                                     selectionListener="#{projectsController.rowSelectionListener}"/>
-                    <ice:outputText value="#{project.project.name}" nospan="true"/>
-                </ice:column>
+                <h1><h:outputText value="#{page['projects.page.title']}"/></h1>
 
 
+                <ice:dataTable
+                    value="#{projectsController.projects}"
+                    var="project" styleClass="rowhover enableHover pointer " rendered="#{projectsController.active}">
 
-                <ice:column id="col">
-                    <ice:outputText value="#{project.role.name}" id="project"/>
-                </ice:column>
+                    <ice:column>
+                        <ice:rowSelector id="selected"
+                                         selectionListener="#{projectsController.rowSelectionListener}"/>
+                        <ice:outputText value="#{project.project.name}" nospan="true"/>
+                    </ice:column>
 
-                <ice:column styleClass="navigationColumn">
+
+
+                    <ice:column id="col">
+                        <ice:outputText value="#{project.role.name}" id="project"/>
+                    </ice:column>
+
+                    <ice:column styleClass="navigationColumn">
                         <img alt="#{common.read}"
                              src="resources/images/inspect.png"
                              width="14"
                              height="14"/>
-                </ice:column>
-            </ice:dataTable>
+                    </ice:column>
+                </ice:dataTable>
 
-            <p>
-            <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
-            <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
-            </p>
+                <p>
+                <ice:outputText value="#{page['projects.no.project']}" escape="false" rendered="#{!projectsController.active}"/>
+                <ice:outputText value="#{page['projects.create.text']}" escape="false" rendered="#{projectsController.active}"/>
+                </p>
 
-        </ice:form>
+            </ice:form>
 
 
 

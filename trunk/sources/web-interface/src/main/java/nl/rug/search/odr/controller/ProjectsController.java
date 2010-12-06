@@ -10,6 +10,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.RequestParameter;
@@ -24,6 +26,8 @@ public class ProjectsController {
     private ProjectLocal pl;
 
     private List<ProjectMember> members;
+    private String url;
+    private NavigationBuilder navi;
 
 
 
@@ -35,7 +39,6 @@ public class ProjectsController {
             }
         }
     }
-   
 
 
 
@@ -43,6 +46,23 @@ public class ProjectsController {
     @PostConstruct
     public void init() {
         members = pl.getAllProjectsFromUser(AuthenticationUtil.getUserId());
+        navi = new NavigationBuilder();
+        getRequestURL();
+        navi.setNavigationSite(url);
+    }
+
+
+
+
+    public void getRequestURL() {
+        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        return navi.getNavigationBar();
     }
 
 
@@ -92,4 +112,11 @@ public class ProjectsController {
     public void changeEffectAction(ActionEvent event) {
         getEffect().setFired(true);
     }
+
+
+
+
 }
+
+
+

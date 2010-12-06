@@ -14,6 +14,9 @@
     </ui:define>
 
     <ui:define name="content">
+
+        <odr:breadcrumb breadCrumbSource="#{concernController.navigationBar}" />
+        
         <ice:form id="concernForm" partialSubmit="false" rendered="#{concernController.valid}">
             <h1><h:outputText value="#{concernController.concern.name}"/></h1>
             <table class="details">

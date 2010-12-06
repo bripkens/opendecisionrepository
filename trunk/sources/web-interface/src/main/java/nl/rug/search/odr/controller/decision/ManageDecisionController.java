@@ -1,6 +1,7 @@
 package nl.rug.search.odr.controller.decision;
 
 import java.util.Date;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -8,9 +9,11 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.Action;
 import nl.rug.search.odr.ActionResult;
 import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.Filename;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
@@ -113,6 +116,7 @@ public class ManageDecisionController extends AbstractController {
     // <editor-fold defaultstate="collapsed" desc="construction">
     @PostConstruct
     public void postConstruct() {
+        
         initSteps();
     }
 
@@ -248,10 +252,31 @@ public class ManageDecisionController extends AbstractController {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="navigation">
 
 
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        NavigationBuilder navi = new NavigationBuilder();
+        navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        navi.setProject(project);
+        navi.setDecision(decision);
+        navi.setVersion(version);
+        if (isUpdateRequest()) {
+            navi.setOption(Action.EDIT);
+        } else{
+            navi.setOption(Action.CREATE);
+        }
+        return navi.getNavigationBar();
+    }
+// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="step navigation">
+
+
+
     public void nextStep() {
         int nextStepId = getStepId(currentStep) + 1;
 

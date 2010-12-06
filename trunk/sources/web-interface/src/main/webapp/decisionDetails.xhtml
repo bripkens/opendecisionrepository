@@ -3,7 +3,8 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
     </ui:define>
@@ -13,6 +14,8 @@
     </ui:define>
 
     <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{decisionDetailsController.navigationBar}" />
+
         <f:subview id="decisionDetailsContentSubview" rendered="#{decisionDetailsController.valid}">
             <h1><ice:outputText value="#{decisionDetailsController.decision.name}" nospan="true" /></h1>
 

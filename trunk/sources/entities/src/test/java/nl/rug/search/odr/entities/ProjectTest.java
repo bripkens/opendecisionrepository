@@ -1052,7 +1052,6 @@ public class ProjectTest {
 
         assertTrue(p.getConcerns().isEmpty());
 
-
     }
 
 

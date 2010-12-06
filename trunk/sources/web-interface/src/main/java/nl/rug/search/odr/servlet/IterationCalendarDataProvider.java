@@ -5,9 +5,8 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -31,9 +30,6 @@ public class IterationCalendarDataProvider extends HttpServlet {
     @EJB
     private ProjectLocal projectLocal;
 
-
-
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -56,40 +52,22 @@ public class IterationCalendarDataProvider extends HttpServlet {
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
 
-
-
         Project p = projectLocal.getById(projectId);
+
+        List<Iteration> iterations = new ArrayList<Iteration>(p.getIterations());
+        Collections.sort(iterations, new Iteration.EndDateComparator());
 
         List<JSonIteration> allIterations = new ArrayList<JSonIteration>();
 
-
-        for (Iteration i : p.getIterations()) {
+        for (Iteration i : iterations) {
             JSonIteration it = new JSonIteration(i.getStartDate(),
                     i.getEndDate(),
                     i.getProjectMember().getPerson().getName(),
                     i.getName(),
                     i.getDocumentedWhen());
 
-                    allIterations.add(it);
+            allIterations.add(it);
 
-
-//            List<Date> dates = new ArrayList<Date>();
-//
-//            GregorianCalendar startCal = new GregorianCalendar();
-//            startCal.setTime(i.getStartDate());
-//
-//            GregorianCalendar endCal = new GregorianCalendar();
-//            endCal.setTime(i.getEndDate());
-//
-//            GregorianCalendar current = startCal;
-//
-//            while (!current.equals(endCal)) {
-//                dates.add(current.getTime());
-//                current.add(Calendar.DATE, 1);
-//            }
-//
-//            dates.add(endCal.getTime());
-//            allIterations.add(dates);
         }
 
         out.print(gson.toJson(allIterations));

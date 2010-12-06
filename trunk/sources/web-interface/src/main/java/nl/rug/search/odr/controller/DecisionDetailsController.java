@@ -13,6 +13,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
@@ -57,15 +58,24 @@ public class DecisionDetailsController {
     private DecisionLocal dl;
     // </editor-fold>
 
+    private String url;
+
+    private NavigationBuilder navi;
 
 
     // <editor-fold defaultstate="collapsed" desc="construction">
+
 
     @PostConstruct
     public void setUp() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().
                 getExternalContext().
                 getRequest();
+
+        navi = new NavigationBuilder();
+        getRequestURL();
+        ;
+        navi.setNavigationSite(url);
 
         RequestAnalyser analyser = new RequestAnalyser(request, pl);
 
@@ -110,6 +120,7 @@ public class DecisionDetailsController {
 
         if (versionId == -1) {
             version = decision.getCurrentVersion();
+
         } else {
             version = decision.getVersion(versionId);
 
@@ -121,6 +132,10 @@ public class DecisionDetailsController {
         }
 
         this.project = analyserDto.getProject();
+        
+        navi.setProject(project);
+        navi.setVersion(version);
+        navi.setDecision(decision);
 
         validRequest = true;
     }
@@ -128,7 +143,21 @@ public class DecisionDetailsController {
 
 
 
+
+    public void getRequestURL() {
+        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        return navi.getNavigationBar();
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="getter">
+
 
     public boolean isValid() {
         return validRequest;
@@ -149,9 +178,14 @@ public class DecisionDetailsController {
     }
 
 
+
+
     public boolean hasValues() {
         return decision != null && !decision.getValues().isEmpty();
     }
+
+
+
 
     public List<DescriptionDto> getValues() {
         List<ComponentValue> values = new ArrayList<ComponentValue>(decision.getValues());
@@ -163,7 +197,7 @@ public class DecisionDetailsController {
         CustomWikiModel wcm = new CustomWikiModel();
 
 
-        for(ComponentValue value : values) {
+        for (ComponentValue value : values) {
             DescriptionDto description = new DescriptionDto();
             description.setContent(wcm.wikiToHtml(value.getValue()));
             description.setHeadline(value.getComponent().getLabel());
@@ -200,7 +234,7 @@ public class DecisionDetailsController {
 
         List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
 
-        for(Relationship eachRelationship : relationships) {
+        for (Relationship eachRelationship : relationships) {
             RelationshipDto dto = new RelationshipDto();
             dto.setType(eachRelationship.getType());
             dto.setVersion(eachRelationship.getTarget());
@@ -212,12 +246,14 @@ public class DecisionDetailsController {
     }
 
 
+
+
     public List<RelationshipDto> getIncomingRelationships() {
         Collection<Relationship> relationships = version.getIncomingRelationships();
 
         List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
 
-        for(Relationship eachRelationship : relationships) {
+        for (Relationship eachRelationship : relationships) {
             RelationshipDto dto = new RelationshipDto();
             dto.setType(eachRelationship.getType());
             dto.setVersion(eachRelationship.getSource());
@@ -227,19 +263,20 @@ public class DecisionDetailsController {
 
         return result;
     }
-    
+
+
 
 
     public List<HistoryDto> getFuture() {
         Collection<Version> versions = decision.getVersions();
         List<HistoryDto> future = new ArrayList<HistoryDto>(versions.size() - 1);
 
-        for(Version eachVersion : versions) {
+        for (Version eachVersion : versions) {
             boolean after;
 
-            after = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) > 0 ||
-                    (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0 &&
-                    eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) > 0);
+            after = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) > 0
+                    || (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0
+                    && eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) > 0);
 
             if (eachVersion.getId() != version.getId() && after) {
                 HistoryDto dto = new HistoryDto();
@@ -256,16 +293,19 @@ public class DecisionDetailsController {
         return future;
     }
 
+
+
+
     public List<HistoryDto> getHistory() {
         Collection<Version> versions = decision.getVersions();
         List<HistoryDto> history = new ArrayList<HistoryDto>(versions.size() - 1);
 
-        for(Version eachVersion : versions) {
+        for (Version eachVersion : versions) {
             boolean before;
 
-            before = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) < 0 ||
-                    (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0 &&
-                    eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) < 0);
+            before = eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) < 0
+                    || (eachVersion.getDecidedWhen().compareTo(version.getDecidedWhen()) == 0
+                    && eachVersion.getDocumentedWhen().compareTo(version.getDocumentedWhen()) < 0);
 
             if (eachVersion.getId() != version.getId() && before) {
                 HistoryDto dto = new HistoryDto();
@@ -283,12 +323,16 @@ public class DecisionDetailsController {
     }
 
 
+
+
     public String getConcernLink(Concern concern) {
         return new QueryStringBuilder().setUrl(Filename.CONCERN_DETAILS).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_GROUP_ID, concern.getGroup()).
                 toString();
     }
+
+
 
 
     public String getDecisionLink(long versionId) {
@@ -313,8 +357,12 @@ public class DecisionDetailsController {
 
     // <editor-fold defaultstate="collapsed" desc="dtos">
 
+
+
     public static class DescriptionDto {
+
         private String headline;
+
         private String content;
 
 
@@ -345,23 +393,34 @@ public class DecisionDetailsController {
             this.headline = headline;
         }
 
-        
+
+
+
     }
 
+
+
+
     public class RelationshipDto {
+
         private RelationshipType type;
+
         private Decision decision;
+
         private Version version;
+
 
 
 
         public String getDecisionLink() {
             return new QueryStringBuilder().setUrl("decisionDetails.html").
-                append(RequestParameter.ID, project.getId()).
-                append(RequestParameter.DECISION_ID, decision.getId()).
-                append(RequestParameter.VERSION_ID, version.getId()).
-                toString();
+                    append(RequestParameter.ID, project.getId()).
+                    append(RequestParameter.DECISION_ID, decision.getId()).
+                    append(RequestParameter.VERSION_ID, version.getId()).
+                    toString();
         }
+
+
 
 
         public Decision getDecision() {
@@ -403,14 +462,24 @@ public class DecisionDetailsController {
             this.version = version;
         }
 
-        
+
+
+
     }
 
-    public static class HistoryDto implements Comparable<HistoryDto>{
+
+
+
+    public static class HistoryDto implements Comparable<HistoryDto> {
+
         private State state;
+
         private Date decidedWhen;
+
         private Date documentedWhen;
+
         private long versionId;
+
 
 
 
@@ -480,7 +549,14 @@ public class DecisionDetailsController {
         public long getVersionId() {
             return versionId;
         }
+
+
+
+
     }
 
     // </editor-fold>
 }
+
+
+

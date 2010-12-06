@@ -3,6 +3,7 @@ package nl.rug.search.odr.controller;
 import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -18,6 +19,7 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.EmailValidator;
 import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.Mode;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.StringValidator;
@@ -549,5 +551,12 @@ public class ManageProjectController extends AbstractManageController {
         return JsfUtil.evaluateExpressionGet("#{form['project.manage.fail']}", String.class);
     }
     // </editor-fold>
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        NavigationBuilder navi = new NavigationBuilder();
+        navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        navi.setProject(sourceProject);
+        return navi.getNavigationBar();
+    }
 
 }

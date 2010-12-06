@@ -24,16 +24,19 @@
     </ui:define>
 
     <ui:define name="content">
+
         <ice:panelGroup rendered="#{!manageProjectController.validRequest}" >
             <h1><ice:outputText value="#{form['project.manage.no.project.selected.title']}" /></h1>
             <ice:outputText value="#{form['project.manage.no.project.selected.text']}"  />
         </ice:panelGroup>
 
+        <odr:breadcrumb breadCrumbSource="#{manageProjectController.navigationBar}" />
+
         <ice:form id="deleteConfirmForm" rendered="#{manageProjectController.validRequest and manageProjectController.deleteRequest}">
             <h1><ui:insert name="heading" /></h1>
 
             <p class="deleteConfirmationMessage">
-                <ui:insert name="deleteConfirmationText" />
+            <ui:insert name="deleteConfirmationText" />
             </p>
 
             <ice:commandButton action="#{manageProjectController.delete}"

@@ -4,7 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:odr="http://www.decisionrepository.com/taglib">
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
     </ui:define>
@@ -23,6 +23,8 @@
     </ui:define>
 
     <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{registerUserController.navigationBar}" />
+
         <ice:form id="registerForm" partialSubmit="true">
 
             <h1><h:outputText value="#{form['registration.heading']}"/></h1>
