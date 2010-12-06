@@ -1,24 +1,19 @@
 package nl.rug.search.odr.controller;
 
-import com.sun.faces.context.flash.ELFlash;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.entities.Iteration;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
@@ -30,6 +25,8 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.Action;
+import nl.rug.search.odr.NavigationBuilder;
 
 /**
  *
@@ -57,19 +54,29 @@ public class IterationController {
 
     private Iteration iteration = null;
 
+    // <editor-fold defaultstate="collapsed" desc="Iteration attributes">
     private String iterationName = "";
 
     private String iterationDescription = "";
 
     private ProjectMember member;
-    //
 
     private Date startDate = null;
 
-    //
     private Date endDate = null;
 
+    private long days;
+
+    private long hours;
+
+    private long minutes;
+// </editor-fold>
+
     private boolean isUpdate = false;
+
+    private NavigationBuilder navi;
+
+    private String url;
 
 
 
@@ -80,6 +87,9 @@ public class IterationController {
             ErrorUtil.showNotAuthenticatedError();
             return;
         }
+        navi = new NavigationBuilder();
+        getRequestURL();
+        navi.setNavigationSite(url);
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
@@ -100,6 +110,7 @@ public class IterationController {
         // </editor-fold>
 
         getProject();
+        navi.setProject(project);
 
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
@@ -116,12 +127,15 @@ public class IterationController {
             str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);
         } else {
             isUpdate = false;
+            navi.setOption(Action.CREATE);
         }
 
         if (isUpdate) {
             try {
                 iterationId = Long.parseLong(str_iterationId);
                 getIterationFromDb();
+                navi.setIteration(iteration);
+                navi.setOption(Action.EDIT);
             } catch (NumberFormatException e) {
                 ErrorUtil.showInvalidIdError();
                 return;
@@ -143,9 +157,22 @@ public class IterationController {
             iterationDescription = iteration.getDescription();
             startDate = iteration.getStartDate();
             endDate = iteration.getEndDate();
-
+            calculateDuration();
         }
+    }
 
+
+
+
+    public void getRequestURL() {
+        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        return navi.getNavigationBar();
     }
 
 
@@ -177,9 +204,15 @@ public class IterationController {
         return null;
     }
 
-    public long getProjectId(){
+
+
+
+    public long getProjectId() {
         return projectId;
     }
+
+
+
 
     public String getDataRequestUrl() {
         return Filename.ITERATION_DATA_PROVIDER;
@@ -356,4 +389,59 @@ public class IterationController {
         }
         return result;
     }
+
+
+
+
+    public String getupdateLink() {
+        return new QueryStringBuilder().setUrl("manageIteration.html").
+                append(RequestParameter.ID, project.getId()).
+                append(RequestParameter.ITERATION_ID, iteration.getId()).
+                toString();
+    }
+
+
+
+
+    public String getDays() {
+        return String.valueOf(days);
+    }
+
+
+
+
+    public String getHours() {
+        return String.valueOf(hours);
+    }
+
+
+
+
+    public String getMinutes() {
+        return String.valueOf(minutes);
+    }
+
+
+
+
+    public void calculateDuration() {
+        long millisPerMinute = 1000 * 60;
+        long millisPerHour = millisPerMinute * 60;
+        long millisPerDay = millisPerHour * 24;
+
+        long end = iteration.getEndDate().getTime();
+        long start = iteration.getStartDate().getTime();
+        long timeDiff = end - start;
+        days = timeDiff / millisPerDay;
+        hours = (timeDiff % millisPerDay) / millisPerHour;
+        minutes = (timeDiff % millisPerHour) / millisPerMinute;
+        System.out.println(days + " : " + hours + " : " + minutes);
+    }
+
+
+
+
 }
+
+
+

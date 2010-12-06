@@ -14,31 +14,33 @@
     </ui:define>
 
     <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{iterationController.navigationBar}" />
+        
         <ice:form id="iterationForm" partialSubmit="false">
-            <h1><h:outputText value="#{iterationDetailsController.iteration.name}"/></h1>
+            <h1><h:outputText value="#{iterationController.iteration.name}"/></h1>
             <table class="details">
 
                 <div class="projectDetailsActions">
-                    <a href="#{iterationDetailsController.updateLink}" id="updateLink" title="#{page['iteration.actions.edit.title']}" style="text-decoration: none;">
+                    <a href="#{iterationController.updateLink}" id="updateLink" title="#{page['iteration.actions.edit.title']}" style="text-decoration: none;">
                         <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
                     </a>
                 </div>
 
                 <tbody>
-                <tr>
-                    <td><ice:outputLabel value="#{form['label.description']}" for="inDescription" /></td>
-                <td> <ice:outputText value="#{iterationDetailsController.iteration.description}"/></td>
+                    <tr>
+                        <td><ice:outputLabel value="#{form['label.description']}" for="inDescription" /></td>
+                        <td> <ice:outputText value="#{iterationController.iteration.description}"/></td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.startDate']}" for="inStartDate" /></td>
-                <td><ice:outputText value="#{iterationDetailsController.iteration.startDate}">
+                    <td><ice:outputText value="#{iterationController.iteration.startDate}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.endDate']}" for="inEndDate" /></td>
-                <td><ice:outputText value="#{iterationDetailsController.iteration.endDate}">
+                    <td><ice:outputText value="#{iterationController.iteration.endDate}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
@@ -46,18 +48,18 @@
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.duration']}" for="inDuration" /></td>
                 <td> <ice:outputFormat value="#{form['iteration.duration.value']}">
-                    <f:param value="#{iterationDetailsController.days}" />
-                    <f:param value="#{iterationDetailsController.hours}" />
-                    <f:param value="#{iterationDetailsController.minutes}" />
+                    <f:param value="#{iterationController.days}" />
+                    <f:param value="#{iterationController.hours}" />
+                    <f:param value="#{iterationController.minutes}" />
                 </ice:outputFormat></td>
                 </tr>
                 <tr>
                     <td> <ice:outputLabel value="#{form['iteration.documentedBy']}" for="inCreator" /></td>
-                <td><ice:outputText value="#{iterationDetailsController.iteration.projectMember.person.name}"/></td>
+                    <td><ice:outputText value="#{iterationController.iteration.projectMember.person.name}"/></td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.creationdate']}" for="inDocumentedBy" /></td>
-                <td><ice:outputText value="#{iterationDetailsController.iteration.documentedWhen}">
+                    <td><ice:outputText value="#{iterationController.iteration.documentedWhen}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
@@ -66,7 +68,7 @@
             </table>
 
             <!--Back Button-->
-            <ice:commandButton actionListener="#{iterationDetailsController.abortForm}"
+            <ice:commandButton actionListener="#{iterationController.abortForm}"
                                id="reset"
                                style="margin-top:10px"
                                value="#{form['button.backtoproject']}"

@@ -17,9 +17,14 @@
     <ui:define name="pagetitle">
         <ice:outputText value="#{page['iteration.page.title']}" nospan="true" />
         <ice:outputText value="#{iterationController.name}" rendered="#{iterationController.valid}" nospan="true"/>
+
+
     </ui:define>
 
     <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{iterationController.navigationBar}" />
+
+
         <ice:outputText value="#{iterationController.projectId}" id="externalVarProjectId" styleClass="hidden"/>
         <ice:outputText value="#{iterationController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
 

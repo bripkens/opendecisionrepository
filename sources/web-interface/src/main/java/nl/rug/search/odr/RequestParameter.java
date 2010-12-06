@@ -12,6 +12,7 @@ public interface RequestParameter {
 
     String PROJECT_PATH_LONG = "/project/";
     String PROJECT_PATH_SHORT = "/p/";
+    String PROJECT_PATH_WITH_ENDING_SLASH = "p/";
 
     String CREATE = "create";
     String UPDATE = "update";

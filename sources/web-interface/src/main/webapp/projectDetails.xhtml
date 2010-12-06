@@ -74,6 +74,9 @@
     </ui:define>
 
     <ui:define name="content">
+
+        <odr:breadcrumb breadCrumbSource="#{projectDetailsController.navigationBar}" />
+
         <f:subview rendered="#{projectDetailsController.valid}" id="contentSubView">
             <h1><h:outputText value="#{projectDetailsController.projectName}" /></h1>
 

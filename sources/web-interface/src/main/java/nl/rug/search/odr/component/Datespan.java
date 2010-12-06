@@ -1,6 +1,5 @@
 package nl.rug.search.odr.component;
 
-import com.sun.faces.util.MessageFactory;
 import java.util.Date;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.FacesComponent;
@@ -8,7 +7,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
-import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.util.JsfUtil;
 
 /**

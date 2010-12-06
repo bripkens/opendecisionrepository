@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xml:lang="en">
+
+    <composite:interface>
+        <composite:attribute name="breadCrumbSource" type="java.util.List"/>
+
+
+    </composite:interface>
+
+    <composite:implementation>
+        <div class="navigationbar">
+            <p>
+            <ice:repeat value="#{cc.attrs.breadCrumbSource}" var="links" >
+                <span><a href='#{links.link}'><ice:outputText value="#{links.name}" nospan="true" /></a></span>
+                <span>/</span>
+            </ice:repeat>
+            </p>
+        </div>
+    </composite:implementation>
+</html>

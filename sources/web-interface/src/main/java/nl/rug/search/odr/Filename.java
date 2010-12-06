@@ -13,6 +13,8 @@ public interface Filename {
 
     String ERROR = "error.html";
 
+    String INDEX = "index.html";
+
     String ERROR_WITH_LEADING_SLASH = "/".concat(ERROR);
 
     String PROJECT_OVERVIEW = "projects.html";
@@ -39,9 +41,18 @@ public interface Filename {
 
     String DECISION_DETAILS_WITH_LEADING_SLASH = "/".concat(DECISION_DETAILS);
 
+    String PROJECT_DETAILS_WITH_LEADING_SLASH = "/".concat("projectDetails.html");
+
     String MANAGE_DECISION = "manageDecision.html";
 
     String MANAGE_DECISION_WITH_LEADING_SLASH = "/".concat(MANAGE_DECISION);
+
+    String CREATE_PROJECT_WITH_LEADING_SLASH ="/createProject.html";
+    String UPDATE_PROJECT_WITH_LEADING_SLASH ="/updateProject.html";
+    String DELETE_PROJECT_WITH_LEADING_SLASH ="/deleteProject.html";
+
+     String REGISTER_USER_WITH_LEADING_SLASH ="/register.html";
+
 
     String DRAWING = "drawing.html";
 
@@ -52,10 +63,8 @@ public interface Filename {
 
     String VIEWPOINT_DATA_PROVIDER_WITH_LEADING_SLASH = "/".concat(VIEWPOINT_DATA_PROVIDER);
 
-
     String ITERATION_DATA_PROVIDER = ((WebServlet) IterationCalendarDataProvider.class.getAnnotations()[0]).urlPatterns()[0].
             substring(1);
-
 
     String VIEWPOINT_DATA_RECEIVER = ((WebServlet) ViewpointDataReceiver.class.getAnnotations()[0]).urlPatterns()[0].
             substring(1);

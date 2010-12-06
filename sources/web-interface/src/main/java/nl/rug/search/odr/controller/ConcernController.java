@@ -1,24 +1,25 @@
 package nl.rug.search.odr.controller;
 
-import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIComponent;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
+import nl.rug.search.odr.Action;
 import nl.rug.search.odr.Filename;
+
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
@@ -42,24 +43,43 @@ public class ConcernController {
 
     @EJB
     private ProjectLocal projectLocal;
+
     @EJB
     private ConcernLocal concernLocal;
+
     private Project project;
+
     private Concern concern;
+
     private Collection<String> autoComplete;
-    private boolean isUpdate = false;
+
     private ProjectMember member;
-    //attributes
+
+    // <editor-fold defaultstate="collapsed" desc="concern attributes">
     private String externalId = "";
+
     private String name = "";
+
     private String description = "";
+
     private Long group;
+
     private ArrayList<Item> tags;
+    // </editor-fold>
+
+    private boolean isUpdate = false;
+
+    private NavigationBuilder navi;
+
+    private String url;
     //final Strings
+
     public static final String EXTERNALID_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.EXTERNALIDALREADYINUSE";
+
     public static final String NAME_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.NAMEALREADYINUSE";
+
     public static final String TAG_ALREADY_IN_USE =
             "nl.rug.search.odr.validator.ConcernValidator.TAGALREADYINUSE";
 
@@ -72,20 +92,24 @@ public class ConcernController {
                 getExternalContext().
                 getRequest();
 
+        navi = new NavigationBuilder();
+        getRequestURL();
+        navi.setNavigationSite(this.url);
+
         RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
         RequestAnalyserDto result = analyser.analyse();
 
 
         if (result.isValid()) {
-            autoComplete = new ArrayList<String>();
-            tags = new ArrayList<Item>();
-            member = result.getMember();
+            this.autoComplete = new ArrayList<String>();
+            this.tags = new ArrayList<Item>();
+            this.member = result.getMember();
             setUpConcernSpecific(result);
-        } else if (project == null) {
+        } else if (this.project == null) {
             result.executeErrorAction();
 
-        } else if (!projectLocal.isMember(AuthenticationUtil.getUserId(), project.getId())) {
-            concern = null;
+        } else if (!this.projectLocal.isMember(AuthenticationUtil.getUserId(), project.getId())) {
+            this.concern = null;
         }
 
 
@@ -95,7 +119,8 @@ public class ConcernController {
 
 
     private void setUpConcernSpecific(RequestAnalyserDto requestAnalyser) {
-        project = requestAnalyser.getProject();
+        this.project = requestAnalyser.getProject();
+        this.navi.setProject(this.project);
 
         String concernIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.CONCERN_ID);
@@ -104,40 +129,57 @@ public class ConcernController {
                 getParameter(RequestParameter.CONCERN_GROUP_ID);
 
         if (concernIdParameter != null) {
-            concern = getConernIdParameter(concernIdParameter);
-            isUpdate = true;
+            this.concern = getConernIdParameter(concernIdParameter);
+            this.isUpdate = true;
         } else if (concernGroupIdParameter != null) {
-            concern = getGroupParameter(concernGroupIdParameter);
-            isUpdate = true;
+            this.concern = getGroupParameter(concernGroupIdParameter);
+            this.isUpdate = true;
         } else {
-            concern = new Concern();
-            isUpdate = false;
+            this.concern = new Concern();
+            this.isUpdate = false;
+            this.navi.setOption(Action.CREATE);
+
         }
 
-        if (concern == null) {
+        if (this.concern == null) {
             ErrorUtil.showInvalidIdError();
             return;
         }
 
 
-        if (isUpdate) {
-
+        if (this.isUpdate) {
+            this.navi.setConcern(concern);
+            this.navi.setOption(Action.EDIT);
             this.name = concern.getName();
             this.description = concern.getDescription();
             this.externalId = concern.getExternalId();
             this.group = concern.getGroup();
 
-            for (String s : concern.getTags()) {
+            for (String s : this.concern.getTags()) {
                 this.tags.add(new Item(s));
             }
         }
 
-        int numberToAdd = 3 - (tags.size() % 3);
+        int numberToAdd = 3 - (this.tags.size() % 3);
         for (int i = 0;
                 i < numberToAdd;
                 i++) {
-            tags.add(new Item(""));
+            this.tags.add(new Item(""));
         }
+    }
+
+
+
+
+    public void getRequestURL() {
+        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        return navi.getNavigationBar();
     }
 
 
@@ -459,11 +501,7 @@ public class ConcernController {
 //
 //        }
 //    }
-
 // </editor-fold>
-
-
-
     public Collection<SelectItem> getTagPossibilities() {
         Collection<SelectItem> items = new ArrayList<SelectItem>();
 
@@ -486,6 +524,9 @@ public class ConcernController {
 
 
     }
+
+
+
 
     public class Item {
 
@@ -536,5 +577,16 @@ public class ConcernController {
             hash = 23 * hash + (this.value != null ? this.value.hashCode() : 0);
             return hash;
         }
+
+
+
+
     }
+
+
+
+
 }
+
+
+

@@ -1,12 +1,14 @@
 package nl.rug.search.odr;
 
 import com.thoughtworks.selenium.Selenium;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
+
 public class DecisionWizardTest extends AbstractSelenseTestCase {
 
     public static final String TEXTUAL_ELEMENT_INPUT_1 = "//form[@id='manageDecisionForm']/div/div[1]/textarea";

@@ -18,6 +18,7 @@ import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.DecisionTemplateLocal;
 import nl.rug.search.odr.Filename;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
@@ -81,6 +82,10 @@ public class ProjectDetailsController {
     private State state;
 
     private State initialState;
+
+    private String url;
+
+    private NavigationBuilder navi;
     // <editor-fold defaultstate="collapsed" desc="construction">
 
 
@@ -92,6 +97,10 @@ public class ProjectDetailsController {
             ErrorUtil.showNotAuthenticatedError();
             return;
         }
+
+        navi = new NavigationBuilder();
+        getRequestURL();
+        navi.setNavigationSite(url);
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
@@ -466,6 +475,7 @@ public class ProjectDetailsController {
 
     public Project getProject() {
         project = pl.getById(id);
+        navi.setProject(project);
         return project;
     }
 
@@ -658,6 +668,24 @@ public class ProjectDetailsController {
         }
     }
     // </editor-fold>
+
+
+
+
+    public void getRequestURL() {
+        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        return navi.getNavigationBar();
+    }
+
+
+
+
 }
 
 
