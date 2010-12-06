@@ -1,5 +1,5 @@
-/*
- * Author: Ben Ripkens <bripkens.dev@gmail.com>
+/**
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 
 
@@ -19,21 +19,30 @@ odr.init(function() {
 
 
 
-/*
- * ###########################################################################
- *                              Registry class
+/**
+ * @class A helper class that implements the <a href="http://martinfowler.com/eaaCatalog/registry.html">Registry pattern</a>.
+ * @description Every entity automatically registers itself with the registry so that the entity can be retrieved by it's id.
  */
 odr.Registry = function() {
     this._items = {};
 }
 odr.Registry.prototype = {
     _items : null,
+    /**
+     * @param {odr.DrawableItem} item The item you whish to add to the Registry. The key by which the item can later on
+     * be removed or get is the result of the {@link odr.DrawableItem#id()} call.
+     */
     add : function(item) {
         this._items[item.id()] = item;
     },
+    /**
+     * @param {{String|Number}} itemId
+     * @return {odr.DrawableItem}
+     */
     get : function(itemId) {
         return this._items[itemId];
     },
+    /** @param {{String|Number}} itemId*/
     remove : function(itemId) {
         delete this._items[itemId];
     }
@@ -43,11 +52,14 @@ odr.Registry.prototype = {
 
 
 
-/*
- * ###########################################################################
- *                              Callback class
+/**
+ * @constructor
+ *
+ * @class
+ * A useful base class that allows to attach listeners to drawable items
+ *
+ * @abstract
  */
-
 odr.Callback = function() {
     this._listeners = {
         draw : {},
@@ -60,39 +72,104 @@ odr.Callback = function() {
     };
 }
 
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Callback#unbind} as this object literal defines
+ * the event types.
+ */
 odr.Callback.types = {
+    /** @field */
     draw : "draw",
+    /** @field */
     redraw : "redraw",
+    /** @field */
     remove : "remove",
+    /** @field */
     dragStart : "dragStart",
+    /** @field */
     dragging : "dragging",
+    /** @field */
     dragEnd : "dragEnd",
+    /** @field */
     visibility : "visibility"
 }
 
 odr.Callback.prototype = {
     _listeners : null,
+    /**
+     * @description
+     * Attach a listener to the draw event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired after the item has been drawn.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     draw : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.draw);
     },
+    /**
+     * @description
+     * Attach a listener to the redraw event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired after the item has been redrawn.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     redraw : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.redraw);
     },
+    /**
+     * @description
+     * Attach a listener to the remove event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired after the item has been removed.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     remove : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.remove);
     },
+    /**
+     * @description
+     * Attach a listener to the dragStart event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired when a user clicks on an item and when dragging is enabled for the item.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     dragStart : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.dragStart);
     },
+    /**
+     * @description
+     * Attach a listener to the dragging event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired when a user clicks on an item that has dragging enabled and when he then
+     * moves the mouse. Please be aware that this event will be called hundreds of times!
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     dragging : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.dragging);
     },
+    /**
+     * @description
+     * Attach a listener to the dragEndt event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired when an item was previously dragged and when the mouse button is now released.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     dragEnd : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.dragEnd);
     },
+    /**
+     * @description
+     * Attach a listener to the visibility event or fire this event by calling this method without parameters.
+     * Generally, the event will be fired after the {@link odr.DrawableItem#visible()} has been called.
+     * @param {Function} [listener] The listener you want to attach
+     * @param {String|Number} [identifier] Required when you want to attach a listener.
+     */
     visibility : function(listener, identifier) {
         this.handle(listener, identifier, this._listeners.visibility);
     },
+    /**
+     * @private
+     */
     handle : function(listener, identifier, collection) {
         if (listener && identifier) {
             collection[identifier] = listener;
@@ -103,6 +180,14 @@ odr.Callback.prototype = {
             collection[i]();
         }
     },
+    /**
+     * @description
+     * Unbind an event listener by specifying the event type and the identifier that was used when attaching the listener
+     * to the event.
+     * @param {String} type The event type
+     * @param {String|Number} identifier The identifier which was used.
+     * @see odr.Callback.types
+     */
     unbind : function(type, identifier) {
         var collection = undefined;
 
@@ -134,11 +219,19 @@ odr.Callback.prototype = {
 
 
 
-/*
- * ###########################################################################
- *                              DrawableItem class
+/**
+ * @constructor
+ *
+ * @extends odr.Callback
+ *
+ * @class
+ * Base class for all entities that can be drawn. A class that inherits from this class states that it can be
+ * drawn and that it knows how to draw itself.
+ * 
+ * @abstract
+ * 
+ * @description Every entity automatically registers itself with the registry so that the entity can be retrieved by it's id.
  */
-
 odr.DrawableItem = function() {
     odr.Callback.call(this);
     this._id = odr.DrawableItem.idCounter++;
