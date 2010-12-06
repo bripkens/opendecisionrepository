@@ -230,7 +230,7 @@ odr.Callback.prototype = {
  * 
  * @abstract
  * 
- * @description Every entity automatically registers itself with the registry so that the entity can be retrieved by it's id.
+ * @description Every entity automatically registers itself with the {@link odr.Registry} so that the entity can be retrieved by it's id.
  */
 odr.DrawableItem = function() {
     odr.Callback.call(this);
@@ -250,16 +250,44 @@ odr.DrawableItem.prototype = {
     _value : null,
     _parent : null,
     _visible : true,
+    /**
+     * @description
+     * Draw the item to the canvas. Every implementation should call the {@link odr.Callback.draw} method afterwards.
+     *
+     * @param {DOM element|jQuery element} [parent] An optional parent element. In the resulting SVG, the drawn item
+     * will be a child of the parent item. Can be used to group elements. If ommited, the SVG root element will be the
+     * parent element.
+     */
     paint : function(parent) {
         this.draw();
     },
+    /**
+     * @description
+     * Redraw the item. Most items will use an optimized algorithm that only modifies the location of the item.
+     * Therefore this method should be called when dragging an item.
+     */
     repaint : function() {
         this.redraw();
     },
+    /**
+     * @description
+     * Release all resources, remove the item from the canvas and remove the item from the registry. Also, all
+     * listeners should be detached.
+     */
     dispose : function() {
         odr.registry.remove(this._id);
         this.remove();
     },
+    /**
+     * @description
+     * You can attach an arbitrary value with each DrawableItem. This value may be everything but the most useful
+     * way to use it is to store the data which was used to generate this DrawableItem (like JSON).
+     *
+     * @param {Object} [value] The value you want to attach or nothing
+     * @return {Object|odr.DrawableItem} The value which was set or null if no value was set. If you call this method
+     * with a parameter then the method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     value : function(value) {
         if (value) {
             this._value = value;
@@ -268,6 +296,16 @@ odr.DrawableItem.prototype = {
 
         return this._value;
     },
+    /**
+     * @description
+     * Define a parent element for this DrawableItem. The parent element can act as a grouping element or container for
+     * it's child element. This value can temporarily be overriden by the parent parameter in {@link odr.DrawableItem#paint}.
+     *
+     * @param {DOM element|jQuery element} [parent] The parent element
+     * @return {DOM element|jQuery element|odr.DrawableItem} The parent which was set or null if no parent was set. If
+     * you call this method with a parameter then the method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     parent : function(parent) {
         if (parent) {
             this._parent = parent;
@@ -276,9 +314,24 @@ odr.DrawableItem.prototype = {
 
         return this._parent;
     },
+    /**
+     * @return Always returns the automatically generated ID of this DrawableItem
+     */
     id : function() {
         return this._id;
     },
+    /**
+     * @description
+     * Show or hide this DrawableItem. When changing the visibility of an iten it will be painted or removed, depending
+     * on the new visiblity.
+     *
+     * Initially each DrawableItem is visible.
+     *
+     * @param {Boolean} [visible] The new visibility
+     * @return {Boolean|odr.DrawableItem} The visibility which was set or null if no parent was set. If you call this
+     * method with a parameter then the method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     */
     visible : function(visible) {
         if (visible != undefined && this._visible != visible) {
             this._visible = visible;
@@ -288,6 +341,13 @@ odr.DrawableItem.prototype = {
         
         return this._visible;
     },
+    /**
+     * @description
+     * The extended id is the id which is used in the SVG. Besides the normal id which you can retrieve by calling
+     * {@link odr.DrawableItem.id} it also returns some meta information. Mostly this is an id prefix.
+     *
+     * @return {String} The extended id
+     */
     extendedId : function() {
         throw("Abstract method");
     }
@@ -301,9 +361,16 @@ extend(odr.DrawableItem, odr.Callback);
 
 
 
-/*
- * ###########################################################################
- *                              Shape class
+/**
+ * @constructor
+ *
+ * @extends odr.DrawableItem
+ *
+ * @class
+ * Base class for all drawable items that cover an area, can therefore be clicked and need to be taken into account
+ * when the canvas is resized.
+ *
+ * @abstract
  */
 odr.Shape = function() {
     odr.DrawableItem.call(this);
@@ -318,15 +385,39 @@ odr.Shape.prototype = {
     _y : -1,
     _width : -1,
     _height : -1,
+    /**
+     * @description
+     * Retrieve the center position of the shape. The center is used for associations as they always target the center
+     * of a shape.
+     * @return {Object literal} The center of the shape. The object literal has x and y properties.
+     */
     center : function() {
         throw("Abstract method");
     },
+    /**
+     * @description
+     * Retrieve the position of the top left corner of the shape. This information is required when changing the size
+     * of the canvas.
+     * @return {Object literal} Top left corner of the shape. The object literal has x and y properties.
+     */
     topLeft : function() {
         throw("Abstract method");
     },
+    /**
+     * @description
+     * Retrieve the position of the bottom right corner of the shape. This information is required when changing the size
+     * of the canvas.
+     * @return {Object literal} Bottom right corner of the shape. The object literal has x and y properties.
+     */
     bottomRight : function() {
         throw("Abstract method");
     },
+    /**
+     * @param {Number} [x] The new x coordinate
+     * @return {Number|odr.DrawableItem} The x coordinate which was set. If you call this method with a parameter then
+     * the method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     x : function(x) {
         if (x) {
             this._x = x;
@@ -335,6 +426,12 @@ odr.Shape.prototype = {
 
         return this._x;
     },
+    /**
+     * @param {Number} [y] The new y coordinate
+     * @return {Number|odr.DrawableItem} The y coordinate which was set. If you call this method with a parameter then
+     * the method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     y : function(y) {
         if (y) {
             this._y = y;
@@ -343,6 +440,12 @@ odr.Shape.prototype = {
 
         return this._y;
     },
+    /**
+     * @param {Number} [width] The new width
+     * @return {Number|odr.DrawableItem} The width which was set. If you call this method with a parameter then the
+     * method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     width : function(width) {
         if (width) {
             this._width = width;
@@ -351,6 +454,12 @@ odr.Shape.prototype = {
 
         return this._width;
     },
+    /**
+     * @param {Number} [height] The new height
+     * @return {Number|odr.DrawableItem} The height which was set. If you call this method with a parameter then the
+     * method will return the object on which you called the method
+     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     height : function(height) {
         if (height) {
             this._height = height;
@@ -370,9 +479,15 @@ extend(odr.Shape, odr.DrawableItem);
 
 
 
-/*
- * ###########################################################################
- *                              Endpoint class
+/**
+ * @constructor
+ *
+ * @extends odr.Shape
+ *
+ * @class
+ * An endpoint of an association.
+ *
+ * @abstract
  */
 odr.Endpoint = function() {
     odr.Shape.call(this);
@@ -381,6 +496,12 @@ odr.Endpoint = function() {
 
 odr.Endpoint.prototype = {
     _label : null,
+    /**
+     * @param {String|Number} [label] The new label
+     * @return {String|Number|odr.DrawableItem} The label which was set or null if no label was set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     label : function(label) {
         if(label) {
             this._label = label;
@@ -399,9 +520,15 @@ extend(odr.Endpoint, odr.Shape);
 
 
 
-/*
- * ###########################################################################
- *                              Rectangle class
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Endpoint
+ *
+ * @class
+ * The rectangle class can be used represent decisions and versions
  */
 odr.Rectangle = function() {
     odr.Endpoint.call(this);
@@ -422,6 +549,7 @@ odr.Rectangle.prototype = {
 
         return this._extraClasses;
     },
+    /** @private */
     round : function(round) {
         if (round != undefined) {
             this._round = round;
@@ -439,24 +567,28 @@ odr.Rectangle.prototype = {
 
         return this._stereotype;
     },
+    /** @private */
     center : function() {
         return {
             x : this.x() + this.width() / 2,
             y : this.y() + this.height() / 2
         };
     },
+    /** @private */
     topLeft : function() {
         return {
             x : this.x(),
             y : this.y()
         }
     },
+    /** @private */
     bottomRight : function() {
         return {
             x : this.x() + this.width(),
             y : this.y() + this.height()
         }
     },
+    /** @private */
     paint : function(parent) {
         if (!this.visible()) {
             return;
@@ -546,6 +678,7 @@ odr.Rectangle.prototype = {
 
         odr.Rectangle.superClass.draw.call(this);
     },
+    /** @private */
     repaint : function() {
         var backgroundElement = j("#" + this.backgroundId());
         var textElement = j("#" + this.textId());
@@ -573,6 +706,7 @@ odr.Rectangle.prototype = {
 
         odr.Rectangle.superClass.redraw.call(this);
     },
+    /** @private */
     visible : function(visible) {
         var previousVisibility = odr.Rectangle.superClass.visible.call(this);
         var returnValue = odr.Rectangle.superClass.visible.call(this, visible);
@@ -584,13 +718,16 @@ odr.Rectangle.prototype = {
 
         return returnValue;
     },
+    /** @private */
     _dragging : function() {
         this.repaint();
     },
+    /** @private */
     _dragEnd : function() {
         odr.snapPosition(this);
         this.repaint();
     },
+    /** @private */
     _click : function(e) {
         if(e.ctrlKey) {
             this.visible(false);
@@ -600,24 +737,31 @@ odr.Rectangle.prototype = {
 
         return true;
     },
+    /** @private */
     dispose : function() {
         odr.Rectangle.superClass.remove.call(this);
     },
+    /** @private */
     extendedId : function() {
         return odr.rectangleSettings.idPrefix + this.id();
     },
+    /** @private */
     backgroundId : function() {
         return odr.rectangleSettings.background.idPrefix + this.id();
     },
+    /** @private */
     textId : function() {
         return odr.rectangleSettings.text.idPrefix + this.id();
     },
+    /** @private */
     overlayId : function() {
         return odr.rectangleSettings.overlay.idPrefix + this.id();
     },
+    /** @private */
     stereotypeId : function() {
         return odr.rectangleSettings.stereotype.idPrefix + this.id();
     },
+    /** @private */
     label : function(label) {
         var result = odr.Rectangle.superClass.label.call(this, label);
 
@@ -629,6 +773,7 @@ odr.Rectangle.prototype = {
 
         return result;
     },
+    /** @private */
     calculateDimensions : function() {
         var labelDimensions;
         if (this.label() == null) {
@@ -670,33 +815,41 @@ extend(odr.Rectangle, odr.Endpoint);
 
 
 
-/*
- * ###########################################################################
- *                              Handle class
+/**
+ * @constructor
+ *
+ * @extends odr.Shape
+ *
+ * @class
+ * A drag handle for associations
  */
 odr.Handle = function() {
     odr.Shape.call(this);
 }
 
 odr.Handle.prototype = {
+    /** @private */
     center : function() {
         return {
             x : this.x(),
             y : this.y()
         };
     },
+    /** @private */
     topLeft : function() {
         return {
             x : this.x() - (this.width() / 2),
             y : this.y() - (this.height() / 2)
         }
     },
+    /** @private */
     bottomRight : function() {
         return {
             x : this.x() + (this.width() / 2),
             y : this.y() + (this.height() / 2)
         }
     },
+    /** @private */
     paint : function(parent) {
         if (!this.visible()) {
             return;
@@ -726,6 +879,7 @@ odr.Handle.prototype = {
 
         odr.Handle.superClass.draw.call(this);
     },
+    /** @private */
     repaint : function() {
         var element = j("#" + this.extendedId());
 
@@ -744,6 +898,7 @@ odr.Handle.prototype = {
 
         odr.Handle.superClass.redraw.call(this);
     },
+    /** @private */
     visible : function(visible) {
         var previousVisibility = odr.Handle.superClass.visible.call(this);
         var returnValue = odr.Handle.superClass.visible.call(this, visible);
@@ -755,13 +910,16 @@ odr.Handle.prototype = {
 
         return returnValue;
     },
+    /** @private */
     _dragging : function() {
         this.repaint();
     },
+    /** @private */
     _dragEnd : function() {
         odr.snapPosition(this);
         this.repaint();
     },
+    /** @private */
     _click : function(e) {
         if(e.ctrlKey) {
             this.parent().removeHandle(this.id());
@@ -773,10 +931,12 @@ odr.Handle.prototype = {
 
         return true;
     },
+    /** @private */
     dispose : function() {
         j("#" + this.extendedId()).remove();
         odr.Handle.superClass.remove.call(this);
     },
+    /** @private */
     extendedId : function() {
         return odr.handleSettings.idPrefix + this.id();
     }
@@ -791,9 +951,13 @@ extend(odr.Handle, odr.Shape);
 
 
 
-/*
- * ###########################################################################
- *                              Line class
+/**
+ * @constructor
+ *
+ * @extends odr.DrawableItem
+ *
+ * @class
+ * A simple line that can be drawn between two Shapes
  */
 odr.Line = function() {
     odr.DrawableItem.call(this);
@@ -842,6 +1006,7 @@ odr.Line.prototype = {
 
         return this._end;
     },
+    /** @private */
     paint : function(parent) {
         this._lastParent = parent;
         j("#" + this.extendedId()).remove();
@@ -867,6 +1032,7 @@ odr.Line.prototype = {
 
         odr.Line.superClass.draw.call(this);
     },
+    /** @private */
     drawArrow : function(parent) {
         j("#" + odr.associationSettings.arrow.idPrefix + this.parent().id()).remove();
         
@@ -933,14 +1099,17 @@ odr.Line.prototype = {
         odr._svg.path(marker, odr._svg.createPath().move(0,0).line(10,5).line(0,10).close());
 
     },
+    /** @private */
     repaint : function() {
         this.paint(this._lastParent);
     },
+    /** @private */
     endpointVisibilityChanged : function() {
         if (!this._start.visible() || !this._end.visible()) {
             this.visible(false);
         }
     },
+    /** @private */
     _click : function(e) {
         var handle = new odr.Handle();
         handle.x(e.pageX  * (1 / odr._scale.level));
@@ -949,6 +1118,7 @@ odr.Line.prototype = {
 
         this.parent().addHandleAfter(this._start, handle);
     },
+    /** @private */
     dispose : function() {
         this._start.unbind(odr.Callback.types.redraw, this.extendedId());
         this._start.unbind(odr.Callback.types.visibility, this.extendedId());
@@ -961,6 +1131,7 @@ odr.Line.prototype = {
 
         odr.Line.superClass.dispose.call(this);
     },
+    /** @private */
     center : function() {
         var start = this._start.center();
         var end = this._end.center();
@@ -970,9 +1141,11 @@ odr.Line.prototype = {
             y : (start.y + end.y) / 2
         };
     },
+    /** @private */
     extendedId : function() {
         return odr.lineSettings.idPrefix + this.id();
     },
+    /** @private */
     arrow : function(arrow) {
         if (arrow != undefined) {
             this._arrow = arrow;
@@ -1006,9 +1179,13 @@ extend(odr.Line, odr.DrawableItem);
 
 
 
-/*
- * ###########################################################################
- *                              Association class
+/**
+ * @constructor
+ *
+ * @extends odr.DrawableItem
+ *
+ * @class
+ * An association between two endpoints.
  */
 odr.Association = function() {
     odr.DrawableItem.call(this);
@@ -1169,6 +1346,7 @@ odr.Association.prototype = {
 
         return this._label;
     },
+    /** @private */
     paint : function(parent) {
         if (!this.visible() || !this._source.visible() || !this._target.visible()) {
             return;
@@ -1216,6 +1394,7 @@ odr.Association.prototype = {
 
         odr.Association.superClass.draw.call(this);
     },
+    /** @private */
     calculateCenter : function() {
         if (this._handles.length == 0) {
             var start = this._source.center();
@@ -1238,6 +1417,7 @@ odr.Association.prototype = {
             };
         }
     },
+    /** @private */
     drawAssociationLabel : function(parent) {
         var point;
         var label = this.label();
@@ -1349,6 +1529,7 @@ odr.Association.prototype = {
 
         odr.enableDragging(htmlElement);
     },
+    /** @private */
     repaint : function() {
         var element = j("#" + this.extendedId());
 
@@ -1366,23 +1547,28 @@ odr.Association.prototype = {
 
         odr.Association.superClass.redraw.call(this);
     },
+    /** @private */
     setAllHandlesVisible : function(visible) {
         for(var i = 0; i < this._handles.length; i++) {
             this._handles[i].visible(visible);
         }
     },
+    /** @private */
     removeAllLines : function() {
         for(var i = 0; i < this._lines; i++) {
             this._lines[i].dispose();
         }
         this._lines = [];
     },
+    /** @private */
     endpointVisibilityChanged : function() {
         this.repaint();
     },
+    /** @private */
     dispose : function() {
         odr.Association.superClass.remove.call(this);
     },
+    /** @private */
     extendedId : function() {
         return odr.associationSettings.idPrefix + this.id();
     }
