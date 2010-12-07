@@ -1,1 +1,4 @@
 http://opendecisionrepository.googlecode.com/svn/javascript-doc/index.html
+
+
+http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization
