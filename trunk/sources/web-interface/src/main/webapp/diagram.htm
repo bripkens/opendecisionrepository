@@ -19,61 +19,139 @@
         <script type="text/javascript" src="resources/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
 
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+
         <script type="text/javascript" src="resources/js/diagram-definitions.js"></script>
-        <script type="text/javascript" src="resources/js/diagram-settings.js"></script>
         <script type="text/javascript" src="resources/js/diagram-core.js"></script>
         <script type="text/javascript" src="resources/js/diagram-entities.js"></script>
-        <script type="text/javascript" src="resources/js/diagram-ready.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-menu.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-load.js"></script>
 
         <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
         <link rel="stylesheet" type="text/css" href="resources/css/diagram-html.css" />
     </head>
     <body>
 
-      <div id="menu" style="margin-bottom: 1em; margin-top: 1em;">
-        <button onclick="changeColors()" disabled>Change Colors</button>
-        <button onclick="changeText()" disabled>Change Text</button>
-        <p>Click on second circle to see message</p>
-      </div>
+        <div class="topMenu project">
+            <div class="title">Project</div>
+            <ul>
+                <li id="save"><a href="#">Save</a></li>
+                <li id="refresh"><a href="#">Refresh</a></li>
+                <li id="back"><a href="#">Back to project</a></li>
+            </ul>
+        </div>
+        <div class="topMenu decisions">
+            <div class="title">Nodes</div>
 
-      <!-- Directly embed SVG into your page by using a SCRIPT tag and
-           setting the type attribute to "image/svg+xml". -->
-      <script type="image/svg+xml">
-        <svg width="200" height="200"
-             style="background-color: #D2B48C; display: block; margin-bottom: 5px;"
-             id="embeddedSVG">
-          <g id="myGroup"
-             fill="blue"
-             style="font-size: 18px; text-anchor: middle; font-family: serif;">
-            <circle id="myCircle"
-                    cx="100" cy="75" r="50"
-                    stroke="firebrick"
-                    stroke-width="3" />
-            <text x="100" y="155">Hello World</text>
-            <text x="100" y="175">From Embedded SVG!</text>
-          </g>
-        </svg>
-      </script>
-      <noscript>
-        <h1>Optional fallback content goes here!</h1>
-      </noscript>
+            <div class="overflowDecisions">
+            </div>
+        </div>
+        <div class="topMenu status">
+            <div class="title">Status</div>
 
-      <!-- Embed an external SVG file using the following syntax; it must
-           be done exactly as given, rather than using the EMBED tag. Change
-           the data and src attributes to point to where your SVG file is
-           relative to the HTML page. -->
+            <p>
+                Checked status are visible, uncheck a status to hide all decisions with the status.
+            </p>
 
-      <!--[if IE]>
-      <object src="helloworld.svg" classid="image/svg+xml"
-              width="200" height="200"
-              id="mySVGObject">
-      <![endif]-->
-      <!--[if !IE]>-->
-      <object data="helloworld.svg" type="image/svg+xml"
-              width="200" height="200"
-              id="mySVGObject">
-      <!--<![endif]-->
-      </object>
-    
+            <div class="overflowStatus">
+            </div>
+        </div>
+        <div class="topMenu zoom">
+            <div class="title">Zoom</div>
+            <img id="zoomOut" src="resources/images/collapse.gif" width="13" height="13" alt="Minus" />
+            <input type="text" id="inputScale" />
+            <img id="zoomIn" src="resources/images/expand.gif" width="13" height="13" alt="Plus" />
+            <span>%</span>
+            <input type="submit" value="Set scale" id="inputSetScale" />
+        </div>
+        <div class="topMenu export">
+            <div class="title">Export</div>
+            <ul>
+                <li class="jpeg">JPEG image</li>
+                <li class="png">PNG image</li>
+                <li class="svg">SVG image</li>
+                <li class="pdf">PDF document</li>
+            </ul>
+            <form method="post" action="diagram.png">
+                <input type="hidden" id="data" name="data"/>
+                <input type="hidden" id="format" name="format"/>
+            </form>
+        </div>
+
+        <div class="node" style="position: absolute;">
+            <span>considered</span>
+            <h3>Java programming language</h3>
+            <div class="info vtip" title="Click here to retrieve additional information about this node."></div>
+            <div class="hide vtip" title="Click here to hide this node."></div>
+            <div class="associationHelper" style="position: absolute;"></div>
+        </div>
+
+        <div class="node" style="position: absolute;">
+            <span>rejected</span>
+            <h3>Tcl</h3>
+            <div class="info vtip" title="Click here to retrieve additional information about this node."></div>
+            <div class="hide vtip" title="Click here to hide this node."></div>
+            <div class="associationHelper" style="position: absolute;"></div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div id="menu" style="margin-bottom: 1em; margin-top: 1em; display: none;">
+            <button onclick="changeColors()" disabled>Change Colors</button>
+            <button onclick="changeText()" disabled>Change Text</button>
+            <p>Click on second circle to see message</p>
+        </div>
+
+        <!-- Directly embed SVG into your page by using a SCRIPT tag and
+             setting the type attribute to "image/svg+xml". -->
+        <script type="image/svg+xml">
+            <svg width="200" height="200"
+                 style="background-color: #D2B48C; display: block; margin-bottom: 5px;"
+                 id="embeddedSVG">
+                <g id="myGroup"
+                   fill="blue"
+                   style="font-size: 18px; text-anchor: middle; font-family: serif;">
+                    <circle id="myCircle"
+                            cx="100" cy="75" r="50"
+                            stroke="firebrick"
+                            stroke-width="3" />
+                    <text x="100" y="155">Hello World</text>
+                    <text x="100" y="175">From Embedded SVG!</text>
+                </g>
+            </svg>
+        </script>
+        <noscript>
+            <h1>Optional fallback content goes here!</h1>
+        </noscript>
+
+        <!-- Embed an external SVG file using the following syntax; it must
+             be done exactly as given, rather than using the EMBED tag. Change
+             the data and src attributes to point to where your SVG file is
+             relative to the HTML page. -->
+
+        <!--[if IE]>
+        <object src="helloworld.svg" classid="image/svg+xml"
+                width="200" height="200"
+                id="mySVGObject">
+        <![endif]-->
+        <!--[if !IE]>-->
+        <object data="helloworld.svg" type="image/svg+xml"
+                width="200" height="200"
+                id="mySVGObject">
+            <!--<![endif]-->
+        </object>
+
     </body>
 </html>
