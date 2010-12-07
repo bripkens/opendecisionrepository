@@ -283,6 +283,8 @@ odr.DrawableItem.prototype = {
      * You can attach an arbitrary value with each DrawableItem. This value may be everything but the most useful
      * way to use it is to store the data which was used to generate this DrawableItem (like JSON).
      *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {Object} [value] The value you want to attach or nothing
      * @return {Object|odr.DrawableItem} The value which was set or null if no value was set. If you call this method
      * with a parameter then the method will return the object on which you called the method
@@ -300,6 +302,8 @@ odr.DrawableItem.prototype = {
      * @description
      * Define a parent element for this DrawableItem. The parent element can act as a grouping element or container for
      * it's child element. This value can temporarily be overriden by the parent parameter in {@link odr.DrawableItem#paint}.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
      *
      * @param {DOM element|jQuery element} [parent] The parent element
      * @return {DOM element|jQuery element|odr.DrawableItem} The parent which was set or null if no parent was set. If
@@ -326,6 +330,8 @@ odr.DrawableItem.prototype = {
      * on the new visiblity.
      *
      * Initially each DrawableItem is visible.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
      *
      * @param {Boolean} [visible] The new visibility
      * @return {Boolean|odr.DrawableItem} The visibility which was set or null if no parent was set. If you call this
@@ -413,8 +419,11 @@ odr.Shape.prototype = {
         throw("Abstract method");
     },
     /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {Number} [x] The new x coordinate
-     * @return {Number|odr.DrawableItem} The x coordinate which was set. If you call this method with a parameter then
+     * @return {Number|odr.Shape} The x coordinate which was set. If you call this method with a parameter then
      * the method will return the object on which you called the method
      * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
      */
@@ -427,8 +436,11 @@ odr.Shape.prototype = {
         return this._x;
     },
     /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {Number} [y] The new y coordinate
-     * @return {Number|odr.DrawableItem} The y coordinate which was set. If you call this method with a parameter then
+     * @return {Number|odr.Shape} The y coordinate which was set. If you call this method with a parameter then
      * the method will return the object on which you called the method
      * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
      */
@@ -441,8 +453,11 @@ odr.Shape.prototype = {
         return this._y;
     },
     /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {Number} [width] The new width
-     * @return {Number|odr.DrawableItem} The width which was set. If you call this method with a parameter then the
+     * @return {Number|odr.Shape} The width which was set. If you call this method with a parameter then the
      * method will return the object on which you called the method
      * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
      */
@@ -455,6 +470,9 @@ odr.Shape.prototype = {
         return this._width;
     },
     /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {Number} [height] The new height
      * @return {Number|odr.DrawableItem} The height which was set. If you call this method with a parameter then the
      * method will return the object on which you called the method
@@ -497,8 +515,11 @@ odr.Endpoint = function() {
 odr.Endpoint.prototype = {
     _label : null,
     /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
      * @param {String|Number} [label] The new label
-     * @return {String|Number|odr.DrawableItem} The label which was set or null if no label was set.
+     * @return {String|Number|odr.Endpoint} The label which was set or null if no label was set.
      * If you call this method with a parameter then the method will return the object on which you called the
      * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
      */
@@ -541,6 +562,19 @@ odr.Rectangle.prototype = {
     _stereotype : null,
     _round : true,
     _extraClasses : "",
+    /**
+     * @description
+     * Extra classes can be applied to the rectangle background element. These classes can be used to color the
+     * background for example.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String} [extraClasses] The extra classes which you want to append the rectangle background.
+     * Sample parameter: "active", "disconnected extraNode".
+     * @return {String|odr.Rectangle} The extra classes which were set or null if it wasn't set before.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     extraClasses : function(extraClasses) {
         if (extraClasses != undefined) {
             this._extraClasses = extraClasses;
@@ -558,6 +592,18 @@ odr.Rectangle.prototype = {
 
         return this._round;
     },
+    /**
+     * @description
+     * The stereotype or status which you want to set. You can set what ever you want. The stereotype will then
+     * be placed above the label of the rectangle.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String} [stereotype] The stereotype, status or a short description.
+     * @return {String|odr.Rectangle} The stereotype which was set or null if it wasn't set before.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     stereotype : function(stereotype) {
         if (stereotype) {
             this._stereotype = stereotype;
@@ -972,6 +1018,18 @@ odr.Line.prototype = {
     _end : null,
     _arrow : false,
     _lastParent : null,
+    /**
+     * @description
+     * Set the starting point for the line. The line will unbind it's listeners from the previous starting point
+     * automatically.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {odr.Shape} [start] The starting point.
+     * @return {odr.Shape|odr.Line} The starting point which was set or null if it wasn't set before.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     start : function(start) {
         if (start) {
             if (this._start) {
@@ -989,6 +1047,18 @@ odr.Line.prototype = {
 
         return this._start;
     },
+    /**
+     * @description
+     * Set the end point for the line. The line will unbind it's listeners from the previous end point
+     * automatically.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {odr.Shape} [end] The end point.
+     * @return {odr.Shape|odr.Line} The end point which was set or null if it wasn't set before.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     end : function(end) {
         if (end) {
             if (this._end) {
@@ -1206,6 +1276,18 @@ odr.Association.prototype = {
     _handles : [],
     _labelPosition : null,
     _centerPosition : null,
+    /**
+     * @description
+     * Set the source for this association. The association will unbind it's listeners from the previous source
+     * automatically.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {odr.Endpoint} [source] The source.
+     * @return {odr.Endpoint|odr.Association} The source which was set or null if it hasn't been set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     source : function(source) {
         if (source) {
             if (this._source) {
@@ -1226,6 +1308,18 @@ odr.Association.prototype = {
 
         return this._source;
     },
+    /**
+     * @description
+     * Set the target for this association. The association will unbind it's listeners from the previous target
+     * automatically.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {odr.Endpoint} [target] The target.
+     * @return {odr.Endpoint|odr.Association} The source which was set or null if it hasn't been set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     target : function(target) {
         if (target) {
             if (this._target) {
@@ -1246,11 +1340,30 @@ odr.Association.prototype = {
 
         return this._target;
     },
+    /**
+     * @description
+     * Add a handle to the association. The handle will be added to the end of the association, i.e. it will be the
+     * closest to the target.
+     *
+     * @param {odr.Handle} handle The handle.
+     * @return {odr.Association} Returns the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     */
     addHandle : function(handle) {
         this._handles[this._handles.length] = handle;
         handle.parent(this);
         handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
+        return this;
     },
+    /**
+     * @description
+     * Remove a handle from the association by the handle id.
+     *
+     * @param {Number} handleId The id of the handle which you want to remove.
+     * @return {odr.Association} Returns the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     * @see odr.DrawableItem#id
+     */
     removeHandle : function(handleId) {
         for(var i = 0; i < this._handles.length; i++) {
             if (this._handles[i].id() == handleId) {
@@ -1259,7 +1372,18 @@ odr.Association.prototype = {
                 this._handles.splice(i, 1);
             }
         }
+        return this;
     },
+    /**
+     * @description
+     * Add a handle to the association after a certain element. This method can be used when you want to
+     * provide functionality that allows the user to add handles by clicking on a line.
+     *
+     * @param {odr.Shape} element An element of the association after which you want to the handle.
+     * @param {odr.Handle} handle The handle which you want to add
+     * @return {odr.Association} Returns the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     */
     addHandleAfter : function(element, handle) {
         handle.parent(this);
 
@@ -1267,7 +1391,7 @@ odr.Association.prototype = {
             this._handles.splice(0, 0, handle);
             handle.dragEnd(this.optimizePath.createDelegate(this), this.extendedId());
             this.paint();
-            return;
+            return this;
         }
 
         for(var i = 0; i < this._handles.length; i++) {
@@ -1279,13 +1403,25 @@ odr.Association.prototype = {
                     this._handles.splice(i+1, 0, handle);
                 }
                 this.paint();
-                return;
+                return this;
             }
         }
+
+        return this;
     },
+    /**
+     * @return {odr.Handle[]} All handles of this association
+     */
     handles : function() {
         return this._handles;
     },
+    /**
+     * This method removes unnecessary handles from the association. A handle can be removed if the direction
+     * of the line wouldn't change when the handle is removed.
+     *
+     * @return {odr.Association} Returns the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     */
     optimizePath : function() {
         var firstX = this._source.center().x;
         var firstY = this._source.center().y;
@@ -1320,7 +1456,7 @@ odr.Association.prototype = {
 
         if (secondX == undefined) {
             this.calculateCenter();
-            return;
+            return this;
         }
 
         thirdX = this._target.center().x;
@@ -1337,7 +1473,18 @@ odr.Association.prototype = {
         } else {
             this.calculateCenter();
         }
+
+        return this;
     },
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String|Number} [label] The new label
+     * @return {String|Number|odr.Association} The label which was set or null if no label was set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>)
+     */
     label : function(label) {
         if (label) {
             this._label = label;
