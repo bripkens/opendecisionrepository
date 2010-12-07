@@ -76,8 +76,6 @@ public class IterationController {
 
     private NavigationBuilder navi;
 
-    private String url;
-
 
 
 
@@ -88,8 +86,6 @@ public class IterationController {
             return;
         }
         navi = new NavigationBuilder();
-        getRequestURL();
-        navi.setNavigationSite(url);
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
@@ -110,7 +106,6 @@ public class IterationController {
         // </editor-fold>
 
         getProject();
-        navi.setProject(project);
 
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
@@ -127,7 +122,6 @@ public class IterationController {
             str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);
         } else {
             isUpdate = false;
-            navi.setOption(Action.CREATE);
         }
 
         if (isUpdate) {
@@ -164,20 +158,30 @@ public class IterationController {
 
 
 
-    public void getRequestURL() {
-        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    }
-
-
-
-
+    /**
+     * adds the specific attributes to the navigationbuilder and returns a list with all information that
+     * are neccessary to create the breadcrumbtrail
+     * @return the list of navigationlink for the breadcrumbtrail
+     */
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        navi.setProject(project);
+        navi.setIteration(iteration);
+        if (isUpdate) {
+            navi.setOption(Action.EDIT);
+        } else {
+            navi.setOption(Action.CREATE);
+        }
         return navi.getNavigationBar();
     }
 
 
 
 
+    /**
+     * gets the project with the provided requestparameter(id) from the database
+     * @return the project
+     */
     private Project getProject() {
         project = pl.getById(projectId);
         return project;
@@ -193,6 +197,11 @@ public class IterationController {
 
 
 
+    /**
+     * checks if the user that is logged in, is part of the project
+     * @return the projectmember which is logged in and part of the project.
+     *         if he isn't part of the project, it returns null
+     */
     public ProjectMember getProjectMember() {
         long userId = AuthenticationUtil.getUserId();
         for (ProjectMember pm : project.getMembers()) {
@@ -214,6 +223,10 @@ public class IterationController {
 
 
 
+    /**
+     * Get the JSON Code which includes all iterations
+     * @return the String with the JSON code for the iteration calendar
+     */
     public String getDataRequestUrl() {
         return Filename.ITERATION_DATA_PROVIDER;
     }
@@ -221,6 +234,10 @@ public class IterationController {
 
 
 
+    /**
+     *  gets the iteration with the provided requestparameter(iterationId) from the database
+     * @return the iteration
+     */
     private Iteration getIterationFromDb() {
         iteration = il.getById(iterationId);
         return iteration;
@@ -229,6 +246,11 @@ public class IterationController {
 
 
 
+    /**
+     * checks if the request is valid. the request is valid,
+     * if the project and the iteration are not null
+     * @return boolean (true if it is valid)
+     */
     public boolean isValid() {
         if (project != null && iteration != null) {
             return true;
@@ -246,6 +268,13 @@ public class IterationController {
 
 
 
+    /**
+     * set all entered attributes to the iteration
+     * checks if the startdate is earlier then the enddate
+     * checks if the entered timespan has an intersection with an other iteration timespan
+     * the iteration will be stored in the database
+     * forwarding to the detailspage of the new/updated iteration
+     */
     public void submitForm() {
 
 
@@ -288,7 +317,9 @@ public class IterationController {
 
 
 
-
+    /**
+     * forwarding to the projectDetails page
+     */
     public void abortForm() {
         JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT + project.getName());
     }
@@ -380,7 +411,10 @@ public class IterationController {
 
 
 
-
+    /**
+     * get all ErrorMessages which are in the FacesContext
+     * @return the list of all messages
+     */
     public List<FacesMessage> getCurrentMessages() {
         List<FacesMessage> result = new ArrayList<FacesMessage>();
         Iterator<FacesMessage> iter = FacesContext.getCurrentInstance().getMessages();
@@ -392,7 +426,10 @@ public class IterationController {
 
 
 
-
+    /**
+     * get the link to update the iteration with the provided id from the requestparameter(iterationId)
+     * @return the update link as string
+     */
     public String getupdateLink() {
         return new QueryStringBuilder().setUrl("manageIteration.html").
                 append(RequestParameter.ID, project.getId()).
@@ -423,7 +460,10 @@ public class IterationController {
 
 
 
-
+    /**
+     * calculate the time between the start- and the enddate in days, hours and minutes
+     * and saves it in the variables days, hours and minutes
+     */
     public void calculateDuration() {
         long millisPerMinute = 1000 * 60;
         long millisPerHour = millisPerMinute * 60;

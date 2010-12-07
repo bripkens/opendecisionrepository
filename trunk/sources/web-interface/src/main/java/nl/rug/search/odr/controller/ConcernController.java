@@ -70,8 +70,6 @@ public class ConcernController {
     private boolean isUpdate = false;
 
     private NavigationBuilder navi;
-
-    private String url;
     //final Strings
 
     public static final String EXTERNALID_ALREADY_IN_USE =
@@ -92,15 +90,14 @@ public class ConcernController {
                 getExternalContext().
                 getRequest();
 
-        navi = new NavigationBuilder();
-        getRequestURL();
-        navi.setNavigationSite(this.url);
 
         RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
         RequestAnalyserDto result = analyser.analyse();
 
 
+
         if (result.isValid()) {
+            navi = new NavigationBuilder();
             this.autoComplete = new ArrayList<String>();
             this.tags = new ArrayList<Item>();
             this.member = result.getMember();
@@ -118,9 +115,13 @@ public class ConcernController {
 
 
 
+    /**
+     * checks the concernSpecific parameter(concernID | groupId) and checks
+     * if it's an update or creation of a concern
+     * @param requestAnalyser
+     */
     private void setUpConcernSpecific(RequestAnalyserDto requestAnalyser) {
         this.project = requestAnalyser.getProject();
-        this.navi.setProject(this.project);
 
         String concernIdParameter = requestAnalyser.getRequest().
                 getParameter(RequestParameter.CONCERN_ID);
@@ -137,7 +138,6 @@ public class ConcernController {
         } else {
             this.concern = new Concern();
             this.isUpdate = false;
-            this.navi.setOption(Action.CREATE);
 
         }
 
@@ -148,8 +148,6 @@ public class ConcernController {
 
 
         if (this.isUpdate) {
-            this.navi.setConcern(concern);
-            this.navi.setOption(Action.EDIT);
             this.name = concern.getName();
             this.description = concern.getDescription();
             this.externalId = concern.getExternalId();
@@ -171,23 +169,30 @@ public class ConcernController {
 
 
 
-    public void getRequestURL() {
-        this.url = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    }
-
-
-
-
+    /**
+     * get the navigationbar
+     * @return the List with all information to build the breadcrumbtrail
+     */
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        navi.setProject(project);
+        navi.setConcern(concern);
+        if (isUpdate) {
+            navi.setOption(Action.EDIT);
+        } else {
+            navi.setOption(Action.CREATE);
+        }
         return navi.getNavigationBar();
     }
 
 
 
-    /*
-     * searches the newest Concern with the group parameter
-     */
 
+    /**
+     * returns the newest Concern with the group parameter
+     * @param groupIdParameter
+     * @return Concern
+     */
     private Concern getGroupParameter(String groupIdParameter) {
         long groupId = -1l;
 
@@ -210,11 +215,13 @@ public class ConcernController {
     }
 
 
-    /*
-     * returns the specific concern
+
+
+    /**
+     * returns the specific concern with the provided id
+     * @param concernIdParameter
+     * @return Concern
      */
-
-
     private Concern getConernIdParameter(String concernIdParameter) {
 
 
@@ -235,7 +242,6 @@ public class ConcernController {
                 break;
             }
         }
-
         return temp;
     }
 
@@ -256,6 +262,9 @@ public class ConcernController {
 
 
 
+    /**
+     * saves all the class attributes to a new concern and create a new version
+     */
     public void submitForm() {
         concern = new Concern();
         concern.setExternalId(externalId);
@@ -339,6 +348,10 @@ public class ConcernController {
 
 
 
+    /**
+     * show autocomplete values and create three new input field if neccassary
+     * @param e
+     */
     public void tagValueChanged(ValueChangeEvent e) {
         if (e.getNewValue().equals(e.getOldValue())) {
             return;
@@ -362,9 +375,17 @@ public class ConcernController {
 
 
         } else if (counter == 0 || counter == 1 && e.getOldValue().toString().isEmpty()) {
-            tags.add(new Item(""));
-            tags.add(new Item(""));
-            tags.add(new Item(""));
+            Item item1 = new Item("");
+            item1.setStyleClass("autocomplete1");
+            tags.add(item1);
+
+            Item item2 = new Item("");
+            item2.setStyleClass("autocomplete2");
+            tags.add(item2);
+
+            Item item3 = new Item("");
+            item3.setStyleClass("autocomplete3");
+            tags.add(item3);
         }
 
     }
@@ -502,6 +523,10 @@ public class ConcernController {
 //        }
 //    }
 // </editor-fold>
+    /**
+     * gets the possible tags of one input
+     * @return
+     */
     public Collection<SelectItem> getTagPossibilities() {
         Collection<SelectItem> items = new ArrayList<SelectItem>();
 
@@ -532,6 +557,8 @@ public class ConcernController {
 
         private String value;
 
+        private String styleClass;
+
 
 
 
@@ -551,6 +578,20 @@ public class ConcernController {
 
         public String getValue() {
             return value;
+        }
+
+
+
+
+        public String getStyleClass() {
+            return styleClass;
+        }
+
+
+
+
+        public void setStyleClass(String styleClass) {
+            this.styleClass = styleClass;
         }
 
 

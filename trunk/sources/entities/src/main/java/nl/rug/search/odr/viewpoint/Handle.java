@@ -51,8 +51,9 @@ public class Handle extends BaseEntity<Handle>{
 
 
 
-    public void setX(int x) {
+    public Handle setX(int x) {
         this.x = x;
+        return this;
     }
 
 
@@ -65,8 +66,9 @@ public class Handle extends BaseEntity<Handle>{
 
 
 
-    public void setY(int y) {
+    public Handle setY(int y) {
         this.y = y;
+        return this;
     }
 
 

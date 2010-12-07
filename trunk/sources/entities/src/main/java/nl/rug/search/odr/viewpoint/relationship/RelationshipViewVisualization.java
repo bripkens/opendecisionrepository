@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.viewpoint.AbstractVisualization;
 import nl.rug.search.odr.viewpoint.RequiredFor;
@@ -41,13 +42,32 @@ public class RelationshipViewVisualization extends AbstractVisualization<Relatio
 
 
 
-    public boolean containsVersion(Version v) {
+    public RelationshipViewNode getNode(Version v) {
         for (RelationshipViewNode node : getNodes()) {
             if (node.getVersion() != null && node.getVersion().equals(v)) {
-                return true;
+                return node;
             }
         }
-        return false;
+        return null;
+    }
+
+
+
+
+    public boolean containsVersion(Version v) {
+        return getNode(v) != null;
+    }
+
+
+
+
+    public RelationshipViewAssociation getAssociation(Relationship relationship) {
+        for (RelationshipViewAssociation ass : associations) {
+            if (ass.getRelationship().equals(relationship)) {
+                return ass;
+            }
+        }
+        return null;
     }
 
 

@@ -15,6 +15,7 @@
 
     <ui:define name="content">
 
+        <f:subview id="concernTableSubview" rendered="#{concernTableController.valid}">
 
         <ice:form partialSubmit="true" >
             <div class="formSection last">
@@ -26,7 +27,8 @@
                                var="concern"
                                styleClass="sortableTable"
                                sortColumn="#{concernTableController.sortColumn}"
-                               sortAscending="#{concernTableController.ascending}">
+                               sortAscending="#{concernTableController.ascending}"
+                               >
 
 
                     <ice:column styleClass="#{concern.subConcern ? 'columns':''}" style="#{(concern.subConcern and concern.white) ? 'background-color: #F7F7F7':''} #{(concern.subConcern and !concern.white) ? 'background-color: white':''}" >
@@ -119,7 +121,7 @@
 
             </div>
         </ice:form>
-
+</f:subview>
 
     </ui:define>
 </ui:composition>
