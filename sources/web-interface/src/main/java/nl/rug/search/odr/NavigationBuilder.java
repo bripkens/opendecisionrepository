@@ -158,7 +158,6 @@ public class NavigationBuilder {
 
 
     public List<NavigationLink> getNavigationBar() {
-        isValid();
 
         List<NavigationLink> navigation = new ArrayList<NavigationLink>();
 
@@ -309,15 +308,6 @@ public class NavigationBuilder {
 
 // </editor-fold>
 
-
-
-    private void isValid() {
-        assert project != null;
-
-        assert (iteration == null && concern == null)
-                || (concern == null && decision == null)
-                || (iteration == null && decision == null);
-    }
 
 
 
