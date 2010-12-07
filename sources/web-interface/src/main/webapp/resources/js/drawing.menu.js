@@ -1,5 +1,9 @@
-/*
- * Author: Ben Ripkens <bripkens.dev@gmail.com>
+/**
+ * @fileOverview
+ *
+ * Menu related functionality that can be changed without affecting the diagram drawing functionality.
+ *
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 
 
@@ -52,6 +56,10 @@ odr.init(function() {
  * ###########################################################################
  *                            Zoom menu
  */
+/**
+ * @description
+ * Attach listeners to all the zoom menu buttons and images
+ */
 odr.prepareZoom = function() {
     j("#" + odr.zoomMenu.inputButton).click(odr.handleScaleInput);
 
@@ -74,6 +82,11 @@ odr.prepareZoom = function() {
     j("#" + odr.zoomMenu.inputField).val(odr.scale() * 100);
 }
 
+/**
+ * @description
+ * This functions handles scale level changes, i.e. when the user enters something into the zoom level text box
+ * and hits enter or presses the button below.
+ */
 odr.handleScaleInput = function() {
     var scaleInput = j("#" + odr.zoomMenu.inputField);
 
@@ -148,6 +161,11 @@ odr.ready(function() {
         window.location = window.location;
     });
 });
+/**
+ * @description
+ * Save the positions of all nodes as well as handles by copying the data into the object that was retrieved
+ * from the server.
+ */
 odr._saveAll = function() {
     odr.setSaveText();
     odr.loadPopupIcon();
@@ -219,13 +237,16 @@ odr._saveAll = function() {
 };
 
 
-/*
+/**
+ * @description
  * The following function could be replaced by a JavaScript JSON serializer like
  * JSON2 or the jquery json plugin. But for some reason, every quote is escaped.
  *
  * http://groups.google.com/group/google-gson/browse_thread/thread/98249309c8455a91
  *
  * One good thing about this approach is that only the absolutely necessary information is sent to the server.
+ *
+ * @param {Object} data The original JSON data that should be transformed
  */
 odr._createJSONString = function(data) {
     var json = [];
@@ -309,6 +330,21 @@ odr._createJSONString = function(data) {
 
 odr._nodes = {};
 
+/**
+ * @description
+ * Use this utility functionality to add nodes. It has several benefits as it will make sure that the node will be
+ * added to the nodes menu and it will also add the node to the status menu.
+ *
+ * @param {String} name The name which should be shown for this node
+ * @param {String} stereotype The stereotype that will be visible in the status menu
+ * @param {String} stereotypeToShow The stereotype that will be shown above the name of the decision in the node and in the decisions menu
+ * @param {Number} x The x position
+ * @param {Number} y The y position
+ * @param {Boolean} [visible] Whether this node is visible. Default = false
+ * @param {Boolean} [round] Whether the node has round corners. Default = true
+ * @param {String} [extraClasses] Some extra classes that you want to attach {@link odr.Rectangle#extraClasses}. Default = ""
+ * @return {odr.Rectangle} The new node. The node has been painted to the canvas!
+ */
 odr.addNode = function(name, stereotype, stereotypeToShow, x, y, visible, round, extraClasses) {
     if (visible == undefined) {
         visible = false;
@@ -454,6 +490,14 @@ odr._newStereotype = function(name, items) {
  * ###########################################################################
  *                         Loading animation and status
  */
+/**
+ * @description
+ * Show the wait animation popup (actually this popup can also be used to represent errors or the success status).
+ *
+ * @param {String|Number} [animationSpeed] Either "fast" or "slow" for 200 respectively 600 milliseconds or
+ * the time in milliseconds. Default speed is 200 milliseconds.
+ *
+ */
 odr.showWaitAnimation = function(animationSpeed) {
     if (animationSpeed == undefined) {
         animationSpeed = "fast";
@@ -478,6 +522,13 @@ odr.showWaitAnimation = function(animationSpeed) {
     j(".loader").fadeIn(animationSpeed);
 }
 
+/**
+ * @description
+ * Hide the small popup
+ *
+ * @param {String|Number} [animationSpeed] Either "fast" or "slow" for 200 respectively 600 milliseconds or
+ * the time in milliseconds. Default speed is 200 milliseconds.
+ */
 odr.hideWaitAnimation = function(animationSpeed) {
     if (animationSpeed == undefined) {
         animationSpeed = "fast";
@@ -486,39 +537,70 @@ odr.hideWaitAnimation = function(animationSpeed) {
     j(".loader").fadeOut(animationSpeed);
     j(".clickBlocker").fadeOut(animationSpeed);
 }
-
+/**
+ * @description
+ * Set an icon for the small popup
+ *
+ * @param {String} url The url to the icon including filename and filename extension
+ */
 odr.popupIcon = function(url) {
     j(".loader").css("background-image", "url(" + url + ")");
 }
-
+/**
+ * @description
+ * Set the default load icon
+ */
 odr.loadPopupIcon = function() {
     odr.popupIcon("resources/images/ajax-loader-circle.gif");
 }
-
+/**
+ * @description
+ * Set the default error icon
+ */
 odr.errorPopupIcon = function() {
     odr.popupIcon("resources/images/error-big.png");
 }
-
+/**
+ * @description
+ * Set the default success icon
+ */
 odr.successPopupIcon = function() {
     odr.popupIcon("resources/images/success-big.png");
 }
-
+/**
+ * @description
+ * Set the text that is shown below the icon in the popup
+ *
+ * @param {String} text The text which you want to show
+ */
 odr.popupText = function(text) {
     j(".loader").children("span").text(text);
 }
-
+/**
+ * @description
+ * Set the default success text
+ */
 odr.setSuccessText = function() {
     odr.popupText(j("#successText").text());
 }
-
+/**
+ * @description
+ * Set the default error text
+ */
 odr.setErrorText = function() {
     odr.popupText(j("#errorText").text());
 }
-
+/**
+ * @description
+ * Set the default saving text
+ */
 odr.setSaveText = function() {
     odr.popupText(j("#savingText").text());
 }
-
+/**
+ * @description
+ * Set the default loading text
+ */
 odr.setLoadingText = function() {
     odr.popupText(j("#loadingText").text());
 }
