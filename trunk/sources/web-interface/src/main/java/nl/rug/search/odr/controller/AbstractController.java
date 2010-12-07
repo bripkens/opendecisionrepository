@@ -96,8 +96,8 @@ public abstract class AbstractController implements Serializable {
 
         resultType = result;
 
-        // hide(0) and show(0) is required. This seems to be a jQuery bug
-        // see opened ticket: http://bugs.jquery.com/ticket/7721
+        // hide(0) and show(0) are required as they use the effect queue. hide() and show() (without) parameters
+        // don't use the effect queue and hence can't be delayed using the delay() function.
         JsfUtil.addJavascriptCall("jQuery('div#result').show(0).delay(" + (RESULT_DELAY * 2000) + ").hide(0);");
 
         resultEffect.setFired(false);
