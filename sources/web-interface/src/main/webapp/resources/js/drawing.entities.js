@@ -1,4 +1,8 @@
 /**
+ * @fileOverview
+ *
+ * This file contains all classes.
+ *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 
