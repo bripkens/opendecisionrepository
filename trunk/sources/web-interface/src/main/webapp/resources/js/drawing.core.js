@@ -1,5 +1,9 @@
-/*
- * Author: Ben Ripkens <bripkens.dev@gmail.com>
+/**
+ * @fileOverview
+ *
+ * Core functionality, this file should be loaded first.
+ *
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 
 
@@ -8,6 +12,10 @@
  */
 var odr = odr || {};
 
+/**
+ * @namespace
+ * jQuery conflicts with Icefaces, therefore jQuery is assigned to this variable.
+ */
 var j = jQuery.noConflict();
 
 
@@ -200,10 +208,23 @@ odr._requestedData = {};
  * ###########################################################################
  *                            Initialization
  */
+/**
+ * @description
+ * Attach a lisnener to the initialization phase. You should only attach listeners to this phase that
+ * don't require that the whole drawing facility is completely set up!
+ *
+ * @param {Function} callback The function which should be called during the initialization phase.
+ */
 odr.init = function(callback) {
     odr._initFunctions[odr._initFunctions.length] = callback;
 }
-
+/**
+ * @description
+ * Listeners that you add to the ready phase can make use of the whole drawing facility. This generally means
+ * that you can start adding nodes or calling methods.
+ *
+ * @param {Function} callback The function which should be called after the drawing facility is set up.
+ */
 odr.ready = function(callback) {
     odr._readyFunctions[odr._readyFunctions.length] = callback;
 }
@@ -228,11 +249,39 @@ j(document).ready(function() {
  * ###########################################################################
  *                              Utility functionality
  */
+/**
+ * @description
+ * <p>This method is used to simulate inheritance in JavaScript.</p>
+ *
+ * <p>Source:
+ * <a href="https://developer.mozilla.org/en/JavaScript/Guide/Inheritance_Revisited">
+ *     Mozilla Developer Network: Inheritance revisited
+ * </a></p>
+ *
+ * @param {Function} child The sub type which should inherit all methods from supertype.
+ * @param {Function} supertype The super type
+ */
 function extend(child, supertype){
     child.prototype.__proto__ = supertype.prototype;
     child.superClass = supertype.prototype;
 }
 
+
+/**
+ * @description
+ * <p>We extend the prototype of all functions with the function createDelegate. This method allows
+ * us to change the scope of a function to "this".</p>
+ *
+ * <p>This is useful when attaching listeners to jQuery events like click or mousemove as jQuery normally uses
+ * $(this) to reference the source of the event. When using the createDelegate method, this will point to the
+ * object that you want to reference with this.</p>
+ *
+ * <p>Source: <a href="http://stackoverflow.com/questions/520019/controlling-the-value-of-this-in-a-jquery-event">
+ *     Stackoverflow
+ * </a></p>
+ *
+ * @param {Object} scope The scope which you want to apply.
+ */
 Function.prototype.createDelegate = function(scope) {
     var fn = this;
     return function() {
@@ -241,6 +290,12 @@ Function.prototype.createDelegate = function(scope) {
     }
 }
 
+/**
+ * @description
+ * This function strips everything from a string that is not a number,
+ *
+ * @return {String} Only the numbers from the previous string.
+ */
 String.prototype.removeNonNumbers = function() {
     var result = new String(this);
     result = result.replace(/[^0-9]/g, '');
@@ -290,7 +345,14 @@ odr.init(function() {
 
 
 
-
+/**
+ * @description
+ * <p>Make sure that the element which you specified by elementId fit on the canvas. If it doesn't, resize the canvas.</p>
+ *
+ * <p>If you don't specify a parameter, then make sure that all {@link odr.Shape}s fit on the canvas.</p>
+ *
+ * @param {String|Number} elementId The id for which you want to make sure that it fits on the canvas.
+ */
 odr.assertContainerSize = function(elementId) {
     if (elementId == -1) {
         return;
@@ -367,6 +429,13 @@ odr.assertContainerSize = function(elementId) {
  * ###########################################################################
  *                              Snapping
  */
+/**
+ * @description
+ * <p>Round <i>value</i> to a multiple of <i>roundTo</i></p>
+ *
+ * @param {Number} value The value which you want to round
+ * @param {Number} roundTo Round to the nearest multiple of this value
+ */
 odr._round = function(value, roundTo) {
     var modResult = value % roundTo;
 
@@ -379,7 +448,14 @@ odr._round = function(value, roundTo) {
     }
 }
 
-
+/**
+ * @description
+ * Just list {@link odr._round} but it just rounds up to a multiple of <i>roundTo</i>.
+ *
+ * @param {Number} value The value which you want to round
+ * @param {Number} roundTo Round to the nearest multiple of this value
+ * @see odr._round
+ */
 odr._roundUp = function(value, roundTo) {
     var modResult = value % roundTo;
 
@@ -390,6 +466,15 @@ odr._roundUp = function(value, roundTo) {
     return value + (roundTo - (modResult));
 }
 
+/**
+ * @description
+ * <p>Snap the position of an {@link odr.Shape} to the grid. The grid dimensions are defined in the
+ * {@link odr.grid} settings.</p>
+ *
+ * <p>The position will be rounded up or down.</p>
+ *
+ * @param {odr.Shape} element The element which you want to snap to the grid
+ */
 odr.snapPosition = function(element) {
     if (element.x() != undefined) {
         element.x(odr._round(element.x(), odr.grid.width));
@@ -400,6 +485,16 @@ odr.snapPosition = function(element) {
     }
 }
 
+/**
+ * @description
+ * <p>Snap the position and size of an {@link odr.Shape} to the grid. The grid dimensions are defined in the
+ * {@link odr.grid} settings.</p>
+ *
+ * <p>The size will only be rounded up.</p>
+ *
+ * @param {odr.Shape} element The element which you want to snap to the grid
+ * @see odr.snapPosition
+ */
 odr.snap = function(element) {
     odr.snapPosition(element);
 
@@ -426,11 +521,24 @@ odr.snap = function(element) {
  * ###########################################################################
  *                              Dragging
  */
+/**
+ * @description
+ * <p>Enable dragging for an {@link odr.Shape}. This function attaches required listeners.</p>
+ *
+ * @param {odr.Shape} element The element for which you want to enable dragging
+ */
 odr.enableDragging = function(element) {
     element.mousedown(odr._dragStart);
     element.mouseup(odr._dragStop);
 }
 
+/**
+ * @description
+ * <p>This function will be called when the user clicks on a node. It is responsible for starting the process
+ * of dragging a node.</p>
+ *
+ * @param {jQuery event} e The jQuery mouse event
+ */
 odr._dragStart = function(e) {
     if(e.ctrlKey) {
         return false;
@@ -464,6 +572,16 @@ odr._dragStart = function(e) {
     return false;
 }
 
+/**
+ * @description
+ * <p>This function handles the actual dragging, i.e. when the user clicked on a node and is now moving the mouse.</p>
+ *
+ * <p>This function also makes sure that the container sizes adapts itself to the position and size of the dragged
+ * node. This function also contains the functionality that enables the user to drag a node to the border of the
+ * </p>
+ *
+ * @param {jQuery event} e The jQuery mouse event
+ */
 odr._drag = function(e) {
     var button = e.button;
     if (odr._dragging.previousEvent[button] == undefined) {
@@ -519,7 +637,17 @@ odr._drag = function(e) {
 }
 
 
-
+/**
+ * @description
+ * <p>When the user releases the mouse button (while dragging), this function is called.</p>
+ *
+ * <p>
+ * This function hides the grid and detaches temporarily bound listeners. In addition, {@link odr.assertContainerSize}
+ * is called to make sure that the canvas size is adapted.
+ * </p>
+ *
+ * @param {jQuery event} e The jQuery mouse event
+ */
 odr._dragStop = function(e) {
     var button = e.button;
 
@@ -555,6 +683,16 @@ odr._dragStop = function(e) {
  * ###########################################################################
  *                              Zooming
  */
+/**
+ * @description
+ * <p>Scale the association to a new level or retrieve the current scale level by calling the method without a
+ * parameter.</p>
+ *
+ * <p>The default scale level is 1. The reduce the scale level by 10% set the scale level to 0.9.</p>
+ *
+ * @param {Number} [newScale] The new scale level
+ * @return {Number} Always the current scale level. When setting a new scale level, the new level is returned.
+ */
 odr.scale = function(newScale) {
     if (!newScale) {
         return odr._scale.level;
@@ -585,6 +723,10 @@ odr.scale = function(newScale) {
 /*
  * ###########################################################################
  *                              Export
+ */
+/**
+ * @description
+ * Call this function before exporting. This function will reduce the white borders at the sides of the image.
  */
 odr.beforeExport = function() {
 
@@ -642,7 +784,10 @@ odr.beforeExport = function() {
     container.attr("viewBox", viewBox);
 }
 
-
+/**
+ * @description
+ * Call this function when the export is done. It will reset the canvas so that everything will look
+ */
 odr.afterExport = odr.assertContainerSize;
 
 
@@ -661,6 +806,14 @@ odr.afterExport = odr.assertContainerSize;
 /*
  * ###########################################################################
  *                              Meassure text dimensions
+ */
+/**
+ * @description
+ * This function measures the size of a given text with a specified css.
+ *
+ * @param {String} text The text from which you want to meassure the size
+ * @param {Object} css The css which should be used for meassuring
+ * @return {Object} An object literal with width and height properties that represent the text dimensions.
  */
 odr.meassureTextDimensions = function(text, css) {
     var div = document.createElement('div');
