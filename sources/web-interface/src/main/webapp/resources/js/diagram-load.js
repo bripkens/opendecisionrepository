@@ -1,11 +1,11 @@
-window.onsvgload = function() {
+odr.ready(function() {
     // SVG on the page should only be manipulated after the page is
     // finished loading
     var buttons = document.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].disabled = false;
     }
-}
+});
 
 function changeColors() {
     // get elements from our embedded SVG first
@@ -53,6 +53,7 @@ function changeText() {
 }
 
 $(function() {
-    $( "#menu" ).draggable();
-    $( "#menu" ).resizable();
+    $( ".node" ).resizable(odr.settings.resizing.jQueryUiSettings);
+    $( ".node" ).draggable(odr.settings.dragging.jQueryUiSettings);
+    $( ".associationHelper" ).draggable({containment : "parent", cursorAt : {top : 5, left : 5}});
 });
