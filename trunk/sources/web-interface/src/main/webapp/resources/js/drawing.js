@@ -1,5 +1,10 @@
-/*
- * Author: Ben Ripkens <bripkens.dev@gmail.com>
+/**
+ * @fileOverview
+ *
+ * This file contains the JavaScript that is executed when the page is loaded. In general that is,
+ * loading the visualization from the server.
+ *
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
 
 odr.ready(function() {
