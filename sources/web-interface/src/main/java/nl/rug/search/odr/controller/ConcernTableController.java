@@ -3,14 +3,18 @@ package nl.rug.search.odr.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.project.ConcernLocal;
@@ -25,11 +29,22 @@ public class ConcernTableController {
 
     @EJB
     private ConcernLocal concernLocal;
+
     private List<Item> items;
+
     private String sortColumn;
+
     private boolean ascending;
+
     private List<Item> list;
+
+    private int page;
+
     private int listSize;
+
+    private Map<Integer, Integer> pagesSize;
+
+    int temp;
 
 
 
@@ -48,16 +63,33 @@ public class ConcernTableController {
         }
         sortColumn = "Id";
         ascending = true;
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
+                getRequest();
+
+        if (request.getParameter("page") != null) {
+            page = Integer.valueOf(request.getParameter("page"));
+        }
+
+    }
+
+
+
+
+    public boolean isValid() {
+        return true;
     }
 
 
 
 
     public List<Item> getAllConcerns() {
+        int k = 1;
+        int r = 0;
         Set set = new HashSet();
+        pagesSize = new HashMap<Integer, Integer>();
         list = new ArrayList<Item>();
-
-
+        temp = 0;
         for (int i = 0; i < items.size(); i++) {
             if (!set.contains(items.get(i).concer.getGroup())) {
                 if (list.size() % 2 == 0) {
@@ -65,17 +97,32 @@ public class ConcernTableController {
                 }
                 list.add(items.get(i));
                 set.add(items.get(i).concer.getGroup());
+                temp++;
             } else {
                 set.add(items.get(i).concer.getGroup());
+                temp++;
             }
 
             List<Item> allsubs = getSubConcern(items.get(i));
 
+
             if (items.get(i).isSelected()) {
                 list.addAll(allsubs);
+                temp += allsubs.size();
             }
             if (allsubs.size() > 0) {
                 items.get(i).setHasSub(true);
+
+            }
+
+            if (i % 10 != 0 && i != 0) {
+                pagesSize.put(k, temp);
+            } else {
+                if (i != 0) {
+                    k++;
+                    temp = 0;
+                }
+
             }
         }
         sort();
@@ -83,24 +130,29 @@ public class ConcernTableController {
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setRowNumber(i + 1);
             if (list.get(i).isSelected()) {
-                listSize = i + 1;
                 if (list.get(i).isEven()) {
-                    for (int o = 0; o < list.size() - i - 1; o++) {
-                        if (list.get(o + i + 1).concer.getGroup().equals(list.get(i).concer.getGroup())) {
-                            list.get(o + i + 1).setWhite(true);
+                    for (int o = 0; o < list.size() - i; o++) {
+                        if (list.get(o + i).concer.getGroup().equals(list.get(i).concer.getGroup())) {
+                            list.get(o + i).setWhite(true);
                             listSize++;
                         }
 
                     }
                 } else {
-                    for (int j = 0; j < list.size() - i - 1; j++) {
-                        if (list.get(j + i + 1).concer.getGroup().equals(list.get(i).concer.getGroup())) {
-                            list.get(j + i + 1).setWhite(false);
+                    for (int j = 0; j < list.size() - i; j++) {
+                        if (list.get(j + i).concer.getGroup().equals(list.get(i).concer.getGroup())) {
+                            list.get(j + i).setWhite(false);
                             listSize++;
                         }
                     }
                 }
             }
+        }
+        for (Map.Entry entry : pagesSize.entrySet()) {
+            System.out.println("#######");
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+            System.out.println("#######");
         }
 
         return list;
@@ -110,7 +162,9 @@ public class ConcernTableController {
 
 
     public int getListSize() {
-            return listSize;
+
+        return pagesSize.get(page);
+
     }
 
 
@@ -185,15 +239,25 @@ public class ConcernTableController {
         Collections.sort(list, comparator);
     }
 
+
+
+
     public static class Item {
 
         private boolean selected;
+
         private List<Item> subItems = new ArrayList<Item>();
+
         private Concern concer;
+
         private boolean subConcern = false;
+
         private boolean colored = false;
+
         private int rowNumber;
+
         private boolean white;
+
         private boolean hasSub = false;
 
 
@@ -326,13 +390,23 @@ public class ConcernTableController {
             this.concer = concer;
         }
 
+
+
+
         public static class NameComparator implements Comparator<Item> {
 
             @Override
             public int compare(Item o1, Item o2) {
                 return o1.concer.getName().compareToIgnoreCase(o2.concer.getName());
             }
+
+
+
+
         }
+
+
+
 
         public static class ExternalIdComparator implements Comparator<Item> {
 
@@ -340,6 +414,21 @@ public class ConcernTableController {
             public int compare(Item o1, Item o2) {
                 return o1.concer.getExternalId().compareTo(o2.concer.getExternalId());
             }
+
+
+
+
         }
+
+
+
+
     }
+
+
+
+
 }
+
+
+

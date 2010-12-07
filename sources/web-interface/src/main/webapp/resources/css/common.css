@@ -1613,6 +1613,10 @@ div .iceSelInpTxtRow:last-child, div .iceSelInpTxtSelRow:last-child {
     z-index: 1000;
 }
 
+.iceSelInpTxtTxt{
+    margin:3px;
+}
+
 /*
     ############################################################################################
                                     Concern Table

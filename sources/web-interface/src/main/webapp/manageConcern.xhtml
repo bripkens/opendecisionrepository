@@ -90,7 +90,7 @@
                                              width="155"
                                              partialSubmit="true"
                                              valueChangeListener="#{concernController.tagValueChanged}"
-                                             style="float: right; position: relative; margin: 5px; z-index: 500" >
+                                             styleClass="#{item.styleClass}" >
                             <f:selectItems value="#{concernController.tagPossibilities}" />
                         </ice:selectInputText>
 

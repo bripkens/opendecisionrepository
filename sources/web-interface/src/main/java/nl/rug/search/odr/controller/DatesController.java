@@ -28,7 +28,14 @@ public class DatesController {
 
 
 
-
+    /**
+     * create the different time arrays for:
+     * hours,
+     * minutes,
+     * daysinMonts,
+     * year and a
+     * map<Integer, String> with monthnumber and monthname
+     */
     public DatesController() {
         hours = getStringArray(0, 23);
         minutes = getStringArray(0, 59);
@@ -89,7 +96,12 @@ public class DatesController {
 
 
 
-
+    /**
+     * create a Stringarray with all entries between and with the two parameters
+     * @param from the first entry in the array
+     * @param to the last entry in the array
+     * @return the entire array
+     */
     private String[] getStringArray(int from, int to) {
         String[] result = new String[to - from + 1];
 

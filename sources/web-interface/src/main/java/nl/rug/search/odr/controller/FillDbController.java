@@ -36,6 +36,11 @@ import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.project.StakeholderRoleLocal;
 import nl.rug.search.odr.project.StateLocal;
 import nl.rug.search.odr.user.UserLocal;
+import nl.rug.search.odr.viewpoint.Handle;
+import nl.rug.search.odr.viewpoint.relationship.InitRelationshipView;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewAssociation;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewNode;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  *
@@ -71,7 +76,8 @@ public class FillDbController {
 
     private boolean clearDone, rolesDone, statesDone,
             templatesDone, personsDone, projectsDone, iterationsDone,
-            decisionsDone, concernsDone, relationshipTypesDone, addAllDone, relationshipsDone;
+            decisionsDone, concernsDone, relationshipTypesDone, addAllDone, relationshipsDone, relationshipViewDone;
+
 
 
 
@@ -211,7 +217,7 @@ public class FillDbController {
         clearDone = true;
         personsDone = projectsDone = decisionsDone =
                 iterationsDone = concernsDone = rolesDone =
-                statesDone = templatesDone = relationshipTypesDone = false;
+                statesDone = templatesDone = relationshipTypesDone = relationshipViewDone = false;
     }
 
 
@@ -1047,16 +1053,14 @@ public class FillDbController {
         createRelationship(javaee, oprTech, causedBy);
         createRelationship(javaee, java, depends);
         createRelationship(jee5, javaee, causedBy);
-        createRelationship(jee5, java, depends);
         createRelationship(jee5, glassfish2, depends);
         createRelationship(jee6, javaee, causedBy);
         createRelationship(jee6, jee5, replaces);
-        createRelationship(jee6, java, depends);
         createRelationship(jee6, glassfish3, depends);
         createRelationship(glassfish, oprTech, causedBy);
         createRelationship(glassfish2, glassfish, causedBy);
         createRelationship(glassfish2, ice18, causedBy);
-        createRelationship(glassfish3,glassfish, causedBy);
+        createRelationship(glassfish3, glassfish, causedBy);
         createRelationship(glassfish3, glassfish2, replaces);
         createRelationship(glassfish3, ice202, causedBy);
         createRelationship(jsf, oprTech, causedBy);
@@ -1095,10 +1099,15 @@ public class FillDbController {
         createRelationship(batik, java, depends);
         createRelationship(batik, svg, causedBy);
 
+
         pl.merge(p);
 
         relationshipsDone = true;
+        clearDone = false;
     }
+
+
+
 
     private void createRelationship(Decision source, Decision target, RelationshipType type) {
         Relationship r = new Relationship();
@@ -1107,8 +1116,24 @@ public class FillDbController {
         r.setType(type);
     }
 
+
+
+
+    private Relationship getRelationship(Version source, Version target, RelationshipType type) {
+        for (Relationship r : source.getOutgoingRelationships()) {
+            if (r.getTarget().equals(target) && r.getType().equals(type)) {
+                System.out.println("war der richtige");
+                return r;
+            }
+        }
+        return null;
+    }
+
+
+
+
     private Decision getDecision(Collection<Decision> allDecisions, String name) {
-        for(Decision d : allDecisions) {
+        for (Decision d : allDecisions) {
             if (d.getName().equalsIgnoreCase(name)) {
                 return d;
             }
@@ -1116,6 +1141,238 @@ public class FillDbController {
 
         throw new RuntimeException();
     }
+
+
+
+
+    public void addRelationshipView() {
+        Project p = pl.getByName("OpenDecisionRepository");
+        Decision oprTech = getDecision(p.getDecisions(), "OPR technology stack");
+        Decision java = getDecision(p.getDecisions(), "Java Programming language");
+        Decision tcl = getDecision(p.getDecisions(), "Tcl");
+        Decision xowiki = getDecision(p.getDecisions(), "xowiki");
+        Decision javaee = getDecision(p.getDecisions(), "Java Enterprise Edition");
+        Decision glassfish = getDecision(p.getDecisions(), "Glassfish");
+        Decision jsf = getDecision(p.getDecisions(), "JavaServer Faces");
+        Decision icefaces = getDecision(p.getDecisions(), "Icefaces");
+        Decision jpa = getDecision(p.getDecisions(), "Java Persistence API");
+        Decision mysql = getDecision(p.getDecisions(), "MySQL");
+        Decision eclipselink = getDecision(p.getDecisions(), "Eclipselink");
+        Decision ejb = getDecision(p.getDecisions(), "Enterprise Java Beans");
+        Decision ice18 = getDecision(p.getDecisions(), "Icefaces 1.8");
+        Decision ice201 = getDecision(p.getDecisions(), "Icefaces 2.0-beta1");
+        Decision ice202 = getDecision(p.getDecisions(), "Icefaces 2.0-beta2");
+        Decision jsf12 = getDecision(p.getDecisions(), "JavaServer Faces 1.2");
+        Decision jsf2 = getDecision(p.getDecisions(), "JavaServer Faces 2");
+        Decision glassfish2 = getDecision(p.getDecisions(), "Glassfish 2");
+        Decision glassfish3 = getDecision(p.getDecisions(), "Glassfish 3");
+        Decision ejb3 = getDecision(p.getDecisions(), "Enterprise Java Beans 3");
+        Decision ejb31 = getDecision(p.getDecisions(), "Enterprise Java Beans 3.1");
+        Decision jee5 = getDecision(p.getDecisions(), "Java Enterprise Edition 5");
+        Decision jee6 = getDecision(p.getDecisions(), "Java Enterprise Edition 6");
+        Decision client = getDecision(p.getDecisions(), "Client side image generation");
+        Decision fop = getDecision(p.getDecisions(), "Apache FOP");
+        Decision batik = getDecision(p.getDecisions(), "Apache Batik");
+        Decision svg = getDecision(p.getDecisions(), "Scalable Vector Graphics");
+        Decision server = getDecision(p.getDecisions(), "Server side image generation");
+        Decision javaImg = getDecision(p.getDecisions(), "Image generation in Java");
+        Decision html5 = getDecision(p.getDecisions(), "HTML 5 Canvas Element");
+        Decision graphviz = getDecision(p.getDecisions(), "Graphviz");
+
+        InitRelationshipView init = new InitRelationshipView(p);
+        RelationshipViewVisualization vis = init.getView();
+
+        RelationshipViewNode node = vis.getNode(server.getCurrentVersion());
+        node.setX(370);
+        node.setY(80);
+        node.setVisible(true);
+
+        node = vis.getNode(graphviz.getCurrentVersion());
+        node.setX(740);
+        node.setY(80);
+        node.setVisible(true);
+
+        node = vis.getNode(client.getCurrentVersion());
+        node.setX(850);
+        node.setY(80);
+        node.setVisible(true);
+
+        node = vis.getNode(oprTech.getCurrentVersion());
+        node.setX(180);
+        node.setY(690);
+        node.setVisible(true);
+
+        node = vis.getNode(javaee.getCurrentVersion());
+        node.setX(300);
+        node.setY(430);
+        node.setVisible(true);
+
+        node = vis.getNode(svg.getCurrentVersion());
+        node.setX(690);
+        node.setY(220);
+        node.setVisible(true);
+
+        node = vis.getNode(javaImg.getCurrentVersion());
+        node.setX(390);
+        node.setY(220);
+        node.setVisible(true);
+
+        node = vis.getNode(batik.getCurrentVersion());
+        node.setX(580);
+        node.setY(330);
+        node.setVisible(true);
+
+        node = vis.getNode(fop.getCurrentVersion());
+        node.setX(830);
+        node.setY(330);
+        node.setVisible(true);
+
+        node = vis.getNode(html5.getCurrentVersion());
+        node.setX(1130);
+        node.setY(220);
+        node.setVisible(true);
+
+        node = vis.getNode(tcl.getCurrentVersion());
+        node.setX(220);
+        node.setY(220);
+        node.setVisible(true);
+
+        node = vis.getNode(xowiki.getCurrentVersion());
+        node.setX(50);
+        node.setY(220);
+
+        node = vis.getNode(java.getCurrentVersion());
+        node.setX(300);
+        node.setY(430);
+        node.setVisible(true);
+
+        node = vis.getNode(jee5.getCurrentVersion());
+        node.setX(760);
+        node.setY(460);
+        node.setVisible(true);
+
+        node = vis.getNode(jee6.getCurrentVersion());
+        node.setX(1170);
+        node.setY(430);
+        node.setVisible(true);
+
+        node = vis.getNode(glassfish.getCurrentVersion());
+        node.setX(520);
+        node.setY(580);
+        node.setVisible(true);
+
+        node = vis.getNode(glassfish2.getCurrentVersion());
+        node.setX(800);
+        node.setY(530);
+        node.setVisible(true);
+
+        node = vis.getNode(glassfish3.getCurrentVersion());
+        node.setX(1210);
+        node.setY(580);
+        node.setVisible(true);
+
+        node = vis.getNode(jpa.getCurrentVersion());
+        node.setX(180);
+        node.setY(560);
+        node.setVisible(true);
+
+        node = vis.getNode(eclipselink.getCurrentVersion());
+        node.setX(60);
+        node.setY(560);
+        node.setVisible(true);
+
+        node = vis.getNode(ejb.getCurrentVersion());
+        node.setX(480);
+        node.setY(790);
+        node.setVisible(true);
+
+        node = vis.getNode(ejb3.getCurrentVersion());
+        node.setX(760);
+        node.setY(740);
+        node.setVisible(true);
+
+        node = vis.getNode(ejb31.getCurrentVersion());
+        node.setX(900);
+        node.setY(740);
+        node.setVisible(true);
+
+        node = vis.getNode(jsf.getCurrentVersion());
+        node.setX(2000);
+        node.setY(2000);
+        node.setVisible(true);
+
+        Relationship rel = getRelationship(html5.getCurrentVersion(), client.getCurrentVersion(), getRelationshipType("caused by"));
+        RelationshipViewAssociation relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(1220).setY(100));
+
+        rel = getRelationship(svg.getCurrentVersion(), client.getCurrentVersion(), getRelationshipType("caused by"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(850).setY(230));
+        relVieAss.addHandle(new Handle().setX(960).setY(230));
+
+         rel = getRelationship(client.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("replaces"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(960).setY(50));
+        relVieAss.addHandle(new Handle().setX(480).setY(50));
+
+
+        rel = getRelationship(fop.getCurrentVersion(), svg.getCurrentVersion(), getRelationshipType("caused by"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(880).setY(290));
+        relVieAss.addHandle(new Handle().setX(780).setY(290));
+
+        rel = getRelationship(batik.getCurrentVersion(), svg.getCurrentVersion(), getRelationshipType("caused by"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(640).setY(290));
+        relVieAss.addHandle(new Handle().setX(780).setY(290));
+
+        rel = getRelationship(java.getCurrentVersion(), tcl.getCurrentVersion(), getRelationshipType("is alternative for"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(360).setY(440));
+        relVieAss.addHandle(new Handle().setX(360).setY(240));
+
+
+        rel = getRelationship(batik.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(400).setY(350));
+
+        rel = getRelationship(eclipselink.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(110).setY(450));
+
+        rel = getRelationship(fop.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(880).setY(390));
+        relVieAss.addHandle(new Handle().setX(400).setY(390));
+
+        rel = getRelationship(jee6.getCurrentVersion(), jee5.getCurrentVersion(), getRelationshipType("replaces"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(1210).setY(460));
+        relVieAss.addHandle(new Handle().setX(1210).setY(480));
+
+        rel = getRelationship(jpa.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(260).setY(450));
+
+
+        rel = getRelationship(glassfish2.getCurrentVersion(), glassfish.getCurrentVersion(), getRelationshipType("caused by"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(560).setY(550));
+
+        rel = getRelationship(glassfish3.getCurrentVersion(), glassfish2.getCurrentVersion(), getRelationshipType("replaces"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(1230).setY(590));
+        relVieAss.addHandle(new Handle().setX(1230).setY(550));
+
+        p.addRelationshipView(vis);
+        pl.merge(p);
+
+        relationshipViewDone = true;
+        clearDone = false;
+    }
+
+
+
 
     public boolean isClearDone() {
         return clearDone;
@@ -1272,6 +1529,7 @@ public class FillDbController {
         addDecisions();
         addConcerns();
         addRelationships();
+        addRelationshipView();
 
         clearDone = false;
         addAllDone = true;
@@ -1299,4 +1557,18 @@ public class FillDbController {
     public void setRelationshipsDone(boolean relationshipsDone) {
         this.relationshipsDone = relationshipsDone;
     }
+
+
+
+
+    public boolean isRelationshipViewDone() {
+        return relationshipViewDone;
+    }
+
+
+
+
 }
+
+
+
