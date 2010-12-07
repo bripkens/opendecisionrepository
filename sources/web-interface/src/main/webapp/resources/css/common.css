@@ -676,7 +676,7 @@ table a.columnNavigationLink img {
     z-index: 34;
 }
 .success {
-    background-color: darkred;
+    background-color: #48A659;
     color: #fff;
     display: block;
     padding: 0.5em;
