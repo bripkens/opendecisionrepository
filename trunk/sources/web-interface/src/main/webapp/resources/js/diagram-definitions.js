@@ -49,6 +49,52 @@ odr.settings = {
         jQueryUiSettings : {
             grid : 10
         }
+    },
+    node : {
+        idPrefix : "node",
+        "class" : "node",
+        container : "nodeGroup",
+        labelMeasureCss : {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            visibility : "hidden",
+            "white-space" : "nowrap",
+            "font-family" : "'lucida grande', tahoma, verdana, arial, sans-serif",
+            "font-size" : "13px",
+            "font-weight" : "bold"
+        },
+        statusMeasureCss : {
+            position: 'absolute',
+            left: -1000,
+            top: -1000,
+            visibility : "hidden",
+            "white-space" : "nowrap",
+            "font-family" : "'lucida grande', tahoma, verdana, arial, sans-serif",
+            "font-size" : "12px"
+        },
+        textPadding : {
+            x : 20,
+            y : 10
+        },
+        size : {
+            min : {
+                width: 70,
+                height : 50
+            },
+            multipleOf : {
+                width : 10,
+                height : 10
+            }
+        },
+        infoIcon : {
+            text : "Click here to retrieve additional information about this node.",
+            "class" : "info vtip"
+        },
+        hideIcon : {
+            text : "Click here to hide this node.",
+            "class" : "hide vtip"
+        }
     }
 };
 

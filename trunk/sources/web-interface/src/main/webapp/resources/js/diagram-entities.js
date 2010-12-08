@@ -112,19 +112,22 @@ odr.Registry.prototype = {
  *
  * @abstract
  *
- * @description Every entity automatically registers itself with the {@link odr.Registry} so that the entity can be retrieved by it's id.
+ * @description
+ * Every drawable automatically registers itself with the {@link odr.Registry} so that the entity can be
+ * retrieved by it's id.
  */
 odr.Drawable = function() {
-    this._id = odr.newId() + this._idPrefix();
+    this._id = this._idPrefix() + odr.newId();
     this._visible = true;
-    this._marked = false;
     this._parent = null;
     this._json = null;
     this._classes = [];
-    this._listener = {
-        paint : {},
-        visibilityChanged : {}
-    };
+
+    this._listener = {};
+
+    for(var listenerType in odr.Drawable.listener) {
+        this._listener[odr.Drawable.listener[listenerType]] = {};
+    }
 }
 
 /**
@@ -134,20 +137,16 @@ odr.Drawable = function() {
  */
 odr.Drawable.listener = {
     /** @field */
-    paint : "paint",
+    visibilityChanged : "visibilityChanged",
     /** @field */
-    visibilityChanged : "visibilityChanged"
+    parentChanged : "parentChanged",
+    /** @field */
+    classesChanged : "classesChanged"
 }
 
 odr.Drawable.prototype = {
     _id : -1,
     _visible : true,
-    /**
-     * @private
-     * @description
-     * Whether this drawable is marked
-     */
-    _marked : false,
     /**
      * @private
      * @description
@@ -195,21 +194,24 @@ odr.Drawable.prototype = {
 
     /**
      * @description
-     * Show or hide this DrawableItem. When changing the visibility of an iten it will be painted or removed, depending
-     * on the new visiblity.
+     * Show or hide this DrawableItem.
      *
      * Initially each DrawableItem is visible.
      *
      * You can also retrieve the current value by calling this method without parameters.
      *
      * @param {Boolean} [visible] The new visibility
-     * @return {Boolean|odr.Drawable} The visibility which was set or null if no parent was set. If you call this
-     * method with a parameter then the method will return the object on which you called the method
-     * (<a href="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</a>).
+     * @return {Boolean|odr.Drawable} The visibility which was set. If you call this
+     * method with a parameter then the method will return the object on which you called the method.
      */
     visible : function(visible) {
         if (visible != undefined) {
-            this._visible = visible;
+
+            if (this._visible != visible) {
+                this._visible = visible;
+
+                this.fire(odr.Drawable.listener.visibilityChanged, [this]);
+            }
 
             return this;
         }
@@ -220,12 +222,127 @@ odr.Drawable.prototype = {
 
 
 
-    
+
+
+
+    /**
+     * @description
+     * Set the parent for this element. The parent element can act as a grouping element or container for
+     * it's child elements..
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {HtmlElement|SvgElement} [parent] The new parent
+     * @return {HtmlElement|SvgElement|odr.Drawable} The parent which was set. If you call this
+     * method with a parameter then the method will return the object on which you called the method.
+     */
+    parent : function(parent) {
+        if (parent != undefined) {
+
+            if (this._parent != parent) {
+                this._parent = parent;
+
+                this.fire(odr.Drawable.listener.parentChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._parent;
+    },
+
+
+
+
+
+
+    /**
+     * @description
+     * Add a class to this drawable
+     *
+     * @param {String} theClass the class which you want to add
+     * @return {odr.Drawable} The object on which you called this method.
+     */
+    addClass : function(theClass) {
+
+        if (!this.hasClass(theClass)) {
+            this._classes[this._classes.length] = theClass;
+            this.fire(odr.Drawable.listener.classesChanged, [this]);
+        }
+        
+        return this._parent;
+    },
+
+
+
+
+
+    /**
+     * @description
+     * Remove a class from this drawable
+     *
+     * @param {String} theClass the class which you want to remove
+     * @return {odr.Drawable} The object on which you called this method.
+     */
+    removeClass : function(theClass) {
+        var index = this._classes.indexOf(theClass);
+
+        if (index != -1) {
+            this._classes.splice(index, 1);
+            this.fire(odr.Drawable.listener.classesChanged, [this]);
+        }
+        
+        return this._parent;
+    },
+
+
+
+
+
+    /**
+     * @description
+     * Check whether this drawable has a certain class
+     *
+     * @param {String} theClass the class for which you want to check the drawable
+     * @return {Boolean} True when this drawable has the class, false otherwise.
+     */
+    hasClass : function(theClass) {
+        return this._classes.indexOf(theClass) != -1;
+    },
+
+
+
+
+
+    /**
+     * @description
+     * Get a string that can be used for the html or svg class attribute.
+     *
+     * @return {String} All classes seperated by a white space character
+     */
+    classString : function() {
+        return this._classes.join(" ");
+    },
+
+
+
+
+
+    /**
+     * @description
+     * Bind a listener to the given event type
+     *
+     * @param {String} type The type of listener that you want to bind to
+     * @param {Function} listener The listener function
+     * @param {Object} [identification] The identification that is used for binding the listener. There is only one
+     * listener pre event type and identification!
+     * @return {odr.Drawable} The object on which you called this function
+     */
     bind : function(type, listener, identification) {
         var listenerCollection = this._listener[type];
 
         if (listenerCollection == undefined) {
-            throw ("The specified listener type " + type + "is not valid.");
+            throw ("The specified listener type " + type + " is not valid.");
         }
 
         if (identification == undefined) {
@@ -233,21 +350,35 @@ odr.Drawable.prototype = {
         }
 
         listenerCollection[identification] = listener;
+
+        return this;
     },
 
 
 
 
 
+    /**
+     * @description
+     * Unbind a listener from the given event type
+     *
+     * @param {String} type The type of listener that you want to unbind from
+     * @param {Object} identification The identification object that was used when the listener was bound.
+     * You can pass the listener function as an identification when you didn't specified an identification when you
+     * bound the listener.
+     * @return {odr.Drawable} The object on which you called this function
+     */
     unbind : function(type, identification) {
         var listenerCollection = this._listener[type];
 
         if (listenerCollection == undefined) {
-            throw ("The specified listener type " + type + "is not valid.");
+            throw ("The specified listener type " + type + " is not valid.");
         }
 
 
         delete listenerCollection[identification];
+
+        return this;
     },
 
 
@@ -255,17 +386,30 @@ odr.Drawable.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Fire an event with the given parameters
+     *
+     * @param {String} type The type of listener that you want to fire
+     * @param {Object[]} [params] An array of objects that you want to pass to the listener as parameters
+     * @return {odr.Drawable} The object on which you called this function
+     */
     fire : function(type, params) {
         var listenerCollection = this._listener[type];
 
         if (listenerCollection == undefined) {
-            throw ("The specified listener type " + type + "is not valid.");
+            throw ("The specified listener type " + type + " is not valid.");
+        }
+
+        if (params == undefined) {
+            params = [];
         }
 
         for(var listener in listenerCollection) {
             listenerCollection[listener].callWithParams(params);
         }
+
+        return this;
     }
 }
 
@@ -279,30 +423,619 @@ odr.Drawable.prototype = {
 
 
 
+
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Drawable
+ *
+ * @class
+ * Base class for all drawable items that cover an area, can therefore be clicked and need to be taken into account
+ * when the canvas is resized.
+ *
+ * @abstract
+ */
 odr.Shape = function() {
     odr.Drawable.call(this);
 
-    this._listener.positionChanged = {};
+    this._x = 0;
+    this._y = 0;
+    this._width = 0;
+    this._height = 0;
+    this._marked = false;
+
+    for(var listenerType in odr.Shape.listener) {
+        this._listener[odr.Shape.listener[listenerType]] = {};
+    }
 }
 
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
 odr.Shape.listener = {
     /** @field */
-    positionChanged : "positionChanged"
+    positionChanged : "positionChanged",
+    /** @field */
+    sizeChanged : "sizeChanged",
+    /** @field */
+    markedChanged : "markedChanged"
 }
 
 odr.Shape.prototype = {
+    _x : 0,
+    _y : 0,
+    _width : 0,
+    _height : 0,
     /**
      * @private
+     * @description
+     * Whether this drawable is marked
      */
-    _idPrefix : function() {
-        return "fooPrefix";
+    _marked : false,
+    
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Set whether or not this element is marked. The initial value is false.
+     *
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Boolean} [marked] The new marked value
+     * @return {Boolean|odr.Drawable} The marked value which was set. If you call this
+     * method with a parameter then the method will return the object on which you called the method.
+     */
+    marked : function(marked) {
+        if (marked != undefined) {
+
+            if (this._marked != marked) {
+                this._marked = marked;
+
+                this.fire(odr.Drawable.listener.markedChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._marked;
     },
 
 
 
+
+
+    
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Number} [x] The new x coordinate
+     * @return {Number|odr.Shape} The x coordinate which was set. If you call this method with a parameter then
+     * the method will return the object on which you called the method.
+     */
     x : function(x) {
-        odr.Shape.superClass.fire.call(this, odr.Shape.listener.positionChanged, [this]);
+        if (x != undefined) {
+            if (this._x != x) {
+
+                this._x = x;
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.positionChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._x;
+    },
+
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Number} [y] The new y coordinate
+     * @return {Number|odr.Shape} The y coordinate which was set. If you call this method with a parameter then
+     * the method will return the object on which you called the method.
+     */
+    y : function(y) {
+        if (y != undefined) {
+            if (this._y != y) {
+
+                this._y = y;
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.positionChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._y;
+    },
+
+
+
+
+
+
+    /**
+     * Update the whole position of a shape or retrieve the position. This method is to be prefered over x().y()
+     * as it will only inform the listeners one time about the position changed. Therefore it can improve the
+     * performance.
+     *
+     * @param {Number} [x] The new x coordinate
+     * @param {Number} [y] The new y coordinate
+     * @return {Object|odr.Shape} Returns odr.Shape when you pass an x and y parameter. If you call this method
+     * without a parameter it will return the position as an object with x and y properties.
+     */
+    position : function(x, y) {
+        if (x != undefined && y != undefined) {
+            var positionChanged = false;
+
+            if (this._x != x) {
+                this._x = x;
+                positionChanged = true;
+            }
+
+            if (this._y != y) {
+                this._y = y;
+                positionChanged = true;
+            }
+
+            if (positionChanged) {
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.positionChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return {
+            x : this._x,
+            y : this._y
+        };
+    },
+
+
+
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Number} [width] The new width
+     * @return {Number|odr.Shape} The width which was set. If you call this method with a parameter then the
+     * method will return the object on which you called the method.
+     */
+    width : function(width) {
+        if (width != undefined) {
+            if (this._width != width) {
+
+                this._width = width;
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.sizeChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._width;
+    },
+
+
+
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Number} [height] The new height
+     * @return {Number|odr.DrawableItem} The height which was set. If you call this method with a parameter then the
+     * method will return the object on which you called the method.
+     */
+    height : function(height) {
+        if (height != undefined) {
+            if (this._height != height) {
+
+                this._height = height;
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.sizeChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._height;
+    },
+
+
+
+
+
+
+    /**
+     * Update the whole size of a shape or retrieve the size. This method is to be prefered over width()height()
+     * as it will only inform the listeners one time about the size changed. Therefore it can improve the
+     * performance.
+     *
+     * @param {Number} [width] The new width coordinate
+     * @param {Number} [height] The new height coordinate
+     * @return {Object|odr.Shape} Returns odr.Shape when you pass a width and height parameter. If you call this method
+     * without a parameter it will return the size as an object with width and height properties.
+     */
+    size : function(width, height) {
+        if (width != undefined && height != undefined) {
+            var sizeChanged = false;
+
+            if (this._width != width) {
+                this._width = width;
+                sizeChanged = true;
+            }
+
+            if (this._height != height) {
+                this._height = height;
+                sizeChanged = true;
+            }
+
+            if (sizeChanged) {
+                odr.Shape.superClass.fire.call(this, odr.Shape.listener.sizeChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return {
+            width : this._width,
+            height : this._height
+        };
     }
 }
 
 extend(odr.Shape, odr.Drawable);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Shape
+ *
+ * @class
+ * An endpoint of an association.
+ *
+ * @abstract
+ */
+odr.Endpoint = function() {
+    odr.Shape.call(this);
+    this._label = "";
+
+    for(var listenerType in odr.Endpoint.listener) {
+        this._listener[odr.Endpoint.listener[listenerType]] = {};
+    }
+}
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Endpoint.listener = {
+    /** @field */
+    labelChanged : "labelChanged"
+}
+
+odr.Endpoint.prototype = {
+    _label : "",
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String|Number} [label] The new label
+     * @return {String|Number|odr.Endpoint} The label which was set or null if no label was set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method.
+     */
+    label : function(label) {
+        if(label != undefined) {
+            if (this._label != label) {
+                this._label = label;
+                odr.Endpoint.superClass.fire.call(this, odr.Endpoint.listener.labelChanged, [this]);
+            }
+
+            return this;
+        }
+        return this._label;
+    }
+}
+
+extend(odr.Endpoint, odr.Shape);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+odr.Node = function() {
+    odr.Endpoint.call(this);
+    this._status = "";
+    this._element = null;
+    this._statusElement = null;
+    this._labelElement = null;
+
+    for(var listenerType in odr.Node.listener) {
+        this._listener[odr.Node.listener[listenerType]] = {};
+    }
+
+    this.addClass(odr.settings.node["class"]);
+    this.paint();
+
+    odr.Node.superClass.bind.call(this,
+        odr.Drawable.listener.visibilityChanged,
+        this._visibilityChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Endpoint.listener.labelChanged,
+        this._labelChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Node.listener.statusChanged,
+        this._statusChanged.createDelegate(this),
+        this.id());
+}
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Node.listener = {
+    /** @field */
+    statusChanged : "statusChanged"
+}
+
+odr.Node.prototype = {
+    _status : "",
+    _element : null,
+    _statusElement : null,
+    _labelElement : null,
+
+
+
+    /**
+     * @private
+     */
+    _idPrefix : function() {
+        return odr.settings.node.idPrefix;
+    },
+
+
+
+
+
+    status : function(status) {
+        if (status != undefined) {
+            if (this._status != status) {
+                this._status = status;
+                odr.Node.superClass.fire.call(this, odr.Node.listener.statusChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._status;
+    },
+
+
+
+
+
+    paint : function() {
+        // prepare the group div
+        this._element = document.createElement("div");
+        this._element.id = this.id();
+        this._element.className = this.classString();
+        this._element.style.position = "absolute";
+        this._element.style.width = this.width() + "px";
+        this._element.style.height = this.height() + "px";
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+
+
+
+
+        // label for the status / stereotype
+        this._statusElement = document.createElement("span");
+        this._element.appendChild(this._statusElement);
+
+
+
+
+        // label for the label...
+        this._labelElement = document.createElement("h3");
+        this._element.appendChild(this._labelElement);
+        
+
+
+
+        // info icon
+        var info = document.createElement("div");
+        info.className = odr.settings.node.infoIcon["class"];
+        info.title = odr.settings.node.infoIcon.text;
+        this._element.appendChild(info);
+        
+
+
+
+        // hide icon
+        var hide = document.createElement("div");
+        hide.className = odr.settings.node.hideIcon["class"];
+        hide.title = odr.settings.node.hideIcon.text
+        this._element.appendChild(hide);
+        $(hide).click(function() {
+            this.visible(false);
+        }.createDelegate(this));
+
+
+
+        // add the group div to the parent
+        var parent = this.parent();
+
+        if (parent == undefined) {
+            parent = document.getElementById(odr.settings.node.container);
+        }
+
+        parent.appendChild(this._element);
+
+
+
+        // activate drag / drop and resizing
+        // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
+        // using standard jQuery
+        var jQueryNode = $("#" +this.id());
+        jQueryNode.draggable(odr.settings.dragging.jQueryUiSettings);
+        jQueryNode.resizable(odr.settings.resizing.jQueryUiSettings);
+
+
+
+        // attach listeners to the draggable events
+        jQueryNode.bind("dragstart", this._positionChanged.createDelegate(this));
+        jQueryNode.bind("drag", this._positionChanged.createDelegate(this));
+        jQueryNode.bind("dragstop", this._positionChanged.createDelegate(this));
+
+
+
+        // attach listeners to the resize events
+        jQueryNode.bind("resizestart", this._sizeChanged.createDelegate(this));
+        jQueryNode.bind("resize", this._sizeChanged.createDelegate(this));
+        jQueryNode.bind("resizestop", this._sizeChanged.createDelegate(this));
+
+
+
+        // activate the tooltip
+        vtip();
+    },
+
+
+
+
+    _visibilityChanged : function() {
+        var display = null;
+
+        if (this.visible()) {
+            display = "block";
+        } else {
+            display = "none";
+        }
+
+        this._element.style.display = display;
+    },
+
+
+
+
+
+
+    _labelChanged : function() {
+        $(this._labelElement).text(this.label());
+        
+        this._setMinSize();
+    },
+
+
+
+
+
+    _statusChanged : function() {
+        $(this._statusElement).text(this.status());
+
+        this._setMinSize();
+    },
+
+
+
+
+
+
+    _positionChanged : function() {
+        var position = $(this._element).position();
+
+        this.position(position.left, position.top);
+    },
+
+
+
+
+
+
+    _sizeChanged : function() {
+        this.size($(this._element).width(), $(this._element).height());
+    },
+
+
+
+
+
+    _setMinSize : function() {
+        var labelDimensions = odr.meassureTextDimensions(this.label(), odr.settings.node.labelMeasureCss);
+        var statusDimensions = odr.meassureTextDimensions(this.status(), odr.settings.node.statusMeasureCss);
+
+        var minWidth = Math.max(labelDimensions.width, statusDimensions.width) + odr.settings.node.textPadding.x;
+        var minHeight = labelDimensions.height + statusDimensions.height + odr.settings.node.textPadding.y;
+
+        minWidth = odr.roundUp(Math.max(minWidth, odr.settings.node.size.min.width), odr.settings.node.size.multipleOf.width);
+        minHeight = odr.roundUp(Math.max(minHeight, odr.settings.node.size.min.height), odr.settings.node.size.multipleOf.height);
+
+        this._element.style["min-width"] = minWidth + "px";
+        this._element.style["min-height"] = minHeight + "px";
+
+        this.size($(this._element).width(), $(this._element).height());
+    }
+}
+
+extend(odr.Node, odr.Endpoint);

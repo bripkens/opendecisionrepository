@@ -53,37 +53,56 @@ function changeText() {
 }
 
 $(function() {
-    $( ".node" ).resizable(odr.settings.resizing.jQueryUiSettings);
-    $( ".node" ).draggable(odr.settings.dragging.jQueryUiSettings);
-    $( ".associationHelper" ).draggable({containment : "parent", cursorAt : {top : 5, left : 5}});
+//    $( ".node" ).resizable(odr.settings.resizing.jQueryUiSettings);
+//    $( ".node" ).draggable(odr.settings.dragging.jQueryUiSettings);
+//    $( ".associationHelper" ).draggable({containment : "parent", cursorAt : {top : 5, left : 5}});
+//
+//
+//    $(".hide").click(function() {
+//        var elements = document.getElementsByClassNS(svgns, "someCircleClass", "circle");
+//
+//        for(var i = 0; i < elements.length; i++) {
+//            elements[i].style.display = "none";
+//        }
+//    });
 
 
-    $(".hide").click(function() {
-        var elements = document.getElementsByClassNS(svgns, "someCircleClass", "circle");
+//    var shape = new odr.Shape();
+//
+////    shape.bind("positionChanged", function(target) {
+////        console.log(this);
+////        console.log(target);
+////    }.createDelegate({foo : "bla"}));
+//
+//    var rectangle = {
+//        id : "SomeVeryFancyId",
+//        listener : function(thingThatChanged) {
+//            console.log("Observable is now visible? " + thingThatChanged.visible());
+//        }
+//    }
+//
+//    shape.bind(odr.Drawable.listener.visibilityChanged, rectangle.listener.createDelegate(rectangle));
+//
+//    console.log("Changing to visible but the listener should not react");
+//    shape.visible(true);
+//    console.log("Changing to invisible");
+//    shape.visible(false);
+//    console.log("Changing to visible");
+//    shape.visible(true);
+//
+//
+//    shape.bind(odr.Drawable.listener.classesChanged, function(drawable) {
+//        console.log(drawable.classString());
+//    });
+//
+//    shape.addClass("first");
+//    shape.addClass("second");
+//    shape.addClass("third");
+//    shape.removeClass("second");
+//    shape.addClass("first");
 
-        for(var i = 0; i < elements.length; i++) {
-            elements[i].style.display = "none";
-        }
-    });
-
-
-    var shape = new odr.Shape();
-
-//    shape.bind("positionChanged", function(target) {
-//        console.log(this);
-//        console.log(target);
-//    }.createDelegate({foo : "bla"}));
-
-    var rectangle = {
-        id : "SomeVeryFancyId",
-        listener : function(thingThatChanged) {
-            console.log(this.id);
-            console.log(thingThatChanged);
-        }
-    }
-
-    shape.bind(odr.Shape.listener.positionChanged, rectangle.listener.createDelegate(rectangle));
-
-    shape.x();
+    var node = new odr.Node();
+    node.label("Java Programming language");
+    node.status("approved");
 });
 
