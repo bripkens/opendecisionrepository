@@ -46,6 +46,31 @@ odr.newId = function() {
 
 
 
+/**
+ * @description
+ * <p>Move all marked shapes</p>
+ *
+ * @param {Number} x The number of pixel that each marked element should be moved in horizontal direction
+ * @param {Number} y The number of pixel that each marked element should be moved in vertical direction
+ * @param {odr.Drawable} exclude Exclude this item from moving. Normally this should be that item that is dragged
+ * as otherwise it would move twice as far.
+ */
+odr.moveMarkedShapes = function(x, y, exclude) {
+    $('.marked[id!="' + exclude.id() + '"]').each(function() {
+        var id = this.id;
+
+        var element = odr.registry.get(id);
+
+        var currentPosition = element.position();
+
+        element.position(currentPosition.x + x, currentPosition.y + y);
+    });
+}
+
+
+
+
+
 
 
 
@@ -118,6 +143,7 @@ odr.Registry.prototype = {
  */
 odr.Drawable = function() {
     this._id = this._idPrefix() + odr.newId();
+    odr.registry.add(this);
     this._visible = true;
     this._parent = null;
     this._json = null;
@@ -500,7 +526,7 @@ odr.Shape.prototype = {
             if (this._marked != marked) {
                 this._marked = marked;
 
-                this.fire(odr.Drawable.listener.markedChanged, [this]);
+                this.fire(odr.Shape.listener.markedChanged, [this]);
             }
 
             return this;
@@ -811,7 +837,7 @@ odr.Node = function() {
     }
 
     this.addClass(odr.settings.node["class"]);
-    this.paint();
+    this._paint();
 
     odr.Node.superClass.bind.call(this,
         odr.Drawable.listener.visibilityChanged,
@@ -826,6 +852,31 @@ odr.Node = function() {
     odr.Node.superClass.bind.call(this,
         odr.Node.listener.statusChanged,
         this._statusChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Drawable.listener.classesChanged,
+        this._classesChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Drawable.listener.parentChanged,
+        this._parentChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Shape.listener.markedChanged,
+        this._markedChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Shape.listener.sizeChanged,
+        this._sizeChanged.createDelegate(this),
+        this.id());
+
+    odr.Node.superClass.bind.call(this,
+        odr.Shape.listener.positionChanged,
+        this._positionChanged.createDelegate(this),
         this.id());
 }
 
@@ -857,7 +908,14 @@ odr.Node.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Set or get the status for this node. The status is the text which is displayed above the label.
+     *
+     * @param {String} [status] The status which you want to set
+     * @return {String|odr.Node} When no parameter is provided the status will be returned. If a parameter has been
+     * provided the object ob which you called the method will be returned.
+     */
     status : function(status) {
         if (status != undefined) {
             if (this._status != status) {
@@ -874,8 +932,10 @@ odr.Node.prototype = {
 
 
 
-
-    paint : function() {
+    /**
+     * @private
+     */
+    _paint : function() {
         // prepare the group div
         this._element = document.createElement("div");
         this._element.id = this.id();
@@ -908,7 +968,8 @@ odr.Node.prototype = {
         info.className = odr.settings.node.infoIcon["class"];
         info.title = odr.settings.node.infoIcon.text;
         this._element.appendChild(info);
-        
+        vtip($(info));
+
 
 
 
@@ -920,6 +981,7 @@ odr.Node.prototype = {
         $(hide).click(function() {
             this.visible(false);
         }.createDelegate(this));
+        vtip($(hide));
 
 
 
@@ -944,26 +1006,42 @@ odr.Node.prototype = {
 
 
         // attach listeners to the draggable events
-        jQueryNode.bind("dragstart", this._positionChanged.createDelegate(this));
-        jQueryNode.bind("drag", this._positionChanged.createDelegate(this));
-        jQueryNode.bind("dragstop", this._positionChanged.createDelegate(this));
+        jQueryNode.bind("dragstart", this._positionChangedThroughUi.createDelegate(this));
+        jQueryNode.bind("drag", this._positionChangedThroughUi.createDelegate(this));
+        jQueryNode.bind("dragstop", this._positionChangedThroughUi.createDelegate(this));
 
 
 
         // attach listeners to the resize events
-        jQueryNode.bind("resizestart", this._sizeChanged.createDelegate(this));
-        jQueryNode.bind("resize", this._sizeChanged.createDelegate(this));
-        jQueryNode.bind("resizestop", this._sizeChanged.createDelegate(this));
+        jQueryNode.bind("resizestart", this._sizeChangedThroughUi.createDelegate(this));
+        jQueryNode.bind("resize", this._sizeChangedThroughUi.createDelegate(this));
+        jQueryNode.bind("resizestop", this._sizeChangedThroughUi.createDelegate(this));
 
 
 
-        // activate the tooltip
-        vtip();
+
+        // attach a listener to the click event
+        jQueryNode.bind("click", this._click.createDelegate(this));
+    },
+
+
+
+    /**
+     * @private
+     */
+    _click : function(e) {
+        if(e.ctrlKey) {
+            this.marked(!this.marked());
+        }
     },
 
 
 
 
+
+    /**
+     * @private
+     */
     _visibilityChanged : function() {
         var display = null;
 
@@ -980,7 +1058,9 @@ odr.Node.prototype = {
 
 
 
-
+    /**
+     * @private
+     */
     _labelChanged : function() {
         $(this._labelElement).text(this.label());
         
@@ -990,7 +1070,11 @@ odr.Node.prototype = {
 
 
 
-
+    /**
+     * @private
+     * @description
+     * Will be called when {@link odr.Node.status} is called with a new value
+     */
     _statusChanged : function() {
         $(this._statusElement).text(this.status());
 
@@ -1001,26 +1085,114 @@ odr.Node.prototype = {
 
 
 
+    /**
+     * @private
+     * @description
+     * Will be called when the node is dragged in the user interface through jQuery ui
+     */
+    _positionChangedThroughUi : function(e) {
+        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+            return;
+        }
 
-    _positionChanged : function() {
-        var position = $(this._element).position();
+        var uiPosition = $(this._element).position();
+        var entityPosition = this.position();
+        
+        this.position(uiPosition.left, uiPosition.top);
 
-        this.position(position.left, position.top);
+        odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
     },
 
 
 
 
 
+    /**
+     * @private
+     * @description
+     * Will be called when {@link odr.Shape.x} or {@link odr.Shape.y} is called with a new value
+     */
+    _positionChanged : function() {
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+    },
 
-    _sizeChanged : function() {
+
+
+
+
+    /**
+     * @private
+     * @description
+     * Will be called when the node is resized in the user interface through jQuery ui
+     */
+    _sizeChangedThroughUi : function() {
+        if (odr.settings.lowPerformanceMode && e.type != "resizestop") {
+            return;
+        }
+
         this.size($(this._element).width(), $(this._element).height());
     },
 
 
 
 
+    /**
+     * @private
+     */
+    _sizeChanged : function() {
+        this._element.style.width = this.width() + "px";
+        this._element.style.height = this.height() + "px";
+    },
 
+
+
+
+    /**
+     * @private
+     */
+    _classesChanged : function() {
+        this._element.className = this.classString();
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _parentChanged : function() {
+        // Inserting the DOM element a second time will automatically remove it from
+        // it's previous position.
+        this.parent().appendChild(this._element);
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _markedChanged : function() {
+        if (this.marked()) {
+            this.addClass(odr.settings.node.markedClass);
+        } else {
+            this.removeClass(odr.settings.node.markedClass);
+        }
+    },
+
+
+
+
+
+    /**
+     * @private
+     * @description
+     * Set the minimum size for the node. The minimum size is calculated and depends on the dimensions
+     * of the status and label text.
+     */
     _setMinSize : function() {
         var labelDimensions = odr.meassureTextDimensions(this.label(), odr.settings.node.labelMeasureCss);
         var statusDimensions = odr.meassureTextDimensions(this.status(), odr.settings.node.statusMeasureCss);

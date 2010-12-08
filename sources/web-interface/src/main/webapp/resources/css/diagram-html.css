@@ -316,12 +316,17 @@ body {
     background-color: #fbfbfb;
 
     border: 1px solid black;
+
+    text-align: center;
+}
+.node.marked {
+    background-color: palegreen;
+}
+.round {
     border-radius: 15px;
     -moz-border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
-
-    text-align: center;
 }
 .node h3 {
     margin: 5px 10px;

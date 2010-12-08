@@ -25,6 +25,7 @@ var odr = odr || {};
  * ODR settings
  */
 odr.settings = {
+    lowPerformanceMode : false,
     menu : {
         top : {
             "class" : "topMenu",
@@ -53,6 +54,7 @@ odr.settings = {
     node : {
         idPrefix : "node",
         "class" : "node",
+        markedClass : "marked",
         container : "nodeGroup",
         labelMeasureCss : {
             position: 'absolute',
