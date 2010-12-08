@@ -110,7 +110,5 @@ odr.ready(function() {
     node2.label("Milestone 1: Release");
     node2.status("some date");
     node2.addClass("round");
-
-    node.marked(true);
 });
 
