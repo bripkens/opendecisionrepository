@@ -7,71 +7,6 @@
  */
 
 
-/*
- * ###############################################################################################################
- *                                              Set up
- */
-odr.bootstrap(function() {
-    odr.registry = new odr.Registry();
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * ###############################################################################################################
- *                                              Shared functionality
- */
-/**
- * @description
- * This function always returns a new unique id, i.e. a number. The first id is 0.
- *
- * @return {Number} a unique id
- */
-odr.newId = function() {
-    return odr.vars.idCounter++;
-}
-
-
-
-
-
-
-/**
- * @description
- * <p>Move all marked shapes</p>
- *
- * @param {Number} x The number of pixel that each marked element should be moved in horizontal direction
- * @param {Number} y The number of pixel that each marked element should be moved in vertical direction
- * @param {odr.Drawable} exclude Exclude this item from moving. Normally this should be that item that is dragged
- * as otherwise it would move twice as far.
- */
-odr.moveMarkedShapes = function(x, y, exclude) {
-    $('.marked[id!="' + exclude.id() + '"]').each(function() {
-        var id = this.id;
-
-        var element = odr.registry.get(id);
-
-        var currentPosition = element.position();
-
-        element.position(currentPosition.x + x, currentPosition.y + y);
-    });
-}
-
-
-
-
-
-
 
 
 
@@ -113,7 +48,9 @@ odr.Registry.prototype = {
     }
 }
 
-
+odr.bootstrap(function() {
+    odr.registry = new odr.Registry();
+});
 
 
 
@@ -969,6 +906,26 @@ odr.Node.prototype = {
         info.title = odr.settings.node.infoIcon.text;
         this._element.appendChild(info);
         vtip($(info));
+
+
+
+
+
+
+
+        // resize icon
+        var resize = document.createElement("div");
+        resize.className = odr.settings.node.resizeIcon["class"];
+        resize.title = odr.settings.node.resizeIcon.text
+        this._element.appendChild(resize);
+        $(resize).click(function() {
+            this._element.style.width = this._element.style["min-width"];
+            this._element.style.height = this._element.style["min-height"];
+        }.createDelegate(this));
+        vtip($(resize));
+
+
+
 
 
 

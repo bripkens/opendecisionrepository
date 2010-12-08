@@ -96,6 +96,10 @@ odr.settings = {
         hideIcon : {
             text : "Click here to hide this node.",
             "class" : "hide vtip"
+        },
+        resizeIcon : {
+            text : "Click here to reduce the node size to the bare minimum.",
+            "class" : "resize vtip"
         }
     }
 };

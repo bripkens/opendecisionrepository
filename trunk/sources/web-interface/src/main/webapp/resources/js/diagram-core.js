@@ -292,3 +292,47 @@ odr.roundUp = function(value, roundTo) {
 
     return value + (roundTo - (modResult));
 }
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * This function always returns a new unique id, i.e. a number. The first id is 0.
+ *
+ * @return {Number} a unique id
+ */
+odr.newId = function() {
+    return odr.vars.idCounter++;
+}
+
+
+
+
+
+
+/**
+ * @description
+ * <p>Move all marked shapes</p>
+ *
+ * @param {Number} x The number of pixel that each marked element should be moved in horizontal direction
+ * @param {Number} y The number of pixel that each marked element should be moved in vertical direction
+ * @param {odr.Drawable} exclude Exclude this item from moving. Normally this should be that item that is dragged
+ * as otherwise it would move twice as far.
+ */
+odr.moveMarkedShapes = function(x, y, exclude) {
+    $('.marked[id!="' + exclude.id() + '"]').each(function() {
+        var id = this.id;
+
+        var element = odr.registry.get(id);
+
+        var currentPosition = element.position();
+
+        element.position(currentPosition.x + x, currentPosition.y + y);
+    });
+}
