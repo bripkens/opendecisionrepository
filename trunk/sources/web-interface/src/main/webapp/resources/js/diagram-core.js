@@ -122,6 +122,28 @@ Function.prototype.createDelegate = function(scope) {
 
 
 
+
+
+
+
+
+/**
+ * @description
+ * <p>Call a method with an array of arguments.</p>
+ *
+ * @param {params[]} params The arguments that you want to supply to the function.
+ */
+Function.prototype.callWithParams = function(params) {
+    params.unshift(null);
+    this.apply(this, Array.prototype.slice.call(params, 1));
+}
+
+
+
+
+
+
+
 /**
  * @description
  * This function strips everything from a string that is not a number,
@@ -131,6 +153,55 @@ Function.prototype.createDelegate = function(scope) {
 String.prototype.removeNonNumbers = function() {
     var result = new String(this);
     result = result.replace(/[^0-9]/g, '');
+
+    return result;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Retrieve all elements that have a specific class. This function is used in combination with svg.
+ *
+ * @param {Object} namespace The svgweb namespace that will be used. In most cases it will be svgns
+ * (not a string but instead a global).
+ * @param {String} theClass the class that the element should have
+ * @param {String} [tagName] The elements tag. This can be used to increase the performance
+ * @return {Object[]} Elements from the namespace.
+ */
+document.getElementsByClassNS= function(namespace, theClass, tagName) {
+
+    if (tagName == undefined) {
+        tagName = "*";
+    }
+
+    var allElements = document.getElementsByTagNameNS(namespace, tagName);
+
+    var result = [];
+
+    for (i = 0; i < allElements.length; i++) {
+
+        var currentElement = allElements[i];
+        var classesOfCurrentElement = currentElement.className.baseVal.split(" ");
+
+        for(j = 0; j < classesOfCurrentElement.length; j++) {
+            if (classesOfCurrentElement[j] == theClass) {
+                result[result.length] = currentElement;
+                break;
+            }
+        }
+    }
 
     return result;
 }

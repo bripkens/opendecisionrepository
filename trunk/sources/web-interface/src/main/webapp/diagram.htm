@@ -126,7 +126,8 @@
                     <circle id="myCircle"
                             cx="100" cy="75" r="50"
                             stroke="firebrick"
-                            stroke-width="3" />
+                            stroke-width="3"
+                   class="someCircleClass foobar"/>
                     <text x="100" y="155">Hello World</text>
                     <text x="100" y="175">From Embedded SVG!</text>
                 </g>
@@ -136,22 +137,6 @@
             <h1>Optional fallback content goes here!</h1>
         </noscript>
 
-        <!-- Embed an external SVG file using the following syntax; it must
-             be done exactly as given, rather than using the EMBED tag. Change
-             the data and src attributes to point to where your SVG file is
-             relative to the HTML page. -->
-
-        <!--[if IE]>
-        <object src="helloworld.svg" classid="image/svg+xml"
-                width="200" height="200"
-                id="mySVGObject">
-        <![endif]-->
-        <!--[if !IE]>-->
-        <object data="helloworld.svg" type="image/svg+xml"
-                width="200" height="200"
-                id="mySVGObject">
-            <!--<![endif]-->
-        </object>
 
     </body>
 </html>

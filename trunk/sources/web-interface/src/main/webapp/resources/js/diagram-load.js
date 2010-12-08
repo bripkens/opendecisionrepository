@@ -22,9 +22,9 @@ function changeColors() {
     // change the value inside our SVG OBJECT now
 
     // use the 'contentDocument' property to navigate into the SVG OBJECT
-    var doc = document.getElementById('mySVGObject').contentDocument;
-    circle = doc.getElementById('myCircle');
-    circle.style.fill = '#8A2BE2';
+//    var doc = document.getElementById('mySVGObject').contentDocument;
+//    circle = doc.getElementById('myCircle');
+//    circle.style.fill = '#8A2BE2';
 }
 
 function changeText() {
@@ -43,17 +43,47 @@ function changeText() {
     }
 
     // change the text inside our SVG OBJECT as well
-    var doc = document.getElementById('mySVGObject').contentDocument;
-    textElems = doc.getElementsByTagNameNS(svgns, 'text');
-    for (var i = 0; i < textElems.length; i++) {
-        if (textElems[i].childNodes[0].nodeValue == 'Hello World') {
-            textElems[i].childNodes[0].nodeValue = 'Goodbye World';
-        }
-    }
+//    var doc = document.getElementById('mySVGObject').contentDocument;
+//    textElems = doc.getElementsByTagNameNS(svgns, 'text');
+//    for (var i = 0; i < textElems.length; i++) {
+//        if (textElems[i].childNodes[0].nodeValue == 'Hello World') {
+//            textElems[i].childNodes[0].nodeValue = 'Goodbye World';
+//        }
+//    }
 }
 
 $(function() {
     $( ".node" ).resizable(odr.settings.resizing.jQueryUiSettings);
     $( ".node" ).draggable(odr.settings.dragging.jQueryUiSettings);
     $( ".associationHelper" ).draggable({containment : "parent", cursorAt : {top : 5, left : 5}});
+
+
+    $(".hide").click(function() {
+        var elements = document.getElementsByClassNS(svgns, "someCircleClass", "circle");
+
+        for(var i = 0; i < elements.length; i++) {
+            elements[i].style.display = "none";
+        }
+    });
+
+
+    var shape = new odr.Shape();
+
+//    shape.bind("positionChanged", function(target) {
+//        console.log(this);
+//        console.log(target);
+//    }.createDelegate({foo : "bla"}));
+
+    var rectangle = {
+        id : "SomeVeryFancyId",
+        listener : function(thingThatChanged) {
+            console.log(this.id);
+            console.log(thingThatChanged);
+        }
+    }
+
+    shape.bind(odr.Shape.listener.positionChanged, rectangle.listener.createDelegate(rectangle));
+
+    shape.x();
 });
+
