@@ -328,6 +328,20 @@ div#help {
     list-style-type: disc;
     list-style-position: inside;
 }
+
+#content-without-sidebar {
+    margin-top: 1em;
+    margin-left: 2.3em;
+    width: 80.5em;
+    float: left;
+    font-size: 0.875em;
+    line-height: 1.5em;
+    padding-right: 3em;
+    padding-bottom: 2em;
+    position: relative;
+}
+
+
 h1 {
     color: darkred;
     margin-top: 0.5em;
@@ -1717,4 +1731,81 @@ div .iceSelInpTxtRow:last-child, div .iceSelInpTxtSelRow:last-child {
 .iterationtext{
     height:250px;
     margin-bottom: 2px;
+}
+
+
+
+/*########################################################*/
+/*                    new concerntable*/
+
+.dataList{
+    position: relative;
+    top:21px;
+    float:right;
+    border-collapse: collapse;
+    border: solid 1px #bebebe;
+    width: 100%
+
+}
+
+.dataList .odd{
+    background-color: #F4F2F2 ;
+}
+
+.dataList even{
+    background-color: white;
+}
+
+.dataList td{
+    border:solid 1px #b3b3b3;
+    border-collapse: collapse;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.dataList tr:hover{
+    background-color: #d8d8d8;
+}
+
+.dataList th{
+    padding:5px;
+    text-align: center;
+    border: 1px solid #b3b3b3;
+    background-color: #e2e2e2;
+}
+
+#subtable{
+    border: none;
+    border-collapse: collapse;
+}
+
+.toggleSubTableShow{
+    background-image: url("../images/expand.gif");
+    width: 13px;
+    position:relative;
+    left:15px;
+    height: 13px;
+    display: block;
+}
+
+.toggleSubTableHide{
+    background-image: url("../images/collapse.gif");
+    width: 13px;
+    height: 13px;
+    display: block;
+    position:relative;
+    left:15px;
+}
+
+#searchInput{
+    border:solid 1px #b3b3b3;
+    position: relative;
+    float:right;
+    top:22px;
+    border-top-left-radius: 10px 10px;
+    border-top-right-radius: 10px 10px;
+    -moz-border-radius-topright: 10px;
+    -moz-border-radius-topleft: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
 }

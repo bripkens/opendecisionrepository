@@ -1,10 +1,8 @@
 package nl.rug.search.odr.controller;
 
-import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.util.AuthenticationUtil;
-import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *

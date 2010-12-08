@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<ui:composition template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="template-without-sidebar.xhtml" xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -7,6 +7,8 @@
                 xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
+        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <!--        <script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>-->
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -14,114 +16,68 @@
     </ui:define>
 
     <ui:define name="content">
-
-        <f:subview id="concernTableSubview" rendered="#{concernTableController.valid}">
-
-        <ice:form partialSubmit="true" >
-            <div class="formSection last">
-                <ice:dataTable id="datalist"
-                               border="1"
-                               rows="#{concernTableController.listSize}"
-                               style="border-collapse: collapse"
-                               value="#{concernTableController.allConcerns}"
-                               var="concern"
-                               styleClass="sortableTable"
-                               sortColumn="#{concernTableController.sortColumn}"
-                               sortAscending="#{concernTableController.ascending}"
-                               >
-
-
-                    <ice:column styleClass="#{concern.subConcern ? 'columns':''}" style="#{(concern.subConcern and concern.white) ? 'background-color: #F7F7F7':''} #{(concern.subConcern and !concern.white) ? 'background-color: white':''}" >
-                        <f:facet name="header">
-                            <ice:commandSortHeader columnName="bild" arrow="true" >
-                            </ice:commandSortHeader>
-                        </f:facet>
-                        <ice:commandLink partialSubmit="true" action="#{concern.setSelected(true)}" rendered="#{!concern.subConcern}" styleClass="sorterHeader">
-                            <ice:graphicImage id="expandContractImage" rendered="#{concern.hasSub}"
-                                              value="http://component-showcase.icefaces.org/component-showcase/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
-                                              style="border: 0px solid;" />
-                        </ice:commandLink>
-                    </ice:column>
-
-                    <!--  ID -->
-                    <ice:column style="width: 20%">
-                        <f:facet name="header">
-                            <ice:commandSortHeader columnName="Id" arrow="true" >
-                                <ice:outputText value="ExternalID"/>
-                            </ice:commandSortHeader>
-                        </f:facet>
-                        <ice:outputText value="#{concern.concer.externalId}"></ice:outputText>
-                    </ice:column>
-
-                    <!--                         Titel-->
-                    <ice:column style="width: 40%">
-                        <f:facet name="header">
-                            <ice:commandSortHeader columnName="Name" arrow="true" >
-                                <ice:outputText value="Name"/>
-                            </ice:commandSortHeader>
-                        </f:facet>
-                        <ice:outputText value="#{concern.concer.name}" rendered="#{!concern.subConcern}"></ice:outputText>
-                        <ice:outputText value="#{concern.concer.createdWhen}" rendered="#{concern.subConcern}">
-                            <f:convertDateTime dateStyle="medium"/>
-                        </ice:outputText>
-                    </ice:column>
-
-                    <!--                          Autor-->
-                    <ice:column style="width: 30%">
-                        <f:facet name="header">
-                            <ice:commandSortHeader columnName="creator" arrow="true" >
-                                <ice:outputText value="creator"/>
-                            </ice:commandSortHeader>
-                        </f:facet>
-                        <ice:outputText value="#{concern.concer.initiators.person.name}"></ice:outputText>
-                    </ice:column>
-
-                </ice:dataTable>
-
-                <ice:panelGrid columns="1" styleClass="scrollerTable2" columnClasses="standardTable_ColumnCentered" >
-
-                    <ice:dataPaginator id="scroll_1"
-                                       for="datalist"
-                                       fastStep="4"
-
-                                       pageCountVar="pageCount"
-                                       pageIndexVar="pageIndex"
-                                       paginator="true"
-                                       paginatorMaxPages="9"
-                                       >
-                        <f:facet name="first" >
-                            <ice:graphicImage url="/resources/images/arrow-first.gif" style="border:none;"/>
-                        </f:facet>
-
-                        <f:facet name="last">
-                            <ice:graphicImage url="resources/images/arrow-last.gif" style="border:none;" />
-                        </f:facet>
-
-                        <f:facet name="previous">
-                            <ice:graphicImage url="resources/images/arrow-previous.gif" style="border:none;" />
-                        </f:facet>
-
-                        <f:facet name="next">
-                            <ice:graphicImage url="resources/images/arrow-next.gif" style="border:none;" />
-                        </f:facet>
-
-                        <f:facet name="fastforward">
-                            <ice:graphicImage url="resources/images/arrow-ff.gif" style="border:none;" />
-                        </f:facet>
-
-                        <f:facet name="fastrewind">
-                            <ice:graphicImage url="resources/images/arrow-fr.gif" style="border:none;" />
-                        </f:facet>
-
-
-                    </ice:dataPaginator>
-
-
-                </ice:panelGrid>
-
-            </div>
+        <form>
+            <label for="searchInput" class="prefillValue" style="display: none">Search</label>
+            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList')" style="width: 200px;" styleClass="prefill"/>
+        </form>
+        <ice:form partialSubmit="true">
+            <table class="dataList" id="concernList">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;"></th>
+                        <th style="width: 20%;">External-Id</th>
+                        <th style="width: 56%;">Name</th>
+                        <th style="width: 19%;">Creation date</th>
+                        <th colspan="3" style="">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <ice:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
+                    <tr class="parentRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
+                        <td style="border-bottom: none">
+                            <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
+                        </td>
+                        <td>#{item.concer.externalId}</td>
+                        <td>#{item.concer.name}</td>
+                        <td>#{concernTableController1.getDate(item)}</td>
+                        <td>
+                            <a href="#{concernTableController1.getShowLink(item)}" ><img alt="#{common.read}"
+                                     src="resources/images/inspect.png"
+                                     width="14"
+                                     height="14"/></a></td>
+                            <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img alt="#{common.edit}"
+                                     src="resources/images/pencilSmall.png"
+                                     width="14"
+                                     height="14"/></a></td>
+                            <td><img alt="#{common.remove}"
+                                     src="resources/images/removeSmall.png"
+                                     width="14"
+                                     height="14"/></td>
+                    </tr>
+                    <ice:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="concernRepeat1">
+                        <tr style="display: none;" class="subRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
+                            <td style="border:none;"></td>
+                            <td>#{subconcern.concer.externalId}</td>
+                            <td>#{subconcern.concer.name}</td>
+                            <td>#{concernTableController1.getDate(subconcern)}</td>
+                            <td><img alt="#{common.read}"
+                                     src="resources/images/inspect.png"
+                                     width="14"
+                                     height="14"/></td>
+                            <td><img alt="#{common.edit}"
+                                     src="resources/images/pencilSmall.png"
+                                     width="14"
+                                     height="14"/></td>
+                            <td><img alt="#{common.remove}"
+                                     src="resources/images/removeSmall.png"
+                                     width="14"
+                                     height="14"/></td>
+                        </tr>
+                    </ice:repeat>
+                </ice:repeat>
+                </tbody>
+            </table>
         </ice:form>
-</f:subview>
-
     </ui:define>
+
 </ui:composition>
