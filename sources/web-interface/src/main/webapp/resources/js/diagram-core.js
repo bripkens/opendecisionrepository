@@ -205,3 +205,90 @@ document.getElementsByClassNS= function(namespace, theClass, tagName) {
 
     return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * This function measures the size of a given text with a specified css.
+ *
+ * @param {String} text The text from which you want to meassure the size
+ * @param {Object} css The css which should be used for meassuring
+ * @return {Object} An object with width and height properties that represent the text dimensions.
+ */
+odr.meassureTextDimensions = function(text, css) {
+    var div = document.createElement('div');
+    document.body.appendChild(div);
+    $(div).css(css);
+
+    $(div).text(text);
+
+    var result = {
+        height: $(div).outerHeight(),
+        width: $(div).outerWidth()
+    }
+
+    $(div).remove();
+
+    return result;
+}
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * <p>Round <i>value</i> to a multiple of <i>roundTo</i></p>
+ *
+ * @param {Number} value The value which you want to round
+ * @param {Number} roundTo Round to the nearest multiple of this value
+ */
+odr.round = function(value, roundTo) {
+    var modResult = value % roundTo;
+
+    if(modResult == 0) {
+        return value;
+    } else if (modResult >= (roundTo / 2)) {
+        return value + (roundTo - modResult);
+    } else {
+        return value - modResult;
+    }
+}
+
+
+
+
+
+
+/**
+ * @description
+ * Just list {@link odr._round} but it just rounds up to a multiple of <i>roundTo</i>.
+ *
+ * @param {Number} value The value which you want to round
+ * @param {Number} roundTo Round to the nearest multiple of this value
+ * @see odr._round
+ */
+odr.roundUp = function(value, roundTo) {
+    var modResult = value % roundTo;
+
+    if(modResult == 0) {
+        return value;
+    }
+
+    return value + (roundTo - (modResult));
+}
