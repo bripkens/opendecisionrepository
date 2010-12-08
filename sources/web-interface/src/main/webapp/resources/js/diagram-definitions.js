@@ -67,6 +67,8 @@ odr.settings = {
  * @private
  */
 odr.vars = {
+    idCounter : 0,
+    registry : null,    // Will be replaced during bootstrap with an instance of odr.Registry
     bootstrapFunctions : [],
     readyFunctions : []
 }
