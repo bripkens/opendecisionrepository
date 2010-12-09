@@ -1163,6 +1163,13 @@ odr.Node.prototype = {
         this._element.style["min-width"] = minWidth + "px";
         this._element.style["min-height"] = minHeight + "px";
 
+        var previousSize = this.size();
+
+        if (previousSize.width == 0 || previousSize.height == 0) {
+            this._element.style.width = minWidth + "px";
+            this._element.style.height = minHeight + "px";
+        }
+
         this.size($(this._element).width(), $(this._element).height());
     }
 }

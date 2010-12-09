@@ -25,7 +25,7 @@ var odr = odr || {};
  * ODR settings
  */
 odr.settings = {
-    lowPerformanceMode : false,
+    lowPerformanceMode : true,
     menu : {
         top : {
             "class" : "topMenu",
