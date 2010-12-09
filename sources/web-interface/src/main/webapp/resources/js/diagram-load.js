@@ -110,5 +110,10 @@ odr.ready(function() {
     node2.label("Milestone 1: Release");
     node2.status("some date");
     node2.addClass("round");
+
+
+
+    var handle = new odr.Handle();
+    handle.position(300, 300);
 });
 

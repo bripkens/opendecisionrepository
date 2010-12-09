@@ -761,7 +761,14 @@ extend(odr.Endpoint, odr.Shape);
 
 
 
-
+/**
+ * @constructor
+ *
+ * @extends odr.Endpoint
+ *
+ * @class
+ * A node is an endpoint of an association and a graphical representation of a decision, version or iteration
+ */
 odr.Node = function() {
     odr.Endpoint.call(this);
     this._status = "";
@@ -1083,7 +1090,7 @@ odr.Node.prototype = {
      * @description
      * Will be called when the node is resized in the user interface through jQuery ui
      */
-    _sizeChangedThroughUi : function() {
+    _sizeChangedThroughUi : function(e) {
         if (odr.settings.lowPerformanceMode && e.type != "resizestop") {
             return;
         }
@@ -1175,3 +1182,232 @@ odr.Node.prototype = {
 }
 
 extend(odr.Node, odr.Endpoint);
+
+
+
+
+
+
+
+
+
+odr.Handle = function() {
+    odr.Shape.call(this);
+    this._element = null;
+
+    this.size(odr.settings.handle.size.width, odr.settings.handle.size.height);
+
+    this.addClass(odr.settings.handle["class"]);
+    this._paint();
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Drawable.listener.visibilityChanged,
+        this._visibilityChanged.createDelegate(this),
+        this.id());
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Drawable.listener.classesChanged,
+        this._classesChanged.createDelegate(this),
+        this.id());
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Drawable.listener.parentChanged,
+        this._parentChanged.createDelegate(this),
+        this.id());
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Shape.listener.markedChanged,
+        this._markedChanged.createDelegate(this),
+        this.id());
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Shape.listener.positionChanged,
+        this._positionChanged.createDelegate(this),
+        this.id());
+};
+
+odr.Handle.prototype = {
+    _element : null,
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _idPrefix : function() {
+        return odr.settings.handle.idPrefix;
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _paint : function() {
+        // prepare node div
+        this._element = document.createElement("div");
+        this._element.id = this.id();
+        this._element.className = this.classString();
+        this._element.style.position = "absolute";
+        this._element.style.width = this.width() + "px";
+        this._element.style.height = this.height() + "px";
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+
+
+
+
+        // add the node div to the parent
+        var parent = this.parent();
+
+        if (parent == undefined) {
+            parent = document.getElementById(odr.settings.handle.container);
+        }
+
+        parent.appendChild(this._element);
+
+
+
+        // activate drag / drop and resizing
+        // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
+        // using standard jQuery
+        var jQueryHandle = $("#" + this.id());
+        jQueryHandle.draggable(odr.settings.dragging.jQueryUiSettings);
+
+
+
+
+
+        // attach listeners to the draggable events
+        jQueryHandle.bind("dragstart", this._positionChangedThroughUi.createDelegate(this));
+        jQueryHandle.bind("drag", this._positionChangedThroughUi.createDelegate(this));
+        jQueryHandle.bind("dragstop", this._positionChangedThroughUi.createDelegate(this));
+
+
+
+
+
+        
+        // attach a listener to the click event
+        jQueryHandle.bind("click", this._click.createDelegate(this));
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _click : function(e) {
+        if(e.ctrlKey) {
+            this.marked(!this.marked());
+        }
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _visibilityChanged : function() {
+        var display = null;
+
+        if (this.visible()) {
+            display = "block";
+        } else {
+            display = "none";
+        }
+
+        this._element.style.display = display;
+    },
+
+
+
+
+    /**
+     * @private
+     */
+    _classesChanged : function() {
+        this._element.className = this.classString();
+    },
+
+
+
+
+    /**
+     * @private
+     */
+    _parentChanged : function() {
+        // Inserting the DOM element a second time will automatically remove it from
+        // it's previous position.
+        this.parent().appendChild(this._element);
+    },
+
+
+
+
+    /**
+     * @private
+     */
+    _markedChanged : function() {
+        if (this.marked()) {
+            this.addClass(odr.settings.node.markedClass);
+        } else {
+            this.removeClass(odr.settings.node.markedClass);
+        }
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     * @description
+     * Will be called when the handle is dragged in the user interface through jQuery ui
+     */
+    _positionChangedThroughUi : function(e) {
+        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+            return;
+        }
+
+        var uiPosition = $(this._element).position();
+        var entityPosition = this.position();
+
+        this.position(uiPosition.left, uiPosition.top);
+
+        odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     * @description
+     * Will be called when {@link odr.Shape.x} or {@link odr.Shape.y} is called with a new value
+     */
+    _positionChanged : function() {
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+    }
+};
+
+extend(odr.Handle, odr.Shape);
