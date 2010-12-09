@@ -318,13 +318,20 @@ body {
     border: 1px solid black;
 
     text-align: center;
+
+    -webkit-transition: background-color 300ms ease-in 0ms;
+    -moz-transition: background-color 300ms ease-in 0ms;
+    -o-transition: background-color 300ms ease-in 0ms;
+    transition: background-color 300ms ease-in 0ms;
 }
-.node.marked {
+.node:hover {
+    background-color: #f0f0f0;
+}
+.node.marked, .handle.marked {
     background-color: palegreen;
 }
 .round {
     border-radius: 15px;
-    -moz-border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
 }
@@ -358,6 +365,8 @@ body {
     -moz-transition: opacity 300ms ease-in 0ms;
     -o-transition: opacity 300ms ease-in 0ms;
     transition: opacity 300ms ease-in 0ms;
+
+    cursor: pointer;
 }
 .node:hover .hide, .node:hover .info, .node:hover .resize {
     opacity: 1;
@@ -399,4 +408,31 @@ body {
     -webkit-border-radius: 5px;
 
     display: none;
+}
+
+
+
+
+
+
+
+/*
+ * Handles
+*/
+.handle {
+    background-color: #fbfbfb;
+
+    border: 1px solid black;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+
+    -webkit-transition: background-color 300ms ease-in 0ms;
+    -moz-transition: background-color 300ms ease-in 0ms;
+    -o-transition: background-color 300ms ease-in 0ms;
+    transition: background-color 300ms ease-in 0ms;
+}
+
+.handle:hover {
+    background-color: #bebebe;
 }

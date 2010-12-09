@@ -25,7 +25,7 @@ var odr = odr || {};
  * ODR settings
  */
 odr.settings = {
-    lowPerformanceMode : true,
+    lowPerformanceMode : false,
     menu : {
         top : {
             "class" : "topMenu",
@@ -43,7 +43,8 @@ odr.settings = {
             grid : [10, 10],
             snap : true,
             scroll: true,
-            stack : ".node"
+            stack : ".node",
+            cursor : "move"
         }
     },
     resizing : {
@@ -85,8 +86,8 @@ odr.settings = {
                 height : 50
             },
             multipleOf : {
-                width : 10,
-                height : 10
+                width : 6,
+                height : 6
             }
         },
         infoIcon : {
@@ -100,6 +101,15 @@ odr.settings = {
         resizeIcon : {
             text : "Click here to reduce the node size to the bare minimum.",
             "class" : "resize vtip"
+        }
+    },
+    handle : {
+        idPrefix : "handle",
+        "class" : "handle",
+        container : "handleGroup",
+        size : {
+            width : 6,
+            height : 6
         }
     }
 };
