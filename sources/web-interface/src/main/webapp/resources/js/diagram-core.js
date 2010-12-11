@@ -375,13 +375,12 @@ odr.bootstrap(function() {
 
             document.title = odr.translation.text["title"];
 
-            // translate static html text elements
-            $("." + odr.translation["class"]).not("input").not("img").each(function() {
-                var translation = odr.translation.text[$(this).text()];
-                $(this).text(translation);
+            // translate static button values
+            $("input." + odr.translation["class"]).each(function() {
+                var translation = odr.translation.text[$(this).val()];
+                $(this).val(translation);
                 $(this).removeClass("translate");
             });
-
 
             // translate static alternative image texts
             $("img." + odr.translation["class"]).each(function() {
@@ -390,13 +389,18 @@ odr.bootstrap(function() {
                 $(this).removeClass("translate");
             });
 
-
-            // translate static button values
-            $("input." + odr.translation["class"]).each(function() {
-                var translation = odr.translation.text[$(this).val()];
-                $(this).val(translation);
+            // translate static html text elements
+            $("." + odr.translation["class"]).each(function() {
+                var translation = odr.translation.text[$(this).text()];
+                $(this).text(translation);
                 $(this).removeClass("translate");
             });
+
+
+            
+
+
+            
         }
     });
 });
