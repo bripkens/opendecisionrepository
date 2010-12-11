@@ -1424,7 +1424,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     height: 40px;
 }
 .formSection textarea.wikiSyntax {
-    background-image: url(http://www.patternrepository.com:8080/WebInterface/images/wikiSyntax.png);
+    background-image: url(../images/wikiSyntax.png);
     background-position: 95% 100%;
     background-repeat: no-repeat;
     min-height: 150px;

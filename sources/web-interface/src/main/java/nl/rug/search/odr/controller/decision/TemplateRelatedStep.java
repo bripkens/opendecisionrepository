@@ -286,8 +286,8 @@ public class TemplateRelatedStep implements WizardStep {
         error = false;
 
         try {
-            searchResults = webService.search(inputString);
             JsfUtil.addJavascriptCall("odr.decisionWizardSearchOne(false);");
+            searchResults = webService.search(inputString);
             searchError = false;
         } catch (BusinessException ex) {
             JsfUtil.addJavascriptCall("odr.decisionWizardStepOneDisableRetrieve(true);");
