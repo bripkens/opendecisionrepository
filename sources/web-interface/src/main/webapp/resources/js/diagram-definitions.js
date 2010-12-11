@@ -26,6 +26,9 @@ var odr = odr || {};
  */
 odr.settings = {
     lowPerformanceMode : false,
+    request : {
+        translation : "ViewpointTextProvider"
+    },
     menu : {
         top : {
             "class" : "topMenu",
@@ -41,7 +44,6 @@ odr.settings = {
     dragging : {
         jQueryUiSettings : {
             grid : [10, 10],
-            snap : true,
             scroll: true,
             stack : ".node",
             cursor : "move"
@@ -122,6 +124,27 @@ odr.settings = {
 
 /*
  * ###############################################################################################################
+ *                             Translations will be loaded into this var
+ */
+odr.translation = {
+    locale : null,
+    text : null,
+    "class" : "translate"
+};
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
  *                                              Variable declarations
  */
 
@@ -133,4 +156,4 @@ odr.vars = {
     registry : null,    // Will be replaced during bootstrap with an instance of odr.Registry
     bootstrapFunctions : [],
     readyFunctions : []
-}
+};
