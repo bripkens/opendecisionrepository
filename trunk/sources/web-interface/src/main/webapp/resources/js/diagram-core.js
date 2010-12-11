@@ -51,6 +51,8 @@ odr.ready = function(callback) {
  * Start up everything by calling the bootstrap and ready listeners
  */
 window.onsvgload = function() {
+    // TODO show load animation
+
     for (var i = 0; i < odr.vars.bootstrapFunctions.length; i++) {
         odr.vars.bootstrapFunctions[i]();
     }
@@ -58,6 +60,8 @@ window.onsvgload = function() {
     for (var i = 0; i < odr.vars.readyFunctions.length; i++) {
         odr.vars.readyFunctions[i]();
     }
+
+    // TODO hide load animation
 }
 
 
@@ -336,3 +340,63 @@ odr.moveMarkedShapes = function(x, y, exclude) {
         element.position(currentPosition.x + x, currentPosition.y + y);
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                        Load translations
+ */
+odr.bootstrap(function() {
+    // receive translation from the server
+
+    $.ajax({
+        url : odr.settings.request.translation,
+        dataType : "json",
+        error : function(data, textStatus, errorThrown) {
+            // TODO Show an error popup
+        },
+        success : function(data) {
+            // store translation
+            odr.translation.locale = data.Locale;
+            odr.translation.text = data.Translations;
+
+            document.title = odr.translation.text["title"];
+
+            // translate static html text elements
+            $("." + odr.translation["class"]).not("input").not("img").each(function() {
+                var translation = odr.translation.text[$(this).text()];
+                $(this).text(translation);
+                $(this).removeClass("translate");
+            });
+
+
+            // translate static alternative image texts
+            $("img." + odr.translation["class"]).each(function() {
+                var translation = odr.translation.text[$(this).attr("alt")];
+                $(this).attr("alt", translation);
+                $(this).removeClass("translate");
+            });
+
+
+            // translate static button values
+            $("input." + odr.translation["class"]).each(function() {
+                var translation = odr.translation.text[$(this).val()];
+                $(this).val(translation);
+                $(this).removeClass("translate");
+            });
+        }
+    });
+});

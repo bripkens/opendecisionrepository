@@ -775,6 +775,7 @@ odr.Node = function() {
     this._element = null;
     this._statusElement = null;
     this._labelElement = null;
+    this._minSize = {width : 0, height : 0};
 
     for(var listenerType in odr.Node.listener) {
         this._listener[odr.Node.listener[listenerType]] = {};
@@ -839,6 +840,7 @@ odr.Node.prototype = {
     _element : null,
     _statusElement : null,
     _labelElement : null,
+    _minSize : {width : 0, height : 0},
 
 
 
@@ -926,8 +928,7 @@ odr.Node.prototype = {
         resize.title = odr.settings.node.resizeIcon.text
         this._element.appendChild(resize);
         $(resize).click(function() {
-            this._element.style.width = this._element.style["min-width"];
-            this._element.style.height = this._element.style["min-height"];
+            this.size(this._minSize.width, this._minSize.height);
         }.createDelegate(this));
         vtip($(resize));
 
@@ -1161,20 +1162,21 @@ odr.Node.prototype = {
         var labelDimensions = odr.meassureTextDimensions(this.label(), odr.settings.node.labelMeasureCss);
         var statusDimensions = odr.meassureTextDimensions(this.status(), odr.settings.node.statusMeasureCss);
 
-        var minWidth = Math.max(labelDimensions.width, statusDimensions.width) + odr.settings.node.textPadding.x;
-        var minHeight = labelDimensions.height + statusDimensions.height + odr.settings.node.textPadding.y;
+        this._minSize.width = Math.max(labelDimensions.width, statusDimensions.width) + odr.settings.node.textPadding.x;
+        this._minSize.height = labelDimensions.height + statusDimensions.height + odr.settings.node.textPadding.y;
 
-        minWidth = odr.roundUp(Math.max(minWidth, odr.settings.node.size.min.width), odr.settings.node.size.multipleOf.width);
-        minHeight = odr.roundUp(Math.max(minHeight, odr.settings.node.size.min.height), odr.settings.node.size.multipleOf.height);
+        this._minSize.width = odr.roundUp(Math.max(this._minSize.width, odr.settings.node.size.min.width), odr.settings.node.size.multipleOf.width);
+         this._minSize.height = odr.roundUp(Math.max( this._minSize.height, odr.settings.node.size.min.height), odr.settings.node.size.multipleOf.height);
 
-        this._element.style["min-width"] = minWidth + "px";
-        this._element.style["min-height"] = minHeight + "px";
+        // removed as min-width may not apply when text is to be broken up into several lines
+//        this._element.style["min-width"] = minWidth + "px";
+        this._element.style["min-height"] =  this._minSize.height + "px";
 
         var previousSize = this.size();
 
         if (previousSize.width == 0 || previousSize.height == 0) {
-            this._element.style.width = minWidth + "px";
-            this._element.style.height = minHeight + "px";
+            this._element.style.width = this._minSize.width + "px";
+            this._element.style.height =  this._minSize.height + "px";
         }
 
         this.size($(this._element).width(), $(this._element).height());
@@ -1191,6 +1193,16 @@ extend(odr.Node, odr.Endpoint);
 
 
 
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Shape
+ *
+ * @class
+ * A handle can be used to create angular lines.
+ */
 odr.Handle = function() {
     odr.Shape.call(this);
     this._element = null;
