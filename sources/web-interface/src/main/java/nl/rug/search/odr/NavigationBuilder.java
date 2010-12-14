@@ -16,7 +16,6 @@ import nl.rug.search.odr.util.JsfUtil;
 public class NavigationBuilder {
 
 //  ############### Navigation Strings############
-
     private final String EDIT = JsfUtil.evaluateExpressionGet("#{page['navigation.edit']}", String.class);
 
     private final String CREATE = JsfUtil.evaluateExpressionGet("#{page['navigation.create']}", String.class);
@@ -25,7 +24,7 @@ public class NavigationBuilder {
 
     private final String ITERATION = JsfUtil.evaluateExpressionGet("#{page['navigation.iteration']}", String.class);
 
-    private final String CONCERN = JsfUtil.evaluateExpressionGet("#{page['navigation.concern']}", String.class);
+    private final String CONCERNS = JsfUtil.evaluateExpressionGet("#{page['navigation.concerns']}", String.class);
 
     private final String DECISION = JsfUtil.evaluateExpressionGet("#{page['navigation.decision']}", String.class);
 
@@ -37,7 +36,7 @@ public class NavigationBuilder {
 
     private final String HOME = JsfUtil.evaluateExpressionGet("#{page['navigation.home']}", String.class);
 
-     private final String USER = JsfUtil.evaluateExpressionGet("#{page['navigation.user']}", String.class);
+    private final String USER = JsfUtil.evaluateExpressionGet("#{page['navigation.user']}", String.class);
 
 //  ##############################################
     private Project project;
@@ -169,7 +168,8 @@ public class NavigationBuilder {
                 && !navigationSite.equals(Filename.CREATE_PROJECT_WITH_LEADING_SLASH)
                 && !navigationSite.equals(Filename.REGISTER_USER_WITH_LEADING_SLASH)) {
 
-            navigation.add(new NavigationLink(project.getName(), RequestParameter.PROJECT_PATH_WITH_ENDING_SLASH +""+ project.getName()));
+            navigation.add(new NavigationLink(project.getName(), RequestParameter.PROJECT_PATH_WITH_ENDING_SLASH + "" + project.
+                    getName()));
         }
 
         //Iteration
@@ -201,6 +201,10 @@ public class NavigationBuilder {
         else if (navigationSite.equals(Filename.REGISTER_USER_WITH_LEADING_SLASH)) {
             navigation.add(new NavigationLink(USER, ""));
             navigation.add(new NavigationLink(REGISTER, ""));
+        } //concernsTable
+        else if (navigationSite.equals(Filename.CONCERNS_TABLE_WITH_LEADING_SLASH)) {
+            navigation.add(new NavigationLink(CONCERNS, getConcernTableLink(Filename.CONCERNS_TABLE)));
+
         }
         return navigation;
     }
@@ -261,7 +265,7 @@ public class NavigationBuilder {
 
 
     private void addConcernHeader(List<NavigationLink> list) {
-        list.add(new NavigationLink(CONCERN, ""));
+        list.add(new NavigationLink(CONCERNS, getConcernTableLink(Filename.CONCERNS_TABLE)));
     }
 
 
@@ -270,6 +274,13 @@ public class NavigationBuilder {
     private String concernLink(String site) {
         return site + "?" + RequestParameter.ID + "=" + project.getId() + "&" + RequestParameter.CONCERN_ID + "=" + concern.
                 getId();
+    }
+
+
+
+
+    private String getConcernTableLink(String site) {
+        return site + "?" + RequestParameter.ID + "=" + project.getId();
     }
 
 // </editor-fold>
@@ -310,9 +321,7 @@ public class NavigationBuilder {
 
 
 
-
 // <editor-fold defaultstate="collapsed" desc="NavigationLink class">
-
     public class NavigationLink {
 
         private String name;
