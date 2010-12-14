@@ -14,6 +14,25 @@
     <ui:define name="pagetitle">
         <ice:outputText value="#{page['concern.page.title']}" nospan="true" />
     </ui:define>
+    <ui:define name="bodyBegin">
+        <div id="deleteConcernConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+            <h1><ice:outputText value="#{page['projectDetails.concern.delete']}" nospan="true" /></h1>
+
+            <p class="deleteConfirmationMessage">
+            <ice:outputText value="#{form['concern.delete.confirmation']}" nospan="true"/>
+            <ice:outputText value="#{concernTableController1.concernToDelete.name}" />?
+            </p>
+            <ice:form rendered="#{concernTableController1.valid}" id="confitmConcernDeleteForm">
+
+                <ice:commandButton action="#{concernTableController1.deleteConcern}"
+                                   value="#{form['button.delete']}"
+                                   styleClass="abort"
+                                   id="confirmConcernDeleteButton"/>
+
+                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
+            </ice:form>
+        </div>
+    </ui:define>
 
     <ui:define name="content">
         <form>
@@ -32,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <ice:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
+                <ui:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
                     <tr class="parentRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
                         <td style="border-bottom: none">
                             <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
@@ -42,19 +61,25 @@
                         <td>#{concernTableController1.getDate(item)}</td>
                         <td>
                             <a href="#{concernTableController1.getShowLink(item)}" ><img alt="#{common.read}"
-                                     src="resources/images/inspect.png"
-                                     width="14"
-                                     height="14"/></a></td>
-                            <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img alt="#{common.edit}"
-                                     src="resources/images/pencilSmall.png"
-                                     width="14"
-                                     height="14"/></a></td>
-                            <td><img alt="#{common.remove}"
-                                     src="resources/images/removeSmall.png"
-                                     width="14"
-                                     height="14"/></td>
+                                                                                         src="resources/images/inspect.png"
+                                                                                         width="14"
+                                                                                         height="14"/></a></td>
+                        <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img alt="#{common.edit}"
+                                                                                           src="resources/images/pencilSmall.png"
+                                                                                           width="14"
+                                                                                           height="14"/></a></td>
+                        <td><ice:commandLink value=""
+                                         actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
+                                         styleClass="columnNavigationLink">
+                        <img alt="#{common.remove}"
+                             src="resources/images/removeSmall.png"
+                             width="14"
+                             height="14"/>
+                        <f:attribute value="#{item.concer}" name="concern" />
+
+                    </ice:commandLink></td>
                     </tr>
-                    <ice:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="concernRepeat1">
+                    <ui:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="subconcernRepeat">
                         <tr style="display: none;" class="subRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
                             <td style="border:none;"></td>
                             <td>#{subconcern.concer.externalId}</td>
@@ -68,13 +93,19 @@
                                      src="resources/images/pencilSmall.png"
                                      width="14"
                                      height="14"/></td>
-                            <td><img alt="#{common.remove}"
-                                     src="resources/images/removeSmall.png"
-                                     width="14"
-                                     height="14"/></td>
+                            <td><ice:commandLink value=""
+                                             actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
+                                             styleClass="columnNavigationLink">
+                            <img alt="#{common.remove}"
+                                 src="resources/images/removeSmall.png"
+                                 width="14"
+                                 height="14"/>
+                            <f:attribute value="#{subconcern.concer}" name="concern" />
+
+                        </ice:commandLink></td>
                         </tr>
-                    </ice:repeat>
-                </ice:repeat>
+                    </ui:repeat>
+                </ui:repeat>
                 </tbody>
             </table>
         </ice:form>
