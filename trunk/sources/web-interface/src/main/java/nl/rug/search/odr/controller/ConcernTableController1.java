@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.QueryStringBuilder;
@@ -27,6 +28,7 @@ import nl.rug.search.odr.project.ConcernLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -45,6 +47,10 @@ public class ConcernTableController1 {
     private List<Item> parentConcerns;
 
     private Project project;
+
+    private Concern concernToDelete;
+
+    private String concernToDeleteName;
 
 
 
@@ -142,9 +148,6 @@ public class ConcernTableController1 {
         if (it == null) {
             return Collections.EMPTY_LIST;
         }
-//        if (it.hasSub) {
-//            System.out.println("hat subitems :" + it.getSubItems().size());
-//        }
         return it.getSubItems();
     }
 
@@ -174,6 +177,53 @@ public class ConcernTableController1 {
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, item.concern.getId()).
                 toString();
+    }
+
+
+
+
+    public void showDeleteConcernConfirmation(ActionEvent e) {
+        Concern co = (Concern) e.getComponent().getAttributes().get("concern");
+
+        concernToDelete = co;
+
+        JsfUtil.addJavascriptCall("odr.showConcernDeleteForm();");
+    }
+
+
+
+
+    public Concern getConcernToDelete() {
+        return concernToDelete;
+    }
+
+
+
+
+    public void setConcernToDelete(Concern concernToDelete) {
+        this.concernToDelete = concernToDelete;
+    }
+
+
+
+
+
+
+    public void deleteConcern() {
+        project.removeConcern(concernToDelete);
+
+        projectLocal.merge(project);
+
+        JsfUtil.addJavascriptCall("odr.popup.hide();");
+        JsfUtil.addJavascriptCall("odr.refresh();");
+
+    }
+
+
+
+
+    public boolean isValid() {
+        return project != null;
     }
 
 
