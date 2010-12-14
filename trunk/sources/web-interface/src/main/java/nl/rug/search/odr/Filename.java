@@ -51,6 +51,12 @@ public interface Filename {
     String UPDATE_PROJECT_WITH_LEADING_SLASH ="/updateProject.html";
     String DELETE_PROJECT_WITH_LEADING_SLASH ="/deleteProject.html";
 
+    String CONCERNS_TABLE_WITH_LEADING_SLASH    ="/concernsTable.html";
+    String CONCERNS_TABLE                       ="concernsTable.html";
+    
+    String ITERATIONS_TABLE_WITH_LEADING_SLASH ="/iterationsTable.html";
+    String DECISIONS_TABLE_WITH_LEADING_SLASH ="/decisionsTable.html";
+
      String REGISTER_USER_WITH_LEADING_SLASH ="/register.html";
 
 

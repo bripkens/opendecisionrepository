@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
+import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
 import nl.rug.search.odr.RequestParameter;
 
@@ -50,7 +51,7 @@ public class ConcernTableController1 {
 
     private Concern concernToDelete;
 
-    private String concernToDeleteName;
+    private NavigationBuilder navi;
 
 
 
@@ -76,6 +77,7 @@ public class ConcernTableController1 {
         }
 
         project = projectLocal.getById(projectId);
+        navi = new NavigationBuilder();
 
         if (project == null) {
             ErrorUtil.showIdNotRegisteredError();
@@ -207,8 +209,6 @@ public class ConcernTableController1 {
 
 
 
-
-
     public void deleteConcern() {
         project.removeConcern(concernToDelete);
 
@@ -224,6 +224,16 @@ public class ConcernTableController1 {
 
     public boolean isValid() {
         return project != null;
+    }
+
+
+
+
+    public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
+        navi.setProject(project);
+
+        return navi.getNavigationBar();
     }
 
 

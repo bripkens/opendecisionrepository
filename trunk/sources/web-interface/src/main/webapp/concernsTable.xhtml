@@ -8,19 +8,19 @@
 
     <ui:define name="head">
         <script type="text/javascript" src="resources/js/searchableTable.js"></script>
-        <!--        <script type="text/javascript" src="resources/js/jquery.tablesorter.min.js"></script>-->
     </ui:define>
 
     <ui:define name="pagetitle">
         <ice:outputText value="#{page['concern.page.title']}" nospan="true" />
     </ui:define>
+
     <ui:define name="bodyBegin">
         <div id="deleteConcernConfirmationPopup" class="modalPopup deleteConfirmationPopup">
             <h1><ice:outputText value="#{page['projectDetails.concern.delete']}" nospan="true" /></h1>
 
             <p class="deleteConfirmationMessage">
             <ice:outputText value="#{form['concern.delete.confirmation']}" nospan="true"/>
-            <ice:outputText value="#{concernTableController1.concernToDelete.name}" />?
+            <ice:outputText value=" #{concernTableController1.concernToDelete.name}" />?
             </p>
             <ice:form rendered="#{concernTableController1.valid}" id="confitmConcernDeleteForm">
 
@@ -35,10 +35,13 @@
     </ui:define>
 
     <ui:define name="content">
-        <form>
+        <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
+        <form action="">
             <label for="searchInput" class="prefillValue" style="display: none">Search</label>
             <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList')" style="width: 200px;" styleClass="prefill"/>
         </form>
+
+        <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
         <ice:form partialSubmit="true">
             <table class="dataList" id="concernList">
                 <thead>
