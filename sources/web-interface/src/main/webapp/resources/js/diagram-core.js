@@ -61,7 +61,7 @@ window.onsvgload = function() {
         odr.vars.readyFunctions[i]();
     }
 
-    // TODO hide load animation
+// TODO hide load animation
 }
 
 
@@ -75,8 +75,46 @@ window.onsvgload = function() {
 
 /*
  * ###############################################################################################################
- *                                              Utility functionality
+ *                                              miscellaneous functionality
  */
+
+/**
+ * @description
+ * <p>Make sure that the size of the body element is at least the size of the available viewport.</p>
+ *
+ * <p>This is mandatory for the lasso as otherwise the click event on the body won't be recognized.</p>
+ */
+odr.assertBodySize = function() {
+    var documentWidth = $(document).width();
+    var documentHeight = $(document).height();
+
+
+    var bodyWidth = $("body").width();
+    var bodyHeight = $("body").height();
+
+    $("body").width(Math.max(documentWidth, bodyWidth));
+    $("body").height(Math.max(documentHeight, bodyHeight));
+};
+/**
+ * @private
+ * Just do it on every resize and when it is first loaded
+ */
+odr.ready(function() {
+    odr.assertBodySize();
+    $(window).resize(odr.assertBodySize);
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @description
@@ -373,7 +411,7 @@ odr.bootstrap(function() {
         url : odr.settings.request.translation,
         dataType : "json",
         error : function(data, textStatus, errorThrown) {
-            // TODO Show an error popup
+        // TODO Show an error popup
         },
         success : function(data) {
             // store translation
@@ -434,6 +472,8 @@ odr.canvas = function() {
 
 
 
+
+
 /**
  * @description
  * Make sure that the size of the SVG canvas is big enough for all lines
@@ -465,4 +505,170 @@ odr.assertSvgSize = function() {
 
     // enable redrawing
     root.unsuspendRedraw(suspendID);
+};
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                             Selection of multiple nodes / lasso
+ */
+/**
+ * @private
+ * Allow to select more then one element by creating a lasso that can span over multiple elements
+ */
+odr.ready(function() {
+    $("body").mousedown(odr._selectionStart);
+});
+
+
+
+
+
+
+
+/**
+ * @description
+ * This function will be called when the user clicks on the body element.
+ *
+ * @param {jQueryEvent} e The jQuery event
+ */
+odr._selectionStart = function(e) {
+    if (!$(e.target).is("body, svg")) {
+        return;
+    }
+
+    odr.vars.lasso = $("#" + odr.settings.lasso.id);
+
+    odr.vars.lasso.show();
+    odr.vars.lasso.initialX = e.pageX;
+    odr.vars.lasso.initialY = e.pageY;
+    odr.vars.lasso.css("left", e.pageX);
+    odr.vars.lasso.css("top", e.pageY);
+    odr.vars.lasso.css("width", 0);
+    odr.vars.lasso.css("height", 0);
+
+    if (!e.ctrlKey) {
+        odr.clearSelectedElements();
+    }
+
+    $("body").mousemove(odr._selectionResize);
+    $("body").mouseup(odr._selectionEnd);
+
+    // returning false as otherwise the browser will try to select the content of the document
+    return false;
+};
+
+
+
+
+
+
+/**
+ * @private
+ *
+ * @description
+ * This function will be called when the user clicked on the body or svg element and moved the mouse
+ *
+ * @param {jQueryEvent} e The jQuery event
+ */
+odr._selectionResize = function(e) {
+    var x1 = odr.vars.lasso.initialX;
+    var x2 = e.pageX;
+
+    var y1 = odr.vars.lasso.initialY;
+    var y2 = e.pageY;
+
+    var minX = Math.min(x1, x2);
+    var minY = Math.min(y1, y2);
+
+    odr.vars.lasso.css("left", minX);
+    odr.vars.lasso.css("top", minY);
+    odr.vars.lasso.css("width", Math.max(x1, x2) - minX);
+    odr.vars.lasso.css("height", Math.max(y1, y2) - minY);
+
+    // returning false as otherwise the browser will try to select the content of the document
+    return false;
+};
+
+
+
+
+
+
+
+/**
+ * @private
+ *
+ * @description
+ * This function will be called when the user releases the mouse and previously clicked on the body or svg element.
+ *
+ * @param {jQueryEvent} e The jQuery event
+ */
+odr._selectionEnd = function(e) {
+    $("body").unbind("mousemove", odr._selectionResize);
+    $("body").unbind("mouseup", odr._selectionEnd);
+    
+    odr.vars.lasso.hide();
+
+    var left = parseInt(odr.vars.lasso.css("left").removeNonNumbers());
+    var top = parseInt(odr.vars.lasso.css("top").removeNonNumbers());
+    var width = odr.vars.lasso.width();
+    var height = odr.vars.lasso.height();
+
+    odr.selectElements(left, top, left + width, top + height);
+
+    // returning false as otherwise the browser will try to select the content of the document
+    return false;
+};
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Deselect all selected elements
+ */
+odr.clearSelectedElements = function() {
+    for(var key in odr.vars.markedElements) {
+        odr.vars.markedElements[key].marked(false);
+    }
+};
+
+
+
+
+
+
+
+/**
+ * @description
+ * Select all elements in odr.vars.shapesThatDetermineCanvasSize that fall into the given region.
+ *
+ * @param {Number} minX The minimum x coordinate
+ * @param {Number} minY The minimum y coordinate
+ * @param {Number} maxX The maximal x coordinate
+ * @param {Number} maxY The maximal y coordinate
+ */
+odr.selectElements = function(minX, minY, maxX, maxY) {
+    for(var key in odr.vars.shapesThatDetermineCanvasSize) {
+        var element = odr.vars.shapesThatDetermineCanvasSize[key];
+
+        var topLeft = element.topLeft();
+        var bottomRight = element.bottomRight();
+
+        if (topLeft.x >= minX && topLeft.y >= minY && bottomRight.x <= maxX && bottomRight.y <= maxY) {
+            element.marked(!element.marked());
+        }
+    }
 };

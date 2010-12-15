@@ -436,3 +436,19 @@ body {
 .handle:hover {
     background-color: #bebebe;
 }
+
+
+
+
+
+
+/*
+ * Lasso
+ */
+ #lasso {
+     border: 1px dotted grey;
+     background: none;
+     position: absolute;
+     z-index: 1000;
+     display: none;
+}
