@@ -749,6 +749,30 @@ odr.Shape.prototype = {
 
 
 
+
+
+
+
+    /**
+     * @description
+     * Retrieve the center coordinate of this element.
+     *
+     * @return {Object} An object with x and y properties.
+     */
+    center : function() {
+        return {
+            x : this.x() + (this.width() / 2),
+            y : this.y() + (this.height() / 2)
+        };
+    },
+
+
+
+
+
+
+
+
     /**
      * @description
      * Check whether the given coordinates lie in the shape
@@ -1543,12 +1567,16 @@ odr.Handle.prototype = {
 
 
 
+
+
     /**
      * @private
      */
     _classesChanged : function() {
         this._element.className = this.classString();
     },
+
+
 
 
 
@@ -1665,8 +1693,37 @@ odr.Handle.prototype = {
     /**
      * @private
      */
-    marked : function() {
-        return odr.Handle.superClass.marked.call(this);
+    marked : function(marked) {
+        if (this._containment != null) {
+            marked = undefined;
+        }
+
+        return odr.Handle.superClass.marked.call(this, marked);
+    },
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * <p>Remove this handle. The handle unbinds itself from all listeners and removes all html markup that is associated
+     * with this object.</p>
+     * <p>This action can't be undone.</p>
+     */
+    remove : function() {
+        if (this._containment != null) {
+            this._containment.unbind(odr.Shape.listener.positionChanged, this.id());
+            this._containment.unbind(odr.Shape.listener.sizeChanged, this.id());
+        }
+
+        $("#" + this.id()).draggable("destroy");
+        $("#" + this.id()).remove();
+        odr.registry.remove(this.id());
     }
 };
 
@@ -1817,6 +1874,7 @@ odr.Association.prototype = {
                 this._target = target;
 
                 odr.Association.superClass.fire.call(this, odr.Association.listener.targetChanged, [this]);
+                
                 this._targetHandle.containment(target);
             }
 
@@ -1853,3 +1911,306 @@ odr.Association.prototype = {
 };
 
 extend(odr.Association, odr.Drawable);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Drawable
+ *
+ * @class
+ * An abstract line between two {@link odr.Shape}s
+ */
+odr.Line = function() {
+    odr.Drawable.call(this);
+
+    this._element = null;
+
+    this._source = null;
+    this._target = null;
+
+    this._hover = false;
+
+    this.addClass(odr.settings.line["class"]);
+
+    for(var listenerType in odr.Line.listener) {
+        this._listener[odr.Line.listener[listenerType]] = {};
+    }
+
+    this._paint();
+
+    this.bind(odr.Drawable.listener.visibilityChanged, this._visibilityChanged.createDelegate(this), this.id());
+    this.bind(odr.Drawable.listener.classesChanged, this._classesChanged.createDelegate(this), this.id());
+};
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Line.listener = {
+    /** @field */
+    sourceChanged : "sourceChanged",
+    /** @field */
+    targetChanged : "targetChanged",
+    /** @field */
+    click : "click",
+    /** @field */
+    mouseover : "mouseover",
+    /** @field */
+    mousein : "mousein",
+    /** @field */
+    mouseout : "mouseout"
+}
+
+odr.Line.prototype = {
+    _element : null,
+    _source : null,
+    _target : null,
+    _hover : false,
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _idPrefix : function() {
+        return odr.settings.line.idPrefix;
+    },
+
+
+
+
+
+
+    /**
+     * @description
+     * Set a new source for this line or retrieve the source. This shape represents the source
+     * of the line
+     *
+     * @param {odr.Shape} [source] The new souce or nothing if you want to retrieve the current source
+     * @return {odr.Line|odr.Shape} The current source if you call this method without any parameter or the
+     * object on which you called this method if you supply a parameter.
+     */
+    source : function(source) {
+        if (source != undefined) {
+            if (source != this._source) {
+                if (this._source != null) {
+                    this._source.unbind(odr.Shape.listener.positionChanged, this.id());
+                }
+
+                this._source = source;
+
+                var center = this._source.center();
+                this._element.setAttribute("x1", center.x);
+                this._element.setAttribute("y1", center.y);
+
+                this._source.bind(odr.Shape.listener.positionChanged,
+                    this._endpointPositionChanged.createDelegate(this),
+                    this.id());
+
+                this.fire.call(this, odr.Line.listener.sourceChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._source;
+    },
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Set a new target for this line or retrieve the target. This shape represents the target
+     * of the line
+     *
+     * @param {odr.Shape} [target] The new target or nothing if you want to retrieve the current target
+     * @return {odr.Line|odr.Shape} The current target if you call this method without any parameter or the
+     * object on which you called this method if you supply a parameter.
+     */
+    target : function(target) {
+        if (target != undefined) {
+            if (target != this._target) {
+                if (this._target != null) {
+                    this._target.unbind(odr.Shape.listener.positionChanged, this.id());
+                }
+
+                this._target = target;
+
+                var center = this._target.center();
+                this._element.setAttribute("x2", center.x);
+                this._element.setAttribute("y2", center.y);
+
+                this._target.bind(odr.Shape.listener.positionChanged,
+                    this._endpointPositionChanged.createDelegate(this),
+                    this.id());
+
+                this.fire.call(this, odr.Line.listener.targetChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._target;
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _paint : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        this._element = document.createElementNS(svgns, "line");
+        this._element.setAttribute("id", this.id());
+        this._element.setAttribute("class", this.classString());
+
+        if (this._source != null) {
+            var sourceCenter = this._source.center();
+            this._element.setAttribute("x1", sourceCenter.x);
+            this._element.setAttribute("y1", sourceCenter.y);
+        }
+
+        if (this._target != null) {
+            var targetCenter = this._target.center();
+            this._element.setAttribute("x2", targetCenter.x);
+            this._element.setAttribute("y2", targetCenter.y);
+        }
+
+        for(var attributeName in odr.settings.line.attributes) {
+            this._element.setAttribute(attributeName, odr.settings.line.attributes[attributeName]);
+        }
+
+        // add the node div to the parent
+        var parent = this.parent();
+
+        if (parent == undefined) {
+            parent = document.getElementById(odr.settings.line.container);
+        }
+
+        parent.appendChild(this._element);
+
+        this._element.addEventListener("click", function() {
+            this.fire(odr.Line.listener.click, [this]);
+        }.createDelegate(this));
+
+        this._element.addEventListener("mouseover", function() {
+            if (!this._hover) {
+                this.fire(odr.Line.listener.mousein, [this]);
+                this._hover = true;
+            }
+            this.fire(odr.Line.listener.mouseover, [this]);
+        }.createDelegate(this));
+
+        this._element.addEventListener("mouseout", function() {
+            this.fire(odr.Line.listener.mouseout, [this]);
+            this._hover = false;
+        }.createDelegate(this));
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _paintArrow : function() {
+        
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _endpointPositionChanged : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        if (this._source != null) {
+            var sourceCenter = this._source.center();
+            this._element.setAttribute("x1", sourceCenter.x);
+            this._element.setAttribute("y1", sourceCenter.y);
+        }
+
+        if (this._target != null) {
+            var targetCenter = this._target.center();
+            this._element.setAttribute("x2", targetCenter.x);
+            this._element.setAttribute("y2", targetCenter.y);
+        }
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _visibilityChanged : function() {
+        if (this.visible()) {
+            this._paint();
+        } else {
+            this._element.parentNode.removeChild(this._element);
+        }
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _classesChanged : function() {
+        this._element.setAttribute("class", this.classString());
+    }
+};
+
+extend(odr.Line, odr.Drawable);

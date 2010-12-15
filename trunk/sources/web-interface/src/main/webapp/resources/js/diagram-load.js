@@ -125,6 +125,28 @@ odr.ready(function() {
     association.source(node);
     association.target(node2);
 
+    var line = new odr.Line();
+    line.source(node).target(node2);
 
+
+    line.bind(odr.Line.listener.mousein, function() {
+        console.log("enter");
+    }, 5).bind(odr.Line.listener.mouseout, function() {
+        console.log("out");
+    }, 4).bind(odr.Line.listener.click, function() {
+        console.log("click");
+    }, 3).bind(odr.Line.listener.mouseover, function() {
+        console.log("over");
+    }, 2);
+
+
+
+    setTimeout(function() {
+        line.visible(false);
+    }, 2000);
+
+    setTimeout(function() {
+        line.visible(true);
+    }, 4000);
 });
 

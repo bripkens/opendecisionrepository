@@ -120,6 +120,15 @@ odr.settings = {
         "class" : "association",
         container : "associationGroup"
     },
+    line : {
+        idPrefix : "line",
+        "class" : "line",
+        container : "lineGroup",
+        attributes : {
+            "stroke" : "black",
+            "stroke-width" : "1"
+        }
+    },
     svg : {
         id : "canvas",
         redrawTimeout : 5000,
