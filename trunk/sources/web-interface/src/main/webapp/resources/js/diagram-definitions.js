@@ -123,6 +123,9 @@ odr.settings = {
             bottom : 10,
             left : 10
         }
+    },
+    lasso : {
+        id : "lasso"
     }
 };
 
@@ -175,5 +178,6 @@ odr.vars = {
     /**
      * A list of all marked elements. This variable is used for performance reasons
      */
-    markedElements : {}
+    markedElements : {},
+    lasso : null
 };

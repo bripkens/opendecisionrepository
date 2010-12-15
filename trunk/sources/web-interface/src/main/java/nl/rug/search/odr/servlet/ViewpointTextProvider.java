@@ -21,9 +21,6 @@ import nl.rug.search.odr.viewpoint.TranslationProvider;
             urlPatterns = {"/ViewpointTextProvider"})
 public class ViewpointTextProvider extends HttpServlet {
 
-    public static final String PROPERTIES_FILE = "nl.rug.search.odr.localization.visualization";
-
-
 
 
     /**
