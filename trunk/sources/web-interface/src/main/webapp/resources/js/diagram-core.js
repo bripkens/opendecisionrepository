@@ -61,7 +61,7 @@ window.onsvgload = function() {
         odr.vars.readyFunctions[i]();
     }
 
-// TODO hide load animation
+    // TODO hide load animation
 }
 
 

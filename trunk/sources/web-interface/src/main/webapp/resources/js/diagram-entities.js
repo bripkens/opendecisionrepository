@@ -718,7 +718,10 @@ odr.Shape.prototype = {
      * @return {Object} An object with x and y properties.
      */
     topLeft : function() {
-        throw("Not implemented");
+        return {
+            x : this.x(),
+            y : this.y()
+        };
     },
 
 
@@ -735,7 +738,27 @@ odr.Shape.prototype = {
      * @return {Object} An object with x and y properties.
      */
     bottomRight : function() {
-        throw("Not implemented");
+        return {
+            x : this.x() + this.width(),
+            y : this.y() + this.height()
+        };
+    },
+
+
+
+
+
+
+    /**
+     * @description
+     * Check whether the given coordinates lie in the shape
+     *
+     * @param {Number} x
+     * @param {Number} y
+     * @return {Boolean} True when the coordinates lie in the shape, false otherwise
+     */
+    isInside : function(x, y) {
+        return x >= this.x() && y >= this.y() && x <= (this.x() + this.width()) && y <= (this.y() + this.height());
     }
 }
 
@@ -848,7 +871,10 @@ odr.Node = function() {
     this._element = null;
     this._statusElement = null;
     this._labelElement = null;
-    this._minSize = {width : 0, height : 0};
+    this._minSize = {
+        width : 0,
+        height : 0
+    };
 
     for(var listenerType in odr.Node.listener) {
         this._listener[odr.Node.listener[listenerType]] = {};
@@ -913,7 +939,10 @@ odr.Node.prototype = {
     _element : null,
     _statusElement : null,
     _labelElement : null,
-    _minSize : {width : 0, height : 0},
+    _minSize : {
+        width : 0,
+        height : 0
+    },
 
 
 
@@ -1038,8 +1067,8 @@ odr.Node.prototype = {
         // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
         // using standard jQuery
         var jQueryNode = $("#" +this.id());
-        jQueryNode.draggable(odr.settings.dragging.jQueryUiSettings);
-        jQueryNode.resizable(odr.settings.resizing.jQueryUiSettings);
+        jQueryNode.draggable(odr.settings.node.jQueryUiDraggingSettings);
+        jQueryNode.resizable(odr.settings.node.jQueryUiResizingSettings);
 
 
 
@@ -1131,6 +1160,11 @@ odr.Node.prototype = {
     _positionChangedThroughUi : function(e) {
         if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
             return;
+        } else if (e.type == "dragstart") {
+            if (!this.marked()) {
+                odr.clearSelectedElements();
+                this.marked(true);
+            }
         }
 
         var uiPosition = $(this._element).position();
@@ -1239,10 +1273,10 @@ odr.Node.prototype = {
         this._minSize.height = labelDimensions.height + statusDimensions.height + odr.settings.node.textPadding.y;
 
         this._minSize.width = odr.roundUp(Math.max(this._minSize.width, odr.settings.node.size.min.width), odr.settings.node.size.multipleOf.width);
-         this._minSize.height = odr.roundUp(Math.max( this._minSize.height, odr.settings.node.size.min.height), odr.settings.node.size.multipleOf.height);
+        this._minSize.height = odr.roundUp(Math.max( this._minSize.height, odr.settings.node.size.min.height), odr.settings.node.size.multipleOf.height);
 
         // removed as min-width may not apply when text is to be broken up into several lines
-//        this._element.style["min-width"] = minWidth + "px";
+        //        this._element.style["min-width"] = minWidth + "px";
         this._element.style["min-height"] =  this._minSize.height + "px";
 
         var previousSize = this.size();
@@ -1253,44 +1287,16 @@ odr.Node.prototype = {
         }
 
         this.size($(this._element).width(), $(this._element).height());
-    },
-
-
-
-
-
-
-
-
-    /**
-     * @private
-     */
-    topLeft : function() {
-        return {
-            x : this.x(),
-            y : this.y()
-        };
-    },
-
-
-
-
-
-
-
-
-    /**
-     * @private
-     */
-    bottomRight : function() {
-        return {
-            x : this.x() + this.width(),
-            y : this.y() + this.height()
-        };
     }
 }
 
 extend(odr.Node, odr.Endpoint);
+
+
+
+
+
+
 
 
 
@@ -1313,6 +1319,11 @@ extend(odr.Node, odr.Endpoint);
 odr.Handle = function() {
     odr.Shape.call(this);
     this._element = null;
+    this._containment = null;
+
+    for(var listenerType in odr.Handle.listener) {
+        this._listener[odr.Handle.listener[listenerType]] = {};
+    }
 
     this.size(odr.settings.handle.size.width, odr.settings.handle.size.height);
 
@@ -1343,10 +1354,26 @@ odr.Handle = function() {
         odr.Shape.listener.positionChanged,
         this._positionChanged.createDelegate(this),
         this.id());
+
+    odr.Handle.superClass.bind.call(this,
+        odr.Handle.listener.containmentChanged,
+        this._containmentChanged.createDelegate(this),
+        this.id());
 };
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Handle.listener = {
+    /** @field */
+    containmentChanged : "containmentChanged"
+}
 
 odr.Handle.prototype = {
     _element : null,
+    _containment : null,
 
 
 
@@ -1359,6 +1386,52 @@ odr.Handle.prototype = {
     _idPrefix : function() {
         return odr.settings.handle.idPrefix;
     },
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Restrain the movement of the handle to this element.
+     *
+     * @param {odr.Shape} [containment] The shape which you want to use to constrain the movement of the drag handle to.
+     * @return {odr.Handle|odr.Shape} The object on which you called the method if you provide a parameter or the current
+     * containment if you provide no parameter.
+     */
+    containment : function(containment) {
+        if (containment != undefined) {
+            if (containment != this._containment) {
+                if (this._containment != null) {
+                    this._containment.unbind(odr.Shape.listener.positionChanged, this.id());
+                    this._containment.unbind(odr.Shape.listener.sizeChanged, this.id());
+                }
+
+                this._containment = containment;
+
+                odr.Handle.superClass.fire.call(this, odr.Handle.listener.containmentChanged, [this]);
+                
+                this._containment.bind(odr.Shape.listener.positionChanged,
+                    this._containmentPositionOrSizeChanged.createDelegate(this),
+                    this.id());
+
+                this._containment.bind(odr.Shape.listener.sizeChanged,
+                    this._containmentPositionOrSizeChanged.createDelegate(this),
+                    this.id());
+            }
+
+            return this;
+        }
+
+        return this._containment;
+    },
+
+
+
+
 
 
 
@@ -1396,7 +1469,7 @@ odr.Handle.prototype = {
         // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
         // using standard jQuery
         var jQueryHandle = $("#" + this.id());
-        jQueryHandle.draggable(odr.settings.dragging.jQueryUiSettings);
+        jQueryHandle.draggable(odr.settings.handle.jQueryUiDraggingSettings);
 
 
 
@@ -1409,8 +1482,6 @@ odr.Handle.prototype = {
 
 
 
-
-
         
         // attach a listener to the click event
         jQueryHandle.bind("click", this._click.createDelegate(this));
@@ -1418,36 +1489,6 @@ odr.Handle.prototype = {
 
 
 
-
-
-
-
-    /**
-     * @private
-     */
-    topLeft : function() {
-        return {
-            x : this.x(),
-            y : this.y()
-        };
-    },
-
-
-
-
-
-
-
-
-    /**
-     * @private
-     */
-    bottomRight : function() {
-        return {
-            x : this.x() + this.width(),
-            y : this.y() + this.height()
-        };
-    },
 
 
 
@@ -1539,6 +1580,11 @@ odr.Handle.prototype = {
     _positionChangedThroughUi : function(e) {
         if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
             return;
+        } else if (e.type == "dragstart") {
+            if (!this.marked()) {
+                odr.clearSelectedElements();
+                this.marked(true);
+            }
         }
 
         var uiPosition = $(this._element).position();
@@ -1562,7 +1608,214 @@ odr.Handle.prototype = {
     _positionChanged : function() {
         this._element.style.left = this.x() + "px";
         this._element.style.top = this.y() + "px";
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _containmentChanged : function() {
+        if (this._containment != null) {
+            $(this._element).draggable("option", "containment", "#" + this._containment.id());
+            $(this._element).draggable("option", "grid", false);
+            this.position(this._containment.x(), this._containment.y());
+        } else {
+            $(this._element).draggable("option", "containment", false);
+            $(this._element).draggable("option", "grid", odr.settings.grid);
+        }
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _containmentPositionOrSizeChanged : function() {
+        if (!this._containment.isInside(this.x(), this.y())) {
+            this.position(this._containment.x(), this._containment.y());
+        }
     }
 };
 
 extend(odr.Handle, odr.Shape);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @constructor
+ *
+ * @extends odr.Drawable
+ *
+ * @class
+ * An association represents a connection between two {@link odr.Endpoint}s.
+ */
+odr.Association = function() {
+    odr.Drawable.call(this);
+
+    this._element = null;
+    
+    this._source = null;
+    this._target = null;
+    this._handles = [];
+
+    this.addClass(odr.settings.association["class"]);
+
+    for(var listenerType in odr.Association.listener) {
+        this._listener[odr.Association.listener[listenerType]] = {};
+    }
+
+    this._paint();
+
+
+//    odr.Node.superClass.bind.call(this,
+//        odr.Drawable.listener.visibilityChanged,
+//        this._visibilityChanged.createDelegate(this),
+//        "_node_" + this.id());
+};
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Association.listener = {
+    /** @field */
+    sourceChanged : "sourceChanged",
+    /** @field */
+    targetChanged : "targetChanged"
+}
+
+odr.Association.prototype = {
+    _element : null,
+
+    _source : null,
+    _target : null,
+    _handles : [],
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _idPrefix : function() {
+        return odr.settings.association.idPrefix;
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Set a new endpoint for this association or retrieve the endpoint. This endpoint represents the source
+     * of the association
+     *
+     * @param {odr.Endpoint} [source] The new souce or nothing if you want to retrieve the current source
+     * @return {odr.Association|odr.Endpoint} The current source if you call this method without any parameter or the
+     * object on which you called this method if you supply a parameter.
+     */
+    source : function(source) {
+        if (source != undefined) {
+            if (source != this._source) {
+                this._source = source;
+
+                odr.Association.superClass.fire.call(this, odr.Association.listener.sourceChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._source;
+    },
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Set a new endpoint for this association or retrieve the endpoint. This endpoint represents the target
+     * of the association
+     *
+     * @param {odr.Endpoint} [target] The new target or nothing if you want to retrieve the current target
+     * @return {odr.Association|odr.Endpoint} The current target if you call this method without any parameter or the
+     * object on which you called this method if you supply a parameter.
+     */
+    target : function(target) {
+        if (target != undefined) {
+            if (target != this._target) {
+                this._target = target;
+
+                odr.Association.superClass.fire.call(this, odr.Association.listener.targetChanged, [this]);
+            }
+
+            return this;
+        }
+
+        return this._target;
+    },
+
+
+
+
+
+    
+
+
+    /**
+     * @private
+     */
+    _paint : function() {
+        this._element = document.createElementNS(svgns, "g");
+        this._element.setAttribute("id", this.id());
+        this._element.setAttribute("class", this.classString());
+
+        // add the node div to the parent
+        var parent = this.parent();
+
+        if (parent == undefined) {
+            parent = document.getElementById(odr.settings.association.container);
+        }
+
+        parent.appendChild(this._element);
+    }
+};
+
+extend(odr.Association, odr.Drawable);
