@@ -111,7 +111,7 @@ odr.ready(function() {
     node2.label("Milestone 1: Release");
     node2.status("some date");
     node2.addClass("round");
-    node2.position(600,600);
+    node2.position(400,100);
 
 
 
@@ -122,10 +122,9 @@ odr.ready(function() {
 
 
     var association = new odr.Association();
+    association.source(node);
+    association.target(node2);
 
 
-
-    var constraintHandle = new odr.Handle();
-    constraintHandle.containment(node2);
 });
 

@@ -811,6 +811,12 @@ odr.Endpoint.listener = {
 
 odr.Endpoint.prototype = {
     _label : "",
+
+
+
+
+
+    
     /**
      * @description
      * You can also retrieve the current value by calling this method without parameters.
@@ -1160,11 +1166,6 @@ odr.Node.prototype = {
     _positionChangedThroughUi : function(e) {
         if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
             return;
-        } else if (e.type == "dragstart") {
-            if (!this.marked()) {
-                odr.clearSelectedElements();
-                this.marked(true);
-            }
         }
 
         var uiPosition = $(this._element).position();
@@ -1320,6 +1321,8 @@ odr.Handle = function() {
     odr.Shape.call(this);
     this._element = null;
     this._containment = null;
+    this._relativeX = 0;
+    this._relativeY = 0;
 
     for(var listenerType in odr.Handle.listener) {
         this._listener[odr.Handle.listener[listenerType]] = {};
@@ -1355,10 +1358,6 @@ odr.Handle = function() {
         this._positionChanged.createDelegate(this),
         this.id());
 
-    odr.Handle.superClass.bind.call(this,
-        odr.Handle.listener.containmentChanged,
-        this._containmentChanged.createDelegate(this),
-        this.id());
 };
 
 /**
@@ -1374,6 +1373,8 @@ odr.Handle.listener = {
 odr.Handle.prototype = {
     _element : null,
     _containment : null,
+    _relativeX : 0,
+    _relativeY : 0,
 
 
 
@@ -1412,14 +1413,23 @@ odr.Handle.prototype = {
 
                 this._containment = containment;
 
+                if (this._containment != null) {
+                    $(this._element).draggable("option", "containment", "#" + this._containment.id());
+                    $(this._element).draggable("option", "grid", false);
+                    this.position(this._containment.x(), this._containment.y());
+                } else {
+                    $(this._element).draggable("option", "containment", false);
+                    $(this._element).draggable("option", "grid", odr.settings.grid);
+                }
+
                 odr.Handle.superClass.fire.call(this, odr.Handle.listener.containmentChanged, [this]);
                 
                 this._containment.bind(odr.Shape.listener.positionChanged,
-                    this._containmentPositionOrSizeChanged.createDelegate(this),
+                    this._containmentPositionChanged.createDelegate(this),
                     this.id());
 
                 this._containment.bind(odr.Shape.listener.sizeChanged,
-                    this._containmentPositionOrSizeChanged.createDelegate(this),
+                    this._containmentSizeChanged.createDelegate(this),
                     this.id());
             }
 
@@ -1555,6 +1565,9 @@ odr.Handle.prototype = {
 
 
 
+
+
+
     /**
      * @private
      */
@@ -1580,17 +1593,14 @@ odr.Handle.prototype = {
     _positionChangedThroughUi : function(e) {
         if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
             return;
-        } else if (e.type == "dragstart") {
-            if (!this.marked()) {
-                odr.clearSelectedElements();
-                this.marked(true);
-            }
         }
 
         var uiPosition = $(this._element).position();
         var entityPosition = this.position();
 
         this.position(uiPosition.left, uiPosition.top);
+        this._relativeX = uiPosition.left - this._containment.x();
+        this._relativeY = uiPosition.top - this._containment.y();
 
         odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
     },
@@ -1617,17 +1627,30 @@ odr.Handle.prototype = {
 
 
 
+
+
+
     /**
      * @private
      */
-    _containmentChanged : function() {
-        if (this._containment != null) {
-            $(this._element).draggable("option", "containment", "#" + this._containment.id());
-            $(this._element).draggable("option", "grid", false);
+    _containmentPositionChanged : function() {
+        this.position(this._containment.x() + this._relativeX, this._containment.y() + this._relativeY);
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _containmentSizeChanged : function() {
+        if (!this._containment.isInside(this._containment.x() + this._relativeX,
+            this._containment.y() + this._relativeY)) {
             this.position(this._containment.x(), this._containment.y());
-        } else {
-            $(this._element).draggable("option", "containment", false);
-            $(this._element).draggable("option", "grid", odr.settings.grid);
+            this._relativeX = this._relativeY = 0;
         }
     },
 
@@ -1635,13 +1658,15 @@ odr.Handle.prototype = {
 
 
 
+
+
+
+
     /**
      * @private
      */
-    _containmentPositionOrSizeChanged : function() {
-        if (!this._containment.isInside(this.x(), this.y())) {
-            this.position(this._containment.x(), this._containment.y());
-        }
+    marked : function() {
+        return odr.Handle.superClass.marked.call(this);
     }
 };
 
@@ -1684,6 +1709,10 @@ odr.Association = function() {
     
     this._source = null;
     this._target = null;
+
+    this._sourceHandle = new odr.Handle().visible(true);
+    this._targetHandle = new odr.Handle().visible(true);
+
     this._handles = [];
 
     this.addClass(odr.settings.association["class"]);
@@ -1717,7 +1746,9 @@ odr.Association.prototype = {
     _element : null,
 
     _source : null,
+    _sourceHandle : null,
     _target : null,
+    _targetHandle : null,
     _handles : [],
 
 
@@ -1755,6 +1786,8 @@ odr.Association.prototype = {
                 this._source = source;
 
                 odr.Association.superClass.fire.call(this, odr.Association.listener.sourceChanged, [this]);
+                
+                this._sourceHandle.containment(source);
             }
 
             return this;
@@ -1784,6 +1817,7 @@ odr.Association.prototype = {
                 this._target = target;
 
                 odr.Association.superClass.fire.call(this, odr.Association.listener.targetChanged, [this]);
+                this._targetHandle.containment(target);
             }
 
             return this;
