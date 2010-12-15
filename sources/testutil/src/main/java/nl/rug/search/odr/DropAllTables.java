@@ -7,6 +7,6 @@ package nl.rug.search.odr;
  */
 public abstract class DropAllTables implements DatabaseSettings {
     public static void main(String[] args) {
-        new DatabaseCleaner(ITERATIONS).dropAllTables();
+        new DatabaseCleaner().dropAllTables();
     }
 }

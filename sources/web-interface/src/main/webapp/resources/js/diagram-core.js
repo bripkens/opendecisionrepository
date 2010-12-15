@@ -324,21 +324,29 @@ odr.newId = function() {
  * @description
  * <p>Move all marked shapes</p>
  *
+ * <p>odr.vars.markedElements is used for performance reasons.</p>
+ *
  * @param {Number} x The number of pixel that each marked element should be moved in horizontal direction
  * @param {Number} y The number of pixel that each marked element should be moved in vertical direction
  * @param {odr.Drawable} exclude Exclude this item from moving. Normally this should be that item that is dragged
- * as otherwise it would move twice as far.
+ * as otherwise it would be moved twice.
  */
 odr.moveMarkedShapes = function(x, y, exclude) {
-    $('.marked[id!="' + exclude.id() + '"]').each(function() {
-        var id = this.id;
+    var root = odr.canvas();
 
-        var element = odr.registry.get(id);
+    // wait with redrawing the SVG
+    var suspendID = root.suspendRedraw(5000);
 
-        var currentPosition = element.position();
+    for(var key in odr.vars.markedElements) {
+        var element = odr.vars.markedElements[key];
 
-        element.position(currentPosition.x + x, currentPosition.y + y);
-    });
+        if (element != exclude) {
+            element.move(x, y);
+        }
+    }
+
+    // enable redrawing
+    root.unsuspendRedraw(suspendID);
 }
 
 
@@ -361,7 +369,6 @@ odr.moveMarkedShapes = function(x, y, exclude) {
  */
 odr.bootstrap(function() {
     // receive translation from the server
-
     $.ajax({
         url : odr.settings.request.translation,
         dataType : "json",
@@ -379,28 +386,83 @@ odr.bootstrap(function() {
             $("input." + odr.translation["class"]).each(function() {
                 var translation = odr.translation.text[$(this).val()];
                 $(this).val(translation);
-                $(this).removeClass("translate");
+                $(this).removeClass(odr.translation["class"]);
             });
 
             // translate static alternative image texts
             $("img." + odr.translation["class"]).each(function() {
                 var translation = odr.translation.text[$(this).attr("alt")];
                 $(this).attr("alt", translation);
-                $(this).removeClass("translate");
+                $(this).removeClass(odr.translation["class"]);
             });
 
             // translate static html text elements
             $("." + odr.translation["class"]).each(function() {
                 var translation = odr.translation.text[$(this).text()];
                 $(this).text(translation);
-                $(this).removeClass("translate");
+                $(this).removeClass(odr.translation["class"]);
             });
-
-
-            
-
-
             
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                        SVG canvas
+ */
+/**
+ * @description
+ * Get the SVG canvas
+ *
+ * @return {Object} The SVG canvas DOM element
+ */
+odr.canvas = function() {
+    return document.getElementsByTagNameNS(svgns, 'svg')[0];
+}
+
+
+
+
+
+/**
+ * @description
+ * Make sure that the size of the SVG canvas is big enough for all lines
+ */
+odr.assertSvgSize = function() {
+    var root = odr.canvas();
+
+    var width = 0, height = 0;
+    
+    for(var key in odr.vars.shapesThatDetermineCanvasSize) {
+        var shape = odr.vars.shapesThatDetermineCanvasSize[key];
+        var bottomRight = shape.bottomRight();
+
+        if (shape.visible()) {
+            width = Math.max(width, bottomRight.x);
+            height = Math.max(height, bottomRight.y);
+        }
+    }
+
+    width += odr.settings.svg.padding.right;
+    height += odr.settings.svg.padding.bottom;
+
+    // wait with redrawing the SVG
+    var suspendID = root.suspendRedraw(5000);
+
+    root.setAttribute("width", width);
+    root.setAttribute("height", height);
+    root.setAttribute("viewBox", "0 0 " + width + " " + height);
+
+    // enable redrawing
+    root.unsuspendRedraw(suspendID);
+};

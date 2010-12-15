@@ -34,7 +34,7 @@ odr.Registry.prototype = {
         this._items[item.id()] = item;
     },
     /**
-     * @param {{String|Number}} itemId
+     * @param {String|Number} itemId
      * @return {odr.DrawableItem}
      */
     get : function(itemId) {
@@ -412,6 +412,18 @@ odr.Shape = function() {
     for(var listenerType in odr.Shape.listener) {
         this._listener[odr.Shape.listener[listenerType]] = {};
     }
+
+    odr.Shape.superClass.bind.call(this,
+        odr.Shape.listener.sizeChanged,
+        odr.assertSvgSize,
+        "_shape_" + this.id());
+
+    odr.Shape.superClass.bind.call(this,
+        odr.Shape.listener.positionChanged,
+        odr.assertSvgSize,
+        "_shape_" + this.id());
+
+    odr.vars.shapesThatDetermineCanvasSize[this.id()] = this;
 }
 
 /**
@@ -462,6 +474,12 @@ odr.Shape.prototype = {
 
             if (this._marked != marked) {
                 this._marked = marked;
+
+                if (marked) {
+                    odr.vars.markedElements[this.id()] = this;
+                } else {
+                    delete odr.vars.markedElements[this.id()];
+                }
 
                 this.fire(odr.Shape.listener.markedChanged, [this]);
             }
@@ -575,6 +593,24 @@ odr.Shape.prototype = {
 
     /**
      * @description
+     * Move the shape
+     *
+     * @param {Number} [x] The number of pixels which you want to move the shape on the x axis
+     * @param {Number} [y] The number of pixels which you want to move the shape on the y axis
+     * @return {odr.Shape} Returns the object of which you called the method.
+     */
+    move : function(x, y) {
+        var currentPosition = this.position();
+
+        this.position(currentPosition.x + x, currentPosition.y + y);
+    },
+
+
+
+
+
+    /**
+     * @description
      * You can also retrieve the current value by calling this method without parameters.
      *
      * @param {Number} [width] The new width
@@ -663,6 +699,43 @@ odr.Shape.prototype = {
             width : this._width,
             height : this._height
         };
+    },
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Retrieve the top left coordinate of this element.
+     *
+     * @return {Object} An object with x and y properties.
+     */
+    topLeft : function() {
+        throw("Not implemented");
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Retrieve the bottom right coordinate of this element.
+     *
+     * @return {Object} An object with x and y properties.
+     */
+    bottomRight : function() {
+        throw("Not implemented");
     }
 }
 
@@ -787,42 +860,42 @@ odr.Node = function() {
     odr.Node.superClass.bind.call(this,
         odr.Drawable.listener.visibilityChanged,
         this._visibilityChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Endpoint.listener.labelChanged,
         this._labelChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Node.listener.statusChanged,
         this._statusChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Drawable.listener.classesChanged,
         this._classesChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Drawable.listener.parentChanged,
         this._parentChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Shape.listener.markedChanged,
         this._markedChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Shape.listener.sizeChanged,
         this._sizeChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 
     odr.Node.superClass.bind.call(this,
         odr.Shape.listener.positionChanged,
         this._positionChanged.createDelegate(this),
-        this.id());
+        "_node_" + this.id());
 }
 
 /**
@@ -1180,6 +1253,40 @@ odr.Node.prototype = {
         }
 
         this.size($(this._element).width(), $(this._element).height());
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    topLeft : function() {
+        return {
+            x : this.x(),
+            y : this.y()
+        };
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    bottomRight : function() {
+        return {
+            x : this.x() + this.width(),
+            y : this.y() + this.height()
+        };
     }
 }
 
@@ -1308,6 +1415,42 @@ odr.Handle.prototype = {
         // attach a listener to the click event
         jQueryHandle.bind("click", this._click.createDelegate(this));
     },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    topLeft : function() {
+        return {
+            x : this.x(),
+            y : this.y()
+        };
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    bottomRight : function() {
+        return {
+            x : this.x() + this.width(),
+            y : this.y() + this.height()
+        };
+    },
+
+
+
 
 
 
