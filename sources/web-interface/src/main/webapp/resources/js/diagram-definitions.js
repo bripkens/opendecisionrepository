@@ -41,24 +41,20 @@ odr.settings = {
             animationDuration : 500
         }
     },
-    dragging : {
-        jQueryUiSettings : {
-            grid : [10, 10],
-            scroll: true,
-            stack : ".node",
-            cursor : "move"
-        }
-    },
-    resizing : {
-        jQueryUiSettings : {
-            grid : 10
-        }
-    },
+    grid : [10, 10],
     node : {
         idPrefix : "node",
         "class" : "node",
         markedClass : "marked",
         container : "nodeGroup",
+        jQueryUiDraggingSettings : {
+            grid : [10, 10],
+            scroll: true,
+            cursor : "move"
+        },
+        jQueryUiResizingSettings : {
+            grid : 10
+        },
         labelMeasureCss : {
             position: 'absolute',
             left: -1000,
@@ -109,10 +105,20 @@ odr.settings = {
         idPrefix : "handle",
         "class" : "handle",
         container : "handleGroup",
+        jQueryUiDraggingSettings : {
+            grid : [10, 10],
+            scroll: true,
+            cursor : "move"
+        },
         size : {
             width : 6,
             height : 6
         }
+    },
+    association : {
+        idPrefix : "association",
+        "class" : "association",
+        container : "associationGroup"
     },
     svg : {
         id : "canvas",

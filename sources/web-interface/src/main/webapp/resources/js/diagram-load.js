@@ -105,15 +105,27 @@ odr.ready(function() {
     node.label("Java Programming language");
     node.status("approved");
     node.addClass("round");
+    node.position(100, 100);
 
     var node2 = new odr.Node();
     node2.label("Milestone 1: Release");
     node2.status("some date");
     node2.addClass("round");
+    node2.position(600,600);
 
 
 
     var handle = new odr.Handle();
     handle.position(300, 300);
+
+
+
+
+    var association = new odr.Association();
+
+
+
+    var constraintHandle = new odr.Handle();
+    constraintHandle.containment(node2);
 });
 
