@@ -27,9 +27,9 @@ public class OprWebservice implements AbstractWebservice {
 
     private static final String ENTITIES_PACKAGE = "nl.rug.search.opr.entities";
 
-    private static final String SEARCH_URL = "http://www.patternrepository.com:8080/WebServices/resources/search?q=";
+    private static final String SEARCH_URL = "http://patternrepository.com/web-services/resources/search?q=";
 
-    private static final String GET_URL = "http://www.patternrepository.com:8080/WebServices/resources/pattern/";
+    private static final String GET_URL = "http://patternrepository.com/web-services/resources/pattern/";
 
     private static final String DESCRIPTION_TO_REMOVE = "Example/Figure";
 
