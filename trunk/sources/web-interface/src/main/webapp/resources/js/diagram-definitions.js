@@ -113,6 +113,16 @@ odr.settings = {
             width : 6,
             height : 6
         }
+    },
+    svg : {
+        id : "canvas",
+        redrawTimeout : 5000,
+        padding : {
+            top : 10,
+            right : 10,
+            bottom : 10,
+            left : 10
+        }
     }
 };
 
@@ -155,5 +165,15 @@ odr.vars = {
     idCounter : 0,
     registry : null,    // Will be replaced during bootstrap with an instance of odr.Registry
     bootstrapFunctions : [],
-    readyFunctions : []
+    readyFunctions : [],
+    /**
+     * All elements in this var need to considered when resizing the SVG canvas.
+     *
+     * They must all supply a topLeft, bottomRight and visible function
+     */
+    shapesThatDetermineCanvasSize : {},
+    /**
+     * A list of all marked elements. This variable is used for performance reasons
+     */
+    markedElements : {}
 };

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * 
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-public class DatabaseCleaner implements DatabaseSettings {
+public class DatabaseCleaner {
 
     // <editor-fold defaultstate="collapsed" desc="don't changed anything below this comment">
     private static final Logger logger = Logger.getLogger(DatabaseCleaner.class.getName());
@@ -25,7 +25,7 @@ public class DatabaseCleaner implements DatabaseSettings {
 
     static {
         try {
-            Class.forName(DRIVER_CLASS).
+            Class.forName(DatabaseSettings.DRIVER_CLASS).
                     newInstance();
 
         } catch (Exception ex) {
@@ -36,7 +36,11 @@ public class DatabaseCleaner implements DatabaseSettings {
 
 
 
+    private final String connectionString;
+
     private final int iterations;
+
+    private final String[] skipTables;
 
     private Connection con;
 
@@ -45,8 +49,17 @@ public class DatabaseCleaner implements DatabaseSettings {
 
 
 
-    public DatabaseCleaner(int iterations) {
+    public DatabaseCleaner() {
+        this(DatabaseSettings.CONNECTION_STRING, DatabaseSettings.ITERATIONS, DatabaseSettings.SKIP_TABLES);
+    }
+
+
+
+
+    public DatabaseCleaner(String connectionString, int iterations, String[] skipTables) {
+        this.connectionString = connectionString;
         this.iterations = iterations;
+        this.skipTables = skipTables;
     }
 
 
@@ -81,7 +94,7 @@ public class DatabaseCleaner implements DatabaseSettings {
 
     private void establishConnection() {
         try {
-            con = DriverManager.getConnection(CONNECTION_STRING);
+            con = DriverManager.getConnection(connectionString);
         } catch (SQLException ex) {
             throw new RuntimeException("An exception occured while trying to connect to the database.", ex);
         }
@@ -114,7 +127,7 @@ public class DatabaseCleaner implements DatabaseSettings {
 
 
     private boolean shouldBeSkipped(String name) {
-        for (String skipTableName : SKIP_TABLES) {
+        for (String skipTableName : skipTables) {
             if (skipTableName.equalsIgnoreCase(name)) {
                 return true;
             }
@@ -233,14 +246,14 @@ public class DatabaseCleaner implements DatabaseSettings {
 
 
     public static void bruteForceCleanup() {
-        new DatabaseCleaner(ITERATIONS).clear();
+        new DatabaseCleaner().clear();
     }
 
 
 
 
     public static void main(String[] args) {
-        new DatabaseCleaner(ITERATIONS).clear();
+        new DatabaseCleaner().clear();
     }
 
     // </editor-fold>
