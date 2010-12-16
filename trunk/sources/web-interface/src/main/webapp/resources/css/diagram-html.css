@@ -455,7 +455,7 @@ body {
  * Lasso
  */
  #lasso {
-     border: 1px dotted grey;
+     border: 1px dotted black;
      background: none;
      position: absolute;
      z-index: 5000;

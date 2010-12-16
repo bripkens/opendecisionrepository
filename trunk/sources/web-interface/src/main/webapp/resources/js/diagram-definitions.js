@@ -127,6 +127,19 @@ odr.settings = {
         attributes : {
             "stroke" : "black",
             "stroke-width" : "1"
+        },
+        arrow : {
+            idPrefix : "arrow",
+            "class" : "arrow",
+            attributes : {
+                refX : 10,
+                refY : 5,
+                markerWidth : 10,
+                markerHeight : 10,
+                orient : "auto",
+                fill : "black",
+                viewBox : "0 0 10 10"
+            }
         }
     },
     svg : {

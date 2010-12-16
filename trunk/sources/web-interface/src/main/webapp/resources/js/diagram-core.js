@@ -396,6 +396,47 @@ odr.moveMarkedShapes = function(x, y, exclude) {
 
 
 
+/**
+ * @description
+ * <p>Create a new arrow with default attributes and add it to the definitions of the svg.</p>
+ *
+ * @return {Element} The created element
+ */
+odr.arrow = function(id) {
+    var marker = document.createElementNS(svgns, "marker");
+
+    if (id != undefined) {
+        marker.id = id;
+    }
+
+    for(var attributeName in odr.settings.line.arrow.attributes) {
+        marker.setAttribute(attributeName, odr.settings.line.arrow.attributes[attributeName]);
+    }
+
+    marker.className = odr.settings.line.arrow["class"];
+
+    var path = document.createElementNS(svgns, "path");
+    path.setAttribute("d", "M0,0L10,5L0,10z");
+    marker.appendChild(path);
+
+    var defs = document.getElementsByTagNameNS(svgns, "defs")[0];
+    defs.appendChild(marker);
+
+    return marker;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

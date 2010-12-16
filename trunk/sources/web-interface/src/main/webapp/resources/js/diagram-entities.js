@@ -1627,8 +1627,12 @@ odr.Handle.prototype = {
         var entityPosition = this.position();
 
         this.position(uiPosition.left, uiPosition.top);
-        this._relativeX = uiPosition.left - this._containment.x();
-        this._relativeY = uiPosition.top - this._containment.y();
+        
+        if (this._containment != null) {
+            this._relativeX = uiPosition.left - this._containment.x();
+            this._relativeY = uiPosition.top - this._containment.y();
+        }
+        
 
         odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
     },
@@ -1942,6 +1946,9 @@ odr.Line = function() {
     this._source = null;
     this._target = null;
 
+    this._arrowId = odr.settings.line.arrow.idPrefix + odr.newId();
+    this._arrow = false;
+
     this._hover = false;
 
     this.addClass(odr.settings.line["class"]);
@@ -1981,6 +1988,8 @@ odr.Line.prototype = {
     _source : null,
     _target : null,
     _hover : false,
+    _arrowId : null,
+    _arrow : false,
 
 
 
@@ -2084,6 +2093,38 @@ odr.Line.prototype = {
 
 
 
+    /**
+     * @description
+     * Change whether an arrow is shown or not.
+     *
+     * @param {Boolean} [arrow] True to show an error, false to hide it.
+     * @return {Boolean|odr.Line} Whether an arrow or is shown or not is returned when you call this method without
+     * a parameter. If you set a new value, the object on which you called this method is returned.
+     */
+    arrow : function(arrow) {
+        if (arrow != undefined) {
+            if (arrow != this._arrow) {
+                this._arrow = arrow;
+
+                if (this._arrow) {
+                    this._element.setAttribute("marker-end", "url(#" + this._arrowId + ")");
+                } else {
+                    this._element.removeAttribute("marker-end");
+                }
+            }
+
+            return this;
+        }
+
+        return this._arrow;
+    },
+
+
+
+
+
+
+
 
 
     /**
@@ -2113,6 +2154,12 @@ odr.Line.prototype = {
             this._element.setAttribute(attributeName, odr.settings.line.attributes[attributeName]);
         }
 
+
+
+
+
+
+
         // add the node div to the parent
         var parent = this.parent();
 
@@ -2122,6 +2169,24 @@ odr.Line.prototype = {
 
         parent.appendChild(this._element);
 
+
+
+
+
+        // draw the arrow
+        odr.arrow(this._arrowId);
+
+        if (this._arrow) {
+            this._element.setAttribute("marker-end", "url(#" + this._arrowId + ")");
+        }
+
+
+
+
+
+
+
+        // attach event listener to the svg element and fire the appropriate listeners of this class
         this._element.addEventListener("click", function() {
             this.fire(odr.Line.listener.click, [this]);
         }.createDelegate(this));
@@ -2139,21 +2204,15 @@ odr.Line.prototype = {
             this._hover = false;
         }.createDelegate(this));
 
+
+
+
+
+        // draw
         root.unsuspendRedraw(suspendID);
     },
 
 
-
-
-
-
-
-    /**
-     * @private
-     */
-    _paintArrow : function() {
-        
-    },
 
 
 

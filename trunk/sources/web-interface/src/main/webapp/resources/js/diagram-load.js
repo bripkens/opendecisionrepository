@@ -118,7 +118,8 @@ odr.ready(function() {
     var handle = new odr.Handle();
     handle.position(300, 300);
 
-
+    var handle2 = new odr.Handle();
+    handle2.position(300, 400);
 
 
     var association = new odr.Association();
@@ -126,7 +127,7 @@ odr.ready(function() {
     association.target(node2);
 
     var line = new odr.Line();
-    line.source(node).target(node2);
+    line.source(handle).target(handle2);
 
 
     line.bind(odr.Line.listener.mousein, function() {
@@ -140,13 +141,14 @@ odr.ready(function() {
     }, 2);
 
 
+    line.arrow(true);
 
     setTimeout(function() {
-        line.visible(false);
+        line.arrow(false);
     }, 2000);
 
     setTimeout(function() {
-        line.visible(true);
+        line.arrow(true);
     }, 4000);
 });
 
