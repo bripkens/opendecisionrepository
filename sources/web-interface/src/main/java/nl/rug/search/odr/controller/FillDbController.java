@@ -1122,7 +1122,6 @@ public class FillDbController {
     private Relationship getRelationship(Version source, Version target, RelationshipType type) {
         for (Relationship r : source.getOutgoingRelationships()) {
             if (r.getTarget().equals(target) && r.getType().equals(type)) {
-                System.out.println("war der richtige");
                 return r;
             }
         }

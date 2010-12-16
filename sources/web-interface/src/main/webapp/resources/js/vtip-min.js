@@ -45,10 +45,10 @@ this.vtip = function(elements) {
             this.top = (e.pageY + yOffset);
             this.left = (e.pageX + xOffset);
 
-            $("p#vtip").css("top", this.top+"px").css("left", this.left+"px");
+            jQuery("p#vtip").css("top", this.top+"px").css("left", this.left+"px");
         }
     );
 
 };
 
-jQuery(document).ready(function($){vtip();}) 
+jQuery(document).ready(function(jQuery){vtip();})

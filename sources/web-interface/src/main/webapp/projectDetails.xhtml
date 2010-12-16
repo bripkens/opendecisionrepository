@@ -172,6 +172,7 @@
                         </ice:column>
 
                     </ice:dataTable>
+                    <a href="#{projectDetailsController.showMoreIterations}" class="showmore">show more</a>
 
                 </ice:form>
             </div>
@@ -193,7 +194,7 @@
 
                 <ice:form style="margin-top: 10px;" id="concernForm">
 
-                    <ice:dataTable id="concernTable" value="#{projectDetailsController.concerns}" var="item" styleClass="rowhover enableHover ">
+                    <ice:dataTable id="concernTable" value="#{projectDetailsController.concerns}" var="item" rows="5" styleClass="rowhover enableHover ">
 
                         <ice:column>
                             <ice:outputText value="#{item.name}" styleClass="iterationName" nospan="true"/>
@@ -230,7 +231,7 @@
                         </ice:column>
 
                     </ice:dataTable>
-
+                    <a href="#{projectDetailsController.showMoreConcerns}" class="showmore">show more</a>
                 </ice:form>
             </div>
         </div>
@@ -355,6 +356,7 @@
                             </ice:commandLink>
                         </ice:column>
                     </ice:dataTable>
+                    <a href="#{projectDetailsController.showMoreDecisions}" class="showmore">show more</a>
 
                     <ice:dataPaginator id="decisionTablePaginator"
                                        for="decisionTable"

@@ -15,6 +15,7 @@ function doFilter (phrase, _id){
     var ele;
     for (var r = 1; r < table.rows.length; r++){
         ele = table.rows[r].innerHTML.replace(/<[^>]+>/g,"");
+        ele += table.rows[r].cells[4].getAttribute("title");
         var displayStyle = 'none';
         for (var i = 0; i < words.length; i++) {
             if (ele.toLowerCase().indexOf(words[i])>=0){
@@ -34,8 +35,11 @@ function doFilter (phrase, _id){
 }
 
 j(document).ready(function() {
+    j("tr").not(".subRow").filter(":odd").addClass("odd");
     j(".dataList").find("tr").each(function(){
         var current = j(this);
+        var color = current.css("background-color");
+
         if(current.next().hasClass("subRow")){
             var toogleImg = current.find("a.toggleSubTable").css("display", "block");
 
@@ -58,12 +62,12 @@ j(document).ready(function() {
                         break;
                     }
                 }
-
+                
                 var next = current.next();
 
                 while(next.hasClass(groupClass)){
                     next.toggle();
-
+                    next.children().css("background-color", color);
                     next = next.next();
                 }
 

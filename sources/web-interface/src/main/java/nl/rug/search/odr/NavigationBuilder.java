@@ -22,11 +22,11 @@ public class NavigationBuilder {
 
     private final String DELETE = JsfUtil.evaluateExpressionGet("#{page['navigation.delete']}", String.class);
 
-    private final String ITERATION = JsfUtil.evaluateExpressionGet("#{page['navigation.iteration']}", String.class);
+    private final String ITERATIONS = JsfUtil.evaluateExpressionGet("#{page['navigation.iterations']}", String.class);
 
     private final String CONCERNS = JsfUtil.evaluateExpressionGet("#{page['navigation.concerns']}", String.class);
 
-    private final String DECISION = JsfUtil.evaluateExpressionGet("#{page['navigation.decision']}", String.class);
+    private final String DECISIONS = JsfUtil.evaluateExpressionGet("#{page['navigation.decisions']}", String.class);
 
     private final String PROJECT = JsfUtil.evaluateExpressionGet("#{page['navigation.project']}", String.class);
 
@@ -203,8 +203,13 @@ public class NavigationBuilder {
             navigation.add(new NavigationLink(REGISTER, ""));
         } //concernsTable
         else if (navigationSite.equals(Filename.CONCERNS_TABLE_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(CONCERNS, getConcernTableLink(Filename.CONCERNS_TABLE)));
-
+            navigation.add(new NavigationLink(CONCERNS, getTableLink(Filename.CONCERNS_TABLE)));
+        } //iterationsTable
+        else if (navigationSite.equals(Filename.ITERATIONS_TABLE_WITH_LEADING_SLASH)) {
+            navigation.add(new NavigationLink(ITERATIONS, getTableLink(Filename.ITERATION_TABLE)));
+        } //decisionTable
+        else if (navigationSite.equals(Filename.DECISIONS_TABLE_WITH_LEADING_SLASH)) {
+            navigation.add(new NavigationLink(DECISIONS, getTableLink(Filename.DECISIONS_TABLE)));
         }
         return navigation;
     }
@@ -231,7 +236,7 @@ public class NavigationBuilder {
 
 
     private void addIterationHeader(List<NavigationLink> list) {
-        list.add(new NavigationLink(ITERATION, ""));
+        list.add(new NavigationLink(ITERATIONS, getTableLink(Filename.ITERATION_TABLE)));
     }
 
 
@@ -241,12 +246,12 @@ public class NavigationBuilder {
         return site + "?" + RequestParameter.ID + "=" + project.getId() + "&" + RequestParameter.ITERATION_ID + "=" + iteration.
                 getId();
     }
+
+
+
+
     // </editor-fold>
-
-
 // <editor-fold defaultstate="collapsed" desc="concern">
-
-
     private void concernSpecific(List<NavigationLink> navigation) {
         addConcernHeader(navigation);
         if (navigationSite.equals(Filename.MANAGE_CONCERNS_WITH_LEADING_SLASH)) {
@@ -265,7 +270,7 @@ public class NavigationBuilder {
 
 
     private void addConcernHeader(List<NavigationLink> list) {
-        list.add(new NavigationLink(CONCERNS, getConcernTableLink(Filename.CONCERNS_TABLE)));
+        list.add(new NavigationLink(CONCERNS, getTableLink(Filename.CONCERNS_TABLE)));
     }
 
 
@@ -277,17 +282,10 @@ public class NavigationBuilder {
     }
 
 
-
-
-    private String getConcernTableLink(String site) {
-        return site + "?" + RequestParameter.ID + "=" + project.getId();
-    }
-
 // </editor-fold>
 
 
 // <editor-fold defaultstate="collapsed" desc="decision">
-
     private void decisionSpecific(List<NavigationLink> navigation) {
         addDecisionHeader(navigation);
         if (navigationSite.equals(Filename.MANAGE_DECISION_WITH_LEADING_SLASH)) {
@@ -306,7 +304,7 @@ public class NavigationBuilder {
 
 
     private void addDecisionHeader(List<NavigationLink> list) {
-        list.add(new NavigationLink(DECISION, ""));
+        list.add(new NavigationLink(DECISIONS, getTableLink(Filename.DECISIONS_TABLE)));
     }
 
 
@@ -321,7 +319,14 @@ public class NavigationBuilder {
 
 
 
+    private String getTableLink(String site) {
+        return site + "?" + RequestParameter.ID + "=" + project.getId();
+    }
+
+
 // <editor-fold defaultstate="collapsed" desc="NavigationLink class">
+
+
     public class NavigationLink {
 
         private String name;

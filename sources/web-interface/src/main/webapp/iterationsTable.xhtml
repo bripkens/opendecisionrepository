@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template-without-sidebar.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['iteration.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="bodyBegin">
+        <div id="deleteIterationConfirmationPopup" class="modalPopup deleteConfirmationPopup">
+            <h1><ice:outputText value="#{page['projectDetails.iteration.delete']}" nospan="true" /></h1>
+
+            <p class="deleteConfirmationMessage">
+            <ice:outputText value="#{form['iteration.delete.confirmation']}" nospan="true"/>
+            <ice:outputText value=" #{iterationTableController.iterationToDelete.iteration.name}" />?
+            </p>
+            <ice:form rendered="#{iterationTableController.valid}" id="confitmIterationDeleteForm">
+
+                <ice:commandButton action="#{iterationTableController.deleteIteration}"
+                                   value="#{form['button.delete']}"
+                                   styleClass="abort"
+                                   id="confirmIterationDeleteButton"/>
+
+                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
+            </ice:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="content">
+        <odr:breadcrumb breadCrumbSource="#{iterationTableController.navigationBar}" />
+        <h1><h:outputText value="Iteration Table"/></h1>
+        <a href="#{iterationTableController.createIterationLink}" ><img class="createConcernSymbol vtip" title="create a new iteration" src="resources/images/add.png" alt="create"/></a>
+
+        <form>
+            <label for="searchInput" class="prefillValue" style="display: none">Search</label>
+            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'iterationList')" style="width: 200px;" styleClass="prefill"/>
+        </form>
+
+        <ice:form partialSubmit="true">
+            <table class="dataList" id="iterationList">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Name</th>
+                        <th style="width: 25%;">Start date</th>
+                        <th style="width: 25%;">End date</th>
+                        <th style="width: 20%;">Creator</th>
+                        <th colspan="3" >Actions</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                <ui:repeat value="#{iterationTableController.list}" var="item" id="iterationRepeat">
+                    <tr class="parentRow group-#{item.iteration.id}">
+                        <td style="border-bottom: none">
+                            #{item.iteration.name}
+                        </td>
+                        <td>#{iterationTableController.getDate(item.iteration.startDate)}</td>
+                        <td>#{iterationTableController.getDate(item.iteration.endDate)}</td>
+                        <td>#{item.iteration.projectMember.person.name}</td>
+                        <td>
+                            <a href="#{iterationTableController.getShowLink(item)}" ><img class="vtip" title="details" alt="#{common.read}"
+                                                                                          src="resources/images/inspect.png"
+                                                                                          width="14"
+                                                                                          height="14"/></a></td>
+                        <td><a href="#{iterationTableController.getUpdateLink(item)}" ><img class="vtip" title="edit" alt="#{common.edit}"
+                                                                                            src="resources/images/pencilSmall.png"
+                                                                                            width="14"
+                                                                                            height="14"/></a></td>
+                        <td><ice:commandLink value=""
+                                         actionListener="#{iterationTableController.showDeleteIterationConfirmation}"
+                                         styleClass="columnNavigationLink">
+                        <img class="vtip" title="remove" alt="#{common.remove}"
+                             src="resources/images/removeSmall.png"
+                             width="14"
+                             height="14"/>
+                        <f:attribute value="#{item}" name="iterationItem" />
+
+                    </ice:commandLink></td>
+                    </tr>
+                </ui:repeat>
+                </tbody>
+            </table>
+        </ice:form>
+    </ui:define>
+</ui:composition>
