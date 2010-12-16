@@ -104,6 +104,7 @@ odr.settings = {
     handle : {
         idPrefix : "handle",
         "class" : "handle",
+        markedClass : "marked",
         container : "handleGroup",
         jQueryUiDraggingSettings : {
             grid : [10, 10],
@@ -128,6 +129,10 @@ odr.settings = {
             "stroke" : "black",
             "stroke-width" : "1"
         },
+        hoverAttributes : {
+            stroke : "darkred",
+            "stroke-width" : 4
+        },
         arrow : {
             idPrefix : "arrow",
             "class" : "arrow",
@@ -139,8 +144,18 @@ odr.settings = {
                 orient : "auto",
                 fill : "black",
                 viewBox : "0 0 10 10"
+            },
+            hoverAttributes : {
+                markerWidth : 4,
+                fill : "darkred"
             }
         }
+    },
+    label : {
+        idPrefix : "label",
+        "class" : "label",
+        container : "labelGroup",
+        markedClass : "marked",
     },
     svg : {
         id : "canvas",
