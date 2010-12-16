@@ -38,6 +38,20 @@ odr.settings = {
                 return (element.height() + 11) * -1;
             },
             animationDuration : 500
+        },
+        bottom : {
+            selectedClass : "selected",
+            performance : {
+                high : "#performanceHigh",
+                low : "#performanceLow",
+                out : "#performanceOut"
+            },
+            alignment : {
+                on : "#autoAlignmentOn",
+                off : "#autoAlignmentOff",
+                ask : "#autoAlignmentAsk",
+                out : "#autoAlignmentOut"
+            }
         }
     },
     grid : [10, 10],
