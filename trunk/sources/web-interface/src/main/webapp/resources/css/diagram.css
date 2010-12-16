@@ -469,3 +469,13 @@ body {
 .label.marked {
     border: 2px dashed khaki;
 }
+
+
+
+.ui-dialog {
+    font-size: 12px;
+    z-index: 6000;
+}
+.ui-dialog .ui-button-text-only .ui-button-text {
+    font-weight: normal;
+}

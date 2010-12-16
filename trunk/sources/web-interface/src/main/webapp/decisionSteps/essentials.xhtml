@@ -15,15 +15,15 @@
             <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
             <ice:inputText id="inName"
                            label="#{form['label.name']}"
-                           maxlength="255"
+                           maxlength="100"
                            value="#{manageDecisionController.essentialsStep.decisionName}"
                            required="true"
                            validator="#{manageDecisionController.essentialsStep.checkDecisionName}">
-                <f:validateLength minimum="3" maximum="255" />
+                <f:validateLength minimum="3" maximum="100" />
             </ice:inputText>
             <p>
                 <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255;
+                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 100;
                 <ice:outputText value="#{form['constraint.decisionname']}" nospan="true" />
             </p>
         </div>

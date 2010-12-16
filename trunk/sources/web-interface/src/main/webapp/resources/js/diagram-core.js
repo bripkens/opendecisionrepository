@@ -451,6 +451,8 @@ odr.bootstrap(function() {
     $.ajax({
         url : odr.settings.request.translation,
         dataType : "json",
+        async : false,
+        timeout : 2000,
         error : function(data, textStatus, errorThrown) {
         // TODO Show an error popup
         },
@@ -460,6 +462,13 @@ odr.bootstrap(function() {
             odr.translation.text = data.Translations;
 
             document.title = odr.translation.text["title"];
+
+            // translate titles
+            $("." + odr.translation.titleClass).each(function() {
+                var translation = odr.translation.text[$(this).attr("title")];
+                $(this).attr("title", translation);
+                $(this).removeClass(odr.translation.titleClass);
+            });
 
             // translate static button values
             $("input." + odr.translation["class"]).each(function() {
@@ -714,3 +723,88 @@ odr.selectElements = function(minX, minY, maxX, maxY) {
         }
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                          Drag handle alignment
+ */
+odr.ready(function() {
+    $("#alignmentPopup").dialog({
+        autoOpen: false,
+        height: 170,
+        width: 330,
+        modal: true,
+        zIndex : 5050,
+        resizable : false,
+        close: function() {
+            $(this).find("#alignmentPopup-rememberSettings").removeAttr("checked");
+        }
+    });
+});
+
+
+
+
+
+/**
+ * @description
+ * Open a dialog box that checks whether the user wants the system to automatically align the drag handles for him.
+ * This dialog won't be shown if the user selected that his action should be remembered.
+ *
+ * @param {Function} helpAction This function will be called when the user decideds that he wants help
+ * @param {Function} cancelAction This function will be called when the user decideds that he wants NO help
+ */
+odr.alignmentHelper = function(helpAction, cancelAction) {
+    if (odr.user.automaticallyAlignDragHandles == true) {
+        helpAction();
+        return;
+    } else if (odr.user.automaticallyAlignDragHandles == false) {
+        if (cancelAction != undefined) {
+            cancelAction();
+        }
+        return;
+    }
+
+
+    var buttons = {};
+
+    buttons[odr.translation.text["alignment.cancel"]] = function() {
+        if ($("#alignmentPopup-rememberSettings").is(":checked")) {
+            odr.user.automaticallyAlignDragHandles = false;
+        }
+
+        if (cancelAction != undefined) {
+            cancelAction();
+        }
+
+        $(this).dialog("close");
+    };
+
+    buttons[odr.translation.text["alignment.do"]] = function() {
+        if ($("#alignmentPopup-rememberSettings").is(":checked")) {
+            odr.user.automaticallyAlignDragHandles = true;
+        }
+
+        helpAction();
+        
+        $(this).dialog("close");
+    };
+
+    $("#alignmentPopup").dialog("option", "buttons", buttons);
+    $("#alignmentPopup").dialog("open");
+}
