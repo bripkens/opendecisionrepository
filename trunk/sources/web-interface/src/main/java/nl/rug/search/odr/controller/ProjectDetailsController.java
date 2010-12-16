@@ -570,6 +570,7 @@ public class ProjectDetailsController {
             }
         }
 
+
         Collections.reverse(onlyNewest);
 
         return onlyNewest;
@@ -681,6 +682,27 @@ public class ProjectDetailsController {
 
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
         return navi.getNavigationBar();
+    }
+
+
+
+
+    public String getShowMoreConcerns() {
+        return Filename.CONCERNS_TABLE + "?" + RequestParameter.ID + "=" + projectId;
+    }
+
+
+
+
+    public String getShowMoreIterations() {
+        return Filename.ITERATION_TABLE + "?" + RequestParameter.ID + "=" + projectId;
+    }
+
+
+
+
+    public String getShowMoreDecisions() {
+        return Filename.DECISIONS_TABLE + "?" + RequestParameter.ID + "=" + projectId;
     }
 
 

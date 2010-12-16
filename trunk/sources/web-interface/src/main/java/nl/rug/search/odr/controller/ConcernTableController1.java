@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
@@ -140,6 +137,7 @@ public class ConcernTableController1 {
      * @return
      */
     public List<Item> getList() {
+        Collections.sort(parentConcerns, Collections.reverseOrder(new Item.CreationDateComparator()));
         return parentConcerns;
     }
 
@@ -179,6 +177,14 @@ public class ConcernTableController1 {
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.CONCERN_ID, item.concern.getId()).
                 toString();
+    }
+
+
+
+
+    public String getCreateConcernLink() {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
+                append(RequestParameter.ID, project.getId()).toString();
     }
 
 
@@ -241,8 +247,6 @@ public class ConcernTableController1 {
 
     public static class Item {
 
-        private boolean selected;
-
         private List<Item> subItems = new ArrayList<Item>();
 
         private Concern concern;
@@ -256,6 +260,12 @@ public class ConcernTableController1 {
 
 
 
+        public Item() {
+        }
+
+
+
+
         public boolean isColored() {
             return colored;
         }
@@ -265,12 +275,6 @@ public class ConcernTableController1 {
 
         public void setColored(boolean colored) {
             this.colored = colored;
-        }
-
-
-
-
-        public Item() {
         }
 
 
@@ -312,26 +316,7 @@ public class ConcernTableController1 {
 
 
         public void addSubItem(Item item) {
-            System.out.println("added nen subItem");
             subItems.add(item);
-        }
-
-
-
-
-        public boolean isSelected() {
-            return selected;
-        }
-
-
-
-
-        public void setSelected(boolean selected) {
-            if (this.selected == true) {
-                this.selected = false;
-            } else {
-                this.selected = selected;
-            }
         }
 
 
@@ -385,6 +370,21 @@ public class ConcernTableController1 {
             @Override
             public int compare(Item o1, Item o2) {
                 return o1.concern.getExternalId().compareTo(o2.concern.getExternalId());
+            }
+
+
+
+
+        }
+
+
+
+
+        public static class CreationDateComparator implements Comparator<Item> {
+
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.concern.getCreatedWhen().compareTo(o2.concern.getCreatedWhen());
             }
 
 

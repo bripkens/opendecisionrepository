@@ -8,6 +8,8 @@
 
     <ui:define name="head">
         <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -36,12 +38,14 @@
 
     <ui:define name="content">
         <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
-        <form action="">
+        <h1><h:outputText value="Concern Table"/></h1>
+        <a href="#{concernTableController1.createConcernLink}" ><img class="createConcernSymbol vtip" title="create a new concern" src="resources/images/add.png" alt="create"/></a>
+
+        <form>
             <label for="searchInput" class="prefillValue" style="display: none">Search</label>
             <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList')" style="width: 200px;" styleClass="prefill"/>
         </form>
 
-        <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
         <ice:form partialSubmit="true">
             <table class="dataList" id="concernList">
                 <thead>
@@ -55,7 +59,7 @@
                 </thead>
                 <tbody>
                 <ui:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
-                    <tr class="parentRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
+                    <tr class="parentRow group-#{item.concer.id}">
                         <td style="border-bottom: none">
                             <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
                         </td>
@@ -63,18 +67,18 @@
                         <td>#{item.concer.name}</td>
                         <td>#{concernTableController1.getDate(item)}</td>
                         <td>
-                            <a href="#{concernTableController1.getShowLink(item)}" ><img alt="#{common.read}"
+                            <a href="#{concernTableController1.getShowLink(item)}" ><img class="vtip" title="details" alt="#{common.read}"
                                                                                          src="resources/images/inspect.png"
                                                                                          width="14"
                                                                                          height="14"/></a></td>
-                        <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img alt="#{common.edit}"
+                        <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img class="vtip" title="edit" alt="#{common.edit}"
                                                                                            src="resources/images/pencilSmall.png"
                                                                                            width="14"
                                                                                            height="14"/></a></td>
                         <td><ice:commandLink value=""
                                          actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
                                          styleClass="columnNavigationLink">
-                        <img alt="#{common.remove}"
+                        <img class="vtip" title="remove" alt="#{common.remove}"
                              src="resources/images/removeSmall.png"
                              width="14"
                              height="14"/>
@@ -83,19 +87,19 @@
                     </ice:commandLink></td>
                     </tr>
                     <ui:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="subconcernRepeat">
-                        <tr style="display: none;" class="subRow group-#{item.concer.id} #{item.colored ? 'even' : 'odd'}">
+                        <tr style="display: none;" class="subRow group-#{item.concer.id}">
                             <td style="border:none;"></td>
                             <td>#{subconcern.concer.externalId}</td>
                             <td>#{subconcern.concer.name}</td>
                             <td>#{concernTableController1.getDate(subconcern)}</td>
-                            <td><img alt="#{common.read}"
-                                     src="resources/images/inspect.png"
-                                     width="14"
-                                     height="14"/></td>
-                            <td><img alt="#{common.edit}"
-                                     src="resources/images/pencilSmall.png"
-                                     width="14"
-                                     height="14"/></td>
+                            <td> <a href="#{concernTableController1.getShowLink(subconcern)}" ><img class="vtip" title="details" alt="#{common.read}"
+                                                                                                    src="resources/images/inspect.png"
+                                                                                                    width="14"
+                                                                                                    height="14"/></a></td>
+                            <td><a href="#{concernTableController1.getUpdateLink(subconcern)}" ><img class="vtip" title="edit" alt="#{common.edit}"
+                                                                                                     src="resources/images/pencilSmall.png"
+                                                                                                     width="14"
+                                                                                                     height="14"/></a></td>
                             <td><ice:commandLink value=""
                                              actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
                                              styleClass="columnNavigationLink">
@@ -113,5 +117,4 @@
             </table>
         </ice:form>
     </ui:define>
-
 </ui:composition>

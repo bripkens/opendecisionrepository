@@ -475,7 +475,6 @@ public class IterationController {
         days = timeDiff / millisPerDay;
         hours = (timeDiff % millisPerDay) / millisPerHour;
         minutes = (timeDiff % millisPerHour) / millisPerMinute;
-        System.out.println(days + " : " + hours + " : " + minutes);
     }
 
 

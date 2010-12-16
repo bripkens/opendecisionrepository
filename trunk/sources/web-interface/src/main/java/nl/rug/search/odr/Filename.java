@@ -47,18 +47,25 @@ public interface Filename {
 
     String MANAGE_DECISION_WITH_LEADING_SLASH = "/".concat(MANAGE_DECISION);
 
-    String CREATE_PROJECT_WITH_LEADING_SLASH ="/createProject.html";
-    String UPDATE_PROJECT_WITH_LEADING_SLASH ="/updateProject.html";
-    String DELETE_PROJECT_WITH_LEADING_SLASH ="/deleteProject.html";
+    String CREATE_PROJECT_WITH_LEADING_SLASH = "/createProject.html";
 
-    String CONCERNS_TABLE_WITH_LEADING_SLASH    ="/concernsTable.html";
-    String CONCERNS_TABLE                       ="concernsTable.html";
-    
-    String ITERATIONS_TABLE_WITH_LEADING_SLASH ="/iterationsTable.html";
-    String DECISIONS_TABLE_WITH_LEADING_SLASH ="/decisionsTable.html";
+    String UPDATE_PROJECT_WITH_LEADING_SLASH = "/updateProject.html";
 
-     String REGISTER_USER_WITH_LEADING_SLASH ="/register.html";
+    String DELETE_PROJECT_WITH_LEADING_SLASH = "/deleteProject.html";
 
+    String CONCERNS_TABLE_WITH_LEADING_SLASH = "/concernsTable.html";
+
+    String CONCERNS_TABLE = "concernsTable.html";
+
+    String ITERATIONS_TABLE_WITH_LEADING_SLASH = "/iterationsTable.html";
+
+    String ITERATION_TABLE = "iterationsTable.html";
+
+    String DECISIONS_TABLE_WITH_LEADING_SLASH = "/decisionsTable.html";
+
+    String DECISIONS_TABLE = "decisionsTable.html";
+
+    String REGISTER_USER_WITH_LEADING_SLASH = "/register.html";
 
     String DRAWING = "drawing.html";
 
