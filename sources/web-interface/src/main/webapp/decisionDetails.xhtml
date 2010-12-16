@@ -173,7 +173,7 @@
                             <ul class="subList">
                                 <ice:repeat value="#{decisionDetailsController.future}" var="item">
                                     <li>
-                                    <ice:outputFormat value="#{page['decision.details.history.entry']}">
+                                    <ice:outputFormat value="#{page['decision.details.history.entry']}" escape="false">
                                         <f:param value="#{item.state.statusName}" />
                                         <f:param value="#{item.decidedWhen}" />
                                     </ice:outputFormat>
@@ -185,7 +185,7 @@
                                 <li><ice:outputText value="#{page['decision.details.history.current.version']}" nospan="true" /></li>
                                 <ice:repeat value="#{decisionDetailsController.history}" var="item">
                                     <li>
-                                    <ice:outputFormat value="#{page['decision.details.history.entry']}">
+                                    <ice:outputFormat value="#{page['decision.details.history.entry']}" escape="false">
                                         <f:param value="#{item.state.statusName}" />
                                         <f:param value="#{item.decidedWhen}" />
                                     </ice:outputFormat>

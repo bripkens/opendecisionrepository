@@ -408,6 +408,7 @@ odr.Shape = function() {
     this._width = 0;
     this._height = 0;
     this._marked = false;
+    this._invisibleMarkedPossible = false;
 
     for(var listenerType in odr.Shape.listener) {
         this._listener[odr.Shape.listener[listenerType]] = {};
@@ -451,6 +452,7 @@ odr.Shape.prototype = {
      * Whether this drawable is marked
      */
     _marked : false,
+    _invisibleMarkedPossible : false,
     
 
 
@@ -473,6 +475,10 @@ odr.Shape.prototype = {
         if (marked != undefined) {
 
             if (this._marked != marked) {
+                if (!this.visible() && !this._invisibleMarkedPossible) {
+                    marked = false;
+                }
+
                 this._marked = marked;
 
                 if (marked) {
@@ -783,6 +789,25 @@ odr.Shape.prototype = {
      */
     isInside : function(x, y) {
         return x >= this.x() && y >= this.y() && x <= (this.x() + this.width()) && y <= (this.y() + this.height());
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    visible : function(visible) {
+        var result = odr.Shape.superClass.visible.call(this, visible);
+
+        if (!this._invisibleMarkedPossible && visible != undefined && !visible && this.marked()) {
+            this.marked(false);
+        }
+
+        return result;
     }
 }
 
@@ -1348,6 +1373,8 @@ odr.Handle = function() {
     this._relativeX = 0;
     this._relativeY = 0;
 
+    this._invisibleMarkedPossible = true;
+
     for(var listenerType in odr.Handle.listener) {
         this._listener[odr.Handle.listener[listenerType]] = {};
     }
@@ -1391,7 +1418,9 @@ odr.Handle = function() {
  */
 odr.Handle.listener = {
     /** @field */
-    containmentChanged : "containmentChanged"
+    containmentChanged : "containmentChanged",
+    /** @field */
+    click : "click"
 }
 
 odr.Handle.prototype = {
@@ -1499,7 +1528,7 @@ odr.Handle.prototype = {
 
 
 
-        // activate drag / drop and resizing
+        // activate drag / drop
         // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
         // using standard jQuery
         var jQueryHandle = $("#" + this.id());
@@ -1539,6 +1568,8 @@ odr.Handle.prototype = {
     _click : function(e) {
         if(e.ctrlKey) {
             this.marked(!this.marked());
+        } else {
+            this.fire(odr.Handle.listener.click, [this, e]);
         }
     },
 
@@ -1601,9 +1632,9 @@ odr.Handle.prototype = {
      */
     _markedChanged : function() {
         if (this.marked()) {
-            this.addClass(odr.settings.node.markedClass);
+            this.addClass(odr.settings.handle.markedClass);
         } else {
-            this.removeClass(odr.settings.node.markedClass);
+            this.removeClass(odr.settings.handle.markedClass);
         }
     },
 
@@ -1771,10 +1802,13 @@ odr.Association = function() {
     this._source = null;
     this._target = null;
 
-    this._sourceHandle = new odr.Handle().visible(true);
-    this._targetHandle = new odr.Handle().visible(true);
+    this._sourceHandle = new odr.Handle().visible(false);
+    this._targetHandle = new odr.Handle().visible(false);
 
     this._handles = [];
+    this._lines = [];
+
+    this._forceHandleVisible = true;
 
     this.addClass(odr.settings.association["class"]);
 
@@ -1784,11 +1818,8 @@ odr.Association = function() {
 
     this._paint();
 
-
-//    odr.Node.superClass.bind.call(this,
-//        odr.Drawable.listener.visibilityChanged,
-//        this._visibilityChanged.createDelegate(this),
-//        "_node_" + this.id());
+    this.bind(odr.Association.listener.handleChanged, this._handleChanged.createDelegate(this), this.id());
+    this.bind(odr.Drawable.listener.visibilityChanged, this._visibilityChanged.createDelegate(this), this.id());
 };
 
 /**
@@ -1800,7 +1831,9 @@ odr.Association.listener = {
     /** @field */
     sourceChanged : "sourceChanged",
     /** @field */
-    targetChanged : "targetChanged"
+    targetChanged : "targetChanged",
+    /** @field */
+    handleChanged : "handleChanged"
 }
 
 odr.Association.prototype = {
@@ -1811,6 +1844,8 @@ odr.Association.prototype = {
     _target : null,
     _targetHandle : null,
     _handles : [],
+    _lines : [],
+    _forceHandleVisible : true,
 
 
 
@@ -1844,9 +1879,17 @@ odr.Association.prototype = {
     source : function(source) {
         if (source != undefined) {
             if (source != this._source) {
+                if (this._source != null) {
+                    this._source.unbind(odr.Drawable.listener.visibilityChanged, this.id());
+                }
+
                 this._source = source;
 
-                odr.Association.superClass.fire.call(this, odr.Association.listener.sourceChanged, [this]);
+                this._source.bind(odr.Drawable.listener.visibilityChanged,
+                    this._endpointVisibilityChanged.createDelegate(this),
+                    this.id());
+
+                this.fire(odr.Association.listener.sourceChanged, [this]);
                 
                 this._sourceHandle.containment(source);
             }
@@ -1875,9 +1918,17 @@ odr.Association.prototype = {
     target : function(target) {
         if (target != undefined) {
             if (target != this._target) {
+                if (this._target != null) {
+                    this._target.unbind(odr.Drawable.listener.visibilityChanged, this.id());
+                }
+
                 this._target = target;
 
-                odr.Association.superClass.fire.call(this, odr.Association.listener.targetChanged, [this]);
+                this._target.bind(odr.Drawable.listener.visibilityChanged,
+                    this._endpointVisibilityChanged.createDelegate(this),
+                    this.id());
+
+                this.fire(odr.Association.listener.targetChanged, [this]);
                 
                 this._targetHandle.containment(target);
             }
@@ -1892,13 +1943,153 @@ odr.Association.prototype = {
 
 
 
-    
+
+
+
+
+
+
+    /**
+     * @description
+     * Add a handle to the association. The handle will be added to the end of the association
+     *
+     * @param {odr.Handle} handle The handle which you want to add
+     * @return {odr.Association} The object on which you called this method.
+     */
+    addHandleToEnd : function(handle) {
+        this.removeHandle(handle, false);
+
+        this._handles.push(handle);
+
+        handle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        this.fire(odr.Association.listener.handleChanged, [this]);
+
+        return this;
+    },
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Add a handle to the association. The handle will be added to the beginning of the association
+     *
+     * @param {odr.Handle} handle The handle which you want to add
+     * @return {odr.Association} The object on which you called this method.
+     */
+    addHandleToBeginning : function(handle) {
+        this.removeHandle(handle, false);
+
+        this._handles.unshift(handle);
+
+        handle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        this.fire(odr.Association.listener.handleChanged, [this]);
+
+        return this;
+    },
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Add a handle before another handle.
+     *
+     * @param {odr.Handle} after The handle which should be before the new handle after insertion
+     * @param {odr.Handle} newHandle The new handle
+     * @return {odr.Association} The object on which you called this method.
+     */
+    addHandleAfter : function(after, newHandle) {
+        this.removeHandle(newHandle, false);
+
+        var index = this._handles.indexOf(after);
+
+        if (index == -1) {
+            throw("The handle is not part of the association");
+        }
+
+        this._handles.splice(index+1, 0, newHandle);
+
+        newHandle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        this.fire(odr.Association.listener.handleChanged, [this]);
+
+        return this;
+    },
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Remove the given handle from the association
+     *
+     * @param {odr.Handle} handle The handle which you want to add
+     * @param {Boolean} [fire] Whether the handle changed event should be fired. This should almost always be true.
+     * Default is true.
+     * @return {odr.Association} The object on which you called this method.
+     */
+    removeHandle : function(handle, fire) {
+        var index = this._handles.indexOf(handle);
+
+        if (index != -1) {
+
+            this._handles[index].unbind(odr.Handle.listener.click, this.id());
+
+            this._handles.splice(index, 1);
+
+            if (fire != false) {
+                this.fire(odr.Association.listener.handleChanged, [this]);
+            }
+        }
+
+        return this;
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _handleClick : function(handle, e) {
+        if (e.shiftKey) {
+            this.removeHandle(handle);
+            handle.remove();
+        }
+    },
+
+
+
+
 
 
     /**
      * @private
      */
     _paint : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
         this._element = document.createElementNS(svgns, "g");
         this._element.setAttribute("id", this.id());
         this._element.setAttribute("class", this.classString());
@@ -1911,7 +2102,168 @@ odr.Association.prototype = {
         }
 
         parent.appendChild(this._element);
+
+        this._repaint();
+
+        root.unsuspendRedraw(suspendID);
+    },
+    
+    
+
+
+
+
+    _repaint : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        // remove all lines
+        for(var i = 0; i < this._lines.length; i++) {
+            this._lines[i].remove();
+        }
+
+        this._lines = [];
+
+        // create the new lines
+        var currentNode = this._sourceHandle;
+
+        for(var i = 0; i < this._handles.length; i++) {
+            var currentHandle = this._handles[i];
+
+            var line = new odr.Line().source(currentNode).target(currentHandle);
+            this._lines.push(line);
+
+            currentNode = currentHandle;
+        }
+
+        var line = new odr.Line().source(currentNode).target(this._targetHandle).arrow(true);
+        this._lines.push(line);
+
+
+        for(var i = 0; i < this._lines.length; i++) {
+            var line = this._lines[i];
+
+            line.bind(odr.Line.listener.click, this._lineMouseClick.createDelegate(this), this.id());
+            line.bind(odr.Line.listener.mousein, this._lineMouseIn.createDelegate(this), this.id());
+            line.bind(odr.Line.listener.mouseout, this._lineMouseOut.createDelegate(this), this.id());
+        }
+
+        this._setAllHandles(this._forceHandleVisible);
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+    
+
+
+
+
+    /**
+     * @private
+     */
+    _lineMouseClick : function(source, e) {
+        if (e.ctrlKey) {
+            this._forceHandleVisible = !this._forceHandleVisible;
+            this._setAllHandles(this._forceHandleVisible);
+            return;
+        }
+
+        var handle = new odr.Handle();
+        handle.position(odr.round(e.pageX, odr.settings.grid[0]), odr.round(e.pageY, odr.settings.grid[0]));
+
+        if (source.source() == this._sourceHandle) {
+            this.addHandleToBeginning(handle);
+        } else {
+            this.addHandleAfter(source.source(), handle);
+        }
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _lineMouseIn : function() {
+        this._setAllHandles(true);
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _lineMouseOut : function() {
+        if (!this._forceHandleVisible) {
+            this._setAllHandles(false);
+        }
+    },
+
+
+
+
+
+    /**
+     * @private
+     */
+    _setAllHandles : function(visible) {
+        this._sourceHandle.visible(visible);
+        this._targetHandle.visible(visible);
+
+        for(var i = 0; i < this._handles.length; i++) {
+            this._handles[i].visible(visible);
+        }
+    },
+
+
+
+
+    /**
+     * @private
+     */
+    _visibilityChanged : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        var visible = this.visible();
+
+        for(var i = 0; i < this._lines.length; i++) {
+            this._lines[i].visible(visible);
+        }
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+    
+    
+    /**
+     * @private
+     */
+    _endpointVisibilityChanged : function() {
+        var shouldBeVisible = this._source.visible() && this._target.visible();
+
+        this.visible(shouldBeVisible);
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _handleChanged : function() {
+        this._repaint();
     }
+
 };
 
 extend(odr.Association, odr.Drawable);
@@ -1961,6 +2313,8 @@ odr.Line = function() {
 
     this.bind(odr.Drawable.listener.visibilityChanged, this._visibilityChanged.createDelegate(this), this.id());
     this.bind(odr.Drawable.listener.classesChanged, this._classesChanged.createDelegate(this), this.id());
+    this.bind(odr.Line.listener.mousein, this._mousein.createDelegate(this), this.id());
+    this.bind(odr.Line.listener.mouseout, this._mouseout.createDelegate(this), this.id());
 };
 
 /**
@@ -1989,6 +2343,7 @@ odr.Line.prototype = {
     _target : null,
     _hover : false,
     _arrowId : null,
+    _arrowElement : null,
     _arrow : false,
 
 
@@ -2174,7 +2529,7 @@ odr.Line.prototype = {
 
 
         // draw the arrow
-        odr.arrow(this._arrowId);
+        this._arrowElement = odr.arrow(this._arrowId);
 
         if (this._arrow) {
             this._element.setAttribute("marker-end", "url(#" + this._arrowId + ")");
@@ -2187,9 +2542,9 @@ odr.Line.prototype = {
 
 
         // attach event listener to the svg element and fire the appropriate listeners of this class
-        this._element.addEventListener("click", function() {
-            this.fire(odr.Line.listener.click, [this]);
-        }.createDelegate(this));
+        this._element.addEventListener("click", function(e) {
+            this.fire(odr.Line.listener.click, [this, e]);
+        }.createDelegate(this), false);
 
         this._element.addEventListener("mouseover", function() {
             if (!this._hover) {
@@ -2197,12 +2552,12 @@ odr.Line.prototype = {
                 this._hover = true;
             }
             this.fire(odr.Line.listener.mouseover, [this]);
-        }.createDelegate(this));
+        }.createDelegate(this), false);
 
         this._element.addEventListener("mouseout", function() {
             this.fire(odr.Line.listener.mouseout, [this]);
             this._hover = false;
-        }.createDelegate(this));
+        }.createDelegate(this), false);
 
 
 
@@ -2256,6 +2611,7 @@ odr.Line.prototype = {
             this._paint();
         } else {
             this._element.parentNode.removeChild(this._element);
+            this._arrowElement.parentNode.removeChild(this._arrowElement);
         }
     },
 
@@ -2269,7 +2625,400 @@ odr.Line.prototype = {
      */
     _classesChanged : function() {
         this._element.setAttribute("class", this.classString());
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _mousein : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        for(var attributeName in odr.settings.line.hoverAttributes) {
+            this._element.setAttribute(attributeName, odr.settings.line.hoverAttributes[attributeName]);
+        }
+
+        for(var attributeName in odr.settings.line.arrow.hoverAttributes) {
+            this._arrowElement.setAttribute(attributeName, odr.settings.line.arrow.hoverAttributes[attributeName]);
+        }
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _mouseout : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        for(var attributeName in odr.settings.line.attributes) {
+            this._element.setAttribute(attributeName, odr.settings.line.attributes[attributeName]);
+        }
+
+        for(var attributeName in odr.settings.line.arrow.attributes) {
+            this._arrowElement.setAttribute(attributeName, odr.settings.line.arrow.attributes[attributeName]);
+        }
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+
+
+    /**
+     * @description
+     * Remove this object, i.e. unbind all listeners, remove the entry from the registry and remove it from the SVG.
+     * This object can't be undone.
+     */
+    remove : function() {
+        if (this.visible()) {
+            this._element.parentNode.removeChild(this._element);
+            this._arrowElement.parentNode.removeChild(this._arrowElement);
+        }
+
+        if (this._source != null) {
+            this._source.unbind(odr.Shape.listener.positionChanged, this.id());
+        }
+
+        if (this._target != null) {
+            this._target.unbind(odr.Shape.listener.positionChanged, this.id());
+        }
+
+        odr.registry.remove(this.id());
     }
+
 };
 
 extend(odr.Line, odr.Drawable);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+odr.Label = function() {
+    odr.Shape.call(this);
+
+    this._element = null;
+    this._label = "";
+
+    this.addClass(odr.settings.label["class"]);
+
+    for(var listenerType in odr.Label.listener) {
+        this._listener[odr.Label.listener[listenerType]] = {};
+    }
+
+    this._paint();
+
+    this.bind(odr.Drawable.listener.visibilityChanged,
+        this._visibilityChanged.createDelegate(this),
+        this.id());
+
+    this.bind(odr.Drawable.listener.classesChanged,
+        this._classesChanged.createDelegate(this),
+        this.id());
+
+    this.bind(odr.Drawable.listener.parentChanged,
+        this._parentChanged.createDelegate(this),
+        this.id());
+
+    this.bind(odr.Shape.listener.markedChanged,
+        this._markedChanged.createDelegate(this),
+        this.id());
+
+    this.bind(odr.Shape.listener.positionChanged,
+        this._positionChanged.createDelegate(this),
+        this.id());
+};
+
+/**
+ * @namespace
+ * Can be used in combination with {@link odr.Drawable#bind} and {@link odr.Drawable#unbind} as this object literal
+ * defines the event types.
+ */
+odr.Label.listener = {
+    /** @field */
+    labelChanged : "labelChanged",
+    /** @field */
+    click : "click",
+    /** @field */
+    mousein : "mousein",
+    /** @field */
+    mouseout : "mouseout"
+}
+
+odr.Label.prototype = {
+    _element : null,
+    _label : "",
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String|Number} [label] The new label
+     * @return {String|Number|odr.Label} The label which was set or null if no label was set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method.
+     */
+    label : function(label) {
+        if (label != undefined) {
+            if (label != this._label) {
+                if (label == null) {
+                    label = "";
+                }
+
+                this._label = label;
+
+                $(this._element).text(label);
+
+                this.fire(odr.Label.listener.labelChanged, [this]);
+            }
+
+            return this;
+        }
+
+
+        return this._label;
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _idPrefix : function() {
+        return odr.settings.label.idPrefix;
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _paint : function() {
+        // prepare node div
+        this._element = document.createElement("div");
+        this._element.id = this.id();
+        this._element.className = this.classString();
+        this._element.style.position = "absolute";
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+        $(this._element).text(this._label);
+
+
+
+        // add the node div to the parent
+        var parent = this.parent();
+
+        if (parent == undefined) {
+            parent = document.getElementById(odr.settings.label.container);
+        }
+
+        parent.appendChild(this._element);
+
+
+
+        // activate drag / drop
+        // for some reason, $(this.__element).draggable(...) is not working, 'hence the node will be retrieved
+        // using standard jQuery
+        var jQueryHandle = $("#" + this.id());
+        jQueryHandle.draggable(odr.settings.handle.jQueryUiDraggingSettings);
+
+
+
+
+
+        // attach listeners to the draggable events
+        jQueryHandle.bind("dragstart", this._positionChangedThroughUi.createDelegate(this));
+        jQueryHandle.bind("drag", this._positionChangedThroughUi.createDelegate(this));
+        jQueryHandle.bind("dragstop", this._positionChangedThroughUi.createDelegate(this));
+
+
+
+
+        // attach additional listener
+        jQueryHandle.bind("click", this._click.createDelegate(this));
+
+        jQueryHandle.bind("mouseenter", function() {
+            this.fire(odr.Label.listener.mousein, [this]);
+        }.createDelegate(this));
+
+        jQueryHandle.bind("mouseleave", function() {
+            this.fire(odr.Label.listener.mouseout, [this]);
+        }.createDelegate(this));
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _positionChangedThroughUi : function(e) {
+        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+            return;
+        }
+
+        var uiPosition = $(this._element).position();
+        var entityPosition = this.position();
+
+        this.position(uiPosition.left, uiPosition.top);
+
+        odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
+    },
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _positionChanged : function() {
+        this._element.style.left = this.x() + "px";
+        this._element.style.top = this.y() + "px";
+    },
+
+
+    
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _click : function(e) {
+        if(e.ctrlKey) {
+            this.marked(!this.marked());
+        } else {
+            this.fire(odr.Label.listener.click, [this]);
+        }
+    },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _visibilityChanged : function() {
+        var display = null;
+
+        if (this.visible()) {
+            display = "block";
+        } else {
+            display = "none";
+        }
+
+        this._element.style.display = display;
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _classesChanged : function() {
+        this._element.className = this.classString();
+    },
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _parentChanged : function() {
+        // Inserting the DOM element a second time will automatically remove it from
+        // it's previous position.
+        this.parent().appendChild(this._element);
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _markedChanged : function() {
+        if (this.marked()) {
+            this.addClass(odr.settings.label.markedClass);
+        } else {
+            this.removeClass(odr.settings.label.markedClass);
+        }
+    }
+};
+
+extend(odr.Label, odr.Shape);

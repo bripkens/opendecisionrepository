@@ -413,7 +413,7 @@ odr.arrow = function(id) {
         marker.setAttribute(attributeName, odr.settings.line.arrow.attributes[attributeName]);
     }
 
-    marker.className = odr.settings.line.arrow["class"];
+    marker.setAttribute("class", odr.settings.line.arrow["class"])
 
     var path = document.createElementNS(svgns, "path");
     path.setAttribute("d", "M0,0L10,5L0,10z");
@@ -528,7 +528,7 @@ odr.assertSvgSize = function() {
         var shape = odr.vars.shapesThatDetermineCanvasSize[key];
         var bottomRight = shape.bottomRight();
 
-        if (shape.visible()) {
+        if (shape instanceof odr.Handle || shape.visible()) {
             width = Math.max(width, bottomRight.x);
             height = Math.max(height, bottomRight.y);
         }
@@ -656,14 +656,14 @@ odr._selectionEnd = function(e) {
     $("body").unbind("mousemove", odr._selectionResize);
     $("body").unbind("mouseup", odr._selectionEnd);
     
-    odr.vars.lasso.hide();
-
     var left = parseInt(odr.vars.lasso.css("left").removeNonNumbers());
     var top = parseInt(odr.vars.lasso.css("top").removeNonNumbers());
     var width = odr.vars.lasso.width();
     var height = odr.vars.lasso.height();
 
     odr.selectElements(left, top, left + width, top + height);
+
+    odr.vars.lasso.hide();
 
     // returning false as otherwise the browser will try to select the content of the document
     return false;
@@ -702,6 +702,7 @@ odr.clearSelectedElements = function() {
  * @param {Number} maxY The maximal y coordinate
  */
 odr.selectElements = function(minX, minY, maxX, maxY) {
+
     for(var key in odr.vars.shapesThatDetermineCanvasSize) {
         var element = odr.vars.shapesThatDetermineCanvasSize[key];
 

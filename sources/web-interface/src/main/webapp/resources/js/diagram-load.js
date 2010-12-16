@@ -122,33 +122,51 @@ odr.ready(function() {
     handle2.position(300, 400);
 
 
+//    var line = new odr.Line();
+//    line.source(handle).target(handle2);
+
+
+//    line.bind(odr.Line.listener.mousein, function() {
+//        console.log("enter");
+//    }, 5).bind(odr.Line.listener.mouseout, function() {
+//        console.log("out");
+//    }, 4).bind(odr.Line.listener.click, function() {
+//        console.log("click");
+//    }, 3).bind(odr.Line.listener.mouseover, function() {
+//        console.log("over");
+//    }, 2);
+
+
+//    line.arrow(true);
+//
+//    setTimeout(function() {
+//        line.arrow(false);
+//    }, 2000);
+//
+//    setTimeout(function() {
+//        line.arrow(true);
+//    }, 4000);
+//
+//
+//
+//
+//    var label = new odr.Label();
+//    label.label("caused by");
+//    label.position(400, 200);
+
+
+
+
     var association = new odr.Association();
     association.source(node);
     association.target(node2);
 
-    var line = new odr.Line();
-    line.source(handle).target(handle2);
-
-
-    line.bind(odr.Line.listener.mousein, function() {
-        console.log("enter");
-    }, 5).bind(odr.Line.listener.mouseout, function() {
-        console.log("out");
-    }, 4).bind(odr.Line.listener.click, function() {
-        console.log("click");
-    }, 3).bind(odr.Line.listener.mouseover, function() {
-        console.log("over");
-    }, 2);
-
-
-    line.arrow(true);
-
-    setTimeout(function() {
-        line.arrow(false);
-    }, 2000);
-
-    setTimeout(function() {
-        line.arrow(true);
-    }, 4000);
+//    setTimeout(function() {
+//        association.visible(false);
+//    }, 2000);
+//
+//    setTimeout(function() {
+//        association.visible(true);
+//    }, 4000);
 });
 
