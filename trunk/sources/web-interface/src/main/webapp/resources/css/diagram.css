@@ -305,6 +305,105 @@ body {
 
 
 
+
+
+
+
+/*
+ * Small menu on the bottom of the page
+*/
+.bottomMenu {
+    position: fixed;
+    bottom: 0px;
+
+
+    background-color: #efefef;
+    border-top: 1px solid black;
+    
+    height: 20px;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    
+    width: 100%;
+}
+.bottomMenu li span {
+    position: relative;
+    top: 4px;
+    left: 4px;
+}
+.bottomMenu > li span.current {
+    position: absolute;
+    left: auto;
+    right: 4px;
+    font-style: italic;
+    color: grey;
+}
+.bottomMenu > li {
+    float: left;
+    height: inherit;
+    position: relative;
+    left: -1px;
+    background-color: inherit;
+    border-left: 1px solid black;
+}
+.bottomMenu > li > ul {
+    position: absolute;
+    bottom: 19px;
+    left: -1px;
+    width: inherit;
+    padding: 0 0 0 1px;
+    margin: 0 0 1px 0;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    display: none;
+    background-color: inherit;
+}
+.bottomMenu > li:hover > ul {
+    display: block;
+}
+.bottomMenu > li > ul > li {
+    border: 1px solid black;
+    border-bottom: 0;
+    border-left: 0;
+    background-color: inherit;
+    list-style: none;
+    height: 20px;
+    cursor: pointer;
+    width: inherit;
+    position: relative;
+    left: -1px;
+}
+.bottomMenu > li > ul > li:hover {
+    background-color: #dedede;
+}
+.bottomMenu > li > ul > li.selected {
+    background-color: #bebebe;
+}
+
+
+
+
+
+
+
+
+.performance {
+    width: 150px;
+}
+
+
+.autoAlignment {
+    width: 150px;
+    border-right: 1px solid black;
+}
+
+
+
+
+
+
+
 /*
  * Nodes
 */
@@ -358,7 +457,7 @@ body {
 
     position: absolute;
     top: 0px;
-    
+
     border-bottom: 1px solid black;
     background-repeat: no-repeat;
     opacity: 0;
@@ -401,7 +500,7 @@ body {
 .node .associationHelper {
     width: 10px;
     height: 10px;
-    
+
     background-color: darkred;
     cursor: crosshair;
 
@@ -447,24 +546,24 @@ body {
 
 /*
  * Lasso
- */
- #lasso {
-     border: 1px dotted black;
-     background: none;
-     position: absolute;
-     z-index: 5000;
-     display: none;
+*/
+#lasso {
+    border: 1px dotted black;
+    background: none;
+    position: absolute;
+    z-index: 5000;
+    display: none;
 }
 
 
 
 /*
  * Lasso
- */
- .label {
-     color: darkred;
-     font-size: 0.9em;
-     cursor: move;
+*/
+.label {
+    color: darkred;
+    font-size: 0.9em;
+    cursor: move;
 }
 .label.marked {
     border: 2px dashed khaki;
