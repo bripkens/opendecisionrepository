@@ -1213,7 +1213,7 @@ odr.Node.prototype = {
      * Will be called when the node is dragged in the user interface through jQuery ui
      */
     _positionChangedThroughUi : function(e) {
-        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+        if (odr.user.lowPerformanceMode && e.type != "dragstop") {
             return;
         }
 
@@ -1249,7 +1249,7 @@ odr.Node.prototype = {
      * Will be called when the node is resized in the user interface through jQuery ui
      */
     _sizeChangedThroughUi : function(e) {
-        if (odr.settings.lowPerformanceMode && e.type != "resizestop") {
+        if (odr.user.lowPerformanceMode && e.type != "resizestop") {
             return;
         }
 
@@ -1420,7 +1420,9 @@ odr.Handle.listener = {
     /** @field */
     containmentChanged : "containmentChanged",
     /** @field */
-    click : "click"
+    click : "click",
+    /** @field */
+    dragStop : "dragStop"
 }
 
 odr.Handle.prototype = {
@@ -1571,6 +1573,8 @@ odr.Handle.prototype = {
         } else {
             this.fire(odr.Handle.listener.click, [this, e]);
         }
+
+        return false;
     },
 
 
@@ -1650,7 +1654,7 @@ odr.Handle.prototype = {
      * Will be called when the handle is dragged in the user interface through jQuery ui
      */
     _positionChangedThroughUi : function(e) {
-        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+        if (odr.user.lowPerformanceMode && e.type != "dragstop") {
             return;
         }
 
@@ -1664,8 +1668,11 @@ odr.Handle.prototype = {
             this._relativeY = uiPosition.top - this._containment.y();
         }
         
-
         odr.moveMarkedShapes(uiPosition.left - entityPosition.x, uiPosition.top - entityPosition.y, this);
+
+        if (e.type == "dragstop") {
+            this.fire(odr.Handle.listener.dragStop, [this]);
+        }
     },
 
 
@@ -1798,12 +1805,21 @@ odr.Association = function() {
     odr.Drawable.call(this);
 
     this._element = null;
+
+    this._label = new odr.Label();
     
     this._source = null;
     this._target = null;
 
-    this._sourceHandle = new odr.Handle().visible(false);
-    this._targetHandle = new odr.Handle().visible(false);
+    this._sourceHandle = new odr.Handle().
+    visible(false).
+    bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
+
+    this._targetHandle = new odr.Handle().
+    visible(false).
+    bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
+
+
 
     this._handles = [];
     this._lines = [];
@@ -1846,6 +1862,7 @@ odr.Association.prototype = {
     _handles : [],
     _lines : [],
     _forceHandleVisible : true,
+    _label : null,
 
 
 
@@ -1859,6 +1876,33 @@ odr.Association.prototype = {
     _idPrefix : function() {
         return odr.settings.association.idPrefix;
     },
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {String|Number} [label] The new label
+     * @return {String|Number|odr.Association} The label which was set or null if no label was set.
+     * If you call this method with a parameter then the method will return the object on which you called the
+     * method.
+     */
+    label : function(label) {
+        if (label != undefined) {
+            return this._label.label(label);
+        }
+
+        return this._label.label();
+    },
+
 
 
 
@@ -1962,6 +2006,7 @@ odr.Association.prototype = {
         this._handles.push(handle);
 
         handle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        handle.bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
         this.fire(odr.Association.listener.handleChanged, [this]);
 
         return this;
@@ -1989,6 +2034,7 @@ odr.Association.prototype = {
         this._handles.unshift(handle);
 
         handle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        handle.bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
         this.fire(odr.Association.listener.handleChanged, [this]);
 
         return this;
@@ -2022,6 +2068,7 @@ odr.Association.prototype = {
         this._handles.splice(index+1, 0, newHandle);
 
         newHandle.bind(odr.Handle.listener.click, this._handleClick.createDelegate(this), this.id());
+        newHandle.bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
         this.fire(odr.Association.listener.handleChanged, [this]);
 
         return this;
@@ -2050,6 +2097,7 @@ odr.Association.prototype = {
         if (index != -1) {
 
             this._handles[index].unbind(odr.Handle.listener.click, this.id());
+            this._handles[index].unbind(odr.Handle.listener.dragStop, this.id());
 
             this._handles.splice(index, 1);
 
@@ -2188,6 +2236,15 @@ odr.Association.prototype = {
      */
     _lineMouseIn : function() {
         this._setAllHandles(true);
+
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        for(var i = 0; i < this._lines.length; i++) {
+            this._lines[i].highlight();
+        }
+        
+        root.unsuspendRedraw(suspendID);
     },
 
 
@@ -2201,7 +2258,88 @@ odr.Association.prototype = {
         if (!this._forceHandleVisible) {
             this._setAllHandles(false);
         }
+
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        for(var i = 0; i < this._lines.length; i++) {
+            this._lines[i].stopHighlight();
+        }
+
+        root.unsuspendRedraw(suspendID);
     },
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _handleDragStop : function(handle) {
+        var otherHandle;
+        var containment;
+        if (handle == this._sourceHandle) {
+
+            if (this._handles.length != 0) {
+                otherHandle = this._handles[0];
+            } else {
+                otherHandle = this._targetHandle;
+            }
+            containment = this._source;
+        } else if (handle == this._targetHandle) {
+            if (this._handles.length != 0) {
+                otherHandle = this._handles[this._handles.length - 1];
+            } else {
+                otherHandle = this._sourceHandle;
+            }
+
+            containment = this._target;
+        }
+
+        var currentX = handle.x();
+        var otherX = otherHandle.x();
+        var topLeft = containment.topLeft();
+        var bottomRight = containment.bottomRight();
+
+        if (otherX >= topLeft.x && otherX <= bottomRight.x && this._inTreshhold(otherX, currentX) && otherX != currentX) {
+            odr.alignmentHelper(function() {
+                handle.x(otherX);
+            }.createDelegate(this));
+        }
+
+        var currentY = handle.y();
+        var otherY = otherHandle.y();
+
+        if (otherY >= topLeft.y && otherY <= bottomRight.y && this._inTreshhold(otherY, currentY) && otherY != currentY) {
+            odr.alignmentHelper(function() {
+                handle.y(otherY);
+            }.createDelegate(this));
+        }
+    },
+
+
+
+
+
+
+
+    _inTreshhold : function(coordinate1, coordinate2) {
+        coordinate1 = Math.abs(coordinate1);
+        coordinate2 = Math.abs(coordinate2);
+
+        return Math.max(coordinate1, coordinate2) - Math.min(coordinate1, coordinate2) < odr.settings.handle.alignmentTreshhold;
+    },
+
+    
+    
+
+
+  
+
 
 
 
@@ -2230,6 +2368,8 @@ odr.Association.prototype = {
         var suspendID = root.suspendRedraw(5000);
 
         var visible = this.visible();
+
+        this._label.visible(visible);
 
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].visible(visible);
@@ -2313,8 +2453,8 @@ odr.Line = function() {
 
     this.bind(odr.Drawable.listener.visibilityChanged, this._visibilityChanged.createDelegate(this), this.id());
     this.bind(odr.Drawable.listener.classesChanged, this._classesChanged.createDelegate(this), this.id());
-    this.bind(odr.Line.listener.mousein, this._mousein.createDelegate(this), this.id());
-    this.bind(odr.Line.listener.mouseout, this._mouseout.createDelegate(this), this.id());
+//    this.bind(odr.Line.listener.mousein, this._mousein.createDelegate(this), this.id());
+//    this.bind(odr.Line.listener.mouseout, this._mouseout.createDelegate(this), this.id());
 };
 
 /**
@@ -2544,6 +2684,7 @@ odr.Line.prototype = {
         // attach event listener to the svg element and fire the appropriate listeners of this class
         this._element.addEventListener("click", function(e) {
             this.fire(odr.Line.listener.click, [this, e]);
+            return false;
         }.createDelegate(this), false);
 
         this._element.addEventListener("mouseover", function() {
@@ -2634,9 +2775,12 @@ odr.Line.prototype = {
 
 
     /**
-     * @private
+     * @description
+     * Highlight the line
+     *
+     * @return {odr.Line} The object on which you called this method
      */
-    _mousein : function() {
+    highlight : function() {
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
 
@@ -2649,6 +2793,8 @@ odr.Line.prototype = {
         }
 
         root.unsuspendRedraw(suspendID);
+
+        return this;
     },
 
 
@@ -2656,10 +2802,16 @@ odr.Line.prototype = {
 
 
 
+
+
+
     /**
-     * @private
+     * @description
+     * Stop highlighting the line
+     *
+     * @return {odr.Line} The object on which you called this method
      */
-    _mouseout : function() {
+    stopHighlight : function() {
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
 
@@ -2672,6 +2824,8 @@ odr.Line.prototype = {
         }
 
         root.unsuspendRedraw(suspendID);
+
+        return this;
     },
 
 
@@ -2906,7 +3060,7 @@ odr.Label.prototype = {
      * @private
      */
     _positionChangedThroughUi : function(e) {
-        if (odr.settings.lowPerformanceMode && e.type != "dragstop") {
+        if (odr.user.lowPerformanceMode && e.type != "dragstop") {
             return;
         }
 

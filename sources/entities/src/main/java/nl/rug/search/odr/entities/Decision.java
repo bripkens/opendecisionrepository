@@ -48,7 +48,7 @@ public class Decision extends BaseEntity<Decision> {
     private Long id;
 
     @RequiredFor({Viewpoint.RELATIONSHIP, Viewpoint.CHRONOLOGICAL})
-    @Column(length = 50,
+    @Column(length = 100,
             nullable = false)
     private String name;
 
@@ -90,7 +90,7 @@ public class Decision extends BaseEntity<Decision> {
 
         name = name.trim();
 
-        if (name.length() <= 2 || name.length() > 50) {
+        if (name.length() <= 2 || name.length() > 100) {
             throw new BusinessException("Name is too long or too short.");
         }
 

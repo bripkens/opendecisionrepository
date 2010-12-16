@@ -25,7 +25,6 @@ var odr = odr || {};
  * ODR settings
  */
 odr.settings = {
-    lowPerformanceMode : false,
     request : {
         translation : "ViewpointTextProvider"
     },
@@ -114,7 +113,8 @@ odr.settings = {
         size : {
             width : 6,
             height : 6
-        }
+        },
+        alignmentTreshhold : 40
     },
     association : {
         idPrefix : "association",
@@ -185,13 +185,29 @@ odr.settings = {
 odr.translation = {
     locale : null,
     text : null,
-    "class" : "translate"
+    "class" : "translate",
+    titleClass : "translateTitle"
 };
 
 
 
 
 
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                      User preferences
+ */
+odr.user = {
+    lowPerformanceMode : false,
+    automaticallyAlignDragHandles : undefined
+}
 
 
 
