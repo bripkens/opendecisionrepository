@@ -60,6 +60,24 @@ public class ChronologicalViewNodeTest {
 
 
 
+    @Test
+    public void testWidth() {
+        int width = 100;
+        n.setWidth(width);
+
+        assertEquals(width, n.getWidth());
+    }
+
+
+
+    @Test
+    public void testHeight() {
+        int height = 100;
+        n.setHeight(height);
+
+        assertEquals(height, n.getHeight());
+    }
+
 
     @Test
     public void testId() {
