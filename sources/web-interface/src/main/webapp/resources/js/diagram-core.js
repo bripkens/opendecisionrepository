@@ -51,17 +51,25 @@ odr.ready = function(callback) {
  * Start up everything by calling the bootstrap and ready listeners
  */
 window.onsvgload = function() {
-    // TODO show load animation
+    odr.popup.prepare();
+
+    var popupId = odr.popup.show(odr.settings.popup.temporaryText.title,
+        odr.settings.popup.temporaryText.text,
+        "resources/images/ajax-loader-circle.gif",
+        "Loading icon",
+        false);
 
     for (var i = 0; i < odr.vars.bootstrapFunctions.length; i++) {
         odr.vars.bootstrapFunctions[i]();
     }
 
+    odr.popup.translate();
+
     for (var i = 0; i < odr.vars.readyFunctions.length; i++) {
         odr.vars.readyFunctions[i]();
     }
 
-// TODO hide load animation
+    odr.popup.close(popupId);
 }
 
 
@@ -454,7 +462,11 @@ odr.bootstrap(function() {
         async : false,
         timeout : 2000,
         error : function(data, textStatus, errorThrown) {
-        // TODO Show an error popup
+            odr.popup.show("Error",
+                "An error occured while receiving the localized content from the server.",
+                "resources/images/error-big.png",
+                odr.translation.text["popup.error.icon.alt"],
+                false);
         },
         success : function(data) {
             // store translation
@@ -821,3 +833,285 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
     $("#alignmentPopup").dialog("option", "buttons", buttons);
     $("#alignmentPopup").dialog("open");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Popup
+ */
+/**
+ * @namespace
+ * All popup related functionality is encapsulated within this object
+ */
+odr.popup = {};
+
+
+
+
+
+
+
+/**
+ * @description
+ * Prepare the popup from beeing shown. This method is called during initialization of the visualization. It uses
+ * temporary button labels.
+ */
+odr.popup.prepare = function() {
+    odr.vars.popupId = 0;
+
+    var buttons = {};
+
+    buttons[odr.settings.popup.temporaryText.refresh] = function() {
+        location.reload(true);
+    };
+
+    buttons[odr.settings.popup.temporaryText.back] = function() {
+        var projectId = odr.vars.requestParameter[odr.settings.request.parameter.projectId];
+
+        if (isNaN(projectId)) {
+            alert("Can't redirect to the project details page since an invalid project id was supplied. Redirecting " +
+            "to project overview instead.");
+            window.location = odr.settings.request.projects;
+            return;
+        }
+        
+        window.location = odr.settings.request.project.replace("{0}",
+            odr.vars.requestParameter[odr.settings.request.parameter.projectId]);
+    };
+
+    $("#iconPopup").dialog({
+        autoOpen: false,
+        height: 220,
+        width: 330,
+        modal: true,
+        zIndex : 5050,
+        resizable : false,
+        buttons : buttons,
+        title : odr.settings.popup.temporaryText.title
+    });
+};
+
+
+
+
+
+
+
+/**
+ * @description
+ * Translate the temporary values within the popup. This method will also be called during initialization but after
+ * the translation has been loaded from the server
+ */
+odr.popup.translate = function() {
+    var popup = $("#iconPopup");
+
+    var previousButtons = popup.dialog("option", "buttons");
+    var newButtons = {};
+
+    newButtons[odr.translation.text["popup.refresh"]] = previousButtons[odr.settings.popup.temporaryText.refresh];
+    newButtons[odr.translation.text["popup.to.Project"]] = previousButtons[odr.settings.popup.temporaryText.back];
+
+    popup.dialog("option", "buttons", newButtons);
+
+    odr.popup.showLoad();
+};
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Show a popup
+ *
+ * @param {String} title The title of the popup
+ * @param {String} text The message that will be presented within the popup
+ * @param {String} image The url to the image
+ * @param {String} imageAlt The alternative image text
+ * @param {Boolean} [closeable] Whether this dialog is closeable. Default is true
+ * @return {Number} A popupId number that can be supplied to {@link odr.popup.close} to close the popup.
+ */
+odr.popup.show = function(title, text, image, imageAlt, closeable) {
+    odr.popup.close();
+
+    var popup = $("#iconPopup");
+
+    popup.dialog("option", "title", title);
+
+    if (closeable == undefined) {
+        closeable = true;
+    }
+
+    popup.dialog("option", "closeOnEscape", closeable);
+
+    var closeIcon = popup.prev().find("a");
+
+    if (closeable) {
+        closeIcon.show();
+    } else {
+        closeIcon.hide();
+    }
+
+    popup.find("p").first().text(text);
+    var img = popup.find("img").first();
+    img.attr("src", image);
+    img.attr("alt", imageAlt);
+
+    odr.popup.close();
+    popup.dialog("open");
+
+    return ++odr.vars.popupId;
+}
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Close the popup
+ *
+ * @param {Number} [popupId] The id which you retrieved when you opened the popup. By supplying this id you can
+ * ensure that the popup will only be closed when it was the last one which was opened. When you don't supply an id,
+ * then the popup will be closed what so ever.
+ */
+odr.popup.close = function(popupId) {
+    if (popupId == undefined || popupId == odr.vars.popupId -1) {
+        $("#iconPopup").dialog("close");
+    }
+}
+
+
+
+
+
+
+
+/**
+ * @description
+ * Show the load popup. This will use the default translations and icon for the loading dialog.
+ *
+ * @return {Number} A popupId number that can be supplied to {@link odr.popup.close} to close the popup.
+ */
+odr.popup.showLoad = function() {
+    return odr.popup.show(odr.translation.text["popup.load.title"],
+        odr.translation.text["popup.load.text"],
+        "resources/images/ajax-loader-circle.gif",
+        odr.translation.text["popup.load.icon.alt"],
+        false);
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Show the error popup. This will use the default translations and icon for the error dialog.
+ *
+ * The error message won't be presented directly to the user but instead will be placed on the console.
+ *
+ * @param {String} [errorMessage] A message that will be logged on the JavaScript console.
+ * @return {Number} A popupId number that can be supplied to {@link odr.popup.close} to close the popup.
+ */
+odr.popup.showError = function(errorMessage) {
+    if (console != undefined && errorMessage != undefined) {
+        console.log("############### - Error through odr.popup.showError - ##################");
+        console.log(errorMessage);
+        console.log("########################################################################");
+    }
+    
+
+    return odr.popup.show(odr.translation.text["popup.error.title"],
+        odr.translation.text["popup.error.text"],
+        "resources/images/error-big.png",
+        odr.translation.text["popup.error.icon.alt"],
+        false);
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Show the save popup. This will use the default translations and icon for the save dialog.
+ * @return {Number} A popupId number that can be supplied to {@link odr.popup.close} to close the popup.
+ */
+odr.popup.showSave = function() {
+    return odr.popup.show(odr.translation.text["popup.save.title"],
+        odr.translation.text["popup.save.text"],
+        "resources/images/ajax-loader-circle.gif",
+        odr.translation.text["popup.save.icon.alt"],
+        false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Request parameter
+ */
+/**
+ * @description
+ * Taken from http://snipplr.com/view/799/get-url-variables/
+ *
+ * @return {Object} An object that contains all request parameters in the form of "parameterName : value".
+ */
+odr.getUrlVars = function() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+
+
+
+odr.bootstrap(function() {
+    odr.vars.requestParameter = odr.getUrlVars();
+});

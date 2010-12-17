@@ -99,7 +99,3 @@ odr.bootstrap(function() {
         off.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 });
-
-
-
-

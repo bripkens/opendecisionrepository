@@ -1,193 +1,132 @@
+/**
+ * @fileOverview
+ *
+ * This file contains the JavaScript that is responsible for loading data form the server.
+ *
+ * @author Ben Ripkens <bripkens.dev@gmail.com>
+ */
+
 odr.ready(function() {
-    // SVG on the page should only be manipulated after the page is
-    // finished loading
-    var buttons = document.getElementsByTagName('button');
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].disabled = false;
+    // analyse request parameter
+    var projectId = odr.vars.requestParameter[odr.settings.request.parameter.projectId];
+
+    if (isNaN(projectId)) {
+        odr.popup.showError("Invalid project id: " + projectId);
+        return;
     }
+
+    var relationship = odr.vars.requestParameter[odr.settings.request.parameter.relationshipView];
+    var chronological = odr.vars.requestParameter[odr.settings.request.parameter.chronologicalView];
+    var stakeholder = odr.vars.requestParameter[odr.settings.request.parameter.stakeholderView];
+
+    var viewHandler = null;
+    var viewParameter = null;
+
+    if (relationship != undefined) {
+        viewHandler = odr.handleRelationshipView;
+        viewParameter = odr.settings.request.parameter.relationshipView;
+    } else if (chronological != undefined) {
+        viewHandler = odr.handleChronologicalView;
+        viewParameter = odr.settings.request.parameter.chronologicalView;
+    } else if (stakeholder != undefined) {
+        viewHandler = odr.handleStakeholderView;
+        viewParameter = odr.settings.request.parameter.stakeholderView;
+    } else {
+        odr.popup.showError("Invalid viewpoint");
+        return;
+    }
+
+    var parameter = {};
+    parameter[odr.settings.request.parameter.projectId] = projectId;
+    parameter[viewParameter] = true;
+
+    $.ajax({
+        url : odr.settings.request.dataProvider,
+        data : parameter,
+        dataType : "json",
+        error : function(data, textStatus, errorThrown) {
+            odr.popup.showError("Error while retrieving data from the server: " + textStatus + " /// " + errorThrown);
+        },
+        success : viewHandler
+    });
 });
 
-function changeColors() {
-    // get elements from our embedded SVG first
 
-    // use getElementById
-    var circle = document.getElementById('myCircle');
 
-    // change using setAttribute
-    circle.setAttribute('stroke', 'green');
+odr.handleRelationshipView = function(data) {
+    console.log(data);
 
-    // can also use style property
-    circle.style.fill = '#8A2BE2';
+    var root = odr.canvas();
+    var suspendID = root.suspendRedraw(5000);
 
-// change the value inside our SVG OBJECT now
+    var allNodes = {};
 
-// use the 'contentDocument' property to navigate into the SVG OBJECT
-//    var doc = document.getElementById('mySVGObject').contentDocument;
-//    circle = doc.getElementById('myCircle');
-//    circle.style.fill = '#8A2BE2';
-}
+    for(var i = 0; i < data.Nodes.length; i++) {
+        var nodeJson = data.Nodes[i];
 
-function changeText() {
-    // use getElementsByTagNameNS to get our text from our embedded SVG
+        var node = new odr.Node();
+        node.json = nodeJson;
+        node.position(nodeJson.X, nodeJson.Y);
+        node.size(nodeJson.Width, nodeJson.Height);
+        node.addClass("round");
+        node.label(nodeJson.Version.Decision.Name);
+        node.status(nodeJson.Version.State.StatusName);
+        node.visible(nodeJson.Visible);
 
-    // 'svgns' is a 'magic' variable that we make available; it is just
-    // the SVG namespace 'http://www.w3.org/2000/svg' so you don't always
-    // have to remember it.  We also make the variable 'xlinkns' available.
-    var textElems = document.getElementsByTagNameNS(svgns, 'text');
+        allNodes[nodeJson.Version.Id] = node;
+    }
 
-    // change the text Hello World to Goodbye World
-    for (var i = 0; i < textElems.length; i++) {
-        if (textElems[i].childNodes[0].nodeValue == 'Hello World') {
-            textElems[i].childNodes[0].nodeValue = 'Goodbye World';
+
+    for(var i = 0; i < data.Associations.length; i++) {
+        var associationJson = data.Associations[i];
+
+        var association = new odr.Association();
+        association.json = associationJson;
+        association.label(associationJson.Relationship.Type.Name);
+
+        if (associationJson.LabelX == 0) {
+            associationJson.LabelX = 50;
         }
+
+        if (associationJson.LabelY == 0) {
+            associationJson.LabelY = 50;
+        }
+
+        association.labelPosition(associationJson.LabelX, associationJson.LabelY);
+        association.source(allNodes[associationJson.Relationship.Source.Id]);
+        association.target(allNodes[associationJson.Relationship.Target.Id]);
     }
 
-// change the text inside our SVG OBJECT as well
-//    var doc = document.getElementById('mySVGObject').contentDocument;
-//    textElems = doc.getElementsByTagNameNS(svgns, 'text');
-//    for (var i = 0; i < textElems.length; i++) {
-//        if (textElems[i].childNodes[0].nodeValue == 'Hello World') {
-//            textElems[i].childNodes[0].nodeValue = 'Goodbye World';
-//        }
-//    }
-}
+    root.unsuspendRedraw(suspendID);
+};
 
-odr.ready(function() {
-    //    $( ".node" ).resizable(odr.settings.resizing.jQueryUiSettings);
-    //    $( ".node" ).draggable(odr.settings.dragging.jQueryUiSettings);
-    //    $( ".associationHelper" ).draggable({containment : "parent", cursorAt : {top : 5, left : 5}});
-    //
-    //
-    //    $(".hide").click(function() {
-    //        var elements = document.getElementsByClassNS(svgns, "someCircleClass", "circle");
-    //
-    //        for(var i = 0; i < elements.length; i++) {
-    //            elements[i].style.display = "none";
-    //        }
-    //    });
+odr.handleChronologicalView = function(data) {
+    console.log(data);
+    odr.popup.showError("Unsupported viewpoint");
+};
 
-
-    //    var shape = new odr.Shape();
-    //
-    ////    shape.bind("positionChanged", function(target) {
-    ////        console.log(this);
-    ////        console.log(target);
-    ////    }.createDelegate({foo : "bla"}));
-    //
-    //    var rectangle = {
-    //        id : "SomeVeryFancyId",
-    //        listener : function(thingThatChanged) {
-    //            console.log("Observable is now visible? " + thingThatChanged.visible());
-    //        }
-    //    }
-    //
-    //    shape.bind(odr.Drawable.listener.visibilityChanged, rectangle.listener.createDelegate(rectangle));
-    //
-    //    console.log("Changing to visible but the listener should not react");
-    //    shape.visible(true);
-    //    console.log("Changing to invisible");
-    //    shape.visible(false);
-    //    console.log("Changing to visible");
-    //    shape.visible(true);
-    //
-    //
-    //    shape.bind(odr.Drawable.listener.classesChanged, function(drawable) {
-    //        console.log(drawable.classString());
-    //    });
-    //
-    //    shape.addClass("first");
-    //    shape.addClass("second");
-    //    shape.addClass("third");
-    //    shape.removeClass("second");
-    //    shape.addClass("first");
-
-    var node = new odr.Node();
-    node.label("Java Programming language");
-    node.status("approved");
-    node.addClass("round");
-    node.position(100, 100);
-
-    var node2 = new odr.Node();
-    node2.label("Milestone 1: Release");
-    node2.status("some date");
-    node2.addClass("round");
-    node2.position(400,100);
-
-
-
-//    var handle = new odr.Handle();
-//    handle.position(300, 300);
-//
-//    var handle2 = new odr.Handle();
-//    handle2.position(300, 400);
-
-
-    //    var line = new odr.Line();
-    //    line.source(handle).target(handle2);
-
-
-    //    line.bind(odr.Line.listener.mousein, function() {
-    //        console.log("enter");
-    //    }, 5).bind(odr.Line.listener.mouseout, function() {
-    //        console.log("out");
-    //    }, 4).bind(odr.Line.listener.click, function() {
-    //        console.log("click");
-    //    }, 3).bind(odr.Line.listener.mouseover, function() {
-    //        console.log("over");
-    //    }, 2);
-
-
-    //    line.arrow(true);
-    //
-    //    setTimeout(function() {
-    //        line.arrow(false);
-    //    }, 2000);
-    //
-    //    setTimeout(function() {
-    //        line.arrow(true);
-    //    }, 4000);
-    //
-    //
-    //
-    //
-    //    var label = new odr.Label();
-    //    label.label("caused by");
-    //    label.position(400, 200);
-
-
-
-
-    var association = new odr.Association();
-    association.source(node);
-    association.target(node2);
-    association.label("caused by");
-    association.labelPosition(50,40);
-
-    //    setTimeout(function() {
-    //        association.visible(false);
-    //    }, 2000);
-    //
-    //    setTimeout(function() {
-    //        association.visible(true);
-    //    }, 4000);
-
-
-
-
-
-    
-
-    
-});
-
-
-
-
-
-
+odr.handleStakeholderView = function(data) {
+    console.log(data);
+    odr.popup.showError("Unsupported viewpoint");
+};
 
 //odr.ready(function() {
-//    setTimeout(function() {
-//        odr.alignmentHelper(function() {alert("help")}, function() {alert("no help")})
-//    }, 2000)
+//    var node = new odr.Node();
+//    node.label("Java Programming language");
+//    node.status("approved");
+//    node.addClass("round");
+//    node.position(100, 100);
+//
+//    var node2 = new odr.Node();
+//    node2.label("Milestone 1: Release");
+//    node2.status("some date");
+//    node2.addClass("round");
+//    node2.position(400,100);
+//
+//
+//    var association = new odr.Association();
+//    association.source(node);
+//    association.target(node2);
+//    association.label("caused by");
+//    association.labelPosition(50,40);
 //});
