@@ -83,7 +83,6 @@ odr.Drawable = function() {
     odr.registry.add(this);
     this._visible = true;
     this._parent = null;
-    this._json = null;
     this._classes = [];
 
     this._listener = {};
@@ -116,12 +115,6 @@ odr.Drawable.prototype = {
      * A parent for this item. Mostly this will be an html or svg element
      */
     _parent : null,
-    /**
-     * @private
-     * @description
-     * JSON data which was used when creating this object
-     */
-    _json : null,
     /**
      * @private
      * @description
@@ -930,6 +923,7 @@ odr.Node = function() {
         width : 0,
         height : 0
     };
+    this._json = null;
 
     for(var listenerType in odr.Node.listener) {
         this._listener[odr.Node.listener[listenerType]] = {};
@@ -998,6 +992,7 @@ odr.Node.prototype = {
         width : 0,
         height : 0
     },
+    _json : null,
 
 
 
@@ -1820,7 +1815,8 @@ odr.Association = function() {
 
     this._label = new odr.Label().bind(odr.Label.listener.mousein, this._labelMouseIn.createDelegate(this), this.id())
     .bind(odr.Label.listener.mouseout, this._labelMouseOut.createDelegate(this), this.id());
-
+    
+    this._labelLines = [];
     this._labelLines[0] = new odr.Line().source(this._sourceHandle).target(this._label).visible(false).color("grey");
     this._labelLines[1] = new odr.Line().source(this._targetHandle).target(this._label).visible(false).color("grey");
 
@@ -2465,6 +2461,9 @@ odr.Association.prototype = {
      * @private
      */
     _optimizePath : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
         if (this._handles.length == 0) {
             return;
         }
@@ -2496,6 +2495,8 @@ odr.Association.prototype = {
             this.removeHandle(secondHandle);
             secondHandle.remove();
         }
+
+        root.unsuspendRedraw(suspendID);
     },
 
 
@@ -2518,6 +2519,14 @@ odr.Association.prototype = {
 
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].visible(visible);
+        }
+
+        if (!visible) {
+            this._forceHandleVisible = false;
+            this._setAllHandles(false);
+        } else {
+            this._sourceHandle.visible(true);
+            this._targetHandle.visible(true);
         }
 
         root.unsuspendRedraw(suspendID);

@@ -10,11 +10,10 @@ import java.util.Map.Entry;
  */
 public class QueryStringBuilder implements RequestParameter {
 
-
-
-    private static final Object booleanMarker = new Object();
+    private static final Boolean booleanMarker = true;
 
     private String url;
+
     private Map<String, Object> values;
 
 
@@ -27,12 +26,11 @@ public class QueryStringBuilder implements RequestParameter {
 
 
 
-
-
     public QueryStringBuilder setUrl(String name) {
         this.url = name;
         return this;
     }
+
 
 
 
@@ -70,13 +68,18 @@ public class QueryStringBuilder implements RequestParameter {
             }
 
             builder.append(entry.getKey());
-            
-            if (entry.getValue() != booleanMarker) {
-                builder.append(EQUAL_SIGN);
-                builder.append(entry.getValue().toString());
-            }
+
+            builder.append(EQUAL_SIGN);
+            builder.append(entry.getValue().toString());
         }
 
         return builder.toString();
     }
+
+
+
+
 }
+
+
+

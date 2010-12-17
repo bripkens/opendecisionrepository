@@ -26,7 +26,17 @@ var odr = odr || {};
  */
 odr.settings = {
     request : {
-        translation : "ViewpointTextProvider"
+        parameter : {
+            projectId : "id",
+            relationshipView : "relationship",
+            chronologicalView : "chronological",
+            stakeholderView : "stakeholder"
+        },
+        translation : "ViewpointTextProvider",
+        dataProvider : "ViewpointDataProvider",
+        dataReceiver : "ViewpointDataReceiver",
+        project : "projectDetails.html?id={0}",
+        projects : "projects.html"
     },
     menu : {
         top : {
@@ -52,6 +62,14 @@ odr.settings = {
                 ask : "#autoAlignmentAsk",
                 out : "#autoAlignmentOut"
             }
+        }
+    },
+    popup : {
+        temporaryText : {
+            refresh : "Refresh",
+            back : "Abort and back to project",
+            title : "Loading",
+            text : "Loading, please wait.."
         }
     },
     grid : [10, 10],
@@ -169,7 +187,7 @@ odr.settings = {
         idPrefix : "label",
         "class" : "label",
         container : "labelGroup",
-        markedClass : "marked",
+        markedClass : "marked"
     },
     svg : {
         id : "canvas",
@@ -252,5 +270,6 @@ odr.vars = {
      * A list of all marked elements. This variable is used for performance reasons
      */
     markedElements : {},
-    lasso : null
+    lasso : null,
+    requestParameter : null
 };

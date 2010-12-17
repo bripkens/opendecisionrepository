@@ -326,6 +326,8 @@ body {
     padding: 0px;
     
     width: 100%;
+
+    z-index: 5001;
 }
 .bottomMenu li span {
     position: relative;
@@ -559,7 +561,7 @@ body {
 
 /*
  * Lasso
-*/
+ */
 .label {
     color: darkred;
     font-size: 0.9em;
@@ -570,11 +572,31 @@ body {
 }
 
 
-
+/*
+ * Popups
+ */
 .ui-dialog {
     font-size: 12px;
     z-index: 6000;
 }
 .ui-dialog .ui-button-text-only .ui-button-text {
     font-weight: normal;
+}
+
+
+
+/*
+ * Icon popups
+ */
+ #iconPopup {
+     text-align: center;
+}
+ #iconPopup img {
+     width: 66px;
+     height: 66px;
+     margin: 5px 0px 0px;
+}
+#iconPopup p {
+    text-align: left;
+    margin: 20px 0px 0px;
 }
