@@ -115,11 +115,11 @@ odr.ready(function() {
 
 
 
-    var handle = new odr.Handle();
-    handle.position(300, 300);
-
-    var handle2 = new odr.Handle();
-    handle2.position(300, 400);
+//    var handle = new odr.Handle();
+//    handle.position(300, 300);
+//
+//    var handle2 = new odr.Handle();
+//    handle2.position(300, 400);
 
 
     //    var line = new odr.Line();
@@ -161,6 +161,7 @@ odr.ready(function() {
     association.source(node);
     association.target(node2);
     association.label("caused by");
+    association.labelPosition(50,40);
 
     //    setTimeout(function() {
     //        association.visible(false);
