@@ -61,6 +61,28 @@ public class RelationshipViewNodeTest {
 
 
     @Test
+    public void testWidth() {
+        int width = 100;
+        n.setWidth(width);
+
+        assertEquals(width, n.getWidth());
+    }
+
+
+
+
+    @Test
+    public void testHeight() {
+        int height = 100;
+        n.setHeight(height);
+
+        assertEquals(height, n.getHeight());
+    }
+
+
+
+
+    @Test
     public void testId() {
         long id = 1L;
         n.setId(id);
@@ -125,7 +147,6 @@ public class RelationshipViewNodeTest {
 
 
 
-
     @Test
     public void testNameComparator() {
         RelationshipViewNode n1 = new RelationshipViewNode();
@@ -144,4 +165,11 @@ public class RelationshipViewNodeTest {
 
         assertTrue(new RelationshipViewNode.DecisionNameComparator().compare(n1, n2) < 0);
     }
+
+
+
+
 }
+
+
+
