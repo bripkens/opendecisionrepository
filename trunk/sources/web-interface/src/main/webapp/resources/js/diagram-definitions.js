@@ -97,8 +97,8 @@ odr.settings = {
                 height : 50
             },
             multipleOf : {
-                width : 6,
-                height : 6
+                width : 10,
+                height : 10
             }
         },
         infoIcon : {

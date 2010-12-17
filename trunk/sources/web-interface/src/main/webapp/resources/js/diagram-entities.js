@@ -1336,7 +1336,8 @@ odr.Node.prototype = {
             this._element.style.height =  this._minSize.height + "px";
         }
 
-        this.size($(this._element).width(), $(this._element).height());
+        this.size(odr.roundUp($(this._element).width(), odr.settings.node.size.multipleOf.width),
+            odr.roundUp($(this._element).height(), odr.settings.node.size.multipleOf.height));
     }
 }
 
@@ -1806,8 +1807,6 @@ odr.Association = function() {
 
     this._element = null;
 
-    this._label = new odr.Label();
-    
     this._source = null;
     this._target = null;
 
@@ -1819,6 +1818,11 @@ odr.Association = function() {
     visible(false).
     bind(odr.Handle.listener.dragStop, this._handleDragStop.createDelegate(this), this.id());
 
+    this._label = new odr.Label().bind(odr.Label.listener.mousein, this._labelMouseIn.createDelegate(this), this.id())
+    .bind(odr.Label.listener.mouseout, this._labelMouseOut.createDelegate(this), this.id());
+
+    this._labelLines[0] = new odr.Line().source(this._sourceHandle).target(this._label).visible(false).color("grey");
+    this._labelLines[1] = new odr.Line().source(this._targetHandle).target(this._label).visible(false).color("grey");
 
 
     this._handles = [];
@@ -1863,6 +1867,7 @@ odr.Association.prototype = {
     _lines : [],
     _forceHandleVisible : true,
     _label : null,
+    _labelLines : [],
 
 
 
@@ -1897,10 +1902,42 @@ odr.Association.prototype = {
      */
     label : function(label) {
         if (label != undefined) {
-            return this._label.label(label);
+            this._label.label(label);
+            
+            return this;
         }
 
         return this._label.label();
+    },
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * You can also retrieve the current value by calling this method without parameters.
+     *
+     * @param {Number} [x] The new x coordinate
+     * @param {Number} [y] The new y coordinate
+     * @return {Object|odr.Association} The current position as an object with x and y properties if you supply no or
+     * only one parameter. If you pass in both parameter, then the object on which you called the method is returned.
+     * method.
+     */
+    labelPosition : function(x, y) {
+        if (x != undefined && y != undefined) {
+            this._label.position(x, y);
+
+            return this;
+        }
+
+        return this._label.position();
     },
 
 
@@ -2235,15 +2272,17 @@ odr.Association.prototype = {
      * @private
      */
     _lineMouseIn : function() {
-        this._setAllHandles(true);
-
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
+
+        this._setAllHandles(true);
 
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].highlight();
         }
-        
+
+        this._setLabelLineVisible(true);
+
         root.unsuspendRedraw(suspendID);
     },
 
@@ -2255,22 +2294,69 @@ odr.Association.prototype = {
      * @private
      */
     _lineMouseOut : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
         if (!this._forceHandleVisible) {
             this._setAllHandles(false);
         }
 
-        var root = odr.canvas();
-        var suspendID = root.suspendRedraw(5000);
-
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].stopHighlight();
         }
+
+        this._setLabelLineVisible(false);
 
         root.unsuspendRedraw(suspendID);
     },
 
 
 
+
+
+
+
+    /**
+     * @private
+     */
+    _labelMouseIn : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        this._setLabelLineVisible(true);
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _labelMouseOut : function() {
+        var root = odr.canvas();
+        var suspendID = root.suspendRedraw(5000);
+
+        this._setLabelLineVisible(false);
+
+        root.unsuspendRedraw(suspendID);
+    },
+
+
+
+
+    /**
+     * @private
+     */
+    _setLabelLineVisible : function(visible) {
+        for(var i = 0; i < this._labelLines.length; i++) {
+            this._labelLines[i].visible(visible);
+        }
+    },
 
 
 
@@ -2298,6 +2384,9 @@ odr.Association.prototype = {
             }
 
             containment = this._target;
+        } else {
+            this._optimizePath();
+            return;
         }
 
         var currentX = handle.x();
@@ -2308,7 +2397,9 @@ odr.Association.prototype = {
         if (otherX >= topLeft.x && otherX <= bottomRight.x && this._inTreshhold(otherX, currentX) && otherX != currentX) {
             odr.alignmentHelper(function() {
                 handle.x(otherX);
+                this._optimizePath();
             }.createDelegate(this));
+            return;
         }
 
         var currentY = handle.y();
@@ -2317,8 +2408,11 @@ odr.Association.prototype = {
         if (otherY >= topLeft.y && otherY <= bottomRight.y && this._inTreshhold(otherY, currentY) && otherY != currentY) {
             odr.alignmentHelper(function() {
                 handle.y(otherY);
+                this._optimizePath();
             }.createDelegate(this));
+            return;
         }
+        
     },
 
 
@@ -2326,7 +2420,9 @@ odr.Association.prototype = {
 
 
 
-
+    /**
+     * @private
+     */
     _inTreshhold : function(coordinate1, coordinate2) {
         coordinate1 = Math.abs(coordinate1);
         coordinate2 = Math.abs(coordinate2);
@@ -2356,6 +2452,55 @@ odr.Association.prototype = {
             this._handles[i].visible(visible);
         }
     },
+
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     */
+    _optimizePath : function() {
+        if (this._handles.length == 0) {
+            return;
+        }
+
+        var firstHandle = this._sourceHandle;
+        var secondHandle = this._handles[0];
+        var thirdHandle = null;
+
+        for(var i = 1; i < this._handles.length; i++) {
+            thirdHandle = this._handles[i];
+
+            if ((firstHandle.x() == secondHandle.x() && secondHandle.x() == thirdHandle.x()) ||
+                (firstHandle.y() == secondHandle.y() && secondHandle.y() == thirdHandle.y())) {
+                this.removeHandle(secondHandle);
+                secondHandle.remove();
+                this._optimizePath();
+                return;
+            }
+
+            // ...
+            firstHandle = secondHandle;
+            secondHandle = thirdHandle;
+        }
+
+        thirdHandle = this._targetHandle;
+
+        if ((firstHandle.x() == secondHandle.x() && secondHandle.x() == thirdHandle.x()) ||
+            (firstHandle.y() == secondHandle.y() && secondHandle.y() == thirdHandle.y())) {
+            this.removeHandle(secondHandle);
+            secondHandle.remove();
+        }
+    },
+
+
+
+
 
 
 
@@ -2445,6 +2590,8 @@ odr.Line = function() {
 
     this.addClass(odr.settings.line["class"]);
 
+    this._color = null;
+
     for(var listenerType in odr.Line.listener) {
         this._listener[odr.Line.listener[listenerType]] = {};
     }
@@ -2485,7 +2632,7 @@ odr.Line.prototype = {
     _arrowId : null,
     _arrowElement : null,
     _arrow : false,
-
+    _color : null,
 
 
 
@@ -2649,7 +2796,9 @@ odr.Line.prototype = {
             this._element.setAttribute(attributeName, odr.settings.line.attributes[attributeName]);
         }
 
-
+        if (this._color != null) {
+            this._element.setAttribute("stroke", this._color);
+        }
 
 
 
@@ -2767,6 +2916,43 @@ odr.Line.prototype = {
     _classesChanged : function() {
         this._element.setAttribute("class", this.classString());
     },
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @description
+     * Set a new color for this line
+     *
+     * @param {String} [color] The new color
+     * @return {String|odr.Line} The object on which you called this method or the current color if you supply
+     * no parameter
+     */
+    color : function(color) {
+        if (color != undefined) {
+            if (this._color != color) {
+                this._color = color;
+
+                if (this._color != null) {
+                    this._element.setAttribute("stroke", this._color);
+                }
+
+                return this;
+            }
+        }
+
+        return this._color;
+    },
+
+
+
 
 
 
@@ -3048,6 +3234,29 @@ odr.Label.prototype = {
             this.fire(odr.Label.listener.mouseout, [this]);
         }.createDelegate(this));
     },
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @private
+     * @override
+     */
+    center : function() {
+        return {
+            x : this.x() + ($(this._element).width() / 2),
+            y : this.y() + ($(this._element).height() / 2)
+        };
+    },
+
+
+
 
 
 
