@@ -1,0 +1,908 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - odr.Drawable</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/Function.html">Function</a></li>
+	
+	<li><a href="../symbols/odr.html">odr</a></li>
+	
+	<li><a href="../symbols/odr.Association.html">odr.Association</a></li>
+	
+	<li><a href="../symbols/odr.Association.listener.html">odr.Association.listener</a></li>
+	
+	<li><a href="../symbols/odr.Drawable.html">odr.Drawable</a></li>
+	
+	<li><a href="../symbols/odr.Drawable.listener.html">odr.Drawable.listener</a></li>
+	
+	<li><a href="../symbols/odr.Endpoint.html">odr.Endpoint</a></li>
+	
+	<li><a href="../symbols/odr.Endpoint.listener.html">odr.Endpoint.listener</a></li>
+	
+	<li><a href="../symbols/odr.Handle.html">odr.Handle</a></li>
+	
+	<li><a href="../symbols/odr.Handle.listener.html">odr.Handle.listener</a></li>
+	
+	<li><a href="../symbols/odr.Label.html">odr.Label</a></li>
+	
+	<li><a href="../symbols/odr.Label.listener.html">odr.Label.listener</a></li>
+	
+	<li><a href="../symbols/odr.Line.html">odr.Line</a></li>
+	
+	<li><a href="../symbols/odr.Line.listener.html">odr.Line.listener</a></li>
+	
+	<li><a href="../symbols/odr.Node.html">odr.Node</a></li>
+	
+	<li><a href="../symbols/odr.Node.listener.html">odr.Node.listener</a></li>
+	
+	<li><a href="../symbols/odr.popup.html">odr.popup</a></li>
+	
+	<li><a href="../symbols/odr.Registry.html">odr.Registry</a></li>
+	
+	<li><a href="../symbols/odr.settings.html">odr.settings</a></li>
+	
+	<li><a href="../symbols/odr.Shape.html">odr.Shape</a></li>
+	
+	<li><a href="../symbols/odr.Shape.listener.html">odr.Shape.listener</a></li>
+	
+	<li><a href="../symbols/String.html">String</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class odr.Drawable
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+				
+			
+				Base class for all entities that can be drawn. A class that inherits from this class states that it can be
+drawn and that it knows how to draw itself.
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/diagram-entities.js.html">diagram-entities.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class odr.Drawable.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/odr.Drawable.html#constructor">odr.Drawable</a></b>()
+							</div>
+							<div class="description">Every drawable automatically registers itself with the <a href="../symbols/odr.Registry.html">odr.Registry</a> so that the entity can be
+retrieved by it's id.</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class odr.Drawable.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#addClass">addClass</a></b>(theClass)
+								</div>
+								<div class="description">Add a class to this drawable</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#bind">bind</a></b>(type, listener, identification)
+								</div>
+								<div class="description">Bind a listener to the given event type</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#classString">classString</a></b>()
+								</div>
+								<div class="description">Get a string that can be used for the html or svg class attribute.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#fire">fire</a></b>(type, params)
+								</div>
+								<div class="description">Fire an event with the given parameters</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#hasClass">hasClass</a></b>(theClass)
+								</div>
+								<div class="description">Check whether this drawable has a certain class</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#id">id</a></b>()
+								</div>
+								<div class="description">Returns the full id of the drawable</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#parent">parent</a></b>(parent)
+								</div>
+								<div class="description">Set the parent for this element.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#removeClass">removeClass</a></b>(theClass)
+								</div>
+								<div class="description">Remove a class from this drawable</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#unbind">unbind</a></b>(type, identification)
+								</div>
+								<div class="description">Unbind a listener from the given event type</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Drawable.html#visible">visible</a></b>(visible)
+								</div>
+								<div class="description">Show or hide this DrawableItem.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
+<!-- ============================== events summary ======================== -->
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>odr.Drawable</b>()
+				</div>
+				
+				<div class="description">
+					Every drawable automatically registers itself with the <a href="../symbols/odr.Registry.html">odr.Registry</a> so that the entity can be
+retrieved by it's id.
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="addClass"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>addClass</b>(theClass)
+					
+					</div>
+					<div class="description">
+						Add a class to this drawable
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>theClass</b>
+									
+								</dt>
+								<dd>the class which you want to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="bind"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>bind</b>(type, listener, identification)
+					
+					</div>
+					<div class="description">
+						Bind a listener to the given event type
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>type</b>
+									
+								</dt>
+								<dd>The type of listener that you want to bind to</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/Function.html">Function</a>}</span> <b>listener</b>
+									
+								</dt>
+								<dd>The listener function</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>identification</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The identification that is used for binding the listener. There is only one
+listener pre event type and identification!</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The object on which you called this function</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="classString"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/String.html">String</a>}</span>
+					<b>classString</b>()
+					
+					</div>
+					<div class="description">
+						Get a string that can be used for the html or svg class attribute.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> All classes seperated by a white space character</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="fire"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>fire</b>(type, params)
+					
+					</div>
+					<div class="description">
+						Fire an event with the given parameters
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>type</b>
+									
+								</dt>
+								<dd>The type of listener that you want to fire</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object[]}</span> <b>params</b>
+									<i>Optional</i>
+								</dt>
+								<dd>An array of objects that you want to pass to the listener as parameters</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The object on which you called this function</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="hasClass"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean}</span>
+					<b>hasClass</b>(theClass)
+					
+					</div>
+					<div class="description">
+						Check whether this drawable has a certain class
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>theClass</b>
+									
+								</dt>
+								<dd>the class for which you want to check the drawable</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean}</span> True when this drawable has the class, false otherwise.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="id"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number|<a href="../symbols/String.html">String</a>}</span>
+					<b>id</b>()
+					
+					</div>
+					<div class="description">
+						Returns the full id of the drawable
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Number|<a href="../symbols/String.html">String</a>}</span> the id</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="parent"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{HtmlElement|SvgElement|<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>parent</b>(parent)
+					
+					</div>
+					<div class="description">
+						Set the parent for this element. The parent element can act as a grouping element or container for
+it's child elements..
+
+You can also retrieve the current value by calling this method without parameters.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{HtmlElement|SvgElement}</span> <b>parent</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new parent</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{HtmlElement|SvgElement|<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The parent which was set. If you call this
+method with a parameter then the method will return the object on which you called the method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeClass"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>removeClass</b>(theClass)
+					
+					</div>
+					<div class="description">
+						Remove a class from this drawable
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>theClass</b>
+									
+								</dt>
+								<dd>the class which you want to remove</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="unbind"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>unbind</b>(type, identification)
+					
+					</div>
+					<div class="description">
+						Unbind a listener from the given event type
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> <b>type</b>
+									
+								</dt>
+								<dd>The type of listener that you want to unbind from</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>identification</b>
+									
+								</dt>
+								<dd>The identification object that was used when the listener was bound.
+You can pass the listener function as an identification when you didn't specified an identification when you
+bound the listener.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The object on which you called this function</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="visible"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Boolean|<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span>
+					<b>visible</b>(visible)
+					
+					</div>
+					<div class="description">
+						Show or hide this DrawableItem.
+
+Initially each DrawableItem is visible.
+
+You can also retrieve the current value by calling this method without parameters.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>visible</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new visibility</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Boolean|<a href="../symbols/odr.Drawable.html">odr.Drawable</a>}</span> The visibility which was set. If you call this
+method with a parameter then the method will return the object on which you called the method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
+			
+			<hr />
+		</div>
+
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.2 on Sun Dec 19 2010 14:46:05 GMT+0100 (CET)
+		</div>
+	</body>
+</html>

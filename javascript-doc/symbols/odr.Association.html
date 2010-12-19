@@ -1,0 +1,961 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="generator" content="JsDoc Toolkit" />
+		
+		<title>JsDoc Reference - odr.Association</title>
+
+		<style type="text/css">
+			/* default.css */
+body
+{
+	font: 12px "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+	width: 800px;
+}
+
+.header
+{
+	clear: both;
+	background-color: #ccc;
+	padding: 8px;
+}
+
+h1
+{
+	font-size: 150%;
+	font-weight: bold;
+	padding: 0;
+	margin: 1em 0 0 .3em;
+}
+
+hr
+{
+	border: none 0;
+	border-top: 1px solid #7F8FB1;
+	height: 1px;
+}
+
+pre.code
+{
+	display: block;
+	padding: 8px;
+	border: 1px dashed #ccc;
+}
+
+#index
+{
+	margin-top: 24px;
+	float: left;
+	width: 160px;
+	position: absolute;
+	left: 8px;
+	background-color: #F3F3F3;
+	padding: 8px;
+}
+
+#content
+{
+	margin-left: 190px;
+	width: 600px;
+}
+
+.classList
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0 0 0 8px;
+	font-family: arial, sans-serif;
+	font-size: 1em;
+	overflow: auto;
+}
+
+.classList li
+{
+	padding: 0;
+	margin: 0 0 8px 0;
+}
+
+.summaryTable { width: 100%; }
+
+h1.classTitle
+{
+	font-size:170%;
+	line-height:130%;
+}
+
+h2 { font-size: 110%; }
+caption, div.sectionTitle
+{
+	background-color: #7F8FB1;
+	color: #fff;
+	font-size:130%;
+	text-align: left;
+	padding: 2px 6px 2px 6px;
+	border: 1px #7F8FB1 solid;
+}
+
+div.sectionTitle { margin-bottom: 8px; }
+.summaryTable thead { display: none; }
+
+.summaryTable td
+{
+	vertical-align: top;
+	padding: 4px;
+	border-bottom: 1px #7F8FB1 solid;
+	border-right: 1px #7F8FB1 solid;
+}
+
+/*col#summaryAttributes {}*/
+.summaryTable td.attributes
+{
+	border-left: 1px #7F8FB1 solid;
+	width: 140px;
+	text-align: right;
+}
+
+td.attributes, .fixedFont
+{
+	line-height: 15px;
+	color: #002EBE;
+	font-family: "Courier New",Courier,monospace;
+	font-size: 13px;
+}
+
+.summaryTable td.nameDescription
+{
+	text-align: left;
+	font-size: 13px;
+	line-height: 15px;
+}
+
+.summaryTable td.nameDescription, .description
+{
+	line-height: 15px;
+	padding: 4px;
+	padding-left: 4px;
+}
+
+.summaryTable { margin-bottom: 8px; }
+
+ul.inheritsList
+{
+	list-style: square;
+	margin-left: 20px;
+	padding-left: 0;
+}
+
+.detailList {
+	margin-left: 20px; 
+	line-height: 15px;
+}
+.detailList dt { margin-left: 20px; }
+
+.detailList .heading
+{
+	font-weight: bold;
+	padding-bottom: 6px;
+	margin-left: 0;
+}
+
+.light, td.attributes, .light a:link, .light a:visited
+{
+	color: #777;
+	font-style: italic;
+}
+
+.fineprint
+{
+	text-align: right;
+	font-size: 10px;
+}
+		</style>
+	</head>
+
+	<body>
+<!-- ============================== header ================================= -->	
+		<!-- begin static/header.html -->
+		<div id="header">
+</div>
+		<!-- end static/header.html -->
+
+<!-- ============================== classes index ============================ -->
+		<div id="index">
+			<!-- begin publish.classesIndex -->
+			<div align="center"><a href="../index.html">Class Index</a>
+| <a href="../files.html">File Index</a></div>
+<hr />
+<h2>Classes</h2>
+<ul class="classList">
+	
+	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
+	
+	<li><a href="../symbols/Function.html">Function</a></li>
+	
+	<li><a href="../symbols/odr.html">odr</a></li>
+	
+	<li><a href="../symbols/odr.Association.html">odr.Association</a></li>
+	
+	<li><a href="../symbols/odr.Association.listener.html">odr.Association.listener</a></li>
+	
+	<li><a href="../symbols/odr.Drawable.html">odr.Drawable</a></li>
+	
+	<li><a href="../symbols/odr.Drawable.listener.html">odr.Drawable.listener</a></li>
+	
+	<li><a href="../symbols/odr.Endpoint.html">odr.Endpoint</a></li>
+	
+	<li><a href="../symbols/odr.Endpoint.listener.html">odr.Endpoint.listener</a></li>
+	
+	<li><a href="../symbols/odr.Handle.html">odr.Handle</a></li>
+	
+	<li><a href="../symbols/odr.Handle.listener.html">odr.Handle.listener</a></li>
+	
+	<li><a href="../symbols/odr.Label.html">odr.Label</a></li>
+	
+	<li><a href="../symbols/odr.Label.listener.html">odr.Label.listener</a></li>
+	
+	<li><a href="../symbols/odr.Line.html">odr.Line</a></li>
+	
+	<li><a href="../symbols/odr.Line.listener.html">odr.Line.listener</a></li>
+	
+	<li><a href="../symbols/odr.Node.html">odr.Node</a></li>
+	
+	<li><a href="../symbols/odr.Node.listener.html">odr.Node.listener</a></li>
+	
+	<li><a href="../symbols/odr.popup.html">odr.popup</a></li>
+	
+	<li><a href="../symbols/odr.Registry.html">odr.Registry</a></li>
+	
+	<li><a href="../symbols/odr.settings.html">odr.settings</a></li>
+	
+	<li><a href="../symbols/odr.Shape.html">odr.Shape</a></li>
+	
+	<li><a href="../symbols/odr.Shape.listener.html">odr.Shape.listener</a></li>
+	
+	<li><a href="../symbols/String.html">String</a></li>
+	
+</ul>
+<hr />
+			<!-- end publish.classesIndex -->
+		</div>
+		
+		<div id="content">
+<!-- ============================== class title ============================ -->
+			<h1 class="classTitle">
+				
+				Class odr.Association
+			</h1>
+
+<!-- ============================== class summary ========================== -->			
+			<p class="description">
+				
+				<br />Extends
+					<a href="../symbols/odr.Drawable.html">odr.Drawable</a>.<br />
+				
+			
+				An association represents a connection between two <a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>s.
+				
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/diagram-entities.js.html">diagram-entities.js</a>.
+				
+			</p>
+
+<!-- ============================== constructor summary ==================== -->			
+			
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class odr.Association.">
+				<caption>Class Summary</caption>
+				<thead>
+					<tr>
+						<th scope="col">Constructor Attributes</th>
+						<th scope="col">Constructor Name and Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="attributes">&nbsp;</td>
+						<td class="nameDescription" >
+							<div class="fixedFont">
+								<b><a href="../symbols/odr.Association.html#constructor">odr.Association</a></b>()
+							</div>
+							<div class="description"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+
+<!-- ============================== properties summary ===================== -->
+			
+				
+				
+				
+				
+				<dl class="inheritsList">
+				
+				</dl>
+				
+			
+
+<!-- ============================== methods summary ======================== -->
+			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class odr.Association.">
+					<caption>Method Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Method Attributes</th>
+							<th scope="col">Method Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#addHandleAfter">addHandleAfter</a></b>(after, newHandle)
+								</div>
+								<div class="description">Add a handle before another handle.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#addHandleToBeginning">addHandleToBeginning</a></b>(handle)
+								</div>
+								<div class="description">Add a handle to the association.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#addHandleToEnd">addHandleToEnd</a></b>(handle)
+								</div>
+								<div class="description">Add a handle to the association.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#handles">handles</a></b>()
+								</div>
+								<div class="description">Returns all the handles</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#label">label</a></b>(label)
+								</div>
+								<div class="description">You can also retrieve the current value by calling this method without parameters.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#labelPosition">labelPosition</a></b>(x, y)
+								</div>
+								<div class="description">You can also retrieve the current value by calling this method without parameters.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#loadHandles">loadHandles</a></b>(handles)
+								</div>
+								<div class="description">Load handles into this association by providing an array of objects that have "X" and "Y" properties.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#removeHandle">removeHandle</a></b>(handle, fire)
+								</div>
+								<div class="description">Remove the given handle from the association</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#source">source</a></b>(source)
+								</div>
+								<div class="description">Set a new endpoint for this association or retrieve the endpoint.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#svgRepresentation">svgRepresentation</a></b>()
+								</div>
+								<div class="description">Create an SVG representation of this current state of this object.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/odr.Association.html#target">target</a></b>(target)
+								</div>
+								<div class="description">Set a new endpoint for this association or retrieve the endpoint.</div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+				<dl class="inheritsList">
+				<dt>Methods borrowed from class <a href="../symbols/odr.Drawable.html">odr.Drawable</a>: </dt><dd><a href="../symbols/odr.Drawable.html#addClass">addClass</a>, <a href="../symbols/odr.Drawable.html#bind">bind</a>, <a href="../symbols/odr.Drawable.html#classString">classString</a>, <a href="../symbols/odr.Drawable.html#fire">fire</a>, <a href="../symbols/odr.Drawable.html#hasClass">hasClass</a>, <a href="../symbols/odr.Drawable.html#id">id</a>, <a href="../symbols/odr.Drawable.html#parent">parent</a>, <a href="../symbols/odr.Drawable.html#removeClass">removeClass</a>, <a href="../symbols/odr.Drawable.html#unbind">unbind</a>, <a href="../symbols/odr.Drawable.html#visible">visible</a></dd>
+				</dl>
+				
+			
+<!-- ============================== events summary ======================== -->
+			
+
+<!-- ============================== constructor details ==================== -->		
+			
+			<div class="details"><a name="constructor"> </a>
+				<div class="sectionTitle">
+					Class Detail
+				</div>
+				
+				<div class="fixedFont">
+						<b>odr.Association</b>()
+				</div>
+				
+				<div class="description">
+					
+					
+				</div>
+				
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+
+			</div>
+			
+
+<!-- ============================== field details ========================== -->		
+			
+
+<!-- ============================== method details ========================= -->		
+			
+				<div class="sectionTitle">
+					Method Detail
+				</div>
+				
+					<a name="addHandleAfter"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>addHandleAfter</b>(after, newHandle)
+					
+					</div>
+					<div class="description">
+						Add a handle before another handle.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>}</span> <b>after</b>
+									
+								</dt>
+								<dd>The handle which should be before the new handle after insertion</dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>}</span> <b>newHandle</b>
+									
+								</dt>
+								<dd>The new handle</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addHandleToBeginning"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>addHandleToBeginning</b>(handle)
+					
+					</div>
+					<div class="description">
+						Add a handle to the association. The handle will be added to the beginning of the association
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>}</span> <b>handle</b>
+									
+								</dt>
+								<dd>The handle which you want to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="addHandleToEnd"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>addHandleToEnd</b>(handle)
+					
+					</div>
+					<div class="description">
+						Add a handle to the association. The handle will be added to the end of the association
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>}</span> <b>handle</b>
+									
+								</dt>
+								<dd>The handle which you want to add</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="handles"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Handle.html">odr.Handle</a>[]}</span>
+					<b>handles</b>()
+					
+					</div>
+					<div class="description">
+						Returns all the handles
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>[]}</span> All handles of this association</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="label"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/String.html">String</a>|Number|<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>label</b>(label)
+					
+					</div>
+					<div class="description">
+						You can also retrieve the current value by calling this method without parameters.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/String.html">String</a>|Number}</span> <b>label</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new label</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/String.html">String</a>|Number|<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The label which was set or null if no label was set.
+If you call this method with a parameter then the method will return the object on which you called the
+method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="labelPosition"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object|<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>labelPosition</b>(x, y)
+					
+					</div>
+					<div class="description">
+						You can also retrieve the current value by calling this method without parameters.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>x</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new x coordinate</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>y</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new y coordinate</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{Object|<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The current position as an object with x and y properties if you supply no or
+only one parameter. If you pass in both parameter, then the object on which you called the method is returned.
+method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="loadHandles"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>loadHandles</b>(handles)
+					
+					</div>
+					<div class="description">
+						Load handles into this association by providing an array of objects that have "X" and "Y" properties.
+The first object will be used as the position for the source handle, i.e. the handle which is contained in the
+source of the association. The last handle is used for the target handle.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Object[]}</span> <b>handles</b>
+									
+								</dt>
+								<dd>See description. At least two objects must be in the array.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The object on which you called the method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="removeHandle"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span>
+					<b>removeHandle</b>(handle, fire)
+					
+					</div>
+					<div class="description">
+						Remove the given handle from the association
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Handle.html">odr.Handle</a>}</span> <b>handle</b>
+									
+								</dt>
+								<dd>The handle which you want to add</dd>
+							
+								<dt>
+									<span class="light fixedFont">{Boolean}</span> <b>fire</b>
+									<i>Optional</i>
+								</dt>
+								<dd>Whether the handle changed event should be fired. This should almost always be true.
+Default is true.</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>}</span> The object on which you called this method.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="source"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>|<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span>
+					<b>source</b>(source)
+					
+					</div>
+					<div class="description">
+						Set a new endpoint for this association or retrieve the endpoint. This endpoint represents the source
+of the association
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span> <b>source</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new souce or nothing if you want to retrieve the current source</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>|<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span> The current source if you call this method without any parameter or the
+object on which you called this method if you supply a parameter.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="svgRepresentation"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/String.html">String</a>}</span>
+					<b>svgRepresentation</b>()
+					
+					</div>
+					<div class="description">
+						Create an SVG representation of this current state of this object. This method call will only
+return the svg markup which is required for the association label as the rest is already present
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/String.html">String</a>}</span> The svg representation</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="target"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/odr.Association.html">odr.Association</a>|<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span>
+					<b>target</b>(target)
+					
+					</div>
+					<div class="description">
+						Set a new endpoint for this association or retrieve the endpoint. This endpoint represents the target
+of the association
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span> <b>target</b>
+									<i>Optional</i>
+								</dt>
+								<dd>The new target or nothing if you want to retrieve the current target</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{<a href="../symbols/odr.Association.html">odr.Association</a>|<a href="../symbols/odr.Endpoint.html">odr.Endpoint</a>}</span> The current target if you call this method without any parameter or the
+object on which you called this method if you supply a parameter.</dd>
+							
+							</dl>
+						
+						
+						
+
+					
+				
+			
+			
+<!-- ============================== event details ========================= -->		
+			
+			
+			<hr />
+		</div>
+
+		
+<!-- ============================== footer ================================= -->
+		<div class="fineprint" style="clear:both">
+			
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.3.2 on Sun Dec 19 2010 14:46:05 GMT+0100 (CET)
+		</div>
+	</body>
+</html>
