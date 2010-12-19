@@ -1181,123 +1181,222 @@ public class FillDbController {
         InitRelationshipView init = new InitRelationshipView(p);
         RelationshipViewVisualization vis = init.getView();
 
-        RelationshipViewNode node = vis.getNode(server.getCurrentVersion());
-        node.setX(370);
-        node.setY(80);
+        RelationshipViewNode node = vis.getNode(icefaces.getCurrentVersion());
+        node.setX(920);
+        node.setY(1190);
+        node.setWidth(80);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(mysql.getCurrentVersion());
+        node.setX(480);
+        node.setY(890);
+        node.setWidth(70);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(jsf2.getCurrentVersion());
+        node.setX(1540);
+        node.setY(1390);
+        node.setWidth(150);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(jsf12.getCurrentVersion());
+        node.setX(1130);
+        node.setY(1330);
+        node.setWidth(160);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(ice202.getCurrentVersion());
+        node.setX(1520);
+        node.setY(1270);
+        node.setWidth(150);
+        node.setHeight(50);
+        node.setVisible(true);
+
+
+        node = vis.getNode(ice201.getCurrentVersion());
+        node.setX(1400);
+        node.setY(1190);
+        node.setWidth(150);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(ice18.getCurrentVersion());
+        node.setX(1380);
+        node.setY(1100);
+        node.setWidth(100);
+        node.setHeight(50);
+        node.setVisible(true);
+
+        node = vis.getNode(server.getCurrentVersion());
+        node.setX(850);
+        node.setY(70);
+        node.setWidth(220);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(graphviz.getCurrentVersion());
-        node.setX(740);
-        node.setY(80);
+        node.setX(1160);
+        node.setY(70);
+        node.setWidth(80);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(client.getCurrentVersion());
-        node.setX(850);
-        node.setY(80);
+        node.setX(1380);
+        node.setY(70);
+        node.setWidth(210);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(oprTech.getCurrentVersion());
-        node.setX(180);
-        node.setY(690);
+        node.setX(590);
+        node.setY(770);
+        node.setWidth(170);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(javaee.getCurrentVersion());
-        node.setX(300);
-        node.setY(430);
+        node.setX(890);
+        node.setY(470);
+        node.setWidth(170);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(svg.getCurrentVersion());
-        node.setX(690);
-        node.setY(220);
+        node.setX(1150);
+        node.setY(190);
+        node.setWidth(180);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(javaImg.getCurrentVersion());
-        node.setX(390);
-        node.setY(220);
+        node.setX(870);
+        node.setY(190);
+        node.setWidth(190);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(batik.getCurrentVersion());
-        node.setX(580);
-        node.setY(330);
+        node.setX(1110);
+        node.setY(310);
+        node.setWidth(110);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(fop.getCurrentVersion());
-        node.setX(830);
-        node.setY(330);
+        node.setX(1260);
+        node.setY(360);
+        node.setWidth(100);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(html5.getCurrentVersion());
-        node.setX(1130);
-        node.setY(220);
+        node.setX(1410);
+        node.setY(190);
+        node.setWidth(180);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(tcl.getCurrentVersion());
-        node.setX(220);
-        node.setY(220);
+        node.setX(740);
+        node.setY(190);
+        node.setWidth(70);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(xowiki.getCurrentVersion());
-        node.setX(50);
-        node.setY(220);
+        node.setX(530);
+        node.setY(190);
+        node.setWidth(70);
+        node.setHeight(50);
+        node.setVisible(true);
 
         node = vis.getNode(java.getCurrentVersion());
-        node.setX(300);
-        node.setY(430);
+        node.setX(680);
+        node.setY(310);
+        node.setWidth(210);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(jee5.getCurrentVersion());
-        node.setX(760);
-        node.setY(460);
+        node.setX(1190);
+        node.setY(570);
+        node.setWidth(180);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(jee6.getCurrentVersion());
-        node.setX(1170);
-        node.setY(430);
+        node.setX(1420);
+        node.setY(470);
+        node.setWidth(180);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(glassfish.getCurrentVersion());
-        node.setX(520);
-        node.setY(580);
+        node.setX(930);
+        node.setY(720);
+        node.setWidth(80);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(glassfish2.getCurrentVersion());
-        node.setX(800);
-        node.setY(530);
+        node.setX(1240);
+        node.setY(670);
+        node.setWidth(90);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(glassfish3.getCurrentVersion());
-        node.setX(1210);
-        node.setY(580);
+        node.setX(1470);
+        node.setY(780);
+        node.setWidth(90);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(jpa.getCurrentVersion());
-        node.setX(180);
-        node.setY(560);
+        node.setX(520);
+        node.setY(500);
+        node.setWidth(160);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(eclipselink.getCurrentVersion());
-        node.setX(60);
-        node.setY(560);
+        node.setX(410);
+        node.setY(500);
+        node.setWidth(90);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(ejb.getCurrentVersion());
-        node.setX(480);
-        node.setY(790);
+        node.setX(870);
+        node.setY(990);
+        node.setWidth(170);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(ejb3.getCurrentVersion());
-        node.setX(760);
-        node.setY(740);
+        node.setX(1200);
+        node.setY(870);
+        node.setWidth(180);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(ejb31.getCurrentVersion());
-        node.setX(900);
-        node.setY(740);
+        node.setX(1190);
+        node.setY(990);
+        node.setWidth(190);
+        node.setHeight(50);
         node.setVisible(true);
 
         node = vis.getNode(jsf.getCurrentVersion());
-        node.setX(2000);
-        node.setY(2000);
+        node.setX(890);
+        node.setY(1400);
+        node.setWidth(140);
+        node.setHeight(50);
         node.setVisible(true);
 
         Relationship rel = getRelationship(html5.getCurrentVersion(), client.getCurrentVersion(), getRelationshipType("caused by"));
@@ -1309,7 +1408,7 @@ public class FillDbController {
         relVieAss.addHandle(new Handle().setX(850).setY(230));
         relVieAss.addHandle(new Handle().setX(960).setY(230));
 
-         rel = getRelationship(client.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("replaces"));
+        rel = getRelationship(client.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(960).setY(50));
         relVieAss.addHandle(new Handle().setX(480).setY(50));
