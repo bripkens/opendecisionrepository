@@ -231,6 +231,8 @@ public class ViewpointDataReceiver extends HttpServlet {
             nodeInTarget.setVisible(eachNodeInSource.isVisible());
             nodeInTarget.setX(eachNodeInSource.getX());
             nodeInTarget.setY(eachNodeInSource.getY());
+            nodeInTarget.setWidth(eachNodeInSource.getWidth());
+            nodeInTarget.setHeight(eachNodeInSource.getHeight());
         }
     }
 

@@ -1684,14 +1684,18 @@ odr.Handle.prototype = {
     _positionChanged : function() {
         this._element.style.left = this.x() + "px";
         this._element.style.top = this.y() + "px";
+
+        if (this._containment != undefined) {
+            var thisPosition = this.position();
+            this._relativeX = thisPosition.x - this._containment.x();
+            this._relativeY = thisPosition.y - this._containment.y();
+        }
     },
 
 
 
 
-
-
-
+    
 
 
 
@@ -1969,6 +1973,8 @@ odr.Association.prototype = {
                 this.fire(odr.Association.listener.sourceChanged, [this]);
                 
                 this._sourceHandle.containment(source);
+
+                this._repaint();
             }
 
             return this;
@@ -2008,6 +2014,8 @@ odr.Association.prototype = {
                 this.fire(odr.Association.listener.targetChanged, [this]);
                 
                 this._targetHandle.containment(target);
+
+                this._repaint();
             }
 
             return this;
@@ -2148,6 +2156,57 @@ odr.Association.prototype = {
 
 
 
+    /**
+     * @description
+     * Returns all the handles
+     *
+     * @return {odr.Handle[]} All handles of this association
+     */
+    handles : function() {
+        var allHandles = this._handles.slice(0);
+
+        allHandles.unshift(this._sourceHandle);
+        allHandles.push(this._targetHandle);
+
+        return allHandles;
+    },
+
+
+
+
+
+
+
+
+
+
+    loadHandles : function(handles) {
+        if (handles.length < 2) {
+            return;
+        }
+        
+        this._sourceHandle.position(handles[0].X, handles[0].Y);
+
+        for(var i = this._handles.length - 1; i >= 0; i--) {
+            this._handles[i].remove();
+            this.removeHandle(this._handles[i]);
+        }
+
+        for(var i = 1; i < (handles.length - 1); i++) {
+            var handle = new odr.Handle();
+            handle.position(handles[i].X, handles[i].Y);
+            this.addHandleToEnd(handle);
+        }
+
+        this._targetHandle.position(handles[handles.length - 1].X, handles[handles.length - 1].Y);
+    },
+
+
+
+
+
+
+
 
     /**
      * @private
@@ -2198,6 +2257,12 @@ odr.Association.prototype = {
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
 
+        var visible = false;
+
+        if (this._source != null && this._target != null && this._source.visible() && this._target.visible()) {
+            visible = true;
+        }
+
         // remove all lines
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].remove();
@@ -2210,6 +2275,8 @@ odr.Association.prototype = {
 
         for(var i = 0; i < this._handles.length; i++) {
             var currentHandle = this._handles[i];
+
+            currentHandle.visible(visible)
 
             var line = new odr.Line().source(currentNode).target(currentHandle);
             this._lines.push(line);
@@ -2224,17 +2291,28 @@ odr.Association.prototype = {
         for(var i = 0; i < this._lines.length; i++) {
             var line = this._lines[i];
 
+            line.visible(visible);
+
             line.bind(odr.Line.listener.click, this._lineMouseClick.createDelegate(this), this.id());
             line.bind(odr.Line.listener.mousein, this._lineMouseIn.createDelegate(this), this.id());
             line.bind(odr.Line.listener.mouseout, this._lineMouseOut.createDelegate(this), this.id());
         }
 
-        this._setAllHandles(this._forceHandleVisible);
+
+
+        this._setAllHandles(visible);
+
+        this._label.visible(visible);
+        
 
         root.unsuspendRedraw(suspendID);
     },
 
     
+
+
+
+
 
 
 
@@ -2245,7 +2323,6 @@ odr.Association.prototype = {
     _lineMouseClick : function(source, e) {
         if (e.ctrlKey) {
             this._forceHandleVisible = !this._forceHandleVisible;
-            this._setAllHandles(this._forceHandleVisible);
             return;
         }
 
@@ -2293,9 +2370,7 @@ odr.Association.prototype = {
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
 
-        if (!this._forceHandleVisible) {
-            this._setAllHandles(false);
-        }
+        this._setAllHandles(false);
 
         for(var i = 0; i < this._lines.length; i++) {
             this._lines[i].stopHighlight();
@@ -2362,8 +2437,9 @@ odr.Association.prototype = {
      * @private
      */
     _handleDragStop : function(handle) {
-        var otherHandle;
-        var containment;
+        var otherHandle = null;
+        var middleNode = false;
+        var containment = null;
         if (handle == this._sourceHandle) {
 
             if (this._handles.length != 0) {
@@ -2380,38 +2456,55 @@ odr.Association.prototype = {
             }
 
             containment = this._target;
+        } else if (this._handles.length == 1) {
+            // TODO currently not supported
+            middleNode = true;
+            this._optimizePath();
+            return;
+        } else if (this._handles.length > 0 && this._handles[0] == handle) {
+            otherHandle = this._sourceHandle;
+        } else if (this._handles.length > 0 && this._handles[this._handles.length - 1] == handle) {
+            otherHandle = this._targetHandle;
         } else {
             this._optimizePath();
             return;
         }
-
-        var currentX = handle.x();
-        var otherX = otherHandle.x();
-        var topLeft = containment.topLeft();
-        var bottomRight = containment.bottomRight();
-
-        if (otherX >= topLeft.x && otherX <= bottomRight.x && this._inTreshhold(otherX, currentX) && otherX != currentX) {
-            odr.alignmentHelper(function() {
-                handle.x(otherX);
-                this._optimizePath();
-            }.createDelegate(this));
-            return;
-        }
-
-        var currentY = handle.y();
-        var otherY = otherHandle.y();
-
-        if (otherY >= topLeft.y && otherY <= bottomRight.y && this._inTreshhold(otherY, currentY) && otherY != currentY) {
-            odr.alignmentHelper(function() {
-                handle.y(otherY);
-                this._optimizePath();
-            }.createDelegate(this));
-            return;
-        }
         
+
+        var currentCenter = handle.center();
+
+        var otherTopLeft = otherHandle.topLeft();
+        var otherBottomRight = otherHandle.bottomRight();
+        var otherCenter = otherHandle.center();
+
+        var containmentXPossible = true;
+        var containmentYPossible = true;
+
+        if (containment != null) {
+            var containmentTopLeft = containment.topLeft();
+            var containmentBottomRight = containment.bottomRight();
+            containmentXPossible = otherTopLeft.x >= containmentTopLeft.x && otherBottomRight.x <= containmentBottomRight.x;
+            containmentYPossible = otherTopLeft.y >= containmentTopLeft.y && otherBottomRight.y <= containmentBottomRight.y;
+        }
+
+        if (containmentXPossible && this._inTreshhold(currentCenter.x, otherCenter.x) && otherCenter.x != currentCenter.x) {
+            odr.alignmentHelper(function() {
+                handle.x(otherTopLeft.x);
+                this._optimizePath();
+            }.createDelegate(this));
+            return;
+        }
+
+        if (containmentYPossible && this._inTreshhold(currentCenter.y, otherCenter.y) && otherCenter.y != currentCenter.y) {
+            odr.alignmentHelper(function() {
+                handle.y(otherTopLeft.y);
+                this._optimizePath();
+            }.createDelegate(this));
+            return;
+        }
+
+        this._optimizePath();
     },
-
-
 
 
 
@@ -2441,6 +2534,18 @@ odr.Association.prototype = {
      * @private
      */
     _setAllHandles : function(visible) {
+        var visiblePossible = false;
+
+        if (this._source != null && this._target != null && this._source.visible() && this._target.visible()) {
+            visiblePossible = true;
+        }
+
+        if (!visiblePossible) {
+            visible = false;
+        } else if (!visible && this._forceHandleVisible) {
+            visible = true;
+        }
+
         this._sourceHandle.visible(visible);
         this._targetHandle.visible(visible);
 
@@ -2521,13 +2626,8 @@ odr.Association.prototype = {
             this._lines[i].visible(visible);
         }
 
-        if (!visible) {
-            this._forceHandleVisible = false;
-            this._setAllHandles(false);
-        } else {
-            this._sourceHandle.visible(true);
-            this._targetHandle.visible(true);
-        }
+
+        this._setAllHandles(visible && !this._forceHandleVisible);
 
         root.unsuspendRedraw(suspendID);
     },
@@ -2541,7 +2641,11 @@ odr.Association.prototype = {
      * @private
      */
     _endpointVisibilityChanged : function() {
-        var shouldBeVisible = this._source.visible() && this._target.visible();
+        var shouldBeVisible = false;
+
+        if (this._source != null && this._target != null && this._source.visible() && this._target.visible()) {
+            shouldBeVisible = true;
+        }
 
         this.visible(shouldBeVisible);
     },

@@ -64,9 +64,9 @@ body {
 */
 .project {
     width: 200px;
-    height: 120px;
+    height: 160px;
     left: 0;
-    top: -131px;
+    top: -171px;
 }
 .project ul {
     padding: 0 0 0 35px;
@@ -91,7 +91,15 @@ body {
 .project ul li#refresh {
     list-style-image: url(../images/refresh_16.png);
 }
-
+.project ul li#toRelationshipView{
+    list-style-image: url(../images/view-relationship.png);
+}
+.project ul li#toChronologicalView{
+    list-style-image: url(../images/view-chronological.png);
+}
+.project ul li#toStakeholderView{
+    list-style-image: url(../images/view-stakeholder.png);
+}
 
 
 
@@ -427,11 +435,14 @@ body {
 
     z-index: 2000;
 }
-.node:hover {
-    background-color: #f0f0f0;
+.node.iteration {
+    background-color: lightgoldenrodyellow;
+}
+.node.disconnected {
+    background-color: lightcoral;
 }
 .node.marked, .handle.marked {
-    background-color: khaki;
+    background-color: #f0f0f0;
 }
 .round {
     border-radius: 15px;
@@ -537,10 +548,6 @@ body {
     z-index: 3000;
 }
 
-.handle:hover {
-    background-color: #bebebe;
-}
-
 
 
 
@@ -582,14 +589,12 @@ body {
 .ui-dialog .ui-button-text-only .ui-button-text {
     font-weight: normal;
 }
-
-
-
-/*
- * Icon popups
- */
+#alignmentPopup {
+    display: none;
+}
  #iconPopup {
      text-align: center;
+     display: none;
 }
  #iconPopup img {
      width: 66px;
