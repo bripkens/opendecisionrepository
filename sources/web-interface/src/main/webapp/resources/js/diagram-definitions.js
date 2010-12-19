@@ -36,12 +36,14 @@ odr.settings = {
         translation : "ViewpointTextProvider",
         dataProvider : "ViewpointDataProvider",
         dataReceiver : "ViewpointDataReceiver",
+        sessionMaintaining : "ViewpointPingServlet",
         visualization : "diagram.htm?id={0}&{1}=true",
         project : "projectDetails.html?id={0}",
         projects : "projects.html",
         decisionDetails : "decisionDetails.html?id={0}&versionId={2}&decisionId={1}",
         iterationDetails : "iterationDetails.html?id={0}&iterationId={1}"
     },
+    sessionMaintaining : 600000,  // ping the server every x milliseconds
     menu : {
         top : {
             "class" : "topMenu",
@@ -242,6 +244,11 @@ odr.settings = {
  * ###############################################################################################################
  *                             Translations will be loaded into this var
  */
+/**
+ * @namespace
+ * @private
+ * Localized texts are loaded into this variable
+ */
 odr.translation = {
     locale : null,
     text : null,
@@ -264,6 +271,11 @@ odr.translation = {
  * ###############################################################################################################
  *                                      User preferences
  */
+/**
+ * @private
+ * @namespace
+ * User preferences
+ */
 odr.user = {
     lowPerformanceMode : false,
     automaticallyAlignDragHandles : undefined
@@ -282,6 +294,8 @@ odr.user = {
 
 /**
  * @private
+ * @namespace
+ * Global variables
  */
 odr.vars = {
     idCounter : 0,
