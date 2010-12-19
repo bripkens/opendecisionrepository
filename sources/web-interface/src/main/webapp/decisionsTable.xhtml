@@ -8,9 +8,11 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="head">
-        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
         <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
         <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -18,49 +20,39 @@
     </ui:define>
 
     <ui:define name="bodyBegin">
-        <div id="deleteVersionConfirmationPopup" class="modalPopup deleteConfirmationPopup">
-            <h1><ice:outputText value="#{page['projectDetails.concern.delete']}" nospan="true" /></h1>
-
-            <p class="deleteConfirmationMessage">
-            <ice:outputText value="#{form['version.delete.confirmation']}" nospan="true"/>
-            <ice:outputText value=" #{decisionTableController.versionToDelete.decision.name} (#{decisionTableController.versionToDelete.state.statusName})" />?
-            </p>
-            <ice:form rendered="#{decisionTableController.valid}" id="confitmConcernDeleteForm">
-
-                <ice:commandButton action="#{decisionTableController.deleteVersion}"
-                                   value="#{form['button.delete']}"
-                                   styleClass="abort"
-                                   id="confirmConcernDeleteButton"/>
-
-                <ice:commandButton value="#{form['button.cancel']}" styleClass="hideModalPopupLink" immediate="true"/>
-            </ice:form>
-        </div>
+        <odr:deletePopup valid="#{decisionTableController.valid}"
+                         message="#{form['table.deletion.decision.text']}"
+                         attribute="#{decisionTableController.versionToDelete.decision.name} (#{decisionTableController.versionToDelete.state.statusName})"
+                         removeMethod="#{decisionTableController.deleteVersion}"/>
     </ui:define>
 
     <ui:define name="content">
         <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
-        <h1><h:outputText value="Decision Table"/></h1>
-        <a href="#{decisionTableController.createDecisionLink}" ><img class="createConcernSymbol vtip" title="create a new decision" src="resources/images/add.png" alt="create"/></a>
+        <h1><h:outputText value="#{form['table.header.decisions']}"/></h1>
+        <a href="#{decisionTableController.createDecisionLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.decision']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
 
         <form>
-            <label for="searchInput" class="prefillValue" style="display: none">Search</label>
-            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList')" style="width: 200px;" styleClass="prefill"/>
+            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList', true)" style="width: 200px;" styleClass="prefill"/>
         </form>
 
         <ice:form partialSubmit="true">
             <table class="dataList" id="concernList">
                 <thead>
                     <tr>
-                        <th style="width: 5%;"></th>
-                        <th style="width: 23%;">Name</th>
-                        <th style="width: 15%;">State</th>
-                        <th style="width: 20%;">Date</th>
-                        <th style="width: 37%;">Initiators</th>
-                        <th colspan="3" style="">Actions</th>
+                        <th style="width: 5%; text-align: center">
+                            <div title="#{form['table.tooltip.collapseall']}" class="collapseall vtip" onclick="j('.toggleSubTableHide').click();"/>
+                            <div title="#{form['table.tooltip.expandall']}" class="expandall vtip" onclick="j('.toggleSubTableShow').click();"/>
+                        </th>
+                        <th style="width: 23%;">#{form['table.decision.column.name']}</th>
+                        <th style="width: 15%;">#{form['table.decision.column.state']}</th>
+                        <th style="width: 20%;">#{form['table.decision.column.date']}</th>
+                        <th style="width: 37%;">#{form['table.decision.column.initiator']}</th>
+                        <th colspan="3" style="">#{form['table.decision.column.actions']}</th>
                     </tr>
                 </thead>
                 <tbody>
-                <ui:repeat value="#{decisionTableController.list}" var="item" id="concernRepeat">
+                <ice:repeat value="#{decisionTableController.list}" var="item" id="concernRepeat">
                     <tr class="parentRow group-#{item.decision.id}">
                         <td style="border-bottom: none">
                             <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
@@ -73,18 +65,18 @@
                         <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                     </ice:outputText></td>
                     <td title="#{item.getAllInitiators(item.currentVersion)}" class="vtip">#{item.getInitiators(item.currentVersion)}</td>
-                    <td><a href="#{decisionTableController.getShowLink(item.currentVersion)}" ><img class="vtip" title="details" alt="#{common.read}"
+                    <td><a href="#{decisionTableController.getShowLink(item.currentVersion)}" ><img class="vtip" title="#{form['table.tooltip.details']}" alt="#{common.read}"
                                                                                                     src="resources/images/inspect.png"
                                                                                                     width="14"
                                                                                                     height="14"/></a></td>
-                    <td><a href="#{decisionTableController.getUpdateLink(item.currentVersion)}" ><img class="vtip" title="edit" alt="#{common.edit}"
+                    <td><a href="#{decisionTableController.getUpdateLink(item.currentVersion)}" ><img class="vtip" title="#{form['table.tooltip.edit']}" alt="#{common.edit}"
                                                                                                       src="resources/images/pencilSmall.png"
                                                                                                       width="14"
                                                                                                       height="14"/></a></td>
                     <td><ice:commandLink value=""
                                          actionListener="#{decisionTableController.showDeleteVersionConfirmation}"
                                          styleClass="columnNavigationLink">
-                        <img alt="#{common.remove}"
+                        <img class="vtip" title="#{form['table.tooltip.delete']}" alt="#{common.remove}"
                              src="resources/images/removeSmall.png"
                              width="14"
                              height="14"/>
@@ -92,7 +84,7 @@
 
                     </ice:commandLink></td>
                     </tr>
-                    <ui:repeat value="#{item.subVersions}" var="version" id="subconcernRepeat">
+                    <ice:repeat value="#{item.subVersions}" var="version" id="subconcernRepeat">
                         <tr style="display: none;" class="subRow group-#{item.decision.id}">
                             <td style="border:none;"></td>
                             <td></td>
@@ -120,8 +112,8 @@
 
                         </ice:commandLink></td>
                         </tr>
-                    </ui:repeat>
-                </ui:repeat>
+                    </ice:repeat>
+                </ice:repeat>
                 </tbody>
             </table>
         </ice:form>

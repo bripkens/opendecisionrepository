@@ -49,7 +49,7 @@ public class Iteration extends BaseEntity<Iteration> {
     private Long id;
 
     @RequiredFor(Viewpoint.CHRONOLOGICAL)
-    @Column(length = 50,
+    @Column(length = 100,
             nullable = false)
     private String name;
 

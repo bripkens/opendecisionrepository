@@ -92,6 +92,11 @@
         <validator-class>nl.rug.search.odr.validator.IterationDateValidator</validator-class>
     </validator>
 
+    <validator>
+        <validator-id>PasswordValidator</validator-id>
+        <validator-class>nl.rug.search.odr.validator.PasswordValidator</validator-class>
+    </validator>
+
 
     <!--
         #########################################################

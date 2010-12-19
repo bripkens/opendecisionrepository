@@ -317,6 +317,7 @@ public class IterationController {
 
 
 
+
     /**
      * forwarding to the projectDetails page
      */
@@ -411,6 +412,7 @@ public class IterationController {
 
 
 
+
     /**
      * get all ErrorMessages which are in the FacesContext
      * @return the list of all messages
@@ -426,14 +428,20 @@ public class IterationController {
 
 
 
-    /**
-     * get the link to update the iteration with the provided id from the requestparameter(iterationId)
-     * @return the update link as string
-     */
+
     public String getupdateLink() {
-        return new QueryStringBuilder().setUrl("manageIteration.html").
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_ITERATION).
                 append(RequestParameter.ID, project.getId()).
                 append(RequestParameter.ITERATION_ID, iteration.getId()).
+                toString();
+    }
+
+
+
+
+    public String getCreateLink() {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_ITERATION).
+                append(RequestParameter.ID, project.getId()).
                 toString();
     }
 
@@ -457,6 +465,7 @@ public class IterationController {
     public String getMinutes() {
         return String.valueOf(minutes);
     }
+
 
 
 

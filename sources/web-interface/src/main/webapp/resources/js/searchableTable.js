@@ -4,7 +4,7 @@
  */
 
 
-function doFilter (phrase, _id){
+function doFilter (phrase, _id, boo){
     if(typeof( phrase ) != 'string'){
         var words = phrase.value.toLowerCase().split(" ");
     }
@@ -15,7 +15,9 @@ function doFilter (phrase, _id){
     var ele;
     for (var r = 1; r < table.rows.length; r++){
         ele = table.rows[r].innerHTML.replace(/<[^>]+>/g,"");
-        ele += table.rows[r].cells[4].getAttribute("title");
+        if(boo){
+            ele += table.rows[r].cells[4].getAttribute("title");
+        }
         var displayStyle = 'none';
         for (var i = 0; i < words.length; i++) {
             if (ele.toLowerCase().indexOf(words[i])>=0){

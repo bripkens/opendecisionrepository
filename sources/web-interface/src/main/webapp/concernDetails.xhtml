@@ -16,14 +16,17 @@
     <ui:define name="content">
 
         <odr:breadcrumb breadCrumbSource="#{concernController.navigationBar}" />
-        
+
         <ice:form id="concernForm" partialSubmit="false" rendered="#{concernController.valid}">
             <h1><h:outputText value="#{concernController.concern.name}"/></h1>
             <table class="details">
 
                 <div class="projectDetailsActions">
-                    <a href="#{concernController.updateLink}" id="updateLink" title="#{page['iteration.actions.edit.title']}" style="text-decoration: none;">
-                        <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
+                    <a href="#{concernController.createLink}" id="createLink" style="text-decoration: none;">
+                        <img alt="#{common.create}" title="#{page['concern.actions.create.title']}" class="vtip" src="./resources/images/add_small.png" width="38" height="38" />
+                    </a>
+                    <a href="#{concernController.updateLink}" id="updateLink" style="text-decoration: none;">
+                        <img alt="#{common.edit}" title="#{page['iteration.actions.edit.title']}" class="vtip" src="./resources/images/pencil.png" width="38" height="38" />
                     </a>
                 </div>
 
@@ -53,14 +56,14 @@
 
                 <tr>
                     <td><ice:outputLabel value="#{form['label.initiators']}" for="inCreator" /></td>
-                    <td><ice:outputText value="#{concernController.concern.initiators.person.name}">
+                <td><ice:outputText value="#{concernController.concern.initiators.person.name}">
                 </ice:outputText>
                 </td>
                 </tr>
 
                 <tr>
                     <td><ice:outputLabel value="#{form['concern.creationdate']}" for="inCreationDate" /></td>
-                    <td><ice:outputText value="#{concernController.concern.createdWhen}">
+                <td><ice:outputText value="#{concernController.concern.createdWhen}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>

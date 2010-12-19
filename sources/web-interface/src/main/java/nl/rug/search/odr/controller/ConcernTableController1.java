@@ -85,8 +85,7 @@ public class ConcernTableController1 {
         }
 
         parentConcerns = new ArrayList<Item>();
-        List<Concern> con = new ArrayList<Concern>();
-        con = concernLocal.getAll();
+        List<Concern> con = new ArrayList<Concern>(project.getConcerns());
 
         Collections.sort(con, new Concern.GroupDateComparator());
 
@@ -221,7 +220,7 @@ public class ConcernTableController1 {
         projectLocal.merge(project);
 
         JsfUtil.addJavascriptCall("odr.popup.hide();");
-        JsfUtil.addJavascriptCall("odr.refresh();");
+        JsfUtil.addJavascriptCall("odr.refresh()");
 
     }
 

@@ -28,6 +28,8 @@ public class NavigationBuilder {
 
     private final String DECISIONS = JsfUtil.evaluateExpressionGet("#{page['navigation.decisions']}", String.class);
 
+    private final String MEMBERS = JsfUtil.evaluateExpressionGet("#{page['navigation.members']}", String.class);
+
     private final String PROJECT = JsfUtil.evaluateExpressionGet("#{page['navigation.project']}", String.class);
 
     private final String PROJECTS = JsfUtil.evaluateExpressionGet("#{page['navigation.projects']}", String.class);
@@ -203,13 +205,16 @@ public class NavigationBuilder {
             navigation.add(new NavigationLink(REGISTER, ""));
         } //concernsTable
         else if (navigationSite.equals(Filename.CONCERNS_TABLE_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(CONCERNS, getTableLink(Filename.CONCERNS_TABLE)));
+            navigation.add(new NavigationLink(CONCERNS, ""));
         } //iterationsTable
         else if (navigationSite.equals(Filename.ITERATIONS_TABLE_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(ITERATIONS, getTableLink(Filename.ITERATION_TABLE)));
+            navigation.add(new NavigationLink(ITERATIONS, ""));
         } //decisionTable
         else if (navigationSite.equals(Filename.DECISIONS_TABLE_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(DECISIONS, getTableLink(Filename.DECISIONS_TABLE)));
+            navigation.add(new NavigationLink(DECISIONS, ""));
+        } //membersTable
+        else if (navigationSite.equals(Filename.MEMBERS_TABLE_WITH_LEADING_SLASH)) {
+            navigation.add(new NavigationLink(MEMBERS, ""));
         }
         return navigation;
     }
@@ -228,7 +233,7 @@ public class NavigationBuilder {
                 navigation.add(new NavigationLink(EDIT, ""));
             }
         } else if (navigationSite.equals(Filename.ITEARTION_DETAILS_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(iteration.getName(), iterationLink(Filename.ITERATION_DETAILS)));
+            navigation.add(new NavigationLink(iteration.getName(), ""));
         }
     }
 
@@ -262,7 +267,7 @@ public class NavigationBuilder {
                 navigation.add(new NavigationLink(EDIT, ""));
             }
         } else if (navigationSite.equals(Filename.CONCERN_DETAILS_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(concern.getName(), concernLink(Filename.CONCERN_DETAILS)));
+            navigation.add(new NavigationLink(concern.getName(), ""));
         }
     }
 
@@ -296,7 +301,7 @@ public class NavigationBuilder {
                 navigation.add(new NavigationLink(EDIT, ""));
             }
         } else if (navigationSite.equals(Filename.DECISION_DETAILS_WITH_LEADING_SLASH)) {
-            navigation.add(new NavigationLink(decision.getName(), decisionLink(Filename.DECISION_DETAILS)));
+            navigation.add(new NavigationLink(decision.getName(), ""));
         }
     }
 

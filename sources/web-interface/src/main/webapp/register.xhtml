@@ -25,7 +25,7 @@
     <ui:define name="content">
         <odr:breadcrumb breadCrumbSource="#{registerUserController.navigationBar}" />
 
-        <ice:form id="registerForm" partialSubmit="true">
+        <h:form id="registerForm">
 
             <h1><h:outputText value="#{form['registration.heading']}"/></h1>
 
@@ -60,20 +60,41 @@
 
 
 
+            <div class="formSection">
+                <ice:outputLabel value="#{form['label.password']}" for="Password" />
+                <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+                <ice:inputSecret id="password"
+                                 label="#{form['label.password']}"
+                                 maxlength="255"
+                                 value="#{registerUserController.password}"
+                                 required="true"
+                                 redisplay="true"
+                                 partialSubmit="true">
+                    <f:validateLength minimum="5" maximum="255" />
+                </ice:inputSecret>
+                <p>
+                    <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 5;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 255
+                </p>
+            </div>
+
 
 
 
 
             <div class="formSection">
-                <ice:outputLabel value="#{form['label.password']}" for="inPassword" />
+                <ice:outputLabel value="#{form['label.password']}" for="inPasswordConfirm" />
                 <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
-                <ice:inputSecret id="inPassword"
+                <ice:inputSecret id="confirm"
                                  label="#{form['label.password']}"
                                  maxlength="255"
-                                 value="#{registerUserController.password}"
+                                 value="#{registerUserController.passwordConfirmation}"
                                  required="true"
-                                 redisplay="true">
+                                 redisplay="true"
+                                 partialSubmit="true">
                     <f:validateLength minimum="5" maximum="255" />
+                    <f:validator validatorId="PasswordValidator" />
+                    <f:attribute name="passwordId" value="registerForm:password" />
                 </ice:inputSecret>
                 <p>
                     <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 5;
@@ -123,7 +144,7 @@
                                id="registrationAbortButton"
                                immediate="true"/>
 
-        </ice:form>
+        </h:form>
     </ui:define>
 
     <ui:define name="sidebar">

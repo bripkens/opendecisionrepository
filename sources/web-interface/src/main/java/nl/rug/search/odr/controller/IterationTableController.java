@@ -92,7 +92,7 @@ public class IterationTableController {
         iterations = new ArrayList<Item>();
 
         int i = 0;
-        for (Iteration iteration : iterationLocal.getAll()) {
+        for (Iteration iteration : project.getIterations()) {
             Item currentItem = new Item(iteration);
             iterations.add(currentItem);
         }
@@ -195,7 +195,6 @@ public class IterationTableController {
         projectLocal.merge(project);
 
         JsfUtil.addJavascriptCall("odr.popup.hide();");
-        JsfUtil.addJavascriptCall("odr.refresh();");
 
     }
 
