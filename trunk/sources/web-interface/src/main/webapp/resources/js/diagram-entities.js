@@ -924,6 +924,7 @@ odr.Node = function() {
         height : 0
     };
     this._json = null;
+    this._additionalInformationFunction = null;
 
     for(var listenerType in odr.Node.listener) {
         this._listener[odr.Node.listener[listenerType]] = {};
@@ -1030,6 +1031,34 @@ odr.Node.prototype = {
 
 
 
+
+
+
+
+    /**
+     * @description
+     * Set or get the function which will be called when additional information is requested
+     *
+     * @param {Function} additionalInformationFunction The function which will be called
+     * @return {Function|odr.Node} The current additionalInformationFunction if you don't provide a parameter or the
+     * object on which you called this method in case you provide a parameter.
+     */
+    additionalInformationFunction : function(additionalInformationFunction) {
+        if (additionalInformationFunction != undefined) {
+            this._additionalInformationFunction = additionalInformationFunction;
+
+            return this;
+        }
+
+        return this._additionalInformationFunction;
+    },
+
+
+
+
+
+
+
     /**
      * @private
      */
@@ -1066,6 +1095,13 @@ odr.Node.prototype = {
         info.className = odr.settings.node.infoIcon["class"];
         info.title = odr.settings.node.infoIcon.text;
         this._element.appendChild(info);
+        $(info).click(function() {
+            if (this._additionalInformationFunction != null) {
+                this._additionalInformationFunction(this);
+            }
+
+            return false;
+        }.createDelegate(this));
         vtip($(info));
 
 
@@ -1333,6 +1369,91 @@ odr.Node.prototype = {
 
         this.size(odr.roundUp($(this._element).width(), odr.settings.node.size.multipleOf.width),
             odr.roundUp($(this._element).height(), odr.settings.node.size.multipleOf.height));
+    },
+
+
+
+
+
+
+
+
+
+
+
+    svgRepresentation : function() {
+        if (!this.visible()) {
+            return "";
+        }
+
+        var cornerRadius = 0;
+
+        if (this.hasClass(odr.settings.node.additionalClasses.roundCorners)) {
+            cornerRadius = odr.settings["export"].node.roundedCornerRadius;
+        }
+
+        var svg = ['<rect x="',
+        this.x(),
+        '" y="',
+        this.y(),
+        '" width="',
+        this.width(),
+        '" height="',
+        this.height(),
+        '" rx="',
+        cornerRadius,
+        '" ry="',
+        cornerRadius,
+        '" fill="',
+        $(this._element).css("background-color"),
+        '" stroke-width="',
+        odr.settings["export"].node.borderWidth,
+        '" stroke="',
+        odr.settings["export"].node.borderColor,
+        '"></rect>'
+        ];
+
+        if (this._status != null && this._status != "") {
+            this._textSvgRepresentation(svg, this._statusElement);
+        }
+
+        if (this.label() != null && this.label() != "") {
+            this._textSvgRepresentation(svg, this._labelElement);
+        }
+
+        return svg.join("");
+    },
+
+
+
+
+
+
+    _textSvgRepresentation : function(collection, htmlElement) {
+        var y = $(htmlElement).offset().top + odr.settings["export"].node.additionalTextMargin;
+        htmlElement.style.display = "inline";
+        var x = $(htmlElement).offset().left;
+        htmlElement.style.display = "block";
+        
+
+        var color = $(htmlElement).css("color");
+        var fontFamily = $(htmlElement).css("font-family");
+        var fontSize = $(htmlElement).css("font-size");
+
+        collection.push('<text x="',
+            x,
+            '" y="',
+            y,
+            '" fill="',
+            color,
+            '" style="font-family: ',
+            fontFamily,
+            '; font-size: ',
+            fontSize,
+            '">',
+            $(htmlElement).html(),
+            '</text>'
+            );
     }
 }
 
@@ -1914,12 +2035,6 @@ odr.Association.prototype = {
 
 
 
-
-
-
-
-
-
     /**
      * @description
      * You can also retrieve the current value by calling this method without parameters.
@@ -2252,7 +2367,9 @@ odr.Association.prototype = {
 
 
 
-
+     /**
+     * @private
+     */
     _repaint : function() {
         var root = odr.canvas();
         var suspendID = root.suspendRedraw(5000);
@@ -2424,9 +2541,12 @@ odr.Association.prototype = {
      * @private
      */
     _setLabelLineVisible : function(visible) {
-        for(var i = 0; i < this._labelLines.length; i++) {
-            this._labelLines[i].visible(visible);
+        if (this._label.label() != null && this._label.label() != "") {
+            for(var i = 0; i < this._labelLines.length; i++) {
+                this._labelLines[i].visible(visible);
+            }
         }
+        
     },
 
 
@@ -2660,8 +2780,15 @@ odr.Association.prototype = {
      */
     _handleChanged : function() {
         this._repaint();
-    }
+    },
 
+
+
+
+
+    svgRepresentation : function() {
+        return this._label.svgRepresentation();
+    }
 };
 
 extend(odr.Association, odr.Drawable);
@@ -3260,6 +3387,7 @@ odr.Label.prototype = {
                 this._label = label;
 
                 $(this._element).text(label);
+                this.size($(this._element).width(), $(this._element).height());
 
                 this.fire(odr.Label.listener.labelChanged, [this]);
             }
@@ -3349,24 +3477,6 @@ odr.Label.prototype = {
     },
 
 
-
-
-
-
-
-
-
-
-    /**
-     * @private
-     * @override
-     */
-    center : function() {
-        return {
-            x : this.x() + ($(this._element).width() / 2),
-            y : this.y() + ($(this._element).height() / 2)
-        };
-    },
 
 
 
@@ -3494,6 +3604,47 @@ odr.Label.prototype = {
         } else {
             this.removeClass(odr.settings.label.markedClass);
         }
+    },
+
+
+
+
+
+
+
+
+
+
+    svgRepresentation : function() {
+        if (!this.visible() || this._label == null || this._label == "") {
+            return "";
+        }
+
+        var y = $(this._element).offset().top + odr.settings["export"].label.additionalMargin;
+        var x = $(this._element).offset().left;
+
+        var color = $(this._element).css("color");
+        var fontFamily = $(this._element).css("font-family");
+        var fontSize = $(this._element).css("font-size");
+
+        var svg = [];
+
+        svg.push('<text x="',
+            x,
+            '" y="',
+            y,
+            '" fill="',
+            color,
+            '" style="font-family: ',
+            fontFamily,
+            '; font-size: ',
+            fontSize,
+            '">',
+            $(this._element).html(),
+            '</text>'
+            );
+
+        return svg.join("");
     }
 };
 

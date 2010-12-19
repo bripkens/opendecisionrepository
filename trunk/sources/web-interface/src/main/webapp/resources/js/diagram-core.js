@@ -156,6 +156,9 @@ function extend(child, supertype){
 
 
 
+
+
+
 /**
  * @description
  * <p>We extend the prototype of all functions with the function createDelegate. This method allows

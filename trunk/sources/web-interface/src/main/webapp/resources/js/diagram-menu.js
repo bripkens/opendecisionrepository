@@ -467,3 +467,141 @@ odr._createJSONString = function(data) {
 
     return json.join("");
 }
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Additional information button
+ */
+/**
+ * @description
+ * Show details about the given node
+ *
+ * @param {odr.Node} node The node for which additional information should be shown
+ */
+odr.showAdditionalDecisionDetails = function(node) {
+    var json = node.json;
+
+    var url = odr.settings.request.decisionDetails.
+    replace("{0}", odr.vars.requestParameter[odr.settings.request.parameter.projectId]).
+    replace("{1}", json.Version.Decision.Id).
+    replace("{2}", json.Version.Id);
+
+    window.open(url);
+}
+
+
+
+
+
+/**
+ * @description
+ * Show details about the given node
+ *
+ * @param {odr.Node} node The node for which additional information should be shown
+ */
+odr.showAdditionalIterationDetails = function(node) {
+    var json = node.json;
+
+    var url = odr.settings.request.iterationDetails.
+    replace("{0}", odr.vars.requestParameter[odr.settings.request.parameter.projectId]).
+    replace("{1}", json.Iteration.Id);
+
+    window.open(url);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Exporting
+ */
+odr.ready(function() {
+    $("div.export ul li").click(function() {
+        var format = $(this).attr("class");
+
+        var nodes = [];
+
+        var minX = Number.MAX_VALUE, maxX = Number.MIN_VALUE, minY = Number.MAX_VALUE, maxY = Number.MIN_VALUE;
+
+        for(var key in odr.vars.shapesThatDetermineCanvasSize) {
+            var shape = odr.vars.shapesThatDetermineCanvasSize[key];
+
+            if (!shape.visible() || (shape instanceof odr.Label && shape.label() == "")) {
+                continue;
+            }
+
+            var topLeft = shape.topLeft();
+            var bottomRight = shape.bottomRight();
+
+            minX = Math.min(topLeft.x, minX);
+            maxX = Math.max(bottomRight.x, maxX);
+
+            minY = Math.min(topLeft.y, minY);
+            maxY = Math.max(bottomRight.y, maxY);
+        }
+
+        minX -= odr.settings["export"].padding.left;
+        maxX += odr.settings["export"].padding.right;
+        minY -= odr.settings["export"].padding.top;
+        maxY += odr.settings["export"].padding.bottom;
+
+        var viewBox = ['viewBox="',
+        minX,
+        " ",
+        minY,
+        " ",
+        maxX - minX,
+        " ",
+        maxY - minY,
+        '"'].join("");
+
+        for(var e in odr.vars.allDecisionNodes) {
+            nodes.push(odr.vars.allDecisionNodes[e].svgRepresentation());
+        }
+
+        for(var e in odr.vars.allIterationNodes) {
+            nodes.push(odr.vars.allIterationNodes[e].svgRepresentation());
+        }
+
+        for(var e in odr.vars.allAssociations) {
+            nodes.push(odr.vars.allAssociations[e].svgRepresentation());
+        }
+
+        var lines = $("#" + odr.settings.svg.container).html();
+
+        var completeSvg = lines.substring(0, lines.search("</svg>")) + nodes.join("") + lines.substring(lines.search("</svg>"));
+
+        // the viewBox attribute needs to changed in order to cut off the sides of the svg
+        completeSvg = completeSvg.replace(/viewBox=["']{1}[0-9]+ [0-9]+ [0-9]+ [0-9]+["']{1}/, viewBox);
+        completeSvg = completeSvg.replace(/width=["']{1}[0-9]+["']{1}/, 'width="' + (maxX - minX) + '"');
+        completeSvg = completeSvg.replace(/height=["']{1}[0-9]+["']{1}/, 'height="' + (maxY - minY) + '"');
+
+        var form = $("div.export form");
+
+        var dataInput = form.children("input#data");
+        dataInput.val(completeSvg);
+
+        var formatInput = form.children("input#format");
+        formatInput.val(format);
+
+        form.submit();
+    });
+});

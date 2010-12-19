@@ -38,7 +38,9 @@ odr.settings = {
         dataReceiver : "ViewpointDataReceiver",
         visualization : "diagram.htm?id={0}&{1}=true",
         project : "projectDetails.html?id={0}",
-        projects : "projects.html"
+        projects : "projects.html",
+        decisionDetails : "decisionDetails.html?id={0}&versionId={2}&decisionId={1}",
+        iterationDetails : "iterationDetails.html?id={0}&iterationId={1}"
     },
     menu : {
         top : {
@@ -199,6 +201,7 @@ odr.settings = {
     },
     svg : {
         id : "canvas",
+        container : "svgContainer",
         redrawTimeout : 5000,
         padding : {
             top : 10,
@@ -209,6 +212,23 @@ odr.settings = {
     },
     lasso : {
         id : "lasso"
+    },
+    "export" : {
+        padding : {
+            top : 10,
+            right : 10,
+            bottom : 10,
+            left : 10
+        },
+        node : {
+            roundedCornerRadius : "15",
+            borderColor : "black",
+            borderWidth : "1",
+            additionalTextMargin : 10
+        },
+        label : {
+            additionalMargin : 10
+        }
     }
 };
 
