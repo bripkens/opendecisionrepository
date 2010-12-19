@@ -344,6 +344,8 @@ odr._saveAll = function() {
         json.Handles = handlesForValue;
     }
 
+    
+
     var parameter = {};
     parameter[odr.settings.request.parameter.projectId] = odr.vars.requestParameter[odr.settings.request.parameter.projectId];
     parameter[odr.settings.request.parameter.data] = odr._createJSONString(odr.vars.json);
@@ -596,7 +598,17 @@ odr.ready(function() {
         completeSvg = completeSvg.replace(/width=["']{1}[0-9]+["']{1}/, 'width="' + (maxX - minX) + '"');
         completeSvg = completeSvg.replace(/height=["']{1}[0-9]+["']{1}/, 'height="' + (maxY - minY) + '"');
 
+        var d = new Date();
+        var dateString = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+        
+        var filename = odr.translation.text["menu.export.filename"].
+        replace("{0}", odr.vars.requestedViewpoint).
+        replace("{1}", dateString);
+
         var form = $("div.export form");
+
+        var filenameInput = form.children("input#filename");
+        filenameInput.val(filename);
 
         var dataInput = form.children("input#data");
         dataInput.val(completeSvg);
