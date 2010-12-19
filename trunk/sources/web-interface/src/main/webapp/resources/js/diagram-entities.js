@@ -1716,6 +1716,15 @@ odr.Handle.prototype = {
 
 
 
+    startDragging : function(e) {
+        var coord = { clientX: e.clientX, clientY: e.clientY };
+        $("#" + this.id()).simulate("mousedown", coord);
+    },
+
+
+
+
+
 
     /**
      * @private
@@ -2439,6 +2448,7 @@ odr.Association.prototype = {
             line.bind(odr.Line.listener.click, this._lineMouseClick.createDelegate(this), this.id());
             line.bind(odr.Line.listener.mousein, this._lineMouseIn.createDelegate(this), this.id());
             line.bind(odr.Line.listener.mouseout, this._lineMouseOut.createDelegate(this), this.id());
+            line.bind(odr.Line.listener.mousedown, this._lineMouseDown.createDelegate(this), this.id());
         }
 
 
@@ -2455,7 +2465,21 @@ odr.Association.prototype = {
 
 
 
+    _lineMouseDown : function(source, e) {
+        if (e.ctrlKey) {
+            return false;
+        }
 
+        var handle = new odr.Handle();
+        handle.position(odr.round(e.pageX, odr.settings.grid[0]), odr.round(e.pageY, odr.settings.grid[0]));
+        handle.startDragging(e);
+
+        if (source.source() == this._sourceHandle) {
+            this.addHandleToBeginning(handle);
+        } else {
+            this.addHandleAfter(source.source(), handle);
+        }
+    },
 
 
 
@@ -2467,15 +2491,6 @@ odr.Association.prototype = {
         if (e.ctrlKey) {
             this._forceHandleVisible = !this._forceHandleVisible;
             return;
-        }
-
-        var handle = new odr.Handle();
-        handle.position(odr.round(e.pageX, odr.settings.grid[0]), odr.round(e.pageY, odr.settings.grid[0]));
-
-        if (source.source() == this._sourceHandle) {
-            this.addHandleToBeginning(handle);
-        } else {
-            this.addHandleAfter(source.source(), handle);
         }
     },
 
@@ -2893,7 +2908,9 @@ odr.Line.listener = {
     /** @field */
     mousein : "mousein",
     /** @field */
-    mouseout : "mouseout"
+    mouseout : "mouseout",
+    /** @field */
+    mousedown : "mousedown"
 }
 
 odr.Line.prototype = {
@@ -3114,14 +3131,20 @@ odr.Line.prototype = {
                 this._hover = true;
             }
             this.fire(odr.Line.listener.mouseover, [this]);
+            return false;
         }.createDelegate(this), false);
 
         this._element.addEventListener("mouseout", function() {
             this.fire(odr.Line.listener.mouseout, [this]);
             this._hover = false;
+            return false;
         }.createDelegate(this), false);
 
 
+        $(this._element).bind("mousedown", function(e) {
+            this.fire(odr.Line.listener.mousedown, [this, e]);
+            return false;
+        }.createDelegate(this));
 
 
 
