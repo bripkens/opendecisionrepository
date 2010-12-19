@@ -1,10 +1,15 @@
 package nl.rug.search.odr.controller;
 
+import com.sun.faces.util.MessageFactory;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.ConverterException;
+import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.util.JsfUtil;
 import nl.rug.search.odr.user.UserLocal;
@@ -14,7 +19,7 @@ import nl.rug.search.odr.entities.Person;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class RegisterUserController extends AbstractController {
 
@@ -22,6 +27,8 @@ public class RegisterUserController extends AbstractController {
     private UserLocal userLocal;
 
     private String name, email, password;
+
+    private String passwordConfirmation;
 
 
 
@@ -103,7 +110,25 @@ public class RegisterUserController extends AbstractController {
 
 
     public void setPassword(String password) {
+
         this.password = password;
+    }
+
+
+
+
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+
+
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        if (!passwordConfirmation.equals(password)) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "FEHLER", "FEHLER"));
+        }
+        this.passwordConfirmation = passwordConfirmation;
     }
 
 

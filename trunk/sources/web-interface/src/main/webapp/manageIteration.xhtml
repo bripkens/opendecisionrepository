@@ -42,7 +42,7 @@
                                    value="#{iterationController.name}"
                                    partialSubmit="true"
                                    required="true">
-                        <f:validateLength minimum="3" maximum="30" />
+                        <f:validateLength minimum="3" maximum="100" />
                         <f:validator validatorId="RegexValidator" />
                         <f:attribute name="inputCharset" value="A-Za-z0-9-_ " />
 
@@ -50,7 +50,7 @@
                     </ice:inputText>
                     <p>
                     <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
-                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 30;
+                    <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 100;
                     <ice:outputText value="#{form['constraint.charset']}" nospan="true" /> [A-Za-z0-9-_ ];
                     <ice:outputText value="#{form['constraint.username']}" nospan="true" />
                     </p>

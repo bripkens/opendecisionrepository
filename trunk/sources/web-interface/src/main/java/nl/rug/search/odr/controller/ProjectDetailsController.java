@@ -685,6 +685,9 @@ public class ProjectDetailsController {
     }
 
 
+    public String getShowMoreMembers() {
+        return Filename.MEMBERS_TABLE + "?" + RequestParameter.ID + "=" + projectId;
+    }
 
 
     public String getShowMoreConcerns() {

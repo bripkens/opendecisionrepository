@@ -214,7 +214,7 @@ public class DecisionTableController {
         }
 
         JsfUtil.addJavascriptCall("odr.popup.hide();");
-        JsfUtil.addJavascriptCall("odr.refresh();");
+        JsfUtil.addJavascriptCall("odr.refresh()");
 
     }
 
@@ -242,6 +242,12 @@ public class DecisionTableController {
 
         private static final Integer DECISON_LENGTH = JsfUtil.evaluateExpressionGet("#{form['decisionTable.decision.name.length']}", Integer.class);
 
+        private static final Integer INITIATOR_LENGTH = JsfUtil.evaluateExpressionGet("#{form['decisionTable.initiator.name.length']}", Integer.class);
+
+        private static final String SEPERATOR = JsfUtil.evaluateExpressionGet("#{form['decisionTable.initiator.seperator']}", String.class);
+
+        private static final String ENDING = JsfUtil.evaluateExpressionGet("#{form['decisionTable.name.tolong']}", String.class);
+
         private List<Version> subVersions = new ArrayList<Version>();
 
         private Decision decision;
@@ -260,11 +266,10 @@ public class DecisionTableController {
         public String getInitiators(Version v) {
             String initiators = "";
             for (ProjectMember member : v.getInitiators()) {
-                initiators = initiators.concat(member.getPerson().getName()).concat(", ");
+                initiators = initiators.concat(member.getPerson().getName()).concat(SEPERATOR + " ");
             }
-            if (initiators.length() > 40) {
-                initiators = initiators.substring(0, 40);
-                initiators = initiators.concat("...");
+            if (initiators.length() > INITIATOR_LENGTH) {
+                initiators = initiators.substring(0, INITIATOR_LENGTH).concat(ENDING);
             } else {
                 initiators = initiators.substring(0, initiators.length() - 2);
             }
@@ -277,8 +282,7 @@ public class DecisionTableController {
         public String getAllInitiators(Version v) {
             String ini = "";
             for (ProjectMember member : v.getInitiators()) {
-                ini = ini.concat(member.getPerson().getName());
-                ini = ini.concat(", ");
+                ini = ini.concat(member.getPerson().getName()).concat(SEPERATOR+" ");
             }
             return ini.substring(0, ini.length() - 2);
         }
@@ -290,7 +294,7 @@ public class DecisionTableController {
             String name;
             if (decision.getName().length() > DECISON_LENGTH) {
                 name = decision.getName().substring(0, DECISON_LENGTH);
-                return name.concat("...");
+                return name.concat(ENDING);
             }
             return decision.getName();
         }

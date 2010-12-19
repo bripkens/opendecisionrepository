@@ -57,6 +57,10 @@ public interface Filename {
 
     String CONCERNS_TABLE = "concernsTable.html";
 
+    String MEMBERS_TABLE_WITH_LEADING_SLASH = "/membersTable.html";
+
+    String MEMBERS_TABLE = "membersTable.html";
+
     String ITERATIONS_TABLE_WITH_LEADING_SLASH = "/iterationsTable.html";
 
     String ITERATION_TABLE = "iterationsTable.html";

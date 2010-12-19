@@ -337,7 +337,11 @@ public class DecisionDetailsController {
                 toString();
     }
 
-
+    public String getCreateLink() {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_DECISION).
+                append(RequestParameter.ID, project.getId()).
+                toString().concat(RequestParameter.AMPERSAND +RequestParameter.CREATE);
+    }
 
 
     public String getUpdateLink() {

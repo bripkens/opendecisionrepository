@@ -20,10 +20,10 @@
             <h1><ice:outputText value="#{decisionDetailsController.decision.name}" nospan="true" /></h1>
 
             <div class="projectDetailsActions">
-                <a href="#{decisionDetailsController.updateLink}"
-                   id="updateLink"
-                   title="#{page['decision.details.edit.decision']}"
-                   style="text-decoration: none;">
+                <a href="#{decisionDetailsController.createLink}" id="createLink" style="text-decoration: none;">
+                    <img alt="#{common.create}" title="#{page['decision.actions.create.title']}" class="vtip" src="./resources/images/add_small.png" width="38" height="38" />
+                </a>
+                <a href="#{decisionDetailsController.updateLink}" id="updateLink" title="#{page['decision.details.edit.decision']}" style="text-decoration: none;">
                     <img alt="#{common.edit}" src="./resources/images/pencil.png" width="38" height="38" />
                 </a>
             </div>

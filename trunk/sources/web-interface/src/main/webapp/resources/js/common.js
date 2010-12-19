@@ -50,9 +50,9 @@ odr.init = function() {
 
     // anchor fix for base.href
     j("a.anchorLink").each(function() {
-       element = j(this);
-       href = window.location.href;
-       element.attr("href", window.location.href.split("#")[0] + element.attr("href"));
+        element = j(this);
+        href = window.location.href;
+        element.attr("href", window.location.href.split("#")[0] + element.attr("href"));
     });
 
     j(".initDisabled").each(function() {
@@ -414,16 +414,40 @@ odr.hideDecisionAddForm = function() {
     odr.toggling.toggleSlide("#decisionQuickAddContainer");
 }
 odr.showIterationDeleteForm = function() {
-    odr.popup.show("deleteIterationConfirmationPopup");
+    odr.showDeleteDialog();
+    j( "#deletionPopup" ).dialog( "option", "title", 'Delete iteration' );
 }
 odr.showDecisionDeleteForm = function() {
     odr.popup.show("deleteDecisionConfirmationPopup");
 }
 odr.showConcernDeleteForm = function() {
-    odr.popup.show("deleteConcernConfirmationPopup");
+    odr.showDeleteDialog();
+    j( "#deletionPopup" ).dialog( "option", "title", 'Delete concern' );
 }
+
 odr.showVersionDeleteForm = function() {
-    odr.popup.show("deleteVersionConfirmationPopup");
+    odr.showDeleteDialog();
+    j( "#deletionPopup" ).dialog( "option", "title", 'Delete version' );
+}
+
+odr.showMemberRemoveForm = function(){
+    odr.showDeleteDialog();
+    j( "#deletionPopup" ).dialog( "option", "title", 'Remove member' );
+}
+
+odr.showDeleteDialog = function(){
+    j("#deletionPopup" ).dialog({
+        resizable: false,
+        dialogClass: 'membersdialog',
+        height:150,
+        draggable: false,
+        minWidth: 360,
+        maxWidth:360,
+        closeOnEscape: true,
+        modal: true
+    });
+
+
 }
 odr.datetimepickerValidationFix = function() {
     j(".datetimepickerDateInput").focus().blur();

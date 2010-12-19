@@ -331,6 +331,15 @@ public class ConcernController {
 
 
 
+    public String getCreateLink() {
+        return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
+                append(RequestParameter.ID, project.getId()).
+                toString();
+    }
+
+
+
+
     public String getupdateLink() {
         return new QueryStringBuilder().setUrl(Filename.MANAGE_CONCERNS).
                 append(RequestParameter.ID, project.getId()).
