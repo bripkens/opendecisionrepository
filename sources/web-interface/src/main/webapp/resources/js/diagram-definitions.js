@@ -28,6 +28,7 @@ odr.settings = {
     request : {
         parameter : {
             projectId : "id",
+            data : "data",
             relationshipView : "relationship",
             chronologicalView : "chronological",
             stakeholderView : "stakeholder"
@@ -35,6 +36,7 @@ odr.settings = {
         translation : "ViewpointTextProvider",
         dataProvider : "ViewpointDataProvider",
         dataReceiver : "ViewpointDataReceiver",
+        visualization : "diagram.htm?id={0}&{1}=true",
         project : "projectDetails.html?id={0}",
         projects : "projects.html"
     },
@@ -76,6 +78,12 @@ odr.settings = {
     node : {
         idPrefix : "node",
         "class" : "node",
+        additionalClasses : {
+            roundCorners : "round",
+            iteration : "iteration",
+            decision : "decision",
+            disconnected : "disconnected"
+        },
         markedClass : "marked",
         container : "nodeGroup",
         jQueryUiDraggingSettings : {
@@ -146,7 +154,7 @@ odr.settings = {
             width : 6,
             height : 6
         },
-        alignmentTreshhold : 40
+        alignmentTreshhold : 20
     },
     association : {
         idPrefix : "association",
@@ -257,6 +265,8 @@ odr.user = {
  */
 odr.vars = {
     idCounter : 0,
+    initCompletedCounter : 0,
+    json : null,
     registry : null,    // Will be replaced during bootstrap with an instance of odr.Registry
     bootstrapFunctions : [],
     readyFunctions : [],
@@ -271,5 +281,10 @@ odr.vars = {
      */
     markedElements : {},
     lasso : null,
-    requestParameter : null
+    requestParameter : null,
+    requestedViewpoint : null,
+    allDecisionNodes : {},
+    allIterationNodes : {},
+    allAssociations : {},
+    statusGroups : {}
 };

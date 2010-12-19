@@ -53,23 +53,34 @@ odr.ready = function(callback) {
 window.onsvgload = function() {
     odr.popup.prepare();
 
-    var popupId = odr.popup.show(odr.settings.popup.temporaryText.title,
+    var popupId1 = odr.popup.show(odr.settings.popup.temporaryText.title,
         odr.settings.popup.temporaryText.text,
         "resources/images/ajax-loader-circle.gif",
         "Loading icon",
         false);
 
-    for (var i = 0; i < odr.vars.bootstrapFunctions.length; i++) {
-        odr.vars.bootstrapFunctions[i]();
-    }
+    // Set timeout is used since we need this function call to end quickly in order to show
+    // the loading animation. Without returning the function call, the popup won't be shown.
+    setTimeout(function() {
+        for (var i = 0; i < odr.vars.bootstrapFunctions.length; i++) {
+            odr.vars.bootstrapFunctions[i]();
+        }
 
-    odr.popup.translate();
+        if (!odr.popup.close(popupId1)) {
+            return;
+        }
 
-    for (var i = 0; i < odr.vars.readyFunctions.length; i++) {
-        odr.vars.readyFunctions[i]();
-    }
+        var popupId2 = odr.popup.translate();
 
-    odr.popup.close(popupId);
+        // see above
+        setTimeout(function() {
+            for (var i = 0; i < odr.vars.readyFunctions.length; i++) {
+                odr.vars.readyFunctions[i]();
+            }
+
+            odr.popup.close(popupId2);
+        }, 0);
+    }, 0);
 }
 
 
@@ -800,6 +811,20 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
     var off = $(odr.settings.menu.bottom.alignment.off);
     var ask = $(odr.settings.menu.bottom.alignment.ask);
 
+    buttons[odr.translation.text["alignment.do"]] = function() {
+        if ($("#alignmentPopup-rememberSettings").is(":checked")) {
+            out.text(on.children().first().text());
+            odr.user.automaticallyAlignDragHandles = true;
+            on.addClass(odr.settings.menu.bottom.selectedClass);
+            off.removeClass(odr.settings.menu.bottom.selectedClass);
+            ask.removeClass(odr.settings.menu.bottom.selectedClass);
+        }
+
+        helpAction();
+        
+        $(this).dialog("close");
+    };
+
     buttons[odr.translation.text["alignment.cancel"]] = function() {
         if ($("#alignmentPopup-rememberSettings").is(":checked")) {
             out.text(off.children().first().text());
@@ -813,20 +838,6 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
             cancelAction();
         }
 
-        $(this).dialog("close");
-    };
-
-    buttons[odr.translation.text["alignment.do"]] = function() {
-        if ($("#alignmentPopup-rememberSettings").is(":checked")) {
-            out.text(on.children().first().text());
-            odr.user.automaticallyAlignDragHandles = true;
-            on.addClass(odr.settings.menu.bottom.selectedClass);
-            off.removeClass(odr.settings.menu.bottom.selectedClass);
-            ask.removeClass(odr.settings.menu.bottom.selectedClass);
-        }
-
-        helpAction();
-        
         $(this).dialog("close");
     };
 
@@ -873,22 +884,22 @@ odr.popup.prepare = function() {
 
     var buttons = {};
 
-    buttons[odr.settings.popup.temporaryText.refresh] = function() {
-        location.reload(true);
-    };
-
     buttons[odr.settings.popup.temporaryText.back] = function() {
         var projectId = odr.vars.requestParameter[odr.settings.request.parameter.projectId];
 
         if (isNaN(projectId)) {
             alert("Can't redirect to the project details page since an invalid project id was supplied. Redirecting " +
-            "to project overview instead.");
+                "to project overview instead.");
             window.location = odr.settings.request.projects;
             return;
         }
         
         window.location = odr.settings.request.project.replace("{0}",
             odr.vars.requestParameter[odr.settings.request.parameter.projectId]);
+    };
+
+    buttons[odr.settings.popup.temporaryText.refresh] = function() {
+        location.reload(true);
     };
 
     $("#iconPopup").dialog({
@@ -920,12 +931,12 @@ odr.popup.translate = function() {
     var previousButtons = popup.dialog("option", "buttons");
     var newButtons = {};
 
-    newButtons[odr.translation.text["popup.refresh"]] = previousButtons[odr.settings.popup.temporaryText.refresh];
     newButtons[odr.translation.text["popup.to.Project"]] = previousButtons[odr.settings.popup.temporaryText.back];
+    newButtons[odr.translation.text["popup.refresh"]] = previousButtons[odr.settings.popup.temporaryText.refresh];
 
     popup.dialog("option", "buttons", newButtons);
 
-    odr.popup.showLoad();
+    return odr.popup.showLoad();
 };
 
 
@@ -976,7 +987,9 @@ odr.popup.show = function(title, text, image, imageAlt, closeable) {
     odr.popup.close();
     popup.dialog("open");
 
-    return ++odr.vars.popupId;
+    odr.vars.popupId++;
+
+    return odr.vars.popupId;
 }
 
 
@@ -996,9 +1009,12 @@ odr.popup.show = function(title, text, image, imageAlt, closeable) {
  * then the popup will be closed what so ever.
  */
 odr.popup.close = function(popupId) {
-    if (popupId == undefined || popupId == odr.vars.popupId -1) {
+    if (popupId == undefined || popupId == odr.vars.popupId) {
         $("#iconPopup").dialog("close");
+        return true;
     }
+
+    return false;
 }
 
 

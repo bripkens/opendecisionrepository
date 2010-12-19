@@ -36,6 +36,8 @@ odr.ready(function() {
         return;
     }
 
+    odr.vars.requestedViewpoint = viewParameter;
+
     var parameter = {};
     parameter[odr.settings.request.parameter.projectId] = projectId;
     parameter[viewParameter] = true;
@@ -44,6 +46,8 @@ odr.ready(function() {
         url : odr.settings.request.dataProvider,
         data : parameter,
         dataType : "json",
+        timeout : 2000,
+        async : false,
         error : function(data, textStatus, errorThrown) {
             odr.popup.showError("Error while retrieving data from the server: " + textStatus + " /// " + errorThrown);
         },
@@ -53,27 +57,44 @@ odr.ready(function() {
 
 
 
+
+
+
+
+
+/**
+ * @description
+ * Handle the data which has been loaded from the server. The data must have the correct form for a relationship view
+ *
+ * @param {Object} data The data from the server
+ */
 odr.handleRelationshipView = function(data) {
-    console.log(data);
+    $("#toRelationshipView").hide();
+
+    odr.vars.json = data;
 
     var root = odr.canvas();
     var suspendID = root.suspendRedraw(5000);
 
-    var allNodes = {};
-
     for(var i = 0; i < data.Nodes.length; i++) {
         var nodeJson = data.Nodes[i];
 
-        var node = new odr.Node();
+        var node = odr.addNode(nodeJson.Version.Decision.Name,
+            nodeJson.Version.State.StatusName,
+            nodeJson.Version.State.StatusName,
+            nodeJson.Visible);
+
         node.json = nodeJson;
         node.position(nodeJson.X, nodeJson.Y);
-        node.size(nodeJson.Width, nodeJson.Height);
-        node.addClass("round");
-        node.label(nodeJson.Version.Decision.Name);
-        node.status(nodeJson.Version.State.StatusName);
-        node.visible(nodeJson.Visible);
 
-        allNodes[nodeJson.Version.Id] = node;
+        if (nodeJson.Width != 0 && nodeJson.Height != 0) {
+            node.size(nodeJson.Width, nodeJson.Height);
+        }
+        
+        node.addClass(odr.settings.node.additionalClasses.roundCorners);
+        node.addClass(odr.settings.node.additionalClasses.decision);
+
+        odr.vars.allDecisionNodes[nodeJson.Version.Id] = node;
     }
 
 
@@ -93,40 +114,137 @@ odr.handleRelationshipView = function(data) {
         }
 
         association.labelPosition(associationJson.LabelX, associationJson.LabelY);
-        association.source(allNodes[associationJson.Relationship.Source.Id]);
-        association.target(allNodes[associationJson.Relationship.Target.Id]);
+        association.source(odr.vars.allDecisionNodes[associationJson.Relationship.Source.Id]);
+        association.target(odr.vars.allDecisionNodes[associationJson.Relationship.Target.Id]);
+
+        association.loadHandles(associationJson.Handles);
+
+//        for(var j = 0; j < associationJson.Handles.length; j++) {
+//            var handle = new odr.Handle();
+//            handle.position(associationJson.Handles[j].X, associationJson.Handles[j].Y);
+//            association.addHandleToEnd(handle);
+//        }
+
+        odr.vars.allAssociations[associationJson.Id] = association;
     }
 
     root.unsuspendRedraw(suspendID);
 };
 
+
+
+
+
+
+
+
+
+/**
+ * @description
+ * Handle the data which has been loaded from the server. The data must have the correct form for a chronological view
+ *
+ * @param {Object} data The data from the server
+ */
 odr.handleChronologicalView = function(data) {
-    console.log(data);
-    odr.popup.showError("Unsupported viewpoint");
+    $("#toChronologicalView").hide();
+
+    odr.vars.json = data;
+
+    var root = odr.canvas();
+    var suspendID = root.suspendRedraw(5000);
+
+    for(var i = 0; i < data.Nodes.length; i++) {
+        var nodeJson = data.Nodes[i];
+
+        var label, status, statusToShow;
+
+        if (nodeJson.Version != null) {
+            label = nodeJson.Version.Decision.Name;
+            status = nodeJson.Version.State.StatusName;
+            statusToShow = nodeJson.Version.State.StatusName;
+        } else {
+            label = nodeJson.Iteration.Name;
+            status = nodeJson.Iteration.EndDate;
+            statusToShow = odr.translation.text["label.iteration"];
+        }
+        
+
+        var node = odr.addNode(label,
+            status,
+            statusToShow,
+            nodeJson.Visible);
+
+
+        node.json = nodeJson;
+        node.position(nodeJson.X, nodeJson.Y);
+
+        if (nodeJson.Width != 0 && nodeJson.Height != 0) {
+            node.size(nodeJson.Width, nodeJson.Height);
+        }
+
+        if (nodeJson.Disconnected == true) {
+            node.addClass(odr.settings.node.additionalClasses.disconnected);
+        }
+
+
+        if (nodeJson.Version != null) {
+            node.addClass(odr.settings.node.additionalClasses.roundCorners);
+            node.addClass(odr.settings.node.additionalClasses.decision);
+            odr.vars.allDecisionNodes[nodeJson.Version.Id] = node;
+        } else {
+            node.addClass(odr.settings.node.additionalClasses.iteration);
+            odr.vars.allIterationNodes[nodeJson.Iteration.Id] = node;
+        }
+    }
+
+
+    for(var i = 0; i < data.Associations.length; i++) {
+        var associationJson = data.Associations[i];
+
+        var association = new odr.Association();
+        association.json = associationJson;
+
+        if (associationJson.SourceIteration != null) {
+            association.source(odr.vars.allIterationNodes[associationJson.SourceIteration.Id]);
+        } else {
+            association.source(odr.vars.allDecisionNodes[associationJson.SourceVersion.Id]);
+        }
+
+        if (associationJson.TargetIteration != null) {
+            association.target(odr.vars.allIterationNodes[associationJson.TargetIteration.Id]);
+        } else {
+            association.target(odr.vars.allDecisionNodes[associationJson.TargetVersion.Id]);
+        }
+
+        
+        for(var j = 0; j < associationJson.Handles.length; j++) {
+            var handle = new odr.Handle();
+            handle.position(associationJson.Handles[j].X, associationJson.Handles[j].Y);
+            association.addHandleToEnd(handle);
+        }
+
+        odr.vars.allAssociations[associationJson.Id] = association;
+    }
+
+    root.unsuspendRedraw(suspendID);
 };
 
+
+
+
+
+
+
+
+/**
+ * @description
+ * Handle the data which has been loaded from the server. The data must have the correct form for a stakeholver view
+ *
+ * @param {Object} data The data from the server
+ */
 odr.handleStakeholderView = function(data) {
+    $("#toStakeholderView").hide();
+
     console.log(data);
     odr.popup.showError("Unsupported viewpoint");
 };
-
-//odr.ready(function() {
-//    var node = new odr.Node();
-//    node.label("Java Programming language");
-//    node.status("approved");
-//    node.addClass("round");
-//    node.position(100, 100);
-//
-//    var node2 = new odr.Node();
-//    node2.label("Milestone 1: Release");
-//    node2.status("some date");
-//    node2.addClass("round");
-//    node2.position(400,100);
-//
-//
-//    var association = new odr.Association();
-//    association.source(node);
-//    association.target(node2);
-//    association.label("caused by");
-//    association.labelPosition(50,40);
-//});
