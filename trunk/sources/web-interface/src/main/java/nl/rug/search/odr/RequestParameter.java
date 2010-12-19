@@ -32,6 +32,7 @@ public interface RequestParameter {
 
     String FACES_REDIRECT = "faces-redirect";
 
+    String FILENAME = "filename";
     String FORMAT = "format";
     String DATA = "data";
     String FORMAT_PNG = "png";

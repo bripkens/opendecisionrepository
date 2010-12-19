@@ -43,12 +43,17 @@ public class TranscoderServlet extends HttpServlet {
 
         String data = request.getParameter(RequestParameter.DATA);
         String format = request.getParameter(RequestParameter.FORMAT);
+        String filename = request.getParameter(RequestParameter.FILENAME);
 
         if (data == null || data.isEmpty() || format == null || format.isEmpty()) {
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("Invalid parameters.");
             return;
+        }
+
+        if (filename == null) {
+            filename = "diagram";
         }
 
         Transcoder t;
@@ -82,7 +87,7 @@ public class TranscoderServlet extends HttpServlet {
         }
 
 
-        response.setHeader("Content-Disposition", "attachment;filename=\"diagram.".
+        response.setHeader("Content-Disposition", "attachment;filename=\"" + filename + ".".
                 concat(filenameExtension).
                 concat("\""));
 
