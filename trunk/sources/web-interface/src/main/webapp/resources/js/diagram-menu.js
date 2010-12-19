@@ -304,6 +304,8 @@ odr.ready(function() {
 
 /**
  * @private
+ * @description
+ * Use this method to save all the new positions, drag handles etc.
  */
 odr._saveAll = function() {
     var popupId = odr.popup.showSave();

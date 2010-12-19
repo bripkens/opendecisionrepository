@@ -867,6 +867,7 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
  */
 /**
  * @namespace
+ * @description
  * All popup related functionality is encapsulated within this object
  */
 odr.popup = {};
@@ -1056,21 +1057,25 @@ odr.popup.showLoad = function() {
  * The error message won't be presented directly to the user but instead will be placed on the console.
  *
  * @param {String} [errorMessage] A message that will be logged on the JavaScript console.
+ * @param {Boolean} [closeable] Whether the user should get the possibility to close the dialog. Default: false
  * @return {Number} A popupId number that can be supplied to {@link odr.popup.close} to close the popup.
  */
-odr.popup.showError = function(errorMessage) {
+odr.popup.showError = function(errorMessage, closeable) {
     if (console != undefined && errorMessage != undefined) {
         console.log("############### - Error through odr.popup.showError - ##################");
         console.log(errorMessage);
         console.log("########################################################################");
     }
-    
+
+    if (closeable == undefined) {
+        closeable = false;
+    }
 
     return odr.popup.show(odr.translation.text["popup.error.title"],
         odr.translation.text["popup.error.text"],
         "resources/images/error-big.png",
         odr.translation.text["popup.error.icon.alt"],
-        false);
+        closeable);
 }
 
 
@@ -1134,3 +1139,45 @@ odr.getUrlVars = function() {
 odr.bootstrap(function() {
     odr.vars.requestParameter = odr.getUrlVars();
 });
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Maintaining the session
+ */
+/**
+ * @description
+ * This method is used to keep up the session. It could happen that a edits / views a visualization for longer then
+ * the session timeout length. Therefore the server is "pinged" continuously to maintain the session.
+ *
+ * @param {Boolean} continuous Whether the ping should only be done once or multiple times.
+ */
+odr.maintainSession = function(continuous) {
+    if (continuous == undefined) {
+        continuous = true;
+    }
+
+    $.get(odr.settings.request.translation);
+    $.ajax({
+        url: odr.settings.request.sessionMaintaining,
+        error: function(request, status, error) {
+            odr.popup.showError("Could not maintain session: " + status, true);
+        },
+        success : function() {
+            if (continuous) {
+                setTimeout(odr.maintainSession, odr.settings.sessionMaintaining);
+            }
+        }
+    });
+};
+
+odr.ready(odr.maintainSession);

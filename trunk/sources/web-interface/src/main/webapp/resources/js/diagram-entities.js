@@ -792,6 +792,7 @@ odr.Shape.prototype = {
 
     /**
      * @private
+     * @override
      */
     visible : function(visible) {
         var result = odr.Shape.superClass.visible.call(this, visible);
@@ -1380,7 +1381,12 @@ odr.Node.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Create an SVG representation of this object
+     *
+     * @return {String} This object as an svg.
+     */
     svgRepresentation : function() {
         if (!this.visible()) {
             return "";
@@ -1429,6 +1435,16 @@ odr.Node.prototype = {
 
 
 
+
+
+    /**
+     * @description
+     *
+     * @param {String[]} collection The collection to which the single elements of the SVG should be added.
+     * This is an output parameter.
+     * @param {HtmlElement} htmlElement The html element which contains text and for which the svg representation
+     * should be created and added to the first parameter.
+     */
     _textSvgRepresentation : function(collection, htmlElement) {
         var y = $(htmlElement).offset().top + odr.settings["export"].node.additionalTextMargin;
         htmlElement.style.display = "inline";
@@ -2294,10 +2310,18 @@ odr.Association.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Load handles into this association by providing an array of objects that have "X" and "Y" properties.
+     * The first object will be used as the position for the source handle, i.e. the handle which is contained in the
+     * source of the association. The last handle is used for the target handle.
+     *
+     * @param {Object[]} handles See description. At least two objects must be in the array.
+     * @return {odr.Association} The object on which you called the method.
+     */
     loadHandles : function(handles) {
         if (handles.length < 2) {
-            return;
+            return this;
         }
         
         this._sourceHandle.position(handles[0].X, handles[0].Y);
@@ -2314,6 +2338,8 @@ odr.Association.prototype = {
         }
 
         this._targetHandle.position(handles[handles.length - 1].X, handles[handles.length - 1].Y);
+
+        return this;
     },
 
 
@@ -2785,7 +2811,13 @@ odr.Association.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Create an SVG representation of this current state of this object. This method call will only
+     * return the svg markup which is required for the association label as the rest is already present
+     *
+     * @return {String} The svg representation
+     */
     svgRepresentation : function() {
         return this._label.svgRepresentation();
     }
@@ -3309,7 +3341,14 @@ extend(odr.Line, odr.Drawable);
 
 
 
-
+/**
+ * @constructor
+ *
+ * @extends odr.Drawable
+ *
+ * @class
+ * A simple label that is rendered as an html div with a text child to represent association labels.
+ */
 odr.Label = function() {
     odr.Shape.call(this);
 
@@ -3614,7 +3653,12 @@ odr.Label.prototype = {
 
 
 
-
+    /**
+     * @description
+     * Create an SVG representation of this current state of this object.
+     *
+     * @return {String} The svg representation
+     */
     svgRepresentation : function() {
         if (!this.visible() || this._label == null || this._label == "") {
             return "";

@@ -207,58 +207,6 @@ body {
 
 
 
-/*
- * Zoom menu
-*/
-.zoom {
-    width: 120px;
-    height: 70px;
-    left: 733px;
-    top: -81px;
-}
-.zoom input {
-    width: 40px;
-    border: 1px solid #4F4F4F;
-    background-color: #F4F2F2;
-    color: #4F4F4F;
-    height: 18px;
-    font: normal normal normal 13px/normal arial, sans-serif;
-    padding: 0 3px;
-    position: relative;
-    left: 8px;
-}
-.zoom input[type=text] {
-    left: 10px;
-}
-.zoom input[type=submit] {
-    top: 5px;
-    width: 103px;
-    background-image: url(../images/buttonConfirm103.png);
-    border: 0;
-    color: white;
-    height: 21px;
-    font-size: 11px;
-}
-.zoom input[type=submit]:active {
-    background-image: url(../images/buttonConfirmActive103.png);
-}
-.zoom span {
-    position: absolute;
-    right: 28px;
-    top: 22px;
-}
-.zoom img {
-    position: relative;
-    top: 2px;
-    cursor: pointer;
-}
-.zoom #zoomIn {
-    left: 30px;
-}
-.zoom #zoomOut {
-    left: 7px;
-}
-
 
 
 
@@ -274,7 +222,7 @@ body {
     width: 200px;
     height: 200px;
     top: -211px;
-    left: 854px;
+    left: 733px;
 }
 .export form {
     visibility: hidden;
