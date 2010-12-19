@@ -67,9 +67,9 @@ public interface Filename {
 
     String REGISTER_USER_WITH_LEADING_SLASH = "/register.html";
 
-    String DRAWING = "drawing.html";
+    String DIAGRAM = "diagram.htm";
 
-    String DRAWING_WITH_LEADING_SLASH = "/".concat(DRAWING);
+    String DIAGRAM_WITH_LEADING_SLASH = "/".concat(DIAGRAM);
 
     String VIEWPOINT_DATA_PROVIDER = ((WebServlet) ViewpointDataProvider.class.getAnnotations()[0]).urlPatterns()[0].
             substring(1);

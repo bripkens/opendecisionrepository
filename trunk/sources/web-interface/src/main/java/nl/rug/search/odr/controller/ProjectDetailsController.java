@@ -354,7 +354,7 @@ public class ProjectDetailsController {
 
 
     public String getRelationshipViewLink() {
-        return new QueryStringBuilder().setUrl(Filename.DRAWING).
+        return new QueryStringBuilder().setUrl(Filename.DIAGRAM).
                 append(RequestParameter.ID, project.getId()).
                 appendBolean(RequestParameter.RELATIONSHIP_VIEWPOINT).
                 toString();
@@ -364,7 +364,7 @@ public class ProjectDetailsController {
 
 
     public String getChronologicalViewLink() {
-        return new QueryStringBuilder().setUrl(Filename.DRAWING).
+        return new QueryStringBuilder().setUrl(Filename.DIAGRAM).
                 append(RequestParameter.ID, project.getId()).
                 appendBolean(RequestParameter.CHRONOLOGICAL_VIEWPOINT).
                 toString();
