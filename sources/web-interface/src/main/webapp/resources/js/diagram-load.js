@@ -86,6 +86,7 @@ odr.handleRelationshipView = function(data) {
 
         node.json = nodeJson;
         node.position(nodeJson.X, nodeJson.Y);
+        node.additionalInformationFunction(odr.showAdditionalDecisionDetails);
 
         if (nodeJson.Width != 0 && nodeJson.Height != 0) {
             node.size(nodeJson.Width, nodeJson.Height);
@@ -119,12 +120,6 @@ odr.handleRelationshipView = function(data) {
 
         association.loadHandles(associationJson.Handles);
 
-//        for(var j = 0; j < associationJson.Handles.length; j++) {
-//            var handle = new odr.Handle();
-//            handle.position(associationJson.Handles[j].X, associationJson.Handles[j].Y);
-//            association.addHandleToEnd(handle);
-//        }
-
         odr.vars.allAssociations[associationJson.Id] = association;
     }
 
@@ -156,16 +151,18 @@ odr.handleChronologicalView = function(data) {
     for(var i = 0; i < data.Nodes.length; i++) {
         var nodeJson = data.Nodes[i];
 
-        var label, status, statusToShow;
+        var label, status, statusToShow, additionalInformationFunction;
 
         if (nodeJson.Version != null) {
             label = nodeJson.Version.Decision.Name;
             status = nodeJson.Version.State.StatusName;
             statusToShow = nodeJson.Version.State.StatusName;
+            additionalInformationFunction = odr.showAdditionalDecisionDetails;
         } else {
             label = nodeJson.Iteration.Name;
             status = nodeJson.Iteration.EndDate;
             statusToShow = odr.translation.text["label.iteration"];
+            additionalInformationFunction = odr.showAdditionalIterationDetails;
         }
         
 
@@ -177,6 +174,7 @@ odr.handleChronologicalView = function(data) {
 
         node.json = nodeJson;
         node.position(nodeJson.X, nodeJson.Y);
+        node.additionalInformationFunction(additionalInformationFunction);
 
         if (nodeJson.Width != 0 && nodeJson.Height != 0) {
             node.size(nodeJson.Width, nodeJson.Height);
@@ -217,11 +215,7 @@ odr.handleChronologicalView = function(data) {
         }
 
         
-        for(var j = 0; j < associationJson.Handles.length; j++) {
-            var handle = new odr.Handle();
-            handle.position(associationJson.Handles[j].X, associationJson.Handles[j].Y);
-            association.addHandleToEnd(handle);
-        }
+        association.loadHandles(associationJson.Handles);
 
         odr.vars.allAssociations[associationJson.Id] = association;
     }
