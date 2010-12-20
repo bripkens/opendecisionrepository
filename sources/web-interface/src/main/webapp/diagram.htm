@@ -130,6 +130,7 @@
 
         <div id="alignmentPopup" title="alignment.title" class="translateTitle">
             <p class="translate">alignment.description</p>
+
             <label for="alignmentPopup-rememberSettings" class="translate">alignment.remember</label>
             <input type="checkbox" id="alignmentPopup-rememberSettings" />
         </div>
@@ -142,5 +143,37 @@
         <!--        <div id="savePopup" title="save.before.exit.title" class="translateTitle">
                     <p class="translate">save.before.exit.text</p>
                 </div>-->
+
+        <div id="relatedNodesPopup" title="related.nodes.popup.title" class="translateTitle">
+            <p class="translate">related.nodes.popup.text</p>
+
+            <label for="relatedNodesPopup-depth" class="translate">related.nodes.popup.depth</label>
+            <select id="relatedNodesPopup-depth">
+                <option value="1" selected="true" class="translate">related.nodes.popup.level.1</option>
+                <option value="2" class="translate">related.nodes.popup.level.2</option>
+                <option value="3" class="translate">related.nodes.popup.level.3</option>
+            </select>
+
+
+            <p class="translate">related.nodes.popup.text2</p>
+
+            <div>
+                <input type="radio" value="nothing" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-doNothing" checked="true" />
+                <label for="relatedNodesPopup-visibility-doNothing" class="translate">related.nodes.popup.maintain</label>
+            </div>
+
+            <div>
+                <input type="radio" value="show" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-showAll"/>
+                <label for="relatedNodesPopup-visibility-showAll" class="translate">related.nodes.popup.showAll</label>
+            </div>
+
+            <div>
+                <input type="radio" value="hide" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-hideAll"/>
+                <label for="relatedNodesPopup-visibility-hideAll" class="translate">related.nodes.popup.hideAll</label>
+            </div>
+        </div>
     </body>
 </html>

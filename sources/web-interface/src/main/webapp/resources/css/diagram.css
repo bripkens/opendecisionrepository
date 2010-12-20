@@ -151,6 +151,9 @@ body {
 .topMenu .partyVisible {
     background-image: url(../images/party-visible.png);
 }
+.topMenu .related {
+    background-image: url(../images/view-relationship.png);
+}
 .topMenu .on {
     background-image: url(../images/on.png);
 }
@@ -192,7 +195,7 @@ body {
     width: 500px;
 }
 .nodes > ul > li ul {
-    width: 100px;
+    width: 220px;
 }
 .nodes .statusText {
     color: darkred;
@@ -412,4 +415,14 @@ body {
 #iconPopup p {
     text-align: left;
     margin: 20px 0px 0px;
+}
+#relatedNodesPopup > select {
+    position: relative;
+    left: 10px;
+    top: -1px;
+}
+#relatedNodesPopup div label {
+    position: relative;
+    left: 5px;
+    top: -1px;
 }

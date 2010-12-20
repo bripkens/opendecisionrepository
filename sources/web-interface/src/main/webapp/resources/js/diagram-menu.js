@@ -85,8 +85,6 @@ odr.bootstrap(function() {
 
 
 
-
-
 /*
  * ###############################################################################################################
  *                                              Overflow lists
@@ -344,6 +342,7 @@ odr._newNodeMenuEntry = function(node, label, status, initialVisibility) {
 
     var li = $(document.createElement("li")).
     addClass(activeClass).
+    attr("id", "menu" + node.id()).
     append($(document.createElement("span")).text(label)).
     append($(document.createElement("span")).text(status).addClass("statusText"));
 
@@ -371,6 +370,11 @@ odr._newNodeMenuEntry = function(node, label, status, initialVisibility) {
     append($(document.createElement("span")).text(odr.translation.text["menu.nodes.details"]));
     ul.append(detailsButton);
 
+    var relatedButton = $(document.createElement("li")).
+    addClass("related").
+    append($(document.createElement("span")).text(odr.translation.text["menu.nodes.related"]));
+    ul.append(relatedButton);
+
 
     var nodeGroup = $("li.nodes > ul > li");
 
@@ -391,6 +395,12 @@ odr._newNodeMenuEntry = function(node, label, status, initialVisibility) {
 
     detailsButton.click(function() {
         node.additionalInformationFunction()(node);
+        return false;
+    });
+
+    relatedButton.click(function() {
+        odr.showRelatedNodesDialog(node);
+        $(".topMenuClickBlocker").click();
         return false;
     });
 
