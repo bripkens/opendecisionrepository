@@ -1098,6 +1098,7 @@ public class FillDbController {
         createRelationship(fop, svg, causedBy);
         createRelationship(batik, java, depends);
         createRelationship(batik, svg, causedBy);
+        createRelationship(javaImg, java, depends);
 
 
         pl.merge(p);
@@ -1403,12 +1404,14 @@ public class FillDbController {
         RelationshipViewAssociation relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1485).setY(190));
         relVieAss.addHandle(new Handle().setX(1485).setY(110));
+        relVieAss.setLabelX(1500).setLabelY(150);
 
         rel = getRelationship(svg.getCurrentVersion(), client.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1290).setY(190));
         relVieAss.addHandle(new Handle().setX(1290).setY(90));
         relVieAss.addHandle(new Handle().setX(1380).setY(90));
+        relVieAss.setLabelX(1300).setLabelY(110);
 
         rel = getRelationship(client.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
@@ -1416,279 +1419,501 @@ public class FillDbController {
         relVieAss.addHandle(new Handle().setX(1480).setY(40));
         relVieAss.addHandle(new Handle().setX(940).setY(40));
         relVieAss.addHandle(new Handle().setX(940).setY(70));
+        relVieAss.setLabelX(1180).setLabelY(20);
 
 
         rel = getRelationship(fop.getCurrentVersion(), svg.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1300).setY(360));
         relVieAss.addHandle(new Handle().setX(1300).setY(234));
-        relVieAss.setLabelX(100);
-        relVieAss.setLabelY(100);
+        relVieAss.setLabelX(1310).setLabelY(290);
 
         rel = getRelationship(batik.getCurrentVersion(), svg.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1190).setY(310));
         relVieAss.addHandle(new Handle().setX(1190).setY(234));
+        relVieAss.setLabelX(1200).setLabelY(260);
 
         rel = getRelationship(java.getCurrentVersion(), tcl.getCurrentVersion(), getRelationshipType("is alternative for"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(780).setY(310));
         relVieAss.addHandle(new Handle().setX(780).setY(234));
+        relVieAss.setLabelX(790).setLabelY(270);
+
+        rel = getRelationship(javaImg.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
+        relVieAss = vis.getAssociation(rel);
+        relVieAss.addHandle(new Handle().setX(990).setY(234));
+        relVieAss.addHandle(new Handle().setX(990).setY(310));
+        relVieAss.addHandle(new Handle().setX(883).setY(310));
+        relVieAss.setLabelX(930).setLabelY(290);
 
 
         rel = getRelationship(batik.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1110).setY(330));
         relVieAss.addHandle(new Handle().setX(880).setY(330));
+        relVieAss.setLabelX(960).setLabelY(320);
 
         rel = getRelationship(eclipselink.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(450).setY(500));
         relVieAss.addHandle(new Handle().setX(450).setY(330));
         relVieAss.addHandle(new Handle().setX(680).setY(330));
+        relVieAss.setLabelX(460).setLabelY(340);
 
         rel = getRelationship(fop.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1260).setY(380));
         relVieAss.addHandle(new Handle().setX(850).setY(380));
-        relVieAss.addHandle(new Handle().setX(850).setY(350));
+        relVieAss.addHandle(new Handle().setX(850).setY(355));
+        relVieAss.setLabelX(920).setLabelY(370);
 
         rel = getRelationship(jee6.getCurrentVersion(), jee5.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1420).setY(500));
         relVieAss.addHandle(new Handle().setX(1260).setY(500));
         relVieAss.addHandle(new Handle().setX(1260).setY(570));
+        relVieAss.setLabelX(1270).setLabelY(510);
 
         rel = getRelationship(jpa.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(570).setY(500));
         relVieAss.addHandle(new Handle().setX(570).setY(340));
         relVieAss.addHandle(new Handle().setX(680).setY(340));
+        relVieAss.setLabelX(580).setLabelY(350);
+
+
+
 
         rel = getRelationship(svg.getCurrentVersion(), javaImg.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1150).setY(210));
         relVieAss.addHandle(new Handle().setX(1054).setY(210));
+        relVieAss.setLabelX(1080).setLabelY(190);
+
+
 
         rel = getRelationship(javaImg.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(940).setY(190));
         relVieAss.addHandle(new Handle().setX(940).setY(114));
+        relVieAss.setLabelX(950).setLabelY(140);
+
+
+
 
         rel = getRelationship(graphviz.getCurrentVersion(), server.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1160).setY(90));
-        relVieAss.addHandle(new Handle().setX(1060).setY(90));
+        relVieAss.addHandle(new Handle().setX(1065).setY(90));
+        relVieAss.setLabelX(1090).setLabelY(70);
+
+
 
         rel = getRelationship(svg.getCurrentVersion(), graphviz.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1190).setY(190));
         relVieAss.addHandle(new Handle().setX(1190).setY(114));
+        relVieAss.setLabelX(1200).setLabelY(150);
+
+
 
         rel = getRelationship(svg.getCurrentVersion(), html5.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1320).setY(200));
         relVieAss.addHandle(new Handle().setX(1410).setY(200));
+        relVieAss.setLabelX(1350).setLabelY(180);
+
+
+
+
 
         rel = getRelationship(xowiki.getCurrentVersion(), tcl.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(590).setY(215));
         relVieAss.addHandle(new Handle().setX(740).setY(215));
+        relVieAss.setLabelX(650).setLabelY(200);
+
+
+
 
         rel = getRelationship(javaee.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(890).setY(490));
         relVieAss.addHandle(new Handle().setX(760).setY(490));
         relVieAss.addHandle(new Handle().setX(760).setY(355));
+        relVieAss.setLabelX(770).setLabelY(470);
+
+
+
 
         rel = getRelationship(jee5.getCurrentVersion(), javaee.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1190).setY(590));
         relVieAss.addHandle(new Handle().setX(990).setY(590));
         relVieAss.addHandle(new Handle().setX(990).setY(515));
+        relVieAss.setLabelX(1010).setLabelY(570);
+
+
+
 
         rel = getRelationship(glassfish2.getCurrentVersion(), glassfish.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1240).setY(690));
         relVieAss.addHandle(new Handle().setX(960).setY(690));
         relVieAss.addHandle(new Handle().setX(960).setY(720));
+        relVieAss.setLabelX(970).setLabelY(670);
+
+
+
+
 
         rel = getRelationship(glassfish3.getCurrentVersion(), glassfish2.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1500).setY(780));
         relVieAss.addHandle(new Handle().setX(1500).setY(690));
         relVieAss.addHandle(new Handle().setX(1325).setY(690));
+        relVieAss.setLabelX(1450).setLabelY(700);
+
+
+
+
 
         rel = getRelationship(javaee.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(890).setY(510));
         relVieAss.addHandle(new Handle().setX(710).setY(510));
         relVieAss.addHandle(new Handle().setX(710).setY(770));
+        relVieAss.setLabelX(720).setLabelY(520);
+
+
+
 
         rel = getRelationship(glassfish.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(930).setY(730));
         relVieAss.addHandle(new Handle().setX(730).setY(730));
         relVieAss.addHandle(new Handle().setX(730).setY(770));
+        relVieAss.setLabelX(740).setLabelY(710);
+
+
+
 
         rel = getRelationship(mysql.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(545).setY(910));
         relVieAss.addHandle(new Handle().setX(610).setY(910));
         relVieAss.addHandle(new Handle().setX(610).setY(814));
+        relVieAss.setLabelX(560).setLabelY(870);
+
+
+
 
         rel = getRelationship(eclipselink.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(440).setY(545));
         relVieAss.addHandle(new Handle().setX(440).setY(790));
         relVieAss.addHandle(new Handle().setX(590).setY(790));
+        relVieAss.setLabelX(450).setLabelY(770);
+
+
+
 
         rel = getRelationship(glassfish3.getCurrentVersion(), glassfish.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1470).setY(810));
         relVieAss.addHandle(new Handle().setX(970).setY(810));
         relVieAss.addHandle(new Handle().setX(970).setY(765));
+        relVieAss.setLabelX(990).setLabelY(790);
+
+
+
 
         rel = getRelationship(ejb3.getCurrentVersion(), ejb.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1200).setY(890));
         relVieAss.addHandle(new Handle().setX(930).setY(890));
         relVieAss.addHandle(new Handle().setX(930).setY(990));
+        relVieAss.setLabelX(940).setLabelY(900);
+
+
+
 
         rel = getRelationship(ejb.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(870).setY(1010));
         relVieAss.addHandle(new Handle().setX(730).setY(1010));
         relVieAss.addHandle(new Handle().setX(730).setY(815));
+        relVieAss.setLabelX(750).setLabelY(990);
+
+
+
+
 
         rel = getRelationship(ejb31.getCurrentVersion(), glassfish3.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1375).setY(1010));
         relVieAss.addHandle(new Handle().setX(1500).setY(1010));
         relVieAss.addHandle(new Handle().setX(1500).setY(825));
+        relVieAss.setLabelX(1440).setLabelY(990);
+
+
+
 
         rel = getRelationship(ice18.getCurrentVersion(), icefaces.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1380).setY(1120));
         relVieAss.addHandle(new Handle().setX(950).setY(1120));
         relVieAss.addHandle(new Handle().setX(950).setY(1190));
+        relVieAss.setLabelX(960).setLabelY(1130);
+
+
+
+
 
         rel = getRelationship(jsf12.getCurrentVersion(), ice18.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1230).setY(1330));
         relVieAss.addHandle(new Handle().setX(1230).setY(1140));
         relVieAss.addHandle(new Handle().setX(1380).setY(1140));
+        relVieAss.setLabelX(1240).setLabelY(1150);
+
+
+
+
 
         rel = getRelationship(ice202.getCurrentVersion(), icefaces.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1520).setY(1290));
         relVieAss.addHandle(new Handle().setX(960).setY(1290));
         relVieAss.addHandle(new Handle().setX(960).setY(1235));
+        relVieAss.setLabelX(980).setLabelY(1270);
+
+
+
 
         rel = getRelationship(icefaces.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(920).setY(1210));
         relVieAss.addHandle(new Handle().setX(660).setY(1210));
         relVieAss.addHandle(new Handle().setX(660).setY(815));
+        relVieAss.setLabelX(670).setLabelY(1190);
+
+
+
+
 
         rel = getRelationship(jsf.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(891).setY(1410));
         relVieAss.addHandle(new Handle().setX(640).setY(1410));
         relVieAss.addHandle(new Handle().setX(640).setY(815));
+        relVieAss.setLabelX(650).setLabelY(1390);
+
+
+
 
         rel = getRelationship(jsf12.getCurrentVersion(), jsf.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1131).setY(1350));
         relVieAss.addHandle(new Handle().setX(960).setY(1350));
         relVieAss.addHandle(new Handle().setX(960).setY(1401));
+        relVieAss.setLabelX(970).setLabelY(1360);
+
+
+
+
 
         rel = getRelationship(glassfish2.getCurrentVersion(), ice18.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1321).setY(710));
         relVieAss.addHandle(new Handle().setX(1410).setY(710));
         relVieAss.addHandle(new Handle().setX(1410).setY(1101));
+        relVieAss.setLabelX(1350).setLabelY(730);
+
+
+
 
         rel = getRelationship(glassfish3.getCurrentVersion(), ice202.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1555).setY(800));
         relVieAss.addHandle(new Handle().setX(1580).setY(800));
         relVieAss.addHandle(new Handle().setX(1580).setY(1271));
+        relVieAss.setLabelX(1590).setLabelY(1020);
+
+
+
+
 
         rel = getRelationship(jsf2.getCurrentVersion(), jsf12.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1570).setY(1391));
         relVieAss.addHandle(new Handle().setX(1570).setY(1350));
         relVieAss.addHandle(new Handle().setX(1284).setY(1350));
+        relVieAss.setLabelX(1520).setLabelY(1360);
+
+
+
 
         rel = getRelationship(java.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(700).setY(355));
         relVieAss.addHandle(new Handle().setX(700).setY(771));
+        relVieAss.setLabelX(650).setLabelY(410);
+
+
+
+
 
         rel = getRelationship(jpa.getCurrentVersion(), oprTech.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(625).setY(544));
         relVieAss.addHandle(new Handle().setX(625).setY(771));
+        relVieAss.setLabelX(570).setLabelY(640);
+
+
+
+
+
 
         rel = getRelationship(jee6.getCurrentVersion(), javaee.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1421).setY(490));
         relVieAss.addHandle(new Handle().setX(1055).setY(490));
+        relVieAss.setLabelX(1210).setLabelY(470);
+
+
+
+
+
 
 
         rel = getRelationship(jee5.getCurrentVersion(), glassfish2.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1270).setY(614));
         relVieAss.addHandle(new Handle().setX(1270).setY(671));
+        relVieAss.setLabelX(1280).setLabelY(640);
+
+
+
+
+
+
 
         rel = getRelationship(ejb3.getCurrentVersion(), glassfish2.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1270).setY(871));
         relVieAss.addHandle(new Handle().setX(1270).setY(714));
+        relVieAss.setLabelX(1210).setLabelY(780);
+
+
+
+
+
+
 
         rel = getRelationship(ejb31.getCurrentVersion(), ejb3.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1281).setY(991));
         relVieAss.addHandle(new Handle().setX(1281).setY(914));
+        relVieAss.setLabelX(1290).setLabelY(950);
+
+
+
+
+
 
         rel = getRelationship(ejb31.getCurrentVersion(), ejb.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1191).setY(1015));
         relVieAss.addHandle(new Handle().setX(1034).setY(1015));
+        relVieAss.setLabelX(1090).setLabelY(1000);
+
+
+
 
         rel = getRelationship(ice201.getCurrentVersion(), ice18.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1445).setY(1191));
-        relVieAss.addHandle(new Handle().setX(1445).setY(1100));
+        relVieAss.addHandle(new Handle().setX(1445).setY(1144));
+        relVieAss.setLabelX(1460).setLabelY(1160);
+
+
+
+
+
 
         rel = getRelationship(ice201.getCurrentVersion(), icefaces.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1401).setY(1210));
         relVieAss.addHandle(new Handle().setX(994).setY(1210));
+        relVieAss.setLabelX(1110).setLabelY(1190);
+
+
+
+
+
 
         rel = getRelationship(ice202.getCurrentVersion(), ice201.getCurrentVersion(), getRelationshipType("replaces"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1533).setY(1271));
-        relVieAss.addHandle(new Handle().setX(1533).setY(1144));
+        relVieAss.addHandle(new Handle().setX(1533).setY(1234));
+        relVieAss.setLabelX(1490).setLabelY(1250);
+
+
+
+
+
 
         rel = getRelationship(jsf2.getCurrentVersion(), ice202.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1605).setY(1391));
         relVieAss.addHandle(new Handle().setX(1605).setY(1313));
+        relVieAss.setLabelX(1620).setLabelY(1340);
+
+
+
+
 
         rel = getRelationship(jee6.getCurrentVersion(), glassfish3.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1520).setY(513));
         relVieAss.addHandle(new Handle().setX(1520).setY(782));
+        relVieAss.setLabelX(1530).setLabelY(620);
+
+
+
+
 
         rel = getRelationship(jsf2.getCurrentVersion(), jsf.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1541).setY(1420));
         relVieAss.addHandle(new Handle().setX(1023).setY(1420));
+        relVieAss.setLabelX(1270).setLabelY(1410);
+
+
+
+
 
 
         p.addRelationshipView(vis);
+
+        //set all elements 200px to the left site.
+        for (RelationshipViewVisualization viewVis : p.getRelationshipViews()) {
+            for (RelationshipViewNode node1 : viewVis.getNodes()) {
+                node1.setX(node1.getX() - 200);
+
+            }
+            for (RelationshipViewAssociation ass : viewVis.getAssociations()) {
+                ass.setLabelX(ass.getLabelX() - 200);
+                for (Handle hand : ass.getHandles()) {
+                    hand.setX(hand.getX() - 200);
+                }
+            }
+        }
+
+
+
         pl.merge(p);
 
         relationshipViewDone = true;

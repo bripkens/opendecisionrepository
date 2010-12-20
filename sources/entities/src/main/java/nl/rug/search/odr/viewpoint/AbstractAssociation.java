@@ -112,15 +112,17 @@ public abstract class AbstractAssociation extends BaseEntity<AbstractAssociation
 
 
 
-    public void setLabelX(int labelX) {
+    public AbstractAssociation setLabelX(int labelX) {
         this.labelX = labelX;
+        return this;
     }
 
 
 
 
-    public void setLabelY(int labelY) {
+    public AbstractAssociation setLabelY(int labelY) {
         this.labelY = labelY;
+        return this;
     }
 
 
