@@ -19,6 +19,8 @@ import nl.rug.search.odr.BusinessException;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.viewpoint.RequiredFor;
 import nl.rug.search.odr.viewpoint.Viewpoint;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewAssociation;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewNode;
 import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
@@ -158,6 +160,25 @@ public class Project extends BaseEntity<Project> {
         }
 
         iterations.remove(it);
+
+        for (ChronologicalViewVisualization viz : chronologicalViews) {
+            Iterator<ChronologicalViewNode> iter = viz.getNodes().iterator();
+            while (iter.hasNext()) {
+                ChronologicalViewNode current = iter.next();
+                if (current.getIteration() != null && current.getIteration().equals(it)) {
+                    iter.remove();
+                }
+            }
+            Iterator<ChronologicalViewAssociation> itAss = viz.getAssociations().iterator();
+            while (itAss.hasNext()) {
+                ChronologicalViewAssociation current = itAss.next();
+                if (current.getSourceIteration() != null && current.getSourceIteration().equals(it)) {
+                    itAss.remove();
+                } else if (current.getTargetIteration() != null && current.getTargetIteration().equals(it)) {
+                        itAss.remove();
+                }
+            }
+        }
     }
 
 
@@ -658,10 +679,9 @@ public class Project extends BaseEntity<Project> {
 
 
 
-
     public void removeConcernsByGroup(Concern con) {
         assert con != null;
-        
+
         Iterator<Concern> it = concerns.iterator();
         while (it.hasNext()) {
             Concern currentConcern = it.next();
@@ -672,13 +692,17 @@ public class Project extends BaseEntity<Project> {
         }
     }
 
-    private void removeLinksToConcern(Concern concern){
-        for(Decision decision : decisions){
-            for(Version version : decision.getVersions()){
+
+
+
+    private void removeLinksToConcern(Concern concern) {
+        for (Decision decision : decisions) {
+            for (Version version : decision.getVersions()) {
                 version.removeConcern(concern);
             }
         }
     }
+
 
 
 
