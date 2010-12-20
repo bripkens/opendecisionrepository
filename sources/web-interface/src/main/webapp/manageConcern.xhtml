@@ -25,6 +25,7 @@
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.concern.number']}" for="inExternalId"/>
                     <ice:inputText id="inExternalId"
+                                   tabindex="1"
                                    label="#{form['label.concern.number']}"
                                    value="#{concernController.externalId}"
                                    partialSubmit="true">
@@ -44,6 +45,7 @@
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.name']}" for="inName" />
                     <ice:inputText id="inName"
+                                   tabindex="2"
                                    label="#{form['label.name']}"
                                    maxlength="100"
                                    partialSubmit="true"
@@ -63,6 +65,7 @@
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.description']}" for="inDescription" />
                     <ice:inputTextarea id="inDescription"
+                                       tabindex="3"
                                        label="#{form['label.description']}"
                                        maxlength="500"
                                        partialSubmit="true"
@@ -82,20 +85,25 @@
 
 
                 <div class="formSection ConcernsTags last">
-                    <ice:outputLabel value="#{form['label.tags']}" for="inTags" style="position: absolute" />
-                    <ice:repeat var="item" value="#{concernController.allTags}">
-                        <ice:selectInputText value="#{item.value}"
-                                             label="Tag"
-                                             rows="10"
-                                             width="155"
-                                             partialSubmit="true"
-                                             valueChangeListener="#{concernController.tagValueChanged}"
-                                             styleClass="#{item.styleClass}" >
-                            <f:selectItems value="#{concernController.tagPossibilities}" />
-                        </ice:selectInputText>
 
-                    </ice:repeat>
+                    <ice:outputLabel value="#{form['label.tags']}" for="inTags" style="position: absolute" />
+                    <div class="tagsContainer" >
+                        <ice:repeat var="item" value="#{concernController.allTags}">
+                            <ice:selectInputText value="#{item.value}"
+                                                 label="Tag"
+                                                 rows="5"
+                                                 width="157"
+                                                 partialSubmit="true"
+                                                 valueChangeListener="#{concernController.tagValueChanged}"
+                                                 style="float: left;"
+                                                 styleClass="#{item.styleClass}" >
+                                <f:selectItems value="#{concernController.tagPossibilities}" />
+                            </ice:selectInputText>
+
+                        </ice:repeat>
+                    </div>
                     <p class="empty" />
+
                 </div>
 
 
