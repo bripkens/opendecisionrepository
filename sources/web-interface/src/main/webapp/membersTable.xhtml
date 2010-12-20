@@ -53,9 +53,10 @@
                         <td>#{member.role.name}</td>
                         <td>#{member.person.email}</td>
 
-                        <td> <ice:panelGroup rendered="#{!memberTableController.isCurrentUser(member)}"><ice:commandLink value=""
-                                                                                                                     actionListener="#{memberTableController.showRemoveMemberConfirmation}"
-                                                                                                                     styleClass="columnNavigationLink">
+                        <td> <ice:panelGroup rendered="#{!memberTableController.isCurrentUser(member)}">
+                        <ice:commandLink value=""
+                                         actionListener="#{memberTableController.showRemoveMemberConfirmation}"
+                                         styleClass="columnNavigationLink">
                             <img alt="#{common.remove}"
                                  src="resources/images/removeSmall.png"
                                  width="14"
