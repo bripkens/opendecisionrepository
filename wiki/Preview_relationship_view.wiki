@@ -1,0 +1,18 @@
+#labels Featured
+= Relationship view preview =
+
+Description which is also available on youtube:
+
+ A preview of the Open Decision Repository (ODR) relationship view. It shows some of the functionality that the visualization provides:
+
+ - a complete relationship view
+ - dragging nodes and handles
+ - dragging multiple nodes and the lasso
+ - alignment helper
+ - showing and hiding nodes based on their relationships
+ - high and low performance mode
+ - saving the relationship view
+
+ The ODR focuses on documentation and visualization of architectural design decisions for software-intensive systems according to ISO/IEC 42010.
+
+<wiki:video url="http://www.youtube.com/watch?v=hZd26WLHgbY"/>
