@@ -1198,12 +1198,12 @@ odr.ready(function() {
     var buttons = {};
 
     buttons[odr.translation.text["related.nodes.popup.show"]] = function() {
-        odr.changeVisibilityBasedOnRelationship($(this), true);
+        odr._changeVisibilityBasedOnRelationship($(this), true);
         $(this).dialog("close");
     };
 
     buttons[odr.translation.text["related.nodes.popup.hide"]] = function() {
-        odr.changeVisibilityBasedOnRelationship($(this), false);
+        odr._changeVisibilityBasedOnRelationship($(this), false);
         $(this).dialog("close");
     };
 
@@ -1213,14 +1213,17 @@ odr.ready(function() {
 
     $("#relatedNodesPopup").dialog({
         autoOpen: false,
-        height: 300,
+        height: 330,
         width: 400,
         modal: true,
         zIndex : 5050,
         buttons : buttons,
         close : function() {
             $(this).find("select > option").removeAttr("selected").first().attr("selected", true);
-            $(this).find("div > input").removeAttr("checked").first().attr("checked", true);
+            $(this).find('input[name="relatedNodesPopup-visibility-others"]').removeAttr("checked").first().attr("checked", true);
+            
+            $(this).find("#relatedNodesPopup-followOutgoing").attr("checked", true);
+            $(this).find("#relatedNodesPopup-followIncoming").attr("checked", true);
         }
     });
 });
@@ -1229,9 +1232,21 @@ odr.ready(function() {
 
 
 
-odr.changeVisibilityBasedOnRelationship = function(dialog, relatedVisible) {
+
+
+/**
+ * @description
+ * This function is used to show and hide nodes based on their interrelationships
+ *
+ * @param {jQueryHtmlElement} dialog The dialog window upon which you want to react.
+ * @param {Boolean} relatedVisible Whether related nodes should be visible
+ */
+odr._changeVisibilityBasedOnRelationship = function(dialog, relatedVisible) {
     var depth = parseInt(dialog.find("select > option:selected").val());
-    var otherVisibility = dialog.find("div > input:checked").val();
+    var otherVisibility = dialog.find('input[name="relatedNodesPopup-visibility-others"]:checked').val();
+
+    var followOutgoing = dialog.find("#relatedNodesPopup-followOutgoing").is(":checked");
+    var followIncoming = dialog.find("#relatedNodesPopup-followIncoming").is(":checked");
 
     if (otherVisibility == "show") {
         for(var e in odr.vars.allDecisionNodes) {
@@ -1256,7 +1271,7 @@ odr.changeVisibilityBasedOnRelationship = function(dialog, relatedVisible) {
     var root = odr.canvas();
     var suspendID = root.suspendRedraw(5000);
 
-    odr.setRelatedVisible(node, relatedVisible, depth);
+    odr.setRelatedVisible(node, relatedVisible, depth, followOutgoing, followIncoming);
 
     root.unsuspendRedraw(suspendID);
 }
@@ -1274,18 +1289,27 @@ odr.changeVisibilityBasedOnRelationship = function(dialog, relatedVisible) {
 
 
 
-
-odr.setRelatedVisible = function(node, visible, depth) {
+/**
+ * @description
+ * Change the visibility of this node and all it's related nodes to the new visibility.
+ *
+ * @param {odr.Node} node The node from which you want to start
+ * @param {Boolean} visible Whether related nodes and the node from parameter 1 shall be visible
+ * @param {Number} depth How many steps away should be taken into account
+ * @param {Boolean} followOutgoing Whether to take outgoing relationships into account
+ * @param {Boolean} followIncoming Whether to take incoming relationships into account
+ */
+odr.setRelatedVisible = function(node, visible, depth, followOutgoing, followIncoming) {
     node.visible(visible);
 
     if (depth != 0) {
         for(var e in odr.vars.allAssociations) {
             var association = odr.vars.allAssociations[e];
 
-            if (association.source() == node) {
-                odr.setRelatedVisible(association.target(), visible, depth - 1);
-            } else if (association.target() == node) {
-                odr.setRelatedVisible(association.source(), visible, depth - 1);
+            if (followOutgoing && association.source() == node) {
+                odr.setRelatedVisible(association.target(), visible, depth - 1, followOutgoing, followIncoming);
+            } else if (followIncoming && association.target() == node) {
+                odr.setRelatedVisible(association.source(), visible, depth - 1, followOutgoing, followIncoming);
             }
         }
     }
