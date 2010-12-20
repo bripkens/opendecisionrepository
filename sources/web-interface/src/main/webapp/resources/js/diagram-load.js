@@ -85,6 +85,15 @@ odr.handleRelationshipView = function(data) {
             nodeJson.Visible);
 
         node.json = nodeJson;
+
+        if (nodeJson.X == 0) {
+            nodeJson.X = 50;
+        }
+
+        if (nodeJson.Y == 0) {
+            nodeJson.Y = 50;
+        }
+
         node.position(nodeJson.X, nodeJson.Y);
         node.additionalInformationFunction(odr.showAdditionalDecisionDetails);
 

@@ -1717,7 +1717,10 @@ odr.Handle.prototype = {
 
 
     startDragging : function(e) {
-        var coord = { clientX: e.clientX, clientY: e.clientY };
+        var coord = {
+            clientX: e.clientX,
+            clientY: e.clientY
+        };
         $("#" + this.id()).simulate("mousedown", coord);
     },
 
@@ -2402,7 +2405,7 @@ odr.Association.prototype = {
 
 
 
-     /**
+    /**
      * @private
      */
     _repaint : function() {

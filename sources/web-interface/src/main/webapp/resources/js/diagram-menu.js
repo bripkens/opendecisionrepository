@@ -8,52 +8,204 @@
 
 
 
+/*
+ * ###############################################################################################################
+ *                                              Top menu show and hide
+ */
+odr.bootstrap(function() {
+    $(".topMenu > li").click(function() {
+        odr.vars.topMenuOpen = !odr.vars.topMenuOpen;
+
+        if (odr.vars.topMenuOpen) {
+            $(".topMenuClickBlocker").show();
+        } else {
+            $(".topMenuClickBlocker").hide();
+        }
+
+        $(this).children("ul").toggle();
+        
+        return false;
+    });
+
+    $(".topMenu").children("li").mouseenter(function() {
+        
+
+        if (odr.vars.topMenuOpen) {
+            var outer = this;
+
+            $(".topMenu").children("li").each(function() {
+                if (this != outer) {
+                    $(this).children("ul").hide();
+                }
+            });
+
+            $(this).children("ul").show();
+        }
+        return false;
+    });
+
+    $(".topMenuClickBlocker").click(function() {
+        $(".topMenu").children("li").each(function() {
+            $(this).children("ul").hide();
+        });
+
+        $(this).hide();
+
+        odr.vars.topMenuOpen = false;
+    });
+
+    var setTopMenuClickBlockerToMaxSize = function() {
+        var documentWidth = $(document).width();
+        var documentHeight = $(document).height();
+
+
+        var bodyWidth = $("body").width();
+        var bodyHeight = $("body").height();
+
+        $(".topMenuClickBlocker").width(Math.max(documentWidth, bodyWidth));
+        $(".topMenuClickBlocker").height(Math.max(documentHeight, bodyHeight));
+    }
+
+    $(".topMenu > li li").click(function() {
+        return false;
+    });
+
+    $(window).resize(setTopMenuClickBlockerToMaxSize);
+    setTopMenuClickBlockerToMaxSize();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Overflow lists
+ */
+odr.bootstrap(function() {
+    $(".overflowList").each(function() {
+        var list = $(this);
+
+        $(".nodes > .overflowList > .scrollup").click();
+
+        list.children(".scrollup").first().click(function() {
+            var maxEntries = parseInt(list.attr("maxEntries"));
+            var currentEntry = parseInt(list.attr("currentEntry"));
+            var clickDelta = parseInt(list.attr("clickDelta"));
+            var elements = list.children("li").not(".scrolldown, .scrollup");
+
+            currentEntry -= clickDelta;
+
+            if (currentEntry <= 0) {
+                currentEntry =  0;
+                $(this).hide();
+            }
+
+            if (elements.length > (currentEntry + maxEntries)) {
+                list.children().last().show();
+            }
+
+            if (currentEntry == 0) {
+                elements.hide().filter(":lt(" + maxEntries + ")").show();
+            } else {
+                elements.hide().filter(":gt(" + (currentEntry - 1) + "):lt(" + maxEntries + ")").show();
+            }
+
+            
+
+            list.attr("currentEntry", currentEntry);
+
+            return false;
+        });
+
+        list.children(".scrolldown").hide().first().click(function() {
+            var maxEntries = parseInt(list.attr("maxEntries"));
+            var currentEntry = parseInt(list.attr("currentEntry"));
+            var clickDelta = parseInt(list.attr("clickDelta"));
+            var elements = list.children("li").not(".scrolldown, .scrollup");
+
+            var maxForCurrentEntry = elements.length - maxEntries - 1;
+
+            currentEntry += clickDelta;
+
+            if (currentEntry >= maxForCurrentEntry) {
+                currentEntry = maxForCurrentEntry;
+                $(this).hide();
+            }
+
+            list.children().first().show();
+
+            elements.hide().filter(":gt(" + currentEntry + "):lt(" + maxEntries + ")").show();
+
+            list.attr("currentEntry", currentEntry);
+
+            return false;
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
  * Enable the animation of the small menu on the top of the page.
  */
-odr.bootstrap(function() {
-    $("." + odr.settings.menu.top["class"]).mouseenter(function() {
-        $(this).stop(true, false).animate({
-            "top" : odr.settings.menu.top.expandedHeight($(this))
-        }, odr.settings.menu.top.animationDuration);
-    });
-
-    $("." + odr.settings.menu.top["class"]).mouseleave(function() {
-        $(this).stop(true, false).animate({
-            "top" : odr.settings.menu.top.collapsedHeight($(this))
-        }, odr.settings.menu.top.animationDuration);
-    });
-});
+//odr.bootstrap(function() {
+//    $("." + odr.settings.menu.top["class"]).mouseenter(function() {
+//        $(this).stop(true, false).animate({
+//            "top" : odr.settings.menu.top.expandedHeight($(this))
+//        }, odr.settings.menu.top.animationDuration);
+//    });
+//
+//    $("." + odr.settings.menu.top["class"]).mouseleave(function() {
+//        $(this).stop(true, false).animate({
+//            "top" : odr.settings.menu.top.collapsedHeight($(this))
+//        }, odr.settings.menu.top.animationDuration);
+//    });
+//});
 
 
 
 
 
 /*
- * Enable the bottom menu for the performance mode
+ * Enable the performance mode menu
  */
 odr.bootstrap(function() {
-    var out = $(odr.settings.menu.bottom.performance.out);
-    var high = $(odr.settings.menu.bottom.performance.high);
-    var low = $(odr.settings.menu.bottom.performance.low);
-    
-    var setCurrent = function(element) {
-        out.text(element.children().first().text());
-    }
+    var out = $("#performanceMenu");
+    var quality = out.find("div > ul > li.quality");
+    var speed = out.find("div > ul > li.speed");
 
-    high.click(function() {
-        setCurrent(high);
+    quality.click(function() {
+        out.removeClass("speed");
+        out.addClass("quality");
+
         odr.user.lowPerformanceMode = false;
-        high.addClass(odr.settings.menu.bottom.selectedClass);
-        low.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 
-    low.click(function() {
-        setCurrent(low);
+    speed.click(function() {
+        out.removeClass("quality");
+        out.addClass("speed");
+
         odr.user.lowPerformanceMode = true;
-        low.addClass(odr.settings.menu.bottom.selectedClass);
-        high.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 });
 
@@ -63,40 +215,37 @@ odr.bootstrap(function() {
 
 
 /*
- * Enable the bottom menu for the alignment dialog
+ * Enable the auto alignment menu
  */
 odr.bootstrap(function() {
-    var out = $(odr.settings.menu.bottom.alignment.out);
-    var on = $(odr.settings.menu.bottom.alignment.on);
-    var off = $(odr.settings.menu.bottom.alignment.off);
-    var ask = $(odr.settings.menu.bottom.alignment.ask);
+    var out = $("#alignmentMenu");
+    var on = out.find("div > ul > li.on");
+    var off = out.find("div > ul > li.off");
+    var ask = out.find("div > ul > li.questionmark");
 
-    var setCurrent = function(element) {
-        out.text(element.children().first().text());
-    }
 
     on.click(function() {
-        setCurrent(on);
+        out.addClass("on");
+        out.removeClass("off");
+        out.removeClass("questionmark");
+
         odr.user.automaticallyAlignDragHandles = true;
-        on.addClass(odr.settings.menu.bottom.selectedClass);
-        off.removeClass(odr.settings.menu.bottom.selectedClass);
-        ask.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 
     off.click(function() {
-        setCurrent(off);
+        out.removeClass("on");
+        out.addClass("off");
+        out.removeClass("questionmark");
+
         odr.user.automaticallyAlignDragHandles = false;
-        off.addClass(odr.settings.menu.bottom.selectedClass);
-        on.removeClass(odr.settings.menu.bottom.selectedClass);
-        ask.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 
     ask.click(function() {
-        setCurrent(ask);
+        out.removeClass("on");
+        out.removeClass("off");
+        out.addClass("questionmark");
+
         odr.user.automaticallyAlignDragHandles = undefined;
-        ask.addClass(odr.settings.menu.bottom.selectedClass);
-        on.removeClass(odr.settings.menu.bottom.selectedClass);
-        off.removeClass(odr.settings.menu.bottom.selectedClass);
     });
 });
 
@@ -129,58 +278,8 @@ odr.addNode = function(name, status, statusToShow, visible) {
     node.label(name);
     node.status(statusToShow);
 
-    var container = $(document.createElement("div")).
-    addClass("decisionSelector").
-    appendTo("div.decisions div.overflowDecisions").
-    append($(document.createElement("span")).text(name)).
-    append($(document.createElement("span")).text(status).addClass("stereotype"));
 
-    var showText = odr.translation.text["menu.nodes.show"];
-    var hideText = odr.translation.text["menu.nodes.hide"];
-
-    var currentText, currentClass;
-
-    if (node.visible()) {
-        currentText = hideText;
-        currentClass = "hide";
-    } else {
-        currentText = showText;
-        currentClass = "show";
-    }
-
-    container.html(container.html() + '<input type="button" class="' + currentClass + '" value="' + currentText + '"/>');
-
-    var button = container.children("input");
-
-    button.click(function() {
-        if (button.hasClass("hide")) {
-            button.removeClass("hide");
-            button.addClass("show");
-            button.val(showText);
-
-            node.visible(false);
-        } else {
-            button.removeClass("show");
-            button.addClass("hide");
-            button.val(hideText);
-
-            node.visible(true);
-        }
-    });
-
-    node.bind(odr.Drawable.listener.visibilityChanged, function() {
-        if (node.visible()) {
-            button.removeClass("show");
-            button.addClass("hide");
-            button.val(hideText);
-        } else {
-            button.removeClass("hide");
-            button.addClass("show");
-            button.val(showText);
-        }
-    }, "nodeMenuListener");
-
-
+    odr._newNodeMenuEntry(node, name, status, visible);
 
 
     if (odr.vars.statusGroups[statusToShow] == undefined) {
@@ -193,11 +292,12 @@ odr.addNode = function(name, status, statusToShow, visible) {
     statusGroup.push(node);
 
     node.bind(odr.Drawable.listener.visibilityChanged, function() {
-        var allVisible = true;
-        var allInvisible = true;
+        var allVisible = true, allInvisible = true;
 
         for(var i = 1; i < statusGroup.length; i++) {
-            if (statusGroup[i].visible()) {
+            var visible = statusGroup[i].visible();
+
+            if (visible) {
                 allInvisible = false;
             } else {
                 allVisible = false;
@@ -205,13 +305,19 @@ odr.addNode = function(name, status, statusToShow, visible) {
         }
 
         if (allVisible) {
-            statusGroup[0].attr("checked", true);
+            statusGroup[0].removeClass("invisible");
+            statusGroup[0].removeClass("partyVisible");
+            statusGroup[0].addClass("visible");
         } else if (allInvisible) {
-            statusGroup[0].removeAttr("checked");
+            statusGroup[0].addClass("invisible");
+            statusGroup[0].removeClass("partyVisible");
+            statusGroup[0].removeClass("visible");
         } else {
-            statusGroup[0].removeAttr("checked");
+            statusGroup[0].removeClass("invisible");
+            statusGroup[0].addClass("partyVisible");
+            statusGroup[0].removeClass("visible");
         }
-        
+
     }, "statusMenuListener");
     
 
@@ -224,31 +330,147 @@ odr.addNode = function(name, status, statusToShow, visible) {
 
 
 
+
+odr._newNodeMenuEntry = function(node, label, status, initialVisibility) {
+    var showText = odr.translation.text["menu.nodes.show"];
+    var hideText = odr.translation.text["menu.nodes.hide"];
+
+
+    var activeClass = "visible";
+
+    if (!initialVisibility) {
+        activeClass = "invisible";
+    }
+
+    var li = $(document.createElement("li")).
+    addClass(activeClass).
+    append($(document.createElement("span")).text(label)).
+    append($(document.createElement("span")).text(status).addClass("statusText"));
+
+    li.click(function() {
+        return false;
+    });
+
+    var childs = $(document.createElement("div")).addClass("childMarker");
+    li.append(childs);
+    var ul = $(document.createElement("ul"));
+    childs.append(ul);
+
+    var visibleButton = $(document.createElement("li")).
+    addClass("visible").
+    append($(document.createElement("span")).text(showText));
+    ul.append(visibleButton);
+
+    var invisibleButton = $(document.createElement("li")).
+    addClass("invisible").
+    append($(document.createElement("span")).text(hideText));
+    ul.append(invisibleButton);
+
+    var detailsButton = $(document.createElement("li")).
+    addClass("details").
+    append($(document.createElement("span")).text(odr.translation.text["menu.nodes.details"]));
+    ul.append(detailsButton);
+
+
+    var nodeGroup = $("li.nodes > ul > li");
+
+    nodeGroup.last().before(li);
+
+    $(".nodes > .overflowList > .scrollup").click();
+    $(".topMenuClickBlocker").click();
+
+    visibleButton.click(function() {
+        node.visible(true);
+        return false;
+    });
+
+    invisibleButton.click(function() {
+        node.visible(false);
+        return false;
+    });
+
+    detailsButton.click(function() {
+        node.additionalInformationFunction()(node);
+        return false;
+    });
+
+    node.bind(odr.Drawable.listener.visibilityChanged, function() {
+        if (node.visible()) {
+            li.removeClass("invisible").addClass("visible");
+        } else {
+            li.removeClass("visible").addClass("invisible");
+        }
+    }, "nodeMenuListener");
+}
+
+
+
+
+
+
+
+
+
+
 /**
  * @private
  * @description
  * Create a new status group entry in the menu
  *
  * @param {String} name The name of the group
- * @param {odr.Drawable[]} items Some items which visibility is to be controled
+ * @param {odr.Drawable[]} items Some items which visibility should be controled
+ * @return {jQueryLiElement} The created element
  */
 odr._newStatusGroup = function(name, items) {
-    var container = $(document.createElement("div")).
-    appendTo("div.status div.overflowStatus").
+    var showText = odr.translation.text["menu.status.show"];
+    var hideText = odr.translation.text["menu.status.hide"];
+
+    var li = $(document.createElement("li")).
+    addClass("invisible").
     append($(document.createElement("span")).text(name));
 
-    container.html('<input type="checkbox" checked="true" id="stereotypeCheckbox' + name + '"/>' + container.html());
+    li.click(function() {
+        return false;
+    });
 
-    var checkbox = container.children("input");
+    var childs = $(document.createElement("div")).addClass("childMarker");
+    li.append(childs);
+    var ul = $(document.createElement("ul"));
+    childs.append(ul);
 
-    items[0] = checkbox;
+    var visibleButton = $(document.createElement("li")).
+    addClass("visible").
+    append($(document.createElement("span")).text(showText));
+    ul.append(visibleButton);
 
-    checkbox.unbind().change(function() {
-        var checked = checkbox.is(":checked");
+    var invisibleButton = $(document.createElement("li")).
+    addClass("invisible").
+    append($(document.createElement("span")).text(hideText));
+    ul.append(invisibleButton);
 
+    var nodeGroup = $("li.status > ul > li");
+
+    nodeGroup.last().before(li);
+
+    $(".status > .overflowList > .scrollup").click();
+    $(".topMenuClickBlocker").click();
+
+    items.unshift(li);
+
+    visibleButton.click(function() {
         for(var i = 1; i < items.length; i++) {
-            items[i].visible(checked);
+            items[i].visible(true);
         }
+
+        return false;
+    });
+
+    invisibleButton.click(function() {
+        for(var i = 1; i < items.length; i++) {
+            items[i].visible(false);
+        }
+
+        return false;
     });
 }
 
@@ -270,29 +492,35 @@ odr._newStatusGroup = function(name, items) {
  *                                              Projects menu
  */
 odr.ready(function() {
-    $("#save a").click(function() {
+    $("#save").click(function() {
         odr._saveAll();
-        return false;
     });
 
-    $("#back a").attr("href", odr.settings.request.project.replace("{0}",
-        odr.vars.requestParameter[odr.settings.request.parameter.projectId]));
+    $("#back").click(function() {
+        window.location = odr.settings.request.project.replace("{0}",
+            odr.vars.requestParameter[odr.settings.request.parameter.projectId]);
+    });
 
-    $("#toRelationshipView a").attr("href", odr.settings.request.visualization.
+    $("#toRelationshipView").click(function() {
+        window.location = odr.settings.request.visualization.
         replace("{0}", odr.vars.requestParameter[odr.settings.request.parameter.projectId]).
-        replace("{1}", odr.settings.request.parameter.relationshipView));
+        replace("{1}", odr.settings.request.parameter.relationshipView)
+    });
 
-    $("#toChronologicalView a").attr("href", odr.settings.request.visualization.
+    $("#toChronologicalView").click(function() {
+        window.location = odr.settings.request.visualization.
         replace("{0}", odr.vars.requestParameter[odr.settings.request.parameter.projectId]).
-        replace("{1}", odr.settings.request.parameter.chronologicalView));
+        replace("{1}", odr.settings.request.parameter.chronologicalView)
+    });
 
-    $("#toStakeholderView a").attr("href", odr.settings.request.visualization.
+    $("#toStakeholderView").click(function() {
+        window.location = odr.settings.request.visualization.
         replace("{0}", odr.vars.requestParameter[odr.settings.request.parameter.projectId]).
-        replace("{1}", odr.settings.request.parameter.stakeholderView));
+        replace("{1}", odr.settings.request.parameter.stakeholderView)
+    });
             
-    $("#refresh a").click(function() {
+    $("#refresh").click(function() {
         window.location = window.location;
-        return false;
     });
 });
 
@@ -538,7 +766,7 @@ odr.showAdditionalIterationDetails = function(node) {
  *                                              Exporting
  */
 odr.ready(function() {
-    $("div.export ul li").click(function() {
+    $("#exportMenu li").click(function() {
         var format = $(this).attr("class");
 
         var nodes = [];
@@ -605,7 +833,7 @@ odr.ready(function() {
         replace("{0}", odr.vars.requestedViewpoint).
         replace("{1}", dateString);
 
-        var form = $("div.export form");
+        var form = $("#exportMenu form");
 
         var filenameInput = form.children("input#filename");
         filenameInput.val(filename);
@@ -617,5 +845,7 @@ odr.ready(function() {
         formatInput.val(format);
 
         form.submit();
+
+        return true;
     });
 });
