@@ -809,18 +809,16 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
 
     var buttons = {};
 
-    var out = $(odr.settings.menu.bottom.alignment.out);
-    var on = $(odr.settings.menu.bottom.alignment.on);
-    var off = $(odr.settings.menu.bottom.alignment.off);
-    var ask = $(odr.settings.menu.bottom.alignment.ask);
+    var out = $("#alignmentMenu");
+
 
     buttons[odr.translation.text["alignment.do"]] = function() {
         if ($("#alignmentPopup-rememberSettings").is(":checked")) {
-            out.text(on.children().first().text());
             odr.user.automaticallyAlignDragHandles = true;
-            on.addClass(odr.settings.menu.bottom.selectedClass);
-            off.removeClass(odr.settings.menu.bottom.selectedClass);
-            ask.removeClass(odr.settings.menu.bottom.selectedClass);
+
+            out.addClass("on");
+            out.removeClass("off");
+            out.removeClass("questionmark");
         }
 
         helpAction();
@@ -830,11 +828,11 @@ odr.alignmentHelper = function(helpAction, cancelAction) {
 
     buttons[odr.translation.text["alignment.cancel"]] = function() {
         if ($("#alignmentPopup-rememberSettings").is(":checked")) {
-            out.text(off.children().first().text());
-            odr.user.automaticallyAlignDragHandles = true;
-            off.addClass(odr.settings.menu.bottom.selectedClass);
-            on.removeClass(odr.settings.menu.bottom.selectedClass);
-            ask.removeClass(odr.settings.menu.bottom.selectedClass);
+            odr.user.automaticallyAlignDragHandles = false;
+            
+            out.removeClass("on");
+            out.addClass("off");
+            out.removeClass("questionmark");
         }
 
         if (cancelAction != undefined) {

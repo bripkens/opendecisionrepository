@@ -12,349 +12,206 @@ body {
 
 
 
-/*
- * Abstract menu
-*/
-
+/* Level 0 */
 .topMenu {
-    background-color: white;
-    border: 1px solid black;
-    border-bottom-left-radius: 15px 15px;
-    border-bottom-right-radius: 15px 15px;
-    -moz-border-radius-bottomright: 15px;
-    -moz-border-radius-bottomleft: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    -webkit-border-bottom-left-radius: 15px;
     position: fixed;
-    padding: 20px 0 10px 0;
-    z-index: 5001;
-}
-.topMenu .title {
-    text-transform: uppercase;
-    border-top: 1px solid black;
-    position: absolute;
-    width: inherit;
-    height: 18px;
-    padding: 2px 0 0;
-    bottom: 0;
-    -moz-border-radius-bottomright: 15px;
-    -moz-border-radius-bottomleft: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-    -webkit-border-bottom-left-radius: 15px;
-    border-bottom-left-radius: 15px 15px;
-    border-bottom-right-radius: 15px 15px;
+    width: 100%;
+    
+    border-bottom: 1px solid black;
     background-color: #efefef;
-    text-align: center;
-}
-.topMenu input.error {
-    color: #bd0000;
-    border: 1px solid #bd0000;
-}
 
-
-
-
-
-
-
-
-
-/*
- * Project menu
-*/
-.project {
-    width: 200px;
-    height: 160px;
-    left: 0;
-    top: -171px;
-}
-.project ul {
-    padding: 0 0 0 35px;
+    padding: 0;
     margin: 0;
+
+    z-index: 5002;
 }
-.project ul li {
-    cursor: pointer;
+.topMenuClickBlocker {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    z-index: 5000;
+    display: none;
+}
+.topMenu li {
     list-style: none;
     font-size: 13px;
-    line-height: 20px;
-}
-.project ul li a {
+    height: 25px;
     position: relative;
-    bottom: 3px;
-}
-.project ul li#save {
-    list-style-image: url(../images/floppy_disk_16.png);
-}
-.project ul li#back {
-    list-style-image: url(../images/home_16.png);
-}
-.project ul li#refresh {
-    list-style-image: url(../images/refresh_16.png);
-}
-.project ul li#toRelationshipView{
-    list-style-image: url(../images/view-relationship.png);
-}
-.project ul li#toChronologicalView{
-    list-style-image: url(../images/view-chronological.png);
-}
-.project ul li#toStakeholderView{
-    list-style-image: url(../images/view-stakeholder.png);
-}
-
-
-
-
-
-/*
- * Decision menu
-*/
-.decisions {
-    width: 350px;
-    height: 400px;
-    top: -411px;
-    left: 201px;
-}
-.decisions .overflowDecisions {
-    padding-top: 5px;
-    overflow: auto;
-    height: 389px;
-    position: relative;
-    top: -5px;
-}
-.decisionSelector {
-    position: relative;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed gray;
-    padding: 0 0 9px;
-}
-.decisions .decisionSelector:last-child {
-    border-bottom: 0;
-}
-.decisionSelector span {
-    position: relative;
-    left: 5px;
-    font-size: 11px;
-}
-.decisionSelector span.stereotype {
-    color: darkred;
-    left: 12px;
-}
-.decisionSelector input[type=button] {
-    color: white;
-    border: 0;
-    font-size: 11px;
-    width: 75px;
-    height: 19px;
-    padding: 0 0 2px 0;
-    position: absolute;
-    top: -1px;
-    right: 5px;
-}
-.decisionSelector .show {
-    background-image: url(../images/buttonConfirmSmall.png);
-}
-.decisionSelector .show:active {
-    background-image: url(../images/buttonConfirmActiveSmall.png);
-}
-.decisionSelector .hide {
-    background-image: url(../images/buttonAbortSmall.png);
-}
-.decisionSelector .hide:active {
-    background-image: url(../images/buttonAbortActiveSmall.png);
-}
-
-
-
-
-
-
-
-/*
- * Status menu
-*/
-.status {
-    width: 180px;
-    height: 247px;
-    top: -258px;
-    left: 552px;
-}
-.status p {
-    font-size: 11px;
-    margin: 0 5px 5px;
-}
-.status .overflowStatus {
-    padding-top: 5px;
-    overflow: auto;
-    height: 189px;
-    position: relative;
-    top: -5px;
-}
-.status .overflowStatus div {
-    padding: 0 0 9px;
-}
-.status .overflowStatus div:last-child {
-    border: 0;
-}
-.status .overflowStatus div span {
-    font-size: 11px;
-    padding-left: 5px;
-}
-.status .overflowStatus div input {
-    position: relative;
-    top: 3px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * Export menu
-*/
-.export {
-    width: 200px;
-    height: 200px;
-    top: -211px;
-    left: 733px;
-}
-.export form {
-    visibility: hidden;
-}
-.export ul {
-    list-style: none;
-    margin: 10px 0 0;
-    padding: 0;
-}
-.export ul li {
-    width: 90px;
-    height: 48px;
-    float: left;
+    background-color: #efefef;
     background-repeat: no-repeat;
-    background-position: 50% 0;
-    padding: 50px 10px 0 0;
-    text-align: center;
+    background-position: 5px 50%;
+}
+.topMenu > li {
+    float: left;
+    margin: 0 15px 0 10px;
     cursor: pointer;
 }
-.export ul li.jpeg {
-    background-image: url(../images/file_jpg.png);
-}
-.export ul li.png {
-    background-image: url(../images/file_png.png);
-}
-.export ul li.pdf {
-    background-image: url(../images/file_pdf.png);
-}
-.export ul li.svg {
-    background-image: url(../images/file_svg.png);
+.topMenu > li span {
+    position: relative;
+    top: 5px;
 }
 
 
-
-
-
-
-
-
-
-
-
-/*
- * Small menu on the bottom of the page
-*/
-.bottomMenu {
-    position: fixed;
-    bottom: 0px;
-
-
-    background-color: #efefef;
-    border-top: 1px solid black;
-    
-    height: 20px;
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    
-    width: 100%;
-
+/* Level 1 */
+.topMenu > li > ul {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 25px;
+    border: 1px solid black;
+    background-color: #dfdfdf;
+    display: none;
+}
+.topMenu > li > ul li {
+    background-color: #dfdfdf;
+    padding: 0 5px 0 30px;
     z-index: 5001;
 }
-.bottomMenu li span {
-    position: relative;
-    top: 4px;
-    left: 4px;
+.topMenu > li > ul li:hover {
+    background-color: #efefef;
+    cursor: pointer;
 }
-.bottomMenu > li span.current {
+.topMenu > li > ul li.seperateAfter {
+    margin-bottom: 10px;
+}
+.topMenu > li > ul li.seperateBefore {
+    margin-top: 10px;
+}
+.topMenu > li > ul li .childMarker {
     position: absolute;
-    left: auto;
-    right: 4px;
-    font-style: italic;
-    color: grey;
+    right: 5px;
+    top: 8px;
+
+    width: 5px;
+    height: 10px;
+
+    background-image: url(../images/arrow-right.png);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 }
-.bottomMenu > li {
-    float: left;
-    height: inherit;
-    position: relative;
-    left: -1px;
-    background-color: inherit;
-    border-left: 1px solid black;
+.topMenu > li > ul li.scrolldown, .topMenu > li > ul li.scrollup {
+    height: 15px;
+    background-position: 50% 50%;
 }
-.bottomMenu > li > ul {
+.topMenu > li > ul li.scrollup {
+    background-image: url(../images/arrow-up-grey.png);
+}
+.topMenu > li > ul li.scrolldown {
+    background-image: url(../images/arrow-down-grey.png);
+}
+
+
+
+
+/* Level 2-x */
+.topMenu > li > ul li ul {
     position: absolute;
-    bottom: 19px;
-    left: -1px;
-    width: inherit;
-    padding: 0 0 0 1px;
-    margin: 0 0 1px 0;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
+    top: -9px;
+    left: 10px;
+
+    padding: 0px;
+
     display: none;
-    background-color: inherit;
+
+    border: 1px solid black;
 }
-.bottomMenu > li:hover > ul {
+.topMenu > li > ul li:hover ul {
     display: block;
 }
-.bottomMenu > li > ul > li {
-    border: 1px solid black;
-    border-bottom: 0;
-    border-left: 0;
-    background-color: inherit;
-    list-style: none;
-    height: 20px;
-    cursor: pointer;
-    width: inherit;
-    position: relative;
-    left: -1px;
+
+
+
+
+
+/* Concrete menus */
+#save {
+    background-image: url(../images/floppy_disk_16.png);
 }
-.bottomMenu > li > ul > li:hover {
-    background-color: #dedede;
+#back {
+    background-image: url(../images/home_16.png);
 }
-.bottomMenu > li > ul > li.selected {
-    background-color: #bebebe;
+#refresh {
+    background-image: url(../images/refresh_16.png);
+}
+#toRelationshipView{
+    background-image: url(../images/view-relationship.png);
+}
+#toChronologicalView{
+    background-image: url(../images/view-chronological.png);
+}
+#toStakeholderView{
+    background-image: url(../images/view-stakeholder.png);
+}
+.topMenu .visible {
+    background-image: url(../images/visible.png);
+}
+.topMenu .invisible {
+    background-image: url(../images/invisible.png);
+}
+.topMenu .partyVisible {
+    background-image: url(../images/party-visible.png);
+}
+.topMenu .on {
+    background-image: url(../images/on.png);
+}
+.topMenu .off {
+    background-image: url(../images/off.png);
+}
+.topMenu .questionmark {
+    background-image: url(../images/questionmark.png);
+}
+.topMenu .quality {
+    background-image: url(../images/quality.png);
+}
+.topMenu .speed {
+    background-image: url(../images/speed.png);
+}
+.topMenu .export {
+    background-image: url(../images/export.png);
+}
+.topMenu .jpeg, .topMenu .png {
+    background-image: url(../images/file-jpeg-small.png);
+}
+.topMenu .svg {
+    background-image: url(../images/file-svg-small.png);
+}
+.topMenu .pdf {
+    background-image: url(../images/file-pdf-small.png);
+}
+.topMenu .details {
+    background-image: url(../images/info-small.png);
 }
 
-
-
-
-
-
-
-
-.performance {
+.file > ul {
+    width: 200px;
+}
+.file > ul > li ul {
     width: 150px;
 }
-
-
-.autoAlignment {
-    width: 150px;
-    border-right: 1px solid black;
+.nodes > ul {
+    width: 500px;
 }
+.nodes > ul > li ul {
+    width: 100px;
+}
+.nodes .statusText {
+    color: darkred;
+    font-size: 12px;
+    margin-left: 12px;
+}
+.status > ul {
+    width: 200px;
+}
+.status > ul > li ul {
+    width: 100px;
+}
+.settings > ul {
+    width: 200px;
+}
+.settings > ul > li ul {
+    width: 120px;
+}
+
 
 
 
@@ -429,6 +286,9 @@ body {
     transition: opacity 300ms ease-in 0ms;
 
     cursor: pointer;
+}
+.node:hover {
+    cursor: move;
 }
 .node:hover .hide, .node:hover .info, .node:hover .resize {
     opacity: 1;

@@ -46,7 +46,7 @@ odr.settings = {
     sessionMaintaining : 600000,  // ping the server every x milliseconds
     menu : {
         top : {
-            "class" : "topMenu",
+            "class" : "oldMenu",
             expandedHeight : function() {
                 return "-15px";
             },
@@ -320,5 +320,6 @@ odr.vars = {
     allDecisionNodes : {},
     allIterationNodes : {},
     allAssociations : {},
-    statusGroups : {}
+    statusGroups : {},
+    topMenuOpen : false
 };

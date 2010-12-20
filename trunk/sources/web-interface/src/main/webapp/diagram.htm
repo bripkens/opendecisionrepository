@@ -31,68 +31,79 @@
     </head>
     <body>
 
-        <div class="topMenu project">
-            <div class="title translate">menu.project</div>
-            <ul>
-                <li id="save"><a href="#" class="translate">menu.project.save</a></li>
-                <li id="toRelationshipView"><a href="#" class="translate">menu.project.to.relationship</a></li>
-                <li id="toChronologicalView"><a href="#" class="translate">menu.project.to.chronological</a></li>
-                <li id="toStakeholderView"><a href="#" class="translate">menu.project.to.stakeholder</a></li>
-                <li id="refresh"><a href="#" class="translate">menu.project.refresh</a></li>
-                <li id="back"><a href="#" class="translate">menu.project.back</a></li>
-            </ul>
-        </div>
+        <ul class="topMenu">
+            <li class="file">
+                <span class="translate">menu.project.file</span>
 
-        <div class="topMenu decisions">
-            <div class="title translate">menu.nodes</div>
-
-            <div class="overflowDecisions">
-            </div>
-        </div>
-
-        <div class="topMenu status">
-            <div class="title translate">menu.status</div>
-
-            <p class="translate">menu.status.help</p>
-
-            <div class="overflowStatus">
-            </div>
-        </div>
-
-        <div class="topMenu export">
-            <div class="title translate">menu.export</div>
-            <ul>
-                <li class="jpeg translate">menu.export.jpeg</li>
-                <li class="png translate">menu.export.png</li>
-                <li class="svg translate">menu.export.svg</li>
-                <li class="pdf translate">menu.export.pdf</li>
-            </ul>
-            <form method="post" action="diagram.png">
-                <input type="hidden" id="data" name="data"/>
-                <input type="hidden" id="format" name="format"/>
-                <input type="hidden" id="filename" name="filename"/>
-            </form>
-        </div>
-
-        <ul class="bottomMenu">
-            <li class="performance">
-                <span class="translate">menu.performance</span>
-                <span class="current translate" id="performanceOut">menu.performance.high</span>
                 <ul>
-                    <li class="selected" id="performanceHigh"><span class="translate">menu.performance.high</span></li>
-                    <li id="performanceLow"><span class="translate">menu.performance.low</span></li>
+                    <li id="save" ><span class="translate">menu.project.save</span></li>
+                    <li id="exportMenu" class="seperateAfter export">
+                        <span class="translate">menu.export</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="jpeg"><span class="translate">menu.export.jpeg</span></li>
+                                <li class="png"><span class="translate">menu.export.png</span></li>
+                                <li class="svg"><span class="translate">menu.export.svg</span></li>
+                                <li class="pdf"><span class="translate">menu.export.pdf</span></li>
+                            </ul>
+                        </div>
+                        <form method="post" action="diagram.png">
+                            <input type="hidden" id="data" name="data"/>
+                            <input type="hidden" id="format" name="format"/>
+                            <input type="hidden" id="filename" name="filename"/>
+                        </form>
+                    </li>
+                    <li id="toRelationshipView"><span class="translate">menu.project.to.relationship</span></li>
+                    <li id="toChronologicalView"><span class="translate">menu.project.to.chronological</span></li>
+                    <li id="toStakeholderView"><span class="translate">menu.project.to.stakeholder</span></li>
+                    <li id="refresh" class="seperateBefore"><span class="translate">menu.project.refresh</span></li>
+                    <li id="back"><span class="translate">menu.project.back</span></li>
                 </ul>
             </li>
-            <li class="autoAlignment">
-                <span class="translate">menu.alignment</span>
-                <span id="autoAlignmentOut" class="current translate">menu.alignment.ask</span>
+            <li class="nodes">
+                <span class="translate">menu.nodes</span>
+
+                <ul class="overflowList" maxEntries="16" currentEntry="0" clickDelta="3">
+                    <li class="scrollup"></li>
+                    <li class="scrolldown"></li>
+                </ul>
+            </li>
+            <li class="status">
+                <span class="translate">menu.status</span>
+
+                <ul class="overflowList" maxEntries="16" currentEntry="0" clickDelta="3">
+                    <li class="scrollup"></li>
+                    <li class="scrolldown"></li>
+                </ul>
+            </li>
+            <li class="settings">
+                <span class="translate">menu.settings</span>
+
                 <ul>
-                    <li id="autoAlignmentOn"><span class="translate">menu.alignment.on</span></li>
-                    <li id="autoAlignmentOff"><span class="translate">menu.alignment.off</span></li>
-                    <li id="autoAlignmentAsk" class="selected"><span class="translate">menu.alignment.ask</span></li>
+                    <li id="performanceMenu" class="quality">
+                        <span class="translate">menu.performance</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="quality"><span class="translate">menu.performance.high</span></li>
+                                <li class="speed"><span class="translate">menu.performance.low</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="alignmentMenu" class="questionmark">
+                        <span class="translate">menu.alignment</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="on"><span class="translate">menu.alignment.on</span></li>
+                                <li class="off"><span class="translate">menu.alignment.off</span></li>
+                                <li class="questionmark"><span class="translate">menu.alignment.ask</span></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </li>
         </ul>
+
+        <div class="topMenuClickBlocker"></div>
 
         <div id="svgContainer">
             <script type="image/svg+xml">
