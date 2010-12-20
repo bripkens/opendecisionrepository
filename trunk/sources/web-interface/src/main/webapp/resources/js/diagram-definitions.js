@@ -44,32 +44,6 @@ odr.settings = {
         iterationDetails : "iterationDetails.html?id={0}&iterationId={1}"
     },
     sessionMaintaining : 600000,  // ping the server every x milliseconds
-    menu : {
-        top : {
-            "class" : "oldMenu",
-            expandedHeight : function() {
-                return "-15px";
-            },
-            collapsedHeight : function(element) {
-                return (element.height() + 11) * -1;
-            },
-            animationDuration : 500
-        },
-        bottom : {
-            selectedClass : "selected",
-            performance : {
-                high : "#performanceHigh",
-                low : "#performanceLow",
-                out : "#performanceOut"
-            },
-            alignment : {
-                on : "#autoAlignmentOn",
-                off : "#autoAlignmentOff",
-                ask : "#autoAlignmentAsk",
-                out : "#autoAlignmentOut"
-            }
-        }
-    },
     popup : {
         temporaryText : {
             refresh : "Refresh",
@@ -321,5 +295,6 @@ odr.vars = {
     allIterationNodes : {},
     allAssociations : {},
     statusGroups : {},
-    topMenuOpen : false
+    topMenuOpen : false,
+    relatedNode : null
 };

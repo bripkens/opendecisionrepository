@@ -1179,3 +1179,132 @@ odr.maintainSession = function(continuous) {
 };
 
 odr.ready(odr.maintainSession);
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                        Related decisions dialog
+ */
+odr.ready(function() {
+    var buttons = {};
+
+    buttons[odr.translation.text["related.nodes.popup.show"]] = function() {
+        odr.changeVisibilityBasedOnRelationship($(this), true);
+        $(this).dialog("close");
+    };
+
+    buttons[odr.translation.text["related.nodes.popup.hide"]] = function() {
+        odr.changeVisibilityBasedOnRelationship($(this), false);
+        $(this).dialog("close");
+    };
+
+    buttons[odr.translation.text["related.nodes.popup.cancel"]] = function() {
+        $(this).dialog("close");
+    };
+
+    $("#relatedNodesPopup").dialog({
+        autoOpen: false,
+        height: 300,
+        width: 400,
+        modal: true,
+        zIndex : 5050,
+        buttons : buttons,
+        close : function() {
+            $(this).find("select > option").removeAttr("selected").first().attr("selected", true);
+            $(this).find("div > input").removeAttr("checked").first().attr("checked", true);
+        }
+    });
+});
+
+
+
+
+
+odr.changeVisibilityBasedOnRelationship = function(dialog, relatedVisible) {
+    var depth = parseInt(dialog.find("select > option:selected").val());
+    var otherVisibility = dialog.find("div > input:checked").val();
+
+    if (otherVisibility == "show") {
+        for(var e in odr.vars.allDecisionNodes) {
+            odr.vars.allDecisionNodes[e].visible(true);
+        }
+
+        for(var e in odr.vars.allIterationNodes) {
+            odr.vars.allIterationNodes[e].visible(true);
+        }
+    } else if (otherVisibility == "hide") {
+        for(var e in odr.vars.allDecisionNodes) {
+            odr.vars.allDecisionNodes[e].visible(false);
+        }
+
+        for(var e in odr.vars.allIterationNodes) {
+            odr.vars.allIterationNodes[e].visible(false);
+        }
+    }
+
+    var node = odr.vars.relatedNode;
+
+    var root = odr.canvas();
+    var suspendID = root.suspendRedraw(5000);
+
+    odr.setRelatedVisible(node, relatedVisible, depth);
+
+    root.unsuspendRedraw(suspendID);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+odr.setRelatedVisible = function(node, visible, depth) {
+    node.visible(visible);
+
+    if (depth != 0) {
+        for(var e in odr.vars.allAssociations) {
+            var association = odr.vars.allAssociations[e];
+
+            if (association.source() == node) {
+                odr.setRelatedVisible(association.target(), visible, depth - 1);
+            } else if (association.target() == node) {
+                odr.setRelatedVisible(association.source(), visible, depth - 1);
+            }
+        }
+    }
+};
+
+
+
+
+
+
+
+/**
+ * @description
+ * Show the related nodes dialog for the given node
+ *
+ * @param {odr.Node} node The node for which you want to show the dialog
+ */
+odr.showRelatedNodesDialog = function(node) {
+    odr.vars.relatedNode = node;
+
+    $("#relatedNodesPopup").dialog("open");
+};
