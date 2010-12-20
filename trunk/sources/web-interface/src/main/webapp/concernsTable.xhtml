@@ -21,7 +21,7 @@
     <ui:define name="bodyBegin">
         <odr:deletePopup valid="#{concernTableController1.valid}"
                          message="#{form['table.deletion.members.text']}"
-                         attribute="#{concernTableController1.concernToDelete.name}"
+                         attribute="#{concernTableController1.concernToDelete.concer.name}"
                          removeMethod="#{concernTableController1.deleteConcern}"/>
     </ui:define>
 
@@ -47,7 +47,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <ui:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
+                <ice:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
                     <tr class="parentRow group-#{item.concer.id}">
                         <td style="border-bottom: none">
                             <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
@@ -71,11 +71,11 @@
                              src="resources/images/removeSmall.png"
                              width="14"
                              height="14"/>
-                        <f:attribute value="#{item.concer}" name="concern" />
+                        <f:attribute value="#{item}" name="item" />
 
                     </ice:commandLink></td>
                     </tr>
-                    <ui:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="subconcernRepeat">
+                    <ice:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="subconcernRepeat">
                         <tr style="display: none;" class="subRow group-#{item.concer.id}">
                             <td style="border:none;"></td>
                             <td>#{subconcern.concer.externalId}</td>
@@ -100,8 +100,8 @@
 
                         </ice:commandLink></td>
                         </tr>
-                    </ui:repeat>
-                </ui:repeat>
+                    </ice:repeat>
+                </ice:repeat>
                 </tbody>
             </table>
         </ice:form>

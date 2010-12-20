@@ -1422,6 +1422,8 @@ public class FillDbController {
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1300).setY(360));
         relVieAss.addHandle(new Handle().setX(1300).setY(234));
+        relVieAss.setLabelX(100);
+        relVieAss.setLabelY(100);
 
         rel = getRelationship(batik.getCurrentVersion(), svg.getCurrentVersion(), getRelationshipType("caused by"));
         relVieAss = vis.getAssociation(rel);

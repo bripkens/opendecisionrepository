@@ -46,7 +46,7 @@ public class ConcernTableController1 {
 
     private Project project;
 
-    private Concern concernToDelete;
+    private Item concernToDelete;
 
     private NavigationBuilder navi;
 
@@ -190,7 +190,7 @@ public class ConcernTableController1 {
 
 
     public void showDeleteConcernConfirmation(ActionEvent e) {
-        Concern co = (Concern) e.getComponent().getAttributes().get("concern");
+        Item co = (Item) e.getComponent().getAttributes().get("item");
 
         concernToDelete = co;
 
@@ -200,14 +200,14 @@ public class ConcernTableController1 {
 
 
 
-    public Concern getConcernToDelete() {
+    public Item getConcernToDelete() {
         return concernToDelete;
     }
 
 
 
 
-    public void setConcernToDelete(Concern concernToDelete) {
+    public void setConcernToDelete(Item concernToDelete) {
         this.concernToDelete = concernToDelete;
     }
 
@@ -215,12 +215,12 @@ public class ConcernTableController1 {
 
 
     public void deleteConcern() {
-        project.removeConcern(concernToDelete);
+        parentConcerns.remove(concernToDelete);
+        project.removeConcern(concernToDelete.concern);
 
         projectLocal.merge(project);
 
         JsfUtil.addJavascriptCall("odr.popup.hide();");
-        JsfUtil.addJavascriptCall("odr.refresh()");
 
     }
 

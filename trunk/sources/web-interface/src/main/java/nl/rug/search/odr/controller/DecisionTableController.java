@@ -22,12 +22,10 @@ import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.decision.VersionLocal;
 
-import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.Decision;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Version;
-import nl.rug.search.odr.project.ConcernLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
@@ -58,11 +56,13 @@ public class DecisionTableController {
 
     private NavigationBuilder navi;
 
+    private Item itemToDelete;
+
 
 
 
     @PostConstruct
-    public void getConcernsFromDb() {
+    public void getDecisionsFromDb() {
 
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
@@ -123,10 +123,7 @@ public class DecisionTableController {
 
 
 
-    /**
-     * return the list with the newest version of every concern
-     * @return
-     */
+
     public List<Item> getList() {
         return allDecisions;
     }
@@ -174,10 +171,26 @@ public class DecisionTableController {
 
     public void showDeleteVersionConfirmation(ActionEvent e) {
         Version vo = (Version) e.getComponent().getAttributes().get("version");
-
         versionToDelete = vo;
 
+        Item it = (Item) e.getComponent().getAttributes().get("item");
+        itemToDelete = it;
+
         JsfUtil.addJavascriptCall("odr.showVersionDeleteForm();");
+    }
+
+
+
+
+    public void setItemToDelete(Item itemToDelete) {
+        this.itemToDelete = itemToDelete;
+    }
+
+
+
+
+    public Item getItemToDelete() {
+        return itemToDelete;
     }
 
 
@@ -199,23 +212,11 @@ public class DecisionTableController {
 
     public void deleteVersion() {
         versionToDelete.setRemoved(true);
-        versionLocal.merge(versionToDelete);
 
-        Decision d = versionToDelete.getDecision();
-        boolean empty = true;
-        for (Version v : d.getVersions()) {
-            if (!v.isRemoved()) {
-                empty = false;
-                break;
-            }
+        if (itemToDelete.getDecision().isRemoved()) {
+            allDecisions.remove(itemToDelete);
         }
-        if (empty) {
-            d.remove();
-        }
-
-        JsfUtil.addJavascriptCall("odr.popup.hide();");
-        JsfUtil.addJavascriptCall("odr.refresh()");
-
+        projectLocal.merge(project);
     }
 
 
@@ -279,10 +280,22 @@ public class DecisionTableController {
 
 
 
+        public void removeSubVersion(Version ver) {
+            for (Version v : subVersions) {
+                if (v.equals(ver)) {
+                    ver.setRemoved(true);
+                    subVersions.remove(v);
+                }
+            }
+        }
+
+
+
+
         public String getAllInitiators(Version v) {
             String ini = "";
             for (ProjectMember member : v.getInitiators()) {
-                ini = ini.concat(member.getPerson().getName()).concat(SEPERATOR+" ");
+                ini = ini.concat(member.getPerson().getName()).concat(SEPERATOR + " ");
             }
             return ini.substring(0, ini.length() - 2);
         }
