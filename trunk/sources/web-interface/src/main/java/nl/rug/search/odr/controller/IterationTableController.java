@@ -51,9 +51,11 @@ public class IterationTableController {
 
     private Project project;
 
-    private Item iterationToDelete;
+    private Item itemToDelete;
 
     private NavigationBuilder navi;
+
+    private Iteration iterationToDelete;
 
 
 
@@ -134,7 +136,6 @@ public class IterationTableController {
 
 
 
-
     public String getShowLink(Item item) {
         return new QueryStringBuilder().setUrl(Filename.ITERATION_DETAILS).
                 append(RequestParameter.ID, project.getId()).
@@ -164,9 +165,12 @@ public class IterationTableController {
 
 
     public void showDeleteIterationConfirmation(ActionEvent e) {
-        Item it = (Item) e.getComponent().getAttributes().get("iterationItem");
+        Item it = (Item) e.getComponent().getAttributes().get("iterationitem");
+        Iteration iter = (Iteration) e.getComponent().getAttributes().get("iteration");
 
-        iterationToDelete = it;
+
+        itemToDelete = it;
+        iterationToDelete = iter;
 
         JsfUtil.addJavascriptCall("odr.showIterationDeleteForm();");
     }
@@ -175,27 +179,24 @@ public class IterationTableController {
 
 
     public Item getIterationToDelete() {
-        return iterationToDelete;
+        return itemToDelete;
     }
 
 
 
 
     public void setIterationToDelete(Item iterationToDelete) {
-        this.iterationToDelete = iterationToDelete;
+        this.itemToDelete = iterationToDelete;
     }
 
 
 
 
     public void deleteIteration() {
-        project.removeIteration(iterationToDelete.iteration);
-        iterations.remove(iterationToDelete);
+        iterations.remove(itemToDelete);
+        project.removeIteration(iterationToDelete);
 
         projectLocal.merge(project);
-
-        JsfUtil.addJavascriptCall("odr.popup.hide();");
-
     }
 
 
