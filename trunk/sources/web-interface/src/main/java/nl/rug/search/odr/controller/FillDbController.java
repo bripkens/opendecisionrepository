@@ -1451,7 +1451,7 @@ public class FillDbController {
         rel = getRelationship(batik.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
         relVieAss = vis.getAssociation(rel);
         relVieAss.addHandle(new Handle().setX(1110).setY(330));
-        relVieAss.addHandle(new Handle().setX(880).setY(330));
+        relVieAss.addHandle(new Handle().setX(884).setY(330));
         relVieAss.setLabelX(960).setLabelY(320);
 
         rel = getRelationship(eclipselink.getCurrentVersion(), java.getCurrentVersion(), getRelationshipType("depends on"));
@@ -1899,15 +1899,21 @@ public class FillDbController {
         p.addRelationshipView(vis);
 
         //set all elements 200px to the left site.
+        int reduceX = 200;
+        int expandY = 30;
+
         for (RelationshipViewVisualization viewVis : p.getRelationshipViews()) {
             for (RelationshipViewNode node1 : viewVis.getNodes()) {
-                node1.setX(node1.getX() - 200);
+                node1.setX(node1.getX() - reduceX);
+                node1.setY(node1.getY() + expandY);
 
             }
             for (RelationshipViewAssociation ass : viewVis.getAssociations()) {
-                ass.setLabelX(ass.getLabelX() - 200);
+                ass.setLabelX(ass.getLabelX() - reduceX);
+                ass.setLabelY(ass.getLabelY() + expandY);
                 for (Handle hand : ass.getHandles()) {
-                    hand.setX(hand.getX() - 200);
+                    hand.setX(hand.getX() - reduceX);
+                    hand.setY(hand.getY() + expandY);
                 }
             }
         }

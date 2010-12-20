@@ -1668,6 +1668,11 @@ div .iceSelInpTxtRow:last-child, div .iceSelInpTxtSelRow:last-child {
     margin:3px;
 }
 
+div.tagsContainer{
+    float: right;
+    width: 490px
+}
+
 /*
     ############################################################################################
                                     Concern Table
