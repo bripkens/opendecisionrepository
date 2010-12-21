@@ -26,16 +26,18 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb breadCrumbSource="#{iterationTableController.navigationBar}" />
-        <h1><h:outputText value="#{form['table.header.iteration']}"/></h1>
-        <a href="#{iterationTableController.createIterationLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.iteration']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
+        <ice:panelGroup rendered="#{iterationTableController.valid}" >
+            <odr:breadcrumb breadCrumbSource="#{iterationTableController.navigationBar}" />
+            <h1><h:outputText value="#{form['table.header.iteration']}"/></h1>
+            <a href="#{iterationTableController.createIterationLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.iteration']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
 
-        <form>
-            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
-            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'iterationList', false)" style="width: 200px;" styleClass="prefill"/>
-        </form>
+            <form>
+                <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+                <ice:inputText id="searchInput" onkeyup="doFilter(this, 'iterationList', false)" style="width: 200px;" styleClass="prefill"/>
+            </form>
+        </ice:panelGroup>
 
-        <ice:form partialSubmit="true">
+        <ice:form partialSubmit="true" rendered="#{iterationTableController.valid}">
             <table class="dataList" id="iterationList">
                 <thead>
                     <tr>
@@ -48,7 +50,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <ui:repeat value="#{iterationTableController.list}" var="item" id="iterationRepeat">
+                <ice:repeat value="#{iterationTableController.list}" var="item" id="iterationRepeat">
                     <tr class="parentRow group-#{item.iteration.id}">
                         <td style="border-bottom: none">
                             #{item.iteration.name}
@@ -68,7 +70,7 @@
                         <td><ice:commandLink value=""
                                          actionListener="#{iterationTableController.showDeleteIterationConfirmation}"
                                          styleClass="columnNavigationLink">
-                            <img class="vtip" title="#{form['table.tooltip.delete']}" alt="#{common.remove}"
+                        <img class="vtip" title="#{form['table.tooltip.delete']}" alt="#{common.remove}"
                              src="resources/images/removeSmall.png"
                              width="14"
                              height="14"/>
@@ -77,7 +79,7 @@
 
                     </ice:commandLink></td>
                     </tr>
-                </ui:repeat>
+                </ice:repeat>
                 </tbody>
             </table>
         </ice:form>

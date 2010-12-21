@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
+import nl.rug.search.odr.RequestAnalyser;
+import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.decision.VersionLocal;
@@ -54,9 +56,9 @@ public class DecisionTableController {
 
     private Version versionToDelete;
 
-    private NavigationBuilder navi;
-
     private Item itemToDelete;
+
+    private boolean validRequest;
 
 
 
@@ -67,61 +69,30 @@ public class DecisionTableController {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
 
-        // <editor-fold defaultstate="collapsed" desc="get Project Id">
+        RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
+        RequestAnalyserDto result = analyser.analyse();
 
-        long projectId = 0l;
-        if (request.getParameter(RequestParameter.ID) != null) {
-            String str_projectId = request.getParameter(RequestParameter.ID);
+        if (result.isValid()) {
+            this.project = result.getProject();
+            allDecisions = new ArrayList<Item>();
 
-            try {
-                projectId = Long.parseLong(str_projectId);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
+            List<Decision> temp = new ArrayList<Decision>(project.getDecisions());
+            Collections.sort(temp, Collections.reverseOrder(new Decision.DocumentedWhenComparator()));
+
+            for (Decision decision : temp) {
+                if (!decision.isRemoved()) {
+                    Item currentItem = new Item(decision);
+                    currentItem.setCurrentVersion(decision.getCurrentVersion());
+                    currentItem.setSubVersions();
+                    allDecisions.add(currentItem);
+                }
             }
-        }
-
-        project = projectLocal.getById(projectId);
-        navi = new NavigationBuilder();
-
-        if (project == null) {
-            ErrorUtil.showIdNotRegisteredError();
-            return;
-        } else if (project != null && !memberIsInProject()) {
-            ErrorUtil.showNoMemberError();
-            return;
-        }
-
-        allDecisions = new ArrayList<Item>();
-
-        List<Decision> temp = new ArrayList<Decision>(project.getDecisions());
-        Collections.sort(temp, Collections.reverseOrder(new Decision.DocumentedWhenComparator()));
-
-        for (Decision decision : temp) {
-            if (!decision.isRemoved()) {
-                Item currentItem = new Item(decision);
-                currentItem.setCurrentVersion(decision.getCurrentVersion());
-                currentItem.setSubVersions();
-                allDecisions.add(currentItem);
-            }
+            validRequest = true;
+        } else {
+            result.executeErrorAction();
+            validRequest = false;
         }
     }
-
-
-
-
-    private boolean memberIsInProject() {
-        long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : project.getMembers()) {
-            if (pm.getPerson().getId().equals(userId)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-
 
 
     public List<Item> getList() {
@@ -223,16 +194,16 @@ public class DecisionTableController {
 
 
     public boolean isValid() {
-        return project != null;
+        return validRequest;
     }
 
 
 
 
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        NavigationBuilder navi = new NavigationBuilder();
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         navi.setProject(project);
-
         return navi.getNavigationBar();
     }
 

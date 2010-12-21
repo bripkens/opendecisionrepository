@@ -27,15 +27,16 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb breadCrumbSource="#{memberTableController.navigationBar}" />
-        <h1><h:outputText value="#{form['table.header.members']}"/></h1>
+        <ice:panelGroup rendered="#{memberTableController.valid}">
+                        <odr:breadcrumb breadCrumbSource="#{memberTableController.navigationBar}" />
+            <h1><h:outputText value="#{form['table.header.members']}"/></h1>
 
-        <form>
-            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
-            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'memberList', false)" style="width: 200px;" styleClass="prefill"/>
-        </form>
-
-        <ice:form partialSubmit="true">
+            <form>
+                <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+                <ice:inputText id="searchInput" onkeyup="doFilter(this, 'memberList', false)" style="width: 200px;" styleClass="prefill"/>
+            </form>
+        </ice:panelGroup>
+        <ice:form partialSubmit="true" rendered="#{memberTableController.valid}">
             <table class="dataList" id="memberList">
                 <thead>
                     <tr>

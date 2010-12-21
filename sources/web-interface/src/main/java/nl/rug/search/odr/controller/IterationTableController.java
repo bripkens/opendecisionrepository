@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
+import nl.rug.search.odr.RequestAnalyser;
+import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 
 import nl.rug.search.odr.entities.Concern;
@@ -57,46 +59,33 @@ public class IterationTableController {
 
     private Iteration iterationToDelete;
 
+    private boolean validRequest;
+
 
 
 
     @PostConstruct
-    public void getIterationsFromDb() {
-
+    public void postConstruct() {
+        navi = new NavigationBuilder();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
 
-        // <editor-fold defaultstate="collapsed" desc="get Project Id">
+        RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
+        RequestAnalyserDto result = analyser.analyse();
 
-        long projectId = 0l;
-        if (request.getParameter(RequestParameter.ID) != null) {
-            String str_projectId = request.getParameter(RequestParameter.ID);
+        if (result.isValid()) {
+            this.project = result.getProject();
+            iterations = new ArrayList<Item>();
+            validRequest = true;
 
-            try {
-                projectId = Long.parseLong(str_projectId);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
+            for (Iteration iteration : project.getIterations()) {
+                Item currentItem = new Item(iteration);
+                iterations.add(currentItem);
             }
-        }
 
-        project = projectLocal.getById(projectId);
-        navi = new NavigationBuilder();
-
-        if (project == null) {
-            ErrorUtil.showIdNotRegisteredError();
-            return;
-        } else if (project != null && !memberIsInProject()) {
-            ErrorUtil.showNoMemberError();
-            return;
-        }
-
-        iterations = new ArrayList<Item>();
-
-        int i = 0;
-        for (Iteration iteration : project.getIterations()) {
-            Item currentItem = new Item(iteration);
-            iterations.add(currentItem);
+        } else {
+            result.executeErrorAction();
+            validRequest = false;
         }
     }
 
@@ -118,6 +107,7 @@ public class IterationTableController {
                 return true;
             }
         }
+        validRequest = false;
         return false;
     }
 
@@ -203,7 +193,7 @@ public class IterationTableController {
 
 
     public boolean isValid() {
-        return project != null;
+        return validRequest;
     }
 
 

@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import nl.rug.search.odr.RequestParameter;
 import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
+import nl.rug.search.odr.util.AuthenticationUtil;
 
 /**
  *
@@ -29,6 +31,9 @@ public class IterationCalendarDataProvider extends HttpServlet {
 
     @EJB
     private ProjectLocal projectLocal;
+
+
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,17 +47,38 @@ public class IterationCalendarDataProvider extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        long projectId = 0;
-        try {
-            projectId = Long.parseLong(request.getParameter(RequestParameter.ID));
-        } catch (NumberFormatException ex) {
-            out.println("Invalid id");
+        if (!AuthenticationUtil.isAuthenticated(request.getSession())) {
             return;
         }
 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+        long userId = AuthenticationUtil.getUserId(request.getSession());
+
+        long projectId;
+
+        try {
+            projectId = Long.parseLong(request.getParameter(RequestParameter.ID));
+        } catch (NumberFormatException ex) {
+            return;
+        }
 
         Project p = projectLocal.getById(projectId);
+
+        if (p == null) {
+            return;
+        }
+
+        boolean isMember = false;
+
+        for (ProjectMember pm : p.getMembers()) {
+            if (pm.getPerson().getId().equals(userId)) {
+                isMember = true;
+                break;
+            }
+        }
+
+        if (!isMember) {
+            return;
+        }
 
         List<Iteration> iterations = new ArrayList<Iteration>(p.getIterations());
         Collections.sort(iterations, new Iteration.EndDateComparator());
@@ -67,15 +93,14 @@ public class IterationCalendarDataProvider extends HttpServlet {
                     i.getDocumentedWhen());
 
             allIterations.add(it);
-
         }
 
+        Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
         out.print(gson.toJson(allIterations));
-
         out.close();
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+
 
 
 
@@ -88,7 +113,8 @@ public class IterationCalendarDataProvider extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException,
+            IOException {
         processRequest(request, response);
 
 
@@ -106,7 +132,8 @@ public class IterationCalendarDataProvider extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException,
+            IOException {
         processRequest(request, response);
 
 
@@ -126,12 +153,19 @@ public class IterationCalendarDataProvider extends HttpServlet {
     }// </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="JSonIteration inner class">
+
+
+
     public class JSonIteration {
 
         private Date startDate;
+
         private Date endDate;
+
         private String Initiator;
+
         private String Name;
+
         private Date creationDate;
 
 
@@ -214,6 +248,13 @@ public class IterationCalendarDataProvider extends HttpServlet {
         public void setCreationDate(Date creationDate) {
             this.creationDate = creationDate;
         }
+
+
+
+
     }
     // </editor-fold>
 }
+
+
+

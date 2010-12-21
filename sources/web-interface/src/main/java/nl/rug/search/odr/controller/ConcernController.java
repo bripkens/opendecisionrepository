@@ -2,6 +2,7 @@ package nl.rug.search.odr.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -55,6 +56,8 @@ public class ConcernController {
 
     private ProjectMember member;
 
+    private boolean validRequest;
+
     // <editor-fold defaultstate="collapsed" desc="concern attributes">
     private String externalId = "";
 
@@ -102,11 +105,10 @@ public class ConcernController {
             this.tags = new ArrayList<Item>();
             this.member = result.getMember();
             setUpConcernSpecific(result);
-        } else if (this.project == null) {
+            validRequest = true;
+        } else {
             result.executeErrorAction();
-
-        } else if (!this.projectLocal.isMember(AuthenticationUtil.getUserId(), project.getId())) {
-            this.concern = null;
+            validRequest = false;
         }
 
 
@@ -142,7 +144,7 @@ public class ConcernController {
         }
 
         if (this.concern == null) {
-            ErrorUtil.showInvalidIdError();
+            requestAnalyser.executeErrorAction();
             return;
         }
 
@@ -174,6 +176,9 @@ public class ConcernController {
      * @return the List with all information to build the breadcrumbtrail
      */
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        if (concern == null) {
+            return Collections.EMPTY_LIST;
+        }
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         navi.setProject(project);
         navi.setConcern(concern);
@@ -231,9 +236,11 @@ public class ConcernController {
         try {
             concernId = Long.parseLong(concernIdParameter);
         } catch (NumberFormatException ex) {
-            ErrorUtil.showIterationIdNotRegisteredError();
+            ErrorUtil.showInvalidIdError();
             return null;
         }
+
+
 
         Concern temp = null;
         for (Concern con : project.getConcerns()) {
@@ -256,7 +263,7 @@ public class ConcernController {
 
 
     public boolean isValid() {
-        return concern != null;
+        return validRequest;
     }
 
 

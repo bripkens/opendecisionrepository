@@ -134,9 +134,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setIterations(Collection<Iteration> iterations) {
-        if (iterations == null) {
-            throw new BusinessException("Iterations is null");
-        }
+        assert iterations != null;
 
         this.iterations = iterations;
     }
@@ -145,9 +143,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addIteration(Iteration it) {
-        if (it == null) {
-            throw new BusinessException("iteration is null");
-        }
+        assert it != null;
         iterations.add(it);
     }
 
@@ -155,9 +151,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeIteration(Iteration it) {
-        if (it == null) {
-            throw new BusinessException("It is null");
-        }
+        assert it != null;
 
         iterations.remove(it);
 
@@ -192,9 +186,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addRole(StakeholderRole role) {
-        if (role == null) {
-            throw new BusinessException("Please provide a role");
-        }
+        assert role != null;
         roles.add(role);
     }
 
@@ -202,9 +194,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeRole(StakeholderRole role) {
-        if (role == null) {
-            throw new BusinessException("Please provide a role");
-        }
+        assert role != null;
         roles.remove(role);
     }
 
@@ -212,9 +202,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setRoles(Collection<StakeholderRole> roles) {
-        if (roles == null) {
-            throw new BusinessException("Roles are null");
-        }
+        assert roles != null;
 
         this.roles = roles;
     }
@@ -244,9 +232,8 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setDescription(String description) {
-        if (description != null) {
-            description = description.trim();
-        }
+        assert description != null;
+        description = description.trim();
         this.description = description;
     }
 
@@ -285,9 +272,7 @@ public class Project extends BaseEntity<Project> {
 
     @Override
     public void setId(Long id) {
-        if (id == null) {
-            throw new BusinessException("Id is null");
-        }
+        assert id != null;
 
         this.id = id;
     }
@@ -303,9 +288,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setMembers(Collection<ProjectMember> members) {
-        if (members == null) {
-            throw new BusinessException("Collection of members is null");
-        }
+        assert members != null;
 
         this.members = members;
     }
@@ -314,9 +297,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addMember(ProjectMember member) {
-        if (member == null) {
-            throw new BusinessException("Member is null.");
-        }
+        assert member != null;
 
         member.setProject(this);
     }
@@ -332,9 +313,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeMember(ProjectMember member) {
-        if (member == null) {
-            throw new BusinessException("Member is null.");
-        }
+        assert member != null;
 
         member.setProject(null);
     }
@@ -364,9 +343,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setDecisions(Collection<Decision> decisions) {
-        if (decisions == null) {
-            throw new BusinessException("Decisions is null");
-        }
+        assert decisions != null;
 
         this.decisions = decisions;
     }
@@ -375,9 +352,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addDecision(Decision decision) {
-        if (decision == null) {
-            throw new BusinessException("Decision is null");
-        }
+        assert decision != null;
 
         decisions.add(decision);
     }
@@ -386,9 +361,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeDecision(Decision decision) {
-        if (decision == null) {
-            throw new BusinessException("Decision is null");
-        }
+        assert decision != null;
 
         decisions.remove(decision);
     }
@@ -424,9 +397,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setConcerns(Collection<Concern> concerns) {
-        if (concerns == null) {
-            throw new BusinessException("Concern is null");
-        }
+        assert concerns != null;
         this.concerns = concerns;
     }
 
@@ -434,9 +405,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addConcern(Concern concern) {
-        if (concern == null) {
-            throw new BusinessException("Concern is null");
-        }
+        assert concern != null;
 
         concerns.add(concern);
     }
@@ -445,8 +414,12 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeConcern(Concern concern) {
-        if (concern == null) {
-            throw new BusinessException("Concern is null");
+        assert concern != null;
+
+        for (Decision descion : decisions){
+            for(Version version : descion.getVersions()){
+                version.removeConcern(concern);
+            }
         }
 
         concerns.remove(concern);

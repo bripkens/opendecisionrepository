@@ -14,9 +14,10 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb breadCrumbSource="#{iterationController.navigationBar}" />
-        
-        <ice:form id="iterationForm" partialSubmit="false">
+        <ice:panelGroup rendered="#{iterationController.valid}">
+            <odr:breadcrumb breadCrumbSource="#{iterationController.navigationBar}" />
+        </ice:panelGroup>
+        <ice:form id="iterationForm" partialSubmit="false" rendered="#{iterationController.valid}">
             <h1><h:outputText value="#{iterationController.iteration.name}"/></h1>
             <table class="details">
 
@@ -32,18 +33,18 @@
                 <tbody>
                     <tr>
                         <td><ice:outputLabel value="#{form['label.description']}" for="inDescription" /></td>
-                        <td> <ice:outputText value="#{iterationController.iteration.description}"/></td>
+                <td> <ice:outputText value="#{iterationController.iteration.description}"/></td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.startDate']}" for="inStartDate" /></td>
-                    <td><ice:outputText value="#{iterationController.iteration.startDate}">
+                <td><ice:outputText value="#{iterationController.iteration.startDate}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.endDate']}" for="inEndDate" /></td>
-                    <td><ice:outputText value="#{iterationController.iteration.endDate}">
+                <td><ice:outputText value="#{iterationController.iteration.endDate}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
@@ -58,11 +59,11 @@
                 </tr>
                 <tr>
                     <td> <ice:outputLabel value="#{form['iteration.documentedBy']}" for="inCreator" /></td>
-                    <td><ice:outputText value="#{iterationController.iteration.projectMember.person.name}"/></td>
+                <td><ice:outputText value="#{iterationController.iteration.projectMember.person.name}"/></td>
                 </tr>
                 <tr>
                     <td><ice:outputLabel value="#{form['iteration.creationdate']}" for="inDocumentedBy" /></td>
-                    <td><ice:outputText value="#{iterationController.iteration.documentedWhen}">
+                <td><ice:outputText value="#{iterationController.iteration.documentedWhen}">
                     <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
                 </ice:outputText>
                 </td>
