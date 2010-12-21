@@ -1,6 +1,8 @@
 package nl.rug.search.odr;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import nl.rug.search.odr.entities.Concern;
 import nl.rug.search.odr.entities.Decision;
@@ -123,7 +125,9 @@ public class NavigationBuilder {
 
 
     public void setProject(Project project) {
-        this.project = project;
+        if (project != null) {
+            this.project = project;
+        }
     }
 
 
@@ -160,6 +164,8 @@ public class NavigationBuilder {
 
     public List<NavigationLink> getNavigationBar() {
 
+
+
         List<NavigationLink> navigation = new ArrayList<NavigationLink>();
 
         //Home
@@ -170,8 +176,13 @@ public class NavigationBuilder {
                 && !navigationSite.equals(Filename.CREATE_PROJECT_WITH_LEADING_SLASH)
                 && !navigationSite.equals(Filename.REGISTER_USER_WITH_LEADING_SLASH)) {
 
-            navigation.add(new NavigationLink(project.getName(), RequestParameter.PROJECT_PATH_WITH_ENDING_SLASH + "" + project.
-                    getName()));
+            if (project == null) {
+                return Collections.EMPTY_LIST;
+            } else {
+                navigation.add(new NavigationLink(project.getName(), RequestParameter.PROJECT_PATH_WITH_ENDING_SLASH
+                        + project.getName()));
+            }
+
         }
 
         //Iteration

@@ -50,8 +50,6 @@ public class DecisionDetailsController {
     private Version version;
     // </editor-fold>
 
-    NavigationBuilder navi;
-
     // <editor-fold defaultstate="collapsed" desc="EJBs">
     @EJB
     private ProjectLocal pl;
@@ -70,8 +68,6 @@ public class DecisionDetailsController {
                 getExternalContext().
                 getRequest();
 
-        navi = new NavigationBuilder();
-        
 
         RequestAnalyser analyser = new RequestAnalyser(request, pl);
 
@@ -128,7 +124,7 @@ public class DecisionDetailsController {
         }
 
         this.project = analyserDto.getProject();
-        navi.setProject(project);
+        
 
 
         validRequest = true;
@@ -141,10 +137,11 @@ public class DecisionDetailsController {
 
 
 
-
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        NavigationBuilder navi = new NavigationBuilder();
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         navi.setDecision(decision);
+        navi.setProject(project);
         navi.setVersion(version);
         return navi.getNavigationBar();
     }

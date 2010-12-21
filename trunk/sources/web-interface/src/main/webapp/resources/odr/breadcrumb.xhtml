@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ice="http://www.icesoft.com/icefaces/component"
       xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xml:lang="en">
 
     <composite:interface>
@@ -12,10 +13,10 @@
     <composite:implementation>
         <div class="navigationbar">
             <p>
-            <ice:repeat value="#{cc.attrs.breadCrumbSource}" var="links" >
+            <ui:repeat value="#{cc.attrs.breadCrumbSource}" var="links">
                 <span><a href='#{links.link}'><ice:outputText value="#{links.name}" nospan="true" /></a></span>
                 <span>/</span>
-            </ice:repeat>
+            </ui:repeat>
             </p>
         </div>
     </composite:implementation>
