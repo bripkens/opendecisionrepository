@@ -187,7 +187,7 @@ public class IterationController {
 
 
     public long getProjectId() {
-        return projectId;
+        return project.getId();
     }
 
 

@@ -14,6 +14,7 @@ j(document).ready(function() {
             "id" : projectId
         },
         function(data) {
+            console.log(data);
             j("#datepicker").datepicker({
                 showWeek: true,
                 firstDay: 1,
