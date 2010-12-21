@@ -187,6 +187,8 @@ public class IterationTableController {
         project.removeIteration(iterationToDelete);
 
         projectLocal.merge(project);
+
+        JsfUtil.addJavascriptCall("odr.colorrow();");
     }
 
 

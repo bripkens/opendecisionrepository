@@ -195,7 +195,7 @@ public class ConcernTableController1 {
 
         projectLocal.merge(project);
 
-        JsfUtil.addJavascriptCall("odr.popup.hide();");
+        JsfUtil.addJavascriptCall("odr.colorrow();");
 
     }
 

@@ -37,7 +37,7 @@ function doFilter (phrase, _id, boo){
 }
 
 j(document).ready(function() {
-    j("tr").not(".subRow").filter(":odd").addClass("odd");
+    odr.colorrow();
     j(".dataList").find("tr").each(function(){
         var current = j(this);
         var color = current.css("background-color");

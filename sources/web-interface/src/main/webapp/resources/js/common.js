@@ -470,3 +470,10 @@ odr.decisionWizardStepOneDisableRetrieve = function(disable) {
         j("#manageDecisionSidebarForm\\:manageDecisionSelectExternalId").removeAttr("disabled");
     }
 }
+
+/**
+ * set the background of every second row to css class "odd"
+ */
+odr.colorrow = function(){
+    j("tr").not(".subRow").filter(":odd").addClass("odd");
+}
