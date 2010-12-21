@@ -1,6 +1,8 @@
 package nl.rug.search.odr.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import nl.rug.search.odr.project.IterationLocal;
@@ -27,6 +29,8 @@ import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.Action;
 import nl.rug.search.odr.NavigationBuilder;
+import nl.rug.search.odr.RequestAnalyser;
+import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 
 /**
  *
@@ -37,14 +41,12 @@ import nl.rug.search.odr.NavigationBuilder;
 public class IterationController {
 
     @EJB
-    private ProjectLocal pl;
+    private ProjectLocal projectLocal;
 
     @EJB
     private IterationLocal il;
 
     private long projectId;
-
-    private String str_projectId;
 
     private Project project;
 
@@ -54,12 +56,12 @@ public class IterationController {
 
     private Iteration iteration = null;
 
+    private ProjectMember member;
+
     // <editor-fold defaultstate="collapsed" desc="Iteration attributes">
     private String iterationName = "";
 
     private String iterationDescription = "";
-
-    private ProjectMember member;
 
     private Date startDate = null;
 
@@ -76,82 +78,74 @@ public class IterationController {
 
     private NavigationBuilder navi;
 
+    private boolean validRequest;
+
 
 
 
     @PostConstruct
     public void postConstruct() {
-        if (!AuthenticationUtil.isAuthtenticated()) {
-            ErrorUtil.showNotAuthenticatedError();
-            return;
-        }
         navi = new NavigationBuilder();
-
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().
+                getExternalContext().
                 getRequest();
 
-        // <editor-fold defaultstate="collapsed" desc="get Project Id">
 
-        if (request.getParameter(RequestParameter.ID) != null) {
-            str_projectId = request.getParameter(RequestParameter.ID);
+        RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
+        RequestAnalyserDto result = analyser.analyse();
 
-            try {
-                projectId = Long.parseLong(str_projectId);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
+
+        if (result.isValid()) {
+            JsfUtil.flashScope().put("projetId", projectId);
+            member = result.getMember();
+            project = result.getProject();
+            // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
+            if (request.getParameter(RequestParameter.ITERATION_ID) != null) {
+                isUpdate = true;
+                str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);
+            } else {
+                isUpdate = false;
             }
-        }
 
-        // </editor-fold>
+            if (isUpdate) {
+                try {
+                    iterationId = Long.parseLong(str_iterationId);
 
-        getProject();
-
-        if (project == null) {
-            ErrorUtil.showIdNotRegisteredError();
-            return;
-        } else if (project != null && !memberIsInProject()) {
-            ErrorUtil.showNoMemberError();
-            return;
-        }
-        JsfUtil.flashScope().put("projetId", projectId);
-
-        // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
-        if (request.getParameter(RequestParameter.ITERATION_ID) != null) {
-            isUpdate = true;
-            str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);
-        } else {
-            isUpdate = false;
-        }
-
-        if (isUpdate) {
-            try {
-                iterationId = Long.parseLong(str_iterationId);
-                getIterationFromDb();
-                navi.setIteration(iteration);
-                navi.setOption(Action.EDIT);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
+                } catch (NumberFormatException e) {
+                    ErrorUtil.showInvalidIdError();
+                    validRequest = false;
+                    return;
+                }
+                iteration = il.getById(iterationId);
+                if (!project.getIterations().contains(iteration)) {
+                    ErrorUtil.showInvalidIdError();
+                    validRequest = false;
+                    return;
+                } else if (str_iterationId != null && iteration == null) {
+                    ErrorUtil.showInvalidIdError();
+                    validRequest = false;
+                    return;
+                }
             }
-        }
-        // </editor-fold>
 
-
-
-        if (iteration == null) {
-            iteration = new Iteration();
-            Date currentDate = new Date();
-            iteration.setStartDate(currentDate);
-            iteration.setEndDate(new Date(currentDate.getTime() + 86400000l));
-            startDate = iteration.getStartDate();
-            endDate = iteration.getEndDate();
+            if (iteration == null) {
+                iteration = new Iteration();
+                Date currentDate = new Date();
+                iteration.setStartDate(currentDate);
+                iteration.setEndDate(new Date(currentDate.getTime() + 86400000l));
+                startDate = iteration.getStartDate();
+                endDate = iteration.getEndDate();
+            } else {
+                iterationName = iteration.getName();
+                iterationDescription = iteration.getDescription();
+                startDate = iteration.getStartDate();
+                endDate = iteration.getEndDate();
+                calculateDuration();
+            }
+            validRequest = true;
         } else {
-            iterationName = iteration.getName();
-            iterationDescription = iteration.getDescription();
-            startDate = iteration.getStartDate();
-            endDate = iteration.getEndDate();
-            calculateDuration();
+            result.executeErrorAction();
+            validRequest = false;
         }
     }
 
@@ -164,6 +158,9 @@ public class IterationController {
      * @return the list of navigationlink for the breadcrumbtrail
      */
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        if (!validRequest) {
+            return Collections.EMPTY_LIST;
+        }
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         navi.setProject(project);
         navi.setIteration(iteration);
@@ -179,38 +176,12 @@ public class IterationController {
 
 
     /**
-     * gets the project with the provided requestparameter(id) from the database
-     * @return the project
-     */
-    private Project getProject() {
-        project = pl.getById(projectId);
-        return project;
-    }
-
-
-
-
-    private boolean memberIsInProject() {
-        return getProjectMember() != null;
-    }
-
-
-
-
-    /**
      * checks if the user that is logged in, is part of the project
      * @return the projectmember which is logged in and part of the project.
      *         if he isn't part of the project, it returns null
      */
     public ProjectMember getProjectMember() {
-        long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : project.getMembers()) {
-            if (pm.getPerson().getId().equals(userId)) {
-                member = pm;
-                return pm;
-            }
-        }
-        return null;
+        return member;
     }
 
 
@@ -252,10 +223,7 @@ public class IterationController {
      * @return boolean (true if it is valid)
      */
     public boolean isValid() {
-        if (project != null && iteration != null) {
-            return true;
-        }
-        return false;
+        return iteration != null;
     }
 
 
@@ -305,7 +273,7 @@ public class IterationController {
                 iteration.setProjectMember(member);
                 project.addIteration(iteration);
                 il.persist(iteration);
-                pl.merge(project);
+                projectLocal.merge(project);
             }
 
             JsfUtil.redirect(new QueryStringBuilder().setUrl(Filename.ITEARTION_DETAILS_WITH_LEADING_SLASH).

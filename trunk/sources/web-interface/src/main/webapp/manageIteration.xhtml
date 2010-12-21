@@ -10,7 +10,6 @@
         <script type="text/javascript" src="resources/js/IterationCalendar.js"></script>
         <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
         <script type="text/javascript" src="resources/js/vtip-min.js"></script>
-
         <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
     </ui:define>
 
@@ -22,13 +21,16 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb  breadCrumbSource="#{iterationController.navigationBar}" />
+        <ice:panelGroup rendered="#{iterationController.valid}">
+            <odr:breadcrumb  breadCrumbSource="#{iterationController.navigationBar}" />
+
+            <ice:outputText value="#{iterationController.projectId}" id="externalVarProjectId" styleClass="hidden"/>
+            <ice:outputText value="#{iterationController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
+        </ice:panelGroup>
 
 
-        <ice:outputText value="#{iterationController.projectId}" id="externalVarProjectId" styleClass="hidden"/>
-        <ice:outputText value="#{iterationController.dataRequestUrl}" id="externalVarRequestUrl" styleClass="hidden"/>
 
-        <ice:form id="iterationForm" partialSubmit="false">
+        <ice:form id="iterationForm" partialSubmit="false" rendered="#{iterationController.valid}">
             <h1><h:outputText value="#{form['iteration.heading']}"/></h1>
 
             <div class="formSectionineRemover">

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.NavigationBuilder;
 import nl.rug.search.odr.QueryStringBuilder;
+import nl.rug.search.odr.RequestAnalyser;
+import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 
 import nl.rug.search.odr.entities.Concern;
@@ -48,84 +50,57 @@ public class ConcernTableController1 {
 
     private Item concernToDelete;
 
-    private NavigationBuilder navi;
+    private boolean validRequest;
 
 
 
 
     @PostConstruct
-    public void getConcernsFromDb() {
-
+    public void postConstruct() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
 
-        // <editor-fold defaultstate="collapsed" desc="get Project Id">
+        RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
+        RequestAnalyserDto result = analyser.analyse();
 
-        long projectId = 0l;
-        if (request.getParameter(RequestParameter.ID) != null) {
-            String str_projectId = request.getParameter(RequestParameter.ID);
+        if (result.isValid()) {
 
-            try {
-                projectId = Long.parseLong(str_projectId);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
-            }
-        }
+            this.project = result.getProject();
 
-        project = projectLocal.getById(projectId);
-        navi = new NavigationBuilder();
+            parentConcerns = new ArrayList<Item>();
+            List<Concern> con = new ArrayList<Concern>(project.getConcerns());
 
-        if (project == null) {
-            ErrorUtil.showIdNotRegisteredError();
-            return;
-        } else if (project != null && !memberIsInProject()) {
-            ErrorUtil.showNoMemberError();
-            return;
-        }
+            Collections.sort(con, new Concern.GroupDateComparator());
 
-        parentConcerns = new ArrayList<Item>();
-        List<Concern> con = new ArrayList<Concern>(project.getConcerns());
+            Item parent = null;
 
-        Collections.sort(con, new Concern.GroupDateComparator());
+            int i = 0;
+            for (Concern concern : con) {
+                Item currentItem = new Item(concern);
 
-        Item parent = null;
+                if (parent == null || !parent.concern.getGroup().equals(currentItem.concern.getGroup())) {
+                    parent = currentItem;
+                    parentConcerns.add(currentItem);
+                    if (i % 2 == 0) {
+                        currentItem.setColored(true);
 
-        int i = 0;
-        for (Concern concern : con) {
-            Item currentItem = new Item(concern);
+                    }
+                    i++;
 
-            if (parent == null || !parent.concern.getGroup().equals(currentItem.concern.getGroup())) {
-                parent = currentItem;
-                parentConcerns.add(currentItem);
-                if (i % 2 == 0) {
-                    currentItem.setColored(true);
-
+                } else if (parent.concern.getGroup().equals(currentItem.concern.getGroup())) {
+                    parent.setHasSub(true);
+                    parent.addSubItem(currentItem);
+                    if (i % 2 == 0) {
+                        currentItem.setColored(true);
+                    }
                 }
-                i++;
 
-            } else if (parent.concern.getGroup().equals(currentItem.concern.getGroup())) {
-                parent.setHasSub(true);
-                parent.addSubItem(currentItem);
-                if (i % 2 == 0) {
-                    currentItem.setColored(true);
-                }
             }
-
+            validRequest = true;
+        } else {
+            result.executeErrorAction();
+            validRequest = false;
         }
-    }
-
-
-
-
-    private boolean memberIsInProject() {
-        long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : project.getMembers()) {
-            if (pm.getPerson().getId().equals(userId)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 
@@ -228,16 +203,16 @@ public class ConcernTableController1 {
 
 
     public boolean isValid() {
-        return project != null;
+        return validRequest;
     }
 
 
 
 
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
+        NavigationBuilder navi = new NavigationBuilder();
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
         navi.setProject(project);
-
         return navi.getNavigationBar();
     }
 

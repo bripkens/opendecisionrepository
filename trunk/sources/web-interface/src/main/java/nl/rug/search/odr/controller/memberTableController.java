@@ -1,15 +1,10 @@
 package nl.rug.search.odr.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 
@@ -18,22 +13,17 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
-import nl.rug.search.odr.Filename;
 import nl.rug.search.odr.NavigationBuilder;
-import nl.rug.search.odr.QueryStringBuilder;
+import nl.rug.search.odr.RequestAnalyser;
+import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
 import nl.rug.search.odr.RequestParameter;
 
-import nl.rug.search.odr.entities.Concern;
-import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
-import nl.rug.search.odr.project.ConcernLocal;
-import nl.rug.search.odr.project.IterationLocal;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
 import nl.rug.search.odr.util.ErrorUtil;
 import nl.rug.search.odr.util.JsfUtil;
-import sun.misc.Sort;
 
 /**
  *
@@ -56,55 +46,30 @@ public class memberTableController {
 
     private NavigationBuilder navi;
 
+    private boolean validRequest;
+
 
 
 
     @PostConstruct
-    public void getIterationsFromDb() {
+    public void postConstruct() {
 
+        navi = new NavigationBuilder();
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
                 getRequest();
 
-        // <editor-fold defaultstate="collapsed" desc="get Project Id">
+        RequestAnalyser analyser = new RequestAnalyser(request, projectLocal);
+        RequestAnalyserDto result = analyser.analyse();
 
-        long projectId = 0l;
-        if (request.getParameter(RequestParameter.ID) != null) {
-            String str_projectId = request.getParameter(RequestParameter.ID);
-
-            try {
-                projectId = Long.parseLong(str_projectId);
-            } catch (NumberFormatException e) {
-                ErrorUtil.showInvalidIdError();
-                return;
-            }
+        if (result.isValid()) {
+            this.project = result.getProject();
+            member = result.getMember();
+            members = new ArrayList<ProjectMember>(project.getMembers());
+            validRequest = true;
+        } else {
+            result.executeErrorAction();
+            validRequest = false;
         }
-
-        project = projectLocal.getById(projectId);
-        navi = new NavigationBuilder();
-
-        if (project == null) {
-            ErrorUtil.showIdNotRegisteredError();
-            return;
-        } else if (project != null && !memberIsInProject()) {
-            ErrorUtil.showNoMemberError();
-            return;
-        }
-
-        members = new ArrayList<ProjectMember>(project.getMembers());
-    }
-
-
-
-
-    private boolean memberIsInProject() {
-        long userId = AuthenticationUtil.getUserId();
-        for (ProjectMember pm : project.getMembers()) {
-            if (pm.getPerson().getId().equals(userId)) {
-                this.member = pm;
-                return true;
-            }
-        }
-        return false;
     }
 
 
@@ -125,7 +90,7 @@ public class memberTableController {
 
 
     public boolean isValid() {
-        return project != null;
+        return validRequest;
     }
 
 

@@ -55,11 +55,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void testSetIdNull() {
-        p.setId(null);
-    }
-
 
 
 
@@ -73,12 +68,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void testInvalidNameNull() {
-        p.setName(null);
-    }
 
 
 
@@ -119,10 +108,6 @@ public class ProjectTest {
         p.setDescription("abcdef");
 
         assertEquals("abcdef", p.getDescription());
-
-        p.setDescription(null);
-
-        assertEquals(null, p.getDescription());
     }
 
 
@@ -178,12 +163,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setIterationsNull() {
-        p.setIterations(null);
-    }
-
-
 
 
     @Test
@@ -202,11 +181,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void addIterationNull() {
-        p.addIteration(null);
-    }
-
 
 
 
@@ -224,13 +198,6 @@ public class ProjectTest {
                 isEmpty());
     }
 
-
-
-
-    @Test(expected = BusinessException.class)
-    public void removeIterationNull() {
-        p.removeIteration(null);
-    }
 
 
 
@@ -266,11 +233,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setRolesNull() {
-        p.setRoles(null);
-    }
-
 
 
 
@@ -290,12 +252,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void addRoleNull() {
-        p.addRole(null);
-    }
-
-
 
 
     @Test
@@ -313,12 +269,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeRoleNull() {
-        p.removeRole(null);
-    }
 
 
 
@@ -386,13 +336,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setMembersNull() {
-        p.setMembers(null);
-    }
-
-
-
 
     @Test
     public void addMember() {
@@ -407,13 +350,6 @@ public class ProjectTest {
                 next());
     }
 
-
-
-
-    @Test(expected = BusinessException.class)
-    public void addMemberNull() {
-        p.addMember(null);
-    }
 
 
 
@@ -433,12 +369,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeMemberNull() {
-        p.removeMember(null);
-    }
 
 
 
@@ -474,12 +404,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setDecisionsNull() {
-        p.setDecisions(null);
-    }
-
-
 
 
     @Test
@@ -496,12 +420,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void addDecisionNull() {
-        p.addDecision(null);
-    }
 
 
 
@@ -521,12 +439,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeDecisionNull() {
-        p.removeDecision(null);
-    }
 
 
 
@@ -562,11 +474,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setConcernsNull() {
-        p.setConcerns(null);
-    }
-
 
 
 
@@ -586,12 +493,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void addConcernNull() {
-        p.addConcern(null);
-    }
-
-
 
 
     @Test
@@ -609,12 +510,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeConcernNull() {
-        p.removeConcern(null);
-    }
 
 
 
@@ -650,12 +545,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setStatesNull() {
-        p.setStates(null);
-    }
-
-
 
 
     @Test
@@ -672,12 +561,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void addStateNull() {
-        p.addState(null);
-    }
 
 
 
@@ -697,12 +580,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeStateNull() {
-        p.removeState(null);
-    }
 
 
 
@@ -738,12 +615,6 @@ public class ProjectTest {
 
 
 
-    @Test(expected = BusinessException.class)
-    public void setRelationshipTypesNull() {
-        p.setRelationshipTypes(null);
-    }
-
-
 
 
     @Test
@@ -759,13 +630,6 @@ public class ProjectTest {
                 next());
     }
 
-
-
-
-    @Test(expected = BusinessException.class)
-    public void addRelationshipNull() {
-        p.addRelationshipType(null);
-    }
 
 
 
@@ -785,12 +649,6 @@ public class ProjectTest {
     }
 
 
-
-
-    @Test(expected = BusinessException.class)
-    public void removeRelationshipNull() {
-        p.removeRelationshipType(null);
-    }
 
 
 

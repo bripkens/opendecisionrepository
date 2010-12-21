@@ -27,16 +27,17 @@
     </ui:define>
 
     <ui:define name="content">
-        <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
-        <h1><h:outputText value="#{form['table.header.decisions']}"/></h1>
-        <a href="#{decisionTableController.createDecisionLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.decision']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
+        <ice:panelGroup rendered="#{decisionTableController.valid}">
+            <odr:breadcrumb breadCrumbSource="#{decisionTableController.navigationBar}" />
+            <h1><h:outputText value="#{form['table.header.decisions']}"/></h1>
+            <a href="#{decisionTableController.createDecisionLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.decision']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
 
-        <form>
-            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
-            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList', true)" style="width: 200px;" styleClass="prefill"/>
-        </form>
-
-        <ice:form partialSubmit="true">
+            <form>
+                <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+                <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList', true)" style="width: 200px;" styleClass="prefill"/>
+            </form>
+        </ice:panelGroup>
+        <ice:form partialSubmit="true" rendered="#{decisionTableController.valid}">
             <table class="dataList" id="concernList">
                 <thead>
                     <tr>
