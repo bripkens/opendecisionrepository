@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.ejb.Stateless;
 import nl.rug.search.odr.GenericDaoBean;
 import nl.rug.search.odr.entities.BaseEntity;
+import nl.rug.search.odr.entities.Project;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**

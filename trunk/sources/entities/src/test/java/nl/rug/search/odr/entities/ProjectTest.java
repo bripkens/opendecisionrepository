@@ -969,7 +969,40 @@ public class ProjectTest {
 
 
 
+    @Test
+    public void testGetIteration() {
+        Project p = new Project();
+        Iteration i1 = new Iteration();
+        i1.setStartDate(new Date(5));
+        i1.setEndDate(new Date(10));
+        p.addIteration(i1);
 
+        Iteration i2 = new Iteration();
+        i2.setStartDate(new Date(15));
+        i2.setEndDate(new Date(20));
+        p.addIteration(i2);
+
+        Version v1 = new Version();
+        v1.setDecidedWhen(new Date(6));
+
+        assertSame(i1, p.getIteration(v1));
+
+        v1.setDecidedWhen(new Date(4));
+
+        assertNull(p.getIteration(v1));
+
+        v1.setDecidedWhen(new Date(11));
+
+        assertNull(p.getIteration(v1));
+
+        v1.setDecidedWhen(new Date(16));
+
+        assertSame(i2, p.getIteration(v1));
+
+        v1.setDecidedWhen(new Date(21));
+
+        assertNull(p.getIteration(v1));
+    }
 }
 
 

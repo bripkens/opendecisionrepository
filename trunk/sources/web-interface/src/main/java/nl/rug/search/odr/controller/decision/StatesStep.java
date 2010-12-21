@@ -3,6 +3,7 @@ package nl.rug.search.odr.controller.decision;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -32,7 +33,7 @@ public class StatesStep implements WizardStep {
 
     private String selectedInitiator;
 
-
+    private Date decidedWhen;
 
 
     public StatesStep(ManageDecisionController wizard) {
@@ -64,6 +65,7 @@ public class StatesStep implements WizardStep {
         initiators = new ArrayList<ProjectMember>(wizard.getVersion().getInitiators());
         states = wizard.getStateLocal().getCommonStates();
         state = wizard.getVersion().getState();
+        decidedWhen = wizard.getVersion().getDecidedWhen();
     }
 
 
@@ -76,6 +78,7 @@ public class StatesStep implements WizardStep {
         version.removeAllInitiators();
         version.setInitiators(initiators);
         version.setState(state);
+        version.setDecidedWhen(decidedWhen);
     }
 
 
@@ -133,6 +136,18 @@ public class StatesStep implements WizardStep {
         return state.getId().toString();
     }
 
+
+
+    public Date getDecidedWhen() {
+        return decidedWhen;
+    }
+
+
+
+
+    public void setDecidedWhen(Date decidedWhen) {
+        this.decidedWhen = decidedWhen;
+    }
 
 
 

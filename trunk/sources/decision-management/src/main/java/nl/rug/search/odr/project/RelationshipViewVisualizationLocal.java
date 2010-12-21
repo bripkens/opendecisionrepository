@@ -17,5 +17,5 @@ import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
  */
 @Local
 public interface RelationshipViewVisualizationLocal extends GenericDaoLocal<RelationshipViewVisualization, Long>{
-    
+
 }

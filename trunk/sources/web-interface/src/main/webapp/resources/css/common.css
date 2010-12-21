@@ -605,6 +605,8 @@ div.formSectionineRemover div.formSection:last-child, form div.formSection:last-
 .formSection textarea {
     width: 487px;
     height: 150px;
+    min-width: 487px;
+    max-width: 487px;
 }
 .formSection input.add, .formSection select.add,.formSection input.add-dis {
     position: absolute;
@@ -619,7 +621,10 @@ div.formSectionineRemover div.formSection:last-child, form div.formSection:last-
     top: 2px;
     margin: 0;
     width: 125px;
-    background-image: url(http://localhost:8080/web-interface/resources/images/formButton.png);
+    background-image: url(../images/formButton.png);
+}
+.formSection input[type=submit].add:active, .formSection input[type=submit].add-dis:active {
+    background-image: url(../images/formButtonActive.png);
 }
 .formSection div.datePopup input[type=image] {
     background-color:white;
@@ -687,6 +692,7 @@ table a.columnNavigationLink img {
 #result {
     font-size: 1.2em;
     font-weight: bold;
+    font-family: "Verdana", sans-serif;
     line-height:1em;
     height: 2em;
     padding-right: -1em;
@@ -756,7 +762,7 @@ input[type=submit]:active,  input[type=submit]:focus, input[type=file]:active,  
     background-image: url(../images/formButtonActive.png);
 }
 
-input[type=submit],  input[type=reset], input[type=file]  {
+input[type=submit],  input[type=reset], input[type=file], input[type=button]  {
     background-color: #fff;
     width: 125px;
     height: 25px;
@@ -1180,16 +1186,16 @@ table.iceSelInpDate tbody tr td table{
     position: absolute;
 }
 .formSection .datetimepicker .datetimepickerMinute {
-    left:500px;
-    width:50px;
+    left:455px;
+    width:40px;
 }
 .formSection .datetimepicker .datetimepickerHour {
-    left:420px;
-    width:50px;
+    left:395px;
+    width:40px;
 }
 
 .formSection .datetimepicker .datetimepickerYear {
-    left:300px;
+    left:271px;
     width:60px;
 }
 
@@ -1199,7 +1205,7 @@ table.iceSelInpDate tbody tr td table{
 }
 
 .formSection .datetimepicker .datetimepickerDay {
-    left:  235px;
+    left:  220px;
     width: 45px;
 }
 .formSection .datetimepicker .iceSelInpDateInput {
@@ -1218,17 +1224,17 @@ table.iceSelInpDate tbody tr td table{
     display: none;
 }
 .formSection .datetimepicker .datetimepickerMinuteLabel{
-    left:481px;
+    left:440px;
     position:absolute;
 }
 
 .formSection .datetimepicker .datetimepickerTimeLabel {
     position: absolute;
-    left: 370px;
+    left: 345px;
 }
 
 .formSection .datetimepicker .datetimepickerTimeZone {
-    left:555px;
+    left:505px;
     position:absolute;
 }
 .formSection .datetimepicker table.date {
@@ -1245,6 +1251,15 @@ table.iceSelInpDate tbody tr td table{
     float: left;
     position: relative;
     top: 4px;
+}
+
+.formSection .datetimepicker input[type=button] {
+    width: 60px;
+    background-image: url(../images/formButton-mini.png);
+}
+
+.formSection .datetimepicker input[type=button]:active {
+    background-image: url(../images/formButtonActive-mini.png);
 }
 
 .formSection p.datepicker{
@@ -1433,7 +1448,7 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     background-image: url(../images/wikiSyntax.png);
     background-position: 95% 100%;
     background-repeat: no-repeat;
-    min-height: 150px;
+    min-height: 100px;
 }
 .formSection textarea.wikiSyntax:active, .formSection textarea.wikiSyntax:focus {
     background-image: none;
@@ -1504,6 +1519,30 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     width: 208px;
     left: 145px;
 }
+.labelInfo {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 25px;
+    left: 0px;
+}
+#ui-dialog-title-wizardQuickAddDecision {
+    font-size: 14px;
+}
+#wizardQuickAddDecision {
+    font-family: "Verdana", sans-serif;
+    font-size: 14px;
+}
+#wizardQuickAddDecision select {
+    font-family: arial, sans-serif;
+    font-size: 12px;
+}
+#wizardQuickAddDecision input[type=submit] {
+    font-family: arial, sans-serif;
+    font-size: 11px;
+}
+
+
 /*
     ############################################################################################
                                     Project details

@@ -93,6 +93,10 @@
                                 <f:param value="#{decisionDetailsController.decision.template.name}" />
                             </ice:outputFormat><br />
 
+                            <ice:outputFormat value="#{page['decision.details.abstract.iteration']}">
+                                <f:param value="#{decisionDetailsController.iteration}" />
+                            </ice:outputFormat><br />
+
                             <ice:outputFormat value="#{page['decision.details.abstract.decided.when']}">
                                 <f:param value="#{decisionDetailsController.version.decidedWhen}" />
                             </ice:outputFormat><br />

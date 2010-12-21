@@ -34,6 +34,10 @@
                             rendered="#{manageDecisionController.templateRelatedStep.searchError}"
                             styleClass="searchError"/>
 
+            <ice:outputText value="#{form['decision.wizard.template.external.search.no.result']}"
+                            rendered="#{manageDecisionController.templateRelatedStep.noResult}"
+                            styleClass="searchError"/>
+
             <img id="ajaxLoaderBar" src="resources/images/ajax-loader-bar.gif" width="220"
                  height="19" alt="Ajax loading bar" class="ajaxLoader"/>
 

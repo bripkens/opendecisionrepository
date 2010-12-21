@@ -13,16 +13,21 @@
 
             <div class="formSection">
                 <ice:outputLabel value="#{item.label}"/>
+                <img src="resources/images/info-small.png"
+                     alt="#{item.helpText}"
+                     title="#{item.helpText}"
+                     class="vtip labelInfo"/>
 
-                <ice:inputTextarea maxlength="1000"
+                <ice:inputTextarea maxlength="5000"
                                    label="#{item.label}"
                                    value="#{item.value}"
-                                   styleClass="shrinked wikiSyntax"
+                                   styleClass="shrinked wikiSyntax resizeable"
                                    partialSubmit="false">
-                <f:validateLength minimum="0" maximum="1000" />
+                    <f:validateLength minimum="0" maximum="5000" />
                 </ice:inputTextarea>
                 <odr:inputTextareaResizer />
-                <p class="empty" />
+                <p class="empty"></p>
+                <div title="#{item.label}" style="display: none;" class="helpPopup"><p>#{item.helpText}</p></div>
             </div>
         </ice:repeat>
     </div>

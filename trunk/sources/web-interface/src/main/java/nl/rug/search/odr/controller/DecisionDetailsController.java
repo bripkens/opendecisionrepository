@@ -1,11 +1,13 @@
 package nl.rug.search.odr.controller;
 
-import info.bliki.wiki.model.WikiModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -26,11 +28,13 @@ import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Concern;
+import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.util.CustomWikiModel;
 import nl.rug.search.odr.util.ErrorUtil;
+import nl.rug.search.odr.util.JsfUtil;
 
 /**
  *
@@ -148,6 +152,18 @@ public class DecisionDetailsController {
 
 
     // <editor-fold defaultstate="collapsed" desc="getter">
+    public String getIteration() {
+        Iteration iteration = project.getIteration(version);
+
+        if (iteration == null) {
+            return JsfUtil.evaluateExpressionGet("#{page['decision.details.abstract.iteration.none']}", String.class);
+        } else {
+            return iteration.getName();
+        }
+    }
+
+
+
 
 
     public boolean isValid() {
@@ -244,10 +260,27 @@ public class DecisionDetailsController {
 
         List<RelationshipDto> result = new ArrayList<RelationshipDto>(relationships.size());
 
+        // this map is required since we only want to show the latest version when several version of a decision
+        // have a relationship to another version.
+        Map<Decision, Relationship> relatedVersions = new HashMap<Decision, Relationship>();
+
         for (Relationship eachRelationship : relationships) {
+            Version sourceVersion = eachRelationship.getSource();
+            Decision sourceDecision = sourceVersion.getDecision();
+
+            Relationship caputedRelationship = relatedVersions.get(sourceDecision);
+
+            if (caputedRelationship == null) {
+                relatedVersions.put(sourceDecision, eachRelationship);
+            } else if (caputedRelationship.getSource().getDecidedWhen().before(sourceVersion.getDecidedWhen())) {
+                relatedVersions.put(sourceDecision, eachRelationship);
+            }
+        }
+
+        for(Entry<Decision, Relationship> entry : relatedVersions.entrySet()) {
             RelationshipDto dto = new RelationshipDto();
-            dto.setType(eachRelationship.getType());
-            dto.setVersion(eachRelationship.getSource());
+            dto.setType(entry.getValue().getType());
+            dto.setVersion(entry.getValue().getSource());
             dto.setDecision(dto.getVersion().getDecision());
             result.add(dto);
         }

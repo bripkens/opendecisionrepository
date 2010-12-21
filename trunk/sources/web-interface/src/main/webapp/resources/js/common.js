@@ -57,7 +57,10 @@ odr.init = function() {
 
     j(".initDisabled").each(function() {
         j(this).attr("disabled", true);
-    })
+    });
+
+
+    odr.decisionWizardQuickAdd();
 }
 
 
@@ -237,7 +240,7 @@ odr.TextareaResizer = function() {
 
         element.animate({
             height:newheight + "px"
-        });
+        }, 300);
     }
 
     this.smaller = function(element) {
@@ -249,7 +252,7 @@ odr.TextareaResizer = function() {
 
         element.animate({
             height:newheight + "px"
-        });
+        }, 300);
     }
 }
 
@@ -469,6 +472,63 @@ odr.decisionWizardStepOneDisableRetrieve = function(disable) {
         j("#manageDecisionSidebarForm\\:inSelectExternal").removeAttr("disabled");
         j("#manageDecisionSidebarForm\\:manageDecisionSelectExternalId").removeAttr("disabled");
     }
+}
+odr.setCurrentTime = function() {
+    var src = j(window.event.srcElement);
+
+    var now = new Date();
+
+    var changes = [
+    {
+        selector : "datetimepickerMonth",
+        newIndex : now.getMonth()
+    },
+    {
+        selector : "datetimepickerDay",
+        newIndex : now.getDate() - 1
+    },
+    {
+        selector : "datetimepickerHour",
+        newIndex : now.getHours()
+    },
+    {
+        selector : "datetimepickerMinute",
+        newIndex : now.getMinutes()
+    }
+    ];
+
+    for (var i = 0; i < changes.length; i++) {
+        src.siblings("." + changes[i].selector + ":first").children().removeAttr("selected").eq(changes[i].newIndex).
+        attr("selected", "selected").hide().show();
+    }
+    
+    src.siblings(".datetimepickerYear:first").children().removeAttr("selected").filter('[value="' + (now.getYear() + 1900) + '"]').
+    attr("selected", "selected").hide().show();
+}
+
+
+
+odr.decisionWizardQuickAdd = function() {
+    var dialog = j("#wizardQuickAddDecision");
+
+    if (dialog.length == 0) {
+        return;
+    }
+
+    var cancelButton = dialog.find(".abort:first");
+
+    cancelButton.click(function() {
+        dialog.dialog("close");
+    });
+
+    dialog.dialog({
+        autoOpen: false,
+        height: 213,
+        width: 618,
+        modal: true,
+        resizable : false,
+        dialogClass : "wizardQuickAddDialog"
+    });
 }
 
 /**

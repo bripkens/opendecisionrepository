@@ -55,6 +55,12 @@ public class TemplateComponentInput {
 
 
 
+    public String getHelpText() {
+        return tc.getLocalizationReference();
+    }
+
+
+
     public boolean isLast() {
         return last;
     }
