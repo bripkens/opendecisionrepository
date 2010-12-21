@@ -56,7 +56,13 @@ body {
     position: relative;
     top: 5px;
 }
-
+.topMenu > li.outputStatus {
+    float: right;
+    margin-right: 50px;
+    font-style: italic;
+    color: darkred;
+    cursor: default;
+}
 
 /* Level 1 */
 .topMenu > li > ul {

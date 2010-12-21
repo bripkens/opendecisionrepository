@@ -115,6 +115,7 @@ public class EssentialsStep implements WizardStep {
 
     // <editor-fold defaultstate="collapsed" desc="action">
 
+
     public void addConcern() {
         for (Concern concern : wizard.getProject().
                 getConcerns()) {

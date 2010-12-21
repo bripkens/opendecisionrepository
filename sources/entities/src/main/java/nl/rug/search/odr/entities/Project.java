@@ -185,6 +185,18 @@ public class Project extends BaseEntity<Project> {
 
 
 
+    public Iteration getIteration(Version v) {
+        for(Iteration it : iterations) {
+            if (v.getDecidedWhen().after(it.getStartDate()) && v.getDecidedWhen().before(it.getEndDate())) {
+                return it;
+            }
+        }
+
+        return null;
+    }
+
+
+
     public void addRole(StakeholderRole role) {
         assert role != null;
         roles.add(role);

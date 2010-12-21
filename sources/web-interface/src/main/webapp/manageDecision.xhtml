@@ -7,6 +7,11 @@
                 xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <ui:define name="head">
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
     </ui:define>
 
     <ui:define name="pagetitle">
@@ -32,9 +37,15 @@
 
                 <ui:include src="#{manageDecisionController.currentStep.faceletName}" />
 
+                <ice:commandButton action="#{manageDecisionController.backToProject}"
+                                   value="#{form['button.cancel']}"
+                                   styleClass="abort"
+                                   immediate="true"/>
+
                 <ice:commandButton actionListener="#{manageDecisionController.resetForm}"
                                    value="#{form['button.reset']}"
                                    styleClass="abort"
+                                   style="margin-left: 10px"
                                    immediate="true"/>
 
                 <ice:commandButton action="#{manageDecisionController.previousStep}"

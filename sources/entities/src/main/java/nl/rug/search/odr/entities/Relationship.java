@@ -135,6 +135,6 @@ public class Relationship extends BaseEntity<Relationship> {
 
     @Override
     protected Object[] getCompareData() {
-        return new Object[]{type};
+        return new Object[]{type, source, type};
     }
 }

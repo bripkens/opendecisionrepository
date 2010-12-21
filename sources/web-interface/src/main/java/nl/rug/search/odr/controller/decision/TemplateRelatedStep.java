@@ -42,6 +42,8 @@ public class TemplateRelatedStep implements WizardStep {
 
     private boolean searchError;
 
+    private boolean noResult;
+
     public TemplateRelatedStep(ManageDecisionController wizard) {
         this.wizard = wizard;
         webService = Webservice.OPR.getInstance();
@@ -196,6 +198,8 @@ public class TemplateRelatedStep implements WizardStep {
 
 
     public void queryWebservice() {
+        noResult = false;
+
         search(externalIdInput);
 
         if (externalIdInput == null) {
@@ -207,6 +211,12 @@ public class TemplateRelatedStep implements WizardStep {
 
         if (externalIdInput.isEmpty()) {
             genericInformation = null;
+            return;
+        }
+
+        if (searchResults.isEmpty()) {
+            JsfUtil.addJavascriptCall("odr.decisionWizardStepOneDisableRetrieve(true);");
+            noResult = true;
             return;
         }
 
@@ -329,5 +339,12 @@ public class TemplateRelatedStep implements WizardStep {
 
     public void setSearchError(boolean searchError) {
         this.searchError = searchError;
+    }
+
+
+
+
+    public boolean isNoResult() {
+        return noResult;
     }
 }

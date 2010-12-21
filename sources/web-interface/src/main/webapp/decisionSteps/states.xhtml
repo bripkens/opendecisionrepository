@@ -27,6 +27,10 @@
         <p class="empty increasedPadding" />
     </div>
 
+    <odr:datetimepicker value="#{manageDecisionController.statesStep.decidedWhen}"
+                            id="decisionDate"
+                            dateLabel="#{form['label.decided.when']}"
+                            timeLabel="#{form['label.time']}"/>
 
     <div class="formSection last">
         <ice:outputLabel value="#{form['label.initiators']}" for="inInitiators"/>

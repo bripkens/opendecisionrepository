@@ -207,8 +207,6 @@ public class FillDbController {
 
     public void clearDatabase() {
         DatabaseCleaner.bruteForceCleanup();
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().
-                getRequest();
 
         SessionUtil.resetSession();
 
@@ -810,46 +808,55 @@ public class FillDbController {
 
         TemplateComponent templateComponent = new TemplateComponent();
         templateComponent.setLabel("Issue");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(0);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Decision");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(1);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Group");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(2);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Assumptions");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(3);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Constraints");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(4);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Positions");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(5);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Argument");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(6);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Implications");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(7);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Notes");
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         templateComponent.setOrder(8);
         template.addComponent(templateComponent);
 
@@ -861,21 +868,19 @@ public class FillDbController {
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Problem/Issue");
         templateComponent.setOrder(0);
+        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Decision");
         templateComponent.setOrder(1);
-        template.addComponent(templateComponent);
-
-        templateComponent = new TemplateComponent();
-        templateComponent.setLabel("Alternatives");
-        templateComponent.setOrder(2);
+        templateComponent.setLocalizationReference("Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Arguments");
         templateComponent.setOrder(3);
+        templateComponent.setLocalizationReference("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.");
         template.addComponent(templateComponent);
 
         dtl.persist(template);

@@ -3,16 +3,18 @@ package nl.rug.search.odr.controller.decision;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
-import nl.rug.search.odr.decision.DecisionLocal;
 import nl.rug.search.odr.entities.Decision;
+import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.entities.RelationshipType;
+import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.util.JsfUtil;
 
@@ -30,7 +32,10 @@ public class RelationshipsStep implements WizardStep {
 
     private String selectedDecisionId;
 
-
+    private String decisionName;
+    private State initialState;
+    private State selectedState;
+    private Collection<State> states;
 
     public RelationshipsStep(ManageDecisionController wizard) {
         this.wizard = wizard;
@@ -58,7 +63,6 @@ public class RelationshipsStep implements WizardStep {
 
         relationships = new ArrayList<RelationshipStepInput>();
         Version version = wizard.getVersion();
-        DecisionLocal dl = wizard.getDecisionLocal();
 
         for (Relationship relationship : version.getOutgoingRelationships()) {
             Version target = relationship.getTarget();
@@ -73,6 +77,9 @@ public class RelationshipsStep implements WizardStep {
             relationships.add(input);
         }
 
+        initialState = wizard.getStateLocal().getInitialState();
+        selectedState = initialState;
+        states = wizard.getStateLocal().getCommonStates();
     }
 
 
@@ -81,8 +88,6 @@ public class RelationshipsStep implements WizardStep {
     @Override
     public void blur() {
         Version version = wizard.getVersion();
-        version.removeAllOutgoingRelationships();
-
 
         for (RelationshipStepInput input : relationships) {
             RelationshipType type = getRelationshipType(Long.parseLong(input.getType()));
@@ -92,7 +97,11 @@ public class RelationshipsStep implements WizardStep {
             relationship.setType(type);
             relationship.setTarget(target);
 
-            version.addOutgoingRelationship(relationship);
+            Collection<Relationship> existingRelationships = version.getOutgoingRelationships();
+
+            if (!existingRelationships.contains(relationship)) {
+                version.addOutgoingRelationship(relationship);
+            }
         }
     }
 
@@ -129,7 +138,7 @@ public class RelationshipsStep implements WizardStep {
                         null,
                         null,
                         wizard.getVersion().getDecidedWhen());
-                relationships.add(relationship);
+                relationships.add(0, relationship);
                 selectedDecisionId = null;
                 return;
             }
@@ -198,6 +207,7 @@ public class RelationshipsStep implements WizardStep {
         for (RelationshipStepInput relationship : relationships) {
             if (relationship.getDecision().getId().equals(decisionId)) {
                 relationships.remove(relationship);
+                wizard.getVersion().removeOutgoingRelationship(relationship.getRelationship());
                 versionSelectionChanged(null);
                 return;
             }
@@ -263,5 +273,98 @@ public class RelationshipsStep implements WizardStep {
         }
 
         JsfUtil.addJavascriptCall("j('#decisionAfterInformation').slideUp();");
+    }
+
+
+
+    public List<SelectItem> getStates() {
+        List<SelectItem> items = new ArrayList<SelectItem>(states.size());
+
+        for (State state : states) {
+            items.add(new SelectItem(state.getId(), state.getStatusName()));
+        }
+
+        Collections.sort(items, new SelectItemComparator());
+
+        return items;
+    }
+
+
+
+
+    public String getState() {
+        return selectedState.getId().toString();
+    }
+
+
+
+
+
+    public void setState(String stateString) {
+        long stateId = Long.parseLong(stateString);
+
+        for (State state : states) {
+            if (state.getId().equals(stateId)) {
+                this.selectedState = state;
+                return;
+            }
+        }
+    }
+
+
+
+
+    public String getDecisionName() {
+        return decisionName;
+    }
+
+
+
+
+    public void setDecisionName(String decisionName) {
+        this.decisionName = decisionName;
+    }
+
+
+
+
+
+
+    public void addDecision() {
+        Decision d = new Decision();
+        d.setName(decisionName);
+        d.setTemplate(wizard.getDecisionTemplateLocal().getSmallestTemplate());
+        
+        Version initialVersion = new Version();
+        Date currentdate = new Date();
+        initialVersion.setDecidedWhen(currentdate);
+        initialVersion.setDocumentedWhen(currentdate);
+        initialVersion.setState(selectedState);
+        initialVersion.addInitiator(wizard.getMember());
+
+        d.addVersion(initialVersion);
+
+        wizard.getDecisionLocal().persist(d);
+
+        Project p = wizard.getProjectLocal().getById(wizard.getProject().getId());
+        p.addDecision(d);
+
+        wizard.getProjectLocal().merge(p);
+
+        wizard.getProject().addDecision(d);
+
+        cancelAddDecision();
+
+        addRelationship(d.getId() + "");
+    }
+
+
+
+
+    public void cancelAddDecision() {
+        selectedState = initialState;
+        decisionName = null;
+
+        JsfUtil.addJavascriptCall("j('#wizardQuickAddDecision').dialog('close');;");
     }
 }

@@ -14,15 +14,6 @@
         <ui:insert name="pagetitle" />
     </ui:define>
 
-    <ui:define name="belowHeader">
-        <div id="result">
-            <ice:outputText value="#{manageProjectController.resultMessage}"
-                            styleClass="#{manageProjectController.resultStyle}"
-                            effect="#{manageProjectController.resultEffect}"
-                            visible="false" />
-        </div>
-    </ui:define>
-
     <ui:define name="content">
 
         <ice:panelGroup rendered="#{!manageProjectController.validRequest}" >

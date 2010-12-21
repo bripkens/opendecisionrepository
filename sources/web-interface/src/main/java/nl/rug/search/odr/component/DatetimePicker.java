@@ -80,8 +80,6 @@ public class DatetimePicker extends UIInput implements NamingContainer {
     }
 
 
-
-
     @Override
     protected Object getConvertedValue(FacesContext context, Object newSubmittedValue)
             throws ConverterException {

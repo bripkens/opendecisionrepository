@@ -1,5 +1,6 @@
 package nl.rug.search.odr.controller.decision;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -32,8 +33,10 @@ import nl.rug.search.odr.entities.State;
 import nl.rug.search.odr.entities.Version;
 import nl.rug.search.odr.project.ProjectLocal;
 import nl.rug.search.odr.project.RelationshipTypeLocal;
+import nl.rug.search.odr.project.RelationshipViewVisualizationLocal;
 import nl.rug.search.odr.project.StateLocal;
 import nl.rug.search.odr.util.AuthenticationUtil;
+import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 
 /**
  * 
@@ -92,6 +95,9 @@ public class ManageDecisionController extends AbstractController {
 
     @EJB
     private RelationshipTypeLocal rtl;
+
+    @EJB
+    private RelationshipViewVisualizationLocal rvvl;
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="pojo attributes">
@@ -253,7 +259,9 @@ public class ManageDecisionController extends AbstractController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="navigation">
-
+    public void backToProject() {
+        JsfUtil.redirect(RequestParameter.PROJECT_PATH_SHORT.concat(project.getName()));
+    }
 
 
 
@@ -495,6 +503,7 @@ public class ManageDecisionController extends AbstractController {
 
         for (Relationship oldRelationship : previousVersion.getOutgoingRelationships()) {
             if (!version.getOutgoingRelationships().contains(oldRelationship)) {
+                removeFromViews(oldRelationship);
                 Version oldTarget = oldRelationship.getTarget();
                 oldRelationship.setTarget(null);
                 vl.merge(oldTarget);
@@ -502,6 +511,14 @@ public class ManageDecisionController extends AbstractController {
         }
     }
 
+
+
+    private void removeFromViews(Relationship r) {
+        for(RelationshipViewVisualization view : project.getRelationshipViews()) {
+            view.removeAssociation(view.getAssociation(r));
+            rvvl.merge(view);
+        }
+    }
 
 
     // </editor-fold>
@@ -670,6 +687,10 @@ public class ManageDecisionController extends AbstractController {
         return project;
     }
 
+
+    public ProjectMember getMember() {
+        return member;
+    }
 
 
 

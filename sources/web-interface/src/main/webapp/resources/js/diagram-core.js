@@ -79,6 +79,7 @@ window.onsvgload = function() {
             }
 
             odr.popup.close(popupId2);
+            odr.showStatus(odr.translation.text["loader.text.load.success"]);
         }, 0);
     }, 0);
 }

@@ -163,26 +163,6 @@ odr.bootstrap(function() {
 
 
 
-/*
- * Enable the animation of the small menu on the top of the page.
- */
-//odr.bootstrap(function() {
-//    $("." + odr.settings.menu.top["class"]).mouseenter(function() {
-//        $(this).stop(true, false).animate({
-//            "top" : odr.settings.menu.top.expandedHeight($(this))
-//        }, odr.settings.menu.top.animationDuration);
-//    });
-//
-//    $("." + odr.settings.menu.top["class"]).mouseleave(function() {
-//        $(this).stop(true, false).animate({
-//            "top" : odr.settings.menu.top.collapsedHeight($(this))
-//        }, odr.settings.menu.top.animationDuration);
-//    });
-//});
-
-
-
-
 
 /*
  * Enable the performance mode menu
@@ -436,7 +416,7 @@ odr._newStatusGroup = function(name, items) {
     var hideText = odr.translation.text["menu.status.hide"];
 
     var li = $(document.createElement("li")).
-    addClass("invisible").
+    addClass("visible").
     append($(document.createElement("span")).text(name));
 
     li.click(function() {
@@ -596,9 +576,10 @@ odr._saveAll = function() {
         type : "POST",
         success : function(data, textStatus, XMLHttpRequest) {
             odr.popup.close(popupId);
+            odr.showStatus(odr.translation.text["loader.text.save.success"]);
         },
         error : function(data, textStatus, errorThrown) {
-            odr.popup.showError("Could not save visualization: " + textStatus);
+            odr.popup.showError("Could not save visualization: " + textStatus, true);
         }
     });
 };
@@ -779,6 +760,9 @@ odr.ready(function() {
     $("#exportMenu li").click(function() {
         var format = $(this).attr("class");
 
+        odr.showStatus(odr.translation.text["menu.export.status"].replace("{0}", format));
+        $(".topMenuClickBlocker").click();
+
         var nodes = [];
 
         var minX = Number.MAX_VALUE, maxX = Number.MIN_VALUE, minY = Number.MAX_VALUE, maxY = Number.MIN_VALUE;
@@ -815,12 +799,27 @@ odr.ready(function() {
         maxY - minY,
         '"'].join("");
 
+        var somethingVisible = false;
+
         for(var e in odr.vars.allDecisionNodes) {
+            if (odr.vars.allDecisionNodes[e].visible()) {
+                somethingVisible = true;
+            }
+
             nodes.push(odr.vars.allDecisionNodes[e].svgRepresentation());
         }
 
         for(var e in odr.vars.allIterationNodes) {
+            if (odr.vars.allIterationNodes[e].visible()) {
+                somethingVisible = true;
+            }
+
             nodes.push(odr.vars.allIterationNodes[e].svgRepresentation());
+        }
+
+        if (!somethingVisible) {
+            odr.showStatus(odr.translation.text["menu.export.nothing"]);
+            return;
         }
 
         for(var e in odr.vars.allAssociations) {
@@ -859,3 +858,34 @@ odr.ready(function() {
         return true;
     });
 });
+
+
+
+
+
+
+
+/*
+ * ###############################################################################################################
+ *                                              Status output
+ */
+/**
+ * @description
+ * Show a small status message in the navigation bar. The message will automatically disappear after the specified
+ * duration
+ *
+ * @param {String} text The text that you want to show
+ * @param {Number} [duration] The duration, i.e. the time before hiding the text in milliseconds.
+ * Default is four seconds.
+ */
+odr.showStatus = function(text, duration) {
+    var out = $(".outputStatus > span");
+    out.text(text);
+    
+
+    if (duration == undefined) {
+        duration = 4000;
+    }
+
+    out.stop(true, true).show().delay(duration / 2).fadeOut(duration / 2);
+}
