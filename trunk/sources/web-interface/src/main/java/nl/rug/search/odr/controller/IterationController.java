@@ -99,7 +99,6 @@ public class IterationController {
             JsfUtil.flashScope().put("projetId", projectId);
             member = result.getMember();
             project = result.getProject();
-            // <editor-fold defaultstate="collapsed" desc="get Iteration Id">
             if (request.getParameter(RequestParameter.ITERATION_ID) != null) {
                 isUpdate = true;
                 str_iterationId = request.getParameter(RequestParameter.ITERATION_ID);

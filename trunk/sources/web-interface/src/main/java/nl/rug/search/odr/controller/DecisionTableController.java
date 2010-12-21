@@ -95,6 +95,8 @@ public class DecisionTableController {
     }
 
 
+
+
     public List<Item> getList() {
         return allDecisions;
     }
@@ -188,6 +190,8 @@ public class DecisionTableController {
             allDecisions.remove(itemToDelete);
         }
         projectLocal.merge(project);
+
+        JsfUtil.addJavascriptCall("odr.colorrow();");
     }
 
 

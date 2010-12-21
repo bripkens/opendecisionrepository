@@ -131,7 +131,7 @@ public class memberTableController {
 
         projectLocal.merge(project);
 
-        JsfUtil.addJavascriptCall("odr.popup.hide();");
+         JsfUtil.addJavascriptCall("odr.colorrow();");
 
     }
 
