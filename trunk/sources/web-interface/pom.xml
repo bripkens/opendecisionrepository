@@ -30,7 +30,7 @@
         <repository>
             <id>icefaces-snapshots</id>
             <name>Repository hosting icefaces 2 beta</name>
-            <url>http://anonsvn.icefaces.org/repo/maven2/snapshots</url>
+            <url>http://anonsvn.icefaces.org/repo/maven2/releases</url>
         </repository>
         <repository>
             <id>gson</id>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-compat</artifactId>
-            <version>2.0.0-RC1</version>
+            <version>2.0.0</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
