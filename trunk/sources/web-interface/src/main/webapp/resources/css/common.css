@@ -1253,12 +1253,12 @@ table.iceSelInpDate tbody tr td table{
     top: 4px;
 }
 
-.formSection .datetimepicker input[type=button] {
+.formSection input[type=button].miniButton, .formSection input[type=submit].miniButton  {
     width: 60px;
     background-image: url(../images/formButton-mini.png);
 }
 
-.formSection .datetimepicker input[type=button]:active {
+.formSection input[type=button].miniButton:active, .formSection input[type=submit].miniButton:active  {
     background-image: url(../images/formButtonActive-mini.png);
 }
 
@@ -1541,7 +1541,20 @@ div#userMenu input[type=submit].logoutButton:active, div#userMenu input[type=sub
     font-family: arial, sans-serif;
     font-size: 11px;
 }
-
+#wizardQuickAddDecision ul {
+    position: absolute;
+}
+#wizardQuickAddDecision li {
+    list-style: none;
+}
+.formSection input[type=submit].quickAdd {
+    width: 85px;
+    background-image: url(../images/formButton85.png);
+    right: -26px;
+}
+.formSection input[type=submit].quickAdd:active {
+    background-image: url(../images/formButton85Active.png);
+}
 
 /*
     ############################################################################################

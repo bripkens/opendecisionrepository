@@ -515,19 +515,16 @@ odr.decisionWizardQuickAdd = function() {
         return;
     }
 
-    var cancelButton = dialog.find(".abort:first");
-
-    cancelButton.click(function() {
-        dialog.dialog("close");
-    });
-
     dialog.dialog({
         autoOpen: false,
-        height: 213,
+        height: 208,
         width: 618,
         modal: true,
         resizable : false,
-        dialogClass : "wizardQuickAddDialog"
+        dialogClass : "wizardQuickAddDialog",
+        close : function() {
+            j("input#wizardQuickAddForm\\:inQuickDecisionName").val("");
+        }
     });
 }
 

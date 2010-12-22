@@ -1,12 +1,16 @@
 package nl.rug.search.odr.controller.decision;
 
+import com.sun.faces.util.MessageFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.ValidatorException;
 import nl.rug.search.odr.SelectItemComparator;
 import nl.rug.search.odr.StringValidator;
 import nl.rug.search.odr.WizardStep;
@@ -80,6 +84,7 @@ public class RelationshipsStep implements WizardStep {
         initialState = wizard.getStateLocal().getInitialState();
         selectedState = initialState;
         states = wizard.getStateLocal().getCommonStates();
+        decisionName = null;
     }
 
 
@@ -360,11 +365,48 @@ public class RelationshipsStep implements WizardStep {
 
 
 
+    // <editor-fold defaultstate="collapsed" desc="validators">
+    public void checkDecisionName(FacesContext fc, UIComponent uic, Object value) throws ValidatorException {
+        String newName = value.toString().
+                trim();
+
+        if (!StringValidator.isValid(newName, false)) {
+            return;
+        }
+
+        if (newName.equalsIgnoreCase(wizard.getInitialDecisionName()) || wizard.getDecision().getName().equalsIgnoreCase(newName)) {
+            throw new ValidatorException(MessageFactory.getMessage(
+                        fc,
+                        EssentialsStep.USED_DECISION_NAME,
+                        new Object[]{
+                            MessageFactory.getLabel(fc, uic)
+                        }));
+        }
+
+        Collection<Decision> allDecisions = wizard.getProjectLocal().
+                getById(wizard.getProject().
+                getId()).
+                getDecisions();
+
+        for (Decision decision : allDecisions) {
+            if (newName.equalsIgnoreCase(decision.getName())) {
+                throw new ValidatorException(MessageFactory.getMessage(
+                        fc,
+                        EssentialsStep.USED_DECISION_NAME,
+                        new Object[]{
+                            MessageFactory.getLabel(fc, uic)
+                        }));
+            }
+        }
+    }
+    // </editor-fold>
+
+
 
     public void cancelAddDecision() {
         selectedState = initialState;
         decisionName = null;
 
-        JsfUtil.addJavascriptCall("j('#wizardQuickAddDecision').dialog('close');;");
+        JsfUtil.addJavascriptCall("j('#wizardQuickAddDecision').dialog('close');");
     }
 }
