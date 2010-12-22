@@ -24,10 +24,13 @@
 
         <ice:commandButton action="#{manageDecisionController.relationshipsStep.addRelationship(manageDecisionController.relationshipsStep.selectedDecisionId)}"
                            value="#{form['button.add']}"
-                           styleClass="confirm add"
+                           styleClass="miniButton add"
+                           style="right: 65px"
                            partialSubmit="false"
                            id="manageDecisionRelationshipAddButton"/>
 
+        <input type="submit" class="quickAdd add" value="#{form['decision.wizard.relationship.quick.add']}"
+               onclick="j('#wizardQuickAddDecision').dialog('open');" />
         
         <odr:informationWidget id="decisionAfterInformation"
                                text="#{form['decision.wizard.relationship.after.information']}"

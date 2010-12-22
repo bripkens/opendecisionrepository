@@ -36,7 +36,7 @@
                     <f:selectItems value="#{datesController.minutes}" />
                 </ice:selectOneMenu>
                 <ice:outputLabel value="#{timeZoneController.timeZone.getDisplayName(timeZone.inDaylightTime(date), TimeZone.SHORT)}" styleClass="datetimepickerTimeZone"/>
-                <input type="button" onclick="odr.setCurrentTime()" value="#{form['label.now']}" />
+                <input type="button" onclick="odr.setCurrentTime()" value="#{form['label.now']}" class="miniButton"/>
             </div>
             <p class="empty" style="padding-top: 8px"></p>
         </div>

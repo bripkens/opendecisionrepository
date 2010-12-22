@@ -10,16 +10,6 @@
 
     <div id="help">
         <ul class="info">
-            <li class="messages">
-                <div class="header"></div>
-                <div class="text">
-                    <ice:messages layout="list"
-                                  errorClass="error"
-                                  warnClass="warning"
-                                  fatalClass="fatal"
-                                  infoClass="information" />
-                </div>
-            </li>
             <li>
                 <div class="header">
                     <img src="resources/images/info.png" alt="information" />
@@ -33,7 +23,7 @@
     </div>
 
     <div id="wizardQuickAddDecision" title="#{form['decision.new']}">
-        <ice:form partialSubmit="true">
+        <ice:form partialSubmit="true" id="wizardQuickAddForm">
 
 
             <div class="formSection">
@@ -42,7 +32,8 @@
                 <ice:inputText id="inQuickDecisionName"
                                label="#{form['label.name']}"
                                required="true"
-                               value="#{manageDecisionController.relationshipsStep.decisionName}">
+                               value="#{manageDecisionController.relationshipsStep.decisionName}"
+                               validator="#{manageDecisionController.relationshipsStep.checkDecisionName}">
                     <f:validateLength minimum="3" maximum="100" />
                 </ice:inputText>
                 <p style="padding-top: 4px; text-indent: 9.5em;">
@@ -65,18 +56,30 @@
             </div>
 
 
-
-            <ice:commandButton action="#{manageDecisionController.relationshipsStep.addDecision}"
-                               value="#{form['button.submit']}"
-                               styleClass="confirm"
-                               id="decisionAddSubmitButton"/>
-
+            <ice:messages layout="list"
+                                  errorClass="error"
+                                  warnClass="warning"
+                                  fatalClass="fatal"
+                                  infoClass="information"
+                                  for="inQuickDecisionName"/>
 
 
             <ice:commandButton action="#{manageDecisionController.relationshipsStep.cancelAddDecision}"
                                value="#{form['button.cancel']}"
                                styleClass="abort"
-                               id="decisionAddAbortButton"/>
+                               style="float: right; margin-right: 10px;"
+                               id="decisionAddAbortButton"
+                               immediate="true"/>
+
+            <ice:commandButton action="#{manageDecisionController.relationshipsStep.addDecision}"
+                               value="#{form['button.submit']}"
+                               styleClass="confirm"
+                               style="float: right;"
+                               id="decisionAddSubmitButton"/>
+
+
+
+            
         </ice:form>
     </div>
 

@@ -30,7 +30,7 @@ import nl.rug.search.odr.util.JsfUtil;
 public class EssentialsStep implements WizardStep {
 
     // <editor-fold defaultstate="collapsed" desc="constants">
-    public static final String USER_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
+    public static final String USED_DECISION_NAME = "nl.rug.search.odr.USED_DECISION_NAME";
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="attributes">
@@ -169,7 +169,7 @@ public class EssentialsStep implements WizardStep {
             if (newName.equalsIgnoreCase(decision.getName())) {
                 throw new ValidatorException(MessageFactory.getMessage(
                         fc,
-                        USER_DECISION_NAME,
+                        USED_DECISION_NAME,
                         new Object[]{
                             MessageFactory.getLabel(fc, uic)
                         }));
