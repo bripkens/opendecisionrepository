@@ -68,5 +68,3 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Abstract Abstract]
    * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve visualization diagram]
  * *[http://code.google.com/p/opendecisionrepository/wiki/Stats Statistics]*
- * *[http://code.google.com/p/opendecisionrepository/wiki/Glossary Glossary]*
- * *[http://code.google.com/p/opendecisionrepository/wiki/Bibliography Bibliography]*
