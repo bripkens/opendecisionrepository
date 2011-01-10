@@ -1,0 +1,28 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>HTML 4 standard components</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A way to visualize decisions on the client side needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>HTML 4 standard components will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>Maximal browser support and performance.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+
+</td>
+    </tr>
+  </tbody>
+</table>
