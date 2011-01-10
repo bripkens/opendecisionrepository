@@ -27,7 +27,7 @@ odr.Registry = function() {
 odr.Registry.prototype = {
     _items : null,
     /**
-     * @param {odr.DrawableItem} item The item you whish to add to the Registry. The key by which the item can later on
+     * @param {odr.Drawable} item The item you whish to add to the Registry. The key by which the item can later on
      * be removed or get is the result of the {@link odr.DrawableItem#id()} call.
      */
     add : function(item) {
@@ -35,7 +35,7 @@ odr.Registry.prototype = {
     },
     /**
      * @param {String|Number} itemId
-     * @return {odr.DrawableItem}
+     * @return {odr.Drawable}
      */
     get : function(itemId) {
         return this._items[itemId];

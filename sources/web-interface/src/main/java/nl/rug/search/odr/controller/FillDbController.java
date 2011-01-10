@@ -666,7 +666,7 @@ public class FillDbController {
         it2.setProjectMember(p.getMembers().iterator().next());
         it2.setDocumentedWhen(new Date(it1.getEndDate().getTime() + 6));
         it2.setStartDate(getDate(2010, 12, 13));
-        it2.setEndDate(getDate(2010, 12, 25));
+        it2.setEndDate(getDate(2011, 1, 9));
 
         p.addIteration(it2);
 

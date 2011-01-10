@@ -61,6 +61,8 @@ odr.init = function() {
 
 
     odr.decisionWizardQuickAdd();
+
+    odr.feedbackpopup();
 }
 
 
@@ -534,3 +536,50 @@ odr.decisionWizardQuickAdd = function() {
 odr.colorrow = function(){
     j("tr").not(".subRow").filter(":odd").addClass("odd");
 }
+
+
+
+
+
+
+
+
+/**
+ * Feedback popup
+ */
+odr.feedbackpopup = function() {
+    j("#feedbackPopup").dialog({
+        autoOpen: false,
+        height: 345,
+        width: 618,
+        modal: true,
+        resizable : false,
+        close : function() {
+            j("input#feedbackInEmail").val("");
+            j("textarea#feedbackInMessage").val("").removeClass("error");
+        }
+    });
+
+    j("#feedbackMenu").click(function() {
+        j("#feedbackPopup").dialog("open");
+    });
+
+    j("#feedbackButtonCancel").click(function() {
+        j("#feedbackPopup").dialog("close");
+        return false;
+    });
+
+    j("#feedbackButtonSend").click(function() {
+        var textarea = j("textarea#feedbackInMessage");
+        
+        if (textarea.val().length < 5) {
+            textarea.addClass("error");
+            return false;
+        }
+
+        j("#feedbackInUrl").val(window.location);
+        j("#feedbackInPage").val(j("html:first").html());
+
+        return true;
+    });
+};
