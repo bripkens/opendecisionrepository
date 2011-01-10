@@ -11,5 +11,8 @@ The Open Decision Repository project is located in the domain of software archit
 == Credits ==
 The following students have contributed to the Open Decision Repository project.
 
- * [http://www.bripkens.de Ben Ripkens]
- * [mailto:stefan.arians@gmail.com Stefan Arians]
+ * [http://www.bripkens.de Ben Ripkens] (bripkens.dev at gmail.com)
+ * [mailto:stefan.arians@gmail.com Stefan Arians] (stefan.arians at gmail.com)
+
+== Get started ==
+To get started you may want to check out the presentations and videos which you can find using the navigation on the left hand side. Especially the following [http://code.google.com/p/opendecisionrepository/wiki/HomecomingDay presentation] may be useful to understand the project.
