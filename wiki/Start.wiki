@@ -1,4 +1,5 @@
 = The project =
+
 The Open Decision Repository project is located in the domain of software architecture and architectural design decisions (AD). The aim of this project is to implement a proof-of-concept Computer-aided Software Engineering tool that allows companies or single individuals like software architects to document their design decisions according to the paper Viewpoints for Architectural Decisions by Uwe van Heesch, Paris Avgeriou and Rich Hilliard. The tool (hereinafter application) should be realized as a web application that is completely free of charge, publicly available and open source. It should provide functionality to document, browse, update and delete AD for user defined projects. One of the main goals is to increase pace in the AD documentation process, therefore the application requires a strong focus on usability. Shortly, the assignment can be defined as following.
 
   Development of a web application that provides functionality to document and visualize architectural design decisions for software-intensive systems according to ISO/IEC 42010 and the paper Viewpoints for Architectural Decisions.
