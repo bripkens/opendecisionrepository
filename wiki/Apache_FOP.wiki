@@ -22,7 +22,6 @@
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li>`<<depends on>>` Java Programming Language</li>
 <li>`<<caused by>>` Scalable Vector Graphics</li>
 </ul>
 </td>
