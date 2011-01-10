@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewAssociation;
+import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewNode;
 import nl.rug.search.odr.viewpoint.relationship.RelationshipViewVisualization;
 import static org.junit.Assert.*;
 import static nl.rug.search.odr.Assert.*;
@@ -1002,6 +1004,97 @@ public class ProjectTest {
         v1.setDecidedWhen(new Date(21));
 
         assertNull(p.getIteration(v1));
+    }
+
+
+
+    @Test
+    public void testRemoveIteration() {
+        Iteration i1 = new Iteration();
+        i1.setId(1l);
+
+        Iteration i2 = new Iteration();
+        i2.setId(2l);
+
+        p.addIteration(i1);
+        p.addIteration(i2);
+
+
+        ChronologicalViewVisualization vis = new ChronologicalViewVisualization();
+        p.addChronologicalView(vis);
+
+        ChronologicalViewNode n1 = new ChronologicalViewNode();
+        n1.setId(1l);
+        n1.setIteration(i1);
+        vis.addNode(n1);
+
+        ChronologicalViewNode n2 = new ChronologicalViewNode();
+        n2.setId(2l);
+        n2.setIteration(i2);
+        vis.addNode(n2);
+
+        ChronologicalViewNode n3 = new ChronologicalViewNode();
+        n3.setId(3l);
+        vis.addNode(n3);
+
+        ChronologicalViewAssociation a1 = new ChronologicalViewAssociation();
+        a1.setId(1l);
+        a1.setSourceIteration(i1);
+        vis.addAssociation(a1);
+
+        ChronologicalViewAssociation a2 = new ChronologicalViewAssociation();
+        a2.setId(2l);
+        a2.setTargetIteration(i2);
+        vis.addAssociation(a2);
+
+        ChronologicalViewAssociation a3 = new ChronologicalViewAssociation();
+        a3.setId(3l);
+        a3.setSourceIteration(i2);
+        vis.addAssociation(a3);
+
+        ChronologicalViewAssociation a4 = new ChronologicalViewAssociation();
+        a4.setId(4l);
+        a4.setTargetIteration(i1);
+        vis.addAssociation(a4);
+
+        p.removeIteration(i1);
+
+        assertFalse(containsReference(vis.getNodes(), n1));
+        assertTrue(containsReference(vis.getNodes(), n2));
+        assertTrue(containsReference(vis.getNodes(), n3));
+        assertFalse(containsReference(vis.getAssociations(), a1));
+        assertTrue(containsReference(vis.getAssociations(), a2));
+        assertTrue(containsReference(vis.getAssociations(), a3));
+        assertFalse(containsReference(vis.getAssociations(), a4));
+
+        p.removeIteration(i2);
+        assertFalse(containsReference(vis.getNodes(), n2));
+        assertTrue(containsReference(vis.getNodes(), n3));
+        assertFalse(containsReference(vis.getAssociations(), a2));
+        assertFalse(containsReference(vis.getAssociations(), a3));
+    }
+
+
+
+
+
+    @Test
+    public void testRemoveConcern() {
+        Concern c1 = new Concern();
+        c1.setId(1l);
+        p.addConcern(c1);
+
+        Decision d = new Decision();
+        Version v = new Version();
+        d.addVersion(v);
+        v.addConcern(c1);
+        p.addDecision(d);
+
+        assertTrue(containsReference(v.getConcerns(), c1));
+
+        p.removeConcern(c1);
+
+        assertFalse(containsReference(v.getConcerns(), c1));
     }
 }
 

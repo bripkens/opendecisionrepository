@@ -482,9 +482,8 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setStates(Collection<State> states) {
-        if (states == null) {
-            throw new BusinessException("States is null");
-        }
+        assert states != null;
+
         this.states = states;
     }
 
@@ -492,9 +491,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addState(State state) {
-        if (state == null) {
-            throw new BusinessException("State is null");
-        }
+        assert state != null;
 
         states.add(state);
     }
@@ -503,9 +500,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeState(State state) {
-        if (state == null) {
-            throw new BusinessException("State is null");
-        }
+        assert state != null;
 
         states.remove(state);
     }
@@ -528,9 +523,8 @@ public class Project extends BaseEntity<Project> {
 
 
     public void setRelationshipTypes(Collection<RelationshipType> relationshipTypes) {
-        if (relationshipTypes == null) {
-            throw new BusinessException("RelationshipTypes is null");
-        }
+        assert relationshipTypes != null;
+
         this.relationshipTypes = relationshipTypes;
     }
 
@@ -538,9 +532,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void addRelationshipType(RelationshipType relationshipType) {
-        if (relationshipType == null) {
-            throw new BusinessException("RelationshipType is null");
-        }
+        assert relationshipType != null;
 
         relationshipTypes.add(relationshipType);
     }
@@ -549,9 +541,7 @@ public class Project extends BaseEntity<Project> {
 
 
     public void removeRelationshipType(RelationshipType relationshipType) {
-        if (relationshipType == null) {
-            throw new BusinessException("RelationshipType is null");
-        }
+        assert relationshipType != null;
 
         relationshipTypes.remove(relationshipType);
     }

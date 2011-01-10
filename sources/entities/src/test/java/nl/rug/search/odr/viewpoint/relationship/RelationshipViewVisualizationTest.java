@@ -6,6 +6,7 @@ import nl.rug.search.odr.entities.Version;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import nl.rug.search.odr.entities.Relationship;
 import nl.rug.search.odr.viewpoint.Viewpoint;
 import org.junit.Test;
 import org.junit.Before;
@@ -277,5 +278,33 @@ public class RelationshipViewVisualizationTest {
         assertTrue(v.containsVersion(n2.getVersion()));
         assertFalse(v.containsVersion(n1.getVersion()));
         
+    }
+
+
+
+    @Test
+    public void testGetAssociation() {
+        v = new RelationshipViewVisualization();
+
+        assertNull(v.getAssociation(new Relationship()));
+
+        Relationship r1 = new Relationship();
+        r1.setId(1l);
+
+        Relationship r2 = new Relationship();
+        r2.setId(2l);
+
+        RelationshipViewAssociation a1 = new RelationshipViewAssociation();
+        a1.setId(1l);
+        a1.setRelationship(r1);
+        v.addAssociation(a1);
+
+        RelationshipViewAssociation a2 = new RelationshipViewAssociation();
+        a2.setId(2l);
+        a2.setRelationship(r2);
+        v.addAssociation(a2);
+
+        assertSame(a2, v.getAssociation(r2));
+        assertSame(a1, v.getAssociation(r1));
     }
 }
