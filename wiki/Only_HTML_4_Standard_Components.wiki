@@ -23,6 +23,7 @@
       <td>
 <ul>
 <li>`<<caused by>>` Client side image generation</li>
+<li>`<<depends on>>` HTML 4 standard components</li>
 </ul>
 </td>
     </tr>
