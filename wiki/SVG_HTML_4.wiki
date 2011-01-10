@@ -1,0 +1,38 @@
+<table border="1" cellspacing="0" cellpadding="5" width="650">
+  <thead>
+    <tr>
+      <th width="150"> Name </th>
+      <th>SVG and HTML 4 standard components</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td> *Problem/Issue* </td>
+      <td>A way to visualize decisions on the client side needs to be found.</td>
+    </tr>
+    <tr>
+      <td> *Decision* </td>
+      <td>This mixed approach will be used.</td>
+    </tr>
+    <tr>
+      <td> *Arguments* </td>
+      <td>By using the benefits of SVG, i.e. drawing lines, and HTML 4, i.e. maximal browser support and speed, a visualization could be created that has maximal browser support and speed.<br /> SVGweb may be used to provide a fallback mechanism.</td>
+    </tr>
+    <tr>
+      <td> *Related decisions* </td>
+      <td>
+<ul>
+<li>`<<caused by>>` Client side image generation</li>
+<li>`<<depends on>>` HTML 4 standard components</li>
+<li>`<<depends on>>` Scalable Vector Graphics</li>
+<li>`<<replaces>>` Image generation in Java</li>
+<li>`<<replaces>>` Graphviz</li>
+<li>`<<replaces>>` Only Scalable Vector Graphics</li>
+<li>`<<replaces>>` Only HTML 4 standard components</li>
+<li>`<<replaces>>` Adobe Flash</li>
+<li>`<<replaces>>` HTML 5 canvas element</li>
+</ul>
+</td>
+    </tr>
+  </tbody>
+</table>
