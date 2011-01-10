@@ -16,3 +16,6 @@ The following students have contributed to the Open Decision Repository project.
 
 == Get started ==
 To get started you may want to check out the presentations and videos which you can find using the navigation on the left hand side. Especially the following [http://code.google.com/p/opendecisionrepository/wiki/HomecomingDay presentation] may be useful to understand the project.
+
+== Related projects ==
+An other project, the so called [http://code.google.com/p/openpatternrepository/ Open Pattern Repository], was also initiated by the SEARCH group. It is closely related and you may also want to take a look on it.
