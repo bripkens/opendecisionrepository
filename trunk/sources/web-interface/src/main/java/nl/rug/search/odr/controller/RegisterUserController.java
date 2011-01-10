@@ -51,7 +51,7 @@ public class RegisterUserController extends AbstractController {
 
     @Override
     protected void reset() {
-        name = email = password = null;
+        name = email = password = passwordConfirmation = null;
     }
 
 

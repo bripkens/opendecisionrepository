@@ -14,6 +14,10 @@ public class TranslationProvider {
 
     public static final String PROPERTIES_FILE = "nl.rug.search.odr.localization.visualization";
 
+    /**
+     * Even though this variable is unused in this class, it will be available to the JavaScript when the
+     * object is serialized using Gson
+     */
     private final Locale locale;
     private final Map<String, String> translations;
 
