@@ -16,7 +16,7 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>Allows user interaction, wide support through web frameworks like jquery.svg, svgweb or raphael. Zooming is simple and export functionality can easily be achieved through usage of Apache FOP and Apache Batik.</td>
+      <td>Allows user interaction, wide support through web frameworks like jquery.svg, svgweb or raphael. Zooming is simple and export functionality can easily be achieved through usage of Apache FOP and Apache Batik.<br />SVGweb may be used to provide a fallback mechanism.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
