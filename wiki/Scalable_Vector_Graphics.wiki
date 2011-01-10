@@ -21,12 +21,7 @@
     <tr>
       <td> *Related decisions* </td>
       <td>
-<ul>
-<li>`<<caused by>>` Client side image generation</li>
-<li>`<<replaces>>` Image generation in Java</li>
-<li>`<<replaces>>` Graphviz</li>
-<li>`<<replaces>>` HTML 5 Canvas Element</li>
-</ul>
+
 </td>
     </tr>
   </tbody>
