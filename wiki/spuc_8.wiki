@@ -32,7 +32,6 @@
 <LI>The system provide the user with detailed information about the current version of the iteration
 <UL>
 <LI>name</LI>
-<LI>category</LI>
 <LI>description</LI>
 <LI>start date</LI>
 <LI>end date</LI>
