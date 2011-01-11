@@ -28,7 +28,7 @@
       
 <OL>
 <LI>The system provides a table with all available iterations</LI>
-<LI>The user chooses a iteration and select _edit_
+<LI>The user chooses a iteration and select _details_
 <UL>
 <LI>name</LI>
 <LI>description</LI>
