@@ -1,3 +1,23 @@
+= Visualization =
+The visualization is one of the most important and complex features of the ODR. As a result a fair amount of time has been spent on its documentation. On this page you can find several diagrams that may be useful when investigating the visualization.
+
+If you are unfamiliar with the visualization you should first take a look on the requirements ([http://code.google.com/p/opendecisionrepository/wiki/spuc_17 UC-17] and [http://code.google.com/p/opendecisionrepository/wiki/spuc_23 UC-23]) and the [http://code.google.com/p/opendecisionrepository/wiki/Preview_relationship_view preview video].
+
+== Technology stack ==
+First of all the technology stack that was selected after a research phase and two prototypes.
+
+http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visualization-technology-stack.png
+
+Links:
+ * [http://code.google.com/p/svgweb/ svgweb project page]
+ * [http://codinginparadise.org/projects/svgweb/docs/QuickStart.html svgweb Quickstart]
+ * [http://codinginparadise.org/projects/svgweb/docs/UserManual.html svgweb User manual]
+ * [http://code.google.com/p/jsdoc-toolkit/ JavaScript documentation] 
+ * [http://code.google.com/p/jsdoctk-plugin/ Automated generation of JavaScript documentation with Apache Maven]
+ * [http://code.google.com/p/google-gson/ Google Gson project page]
+ * [http://bripkens.de/blog/tag/odr/ A few blog entries about the visualization]
+
+
 http://opendecisionrepository.googlecode.com/svn/javascript-doc/index.html
 
 
@@ -5,6 +25,6 @@ http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization
 
 http://code.google.com/p/opendecisionrepository/wiki/Preview_relationship_view
 
-http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visualization-technology-stack.png
+
 
 http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visualization-export.png
