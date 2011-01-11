@@ -19,12 +19,16 @@ http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visual
  * [https://github.com/jquery/jquery-ui/blob/9e8e339648901899827a58e5bf919f7dda03b88e/tests/jquery.simulate.js Simulate plug in]
 
 
-http://opendecisionrepository.googlecode.com/svn/javascript-doc/index.html
+== Code documentation ==
+Please consult the [http://opendecisionrepository.googlecode.com/svn/javascript-doc/index.html JsDoc page] for a complete documentation of the underlying implementation.
 
 
-http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization
+== Further diagrams ==
 
-http://code.google.com/p/opendecisionrepository/wiki/Preview_relationship_view
+ * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve visualization from the server]
+ * [http://code.google.com/p/opendecisionrepository/wiki/Model_Visualization Data model (client side)]
+ * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Export Export diagram to JPEG/PNG/SVG/PDF]
+
 
 
 
