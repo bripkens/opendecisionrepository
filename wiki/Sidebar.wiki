@@ -71,5 +71,6 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
    * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Abstract Abstract]
+   * [http://code.google.com/p/opendecisionrepository/wiki/Model_Visualization Class diagram of the model]
    * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve visualization diagram]
  * *[http://code.google.com/p/opendecisionrepository/wiki/Stats Statistics]*
