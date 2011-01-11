@@ -27,7 +27,8 @@
       <td colspan="4"> 
       
 <OL>
-<LI>The user chooses _edit concern_</LI>
+<LI>The system provides a table with all concerns</LI>
+<LI>The user chooses a concern and select _edit_</LI>
 <LI>see use case *create concern step 2*</li>
 <LI>see use case *create concern step 3*</li>
 <LI>The system saves this concern as a new version</LI>
