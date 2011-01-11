@@ -26,7 +26,8 @@
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The user chooses _delete iteration_</LI>
+<LI>The systems provides a table with all iterations</LI>
+<LI>The user chooses a iteration and select _delete_</LI>
 <LI>The system asks for confirmation</LI>
 <LI>The user confirms the action</LI>
 <LI>The system deletes the iteration</LI>
