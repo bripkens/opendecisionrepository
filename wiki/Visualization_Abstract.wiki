@@ -28,8 +28,3 @@ Please consult the [http://opendecisionrepository.googlecode.com/svn/javascript-
  * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve visualization from the server]
  * [http://code.google.com/p/opendecisionrepository/wiki/Model_Visualization Data model (client side)]
  * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Export Export diagram to JPEG/PNG/SVG/PDF]
-
-
-
-
-http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visualization-export.png
