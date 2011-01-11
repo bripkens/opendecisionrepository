@@ -26,7 +26,8 @@
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The user clicks on _modify iteration_</LI>
+<LI>The system provides a table with all iterations</LI>
+<LI>The user chooses a iteration and select _edit_</LI>
 <LI>See use case *create iteration step 2*</LI>
 <LI>See use case *create iteration step 3*</LI>
 <Li>The system saves the modifications.</Li>
