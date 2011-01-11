@@ -26,7 +26,8 @@
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The user chooses _delete concern_</LI>
+<LI>The system provides a table with all concerns and their versions</LI>
+<LI>The user chooses a concern/version and select _delete concern_</LI>
 <LI>The system asks for confirmation</LI>
 <LI>The user confirms the action</LI>
 <LI>The system deletes the concern</LI>
