@@ -30,10 +30,10 @@
 <LI>The user chooses _add concern_</LI>
 <LI>The system displays a form with the following fields:
 <UL>
-<LI>ID (This field should describes the external ID for this concern eg. concern-1) _(minimum number of characters: 1)_</LI>
+<LI>External-ID (Usually the concerns are listed in other requirement documents. To associate them, you can enter the id from the other software) _(minimum number of characters: 1)_</LI>
 <LI>name _(minimum number of characters: 3)_</LI>
 <LI>description _(minimum number of characters: 1000)_</LI>
-<LI>textboxes (as many as you want) to define tags</LI>
+<LI>tags (as many as you want)</LI>
 </UL>
 </LI>
 <LI>The user confirms his entries with _submit_.</LI>
