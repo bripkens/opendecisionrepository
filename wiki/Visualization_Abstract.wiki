@@ -8,7 +8,7 @@ First of all the technology stack that was selected after a research phase and t
 
 http://opendecisionrepository.googlecode.com/svn-history/r825/wiki/images/visualization-technology-stack.png
 
-Links:
+*Links:*
  * [http://code.google.com/p/svgweb/ svgweb project page]
  * [http://codinginparadise.org/projects/svgweb/docs/QuickStart.html svgweb Quickstart]
  * [http://codinginparadise.org/projects/svgweb/docs/UserManual.html svgweb User manual]
@@ -16,6 +16,7 @@ Links:
  * [http://code.google.com/p/jsdoctk-plugin/ Automated generation of JavaScript documentation with Apache Maven]
  * [http://code.google.com/p/google-gson/ Google Gson project page]
  * [http://bripkens.de/blog/tag/odr/ A few blog entries about the visualization]
+ * [https://github.com/jquery/jquery-ui/blob/9e8e339648901899827a58e5bf919f7dda03b88e/tests/jquery.simulate.js Simulate plug in]
 
 
 http://opendecisionrepository.googlecode.com/svn/javascript-doc/index.html
