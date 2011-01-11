@@ -33,6 +33,7 @@
 <LI>name _(required, minimum number of characters: 3)_</LI>
 <LI>e-mail address _(required, valid structure of e-mail address, must be unique)_</LI>
 <LI>password _(At least 5 characters)_</LI>
+<LI>repeat your password for confirmation</LI>
 </UL></LI>
 <Li>The user confirms his entries with _Submit_</Li>
 <LI>The system saves the new user account</LI>
