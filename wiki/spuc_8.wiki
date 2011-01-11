@@ -6,7 +6,7 @@
       <th>Name</th>
       <td>Browse iterations</td>
       <th>Package</th>
-      <td>Decision Management</td>
+      <td>Project Management</td>
     </tr>
   </thead>
   <tbody>
