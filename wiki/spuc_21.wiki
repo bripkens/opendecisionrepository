@@ -27,9 +27,9 @@
       <td colspan="4"> 
       
 <OL>
-<LI>The newest version of every concern have to be visiable at the project details page</LI>
-<LI>The user chooses a concern</LI>
-<LI>The system provides the user with detailed information about the current version of the concern
+<LI>The system provides a table with all concerns and their versions</LI>
+<LI>The user chooses a concern/version and select _details_</LI>
+<LI>The system provides the user with detailed information
 <UL>
 <LI>ID</LI>
 <LI>name</LI>
