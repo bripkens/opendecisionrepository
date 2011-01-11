@@ -27,9 +27,9 @@
       <td colspan="4"> 
       
 <OL>
-<LI>All iterationa are be visiable at the project details page</LI>
-<LI>The user chooses a iteration</LI>
-<LI>The system provide the user with detailed information about the current version of the iteration
+<LI>The user chooses _show more_ at the bottom of the iteration area at the project details page</LI>
+<LI>The system provide a table with all available iterations<LI>
+<LI>The user chooses a iteration and select _edit_
 <UL>
 <LI>name</LI>
 <LI>description</LI>
