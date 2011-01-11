@@ -10,14 +10,40 @@
     </ui:define>
 
     <ui:define name="pagetitle">
-        welcome to the index.
+        <ice:outputText value="#{page[landing.title]}" nospan="true" />
     </ui:define>
 
     <ui:define name="content">
-        welcome to the index.
+        <h1><ice:outputText value="#{page['landing.heading']}" nospan="true" /></h1>
+        <p><ice:outputText value="#{page['landing.text1']}" nospan="true" escape="false" /></p>
+        <p><ice:outputText value="#{page['landing.text2']}" nospan="true" escape="false" /></p>
+
+        <h1><ice:outputText value="#{page['landing.example']}" nospan="true" /></h1>
+        <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/hZd26WLHgbY?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1&amp;color1=0x3a3a3a&amp;color2=0x999999"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/hZd26WLHgbY?fs=1&amp;hl=en_US&amp;rel=0&amp;hd=1&amp;color1=0x3a3a3a&amp;color2=0x999999" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
     </ui:define>
 
     <ui:define name="sidebar">
-        welcome to the index.
+        <div id="help">
+            <ul class="info">
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{page['landing.sidebar.beta.heading']}" nospan="true" /></h2>
+                        <ice:outputText value="#{page['landing.sidebar.beta.text']}" nospan="true" escape="false" />
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <img src="resources/images/impact.png" alt="impact / error" />
+                    </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{page['landing.sidebar.error.heading']}" nospan="true" /></h2>
+                        <ice:outputText value="#{page['landing.sidebar.error.text']}" nospan="true" escape="false" />
+                    </div>
+                </li>
+            </ul>
+        </div>
     </ui:define>
 </ui:composition>
