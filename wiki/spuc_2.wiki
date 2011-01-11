@@ -27,14 +27,13 @@
       <td colspan="4"> 
       
 <OL>
-<LI>The guest chooses _login_</LI>
-<LI>The system displays a form with:
+<LI>The system displays a form at the top of the every page:
 <ul>
 <li>e-mail address</li>
 <li>password</li>
 </ul>
 </LI>
-<LI>The user submits the form.</LI>
+<LI>The user submits the form with <i>Login</i>.</LI>
 <LI>The system checks the login data and authorizes the user</LI>
 </OL>
       
