@@ -30,7 +30,7 @@
 <LI>The guest chooses _login_</LI>
 <LI>The system displays a form with:
 <ul>
-<li>name</li>
+<li>e-mail address</li>
 <li>password</li>
 </ul>
 </LI>
