@@ -7,17 +7,17 @@
 This document adheres to IEEE Std. 830-1998.
 
 == Purpose ==
-The document describes the requirements for the Open Decision Repository (hereinafter ODR). The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about documentation and visualization of architectural decisions together with Paris Avgeriou and Rich Hilliard. This project serves as a prototyp which may also be used to defend the paper.
+The document describes the requirements for the Open Decision Repository (hereinafter ODR). The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about documentation and visualization of architectural design decisions together with Paris Avgeriou and Rich Hilliard. This project serves as a prototyp which may also be used to defend the paper.
 
 Everybody who is interested in the intended functionality of the ODR may read this paper. This includes prospective developers and users.
 
 == Scope ==
-The Open Decision Repository will provide functionality to document and visualize decisions that have been made in a project. It's a freely available repository to store all decisions within a project. It provides the functionallity to share the entire project with other members, who can get a insight into the decisions and the rationale behind them.
+The Open Decision Repository will provide functionality to document and visualize decisions that have been made in a project. It's a freely available repository to store all decisions within a project. It provides functionallity to share the entire project with other members who can then get an insight into the decisions and the rationale behind them.
 You can also get three different kinds of views. 
- * a chronical view about the decisons and the members who take these
- * a stakeholder involvement view, that describes the actions of every role
- * and a relationship view, that describe the dependencies of decisions.
-Another very important point is the revision control, which enables switching between differet versions of decisions.
+ * The *chronical view* visualizes the chronological order in which decisions were made, i.e. the temporal aspect of the documentation.
+ * A *stakeholder-involvement view* which can be generated for each documented iteration. It shows all new decisions and changes to existing ones and the persons that were involved in this decision making process.
+ * The last one is the *relationship view* which visualizes the relationships among all the decisions.
+Another very important point is the revision control which enables switching between differet versions of decisions. Thus the history and progress of the project can be reconstructed.
 
 There are four main parts in the project:
  * project management (e.g. create a project)
@@ -46,11 +46,11 @@ Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPla
 
 == Product perspective ==
 The ODR aims to become a reference implementation of the viewpoints described in _VfAD_. In addition it should support the user by allowing him to
-document software architecture in a simple and quick manner which, as a result, would allow him to spend more time on the actual design and implementation of the
+document software architecture in a simple and quick manner which as a result would allow him to spend more time on the actual design and implementation of the
 business logic.
 
 == Product functions ==
-In section 1.2 (scope), four main functionality groups have been identified. The following figure shows them.
+In section 1.2 (scope) four main functionality groups have been identified. The following figure shows them.
 http://opendecisionrepository.googlecode.com/svn/wiki/images/packages.png
 
 The requirements have been grouped according to this functionality groups.
@@ -63,10 +63,10 @@ This project will be used by three different kinds of users.
 The guest uses the system only to get a look into projects, which are pushlished. He can browse through the projects or find projects by using the search function. 
 
  * User
-The normal visitor of the system is a registrated user. He can create projects, can add  members and manage the entire project. Project members have to take a role within a project like "Software-architect", "manager" or "customer". Every role has different functionallity in the system that is adapeted to its scope of dutys. Furthermore he is able to get a look in all views (chronical view, stakeholder view and relationship view) of his projects and other published projects.
+The normal visitor of the system is a registrated user. He can create projects, can add members and manage the entire project. Project members have to take a role within a project like "software-architect", "manager" or "customer". Furthermore he is able to get a look in all views (chronical view, stakeholder-involvement view and relationship view) of his projects and other published projects.
 
  * Administrator
-The administrator is able to manage the entities in the system. He can add common  entities or delete unused entities. 
+The administrator is able to manage the entities in the system. He can add common entities or delete unused entities. 
 
 
 == Constraints ==
@@ -79,7 +79,7 @@ None
 
 
 = Specific requirements =
-The requirements are documented in use case form. Some of these requirements contain the work flow for the creation or management of data. When italic text is used in a workflow, then it means that an error message is displayed if any of the previously mentioned constraints is violated. It is possible to recover from such an error by undoing the previous action, e.g. clearing the input field.
+The requirements are documented in use case form. Some of these requirements contain the work flow for the creation or management of data. Italic text is used to visualize constraints, e.g. the maximum number of characters for an input field. When violated an error message is shown. It is possible to recover from such an error by undoing the previous action, e.g. clearing the input field.
 
 || *ID* || *Name* ||
 || UC-1 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_1 register] ||
