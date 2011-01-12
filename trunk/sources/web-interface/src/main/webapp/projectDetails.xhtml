@@ -285,8 +285,10 @@
                         <img src="resources/images/info.png" alt="information" />
                     </div>
                     <div class="text">
-                        <h2><ice:outputText value="#{page['projectDetails.help.title']}" /></h2>
-                        <ice:outputText value="#{page['projectDetails.help.text']}" />
+                        <ice:form>
+                            <h2><ice:outputText value="#{page['help.projectdetails.head']}" nospan="true"/></h2>
+                            <ice:outputText value="#{page['help.projectdetails.text']}" nospan="true" escape="false"/>
+                        </ice:form>
                     </div>
 
                 </li>

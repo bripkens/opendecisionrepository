@@ -9,13 +9,11 @@
     <composite:interface componentType="nl.rug.search.odr.component.Datespan">
         <composite:attribute name="startDate" type="java.util.Date"/>
         <composite:attribute name="endDate" type="java.util.Date" />
-
         <composite:attribute name="startDateLabel" type="java.lang.String" default="Start Date" />
         <composite:attribute name="endDateLabel" type="java.lang.String" default="End Date"/>
         <composite:attribute name="separatorLabel" type="java.lang.String" default=":"/>
         <composite:attribute name="timeLabel" type="java.lang.String" default="Time:"/>
         <composite:attribute name="validator" method-signature="java.lang.boolean isValidDate()"/>
-
     </composite:interface>
 
     <composite:implementation>

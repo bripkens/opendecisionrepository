@@ -9,27 +9,29 @@
                     xmlns:odr="http://java.sun.com/jsf/composite/odr">
 
     <div id="help">
-            <ul class="info">
-                <li class="messages">
-                    <div class="header"></div>
-                    <div class="text">
-                        <ice:messages layout="list"
-                                      errorClass="error"
-                                      warnClass="warning"
-                                      fatalClass="fatal"
-                                      infoClass="information" />
-                    </div>
-                </li>
-                <li>
-                    <div class="header">
-                        <img src="resources/images/info.png" alt="information" />
-                    </div>
-                    <div class="text">
-                        <h2>help headline</h2>
-                        help content
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <ul class="info">
+            <li class="messages">
+                <div class="header"></div>
+                <div class="text">
+                    <ice:messages layout="list"
+                                  errorClass="error"
+                                  warnClass="warning"
+                                  fatalClass="fatal"
+                                  infoClass="information" />
+                </div>
+            </li>
+            <li>
+                <div class="header">
+                    <img src="resources/images/info.png" alt="information" />
+                </div>
+                <div class="text">
+                    <ice:form>
+                        <h2><ice:outputText value="#{page['help.decicion.head']}" nospan="true"/></h2>
+                        <ice:outputText value="#{page['help.decision.step1']}" nospan="true" escape="false"/>
+                    </ice:form>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 </ui:composition>

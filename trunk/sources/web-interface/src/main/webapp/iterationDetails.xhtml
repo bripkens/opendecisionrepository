@@ -103,8 +103,10 @@
                         <img src="resources/images/info.png" alt="information" />
                     </div>
                     <div class="text">
-                        <h2>Iwas tolles :D</h2>
-                        content?
+                     <ice:form>
+                         <h2><ice:outputText value="#{page['help.iteration.view.head']}" nospan="true"/></h2>
+                         <ice:outputText value="#{page['help.iteration.view']}" nospan="true" escape="false"/>
+                    </ice:form>
                     </div>
                 </li>
             </ul>

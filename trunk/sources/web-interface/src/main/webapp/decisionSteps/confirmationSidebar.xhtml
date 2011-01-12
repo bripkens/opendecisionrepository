@@ -25,8 +25,10 @@
                         <img src="resources/images/info.png" alt="information" />
                     </div>
                     <div class="text">
-                        <h2>help headline</h2>
-                        help content
+                    <ice:form>
+                        <h2><ice:outputText value="#{page['help.decicion.head']}" nospan="true"/></h2>
+                        <ice:outputText value="#{page['help.decision.step5']}" nospan="true" escape="false"/>
+                    </ice:form>
                     </div>
                 </li>
             </ul>

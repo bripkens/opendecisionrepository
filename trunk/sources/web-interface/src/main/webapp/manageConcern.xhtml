@@ -24,6 +24,7 @@
 
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.concern.number']}" for="inExternalId"/>
+                    <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
                     <ice:inputText id="inExternalId"
                                    tabindex="1"
                                    label="#{form['label.concern.number']}"
@@ -44,6 +45,7 @@
 
                 <div class="formSection">
                     <ice:outputLabel value="#{form['label.name']}" for="inName" />
+                    <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
                     <ice:inputText id="inName"
                                    tabindex="2"
                                    label="#{form['label.name']}"
@@ -72,7 +74,6 @@
                                        value="#{concernController.description}">
                     </ice:inputTextarea>
                     <p>
-                    <ice:outputText value="#{form['label.optional']}" nospan="true" />;
                     <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 0;
                     <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 500;
                     </p>
