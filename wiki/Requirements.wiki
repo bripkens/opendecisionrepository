@@ -73,7 +73,7 @@ The administrator is able to manage the entities in the system. He can add commo
 
 
 == Constraints ==
-The project is a non budget project, therefore all technologies that will be used for the realization must be open source or at least free of charge. Preferably, these technologies should be licensed under GPL v2.
+The project is a non budget project therefore all technologies that will be used for the realization must be open source or at least free of charge.
 
 
 == Assumptions and dependencies ==
