@@ -103,6 +103,11 @@ The requirements are documented in use case form. Some of these requirements con
 || UC-15 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_15 Retrieve RSS feed] ||
 || UC-16 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_16 Quick add decision] ||
 || UC-17 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 Relationship view] ||
+|| UC-19 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_19 Create concern] ||
+|| UC-20 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_20 Edit concern] ||
+|| UC-21 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_21 Browse concern] ||
+|| UC-22 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_22 Delete concern] ||
+|| UC-23 || [http://code.google.com/p/opendecisionrepository/wiki/spuc_17 Chronological view] ||
 
 
 
