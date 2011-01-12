@@ -27,11 +27,13 @@ There are four main parts in the project:
 
 
 == Definitions, acronyms, and abbreviations ==
-Please refer to the glossary and the project plan for acronyms, definitions and further information about the project structure.
+ * *ODR* Open Decision Repository
+ * *SEARCH* Software Engineering and Architecture group
+ * *RUG* University of Groningen
 
 
 == References ==
-Please refer to the bibliography if you are interested in the information sources.
+  *[9126]* http://www.iso.org/iso/catalogue_detail.htm?csnumber=22749
 
 == Overview ==
 The following section provides an overall description about the ODR, followed by specific requirements in section three and views in section four.
@@ -107,7 +109,7 @@ The requirements are documented in use case form. Some of these requirements con
 
 = Non-functional requirements =
 
-This section describes the non-functional requirements. Each of these non-functional requirements (NFR) has an id, as well as an assigned characteristic. These characteristics are the ones that are specified in _ISO/IEC 9126-1:2001_.
+This section describes the non-functional requirements. Each of these non-functional requirements (NFR) has an id, as well as an assigned characteristic. These characteristics are the ones that are specified in [9126].
 
 
 <table border="1" cellspacing="0" cellpadding="5" width="650">
