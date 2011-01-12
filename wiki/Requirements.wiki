@@ -34,6 +34,7 @@ There are four main parts in the project:
 
 == References ==
   * *[9126]* http://www.iso.org/iso/catalogue_detail.htm?csnumber=22749
+  * *[VfAD]* Still to be published. Will later be found on http://www.cs.rug.nl/search/Publications/Publications
 
 == Overview ==
 The following section provides an overall description about the ODR, followed by specific requirements in section three and views in section four.
@@ -47,7 +48,7 @@ The following section provides an overall description about the ODR, followed by
 Please read the [http://code.google.com/p/opendecisionrepository/wiki/ProjectPlan#Stakeholders Project Plan] for more information about the stakeholders.
 
 == Product perspective ==
-The ODR aims to become a reference implementation of the viewpoints described in _VfAD_. In addition it should support the user by allowing him to
+The ODR aims to become a reference implementation of the viewpoints described in [VfAD]. In addition it should support the user by allowing him to
 document software architecture in a simple and quick manner which as a result would allow him to spend more time on the actual design and implementation of the
 business logic.
 
