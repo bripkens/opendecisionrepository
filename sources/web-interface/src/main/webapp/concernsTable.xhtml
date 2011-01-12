@@ -31,7 +31,7 @@
             <h1><h:outputText value="#{form['table.header.concern']}"/></h1>
 
             <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
-            <ice:inputText id="searchInput" onkeyup="doFilter(this, 'concernList', false)" style="width: 200px;" styleClass="prefill"/>
+            <input id="searchInput" onkeyup="doFilter(this, 'concernList', false)" style="width: 200px;" class="prefill" onclick="return false;"/>
         </ice:panelGroup>
         <ice:form partialSubmit="true" rendered="#{concernTableController1.valid}">
             <a href="#{concernTableController1.createConcernLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.concern']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
