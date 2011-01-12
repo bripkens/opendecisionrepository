@@ -27,8 +27,8 @@
       <td colspan="4"> 
       
 <OL>
-<li>UC-5 specifies how the user gets an overview about all decisions. This use case starts when the user selects a specific decision in the decision overview (which is part of the project detail view).</li>
-<LI>The user chooses a decision</LI>
+<LI>The system provides a table with all available decisions.</LI>
+<LI>The user chooses a decision and selects _details_</LI>
 <LI>The system provide the user with detailed information about the current version of the decision
 <UL>
 <LI>name</LI>
