@@ -26,7 +26,8 @@
       <td colspan="2"><b>Basic flow</b></td>
       <td colspan="4"> 
 <OL>
-<LI>The User chooses modify decision</LI>
+<LI>The system provides a table with all available decisions</LI>
+<LI>The User chooses a decision and selects _edit_</LI>
 <LI>See use case *create decision step 2*</LI>
 <LI>See use case *create decision step 3*</LI>
 <LI>The system saves this modified decision</LI>
