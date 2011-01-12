@@ -189,7 +189,7 @@ The web interface should not require any special expertise in the area of web ap
 <tbody>
   <tr>
     <td colspan="4">
-The application should use the OPR corporate design. General layout should be the same, also the way that user interface components are arranged should not be changed. A new color scheme may be applied.
+The application should use the OPR corporate design. General layout should be the same also the way user interface components are arranged should not be changed. A new color scheme may be applied.
 </td>
   </tr>
 </tbody>
@@ -261,7 +261,7 @@ Generation of a visualization should take three seconds on average. Five seconds
 <tbody>
   <tr>
     <td colspan="4">
-It should be easy to extend the application with new visualizations, but also to change existing ones. Adding new visualization
+It should be easy to extend the application with new visualizations, but also to change existing ones.
 </td>
   </tr>
 </tbody>
@@ -279,7 +279,7 @@ It should be easy to extend the application with new visualizations, but also to
 <tbody>
   <tr>
     <td colspan="4">
-Create and update forms must be easily changeable, because it is likely that they require changes.
+Create and update forms must be easily changeable because it is likely that they require changes.
 </td>
   </tr>
 </tbody>
@@ -297,7 +297,7 @@ Create and update forms must be easily changeable, because it is likely that the
 <tbody>
   <tr>
     <td colspan="4">
-The application should be well tested (> 70% test coverage). This includes units tests for POJOs and EJBs, as well as web interface tests using selenium.
+The application should be well tested (> 70% line coverage, > 60% path coverage). This includes units tests for POJOs and EJBs, as well as web interface tests using selenium.
 </td>
   </tr>
 </tbody>
@@ -315,7 +315,7 @@ The application should be well tested (> 70% test coverage). This includes units
 <tbody>
   <tr>
     <td colspan="4">
-The application should be portable to any major OS.
+The application should be portable to any major OS, i.e. Linux distributions that are maximally two years old, Windows Server 2003 and newer, Windows XP and newer.
 </td>
   </tr>
 </tbody>
