@@ -33,7 +33,7 @@ There are four main parts in the project:
 
 
 == References ==
-  *[9126]* http://www.iso.org/iso/catalogue_detail.htm?csnumber=22749
+  * *[9126]* http://www.iso.org/iso/catalogue_detail.htm?csnumber=22749
 
 == Overview ==
 The following section provides an overall description about the ODR, followed by specific requirements in section three and views in section four.
