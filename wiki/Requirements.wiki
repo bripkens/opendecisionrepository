@@ -4,7 +4,7 @@
 <wiki:toc max_depth="2" />
 
 = Introduction =
-This document adheres to IEEE Std. 830-1998.
+This document adheres to [830-1998].
 
 == Purpose ==
 The document describes the requirements for the Open Decision Repository (hereinafter ODR). The ODR is a project of the Software Engineering and Architecture Group (SEARCH) at the University of Groningen (RUG). The originator is Mr. Uwe van Heesch. He is currently writing a paper about documentation and visualization of architectural design decisions together with Paris Avgeriou and Rich Hilliard. This project serves as a prototyp which may also be used to defend the paper.
@@ -22,6 +22,7 @@ Another very important point is the revision control which enables switching bet
 There are four main parts in the project:
  * project management (e.g. create a project)
  * user management (e.g. create user with different roles)
+ * decision management (e.g. document a decision)
  * decision visualization (e.g. get a chronical visualization)
  * administration (administrate the ODR)
 
@@ -33,6 +34,7 @@ There are four main parts in the project:
 
 
 == References ==
+  * *[830-1998]* http://standards.ieee.org/findstds/standard/830-1998.html
   * *[9126]* http://www.iso.org/iso/catalogue_detail.htm?csnumber=22749
   * *[VfAD]* Still to be published. Will later be found on http://www.cs.rug.nl/search/Publications/Publications
 
