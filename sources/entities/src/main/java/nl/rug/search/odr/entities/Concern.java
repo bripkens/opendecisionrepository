@@ -29,7 +29,6 @@ import nl.rug.search.odr.StringValidator;
 /**
  *
  * @author Stefan
- * @modified Ben
  */
 @NamedQueries(value = {
     @NamedQuery(name = "Concern.getAll",

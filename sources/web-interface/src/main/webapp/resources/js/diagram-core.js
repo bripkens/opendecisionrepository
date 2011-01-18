@@ -145,8 +145,8 @@ odr.ready(function() {
  *     Mozilla Developer Network: Inheritance revisited
  * </a></p>
  *
- * @param {Function} child The sub type which should inherit all methods from supertype.
- * @param {Function} supertype The super type
+ * @param {Object} child The sub type which should inherit all methods from supertype.
+ * @param {Object} supertype The super type
  */
 function extend(child, supertype){
     child.prototype.__proto__ = supertype.prototype;
@@ -163,7 +163,7 @@ function extend(child, supertype){
 /**
  * @description
  * <p>We extend the prototype of all functions with the function createDelegate. This method allows
- * us to change the scope of a function to "this".</p>
+ * us to change the scope of a function.</p>
  *
  * <p>This is useful when attaching listeners to jQuery events like click or mousemove as jQuery normally uses
  * $(this) to reference the source of the event. When using the createDelegate method, this will point to the
