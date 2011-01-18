@@ -34,6 +34,7 @@ public class TemplateComponent extends BaseEntity<TemplateComponent> {
     @Column(name = "componentOrder")
     private int order;
 
+    @Column(length=5000)
     private String localizationReference;
 
 

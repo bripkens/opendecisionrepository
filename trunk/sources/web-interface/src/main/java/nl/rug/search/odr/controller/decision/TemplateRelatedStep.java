@@ -214,7 +214,7 @@ public class TemplateRelatedStep implements WizardStep {
             return;
         }
 
-        if (searchResults.isEmpty()) {
+        if (searchResults.isEmpty() && !error) {
             JsfUtil.addJavascriptCall("odr.decisionWizardStepOneDisableRetrieve(true);");
             noResult = true;
             return;

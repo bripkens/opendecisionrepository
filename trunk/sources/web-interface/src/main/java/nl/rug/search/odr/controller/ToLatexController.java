@@ -2,6 +2,7 @@ package nl.rug.search.odr.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -11,6 +12,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import nl.rug.search.odr.RequestAnalyser;
 import nl.rug.search.odr.RequestAnalyser.RequestAnalyserDto;
+import nl.rug.search.odr.entities.Concern;
+import nl.rug.search.odr.entities.Iteration;
 import nl.rug.search.odr.entities.Project;
 import nl.rug.search.odr.entities.ProjectMember;
 import nl.rug.search.odr.project.ProjectLocal;
@@ -27,6 +30,10 @@ public class ToLatexController {
     private Project project;
 
     private ProjectMember member;
+
+    private final String openingBracketPlaceholder = "!\"!{!\"!";
+
+    private final String closingBracketPlaceholder = "!\"!}!\"!";
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="EJBs">
@@ -81,6 +88,38 @@ public class ToLatexController {
 
     public boolean isValid() {
         return project != null && member != null;
+    }
+
+
+
+
+    public List<Iteration> getOrderedIterations() {
+        List<Iteration> iterations = makeModifiable(project.getIterations());
+        Collections.sort(iterations, new Iteration.EndDateComparator());
+
+        return iterations;
+    }
+
+
+
+
+    public String texEncode(String text) {
+        text = text.replace("{", openingBracketPlaceholder);
+        text = text.replace("}", closingBracketPlaceholder);
+
+        text = text.replace("\\", "{\\backslash}");
+        text = text.replace("#", "{\\#}");
+        text = text.replace("$", "{\\$}");
+        text = text.replace("%", "{\\%}");
+        text = text.replace("&", "{\\&}");
+        text = text.replace("~", "{\\~}");
+        text = text.replace("_", "{\\_}");
+        text = text.replace("^", "{\\^}");
+
+        text = text.replace(openingBracketPlaceholder, "{\\{}");
+        text = text.replace(closingBracketPlaceholder, "{\\}}");
+
+        return text;
     }
 
 

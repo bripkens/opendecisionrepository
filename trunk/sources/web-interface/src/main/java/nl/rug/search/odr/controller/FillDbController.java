@@ -808,55 +808,55 @@ public class FillDbController {
 
         TemplateComponent templateComponent = new TemplateComponent();
         templateComponent.setLabel("Issue");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Describe the architectural design issue you’re addressing, leaving no questions about why you’re addressing this issue now. Following a minimalist approach, address and document only the issues that need addressing at various points in the life cycle.");
         templateComponent.setOrder(0);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Decision");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Clearly state the architecture’s direction—that is, the position you’ve selected.");
         templateComponent.setOrder(1);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Group");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("You can use a simple grouping—such as integration, presentation, data, and so on—to help organize the set of decisions. You could also use a more sophisticated architecture ontology, such as John Kyaruzi and Jan van Katwijk’s, which includes more abstract categories such as event, calendar, and location.8 For example, using this ontology, you’d group decisions that deal with occurrences where the system requires information under event.");
         templateComponent.setOrder(2);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Assumptions");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Clearly describe the underlying assumptions in the environment in which you’re making the decision—cost, schedule, technology, and so on. Note that environmental constraints (such as accepted technology standards, enterprise architecture, commonly employed patterns, and so on) might limit the alternatives you consider.");
         templateComponent.setOrder(3);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Constraints");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Capture any additional constraints to the environment that the chosen alternative (the decision) might pose.");
         templateComponent.setOrder(4);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Positions");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("List the positions (viable options or alternatives) you considered. These often require long explanations, sometimes even models and diagrams. This isn’t an exhaustive list. However, you don’t want to hear the question “Did you think about ... ?” during a final review; this leads to loss of credibility and questioning of other architectural decisions. This section also helps ensure that you heard others’ opinions; explicitly stating other opinions helps enroll their advocates in your decision.");
         templateComponent.setOrder(5);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Argument");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Outline why you selected a position, including items such as implementation cost, total ownership cost, time to market, and required development resources’ availability. This is probably as important as the decision itself.");
         templateComponent.setOrder(6);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Implications");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("A decision comes with many implications, as the REMAP metamodel denotes. For example, a decision might introduce a need to make other decisions, create new requirements, or modify existing requirements; pose additional constraints to the environment; require renegotiating scope or schedule with customers; or require additional staff training. Clearly understanding and stating your decision’s implications can be very effective in gaining buy-in and creating a roadmap for architecture execution.");
         templateComponent.setOrder(7);
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Notes");
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
+        templateComponent.setLocalizationReference("Because the decision-making process can take weeks, we’ve found it useful to capture notes and issues that the team discusses during the socialization process.");
         templateComponent.setOrder(8);
         template.addComponent(templateComponent);
 
@@ -867,20 +867,20 @@ public class FillDbController {
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Problem/Issue");
+        templateComponent.setLocalizationReference("Describe the architectural design issue you’re addressing, leaving no questions about why you’re addressing this issue now. Following a minimalist approach, address and document only the issues that need addressing at various points in the life cycle.");
         templateComponent.setOrder(0);
-        templateComponent.setLocalizationReference("Lorem ipsum dolor sit amet, consectetur adipisicing elit.");
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Decision");
+        templateComponent.setLocalizationReference("Clearly state the architecture’s direction—that is, the position you’ve selected.");
         templateComponent.setOrder(1);
-        templateComponent.setLocalizationReference("Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
         template.addComponent(templateComponent);
 
         templateComponent = new TemplateComponent();
         templateComponent.setLabel("Arguments");
         templateComponent.setOrder(3);
-        templateComponent.setLocalizationReference("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.");
+        templateComponent.setLocalizationReference("Outline why you selected a position, including items such as implementation cost, total ownership cost, time to market, and required development resources’ availability. This is probably as important as the decision itself.");
         template.addComponent(templateComponent);
 
         dtl.persist(template);
