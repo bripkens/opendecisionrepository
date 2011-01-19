@@ -617,7 +617,7 @@ odr.ready(function() {
  * @param {jQueryEvent} e The jQuery event
  */
 odr._selectionStart = function(e) {
-    if (!$(e.target).is("body, svg")) {
+    if (!$(e.target).is("body, svg, div#svgContainer")) {
         return;
     }
 
