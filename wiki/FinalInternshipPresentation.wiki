@@ -1,7 +1,6 @@
 =Introduction=
-The following presentation was given by [mailto:stefan.arians@gmail.com Stefan Arians] and [http://www.bripkens.de Ben Ripkens] at the Fontys University of Applied Sciences Venlo during the homecoming day Friday, October 29th, 2010.
+The following presentation was given by [mailto:stefan.arians@gmail.com Stefan Arians] and [http://www.bripkens.de Ben Ripkens] at the University of Groningen - Thursday, January 20th, 2011.
 
-The presentation is also hosted on [http://www.slideshare.net/BenRipkens/open-decision-repository-homecoming-day-presentation slideshare].
 
 =Presentation hosted on youtube=
 
@@ -10,20 +9,39 @@ The presentation is also hosted on [http://www.slideshare.net/BenRipkens/open-de
 =Presentation as separate images=
 http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide1.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide2.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide2.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide3.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide3.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide4.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide4.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide5.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide5.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide6.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide6.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide7.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide7.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide8.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide8.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide9.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide9.png
 ----
-http://opendecisionrepository.googlecode.com/svn/wiki/images/slides-homecoming-day/slide12.png
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide10.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide11.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide12.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide13.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide14.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide15.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide16.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide17.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide18.png
+----
+http://opendecisionrepository.googlecode.com/svn/wiki/images/final-internship-presentation/slide19.png
+----
