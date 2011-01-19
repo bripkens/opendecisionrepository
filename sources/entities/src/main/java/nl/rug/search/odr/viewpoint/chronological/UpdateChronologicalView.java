@@ -48,6 +48,8 @@ public class UpdateChronologicalView {
     private void copyDetails(ChronologicalViewNode source, ChronologicalViewNode target) {
         target.setX(source.getX());
         target.setY(source.getY());
+        target.setWidth(source.getWidth());
+        target.setHeight(source.getHeight());
         target.setVisible(source.isVisible());
     }
 
