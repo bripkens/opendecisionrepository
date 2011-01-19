@@ -118,7 +118,7 @@ public class EssentialsStep implements WizardStep {
 
     public void addConcern() {
         for (Concern concern : wizard.getProject().
-                getConcerns()) {
+                getDestinctConcerns()) {
             if (concern.getName().
                     equals(selectedConcern) && !selectedConcerns.contains(concern)) {
                 selectedConcerns.add(concern);

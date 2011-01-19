@@ -28,7 +28,7 @@
             <pre class="sh_latex">
 \documentclass{article}
 
-\usepackage{hyperref, booktabs}
+\usepackage{hyperref, booktabs, textcomp}
 
 \let\stdsection\section
 \renewcommand\section{\newpage\stdsection}
@@ -95,7 +95,7 @@
             \item [Documented when] <ice:outputText value="#{iteration.documentedWhen}" nospan="true">
             <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
         </ice:outputText>
-            \item [Documented by] #{toLatexController.texEncode(iteration.projectMember.person.name)}
+            \item [Documented by] #{toLatexController.texEncode(iteration.projectMember.person.name)} \textless #{toLatexController.texEncode(iteration.projectMember.person.email)} \textgreater
         \end{description}
 
         #{toLatexController.texEncode(iteration.description)}
@@ -115,7 +115,7 @@
             \item [Documented when] <ice:outputText value="#{concern.createdWhen}" nospan="true">
                 <f:convertDateTime type="date" pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
             </ice:outputText>
-            \item [Documented by] #{concern.initiators.person.name}
+            \item [Documented by] #{toLatexController.texEncode(concern.initiators.person.name)} \textless #{toLatexController.texEncode(concern.initiators.person.email)} \textgreater
         \end{description}
 
         \subsubsection{Tags}
@@ -124,7 +124,7 @@
         <ice:outputText value="\\begin{itemize}" nospan="true" rendered="#{!empty concern.tags}" />
         
 <ice:repeat value="#{toLatexController.makeModifiable(concern.tags)}" var="tag" rendered="#{!empty concern.tags}"><!--
-    -->            \item #{toLatexController.texEncode(tag)}
+-->            \item #{toLatexController.texEncode(tag)}
 </ice:repeat><!--
 -->
         <ice:outputText value="        \\end{itemize}" nospan="true" rendered="#{!empty concern.tags}" />
@@ -140,18 +140,27 @@
     \section{Decisions}
     \label{sec:decisions}
 
-    \subsection{DECISION-NAME}
-    \label{sec:decisions:DECISION-ID}
+<ui:repeat value="#{toLatexController.makeModifiable(toLatexController.project.decisions)}" var="decision" rendered="#{!empty toLatexController.project.decisions}"><!--
+-->
+    \subsection{#{toLatexController.texEncode(decision.name)}}
+    \label{sec:decisions:#{decision.id}}
 
     \begin{description}
-        \item
+        \item [State] #{toLatexController.texEncode(decision.currentVersion.state.statusName)}
     \end{description}
 
-    \subsubsection{Description}
-    \label{sec:decisions:DECISION-ID:description}
+    \subsubsection{Initiators}
+    \label{sec:decisions:#{decision.id}:initiators}
 
-    \textbf{COMPONENT_HEADLINE}
-    COMPONENT_TEXT
+<ui:repeat value="#{toLatexController.makeModifiable(decision.currentVersion.initiators)}" var="initiator"><!--
+-->    <ice:outputText value="#{toLatexController.texEncode(initiator.person.name)}" rendered="#{!empty initiator.person.name}" nospan="true"/> \textless #{toLatexController.texEncode(initiator.person.email)} \textgreater
+</ui:repeat><!--
+-->
+
+    \subsubsection{Description}
+    \label{sec:decisions:#{decision.id}:description}
+</ui:repeat><!--
+-->
 \end{document}
             </pre>
         </ice:panelGroup>
