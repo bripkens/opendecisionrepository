@@ -189,9 +189,16 @@
                                 <plugin>
                                     <groupId>nl.windgazer</groupId>
                                     <artifactId>jsdoctk-plugin</artifactId>
-                                    <version>2.0.1-RC1</version>
+                                    <version>2.3.2</version>
                                     <configuration>
                                         <recurse>3</recurse>
+                                        <exclude>
+                                            <param>/^(?!diagram-).+/</param> <!-- Unfortunately negative look ahead is not working or I'm using a wrong syntax -->
+                                            <param>common.js</param>
+                                            <param>jquery-1.4.4.min.js</param>
+                                            <param>jquery-ui-1.8.6.custom.min.js</param>
+                                            <param>vtip-min.js</param>
+                                        </exclude>
                                     </configuration>
                                 </plugin>
                             </reportPlugins>
