@@ -16,7 +16,7 @@
     <ui:define name="content">
         <h1>Support functionality</h1>
         
-        <ice:form id="fillDatabaseForm">
+        <ice:form id="fillDatabaseForm" rendered="#{debugController.debugEnabled}">
             <h3>Abstract</h3>
             <p>Quick login</p>
             <ice:commandButton value="Do it!"

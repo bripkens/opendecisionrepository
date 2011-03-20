@@ -99,11 +99,13 @@
                         </ul>
                     </div>
                 </div>
-                <ul id="shortlinks">
-                    <li>
-                        <a href="fillDb.html"><img src="resources/images/archiv.png" /></a>
-                    </li>
-                </ul>
+                <ice:form rendered="#{debugController.debugEnabled}">
+                    <ul id="shortlinks">
+                        <li>
+                            <a href="fillDb.html"><img src="resources/images/archiv.png" /></a>
+                        </li>
+                    </ul>
+                </ice:form>
                 <ice:outputConnectionStatus disconnectedLabel="#{common['connection.status.lost']}"
                                             cautionLabel="#{common['connection.status.caution']}"
                                             showPopupOnDisconnect="true"/>
