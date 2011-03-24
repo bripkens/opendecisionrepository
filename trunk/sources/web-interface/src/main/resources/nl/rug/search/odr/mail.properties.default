@@ -1,8 +1,0 @@
-feedback.smtp.host                      = smtp.example.com
-feedback.smtp.port                      = 25
-feedback.smtp.user                      = info@example.com
-feedback.smtp.password                  = ludupo17
-feedback.from                           = info@example.com
-feedback.to                             = info@example.com,user@example.com
-feedback.subject                        = [ODR] Feedback
-feedback.message                        = From: %s \n\nUrl: %s \n\nMessage: %s \n\nPage: %s

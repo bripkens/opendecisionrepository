@@ -30,22 +30,6 @@ public class FeedbackServlet extends HttpServlet {
 
     private static final String PROPERTIES_FILE = "nl.rug.search.odr.mail";
 
-//    public static final String SMTP_HOST = "smtp.1und1.de";
-//
-//    public static final String SMTP_USER = "info@decisionrepository.com";
-//
-//    public static final String SMTP_PASSWORD = "ludupo17";
-//
-//    public static final String SMTP_PORT = "25";
-//
-//    public static final String FROM = "info@decisionrepository.com";
-//
-//    public static final String TO = /*"uwe@vanheesch.net", */ "bripkens.dev@gmail.com"/*, "stefan.arians@gmail.com"*/;
-//
-//    public static final String SUBJECT = "[ODR] Feedback";
-//
-//    public static final String MESSAGE = "From: %s \n\nUrl: %s \n\nMessage: %s \n\nPage: %s";
-
 
 
 
@@ -64,26 +48,25 @@ public class FeedbackServlet extends HttpServlet {
         String url = request.getParameter("feedbackInUrl");
         String page = request.getParameter("feedbackInPage");
 
-        ResourceBundle bundle = ResourceBundle.getBundle(PROPERTIES_FILE, request.getLocale());
-
-        message = String.format(bundle.getString("feedback.message"), userEmail, url, message, page);
+        String msgTemplate = System.getProperty("feedback.message").replace("\\n", "\n");
+        message = String.format(msgTemplate, userEmail, url, message, page);
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", bundle.getString("feedback.smtp.host"));
-        props.put("mail.smtp.port", bundle.getString("feedback.smtp.port"));
+        props.put("mail.smtp.host", System.getProperty("feedback.smtp.host"));
+        props.put("mail.smtp.port", System.getProperty("feedback.smtp.port"));
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.submitter", bundle.getString("feedback.smtp.user"));
+        props.put("mail.smtp.submitter", System.getProperty("feedback.smtp.user"));
 
-        Session session = Session.getInstance(props, new Authenticator(bundle.getString("feedback.smtp.user"),
-                bundle.getString("feedback.smtp.password")));
+        Session session = Session.getInstance(props, new Authenticator(System.getProperty("feedback.smtp.user"),
+                System.getProperty("feedback.smtp.password")));
 
         Message email = new MimeMessage(session);
         try {
-            email.setFrom(new InternetAddress(bundle.getString("feedback.from")));
+            email.setFrom(new InternetAddress(System.getProperty("feedback.from")));
 
-            email.setRecipients(Message.RecipientType.TO, InternetAddress.parse(bundle.getString("feedback.to"), false));
+            email.setRecipients(Message.RecipientType.TO, InternetAddress.parse(System.getProperty("feedback.to"), false));
 
-            email.setSubject(bundle.getString("feedback.subject"));
+            email.setSubject(System.getProperty("feedback.subject"));
 
             email.setText(message);
 
