@@ -28,11 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 public class FeedbackServlet extends HttpServlet {
 
 
-    private static final String PROPERTIES_FILE = "nl.rug.search.odr.mail";
-
-
-
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
