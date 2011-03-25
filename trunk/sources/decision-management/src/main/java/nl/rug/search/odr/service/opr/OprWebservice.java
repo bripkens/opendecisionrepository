@@ -27,11 +27,9 @@ public class OprWebservice implements AbstractWebservice {
 
     private static final String ENTITIES_PACKAGE = "nl.rug.search.opr.entities";
 
-    private static final String SEARCH_URL = "http://patternrepository.com/web-services/resources/search?q=";
+    private static final String SEARCH_URL = System.getProperty("odr.search.opr");
 
-    private static final String GET_URL = "http://patternrepository.com/web-services/resources/pattern/";
-
-    private static final String DESCRIPTION_TO_REMOVE = "Example/Figure";
+    private static final String GET_URL = System.getProperty("odr.retrieve.opr");
 
 
     @Override
@@ -95,10 +93,6 @@ public class OprWebservice implements AbstractWebservice {
         List<Paragraph> result = new ArrayList<Paragraph>(pattern.getContent().size());
 
         for (Content content : pattern.getContent()) {
-            if (content.getName().equals(DESCRIPTION_TO_REMOVE)) {
-                continue;
-            }
-
             Paragraph p = new ParagraphImpl(content.getName(), content.getText());
             result.add(p);
         }
