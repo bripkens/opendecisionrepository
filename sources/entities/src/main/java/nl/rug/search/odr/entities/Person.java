@@ -66,7 +66,8 @@ public class Person extends BaseEntity<Person> {
     private String name;
 
     @Column(length = 255,
-            unique = true)
+            unique = true,
+            nullable=false)
     private String email;
 
     @Column(length = 255,
