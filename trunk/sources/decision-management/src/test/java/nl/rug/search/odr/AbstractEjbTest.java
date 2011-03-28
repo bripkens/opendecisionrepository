@@ -19,7 +19,7 @@ public abstract class AbstractEjbTest {
     private static EJBContainer ejbC;
 
     @Before
-    public void tearDown() {
+    public void tearUp() {
         ejbC = ContainerHolder.container;
         DatabaseCleaner.bruteForceCleanup();
     }

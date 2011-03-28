@@ -127,9 +127,22 @@ odr.handleRelationshipView = function(data) {
         association.source(odr.vars.allDecisionNodes[associationJson.Relationship.Source.Id]);
         association.target(odr.vars.allDecisionNodes[associationJson.Relationship.Target.Id]);
 
+        if (associationJson.Handles.length <= 0) {
+            associationJson.Handles = [
+                {X : association.source().x() + 10, Y : association.source().y() + 10},
+                {X : association.target().x() + 10, Y : association.target().y() + 10}
+            ];
+        }
+
         association.loadHandles(associationJson.Handles);
 
         odr.vars.allAssociations[associationJson.Id] = association;
+    }
+
+    for (var i in odr.vars.allDecisionNodes) {
+        var visible = odr.vars.allDecisionNodes[i].visible();
+        odr.vars.allDecisionNodes[i].visible(!visible);
+        odr.vars.allDecisionNodes[i].visible(visible);
     }
 
     root.unsuspendRedraw(suspendID);
@@ -232,10 +245,28 @@ odr.handleChronologicalView = function(data) {
             association.target(odr.vars.allDecisionNodes[associationJson.TargetVersion.Id]);
         }
 
-        
+        if (associationJson.Handles.length <= 0) {
+            associationJson.Handles = [
+                {X : 0, Y : 0},
+                {X : 100, Y : 100}
+            ];
+        }
+
         association.loadHandles(associationJson.Handles);
 
         odr.vars.allAssociations[associationJson.Id] = association;
+    }
+
+    for (var i in odr.vars.allDecisionNodes) {
+        var visible = odr.vars.allDecisionNodes[i].visible();
+        odr.vars.allDecisionNodes[i].visible(!visible);
+        odr.vars.allDecisionNodes[i].visible(visible);
+    }
+
+    for (var i in odr.vars.allIterationNodes) {
+        var visible = odr.vars.allIterationNodes[i].visible();
+        odr.vars.allIterationNodes[i].visible(!visible);
+        odr.vars.allIterationNodes[i].visible(visible);
     }
 
     root.unsuspendRedraw(suspendID);

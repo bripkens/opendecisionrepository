@@ -17,7 +17,7 @@ import nl.rug.search.odr.entities.BaseEntity;
 /**
  *
  * @author cm
- * @modified ben
+ * @author ben
  */
 public abstract class GenericDaoBean<T extends BaseEntity, ID extends Serializable> implements GenericDaoLocal<T, ID> {
 

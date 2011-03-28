@@ -160,7 +160,7 @@ public class ViewpointDataProvider extends HttpServlet {
         if (existingVisualization == null) {
             existingVisualization = initRelationshipView(p);
         } else {
-            updateRelationshipView(p, existingVisualization);
+            existingVisualization = updateRelationshipView(p, existingVisualization);
         }
 
         return existingVisualization;
@@ -187,7 +187,7 @@ public class ViewpointDataProvider extends HttpServlet {
 
 
 
-    private void updateRelationshipView(Project p, RelationshipViewVisualization v) {
+    private RelationshipViewVisualization updateRelationshipView(Project p, RelationshipViewVisualization v) {
         InitRelationshipView relationshipView = new InitRelationshipView(p);
 
         relationshipView.updateView(v);
@@ -196,6 +196,12 @@ public class ViewpointDataProvider extends HttpServlet {
 
         // we are retrieving the visualization again from the database to get all IDs right
         v = rvl.getById(v.getId());
+
+        relationshipView.updateView(v);
+
+        relationshipView.sortVisualization(v);
+
+        return v;
     }
 
 
