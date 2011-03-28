@@ -277,6 +277,25 @@ public class InitRelationshipViewTest {
         assertFalse(v.containsVersion(v31));
         assertFalse(containsRelationship(v, r4));
 
+
+        // adding a new decision with a new relationship
+        Decision d4 = new Decision();
+        d4.setName("eee");
+        project.addDecision(d4);
+
+        Version v41 = new Version();
+        v41.setId(41l);
+        v41.setDecidedWhen(new Date());
+        d4.addVersion(v41);
+
+        Relationship r5 = new Relationship();
+        r5.setId(5l);
+        r5.setSource(v12);
+        r5.setTarget(v41);
+
+        irv.updateView(v);
+        assertTrue(v.containsVersion(v41));
+        assertTrue(containsRelationship(v, r5));
     }
 
 

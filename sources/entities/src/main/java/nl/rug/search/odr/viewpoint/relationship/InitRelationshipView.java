@@ -60,9 +60,13 @@ public class InitRelationshipView {
 
 
 
+    public void sortVisualization(RelationshipViewVisualization visualization) {
+        Collections.sort(visualization.getNodes(), new RelationshipViewNode.DecisionNameComparator());
+    }
+
 
     private void sortNodes() {
-        Collections.sort(visualization.getNodes(), new RelationshipViewNode.DecisionNameComparator());
+        sortVisualization(visualization);
     }
 
 
@@ -95,7 +99,6 @@ public class InitRelationshipView {
         removeNodesWithRemovedDecisions();
         replaceOldVersions();
         addNewNodes();
-        sortNodes();
     }
 
 
