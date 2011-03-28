@@ -8,6 +8,7 @@ import java.util.List;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import nl.rug.search.odr.BusinessException;
+import nl.rug.search.odr.OprWikiModel;
 import nl.rug.search.odr.WizardStep;
 import nl.rug.search.odr.entities.ComponentValue;
 import nl.rug.search.odr.entities.Decision;
@@ -44,9 +45,12 @@ public class TemplateRelatedStep implements WizardStep {
 
     private boolean noResult;
 
+    private OprWikiModel owm;
+
     public TemplateRelatedStep(ManageDecisionController wizard) {
         this.wizard = wizard;
         webService = Webservice.OPR.getInstance();
+        owm = OprWikiModel.getDefault();
     }
 
 
@@ -254,8 +258,6 @@ public class TemplateRelatedStep implements WizardStep {
             return;
         }
 
-        selectedExternalId = selectedExternalId.trim();
-
         if (selectedExternalId.isEmpty()) {
             genericInformation = null;
             return;
@@ -346,5 +348,10 @@ public class TemplateRelatedStep implements WizardStep {
 
     public boolean isNoResult() {
         return noResult;
+    }
+
+
+    public String toOprWiki(String content) {
+        return owm.render(content);
     }
 }
