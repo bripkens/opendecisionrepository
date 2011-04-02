@@ -59,7 +59,7 @@
                     <ul>
                         <ice:repeat value="#{manageDecisionController.confirmationStep.relationships}" var="item">
                             <li>
-                                <ice:outputFormat value="#{form['decision.wizard.confirmation.relationships']}" escape="false">
+                                <ice:outputFormat value="#{form['decision.wizard.confirmation.relationships']}" escape="true">
                                     <f:param value="#{manageDecisionController.decision.name}" />
                                     <f:param value="#{item.typeName}" />
                                     <f:param value="#{item.targetName}" />

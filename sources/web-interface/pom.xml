@@ -15,7 +15,11 @@
     <name>ODR - Web Interface</name>
     
     <url>http://code.google.com/p/opendecisionrepository/</url>
-    
+
+    <properties>
+        <icefaces.version>2.0.1</icefaces.version>
+    </properties>
+
     <repositories>
         <repository>
             <id>java.net2</id>
@@ -84,7 +88,7 @@
         <dependency>
             <groupId>org.icefaces</groupId>
             <artifactId>icefaces-compat</artifactId>
-            <version>2.0.0</version>
+            <version>${icefaces.version}</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
@@ -117,7 +121,7 @@
         <dependency>
             <groupId>org.icepush</groupId>
             <artifactId>icepush</artifactId>
-            <version>2.0.0</version>
+            <version>${icefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
