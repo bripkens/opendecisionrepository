@@ -73,7 +73,7 @@
                         </div>
                         <div class="text">
                             <h2><ice:outputText value="#{page['decision.details.abstract.headline']}" nospan="true" /></h2>
-                            <ice:outputFormat value="#{page['decision.details.abstract.state']}">
+                            <ice:outputFormat value="#{page['decision.details.abstract.state']}" escape="true">
                                 <f:param value="#{decisionDetailsController.version.state.statusName}" />
                             </ice:outputFormat><br />
 
@@ -135,7 +135,7 @@
                             <ul class="subList">
                                 <ice:repeat value="#{decisionDetailsController.outgoingRelationships}" var="item">
                                     <li>
-                                    <ice:outputFormat value="#{page['decision.details.relationship.outgoing']}" escape="false">
+                                    <ice:outputFormat value="#{page['decision.details.relationship.outgoing']}" escape="true">
                                         <f:param value="#{item.type.name}" />
                                     </ice:outputFormat>
                                     <a href="#{item.decisionLink}">
@@ -159,7 +159,7 @@
                                         <a href="#{item.decisionLink}">
                                             <ice:outputText value="#{item.decision.name}" nospan="true" />
                                         </a>
-                                    <ice:outputFormat value="#{page['decision.details.relationship.incoming']}" escape="false">
+                                    <ice:outputFormat value="#{page['decision.details.relationship.incoming']}" escape="true">
                                         <f:param value="#{item.type.name}" />
                                     </ice:outputFormat>
                                     </li>
