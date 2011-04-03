@@ -64,6 +64,9 @@ public class ManageProjectController extends AbstractManageController {
     public static final String USEDPROJECTNAME_ID =
             "nl.rug.search.odr.controller.ManageProjectController.DUPLICATEPROJECTNAME";
 
+    public static final String INVALIDNAME =
+            "nl.rug.search.odr.controller.ManageProjectController.INVALIDPROJECTNAMES";
+
     public static final String ALREADY_MEMBER =
             "nl.rug.search.odr.controller.ManageProjectController.ALREADYMEMBER";
 
@@ -316,10 +319,19 @@ public class ManageProjectController extends AbstractManageController {
         }
 
 
+        if (!isProjectNameValid(newName)) {
+
+            throw new ValidatorException(MessageFactory.getMessage(
+                    fc,
+                    INVALIDNAME,
+                    new Object[]{
+                        MessageFactory.getLabel(fc, uic)
+                    }));
+        }
+
         if (!pl.isUsed(newName)) {
             return;
         }
-
 
 
         throw new ValidatorException(MessageFactory.getMessage(
@@ -328,6 +340,21 @@ public class ManageProjectController extends AbstractManageController {
                 new Object[]{
                     MessageFactory.getLabel(fc, uic)
                 }));
+    }
+
+
+
+
+    private boolean isProjectNameValid(String newProjectName) {
+        String allNames = JsfUtil.evaluateExpressionGet("#{error['invalid.project.names']}", String.class);
+        String[] invalidNames = allNames.split(",");
+
+        for (String word : invalidNames) {
+            if (newProjectName.equals(word.trim())) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -552,6 +579,9 @@ public class ManageProjectController extends AbstractManageController {
     }
     // </editor-fold>
 
+
+
+
     public List<NavigationBuilder.NavigationLink> getNavigationBar() {
         NavigationBuilder navi = new NavigationBuilder();
         navi.setNavigationSite(FacesContext.getCurrentInstance().getViewRoot().getViewId());
@@ -559,4 +589,10 @@ public class ManageProjectController extends AbstractManageController {
         return navi.getNavigationBar();
     }
 
+
+
+
 }
+
+
+

@@ -36,7 +36,7 @@
                                id="confirmDeleteButton"/>
         </ice:form>
 
-        <ice:form id="manageProjectForm" rendered="#{manageProjectController.validRequest and !manageProjectController.deleteRequest}">
+        <ice:form id="manageProjectForm" rendered="#{manageProjectController.validRequest and !manageProjectController.deleteRequest}" partialSubmit="true">
 
             <h1><ui:insert name="heading" /></h1>
 
