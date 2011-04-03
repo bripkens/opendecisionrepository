@@ -9,7 +9,7 @@ The following system properties need to be set in order to use the ODR properly.
 || feedback.smtp.password || Any string || Password used authentication with the smtp host || 12345 ||
 || feedback.smtp.port || Integer || smtp port used for sending a feedback email || 25 ||
 || feedback.smtp.user || String || User name used for authentication with the smtp host || odruser ||
-|| feedback.subject || String || Will be used as the subject of a feedback mail || [ODR] Feedback ||
+|| feedback.subject || String || Will be used as the subject of a feedback mail || {{{[ODR]}}} Feedback ||
 || || || || ||
 || || || || ||
 || || || || ||
