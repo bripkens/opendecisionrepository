@@ -47,3 +47,7 @@ The JNDI name *jdbc/odr* can be changed by modifying the persistence.xml file wh
 
 == Deploying ==
 Use the admin menu to deploy the Open Decision Repository. In order to do so click on _Applications => Deploy..._. Select the *OpenDecisionRepository.ear* file (see build process step) and click ok.
+
+== Adding required entities to the database ==
+In order to work correctly the ODR requires certain entities, e.g. stakeholder roles, relationship types. The simplest way to use them is the change the system property *odr.debug* and to set it to *true*. After you did this you will see a small button next to the _Learn more_ link in the navigation bar. Click this button to navigate to new page which allows you to add these entities. Click all the buttons which you see between the _entities_ and _workflow_ headings. After this it should be possible to use the ODR.
+*Make sure to set odr.debug to false after you are done!*
