@@ -29,6 +29,10 @@ mvn install
 
 All this could be simplified to a `mvn clean install` from within the _/trunk/sources_ directory. Unfortunately this is not possible due to the current project structure, i.e. acceptance tests would automatically be run. [http://code.google.com/p/opendecisionrepository/issues/detail?id=55 Issue 55] has been created to cope with this problem.
 
+Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory.
+
 === Changing the context root ===
 If you want to change the context root of the ODR from the default _/odr_ to something else you need to modify the following file:
 /trunk/sources/odr-startup/src/main/application/META-INF/application.xml
+
+== Preparing the application server ==
