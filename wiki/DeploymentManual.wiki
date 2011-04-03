@@ -44,3 +44,6 @@ As mentioned in the previous paragraph you need to set some system properties. S
 
 === Changing the JNDI name ===
 The JNDI name *jdbc/odr* can be changed by modifying the persistence.xml file which can be found in the _/trunk/sources/entities/src/main/resources/META-INF_ directory.
+
+== Deploying ==
+Use the admin menu to deploy the Open Decision Repository. In order to do so click on _Applications => Deploy..._. Select the *OpenDecisionRepository.ear* file (see build process step) and click ok.
