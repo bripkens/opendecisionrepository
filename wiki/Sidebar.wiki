@@ -75,4 +75,6 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Model_Visualization Model]
    * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve diagram]
    * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Export Export diagram]
+  * *Getting started*
+   * [http://code.google.com/p/opendecisionrepository/wiki/SystemProperties System properties]
  * *[http://code.google.com/p/opendecisionrepository/wiki/Stats Statistics]*
