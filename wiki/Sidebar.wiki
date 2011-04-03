@@ -76,5 +76,6 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve diagram]
    * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Export Export diagram]
   * *Getting started*
+   * [http://code.google.com/p/opendecisionrepository/wiki/DeploymentManual Deployment manual]
    * [http://code.google.com/p/opendecisionrepository/wiki/SystemProperties System properties]
  * *[http://code.google.com/p/opendecisionrepository/wiki/Stats Statistics]*
