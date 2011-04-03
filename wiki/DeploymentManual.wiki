@@ -1,6 +1,6 @@
 = Deployment manual =
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="3" />
 
 == Recommended set up ==
 The following set up has been used for development, staging and production. Due to the early version of this project additional knowledge about the technologies may be required in order to get the system up and running.
