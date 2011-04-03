@@ -28,6 +28,7 @@ mvn install
 }}}
 
 All this could be simplified to a `mvn clean install` from within the _/trunk/sources_ directory. Unfortunately this is not possible due to the current project structure, i.e. acceptance tests would automatically be run. [http://code.google.com/p/opendecisionrepository/issues/detail?id=55 Issue 55] has been created to cope with this problem.
+Please note that you currently need to have the Java Derby database up and running in order to build the decision-management component.
 
 Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory.
 
@@ -36,3 +37,9 @@ If you want to change the context root of the ODR from the default _/odr_ to som
 /trunk/sources/odr-startup/src/main/application/META-INF/application.xml
 
 == Preparing the application server ==
+Preparing the application server is a matter of setting system properties and adding a connection pool and JDBC resources. The simplest approach is to use the Derby database that ships with Glassfish. To start the database execute the _start-database_ command on the _asadmin_ utility.
+
+After that use the left navigation bar and click on _Resources => JDBC => JDBC Resources => New..._. In this new form enter the JNDI name *jdbc/odr*, select the DerbyPool and click _ok_.
+
+=== Changing the JNDI name ===
+The JNDI name *jdbc/odr* can be changed by modifying the persistence.xml file which can be found in the _/trunk/sources/entities/src/main/resources/META-INF_ directory.
