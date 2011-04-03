@@ -37,9 +37,10 @@ If you want to change the context root of the ODR from the default _/odr_ to som
 /trunk/sources/odr-startup/src/main/application/META-INF/application.xml
 
 == Preparing the application server ==
-Preparing the application server is a matter of setting system properties and adding a connection pool and JDBC resources. The simplest approach is to use the Derby database that ships with Glassfish. To start the database execute the _start-database_ command on the _asadmin_ utility.
+Preparing the application server is a matter of setting system properties and adding a connection pool and JDBC resources. The simplest approach is to use the Derby database that ships with Glassfish. To start the database execute the _start-database_ command on the _asadmin_ utility. After that use the left navigation bar (in the web admin menu) and click on _Resources => JDBC => JDBC Resources => New..._. In this new form enter the JNDI name *jdbc/odr*, select the DerbyPool and click _ok_.
 
-After that use the left navigation bar and click on _Resources => JDBC => JDBC Resources => New..._. In this new form enter the JNDI name *jdbc/odr*, select the DerbyPool and click _ok_.
+As mentioned in the previous paragraph you need to set some system properties. System properties can be set using the admin menu by clicking on _Enterprise Server => System properties => Add property_. You can find a list of all properties and a description of them [http://code.google.com/p/opendecisionrepository/wiki/SystemProperties in the wiki].
+
 
 === Changing the JNDI name ===
 The JNDI name *jdbc/odr* can be changed by modifying the persistence.xml file which can be found in the _/trunk/sources/entities/src/main/resources/META-INF_ directory.
