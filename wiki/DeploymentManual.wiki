@@ -10,27 +10,16 @@ The following set up has been used for development, staging and production. Due 
  * MySQL or Derby
 
 == Build process ==
-The ODR makes use of Apache Maven and is therefore simple to build. To get started with the current development version use a fresh checkout of the project (recommended) and execute the following commands.
+The ODR makes use of Apache Maven and is therefore simple to build. To get started with the current development version use a fresh checkout of the project (recommended) and execute the following command.
 
 {{{
 # expected to be executed from the /trunk/sources folder
-mvn clean
-cd testutil
-mvn install
-cd ../entities
-mvn install
-cd ../decision-management
-mvn install
-cd ../web-interface
-mvn install
-cd ../odr-startup
-mvn install
+mvn clean install
+cd odr-startup/
+mvn clean install
 }}}
 
-All this could be simplified to a `mvn clean install` from within the _/trunk/sources_ directory. Unfortunately this is not possible due to the current project structure, i.e. acceptance tests would automatically be run. [http://code.google.com/p/opendecisionrepository/issues/detail?id=55 Issue 55] has been created to cope with this problem.
-Please note that you currently need to have the Java Derby database up and running in order to build the decision-management component.
-
-Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory.
+Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory. The second execution of _mvn clean install_ is required because of an Apache Maven bug which removes version numbers from artifacts.
 
 === Changing the context root ===
 If you want to change the context root of the ODR from the default _/odr_ to something else you need to modify the following file:
