@@ -1,5 +1,6 @@
 package nl.rug.search.odr.project;
 
+import org.junit.Ignore;
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.entities.RelationshipType;
 import org.junit.Test;

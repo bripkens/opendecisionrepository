@@ -1,13 +1,11 @@
 
 package nl.rug.search.odr.decision;
 
-import java.util.List;
+import org.junit.Ignore;
 import nl.rug.search.odr.project.RelationshipTypeBean;
 import nl.rug.search.odr.project.RelationshipTypeLocal;
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.entities.Decision;
-import nl.rug.search.odr.entities.Relationship;
-import nl.rug.search.odr.entities.RelationshipType;
 import nl.rug.search.odr.entities.Version;
 import org.junit.Test;
 import org.junit.Before;

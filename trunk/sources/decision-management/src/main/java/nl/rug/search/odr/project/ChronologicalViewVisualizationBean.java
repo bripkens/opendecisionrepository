@@ -14,7 +14,7 @@ import nl.rug.search.odr.viewpoint.chronological.ChronologicalViewVisualization;
  * @author ben
  */
 @Stateless
-public class ChronologicalVIewVisualizationBean extends GenericDaoBean<ChronologicalViewVisualization, Long> implements ChronologicalViewVisualizationLocal {
+public class ChronologicalViewVisualizationBean extends GenericDaoBean<ChronologicalViewVisualization, Long> implements ChronologicalViewVisualizationLocal {
 
     @Override
     public boolean isPersistable(ChronologicalViewVisualization entity) {
