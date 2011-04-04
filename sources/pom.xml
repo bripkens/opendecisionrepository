@@ -28,6 +28,5 @@
         <module>odr-startup</module>
         <module>entities</module>
         <module>testutil</module>
-        <module>web-interface-test</module>
     </modules>
 </project>
