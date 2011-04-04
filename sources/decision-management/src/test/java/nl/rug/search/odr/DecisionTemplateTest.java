@@ -1,5 +1,6 @@
 package nl.rug.search.odr;
 
+import org.junit.Ignore;
 import nl.rug.search.odr.entities.DecisionTemplate;
 import nl.rug.search.odr.entities.TemplateComponent;
 import org.junit.Before;

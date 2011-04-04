@@ -2,11 +2,9 @@ package nl.rug.search.odr.user;
 
 import nl.rug.search.odr.AbstractEjbTest;
 import nl.rug.search.odr.BusinessException;
-import nl.rug.search.odr.DatabaseCleaner;
 import nl.rug.search.odr.entities.Person;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**

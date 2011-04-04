@@ -172,17 +172,19 @@ public class DatabaseCleaner {
     private boolean clearSingleTable(String tableName) {
         try {
             boolean entriesLeft = false;
-
+            
             ResultSet result = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE).
                     executeQuery("SELECT * FROM ".concat(tableName));
 
-            while (result.next()) {
+            while (!result.isClosed() && result.next()) {
                 entriesLeft = deleteRow(result) || entriesLeft;
             }
 
+
             return entriesLeft;
         } catch (SQLException ex) {
-            throw new RuntimeException("Can't read table contents from table ".concat(tableName), ex);
+            throw new RuntimeException("Can't read table contents from table ".
+                    concat(tableName), ex);
         }
     }
 

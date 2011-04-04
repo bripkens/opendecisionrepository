@@ -1,5 +1,6 @@
 package nl.rug.search.odr.project;
 
+import org.junit.Ignore;
 import java.util.Collection;
 import java.util.ArrayList;
 import nl.rug.search.odr.AbstractEjbTest;
