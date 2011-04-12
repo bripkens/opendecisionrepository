@@ -1,0 +1,167 @@
+/*#############################################################################
+::: Vars
+#############################################################################*/
+/*#############################################################################
+::: Mixins
+#############################################################################*/
+/*#############################################################################
+::: Commonly used classes
+#############################################################################*/
+.hidden {
+  display: none; }
+
+.top {
+  vertical-align: top; }
+
+ul.hierarchal li > ul {
+  margin-left: 20px; }
+
+.clearFloat {
+  clear: both;
+  margin: 0; }
+
+.italics {
+  font-style: italic; }
+
+/*#############################################################################
+::: Page layout
+#############################################################################*/
+body {
+  font-family: sans-serif;
+  font-size: 14px; }
+
+header.page {
+  background-image: url(../img/header.png);
+  background-repeat: repeat-x;
+  height: 82px;
+  position: relative;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #663399; }
+  header.page .header_indention {
+    width: 960px;
+    margin: 0 auto;
+    position: relative; }
+    header.page .header_indention h1 a {
+      text-decoration: none; }
+    header.page .header_indention h1 img {
+      position: absolute;
+      left: 0px;
+      top: 20px;
+      width: 48px;
+      height: 43px; }
+    header.page .header_indention h1 span {
+      position: absolute;
+      left: 53px;
+      top: 29px;
+      color: white;
+      font-size: 1.4em; }
+    header.page .header_indention nav {
+      height: 44px;
+      top: 44px; }
+      header.page .header_indention nav ul {
+        position: absolute;
+        top: 45px;
+        right: 0px;
+        list-style-type: none; }
+        header.page .header_indention nav ul li {
+          float: left;
+          padding: 10px 8px 0;
+          font-weight: bold;
+          color: #414141;
+          height: 21px; }
+          header.page .header_indention nav ul li:first-child {
+            padding-left: 20px; }
+          header.page .header_indention nav ul li:last-child {
+            padding-right: 20px; }
+          header.page .header_indention nav ul li a {
+            color: white;
+            text-decoration: none; }
+            header.page .header_indention nav ul li a:active, header.page .header_indention nav ul li a.active {
+              color: white; }
+            header.page .header_indention nav ul li a:hover {
+              color: white;
+              text-decoration: underline; }
+            header.page .header_indention nav ul li a:focus {
+              color: white; }
+    header.page .header_indention aside {
+      height: 28px;
+      width: 400px;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background-color: white;
+      border-bottom-left-radius: 7px;
+      -moz-border-radius-bottomleft: 7px;
+      -webkit-border-bottom-left-radius: 7px;
+      border-bottom-right-radius: 7px;
+      -moz-border-radius-bottomright: 7px;
+      -webkit-border-bottom-right-radius: 7px; }
+      header.page .header_indention aside .openid-login-button {
+        background-color: #efefef;
+        border-bottom-left-radius: 7px;
+        -moz-border-radius-bottomleft: 7px;
+        -webkit-border-bottom-left-radius: 7px;
+        height: inherit;
+        width: 35px;
+        float: left; }
+        header.page .header_indention aside .openid-login-button .openid-logo {
+          width: 25px;
+          height: 25px;
+          background-image: url(../img/openid-icon.png);
+          background-position: 0 0;
+          margin: 2px 0 0 5px;
+          display: block;
+          font-size: 0;
+          text-indent: -9999px; }
+          header.page .header_indention aside .openid-login-button .openid-logo:hover {
+            background-position: 25px 0; }
+      header.page .header_indention aside .opr-login {
+        border-bottom-right-radius: 7px;
+        -moz-border-radius-bottomright: 7px;
+        -webkit-border-bottom-right-radius: 7px;
+        background-color: white;
+        height: inherit;
+        float: left;
+        width: 365px;
+        position: relative;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out; }
+        header.page .header_indention aside .opr-login input[type=text], header.page .header_indention aside .opr-login input[type=password] {
+          width: 130px;
+          margin: 5px 0 0 10px; }
+        header.page .header_indention aside .opr-login input[type=submit] {
+          margin-left: 8px; }
+        header.page .header_indention aside .opr-login .additional {
+          position: absolute;
+          top: 27px;
+          left: 0px;
+          background-color: white;
+          width: 365px;
+          height: 25px;
+          display: none;
+          -webkit-transition: border-radius 0.3s ease-in-out;
+          -moz-transition: border-radius 0.3s ease-in-out;
+          -o-transition: border-radius 0.3s ease-in-out;
+          -webkit-transition: border-radius 0.3s ease-in-out;
+          transition: border-radius 0.3s ease-in-out; }
+          header.page .header_indention aside .opr-login .additional label {
+            position: relative;
+            top: 5px;
+            left: 6px; }
+            header.page .header_indention aside .opr-login .additional label input {
+              position: relative;
+              top: 1px; }
+        header.page .header_indention aside .opr-login:hover {
+          border-bottom-right-radius: 0px;
+          -moz-border-radius-bottomright: 0px;
+          -webkit-border-bottom-right-radius: 0px; }
+          header.page .header_indention aside .opr-login:hover .additional {
+            border-bottom-right-radius: 7px;
+            -moz-border-radius-bottomright: 7px;
+            -webkit-border-bottom-right-radius: 7px;
+            border-bottom-left-radius: 7px;
+            -moz-border-radius-bottomleft: 7px;
+            -webkit-border-bottom-left-radius: 7px; }

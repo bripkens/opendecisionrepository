@@ -1,0 +1,282 @@
+/*#############################################################################
+::: Vars
+#############################################################################*/
+$page_width: 960px;
+
+$fullcolor: #609;
+$lightcolor: #93c;
+$lightercolor: #96c;
+$darkcolor: #639;
+$darkercolor: #306;
+
+$darkgray: #414141;
+
+/*#############################################################################
+::: Mixins
+#############################################################################*/
+
+@mixin top-left-border-radius($radius) {
+    border-top-left-radius: $radius;
+    -moz-border-radius-topleft: $radius;
+    -webkit-border-top-left-radius: $radius;
+}
+
+@mixin top-right-border-radius($radius) {
+    border-top-right-radius: $radius;
+    -moz-border-radius-topright: $radius;
+    -webkit-border-top-right-radius: $radius;
+}
+
+@mixin bottom-right-border-radius($radius) {
+    border-bottom-right-radius: $radius;
+    -moz-border-radius-bottomright: $radius;
+    -webkit-border-bottom-right-radius: $radius;
+}
+
+@mixin bottom-left-border-radius($radius) {
+    border-bottom-left-radius: $radius;
+    -moz-border-radius-bottomleft: $radius;
+    -webkit-border-bottom-left-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -moz-border-radius: $radius;
+    -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($settings) {
+    -moz-box-shadow: $settings;
+    -webkit-box-shadow: $settings;
+    box-shadow: $settings;
+}
+
+@mixin transition($settings) {
+    -webkit-transition: $settings;
+	-moz-transition: $settings;
+	-o-transition: $settings;
+	-webkit-transition: $settings;
+	transition: $settings;
+}
+
+@mixin sprite-base($img, $x, $y, $width, $height) {
+    background-image: $img;
+    background-repeat: no-repeat;
+    background-position: $x $y;
+    width: $width;
+    height: $height;
+}
+
+/*#############################################################################
+::: Commonly used classes
+#############################################################################*/
+.hidden {
+    display: none;
+}
+
+.top {
+    vertical-align: top;
+}
+
+ul.hierarchal li > ul  {
+    margin-left: 20px;
+}
+
+.clearFloat {
+    clear: both;
+    margin: 0;
+}
+
+.italics {
+    font-style: italic;
+}
+
+/*#############################################################################
+::: Page layout
+#############################################################################*/
+body {
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+header.page {
+    background-image: url(../img/header.png);
+    background-repeat: repeat-x;
+    height: 82px;
+    position: relative;
+    padding-bottom: 1px;
+    border-bottom: 1px solid $darkcolor;
+
+    .header_indention {
+        width: $page_width;
+        margin: 0 auto;
+        position: relative;
+
+        h1 {
+            a {
+                text-decoration: none;
+            }
+            
+            img {
+                position: absolute;
+                left: 0px;
+                top: 20px;
+                width: 48px;
+                height: 43px
+            }
+
+            span {
+                position: absolute;
+                left: 53px;
+                top: 29px;
+                color: white;
+                font-size: 1.4em;
+            }
+        }
+
+        nav {
+            height: 44px;
+            top: 44px;
+
+            ul {
+                position: absolute;
+                top: 45px;
+                right: 0px;
+                list-style-type: none;
+
+                $nav-outter-padding: 20px;
+
+                li {
+                    float: left;
+                    padding: 10px 8px 0;
+                    font-weight: bold;
+                    color: $darkgray;
+                    height: 21px;
+
+                    &:first-child {
+                        padding-left: $nav-outter-padding;
+                    }
+
+                    &:last-child {
+                        padding-right: $nav-outter-padding;
+                    }
+
+                    $navcolor: white;
+
+                    a {
+                        color: $navcolor;
+                        text-decoration: none;
+
+                        &:active, &.active {
+                            color: $navcolor;
+                        }
+                        &:hover {
+                            color: $navcolor;
+                            text-decoration: underline;
+                        }
+                        &:focus {
+                            color: $navcolor;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        aside {
+            $user-menu-width: 400px;
+            $user-menu-open-id-width: 35px;
+            height: 28px;
+            width: $user-menu-width;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background-color: white;
+
+            $header-bar-border-radius: 7px;
+            @include bottom-left-border-radius($header-bar-border-radius);
+            @include bottom-right-border-radius($header-bar-border-radius);
+
+            .openid-login-button {
+                background-color: #efefef;
+                @include bottom-left-border-radius($header-bar-border-radius);
+
+                height: inherit;
+                width: $user-menu-open-id-width;
+                float: left;
+
+                .openid-logo {
+                    width: 25px;
+                    height: 25px;
+                    background-image: url(../img/openid-icon.png);
+                    background-position: 0 0;
+                    margin: 2px 0 0 5px;
+                    display: block;
+                    font-size: 0;
+                    text-indent: -9999px;
+
+                    &:hover {
+                        background-position: 25px 0;
+                    }
+                }
+            }
+
+            .opr-login {
+                @include bottom-right-border-radius($header-bar-border-radius);
+                background-color: white;
+                height: inherit;
+                float: left;
+                width: $user-menu-width - $user-menu-open-id-width;
+                position: relative;
+
+                @include transition(all 0.3s ease-in-out);
+
+                input {
+                    &[type=text], &[type=password] {
+                        width: 130px;
+                        margin: 5px 0 0 10px;
+                    }
+                    &[type=submit] {
+                        margin-left: 8px;
+                    }
+                }
+
+                .additional {
+                    position: absolute;
+                    top: 27px;
+                    left: 0px;
+                    background-color: white;
+                    width: $user-menu-width - $user-menu-open-id-width;
+                    height: 25px;
+                    display: none;
+
+                    @include transition(border-radius 0.3s ease-in-out);
+
+                    label {
+                        position: relative;
+                        top: 5px;
+                        left: 6px;
+
+                        input {
+                            position: relative;
+                            top: 1px;
+                        }
+                    }
+
+                    &.rounded {
+
+                    }
+                }
+
+                &:hover {
+                    @include bottom-right-border-radius(0px);
+
+                    .additional {
+                        @include bottom-right-border-radius($header-bar-border-radius);
+                        @include bottom-left-border-radius($header-bar-border-radius);
+                    }
+                }
+            }
+        }
+    }
+}
