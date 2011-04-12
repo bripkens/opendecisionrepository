@@ -19,15 +19,41 @@
         </h1>
         <nav>
             <ul>
-                <li><a accesskey="1" href="/" class="{% if active == 0 %}active{% endif %}" title="Go to the landing page.">Start</a></li>
+                <li><a accesskey="1" href="/" class="{% if active == 0 %}active{% endif %}" title="Go to the landing page.">Home</a></li>
                 <li><a accesskey="4" href="/pattern/add" class="{% if active == 3 %}active{% endif %}"title="Add a new pattern">New project</a></li>
                 <li><a accesskey="5" href="/" class="{% if active == 4 %}active{% endif %}" title="Learn more about the OPR">Learn more</a></li>
             </ul>
         </nav>
-        <aside>
-            {% include "lib/login.html" %}
+        <aside class="user-info">
+            <div class="user">
+                <img src="https://secure.gravatar.com/avatar/1dc323b6c88b54ca55701ab5ddda7628?s=140&amp;d=https://d3nwyuy0nl342s.cloudfront.net%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="Your avatar" />
+                User name, account, log out
+            </div>
         </aside>
     </div>
 </header>
+<nav id="projectNav">
+    <h1>A JavaScript library for interactive reaction graphs</h1>
+    <ul>
+        <li class="active"><a href="#">Overview</a></li>
+        <li><a href="#">Iterations</a></li>
+        <li><a href="#">Concerns</a></li>
+        <li><a href="#">Decisions</a></li>
+        <li><a href="#">Visualizations</a></li>
+        <li><a href="#">Export</a></li>
+    </ul>
+</nav>
+<div id="site" class="container_16">
+    <div class="grid_10">
+        <p>project description</p>
+
+        <p>Members</p>
+    </div>
+    <div class="grid_6">
+        <p>Edit project, delete project</p>
+        
+        <p>Latest actions in this project</p>
+    </div>
+</div>
 </body>
 </html>
