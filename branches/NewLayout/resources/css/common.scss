@@ -1,13 +1,15 @@
+@import "reset.scss";
+@import "960.scss";
+
 /*#############################################################################
 ::: Vars
 #############################################################################*/
 $page_width: 960px;
 
-$fullcolor: #609;
-$lightcolor: #93c;
-$lightercolor: #96c;
-$darkcolor: #639;
-$darkercolor: #306;
+$link-color: #48A659;
+$bold-color: #343434;
+
+$dark-border: #444;
 
 $darkgray: #414141;
 
@@ -105,13 +107,15 @@ body {
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', sans-serif;
     font-size: 14px;
 }
-
+a {
+    color: $link-color;
+}
 header.page {
     background-image: url(../img/header.png);
     background-repeat: repeat-x;
     height: 82px;
     position: relative;
-    border-bottom: 1px solid $darkercolor;
+    border-bottom: 1px solid #444;
 
     .header_indention {
         width: $page_width;
@@ -147,7 +151,7 @@ header.page {
             ul {
                 position: absolute;
                 top: 45px;
-                right: 0px;
+                right: 6px;
                 list-style-type: none;
 
                 $nav-outter-padding: 20px;
@@ -198,21 +202,40 @@ header.page {
             top: 0px;
             right: 0px;
             background-color: white;
+            font-size: 0.9em;
 
             $header-bar-border-radius: 7px;
             @include bottom-left-border-radius($header-bar-border-radius);
             @include bottom-right-border-radius($header-bar-border-radius);
 
-            &.user-info {
-                div.user {
-                    img {
-                        width: 20px;
-                        height: 20px;
-                        border: 1px solid $darkercolor;
-                        position: absolute;
-                        top: 2px;
-                        left: 5px;
+            ul.user-info {
+                position: relative;
+                top: 7px;
+                list-style: none;
+
+                li {
+                    display: inline;
+                    margin: 0 10px;
+                    font-weight: bold;
+                    text-shadow: #eee 1px 1px 0;
+
+                    &:first-child {
+                        margin-left: 40px;
+                        color: $bold-color;
                     }
+
+                    a {
+                        text-decoration: none;
+                    }
+                }
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                    border: 1px solid $dark-border;
+                    position: absolute;
+                    top: -4px;
+                    left: 10px;
                 }
             }
 
@@ -305,7 +328,7 @@ header.page {
     margin: 0 auto 10px;
     position: relative;
 
-    border: 1px solid $darkercolor;
+    border: 1px solid $dark-border;
     border-top: 0;
     $project-bar-border-radius: 10px;
     @include bottom-right-border-radius($project-bar-border-radius);
@@ -315,7 +338,7 @@ header.page {
 
     h1 {
         position: absolute;
-        color: #343434;
+        color: $bold-color;
         top: 9px;
         left: 20px;
         font-size: 1.2em;
@@ -324,12 +347,12 @@ header.page {
     ul {
         list-style: none;
         position: absolute;
-        right: 0px;
+        right: 5px;
 
         li {
             font-size: 12px;
             font-weight: bold;
-            color: #343434;
+            color: $bold-color;
 
             margin: 0 1px;
 
@@ -338,7 +361,7 @@ header.page {
             @include linear-gradient(white, #f5f5f5, #f5f5f5);
 
             $project-nav-item-border-radius: 5px;
-            border: 1px solid $darkercolor;
+            border: 1px solid $dark-border;
             border-top: 0;
             @include bottom-right-border-radius($project-nav-item-border-radius);
             @include bottom-left-border-radius($project-nav-item-border-radius);
