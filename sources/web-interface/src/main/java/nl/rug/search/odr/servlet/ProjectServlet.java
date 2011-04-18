@@ -15,7 +15,7 @@ import nl.rug.search.odr.project.ProjectLocal;
  *
  * @author Ben Ripkens <bripkens.dev@gmail.com>
  */
-@WebServlet(name = "ProjectServlet", urlPatterns = {"/project/*", "/p/*"})
+@WebServlet(name = "ProjectServlet", urlPatterns = {"/project/*"})
 public class ProjectServlet extends HttpServlet {
 
     @EJB

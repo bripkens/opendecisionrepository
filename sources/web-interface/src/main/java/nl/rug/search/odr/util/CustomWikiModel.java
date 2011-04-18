@@ -19,7 +19,7 @@ public class CustomWikiModel {
                 getBaseHref().
                 substring(1).
                 concat(RequestParameter.PROJECT_PATH_SHORT).
-                concat("$(title)");
+                concat("${title}");
 
 
         wikiModel = new WikiModel("${image}", path);
