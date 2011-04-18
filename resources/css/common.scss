@@ -385,7 +385,14 @@ header.page {
     }
 }
 #site {
-    width: $page_width;
-    margin: 0 auto;
     position: relative;
+    @extend .c_16;
+    @extend .clearfix;
+
+    .left_side {
+        @extend .g_10;
+    }
+    .right_side {
+        @extend .g_6;
+    }
 }
