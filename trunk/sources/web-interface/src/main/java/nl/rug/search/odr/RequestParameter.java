@@ -10,7 +10,6 @@ public interface RequestParameter {
     String AMPERSAND = "&";
     String QUESTION_MARK = "?";
 
-    String PROJECT_PATH_LONG = "/project/";
     String PROJECT_PATH_SHORT = "/p/";
     String PROJECT_PATH_WITH_ENDING_SLASH = "p/";
 
