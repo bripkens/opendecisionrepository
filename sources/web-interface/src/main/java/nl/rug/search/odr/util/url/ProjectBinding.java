@@ -12,8 +12,8 @@ public class ProjectBinding extends Binding {
 
     private final ProjectLocal pl;
 
-    public ProjectBinding(String regex, ProjectLocal pl) {
-        super(regex);
+    public ProjectBinding(String regex, String format, ProjectLocal pl) {
+        super(regex, format);
         this.pl = pl;
     }
 
