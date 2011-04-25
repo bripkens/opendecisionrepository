@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="manageProject.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{form['project.delete.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="heading">
+        <h:outputText value="#{form['project.delete.heading']}"/>
+    </ui:define>
+
+    <ui:define name="deleteConfirmationText">
+        <ice:outputText value="#{form['project.delete.confirm']}" nospan="true" />
+        <ice:outputText value="#{manageProjectController.name}" />?
+    </ui:define>
+
+
+    <ui:define name="sidebar">
+        <div id="help">
+            <ul class="info">
+                <li>
+                    <div class="header">
+                        <img src="resources/images/info.png" alt="information" />
+                    </div>
+                    <div class="text">
+                        <h2><ice:outputText value="#{form['project.delete.help.headline']}" nospan="true" /></h2>
+                        <ice:outputText value="#{form['project.delete.help.text']}" nospan="true" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ui:define>
+</ui:composition>

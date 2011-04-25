@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:ice="http://www.icesoft.com/icefaces/component"
+                    xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <table class="details">
+        <tbody>
+            <tr>
+                <td><ice:outputText value="#{form['label.name']}" nospan="true"/></td>
+                <td><ice:outputText value="#{manageDecisionController.decision.name}" nospan="true" /></td>
+            </tr>
+            <tr>
+                <td><ice:outputText value="#{form['label.status']}" nospan="true"/></td>
+                <td>
+                    <ice:outputText value="#{manageDecisionController.version.state.statusName}" nospan="true" />
+                    <ice:outputText value=" (" nospan="true" />
+                    <ice:outputText value="#{manageDecisionController.version.documentedWhen}" nospan="true">
+                        <f:convertDateTime pattern="#{common['format.date.time']}" timeZone="#{timeZoneController.timeZone}" />
+                    </ice:outputText>
+                    <ice:outputText value=")" nospan="true" />
+                </td>
+            </tr>
+            <tr>
+                <td><ice:outputText value="#{form['label.initiators']}" nospan="true"/></td>
+                <td>
+                    <ul>
+                        <ice:repeat value="#{manageDecisionController.confirmationStep.initiators}" var="item">
+                            <li>
+                                <ice:outputText value="#{item.person.name}" nospan="true" />
+                                <span class="small">&lt;<ice:outputText value="#{item.person.email}" nospan="true" />&gt;</span>
+                            </li>
+                        </ice:repeat>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><ice:outputText value="#{form['label.opr.link']}" nospan="true"/></td>
+                <td><ice:outputText value="#{manageDecisionController.decision.link.link}" nospan="true" /></td>
+            </tr>
+            <tr>
+                <td><ice:outputText value="#{form['label.template']}" nospan="true"/></td>
+                <td><ice:outputText value="#{manageDecisionController.decision.template.name}" nospan="true" /></td>
+            </tr>
+            <ice:repeat value="#{manageDecisionController.confirmationStep.componentValues}" var="item">
+                <tr>
+                    <td><ice:outputText value="#{item.headline}" nospan="true"/></td>
+                    <td><ice:outputText value="#{item.content}" nospan="true" escape="false"/></td>
+                </tr>
+            </ice:repeat>
+            <tr>
+                <td><ice:outputText value="#{form['label.relationships']}" nospan="true"/></td>
+                <td>
+                    <ul>
+                        <ice:repeat value="#{manageDecisionController.confirmationStep.relationships}" var="item">
+                            <li>
+                                <ice:outputFormat value="#{form['decision.wizard.confirmation.relationships']}" escape="true">
+                                    <f:param value="#{manageDecisionController.decision.name}" />
+                                    <f:param value="#{item.typeName}" />
+                                    <f:param value="#{item.targetName}" />
+                                </ice:outputFormat>
+                            </li>
+                        </ice:repeat>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><ice:outputText value="#{form['label.concerns']}" nospan="true"/></td>
+                <td>
+                    <ul>
+                        <ice:repeat value="#{manageDecisionController.confirmationStep.concerns}" var="item">
+                            <li><ice:outputText value="#{item.name}" nospan="true" /></li>
+                        </ice:repeat>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</ui:composition>

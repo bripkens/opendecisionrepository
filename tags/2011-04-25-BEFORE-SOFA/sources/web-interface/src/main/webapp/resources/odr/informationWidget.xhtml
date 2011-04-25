@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xml:lang="en">
+
+    <composite:interface>
+        <composite:attribute name="id" type="java.lang.String"/>
+        <composite:attribute name="text" type="java.lang.String"/>
+        <composite:attribute name="escape" type="java.lang.Boolean" default="false"/>
+        <composite:attribute name="nospan" type="java.lang.Boolean" default="true"/>
+        <composite:attribute name="visible" type="java.lang.Boolean" default="true" />
+    </composite:interface>
+
+    <composite:implementation>
+        <div id="#{cc.attrs.id}" class="informationWidget #{cc.attrs.visible ? '' : 'hidden'}">
+            <div class="icon"/>
+            <ice:outputText value="#{cc.attrs.text}" nospan="#{cc.attrs.nospan}" escape="#{cc.attrs.escape}" />
+        </div>
+    </composite:implementation>
+</html>
