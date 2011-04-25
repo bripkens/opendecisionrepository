@@ -35,7 +35,6 @@ public class UrlRewriteFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
         if (doFilter(httpRequest, httpResponse)) {
-            System.out.println("Continuing with request");
             chain.doFilter(request, response);
         }
     }
@@ -44,8 +43,6 @@ public class UrlRewriteFilter implements Filter {
             HttpServletResponse response) {
         String path = request.getRequestURI().substring(request
                 .getContextPath().length());
-        
-        System.out.println("Analyzing request path: " + path);
         
         return !ROOT.match(path, request, response);
     }
