@@ -13,8 +13,8 @@ public abstract class AuthenticationUtil {
 
     public static void authenticate(Person p) {
         SessionUtil.addValues(
-                new String[] {SessionAttribute.USER_ID, SessionAttribute.USER_NAME},
-                new Object[] {p.getId(), p.getName()});
+                new String[] {SessionAttribute.USER_ID, SessionAttribute.USER_NAME, SessionAttribute.USER_EMAIL},
+                new Object[] {p.getId(), p.getName(), p.getEmail()});
 
     }
     
@@ -32,6 +32,10 @@ public abstract class AuthenticationUtil {
 
     public static String getUserName() {
         return SessionUtil.getSingleValue(SessionAttribute.USER_NAME).toString();
+    }
+    
+    public static String getUserEmail() {
+        return SessionUtil.getSingleValue(SessionAttribute.USER_EMAIL).toString();
     }
 
     public static boolean isAuthtenticated() {

@@ -3,6 +3,7 @@ package nl.rug.search.odr.controller;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import nl.rug.search.odr.util.AuthenticationUtil;
+import nl.rug.search.odr.util.GravatarUtil;
 
 /**
  *
@@ -40,5 +41,9 @@ public class UserMenuController {
 
     public String getName() {
         return AuthenticationUtil.getUserName();
+    }
+    
+    public String getGravatar(int size) {
+        return GravatarUtil.getGravatar(AuthenticationUtil.getUserEmail(), size);
     }
 }
