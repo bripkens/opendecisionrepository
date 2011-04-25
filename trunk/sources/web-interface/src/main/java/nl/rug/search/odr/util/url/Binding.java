@@ -107,7 +107,7 @@ public class Binding {
                 }
             }
 
-            if (target != null) {
+            if (target != null && s.isEmpty()) {
                 target.call(request, response, args);
                 return true;
             }

@@ -19,13 +19,17 @@ public class UrlBindings {
 
     private static final String[] DELETE = {"^delete[/]?", "delete/"};
 
-    private static final String[] ID = {"^\\d+[/]?", "%s/"};
+    private static final String[] ID = {"^(\\d+)[/]?", "%s/"};
 
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="binding attributes">
     private Binding root;
 
+    private Binding register;
+    
+    private Binding logout;
+    
     private Binding projectOverview;
 
     private Binding projectDetails;
@@ -73,16 +77,24 @@ public class UrlBindings {
     private UrlBindings() {
         pl = EjbUtil.lookUp(ProjectLocalHelper.JNDI_NAME, ProjectLocal.class);
 
+        root = new Binding("^[/]?", "").to("/index.html");
+        
+        bindUser();
         bindProject();
-        root = projectOverview;
         bindIteration();
         bindConcern();
         bindDecision();
     }
 
     // <editor-fold defaultstate="collapsed" desc="bindings">
+    private void bindUser() {
+        register = root.bind("^register[/]?").to("/register.html");
+        // todo implement logout!
+        logout = root.bind("^logout[/]?").to("/logout.do");
+    }
+    
     private void bindProject() {
-        projectOverview = new Binding("^[/]?", "").to("/projects.html");
+        projectOverview = root.bind("^p[/]?", "").to("/projects.html");
 
         projectCreate = projectOverview.
                 bind(CREATE).

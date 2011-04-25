@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ul class="user-info">
+        <li>
+            <img src="#{userMenuController.getGravatar(20)}" alt="Your avatar" />
+            #{userMenuController.name}
+        </li>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Log out</a></li>
+    </ul>
+</ui:composition>
