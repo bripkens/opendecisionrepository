@@ -16,7 +16,7 @@ The ODR makes use of Apache Maven and is therefore simple to build. To get start
 {{{
 # expected to be executed from the /trunk/sources folder
 mvn clean install
-cd odr-startup/
+cd startup/
 mvn clean install
 }}}
 
