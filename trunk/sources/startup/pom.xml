@@ -7,7 +7,7 @@
         <version>0.1</version>
     </parent>
   <groupId>nl.rug.search</groupId>
-  <artifactId>odr-startup</artifactId>
+  <artifactId>startup</artifactId>
   <packaging>ear</packaging>
   <version>0.1</version>
   <name>ODR - Startup</name>
