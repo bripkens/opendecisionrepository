@@ -5,13 +5,13 @@
     <parent>
         <artifactId>opendecisionrepository</artifactId>
         <groupId>nl.rug.search</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
     
     <groupId>nl.rug.search</groupId>
     <artifactId>decision-management</artifactId>
     <packaging>ejb</packaging>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>ODR - Decision Management</name>
     
     <url>http://code.google.com/p/opendecisionrepository/</url>
