@@ -3,7 +3,7 @@
   <display-name>odr-startup</display-name>
   <module>
     <web>
-      <web-uri>web-interface-0.1.war</web-uri>
+      <web-uri>web-interface-0.2-SNAPSHOT.war</web-uri>
       <context-root>/odr</context-root>
     </web>
   </module>

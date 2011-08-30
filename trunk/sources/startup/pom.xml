@@ -4,12 +4,12 @@
   <parent>
         <artifactId>opendecisionrepository</artifactId>
         <groupId>nl.rug.search</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
   <groupId>nl.rug.search</groupId>
   <artifactId>startup</artifactId>
   <packaging>ear</packaging>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <name>ODR - Startup</name>
   
   <url>http://code.google.com/p/opendecisionrepository/</url>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>nl.rug.search</groupId>
             <artifactId>web-interface</artifactId>
-            <version>0.1</version>
+            <version>0.2-SNAPSHOT</version>
             <type>war</type>
         </dependency>
     </dependencies>

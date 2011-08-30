@@ -5,13 +5,13 @@
     <parent>
         <artifactId>opendecisionrepository</artifactId>
         <groupId>nl.rug.search</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
     
     <groupId>nl.rug.search</groupId>
     <artifactId>web-interface</artifactId>
     <packaging>war</packaging>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
     <name>ODR - Web Interface</name>
     
     <url>http://code.google.com/p/opendecisionrepository/</url>
