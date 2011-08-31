@@ -20,6 +20,11 @@
             <name>Stefan Arians</name>
             <email>stefan.arians@gmail.com</email>
         </developer>
+        <developer>
+            <id>tima</id>
+            <name>Tim Aerdts</name>
+            <email>fragger123@gmail.com</email>
+        </developer>
     </developers>
 
     <modules>
