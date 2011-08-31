@@ -146,17 +146,6 @@
                 </plugins>
             </build>
         </profile>
-        
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.host.url>http://localhost:8080/sonar</sonar.host.url>
-            </properties>
-        </profile>
-        
     </profiles>
     <properties></properties>
     <reporting>
