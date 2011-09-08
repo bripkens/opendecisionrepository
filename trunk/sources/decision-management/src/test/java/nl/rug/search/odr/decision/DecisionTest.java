@@ -42,8 +42,9 @@ public class DecisionTest extends AbstractEjbTest {
         dl.delete(d);
 
         d = dl.getById(d.getId());
-
-        assertTrue(d.isRemoved());
+        
+        //NOTE done to break the build, tae
+        assertFalse(d.isRemoved());
     }
 
 
