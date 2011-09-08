@@ -11,8 +11,13 @@ Development of a web application that provides functionality to document and vis
 == Credits ==
 The following students have contributed to the Open Decision Repository project.
 
- * [http://www.bripkens.de Ben Ripkens] (bripkens.dev at gmail.com)
+ 
+ * [mailto:fragger123@gmail.com Tim Aerdts] (fragger123 at gmail.com)
  * [mailto:stefan.arians@gmail.com Stefan Arians] (stefan.arians at gmail.com)
+ * [mailto:v.emrich@student.fontys.nl Vadim Emrich] (v.emrich at student.fontys.nl 
+ * [mailto:m.klingen@student.fontys.nl Micheal Klingen] (m.klingen at student.fontys.nl)
+ * [http://www.bripkens.de Ben Ripkens] (bripkens.dev at gmail.com)
+ * [mailto:theodorus.rutten@student.fontys.nl Theo Rutten]
 
 == Get started ==
 To get started you may want to check out the presentations and videos which you can find using the navigation on the left hand side. Especially the following [http://code.google.com/p/opendecisionrepository/wiki/HomecomingDay presentation] may be useful to understand the project.
