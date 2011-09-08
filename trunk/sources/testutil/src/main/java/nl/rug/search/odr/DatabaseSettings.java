@@ -6,7 +6,7 @@ package nl.rug.search.odr;
  */
 public class DatabaseSettings {
 
-    public static String CONNECTION_STRING = "jdbc:derby://127.0.0.1:1527/sun-appserv-samples";
+    public static String CONNECTION_STRING = "jdbc:derby://localhost:1527/sun-appserv-samples";
 
     public static String DRIVER_CLASS = "org.apache.derby.jdbc.ClientDriver";
 
