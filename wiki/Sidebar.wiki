@@ -53,6 +53,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/ANT ANT]
     * [http://code.google.com/p/opendecisionrepository/wiki/Maven Maven]
     * [http://code.google.com/p/opendecisionrepository/wiki/jersey Jersey]
+    * [http://code.google.com/p/opendecisionrepository/wiki/Swing Swing]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
