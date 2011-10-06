@@ -47,7 +47,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Stateful_Web_service Stateful Web service]
     * [http://code.google.com/p/opendecisionrepository/wiki/JSON JSON]
     * [http://code.google.com/p/opendecisionrepository/wiki/XML XML]
-    * [http://code.google.com/p/opendecisionrepository/wiki/HTTPS https]
+    * [http://code.google.com/p/opendecisionrepository/wiki/https HTTPS]
     * [http://code.google.com/p/opendecisionrepository/wiki/sha_256_16byte sha-256 16 byte salt 1000 iterations]
     * [http://code.google.com/p/opendecisionrepository/wiki/ANT ANT]
     * [http://code.google.com/p/opendecisionrepository/wiki/Maven Maven]
