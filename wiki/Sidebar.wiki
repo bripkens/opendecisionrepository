@@ -52,7 +52,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/sha_256_16byte sha-256 16 byte salt 1000 iterations]
     * [http://code.google.com/p/opendecisionrepository/wiki/ANT ANT]
     * [http://code.google.com/p/opendecisionrepository/wiki/Maven Maven]
-    * [http://code.google.com/p/opendecisionrepository/wiki/Jersey Jersey]
+    * [http://code.google.com/p/opendecisionrepository/wiki/jersey Jersey]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
