@@ -42,7 +42,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Apache_FOP Apache FOP]
     * [http://code.google.com/p/opendecisionrepository/wiki/Apache_Batik Apache Batik]
     * [http://code.google.com/p/opendecisionrepository/wiki/SVG_HTML_4 SVG and HTML 4 standard components]
-    * [http://code.google.com/p/opendecisionrepository/wiki/JAX_RS]
+    * [http://code.google.com/p/opendecisionrepository/wiki/JAX_RS JAX-RS]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
