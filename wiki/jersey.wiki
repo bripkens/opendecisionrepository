@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th>jersey</th>
+      <th>Jersey</th>
     </tr>
   </thead>
   <tbody>
