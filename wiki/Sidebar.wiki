@@ -43,6 +43,10 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Apache_Batik Apache Batik]
     * [http://code.google.com/p/opendecisionrepository/wiki/SVG_HTML_4 SVG and HTML 4 standard components]
     * [http://code.google.com/p/opendecisionrepository/wiki/JAX_RS JAX-RS]
+    * [http://code.google.com/p/opendecisionrepository/wiki/Stateless_Web_service Stateless Web service]
+    * [http://code.google.com/p/opendecisionrepository/wiki/Stateful_Web_service Stateful Web service]
+    * [http://code.google.com/p/opendecisionrepository/wiki/JSON JSON]
+    * [http://code.google.com/p/opendecisionrepository/wiki/XML XML]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
