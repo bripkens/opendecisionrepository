@@ -23,6 +23,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Icefaces_1_8 Icefaces 1.8]
     * [http://code.google.com/p/opendecisionrepository/wiki/Icefaces_2_0_beta_1 Icefaces 2.0 beta-1]
     * [http://code.google.com/p/opendecisionrepository/wiki/Icefaces_2_0_beta_2 Icefaces 2.0 beta-2]
+    * [http://code.google.com/p/opendecisionrepository/wiki/IceFaces_2_0_2 Icefaces 2.0.2]
     * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans Enterprise JavaBeans]
     * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3 Enterprise JavaBeans 3]
     * [http://code.google.com/p/opendecisionrepository/wiki/Enterprise_JavaBeans_3_1 Enterprise JavaBeans 3.1]
@@ -51,6 +52,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/sha_256_16byte sha-256 16 byte salt 1000 iterations]
     * [http://code.google.com/p/opendecisionrepository/wiki/ANT ANT]
     * [http://code.google.com/p/opendecisionrepository/wiki/Maven Maven]
+    * [http://code.google.com/p/opendecisionrepository/wiki/Jersey Jersey]
    * [http://code.google.com/p/opendecisionrepository/wiki/Chronological_view Chronological view]
    * [http://code.google.com/p/opendecisionrepository/wiki/Relationship_view Relationship view]
   * *Visualization*
