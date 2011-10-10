@@ -23,9 +23,6 @@
     <tr>
       <td> *Related decisions* </td>
       <td>alternative for - Maven</td>
-      <td>
--
-</td>
     </tr>
   </tbody>
 </table>
