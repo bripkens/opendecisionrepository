@@ -10,11 +10,11 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A buildtool has to be used</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>ANT is rejected</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
@@ -22,6 +22,7 @@
     </tr>
     <tr>
       <td> *Related decisions* </td>
+      <td>alternative for - Maven</td>
       <td>
 -
 </td>
