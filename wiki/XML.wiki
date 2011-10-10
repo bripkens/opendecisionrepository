@@ -18,7 +18,14 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>platform independent, human readable format, supported by the web service</td>
+      <td>
+    * platform independent
+    * human readable format
+    * supported by the web service
+    * widely used
+    * known by most developers
+    * support by many tools and applications
+</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
