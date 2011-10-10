@@ -10,15 +10,15 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>Dialogsystems have to be used in Visual Paradigm</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>Swing will be used</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>Only swing is supported by the Visual Paradigm Open API</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
