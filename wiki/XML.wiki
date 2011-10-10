@@ -10,7 +10,7 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A way to share information over the network has to be chosen </td>
     </tr>
     <tr>
       <td> *Decision* </td>
@@ -18,13 +18,11 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>platform independent, human readable format, supported by the web service</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td>
--
-</td>
+      <td>alternative for - JSON</td>
     </tr>
   </tbody>
 </table>
