@@ -10,21 +10,19 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A buildtool has to be used</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>Use Maven 3.0</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>manage dependencies, convention over configuration, existing    projects are maven projects, team is interested in this technology</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td>
--
-</td>
+      <td> ANT</td>
     </tr>
   </tbody>
 </table>
