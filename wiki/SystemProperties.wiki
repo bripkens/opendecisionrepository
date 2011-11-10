@@ -6,9 +6,9 @@ The following system properties need to be set in order to use the ODR properly.
 || feedback.from || email address || Will be used when sending an email using the feedback system || info@decisionrepository.com ||
 || feedback.message || [http://download.oracle.com/javase/6/docs/api/java/util/Formatter.html#syntax Format string] ||  Used as the email content || From: %s \n\nUrl: %s \n\nMessage: %s \n\nPage: %s ||
 || feedback.smtp.host || valid smtp host || The host which will be used when sending a feedback mail || smtp.1und1.de ||
-|| feedback.smtp.password || Any string || Password used authentication with the smtp host || 12345 ||
-|| feedback.smtp.port || Integer || smtp port used for sending a feedback email || 25 ||
-|| feedback.smtp.user || String || User name used for authentication with the smtp host || odruser ||
+|| feedback.smtp.password || Any string  || Password used authentication with the smtp host || 12345 *this is not mandatory only if your server requires authentification* ||
+|| feedback.smtp.port || Integer || smtp port used for sending a feedback email || 25 *this is not mandatory* ||
+|| feedback.smtp.user || String || User name used for authentication with the smtp host || odruser *this is not mandatory only if your server requires authentification* ||
 || feedback.subject || String || Will be used as the subject of a feedback mail || {{{[ODR]}}} Feedback ||
 || feedback.to || Comma separated list of email addresses || Feedback mails will be sent to this email addresses || user1@example.com,user2@example.com ||
 || odr.cache.ice.active || Boolean || Whether or not aggressive caching will be used for ice resources. Activating this is highly recommended. Default value is false. || true ||
