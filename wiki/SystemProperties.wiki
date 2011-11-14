@@ -18,3 +18,4 @@ The following system properties need to be set in order to use the ODR properly.
 || odr.retrieve.opr || URL || This URL should point to the OPR _retrieve pattern_ web service which is used in the decision wizard. || http://patternrepository.com/web-services/resources/pattern/ ||
 || odr.search.opr || URL || This URL should point to the OPR _search pattern_ web service which is used in the decision wizard. || http://patternrepository.com/web-services/resources/search?q= ||
 || opr.base.href || URL || The base url of the OPR. Will be used when rendering OPR wiki to html. || http://patternrepository.com ||
+|| odr.base.href || URL || The base url of the ODR. Will be used as the HTML base href. || http://decisionrepository.com ||
