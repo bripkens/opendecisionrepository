@@ -23,7 +23,6 @@
       <td>
 <ul>
 <li>`<<is alternative for>>` Glassfish v3.0.1</li>
-<li>`<<caused by>>`Enterprise JavaBeans 3.1</li>
 <li><<is excluded by>> Icefaces 2.0.2</li>
 </ul>
 </td>
