@@ -10,20 +10,27 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A secure way to save the password in the database has to be chosen</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>md5 with 8 Byte salt and 1000 iterations will be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>
+<ul>
+<li>security</li>
+<li>speed</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
--
+<ul>
+<li><<replaces>> sha-256 16 byte salt 1000 iterations</li>
+</ul>
 </td>
     </tr>
   </tbody>
