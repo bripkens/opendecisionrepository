@@ -16,7 +16,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Glassfish Glassfish]
     * [http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v2 Glassfish v2]
     * [http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v3 Glassfish v3]
-    * [http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v3.1 Glassfish v3.1]
+    * [http://code.google.com/p/opendecisionrepository/wiki/Glassfish_v31 Glassfish v3.1]
     * [http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces JavaServer Faces]
     * [http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces_version_1_2 JavaServer Faces version 1.2]
     * [http://code.google.com/p/opendecisionrepository/wiki/JavaServer_Faces_version_2 JavaServer Faces version 2]
