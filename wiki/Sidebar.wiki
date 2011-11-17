@@ -52,6 +52,7 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/XML XML]
     * [http://code.google.com/p/opendecisionrepository/wiki/https HTTPS]
     * [http://code.google.com/p/opendecisionrepository/wiki/sha_256_16byte sha-256 16 byte salt 1000 iterations]
+    * [http://code.google.com/p/opendecisionrepository/wiki/md5_8byte md5 8 byte salt 1000 iterations for password encryption]
     * [http://code.google.com/p/opendecisionrepository/wiki/ANT ANT]
     * [http://code.google.com/p/opendecisionrepository/wiki/Maven Maven]
     * [http://code.google.com/p/opendecisionrepository/wiki/jersey Jersey]
