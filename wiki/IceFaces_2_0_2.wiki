@@ -10,20 +10,23 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>An Icefaces version has to be chosen.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>Use the new stable Version 2.0.2</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>IceFaces reduced the number of static resources and its sizes. This results in faster page loading times</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
--
+<ul>
+<li><<caused by>> Icefaces</li>
+<li>`<<replaces>>` Icefaces 2.0 beta-2</li>
+</ul>
 </td>
     </tr>
   </tbody>
