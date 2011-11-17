@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:ice="http://www.icesoft.com/icefaces/component"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <div class="formSectionineRemover">
+
+        <div class="formSection">
+            <ice:outputLabel value="#{form['label.name']}" for="inName"/>
+            <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+            <ice:inputText id="inName"
+                           label="#{form['label.name']}"
+                           maxlength="100"
+                           value="#{manageDecisionController.essentialsStep.decisionName}"
+                           required="true"
+                           validator="#{manageDecisionController.essentialsStep.checkDecisionName}">
+                <f:validateLength minimum="3" maximum="100" />
+            </ice:inputText>
+            <p>
+                <ice:outputText value="#{form['constraint.minlength']}" nospan="true" /> 3;
+                <ice:outputText value="#{form['constraint.maxlength']}" nospan="true" /> 100;
+                <ice:outputText value="#{form['constraint.decisionname']}" nospan="true" />
+            </p>
+        </div>
+
+
+
+        <div class="formSection">
+            <ice:outputLabel value="#{form['label.template']}" for="inTemplate"/>
+            <ice:outputText value="#{form['constraint.required']}" styleClass="required" />
+            <ice:selectOneMenu id="inTemplate"
+                               label="#{form['label.template']}"
+                               required="true"
+                               value="#{manageDecisionController.essentialsStep.decisionTemplate}"
+                               onchange="j('#templateChangeInformation').slideDown();">
+                <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
+                <f:selectItems value="#{manageDecisionController.essentialsStep.decisionTemplates}" />
+            </ice:selectOneMenu>
+
+            <odr:informationWidget id="templateChangeInformation"
+                                   text="#{form['decision.wizard.essentials.template.information']}"
+                                   visible="false"/>
+
+            <p class="empty increasedPadding" />
+        </div>
+
+
+        <div class="formSection">
+            <ice:outputLabel value="#{form['label.concerns']}" for="inConcerns"/>
+            <ice:selectOneMenu id="inConcerns"
+                               label="#{form['label.concerns']}"
+                               required="true"
+                               immediate="true"
+                               partialSubmit="true"
+                               styleClass="add"
+                               value="#{manageDecisionController.essentialsStep.selectedConcern}">
+                <f:selectItem itemLabel="#{form['label.pleaseSelect']}" />
+                <f:selectItems value="#{manageDecisionController.essentialsStep.availableConcerns}" />
+            </ice:selectOneMenu>
+
+            <ice:commandButton action="#{manageDecisionController.essentialsStep.addConcern}"
+                               value="#{form['button.add']}"
+                               styleClass="add"
+                               partialSubmit="true"
+                               immediate="true"
+                               id="manageDecisionConcernAddButton"/>
+
+            <ice:dataTable value="#{manageDecisionController.essentialsStep.selectedConcerns}" var="item"
+                           styleClass="collection">
+                <ice:column>
+                    <ice:outputText value="#{item.name}" nospan="true" />
+                </ice:column>
+                <ice:column styleClass="navigationColumn">
+                    <ice:commandLink value=""
+                                     action="#{manageDecisionController.essentialsStep.removeConcern(item.id)}"
+                                     immediate="true"
+                                     styleClass="columnNavigationLink">
+                        <img alt="#{common.remove}"
+                             src="resources/images/removeSmall.png"
+                             width="14"
+                             height="14"/>
+                    </ice:commandLink>
+                </ice:column>
+            </ice:dataTable>
+
+            <p />
+        </div>
+
+        <odr:datetimepicker value="#{manageDecisionController.essentialsStep.decidedWhen}"
+                            id="decisionDate"
+                            dateLabel="#{form['label.decided.when']}"
+                            timeLabel="#{form['label.time']}"/>
+
+    </div>
+</ui:composition>
