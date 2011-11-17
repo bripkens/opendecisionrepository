@@ -4,27 +4,27 @@
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th>ANT</th>
+      <th>Ant</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td>A buildtool has to be used</td>
+      <td>A buildtool has to be used.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>ANT is rejected</td>
+      <td>Ant won't be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>Ant allows a very high level of customization but makes dependency management very hard. This has severe effects on the maintainability of the project.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li>alternative for - Maven</li>
+<li><<is alternative for>> Maven</li>
 </ul>
 </td>
     </tr>
