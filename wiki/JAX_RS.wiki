@@ -10,20 +10,23 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A stateless web service needs to be chosen.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>JAX-RS has been adopted widely and a lot of documentation exists. Setting up a web service requires few lines of code but still provides a fair amount of flexibility, e.g., changing HTTP headers. For this reasons JAX-RS will be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>Since parts of the Java Enterprise Edition 6 are already used, it's useful to use more parts of it since they integrate well within the overall architecture. JAX-RS adds support for RESTful web services which fit very well into the overall target of a web service for a possible set of heterogeneous clients.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
--
+<ul>
+<li>`<<is caused by>>` Stateless web service</li>
+<li>`<<is caused by>>` Java Enterprise Edition 6</li>
+</ul>
 </td>
     </tr>
   </tbody>
