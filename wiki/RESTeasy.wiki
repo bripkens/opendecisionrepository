@@ -10,20 +10,22 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>An implementation of the JAX-RS specification needs to be chosen.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>RESTeasy allows interceptors which can be used for authentication purposes. This is necessary in order to use the existing ODR authentication credentials. RESTeasy will be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>RESTeasy is a proven and well documented implementation of the JAX-RS implementation. It is also the default implementation of the JAX-RS specification for the JBoss application server.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
--
+<ul>
+<li><<caused by>> JAX-RS</li>
+</ul>
 </td>
     </tr>
   </tbody>
