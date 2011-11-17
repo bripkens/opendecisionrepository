@@ -10,15 +10,15 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A web service type needs to be selected.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>A stateless web service will be used since it can also be consumed in heterogeneous environment.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>Stateless web services have a performance benefit over stateful web services. Additionally, the ODR web service does not require server-side state. Stateless or RESTful web service enable horizontal scaling in a simple way.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
