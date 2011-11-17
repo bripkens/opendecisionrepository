@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th> Glassfish v3 </th>
+      <th> Glassfish v3.0.1 </th>
     </tr>
   </thead>
   <tbody>
@@ -12,11 +12,11 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Glassfish v3 will be used since we wan't to use Icefaces 2.0 beta-1.</td>
+      <td>Glassfish v3.0.1 will be used since we wan't to use Icefaces 2.0 beta-1.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>Glassfish v3 is a lightweight web application server and is also the reference implementation for Java EE 6.</td>
+      <td>Glassfish v3.0.1 is a lightweight web application server and is also the reference implementation for Java EE 6.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
