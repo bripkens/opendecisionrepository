@@ -12,19 +12,18 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Glassfish v3 will be used since we wan't to use Icefaces 2.0 beta-1.</td>
+      <td>Glassfish v3.1 won't be used since it comes with JSF 2.1, which is not supported by Icefaces 2.0.2.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>Glassfish v3 is a lightweight web application server and is also the reference implementation for Java EE 6.</td>
+      <td>Glassfish v3.1 is a lightweight web application server and is also the reference implementation for Java EE 6. It supports the Enterprise JavaBeans 3.1 specification and comes with new support for production deployment.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li><<caused by>> Glassfish</li>
-<li>`<<replaces>>` Glassfish v2</li>
-<li><<caused by>> Icefaces 2.0 beta-2</li>
+<li>`<<is alternative for>>` Glassfish v3.0.1</li>
+<li><<is excluded by>> Icefaces 2.0.2</li>
 </ul>
 </td>
     </tr>
