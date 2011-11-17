@@ -4,26 +4,28 @@
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th>Stateful Web service</th>
+      <th>Stateful web service</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A web service type needs to be selected.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>A stateful web service won't be used since scaling would become more complicated. In addition there are no benefits over a stateless web service.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>A stateful web service in form of a SOAP based web service would allow simple communication between a client and the ODR. Also, state may be used to keep additional information about the users' sessions. A SOAP based web service is more complicated to consume, especially from JavaScript clients.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
--
+<ul>
+<li>`<<is alternative for>>` Stateless web service</li>
+</ul>
 </td>
     </tr>
   </tbody>
