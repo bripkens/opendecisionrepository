@@ -10,15 +10,20 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A way to share information over the network has to be chosen</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>Because of the chosen web service technology the communication via JSON can be provided in an easy way. Therefore this decision is approved</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>
+<ul>
+<li>human readable</li>
+<li>heterogeneous clients</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
