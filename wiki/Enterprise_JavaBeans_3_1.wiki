@@ -12,19 +12,19 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>EJB 3.1 will be used since Glassfish v3 has been chosen.</td>
+      <td>Enterprise JavaBeans 3.1 won't be used since this would require the usage  of Glassfish 3.1.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>-</td>
+      <td>Local interfaces could be removed since the @LocalBean annotation and the default local view were added in version 3.1.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
       <td>
 <ul>
 <li><<caused by>> Enterprise JavaBeans</li>
-<li>`<<replaces>>` Enterprise JavaBeans 3</li>
-<li><<depends on>> Glassfish v3</li>
+<li>`<<is alternative for>>` Enterprise JavaBeans 3</li>
+<li>`<<depends on>>` Glassfish v3.1</li>
 </ul>
 </td>
     </tr>
