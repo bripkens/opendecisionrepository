@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>EJB 3 won't be used since Glassfish v2 has been rejected.</td>
+      <td>EJB 3 will be used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
@@ -23,7 +23,7 @@
       <td>
 <ul>
 <li><<caused by>> Enterprise JavaBeans</li>
-<li><<depends on>> Glassfish v2</li>
+<li><<depends on>> Glassfish v3</li>
 </ul>
 </td>
     </tr>
