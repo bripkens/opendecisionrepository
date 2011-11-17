@@ -22,7 +22,11 @@
     </tr>
     <tr>
       <td> *Related decisions* </td>
-      <td>alternative for - Maven</td>
+      <td>
+<ul>
+<li>alternative for - Maven</li>
+</ul>
+</td>
     </tr>
   </tbody>
 </table>
