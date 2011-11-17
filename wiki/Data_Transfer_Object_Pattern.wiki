@@ -8,15 +8,21 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>The calls of remote objects are very expensive</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>To reduce the number of calls to remote objects Data Transfer Object (DTO) are used.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td> 
+<ul>
+<li>much more faster</li>
+<li>reduces number of calls</li>
+<li>allows removal of bidirectional relationships</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
