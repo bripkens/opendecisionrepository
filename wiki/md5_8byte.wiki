@@ -14,11 +14,11 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Swing will be used</td>
+      <td></td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>Only swing is supported by the Visual Paradigm Open API</td>
+      <td></td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
