@@ -10,11 +10,11 @@
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td>A way to share information over the network has to be chosen </td>
+      <td>A way to share information over the network has to be chosen.</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>XML will be used for machine-to-machine communication. This is not exclusive though as JSON will also be supported.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
