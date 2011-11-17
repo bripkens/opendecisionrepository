@@ -14,7 +14,7 @@
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td>Because of the chosen web service technology the communication via JSON can be provided in an easy way. Therefore this decision is approved</td>
+      <td>Because of the chosen web service technology, the JSON format can be provided in an easy way. Therefore this decision is approved.</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
