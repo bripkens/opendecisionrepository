@@ -48,7 +48,6 @@
     * [http://code.google.com/p/opendecisionrepository/wiki/Stateless_Web_service Stateless Web service]
     * [http://code.google.com/p/opendecisionrepository/wiki/Stateful_Web_service Stateful Web service]
     * [http://code.google.com/p/opendecisionrepository/wiki/RESTeasy RESTeasy]
-    * [http://code.google.com/p/opendecisionrepository/wiki/jersey Jersey]
     * [http://code.google.com/p/opendecisionrepository/wiki/Data_Transfer_Object_Pattern Data Transfer Object Pattern]
     * [http://code.google.com/p/opendecisionrepository/wiki/JSON JSON]
     * [http://code.google.com/p/opendecisionrepository/wiki/XML XML]
