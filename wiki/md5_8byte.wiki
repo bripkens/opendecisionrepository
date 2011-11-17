@@ -29,7 +29,7 @@
       <td> *Related decisions* </td>
       <td>
 <ul>
-<li><<replaces>> sha-256 16 byte salt 1000 iterations</li>
+<li>`<<replaces>>` sha-256 16 byte salt 1000 iterations</li>
 </ul>
 </td>
     </tr>
