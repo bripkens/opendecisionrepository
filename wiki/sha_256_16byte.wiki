@@ -4,21 +4,26 @@
   <thead>
     <tr>
       <th width="150"> Name </th>
-      <th>sha-256 16 byte salt 1000 iterations</th>
+      <th>sha 256 16 Byte salt 1000 interations </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td> *Problem/Issue* </td>
-      <td></td>
+      <td>A secure way to save the password in the database has to be chosen</td>
     </tr>
     <tr>
       <td> *Decision* </td>
-      <td></td>
+      <td>Due to the fact that this encryption needs too much resources this decision is rejected</td>
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td></td>
+      <td>
+<ul>
+<li>very strong password protection</li>
+<li>protection against magic tables</li>
+</ul>
+</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
