@@ -10,7 +10,7 @@
     
     <artifactId>web-service-client</artifactId>
     <groupId>nl.rug.search</groupId>
-    <version>0.2.2</version>
+    <version>0.2.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ODR - Web Service Client</name>
     
@@ -39,9 +39,9 @@
     </licenses>
     
     <scm>
-        <connection>scm:svn:http://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.2</connection>
-        <developerConnection>scm:svn:https://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.2</developerConnection>
-        <url>http://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.2</url>
+        <connection>scm:svn:http://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</connection>
+        <developerConnection>scm:svn:https://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</developerConnection>
+        <url>http://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</url>
     </scm>
     
     <issueManagement>
