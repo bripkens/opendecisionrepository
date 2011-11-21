@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template-with-sidebar.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <h:outputText value="#{common['learnMore.page.title']}" />
+    </ui:define>
+
+    <ui:define name="content">
+            <h1><h:outputText value="#{page['learnMore.headline']}" /></h1>
+            <h2>Who and why?</h2>
+            <p>The Open Decision Repository (ODR) project was initiated as part of the doctoral research by Uwe van Heesch,
+               supervised by Paris Avgeriou. It is a joint-venture project of the research group Software Engineering and
+               Architecture (SEARCH), which is part of the Department of Mathematics and Computing Science at the
+               University of Groningen/NL and the Software Engineering study programme at the Fontys University of Applied
+               Sciences in Venlo/NL.</p>
+            <h2>Goals</h2>
+            <p>The Open Decision Repository project is located in the domain of software architecture and architectural design decisions (AD). The aim of this project is to implement a proof-of-concept Computer-aided Software Engineering tool that allows companies or single individuals like software architects to document their design decisions according to the paper Viewpoints for Architectural Decisions by Uwe van Heesch, Paris Avgeriou and Rich Hilliard. The tool (hereinafter application) should be realized as a web application that is completely free of charge, publicly available and open source. It should provide functionality to document, browse, update and delete AD for user defined projects. One of the main goals is to increase pace in the AD documentation process, therefore the application requires a strong focus on usability. Shortly the project can be defined as following.</p>
+            <blockquote>Development of a web application that provides functionality to document and visualize architectural design decisions for software-intensive systems according to ISO/IEC 42010 and the paper Viewpoints for Architectural Decisions.</blockquote>
+            <h2>Get started</h2>
+            <p>To get started you may want to take a look on some presentation or video that can be found in the <a href="http://code.google.com/p/opendecisionrepository/wiki/Start" title="Go to the project wiki">project wiki.</a></p>
+    </ui:define>
+    <ui:define name="sidebar">
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="Fontys University of Applied Sciences, Venlo" /></b><br />
+                            <a href="http://www.fontys.nl/campusvenlo" target="_blank"><img src="resources/images/fontys-logo.png" border="1" alt="Logo Fontys University" /></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="University of Groningen" /></b><br />
+                            <a href="http://www.cs.rug.nl/search/" target="_blank"><img src="resources/images/rug-logo.png" border="1" alt="Logo University of Groningen" /></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="help">
+                <ul class="info">
+                    <li>
+                        <div class="header">
+                            <img src="resources/images/info.png" alt="information" />
+                        </div>
+                        <div class="text">
+                            <b><ice:outputText value="Credits" /></b><br />
+                            <ice:outputText value="The following students have contributed to the ODR so far:" />
+                            <ul>
+                                <li>Stefan Arians (stefan.arians at gmail dot com)</li>
+                                <li>Ben Ripkens (bripkens.dev at gmail dot com)</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    </ui:define>
+
+</ui:composition>

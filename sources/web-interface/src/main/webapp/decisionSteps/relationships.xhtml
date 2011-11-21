@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition     xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:ice="http://www.icesoft.com/icefaces/component"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+
+    <div class="formSection last">
+        <ice:outputLabel value="#{form['decision.wizard.relationship.add']}" for="inRelationship"/>
+        <ice:selectOneMenu id="inRelationship"
+                           label="#{form['decision.wizard.relationship.add']}"
+                           partialSubmit="true"
+                           styleClass="add"
+                           immediate="true"
+                           style="width: 330px;"
+                           value="#{manageDecisionController.relationshipsStep.selectedDecisionId}">
+            <f:selectItem itemLabel="#{form['label.pleaseSelect']}" noSelectionOption="true"/>
+            <f:selectItems value="#{manageDecisionController.relationshipsStep.availableDecisions}" />
+        </ice:selectOneMenu>
+
+        <ice:commandButton action="#{manageDecisionController.relationshipsStep.addRelationship(manageDecisionController.relationshipsStep.selectedDecisionId)}"
+                           value="#{form['button.add']}"
+                           styleClass="miniButton add"
+                           style="right: 65px"
+                           partialSubmit="false"
+                           id="manageDecisionRelationshipAddButton"/>
+
+        <input type="submit" class="quickAdd add" value="#{form['decision.wizard.relationship.quick.add']}"
+               onclick="j('#wizardQuickAddDecision').dialog('open');" />
+        
+        <odr:informationWidget id="decisionAfterInformation"
+                               text="#{form['decision.wizard.relationship.after.information']}"
+                               visible="false"/>
+
+        <p class="empty increasedPadding" />
+    </div>
+
+
+
+    <h3><ice:outputText value="#{form['decision.wizard.relationship.existing']}" nospan="true" /></h3>
+
+    <div class="formSectionineRemover">
+        <ice:repeat value="#{manageDecisionController.relationshipsStep.relationships}" var="item">
+            <div class="formSection decisionWizardRelationships">
+                <ice:outputText value="#{manageDecisionController.decision.name}" styleClass="decisionLabel" />
+
+
+                <ice:selectOneMenu label="#{form['label.relationship.type']}"
+                                   required="true"
+                                   styleClass="type"
+                                   value="#{item.type}"
+                                   immediate="true">
+                    <f:selectItems value="#{manageDecisionController.relationshipsStep.relationshipTypes}" />
+                </ice:selectOneMenu>
+
+                <ice:outputText value="#{item.decision.name}" styleClass="targetLabel" />
+                <ice:outputText value="#{form['label.version']}" styleClass="versionLabel" />
+
+                <ice:selectOneMenu label="#{form['label.version']}"
+                                   required="true"
+                                   styleClass="version"
+                                   value="#{item.version}"
+                                   immediate="true"
+                                   valueChangeListener="#{manageDecisionController.relationshipsStep.versionSelectionChanged}">
+                    <f:selectItems value="#{item.versions}" />
+                </ice:selectOneMenu>
+
+                <ice:commandLink value=""
+                                 action="#{manageDecisionController.relationshipsStep.removeRelationship(item.decision.id)}"
+                                 immediate="true"
+                                 styleClass="removeButton">
+                    <img alt="#{common.remove}"
+                         src="resources/images/removeSmall.png"
+                         width="14"
+                         height="14"/>
+                </ice:commandLink>
+
+                <p class="empty" />
+            </div>
+        </ice:repeat>
+    </div>
+
+</ui:composition>
