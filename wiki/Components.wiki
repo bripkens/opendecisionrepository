@@ -5,7 +5,7 @@ The following component diagram provides an overview over the component which ma
 
 Components illustrated inside the OpenDecisionRepository component are not part of the server component. This may be the case for standalone applications, e.g., web-interface-test, integration-test, and for the plug-in.
 
-All components listed here are realized using [http://maven.apache.org/ Maven] and therefore this diagram can be traced using the components' declared dependencies.
+All components listed here are realized using [http://maven.apache.org/ Maven] and therefore this diagram can be reconstructed using the components' declared dependencies (see [http://maven.apache.org/pom.html Maven POM]).
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 
