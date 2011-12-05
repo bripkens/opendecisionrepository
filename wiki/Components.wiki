@@ -1,4 +1,4 @@
-= Open Decision Repository components =
+= Components =
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/relationship-view.png higher resolution].
