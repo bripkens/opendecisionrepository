@@ -1,4 +1,30 @@
 = Components =
 
+== Overview ==
+
 http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/relationship-view.png higher resolution].
+
+== Component description ==
+
+=== testutil ====
+
+=== entities ====
+
+=== decision-management ====
+
+=== web-interface ====
+
+=== web-service-client ====
+
+=== web-service ====
+
+=== startup ====
+
+=== OpenDecisionRepository ====
+
+=== web-interface-test ====
+
+=== Visual Paradigm plug-in ====
+
+=== integration-tests ====
