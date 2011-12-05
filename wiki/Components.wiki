@@ -1,5 +1,5 @@
 = Components =
-
+<wiki:toc max_depth="3" />
 == Overview ==
 The following component diagram provides an overview over the component which make up the Open Decision Repository server component, the plug-in and integration tests. A description of the components can be found in the following sections. A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/relationship-view.png higher resolution].
 
