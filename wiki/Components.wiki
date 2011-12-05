@@ -25,7 +25,7 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 
 === startup ====
 
-=== OpenDecisionRepository ====
+=== `OpenDecisionRepository` ====
 
 === web-interface-test ====
 
