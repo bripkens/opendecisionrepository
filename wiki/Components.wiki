@@ -1,6 +1,5 @@
-= Components =
 <wiki:toc max_depth="3" />
-== Overview ==
+= Overview =
 The following component diagram provides an overview over the component which make up the Open Decision Repository server component, the plug-in and integration tests. A description of the components can be found in the following sections. A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png higher resolution].
 
 Components illustrated inside the OpenDecisionRepository component are not part of the server component. This may be the case for standalone applications, e.g., web-interface-test, integration-test, and for the plug-in.
@@ -9,26 +8,26 @@ All components listed here are realized using [http://maven.apache.org/ Maven] a
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 
-== Component description ==
+= Component descriptions =
 
-=== testutil ====
+== testutil ===
 
-=== entities ====
+== entities ===
 
-=== decision-management ====
+== decision-management ===
 
-=== web-interface ====
+== web-interface ===
 
-=== web-service-client ====
+== web-service-client ===
 
-=== web-service ====
+== web-service ===
 
-=== startup ====
+== startup ===
 
-=== `OpenDecisionRepository` ====
+== `OpenDecisionRepository` ===
 
-=== web-interface-test ====
+== web-interface-test ===
 
-=== Visual Paradigm plug-in ====
+== Visual Paradigm plug-in ===
 
-=== integration-tests ====
+== integration-tests ===
