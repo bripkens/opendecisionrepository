@@ -1,0 +1,9 @@
+= Overview =
+
+* Caching
+* remove icefaces
+* read only transaction type
+* effect of tls on performance
+* password encryption algorithm
+* changed amount of thread reuse to 10,000, i.e., uses the same HTTP worker thread for more than one request (simple: 211.1 req/sec and 194.6 kb/sec; complex: 65.0 req/sec and 1260.3 kb/sec)
+* verified after application redeploy (to verify that no code was optimized by the JVM), same values as written above
