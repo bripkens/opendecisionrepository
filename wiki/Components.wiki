@@ -38,7 +38,7 @@ All the server-side components are aggregated in the `OpenDecisionRepository` co
 This component was created to integration test the web interface. Due to changes of the ODR, those tests don't work properly any longer and need to be revamped.
 
 == Visual Paradigm plug-in ===
-The Visual Paradigm plug-in will all the functionality and graphical user interface.
+The Visual Paradigm plug-in with all the functionality and graphical user interface.
 
 == integration-tests ===
 To test the web service, the integration-tests component was created. In contract to the web-interface-test component, this one is maintained and verifies the web service's functionality.
