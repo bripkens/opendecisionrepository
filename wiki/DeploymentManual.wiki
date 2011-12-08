@@ -9,6 +9,7 @@ The following set up has been used for development, staging and production. Due 
  * Java 6
  * Glassfish 3.0.1
  * MySQL or Derby
+ * Maven 3
 
 == Build process ==
 The ODR makes use of Apache Maven and is therefore simple to build. To get started with the current development version use a fresh checkout of the project (recommended) and execute the following command.
@@ -23,7 +24,7 @@ mvn clean install
 Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory. The second execution of _mvn clean install_ is required because of an Apache Maven bug which removes version numbers from artifacts.
 
 === Changing the context root ===
-If you want to change the context root of the ODR from the default _/odr_ to something else you need to modify the following file:
+If you want to change the context root of the ODR from the default _/_ to something else you need to modify the following file:
 /trunk/sources/odr-startup/src/main/application/META-INF/application.xml
 
 == Preparing the application server ==
