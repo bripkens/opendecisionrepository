@@ -1,7 +1,16 @@
 #summary Installing the plugin on different OS'es
 
 = Introduction =
-Installing the plugin is quite simple.
+Installing the plugin is quite simple. We provide an automatic installer which should work in most cases. However should this not succeed you can always install it manually.
 
-= Downloading =
-Downloading the plugin from [https://www.decisionrepository.com OpenDecisionRepository.com]
+
+= Automatic =
+==Linux/OSX==
+Download the following shell script [http://dl.decisionrepository.com/odr-plugin-installer.sh .sh script]
+Make it executable using _chmod +x odr-plugin-installer.sh_
+Run it _./odr-plugin-installer.sh_
+
+==Windows==
+Todo
+
+=Manual=
