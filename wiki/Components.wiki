@@ -1,8 +1,8 @@
 <wiki:toc max_depth="3" />
 = Overview =
-The following component diagram provides an overview over the component which make up the Open Decision Repository server component, the plug-in and integration tests. A description of the components can be found in the following sections. A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png higher resolution].
+The following component diagram provides an overview over the components which make up the Open Decision Repository server component, the plug-in and integration tests. A description of the components can be found in the following sections. A version of this diagram is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png higher resolution].
 
-Components illustrated inside the OpenDecisionRepository component are not part of the server component. This may be the case for standalone applications, e.g., web-interface-test, integration-test, and for the plug-in.
+Components illustrated not inside the OpenDecisionRepository component are not part of the server component. This may be the case for standalone applications, e.g., web-interface-test, integration-test, and for the plug-in.
 
 All components listed here are realized using [http://maven.apache.org/ Maven] and therefore this diagram can be reconstructed using the components' declared dependencies (see [http://maven.apache.org/pom.html Maven POM]).
 
