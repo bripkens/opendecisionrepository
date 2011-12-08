@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Installing the plugin on different OS'es
 
 = Introduction =
 Installing the plugin is quite simple.
