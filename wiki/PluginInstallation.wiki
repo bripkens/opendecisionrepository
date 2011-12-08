@@ -1,0 +1,7 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+Installing the plugin is quite simple.
+
+= Downloading =
+Downloading the plugin from [https://www.decisionrepository.com OpenDecisionRepository.com]
