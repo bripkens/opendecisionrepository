@@ -11,10 +11,13 @@ http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
 = Component descriptions =
 
 == testutil ===
+As the name suggests, the testutil component contains utility classes for testing. Besides additional assertion statements, also database cleaning, i.e., truncating all tables, and functionality for dropping all tables exist.
 
 == entities ===
+The entities components contains JPA entities and other functionality, e.g., password encryption and email validation, which can easily be unit-tested. The component was solely created because, upon build, the decision-management component executes integration tests which take way longer.
 
 == decision-management ===
+Business logic is located in the decision-management component. It contains Enterprise JavaBeans which implement the [http://java.sun.com/blueprints/corej2eepatterns/Patterns/DataAccessObject.html Data Access Object Pattern], TeX export functionality and a facade for accessing the [http://www.patternrepository.com/ Open Pattern Repository] web service. Additionally, it provides an extension point for other web services.
 
 == web-interface ===
 
