@@ -1,4 +1,16 @@
+<wiki:toc max_depth="3" />
+
 = Overview =
+The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [inefficient usage of] certain technologies, e.g., Icefaces and JPA and additional security measures, e.g., password hashing and encrypted server communication. Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference.
+
+= Changes for performance optimization =
+
+== Caching ==
+The most critical load issue came through the usage of Icefaces 2.0.0 and missing caching functionality. With Icefaces 2.0.0, on each request, more than 60 files had to be retrieved. This means that 60 additional HTTP requests were sent to the server. Unfortunately, this problem can't be fixed by the Open Decision Repository developers, but instead must be fixed by the Icefaces developers. [http://jira.icefaces.org/browse/ICE-6597 The problem was reported] but isn't going to be fixed until Icefaces 3 is released.
+
+For a quick fix, a [http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/IcefacesStaticCacheFilter.java HTTP servlet filter] was added which simply sets HTTP caching headers. It's clear that this measure only covers part of the problem, i.e., on the first request these files still need to be loaded.
+
+_In case you are wondering whether the files may be cached for too long - a hash (in the current implementation a simply timestamp) is generated and added as a query parameter to the static resources' URLs. This forces the browser to reload the resources (useful when updating the application)._
 
  * Caching
  * remove icefaces
