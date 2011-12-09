@@ -17,11 +17,13 @@ To further improve performance, a caching proxy, e.g., [http://www.squid-cache.o
 == Password hashing ==
 
 == Read-only transactions ==
+Since the ODR makes use of Enterprise JavaBeans (EJB), the Java Transaction API (JTA) and Java Persistence 2.0 (JPA), a small window for improvement was identified, i.e., data is mostly read from the ODR in a transaction-aware way. Transaction awareness is costly and was therefore deactivated by default for read-only operations.
+
+_Expressed in a more technical way: The JTA transaction attribute was set to 'supported' for read-only methods._
 
 == Encrypted server communication ==
 
- * Caching
- * remove icefaces
+
  * read only transaction type
  * effect of tls on performance
  * password encryption algorithm
