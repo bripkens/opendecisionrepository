@@ -10,7 +10,7 @@ The most critical load issue came through the usage of Icefaces 2.0.0 and missin
 
 For a quick fix, a [http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/IcefacesStaticCacheFilter.java HTTP servlet filter] was added which simply sets HTTP caching headers. It's clear that this measure only covers part of the problem, i.e., on the first request these files still need to be loaded.
 
-_In case you are wondering whether the files may be cached for too long - a hash (in the current implementation a simple timestamp) is generated and added as a query parameter to the static resources' URLs. This forces the browser to reload the resources (useful when updating the application)._
+_In case you are wondering whether the files may be cached for too long - a hash (in the current implementation a simple timestamp) [http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/controller/ResourceHashController.java is generated] and added as a query parameter to the static resources' URLs. This forces the browser to reload the resources (useful when updating the application)._
 
 To further improve performance, a caching proxy, e.g., [http://www.squid-cache.org/ squid],  should be added. This would drastically improve the ODR's performance as the biggest performance-bottleneck is the delivery of static resources.
 
