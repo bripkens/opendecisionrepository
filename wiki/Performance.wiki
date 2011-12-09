@@ -1,7 +1,7 @@
 <wiki:toc max_depth="3" />
 
 = Overview =
-The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [inefficient usage of] certain technologies, e.g., Icefaces and JPA and additional security measures, e.g., password hashing and encrypted server communication (HTTPS). Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference.
+The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [inefficient usage of] certain technologies, e.g., Icefaces, JPA and additional security measures, e.g., password hashing and encrypted server communication (HTTPS). Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference.
 
 = Changes for performance optimization =
 
