@@ -15,6 +15,11 @@ _In case you are wondering whether the files may be cached for too long - a hash
 To further improve performance, a caching proxy, e.g., [http://www.squid-cache.org/ squid],  should be added. This would drastically improve the ODR's performance as the biggest performance-bottleneck is the delivery of static resources.
 
 == Password hashing ==
+For password hashing, Java simplified encryption (Jasypt) is used. In the beginning, a very strong hashing algorithm was used to protect the users' passwords. This hashing algorithm had a huge [negative] effect on the ODR's performance. To achieve an acceptable performance, the algorithm was changed and configured in the following way.
+
+ * Algorithm: MD5
+ * Salt size: 8 bytes
+ * Iterations: 1000
 
 == Read-only transactions ==
 Since the ODR makes use of Enterprise JavaBeans (EJB), the Java Transaction API (JTA) and Java Persistence 2.0 (JPA), a small window for improvement was identified, i.e., data is mostly read from the ODR in a transaction-aware way. Transaction awareness is costly and was therefore deactivated by default for read-only operations.
