@@ -21,7 +21,7 @@ cd startup/
 mvn clean install
 }}}
 
-Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/odr-startup/target_ directory. The second execution of _mvn clean install_ is required because of an Apache Maven bug which removes version numbers from artifacts.
+Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/startup/target_ directory. The second execution of _mvn clean install_ is required because of an Apache Maven bug which removes version numbers from artifacts.
 
 === Changing the context root ===
 If you want to change the context root of the ODR from the default _/_ to something else you need to modify the following file:
