@@ -27,10 +27,4 @@ Since the ODR makes use of Enterprise JavaBeans (EJB), the Java Transaction API 
 _Expressed in a more technical way: The JTA transaction attribute was set to 'supported' for read-only methods._
 
 == Encrypted server communication ==
-
-
- * read only transaction type
- * effect of tls on performance
- * password encryption algorithm
- * changed amount of thread reuse to 10,000, i.e., uses the same HTTP worker thread for more than one request (simple: 211.1 req/sec and 194.6 kb/sec; complex: 65.0 req/sec and 1260.3 kb/sec)
- * verified after application redeploy (to verify that no code was optimized by the JVM), same values as written above
+To increase the application's security, HTTPS with TLS encryption is used. Of course, this has an impact on the server's performance. In the Apache HTTP server's configuration, the number of thread reuse was therefore increased to 10,000, i.e., don't discard the thread after it handled a request.
