@@ -7,7 +7,7 @@ Installing the plugin is quite simple. We provide an automatic installer which s
 = Automatic =
 ==Linux/OSX==
 Installing for Linux and OSX is made easy using a shell script, if it does not work then please use the manual installation.
- * Download the following shell script [http://dl.decisionrepository.com/odr-plugin-installer.sh .sh script]
+ * Download the following shell script from: [http://dl.decisionrepository.com/ dl.decisionrepository.com] our download mirror
  * Make it executable using _chmod +x odr-plugin-installer.sh_
  * Run it _./odr-plugin-installer.sh_
 
