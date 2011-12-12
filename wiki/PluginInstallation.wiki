@@ -14,7 +14,7 @@ Installing for Linux and OSX is made easy using a shell script, if it does not w
 If it does not work, please add an issue to our [http://code.google.com/p/opendecisionrepository/issues/list issue tracker]. In order to resolve the problem, please state clearly which OS system you are using and the error you encountered.
 
 ==Windows==
-For now please refer to the manual installation steps below
+For now please refer to the manual installation steps below.
 
 =Manual=
 Use the manual installation if the automatic one fails or if you prefer to do it manually.
