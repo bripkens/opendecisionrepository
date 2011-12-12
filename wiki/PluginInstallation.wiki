@@ -1,5 +1,5 @@
 #summary Installing the plugin on different OSs
-
+<wiki:toc max_depth="3" />
 = Introduction =
 Installing the plug-in is quite simple. We provide an automatic installer which should work in most cases. However, should this not succeed you can always install it manually.
 
