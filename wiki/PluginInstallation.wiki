@@ -1,19 +1,17 @@
-#summary Installing the plugin on different OS'es
+#summary Installing the plugin on different OSs
 
 = Introduction =
-Installing the plugin is quite simple. We provide an automatic installer which should work in most cases. However should this not succeed you can always install it manually.
+Installing the plug-in is quite simple. We provide an automatic installer which should work in most cases. However, should this not succeed you can always install it manually.
 
 
-= Automatic =
+= Automatic installation =
 ==Linux/OSX==
-Installing for Linux and OSX is made easy using a shell script, if it does not work then please use the manual installation.
- * Download the following shell script from: [http://dl.decisionrepository.com/ dl.decisionrepository.com] our download mirror
+Installing for Linux and OSX is made easy using a shell script, if it does not work, please use the manual installation guide (see the following section).
+ * Download the following shell script from [http://dl.decisionrepository.com/ our download mirror].
  * Make it executable using _chmod +x odr-plugin-installer.sh_
  * Run it _./odr-plugin-installer.sh_
 
-If it does not work, please make an issue in our issue tracker [ http://code.google.com/p/opendecisionrepository/issues/list Issue Tracker ]
-
-And *clearly state which OS* you are using so that we can resolve the problem
+If it does not work, please add an issue to our [http://code.google.com/p/opendecisionrepository/issues/list issue tracker]. In order to resolve the problem, please state clearly which OS system you are using and the error you encountered.
 
 ==Windows==
 Todo
@@ -21,7 +19,7 @@ Todo
 =Manual=
 Use the manual installation if the automatic one fails or if you prefer to do it manually.
 
- * Dowload the plugin .zip package from: [http://dl.decisionrepository.com/ dl.decisionrepository.com] 
- * Find your Visual Paradigm installation (C:\Program Files\Visual Paradigm, /opt/VP_Suite, /usr/local/VP_Suite) are just examples of locations where it might be installed.
- * Make a directory called plugins in the Visual Paradigm folder
- * Extract the zip package so that you have  Visual Paradigm/plugins/ODR
+ * Dowload the plug-in .zip package from [http://dl.decisionrepository.com/ our download mirror].
+ * Find your Visual Paradigm installation, e.g., _C:\Program Files\Visual Paradigm, /opt/VP_Suite, /usr/local/VP_Suite_.
+ * Make a directory called _plugins_ in the Visual Paradigm folder.
+ * Extract the zip package so that you have _Visual Paradigm/plugins/ODR_.
