@@ -11,6 +11,10 @@ Installing for Linux and OSX is made easy using a shell script, if it does not w
  * Make it executable using _chmod +x odr-plugin-installer.sh_
  * Run it _./odr-plugin-installer.sh_
 
+If it does not work, please make an issue in our issue tracker [ http://code.google.com/p/opendecisionrepository/issues/list Issue Tracker ]
+
+And *clearly state which OS* you are using so that we can resolve the problem
+
 ==Windows==
 Todo
 
