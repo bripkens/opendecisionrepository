@@ -1,1 +1,3 @@
-http://opendecisionrepository.googlecode.com/svn/wiki/images/relationship-view.png
+The following image is also available in [http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-relationship-view.png higher resolution].
+
+http://opendecisionrepository.googlecode.com/svn/wiki/images/architecture-relationship-view.png
