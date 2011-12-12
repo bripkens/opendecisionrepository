@@ -15,3 +15,9 @@ Installing for Linux and OSX is made easy using a shell script, if it does not w
 Todo
 
 =Manual=
+Use the manual installation if the automatic one fails or if you prefer to do it manually.
+
+ * Dowload the plugin .zip package from: [http://dl.decisionrepository.com/ dl.decisionrepository.com] 
+ * Find your Visual Paradigm installation (C:\Program Files\Visual Paradigm, /opt/VP_Suite, /usr/local/VP_Suite) are just examples of locations where it might be installed.
+ * Make a directory called plugins in the Visual Paradigm folder
+ * Extract the zip package so that you have  Visual Paradigm/plugins/ODR
