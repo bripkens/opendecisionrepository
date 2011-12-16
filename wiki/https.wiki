@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>encrypted connection between server and client</td>
+      <td>The connection between client and web service needs to be encrypted since passwords are otherwise transported as plain text. Doing this on transport-level is sufficient for now as no (highly-)critical data is stored in the ODR.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
