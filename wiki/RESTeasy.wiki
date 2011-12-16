@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>RESTeasy is a proven and well documented implementation of the JAX-RS implementation. It is also the default implementation of the JAX-RS specification for the JBoss application server.</td>
+      <td>RESTeasy is a proven and well documented implementation of the JAX-RS implementation. It is also the default implementation of the JAX-RS specification for the JBoss application server. Unfortunately, EJB injections aren't working properly.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
