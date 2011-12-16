@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td> *Arguments* </td>
-      <td>manage dependencies, convention over configuration, existing    projects are maven projects, team is interested in this technology</td>
+      <td>Maven provides an improved dependency management over Ant since dependencies are just defined in the POM and retrieved automatically. This considerably improves build stability and visibility since no dependencies need to be managed through the version control system. Also, since each dependency definition includes information about the dependency's version, builds become repeatable and more reliable. For new project members or other interested parties, the build is additionally further simplified to a few basic commands and a central file (the POM) which holds all important information.</td>
     </tr>
     <tr>
       <td> *Related decisions* </td>
