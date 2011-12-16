@@ -23,7 +23,9 @@ Business logic is located in the decision-management component. It contains Ente
 This component contains the web interface as it visible to the user.
 
 == web-service-client ===
-The web-service-client is a utility component which can be used to access the ODR's web service. It's available in [http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.rug.search%22%20AND%20a%3A%22web-service-client%22 Maven Central] and can [https://www.decisionrepository.com/webservice.html easily be added to your project]. A demo project is available on [https://github.com/bripkens/Example-ODR-web-service-client GitHub], [http://opendecisionrepository.googlecode.com/svn/web-service-client-javadoc-2.3/index.html JavaDoc is also available]. Following is a class diagram of the web-service-client component ([http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png also available in higher resolution]).
+The web-service-client is a utility component which can be used to access the ODR's web service. It's available in [http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22nl.rug.search%22%20AND%20a%3A%22web-service-client%22 Maven Central] and can [https://www.decisionrepository.com/webservice.html easily be added to your project]. A demo project is available on [https://github.com/bripkens/Example-ODR-web-service-client GitHub], [http://opendecisionrepository.googlecode.com/svn/web-service-client-javadoc-2.3/index.html JavaDoc is also available].
+
+Following is a class diagram of the web-service-client component ([http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png also available in higher resolution]).
 
 http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png
 
