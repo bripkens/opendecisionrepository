@@ -65,6 +65,7 @@
    * [http://code.google.com/p/opendecisionrepository/wiki/Retrieve_Visualization Retrieve diagram]
    * [http://code.google.com/p/opendecisionrepository/wiki/Visualization_Export Export diagram]
   * [http://code.google.com/p/opendecisionrepository/wiki/Performance Performance optimization]
+  * [http://code.google.com/p/opendecisionrepository/wiki/VersioningScheme Versioning scheme]
   * [http://code.google.com/p/opendecisionrepository/wiki/WebServiceAuthentication Web service authentication mechanism]
  * *Configuration and installation*
   * [http://code.google.com/p/opendecisionrepository/wiki/DeploymentManual Deployment manual]
