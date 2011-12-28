@@ -1,3 +1,5 @@
 <wiki:toc max_depth="3" />
 
 = Overview =
+
+The ODR [https://www.decisionrepository.com/webservice.html provides a RESTful web service] for machine-to-machine communication.
