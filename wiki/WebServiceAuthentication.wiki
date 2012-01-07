@@ -9,6 +9,7 @@ Implemented through [http://code.google.com/p/opendecisionrepository/source/brow
 
 = Restricting access =
 
+== Allow all incoming requests ==
 {{{
 package nl.rug.search.odr.ws.resource;
 
@@ -29,6 +30,7 @@ public class DecisionStateResource {
 }
 }}}
 
+== Only allow requests of authorized users ==
 {{{
 package nl.rug.search.odr.ws.resource;
 
@@ -45,6 +47,7 @@ public class UserResource {
 }
 }}}
 
+== Only allow requests of group members ==
 {{{
 package nl.rug.search.odr.ws.resource;
 
