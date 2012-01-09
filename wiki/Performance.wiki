@@ -39,6 +39,6 @@ To increase the application's security, HTTPS with TLS encryption is used. Of co
 = Performance figures =
 The following performance figures were obtained by executing JMeter tests against the project overview (_user/projects_, hereinafter overview) and project detail view (_projects/{projectId}_, hereinafter detail view) web service. The tests were executed against the system hosted on [https://www.decisionrepository.com decisionrepository.com] at 2012-01-09. Each test makes use of 100 threads. Each thread sends ten consecutive HTTP GET request to the overview and thereafter to the detail view. The HTTP _Accept_ header is to _application/xml_.
 
-|| *Test* || *#Samples* || *Average (ms)* || *Median (ms)* || *90% Line (ms)* || *Min (ms)* || *Max (ms)* || *Error %* || *Throughput (#/sec)* || *Throughput KB/sec* ||
+|| *Test* || *#Samples* || *Average (ms)* || *Median (ms)* || *90% Line (ms)* || *Min (ms)* || *Max (ms)* || *Error (%)* || *Throughput (#/sec)* || *Throughput (KB/sec)* ||
 || Overview || 1000 || 283 || 50 || 113 || 26 || 4549 || 0 || 204.1 || 188.9 ||
 || Detail view || 1000 || 1359 || 1415 || 1481 || 146 || 3346 || 0 || 66.5 || 1412.7 ||
