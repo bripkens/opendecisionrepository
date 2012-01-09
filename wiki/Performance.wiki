@@ -1,7 +1,7 @@
 <wiki:toc max_depth="3" />
 
 = Overview =
-The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [inefficient usage of] certain technologies, e.g., Icefaces, JPA and additional security measures, e.g., password hashing and encrypted server communication (HTTPS). Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference.
+The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [inefficient usage of] certain technologies, e.g., Icefaces, JPA and additional security measures, e.g., password hashing and encrypted server communication (HTTPS). Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference and some options for further improvement.
 
 = Changes for performance optimization =
 
@@ -25,6 +25,12 @@ For password hashing, Java simplified encryption (Jasypt) is used. In the beginn
 Since the ODR makes use of Enterprise JavaBeans (EJB), the Java Transaction API (JTA) and Java Persistence 2.0 (JPA), a small window for improvement was identified, i.e., data is mostly read from the ODR in a transaction-aware way. Transaction awareness is costly and was therefore deactivated by default for read-only operations.
 
 _Expressed in a more technical way: The JTA transaction attribute was set to 'supported' for read-only methods._
+
+== Extended persistence context ==
+Currently, all data is loaded eagerly when using the JPA. This has a serious impact on the performance as a growing amount of data is retrieved on every request, even though it's not used. Therefore the usage of an extended persistence context should be considered as this would enable a rather simple change to lazy loading strategies.
+
+== Persistence context propagation ==
+Since the web service and web interface each have their own persistence context, they need to be refreshed in regular intervals in order to maintain consistency between the two interfaces. Since this requires at least one round trip to the database, performance could be improve by making use of persistence context propagation.
 
 == Encrypted server communication ==
 To increase the application's security, HTTPS with TLS encryption is used. Of course, this has an impact on the server's performance. In the Apache HTTP server's configuration, the number of thread reuse was therefore increased to 10,000, i.e., don't discard the thread after it handled a request.
