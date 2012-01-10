@@ -25,7 +25,7 @@
       <td>
 <ul>
 <li><<caused by>> JAX-RS</li>
-<li><<replaces>> Jersey</li>
+<li>`<<replaces>>` Jersey</li>
 </ul>
 </td>
     </tr>
