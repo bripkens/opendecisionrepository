@@ -6,7 +6,7 @@ Components illustrated not inside the OpenDecisionRepository component are not p
 
 All components listed here are realized using [http://maven.apache.org/ Maven] and therefore this diagram can be reconstructed using the components' declared dependencies (see [http://maven.apache.org/pom.html Maven POM]).
 
-http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png
+[http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png http://opendecisionrepository.googlecode.com/svn/wiki/images/components.png]
 
 = Component descriptions =
 
@@ -27,7 +27,7 @@ The web-service-client is a utility component which can be used to access the OD
 
 Following is a class diagram of the web-service-client component ([http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png also available in higher resolution]).
 
-http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png
+[http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png http://opendecisionrepository.googlecode.com/svn/wiki/images/web-service-client-class-diagram.png]
 
 == web-service ===
 Machine-to-machine communication is realized through the web-service component. It implements a RESTful web service and provides an API for the most commonly used functionality. You may simply use the aforementioned web-service-client component to access it or implement it yourself. Further information about the web-service is available in [https://www.decisionrepository.com/webservice.html each deployed ODR version].
