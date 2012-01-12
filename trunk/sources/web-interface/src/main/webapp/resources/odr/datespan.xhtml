@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:odr="http://java.sun.com/jsf/composite/odr"
+      xml:lang="en">
+
+    <composite:interface componentType="nl.rug.search.odr.component.Datespan">
+        <composite:attribute name="startDate" type="java.util.Date"/>
+        <composite:attribute name="endDate" type="java.util.Date" />
+        <composite:attribute name="startDateLabel" type="java.lang.String" default="Start Date" />
+        <composite:attribute name="endDateLabel" type="java.lang.String" default="End Date"/>
+        <composite:attribute name="separatorLabel" type="java.lang.String" default=":"/>
+        <composite:attribute name="timeLabel" type="java.lang.String" default="Time:"/>
+        <composite:attribute name="validator" method-signature="java.lang.boolean isValidDate()"/>
+    </composite:interface>
+
+    <composite:implementation>
+
+
+        <odr:datetimepicker value="#{cc.attrs.startDate}" 
+                            id="startDate"
+                            dateLabel="#{cc.attrs.startDateLabel}"
+                            seperatorLabel="#{cc.attrs.separatorLabel}"
+                            timeLabel="#{cc.attrs.timeLabel}"
+                            idLabel="startDate"/>
+
+        <odr:datetimepicker value="#{cc.attrs.endDate}"
+                            id="endDate"
+                            dateLabel="#{cc.attrs.endDateLabel}"
+                            seperatorLabel="#{cc.attrs.separatorLabel}"
+                            timeLabel="#{cc.attrs.timeLabel}"
+                            idLabel="endDate"/>
+    </composite:implementation>
+</html>

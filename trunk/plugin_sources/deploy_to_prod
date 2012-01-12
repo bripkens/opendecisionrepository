@@ -1,0 +1,14 @@
+#!/bin/bash
+DATE=$(date +%m_%d_%Y-%H%M)
+
+rm -rf ODR
+mkdir ODR
+cp plugin.xml target/*.jar ODR/
+rm -rf ODR/original*
+cp -r images ODR/
+
+zip -r ${DATE}.zip ODR/
+
+cp -r ${DATE}.zip /var/www/releases/
+
+echo ${DATE}.zip > /var/www/index.php

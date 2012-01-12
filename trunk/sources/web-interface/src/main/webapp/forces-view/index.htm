@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>Forces view - Decision Repository</title>
+  
+  <link href='less/bootstrap.less' rel="stylesheet/less" type="text/css">
+  <script src='js/less-1.1.5.min.js' type="text/javascript"></script>
+</head>
+<body>
+<div id="cornerOverlay"></div>
+<ul class="leftBar"></ul>
+<ul class="topBar"></ul>
+<table class="bordered-table condensed-table">
+</table>
+
+<a href="#" id="doSync" class="btn">Synchronize updated ratings</a>
+    
+<div class="modal fade" id="loginDialog">
+    <div class="modal-header">
+        <h3>Login</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset>
+                <div class="clearfix">
+                    <label for="emailIn">Email</label>
+                    <div class="input">
+                        <input class="xlarge" id="emailIn" name="emailIn" size="30" type="text" placeholder="test@example.com" autofocus="autofocus">
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="passwordIn">Password</label>
+                    <div class="input">
+                        <input class="xlarge" id="passwordIn" name="passwordIn" size="30" type="password" placeholder="*****">
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn primary" id="loginButton">Login</a>
+    </div>
+</div>
+    
+<div class="modal fade" id="selectProjectDialog" style="display: none;">
+    <div class="modal-header">
+        <h3>Select project</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <fieldset>
+                <div class="clearfix">
+                    <label for="projectIn">Project</label>
+                    <div class="input">
+                        <select name="projectIn" id="projectIn" class="xlarge">
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn primary" id="selectProjectButton">Select</a>
+    </div>
+</div>
+
+<div class="modal fade" id="loadingDialog" style="display: none;">
+    <div class="modal-header">
+        <h3>Synchronizing, please wait</h3>
+    </div>
+    <div class="modal-body">
+        <img src="img/loader.gif" alt="loading animation" width="48" height="48" />
+    </div>
+</div>
+    
+<script src='js/jquery-1.7.1.min.js' type="text/javascript"></script>
+<script src='js/bootstrap-modal.js' type="text/javascript"></script>
+<script src='js/main.js' type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nl.fontys.sofa.odr</groupId>
+    <artifactId>ODR-VP-Plugin</artifactId>
+    <version>0.3-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>ODR - VP-Plugin</name>
+  
+    <url>http://code.google.com/p/opendecisionrepository/</url>
+
+    <developers>
+        <developer>
+            <id>benr</id>
+            <name>Ben Ripkens</name>
+            <email>bripkens.dev@gmail.com</email>
+        </developer>
+        <developer>
+            <id>stefana</id>
+            <name>Stefan Arians</name>
+            <email>stefan.arians@gmail.com</email>
+        </developer>
+        <developer>
+            <id>tima</id>
+            <name>Tim Aerdts</name>
+            <email>fragger123@gmail.com</email>
+        </developer>
+        <developer>
+            <id>vadime</id>
+            <name>Vadim Emrich</name>
+            <email>v.emrich@student.fontys.nl</email>
+        </developer>
+        <developer>
+            <id>theor</id>
+            <name>Theo Rutten</name>
+            <email>theodorus.rutten@student.fontys.nl</email>
+        </developer>
+        <developer>
+            <id>michaelk</id>
+            <name>Michael Klingen</name>
+            <email>m.klingen@student.fontys.nl</email>
+        </developer>
+    </developers>
+
+    <repositories>
+        <repository>
+            <url>http://odr.fontysvenlo.org/mvn_repository/</url>
+            <name>repo for openapi</name>
+            <id>openapi</id>
+        </repository>
+    </repositories>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.8</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>nl.rug.search</groupId>
+            <artifactId>web-service-client</artifactId>
+            <version>0.3-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.visual-paradigm.uml</groupId>
+            <artifactId>openapi</artifactId>
+            <version>8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.swinglabs</groupId>
+            <artifactId>swing-layout</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <configuration>
+                            
+                            <target name="analyseOs">
+                                <condition property="commandParam" value="mac.sh">
+                                    <os family="mac" />
+                                </condition>
+
+                                <condition property="commandParam" value="bat">
+                                    <os family="windows" />
+                                </condition>      
+                                
+                                <condition property="commandParam" value="sh">
+                                    <os family="unix" />
+                                </condition>
+                                <exec
+                              executable="${basedir}/post_compile.${commandParam}"
+                              failonerror="false">
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

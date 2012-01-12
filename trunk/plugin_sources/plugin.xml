@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : plugin.xml
+    Created on : 1. September 2011, 12:17
+    Author     : Vadim Emrich
+    Description:
+        Purpose of the document follows.
+-->
+<plugin
+    id="sample.plugin"
+    name="ODR Plugin"
+    description="Sample Plugin"
+    provider="SoFa"
+    class="nl.fontys.sofa.odr.odrvpplugin.VPPlugin">
+    <runtime>
+        <library path="lib/ODR-VP-Plugin-0.3-SNAPSHOT.jar" relativePath="true"/>
+    </runtime>
+    <actionSets>
+        <actionSet id="odr.ActionSet">
+            <menu
+                id="odr.Menu"
+                label="ODR" 
+                mnemonic="O"
+                tooltip="ODR"
+                menuPath="Window">
+            </menu>
+            <action
+                id="odr.LoginAction"        
+                icon="images/import.png" 
+                actionType="generalAction"
+                label="Load Project"
+                tooltip="Load Project"
+                style="normal"
+                menuPath="odr.Menu/#">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.GetProjectsActionController"/>
+            </action>
+            <separator
+                id="odr.newMenuSerperator"
+                menuPath="odr.Menu/odr.newMenu"/>
+            <menu
+                id="odr.New"
+                label="New View" 
+                menuPath="odr.Menu/odr.New">
+            </menu>
+            <action 
+		id="odr.newRelationship"
+		actionType="generalAction"
+		label="Relationship"
+                icon="images/relationship.png"
+		tooltip="Creates a new relationship diagram with all decisions."
+		style="normal"
+		menuPath="odr.Menu/odr.New/#">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.NewRelationshipActionController"/>
+            </action>
+            <action 
+		id="odr.newChronological"
+		actionType="generalAction"
+		label="Chronological"
+                icon="images/chronological.png"
+		tooltip="Creates a new chronolgical diagram with all decisions."
+		style="normal"
+                menuPath="odr.Menu/odr.New/odr.newRelationship">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.NewChronologicalActionController"/>
+            </action>
+            <!--
+            <action 
+		id="odr.StakeholderInvolvementView"
+		actionType="generalAction"
+		label="Stakeholder Involvement"
+                icon="images/stakeholder.png"
+		tooltip="Creates a new stake holder involvement diagram with all decisions."
+		style="normal"
+		menuPath="odr.Menu/odr.New/odr.newChronological">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.NewStakeholderActionController"/>
+            </action>-->
+            <separator
+                id="odr.importMenuSerperator"
+                menuPath="odr.Menu/odr.New"/>
+            <action
+                id="odr.ImportSelected"
+		actionType="generalAction"
+		label="Import selected decisions"
+		tooltip="Imports a selection of decisions into current active view."
+		style="normal"
+		menuPath="odr.Menu/odr.importMenuSerperator">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.ImportSelectedActionController"/>
+            </action>
+            <action
+                id="odr.Synchronize"
+		actionType="generalAction"
+		label="Synchronize decisions"
+		tooltip="Synchronizes changes to ODR."
+		style="normal"
+		menuPath="odr.Menu/odr.ImportSelected">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.SynchronizeActionController"/>
+            </action>
+            <separator
+                id="odr.configurationMenuSerperator"
+                menuPath="odr.Menu/odr.Settings"/>
+            <action
+                id="odr.configuration"
+                actionType="generalAction"
+                label="Configuration"
+                tooltip="ODR specific settings"
+                style="normal"
+                menuPath="odr.Menu/odr.configurationMenuSerperator">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.ConfigurationActionController" />
+            </action>
+        </actionSet>
+        <contextSensitiveActionSet id="odr.DecisionActionSet">
+            <contextTypes all="false">
+                <include type="ActivityAction"/>
+            </contextTypes>
+            <separator
+                id="odr.decisionStateSerperator"
+                menuPath="OpenSpecification"/>
+            <action
+                id="odr.decisionStateContextAction"
+                icon="images/decisionstates.png"
+                label="Set Decision State"
+                style="normal"
+                menuPath="odr.decisionStateSerperator">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.DecisionStateContextActionController"/>
+            </action>
+            <action
+                id="odr.odrLinkContextAction"
+                label="Open decision details"
+                icon="images/logo-red.png"
+                style="normal"
+                menuPath="odr.decisionStateContextAction">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.OdrLinkContextActionController"/>
+            </action>
+            <separator
+                id="odr.odr.odrLinkSerperator"
+                label="odr"
+                name="odr"
+                menuPath="odr.odrLinkContextAction"/>
+        </contextSensitiveActionSet>
+        <contextSensitiveActionSet id="odr.DecisionActionSet">
+            <contextTypes all="false">
+                <include type="ControlFlow"/>
+            </contextTypes>
+            <separator
+                id="odr.relationshipTypeSerperator"
+                menuPath="OpenSpecification"/>
+            <action
+                id="odr.relationshipTypeContextAction"
+                icon="images/decisionstates.png"
+                label="Set Relationship Type"
+                style="normal"
+                menuPath="odr.relationshipTypeSerperator">
+                <actionController class="nl.fontys.sofa.odr.odrvpplugin.controller.RelationshipTypeContextActionController"/>
+            </action>
+            <separator
+                id="odr.relationshipTypeSerperator"
+                menuPath="odr.relationshipTypeContextAction"/>
+        </contextSensitiveActionSet>
+    </actionSets>
+<!-- to be continued -->
+</plugin>
