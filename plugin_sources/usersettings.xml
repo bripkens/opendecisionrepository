@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+    <decisionStateColorMap>
+        <mapping>
+            <decisionState>0</decisionState>
+            <rValue>254</rValue>
+            <gValue>208</gValue>
+            <bValue>229</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>1</decisionState>
+            <rValue>233</rValue>
+            <gValue>230</gValue>
+            <bValue>221</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>2</decisionState>
+            <rValue>201</rValue>
+            <gValue>226</gValue>
+            <bValue>212</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>3</decisionState>
+            <rValue>200</rValue>
+            <gValue>212</gValue>
+            <bValue>226</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>4</decisionState>
+            <rValue>51</rValue>
+            <gValue>255</gValue>
+            <bValue>51</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>5</decisionState>
+            <rValue>250</rValue>
+            <gValue>206</gValue>
+            <bValue>250</bValue>
+        </mapping>
+        <mapping>
+            <decisionState>6</decisionState>
+            <rValue>255</rValue>
+            <gValue>51</gValue>
+            <bValue>0</bValue>
+        </mapping>
+    </decisionStateColorMap>
+    <decisionStates id="0">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>idea</name>
+    </decisionStates>
+    <decisionStates id="1">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>tentative</name>
+    </decisionStates>
+    <decisionStates id="2">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>discarded</name>
+    </decisionStates>
+    <decisionStates id="3">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>decided</name>
+    </decisionStates>
+    <decisionStates id="4">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>approved</name>
+    </decisionStates>
+    <decisionStates id="5">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>challanged</name>
+    </decisionStates>
+    <decisionStates id="6">
+        <common>false</common>
+        <initialState>true</initialState>
+        <name>rejected</name>
+    </decisionStates>
+    <password>5VRks7uRLNYprxMRJ+DA0Q==</password>
+    <relationshipTypeStates id="417">
+        <common>true</common>
+        <name>depends on</name>
+    </relationshipTypeStates>
+    <relationshipTypeStates id="418">
+        <common>true</common>
+        <name>replaces</name>
+    </relationshipTypeStates>
+    <relationshipTypeStates id="419">
+        <common>true</common>
+        <name>is alternative for</name>
+    </relationshipTypeStates>
+    <relationshipTypeStates id="420">
+        <common>true</common>
+        <name>caused by</name>
+    </relationshipTypeStates>
+    <relationshipTypeStates id="421">
+        <common>true</common>
+        <name>is excluded by</name>
+    </relationshipTypeStates>
+    <url>http://decisionrepository.com:8080</url>
+    <username>test@test.test</username>
+</root>
