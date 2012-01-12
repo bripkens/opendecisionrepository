@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
@@ -12,7 +10,7 @@
     
     <artifactId>web-service-client</artifactId>
     <groupId>nl.rug.search</groupId>
-    <version>0.2.4-SNAPSHOT</version>
+    <version>0.2.4</version>
     <packaging>jar</packaging>
     <name>ODR - Web Service Client</name>
     
@@ -41,9 +39,9 @@
     </licenses>
     
     <scm>
-        <connection>scm:svn:http://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</connection>
-        <developerConnection>scm:svn:https://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</developerConnection>
-        <url>http://opendecisionrepository.googlecode.com/svn/trunk/sources/web-service-client</url>
+        <connection>scm:svn:http://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.4</connection>
+        <developerConnection>scm:svn:https://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.4</developerConnection>
+        <url>http://opendecisionrepository.googlecode.com/svn/tags/web-service-client-0.2.4</url>
     </scm>
     
     <issueManagement>
