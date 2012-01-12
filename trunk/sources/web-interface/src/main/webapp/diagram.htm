@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:svg="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+
+        <meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+
+        <link rel="icon" href="resources/images/icon.png" type="image/png" />
+
+        <script type="text/javascript" src="svg.js" data-debug="true"></script>
+
+        <script type="text/javascript" src="resources/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.simulate.js"></script>
+
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+
+        <script type="text/javascript" src="resources/js/diagram-definitions.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-core.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-entities.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-menu.js"></script>
+        <script type="text/javascript" src="resources/js/diagram-load.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/diagram.css" />
+    </head>
+    <body>
+
+        <ul class="topMenu">
+            <li class="file">
+                <span class="translate">menu.project.file</span>
+
+                <ul>
+                    <li id="save" ><span class="translate">menu.project.save</span></li>
+                    <li id="exportMenu" class="seperateAfter export">
+                        <span class="translate">menu.export</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="jpeg"><span class="translate">menu.export.jpeg</span></li>
+                                <li class="png"><span class="translate">menu.export.png</span></li>
+                                <li class="svg"><span class="translate">menu.export.svg</span></li>
+                                <li class="pdf"><span class="translate">menu.export.pdf</span></li>
+                            </ul>
+                        </div>
+                        <form method="post" action="diagram.png">
+                            <input type="hidden" id="data" name="data"/>
+                            <input type="hidden" id="format" name="format"/>
+                            <input type="hidden" id="filename" name="filename"/>
+                        </form>
+                    </li>
+                    <li id="toRelationshipView"><span class="translate">menu.project.to.relationship</span></li>
+                    <li id="toChronologicalView"><span class="translate">menu.project.to.chronological</span></li>
+                    <li id="toStakeholderView"><span class="translate">menu.project.to.stakeholder</span></li>
+                    <li id="refresh" class="seperateBefore"><span class="translate">menu.project.refresh</span></li>
+                    <li id="back"><span class="translate">menu.project.back</span></li>
+                </ul>
+            </li>
+            <li class="nodes">
+                <span class="translate">menu.nodes</span>
+
+                <ul class="overflowList" maxEntries="16" currentEntry="0" clickDelta="3">
+                    <li class="scrollup"></li>
+                    <li class="scrolldown"></li>
+                </ul>
+            </li>
+            <li class="status">
+                <span class="translate">menu.status</span>
+
+                <ul class="overflowList" maxEntries="16" currentEntry="0" clickDelta="3">
+                    <li class="scrollup"></li>
+                    <li class="scrolldown"></li>
+                </ul>
+            </li>
+            <li class="settings">
+                <span class="translate">menu.settings</span>
+
+                <ul>
+                    <li id="performanceMenu" class="quality">
+                        <span class="translate">menu.performance</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="quality"><span class="translate">menu.performance.high</span></li>
+                                <li class="speed"><span class="translate">menu.performance.low</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="alignmentMenu" class="questionmark">
+                        <span class="translate">menu.alignment</span>
+                        <div class="childMarker">
+                            <ul>
+                                <li class="on"><span class="translate">menu.alignment.on</span></li>
+                                <li class="off"><span class="translate">menu.alignment.off</span></li>
+                                <li class="questionmark"><span class="translate">menu.alignment.ask</span></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="outputStatus"><span></span></li>
+        </ul>
+
+        <div class="topMenuClickBlocker"></div>
+
+        <div id="svgContainer">
+            <script type="image/svg+xml">
+                <svg>
+                    <defs>
+                    </defs>
+                    <g id="lineGroup"></g>
+                    <g id="associationGroup"></g>
+                </svg>
+            </script>
+        </div>
+
+        <div id="nodeGroup"></div>
+
+        <div id="labelGroup"></div>
+
+        <div id="handleGroup"></div>
+
+        <div id="lasso"></div>
+
+        <noscript>
+            <h1>Please activate JavaScript to use the visualization.</h1>
+        </noscript>
+
+        <div id="alignmentPopup" title="alignment.title" class="translateTitle">
+            <p class="translate">alignment.description</p>
+
+            <label for="alignmentPopup-rememberSettings" class="translate">alignment.remember</label>
+            <input type="checkbox" id="alignmentPopup-rememberSettings" />
+        </div>
+
+        <div id="iconPopup">
+            <img src="resources/images/ajax-loader-circle.gif" class="icon" alt=""/>
+            <p></p>
+        </div>
+
+        <!--        <div id="savePopup" title="save.before.exit.title" class="translateTitle">
+                    <p class="translate">save.before.exit.text</p>
+                </div>-->
+
+        <div id="relatedNodesPopup" title="related.nodes.popup.title" class="translateTitle">
+            <p class="translate">related.nodes.popup.text</p>
+
+            <label for="relatedNodesPopup-depth" class="translate">related.nodes.popup.depth</label>
+            <select id="relatedNodesPopup-depth">
+                <option value="1" selected="true" class="translate">related.nodes.popup.level.1</option>
+                <option value="2" class="translate">related.nodes.popup.level.2</option>
+                <option value="3" class="translate">related.nodes.popup.level.3</option>
+            </select>
+
+            <div>
+                <input type="checkbox" checked="true" id="relatedNodesPopup-followOutgoing" />
+                <label for="relatedNodesPopup-followOutgoing" class="translate">related.nodes.popup.outgoing</label>
+            </div>
+
+            <div>
+                <input type="checkbox" checked="true" id="relatedNodesPopup-followIncoming" />
+                <label for="relatedNodesPopup-followIncoming" class="translate">related.nodes.popup.incoming</label>
+            </div>
+
+            <p class="translate">related.nodes.popup.text2</p>
+
+            <div>
+                <input type="radio" value="nothing" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-doNothing" checked="true" />
+                <label for="relatedNodesPopup-visibility-doNothing" class="translate">related.nodes.popup.maintain</label>
+            </div>
+
+            <div>
+                <input type="radio" value="show" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-showAll"/>
+                <label for="relatedNodesPopup-visibility-showAll" class="translate">related.nodes.popup.showAll</label>
+            </div>
+
+            <div>
+                <input type="radio" value="hide" name="relatedNodesPopup-visibility-others"
+                       id="relatedNodesPopup-visibility-hideAll"/>
+                <label for="relatedNodesPopup-visibility-hideAll" class="translate">related.nodes.popup.hideAll</label>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template-without-sidebar.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="Projectmembers" nospan="true" />
+    </ui:define>
+
+    <ui:define name="bodyBegin">
+        <odr:deletePopup valid="#{memberTableController.valid}"
+                         message="#{form['table.deletion.concern.text']}"
+                         attribute="#{memberTableController.memberToRemove.person.name}"
+                         removeMethod="#{memberTableController.removeMember}"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:panelGroup rendered="#{memberTableController.valid}">
+            <odr:breadcrumb breadCrumbSource="#{memberTableController.navigationBar}" />
+            <h1><h:outputText value="#{form['table.header.members']}"/></h1>
+            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+            <input id="searchInput" onkeyup="doFilter(this, 'memberList', false)" style="width: 200px;" class="prefill" onclick="return false;"/>
+        </ice:panelGroup>
+        <ice:form partialSubmit="true" rendered="#{memberTableController.valid}">
+            <table class="dataList" id="memberList">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">#{form['table.member.column.name']}</th>
+                        <th style="width: 25%;">#{form['table.member.column.role']}</th>
+                        <th style="width: 42%;">#{form['table.member.column.mail']}</th>
+                        <th style="width: 3%"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                <ice:repeat value="#{memberTableController.list}" var="member" id="memberRepeat">
+                    <tr>
+                        <td>#{member.person.name}</td>
+                        <td>#{member.role.name}</td>
+                        <td>#{member.person.email}</td>
+
+                        <td> <ice:panelGroup rendered="#{!memberTableController.isCurrentUser(member)}">
+                        <ice:commandLink value=""
+                                         actionListener="#{memberTableController.showRemoveMemberConfirmation}"
+                                         styleClass="columnNavigationLink">
+                            <img alt="#{common.remove}"
+                                 src="resources/images/removeSmall.png"
+                                 width="14"
+                                 height="14"
+                                 title="#{form['table.member.tooltip.delete']}"/>
+                            <f:attribute value="#{member}" name="member" />
+                        </ice:commandLink></ice:panelGroup></td>
+                    </tr>
+                </ice:repeat>
+                </tbody>
+            </table>
+        </ice:form>
+    </ui:define>
+</ui:composition>
