@@ -12,10 +12,10 @@ For a quick fix, a [http://code.google.com/p/opendecisionrepository/source/brows
 
 _In case you are wondering whether the files may be cached for too long - a hash (in the current implementation a simple timestamp) [http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/controller/ResourceHashController.java is generated] and added as a query parameter to the static resources' URLs. This forces the browser to reload the resources (useful when updating the application)._
 
-To further improve performance, a (reverse-)caching proxy, e.g., [https://www.varnish-cache.org/ Varnish] or [http://www.squid-cache.org/ squid],  should be added. This would drastically improve the ODR's performance the biggest performance-bottleneck is the delivery of static resources.
+To further improve performance, a (reverse-)caching proxy, e.g., [https://www.varnish-cache.org/ Varnish] or [http://www.squid-cache.org/ squid],  should be added. This would drastically improve the ODR's performance as the biggest performance-bottleneck is the delivery of static resources.
 
 == Password hashing ==
-For password hashing, Java simplified encryption (Jasypt) is used. In the beginning, a very strong hashing algorithm was used to protect the users' passwords. This hashing algorithm had a huge [negative] effect on the ODR's performance. To achieve an acceptable performance, the algorithm was changed and configured in the following way.
+For password hashing, Java simplified encryption (Jasypt) is used. In the beginning, a very strong hashing algorithm was used to protect the users' passwords. This hashing algorithm had a huge (negative) effect on the ODR's performance. To achieve an acceptable performance, the algorithm was changed and configured in the following way.
 
  * Algorithm: MD5
  * Salt size: 8 bytes
@@ -37,7 +37,7 @@ To increase the application's security, HTTPS with TLS encryption is used. Of co
 
 
 = Performance figures =
-The following performance figures were obtained by executing JMeter tests against the project overview (_user/projects_, hereinafter overview) and project detail view (_projects/{projectId}_, hereinafter detail view) web service. The tests were executed against the system hosted on [https://www.decisionrepository.com decisionrepository.com] at 2012-01-09. Each test made use of 100 threads. Each thread sent ten consecutive HTTP GET request to the overview and thereafter to the detail view. The HTTP _Accept_ header was set to _application/xml_.
+The following performance figures were obtained by executing JMeter tests against the project overview (_user/projects_, hereinafter overview) and project detail view (_projects/{projectId}_, hereinafter detail view) web service. The tests were executed against the system hosted on [https://www.decisionrepository.com decisionrepository.com] at 2012-01-09. Each test made use of 100 threads. Each thread sent ten consecutive HTTP GET request to the overview and thereafter to the detail view. The HTTP _Accept_ header was set to _application/xml_. For the detail view, the test project (ODR) was retrieved (the test data can always be regenerated through the FillDb view).
 
 || *Test* || *#Samples* || *Average (ms)* || *Median (ms)* || *90% Line (ms)* || *Min (ms)* || *Max (ms)* || *Error (%)* || *Throughput (#/sec)* || *Throughput (KB/sec)* ||
 || Overview || 1000 || 283 || 50 || 113 || 26 || 4549 || 0 || 204.1 || 188.9 ||
