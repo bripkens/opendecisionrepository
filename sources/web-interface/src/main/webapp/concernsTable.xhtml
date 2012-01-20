@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition template="template-without-sidebar.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:odr="http://java.sun.com/jsf/composite/odr">
+
+    <ui:define name="head">
+        <link rel="stylesheet" type="text/css" href="resources/css/vtip.min.css" />
+        <link rel="stylesheet" type="text/css" href="resources/css/jquery-ui-1.8.6.custom.css" />
+        <script type="text/javascript" src="resources/js/vtip-min.js"></script>
+        <script type="text/javascript" src="resources/js/searchableTable.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-ui-1.8.6.custom.min.js"></script>
+    </ui:define>
+
+    <ui:define name="pagetitle">
+        <ice:outputText value="#{page['concern.page.title']}" nospan="true" />
+    </ui:define>
+
+    <ui:define name="bodyBegin">
+        <odr:deletePopup valid="#{concernTableController1.valid}"
+                         message="#{form['table.deletion.members.text']}"
+                         attribute="#{concernTableController1.concernToDelete.concer.name}"
+                         removeMethod="#{concernTableController1.deleteConcern}"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:panelGroup rendered="#{concernTableController1.valid}">
+            <odr:breadcrumb breadCrumbSource="#{concernTableController1.navigationBar}" />
+            <h1><h:outputText value="#{form['table.header.concern']}"/></h1>
+
+            <label for="searchInput" class="prefillValue" style="display: none">#{form['table.search.input']}</label>
+            <input id="searchInput" onkeyup="doFilter(this, 'concernList', false)" style="width: 200px;" class="prefill" onclick="return false;"/>
+        </ice:panelGroup>
+        <ice:form partialSubmit="true" rendered="#{concernTableController1.valid}">
+            <a href="#{concernTableController1.createConcernLink}" ><img class="createConcernSymbol vtip" title="#{form['table.tooltip.create.concern']}" src="resources/images/add.png" alt="#{common['create']}"/></a>
+
+            <table class="dataList" id="concernList">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;"></th>
+                        <th style="width: 20%;">#{form['table.concern.column.externalid']}</th>
+                        <th style="width: 56%;">#{form['table.concern.column.name']}</th>
+                        <th style="width: 19%;">#{form['table.concern.column.date']}</th>
+                        <th colspan="3" style="">#{form['table.concern.column.actions']}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <ice:repeat value="#{concernTableController1.list}" var="item" id="concernRepeat">
+                    <tr class="parentRow group-#{item.concer.id}">
+                        <td style="border-bottom: none">
+                            <a class="toggleSubTableShow toggleSubTable" href="#" style="display: none"/>
+                        </td>
+                        <td>#{item.concer.externalId}</td>
+                        <td>#{item.concer.name}</td>
+                        <td>#{concernTableController1.getDate(item)}</td>
+                        <td>
+                            <a href="#{concernTableController1.getShowLink(item)}" ><img class="vtip" title="#{form['table.tooltip.details']}" alt="#{common.read}"
+                                                                                         src="resources/images/inspect.png"
+                                                                                         width="14"
+                                                                                         height="14"/></a></td>
+                        <td><a href="#{concernTableController1.getUpdateLink(item)}" ><img class="vtip" title="#{form['table.tooltip.edit']}" alt="#{common.edit}"
+                                                                                           src="resources/images/pencilSmall.png"
+                                                                                           width="14"
+                                                                                           height="14"/></a></td>
+                        <td><ice:commandLink value=""
+                                         actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
+                                         styleClass="columnNavigationLink">
+                        <img class="vtip" title="#{form['table.tooltip.remove']}" alt="#{common.remove}"
+                             src="resources/images/removeSmall.png"
+                             width="14"
+                             height="14"/>
+                        <f:attribute value="#{item}" name="item" />
+
+                    </ice:commandLink></td>
+                    </tr>
+                    <ice:repeat value="#{concernTableController1.getSubconcern(item)}" var="subconcern" id="subconcernRepeat">
+                        <tr style="display: none;" class="subRow group-#{item.concer.id}">
+                            <td style="border:none;"></td>
+                            <td>#{subconcern.concer.externalId}</td>
+                            <td>#{subconcern.concer.name}</td>
+                            <td>#{concernTableController1.getDate(subconcern)}</td>
+                            <td> <a href="#{concernTableController1.getShowLink(subconcern)}" ><img class="vtip" title="details" alt="#{common.read}"
+                                                                                                    src="resources/images/inspect.png"
+                                                                                                    width="14"
+                                                                                                    height="14"/></a></td>
+                            <td><a href="#{concernTableController1.getUpdateLink(subconcern)}" ><img class="vtip" title="edit" alt="#{common.edit}"
+                                                                                                     src="resources/images/pencilSmall.png"
+                                                                                                     width="14"
+                                                                                                     height="14"/></a></td>
+                            <td><ice:commandLink value=""
+                                             actionListener="#{concernTableController1.showDeleteConcernConfirmation}"
+                                             styleClass="columnNavigationLink">
+                            <img alt="#{common.remove}"
+                                 src="resources/images/removeSmall.png"
+                                 width="14"
+                                 height="14"/>
+                            <f:attribute value="#{subconcern.concer}" name="concern" />
+
+                        </ice:commandLink></td>
+                        </tr>
+                    </ice:repeat>
+                </ice:repeat>
+                </tbody>
+            </table>
+        </ice:form>
+    </ui:define>
+</ui:composition>
