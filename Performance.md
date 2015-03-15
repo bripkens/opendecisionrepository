@@ -1,0 +1,45 @@
+
+
+# Overview #
+The Open Decision Repository has a history of performance and load issues. Many of these issues could be traced to missing caching, [usage of](inefficient.md) certain technologies, e.g., Icefaces, JPA and additional security measures, e.g., password hashing and encrypted server communication (HTTPS). Some changes were made to the ODR in order to improve the performance. This page lists these activities for further reference and some options for further improvement.
+
+# Changes for performance optimization #
+
+## Caching ##
+The most critical load issue came through the usage of Icefaces 2.0.0 and missing caching functionality. With Icefaces 2.0.0, on each request, more than 60 files had to be retrieved. This means that 60 additional HTTP requests were sent to the server. Unfortunately, this problem can't be fixed by the Open Decision Repository developers, but instead must be fixed by the Icefaces developers. [The problem was reported](http://jira.icefaces.org/browse/ICE-6597) but isn't going to be fixed until Icefaces 3 is released.
+
+For a quick fix, a [HTTP servlet filter](http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/IcefacesStaticCacheFilter.java) was added which simply sets HTTP caching headers. It's clear that this measure only covers part of the problem, i.e., on the first request these files still need to be loaded.
+
+_In case you are wondering whether the files may be cached for too long - a hash (in the current implementation a simple timestamp) [is generated](http://code.google.com/p/opendecisionrepository/source/browse/trunk/sources/web-interface/src/main/java/nl/rug/search/odr/controller/ResourceHashController.java) and added as a query parameter to the static resources' URLs. This forces the browser to reload the resources (useful when updating the application)._
+
+To further improve performance, a (reverse-)caching proxy, e.g., [Varnish](https://www.varnish-cache.org/) or [squid](http://www.squid-cache.org/),  should be added. This would drastically improve the ODR's performance as the biggest performance-bottleneck is the delivery of static resources.
+
+## Password hashing ##
+For password hashing, Java simplified encryption (Jasypt) is used. In the beginning, a very strong hashing algorithm was used to protect the users' passwords. This hashing algorithm had a huge (negative) effect on the ODR's performance. To achieve an acceptable performance, the algorithm was changed and configured in the following way.
+
+  * Algorithm: MD5
+  * Salt size: 8 bytes
+  * Iterations: 1000
+
+## Read-only transactions ##
+Since the ODR makes use of Enterprise JavaBeans (EJB), the Java Transaction API (JTA) and Java Persistence 2.0 (JPA), a small window for improvement was identified, i.e., data is mostly read from the ODR in a transaction-aware way. Transaction awareness is costly and was therefore deactivated by default for read-only operations.
+
+_Expressed in a more technical way: The JTA transaction attribute was set to 'supported' for read-only methods._
+
+## Extended persistence context ##
+Currently, all data is loaded eagerly when using the JPA. This has a serious impact on the performance as a growing amount of data is retrieved on every request, even though it's not used. Therefore the usage of an extended persistence context should be considered as this would enable a rather simple change to lazy loading strategies.
+
+## Persistence context propagation ##
+Since the web service and web interface each have their own persistence context, they need to be refreshed in regular intervals in order to maintain consistency between the two interfaces. Since this requires at least one round trip to the database, performance could be improve by making use of persistence context propagation.
+
+## Encrypted server communication ##
+To increase the application's security, HTTPS with TLS encryption is used. Of course, this has an impact on the server's performance. In the Apache HTTP server's configuration, the number of thread reuse was therefore increased to 10,000, i.e., don't discard the thread after it handled a request.
+
+
+# Performance figures #
+The following performance figures were obtained by executing JMeter tests against the project overview (_user/projects_, hereinafter overview) and project detail view (_projects/{projectId}_, hereinafter detail view) web service. The tests were executed against the system hosted on [decisionrepository.com](https://www.decisionrepository.com) at 2012-01-09. Each test made use of 100 threads. Each thread sent ten consecutive HTTP GET request to the overview and thereafter to the detail view. The HTTP _Accept_ header was set to _application/xml_. For the detail view, the test project (ODR) was retrieved (the test data can always be regenerated through the FillDb view).
+
+| **Test** | **#Samples** | **Average (ms)** | **Median (ms)** | **90% Line (ms)** | **Min (ms)** | **Max (ms)** | **Error (%)** | **Throughput (#/sec)** | **Throughput (KB/sec)** |
+|:---------|:-------------|:-----------------|:----------------|:------------------|:-------------|:-------------|:--------------|:-----------------------|:------------------------|
+| Overview | 1000 | 283 | 50 | 113 | 26 | 4549 | 0 | 204.1 | 188.9 |
+| Detail view | 1000 | 1359 | 1415 | 1481 | 146 | 3346 | 0 | 66.5 | 1412.7 |

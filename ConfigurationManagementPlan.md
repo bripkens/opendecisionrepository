@@ -1,0 +1,92 @@
+**Table of Contents**
+
+
+
+# Introduction #
+This document gives an overview about the project conventions we established.
+
+# Repository #
+For the project we use a Google Code Subversion repository. Google Code is absolutely free of charge and comes with a downloads section, a Wiki and a Bug tracker.
+
+Use the following URL to reach the project start page:  http://code.google.com/p/opendecisionrepository/
+
+
+Read access to the Subversion repository is available using the following URL: http://opendecisionrepository.googlecode.com/svn/
+
+
+For read and write access use the https protocol instead: https://opendecisionrepository.googlecode.com/svn/
+
+## Naming schemes ##
+File and folder names should not contain any special characters nor spaces. Some examples for allowed file and folder names:
+  * design
+  * project-plan
+  * domain-model
+
+Some examples for disallowed file and folder names:
+  * -design (starts with a dash)
+  * überprüfung (contains vowel mutation)
+  * project plan (contains a space)
+
+## Recommended file types ##
+The following file types are recommended.
+
+  * plain text
+  * .odt or any other open document format
+  * .png
+  * .pdf
+
+## Forbidden file types ##
+The following file types are not allowed in the repository because of their temporary, system-specific or private nature. The following list of file types can also be used to configure Subversion properly so that it will ignore these files. A guide on how this could be done can be found in the [svnbook](http://svnbook.red-bean.com/en/1.1/ch07s02.html#svn-ch-7-sect-2.3.3) (free).
+
+```
+*~
+private.properties
+private.xml
+*.aux
+*.log
+*.o
+*.out
+*.toc
+*.bbl
+*.blg
+*.lof
+*.lot
+*.vpp~*
+private
+bin
+coverage
+target
+dist
+*.pyc
+.settings
+.project
+.classpath
+build
+*.class
+nbproject
+*.img
+*.exe
+*.a
+*.bin
+error.c
+kernel.syms
+bochs.out
+*.o
+```
+
+
+
+
+# Documentation #
+Written documentation should not be stored in the repository. Every written documentation should be placed in the Wiki to keep it easily accessible and encourage change. Diagrams and graphics may still be placed in the repository.
+
+
+# Text review / correction #
+Use Bracket Notation when reviewing a text that is not version controlled. Also use it if you are uncertain about the changes you want to apply or if you simply want to add a comment. You can read about Bracket Notation in [Aza Raskins Blog](http://www.azarask.in/blog/post/collaboration_made_simple_with_bracket_notation/).
+
+Bracket Notation is used in the following way (excerpt from the blog entry):
+> `the[ir][y're]`: “their” was used when “they’re” was meant. To fix this problem the editor suggestions deleting “ir” and replacing it with “y’re”.
+
+> `a[n]`: “An” should only be used before a word that begins with a vowel-like sound. The editor suggests removing the “n” of “an”.
+
+> `[][][Be careful...]`: The editor is reprimanding the author for forgetting the rules of English. Notice the two sets of empty brackets that prefix the comment. They are needed to make sure that comment cannot be confused for an addition or deletion.

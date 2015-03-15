@@ -1,0 +1,53 @@
+# Deployment manual #
+
+
+
+## Recommended set up ##
+The following set up has been used for development, staging and production. Due to the early version of this project additional knowledge about the technologies may be required in order to get the system up and running.
+
+  * Java 6
+  * Glassfish 3.0.1
+  * MySQL or Derby
+  * Maven 3
+
+## Build process ##
+The ODR makes use of Apache Maven and is therefore simple to build. To get started with the current development version use a fresh checkout of the project (recommended) and execute the following command.
+
+```
+# expected to be executed from the /trunk/sources folder
+mvn clean install
+cd startup/
+mvn clean install
+```
+
+Result of the build process is the _OpenDecisionRepository.ear_ file in the _/trunk/sources/startup/target_ directory. The second execution of _mvn clean install_ is required because of an Apache Maven bug which removes version numbers from artifacts.
+
+### Changing the context root ###
+If you want to change the context root of the ODR from the default _/_ to something else you need to modify the following file:
+/trunk/sources/odr-startup/src/main/application/META-INF/application.xml
+
+## Preparing the application server ##
+Preparing the application server is a matter of setting system properties and adding a connection pool and JDBC resources. The simplest approach is to use the Derby database that ships with Glassfish. To start the database execute the _start-database_ command on the _asadmin_ utility. After that use the left navigation bar (in the web admin menu) and click on _Resources => JDBC => JDBC Resources => New..._. In this new form enter the JNDI name **jdbc/odr**, select the DerbyPool and click _ok_. Or you can select any other data source as long as it is a _javax.sql.datasource_ type so MySQL also works if you setup a MySQL pool.
+
+As mentioned in the previous paragraph you need to set some system properties. System properties can be set using the admin menu by clicking on _Enterprise Server => System properties => Add property_. You can find a list of all properties and a description of them [in the wiki](http://code.google.com/p/opendecisionrepository/wiki/SystemProperties).
+
+
+### Changing the JNDI name ###
+The JNDI name **jdbc/odr** can be changed by modifying the persistence.xml file which can be found in the _/trunk/sources/entities/src/main/resources/META-INF_ directory.
+
+## Deploying ##
+Use the admin menu to deploy the Open Decision Repository. In order to do so click on _Applications => Deploy..._. Select the **OpenDecisionRepository.ear** file (see build process step) and click ok.
+
+If the deployment from the .ear file does not work, you can try a exploded deployment. You can do this by following these steps.
+  * On the server browse to the **OpenDecisionRepository.ear** file
+  * Use a zip program to unzip it
+  * Enter the unzipped directory, it should hold some .war and .jar files
+  * Unzip these files the directory created should be the exact name of the file with the last . replaced by an  `_`  for example **decision-management-0.2.3-SNAPSHOT.jar** extracts to **decision-management-0.2.3-SNAPSHOT\_jar**
+  * Do this for all the .jar and .war files
+  * Use the glassfish admin menu to deploy from this folder In order to do so click on _Applications => Deploy..._. Select the **OpenDecisionRepository** folder (which you extracted from the .ear file) and click ok.
+
+**Note** _Either way (exploded or .ear) deployment might take some time, please be patient_
+
+## Adding required entities to the database ##
+In order to work correctly the ODR requires certain entities, e.g. stakeholder roles, relationship types. The simplest way to add them is to change the system property **odr.debug** and to set it to **true**. After you did this you will see a small button next to the _Learn more_ link in the navigation bar. Click this button to navigate to new page which allows you to add these entities. Click all the buttons which you see between the _entities_ and _workflow_ headings. After this it should be possible to use the ODR.
+**Make sure to set odr.debug to false after you are done!**

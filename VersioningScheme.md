@@ -1,0 +1,7 @@
+# Introduction #
+The following versioning scheme is used throughout the ODR project. You can see (and change) the project's version through the Maven POM files.
+
+# Major versions #
+**0.1.x** - Version 0.1, subversions and snapshots were used between September 2010 and August 2011. It marks the initial development phase of the ODR.
+
+**0.2.x** - Throughout the Software Factory 2011 at Fontys University of Applied Sciences Venlo, version 0.2 was developed. Each subversion, e.g., 0.2.3, represents the end of one development iteration.

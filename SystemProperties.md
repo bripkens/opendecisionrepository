@@ -1,0 +1,22 @@
+# System properties #
+
+The following system properties need to be set in order to use the ODR properly.
+
+| **Name** | **Possible values** | **Description** | **Example** |
+|:---------|:--------------------|:----------------|:------------|
+| feedback.from | email address | Will be used when sending an email using the feedback system | info@decisionrepository.com |
+| feedback.message | [Format string](http://download.oracle.com/javase/6/docs/api/java/util/Formatter.html#syntax) |  Used as the email content | From: %s \n\nUrl: %s \n\nMessage: %s \n\nPage: %s |
+| feedback.smtp.host | valid smtp host | The host which will be used when sending a feedback mail | smtp.1und1.de |
+| feedback.smtp.password | Any string  | Password used authentication with the smtp host **this is not mandatory only if your server requires authentification** | 12345  |
+| feedback.smtp.port | Integer | smtp port used for sending a feedback email **this is not mandatory** | 25  |
+| feedback.smtp.user | String | User name used for authentication with the smtp host **this is not mandatory only if your server requires authentification** | odruser  |
+| feedback.subject | String | Will be used as the subject of a feedback mail | `[ODR]` Feedback |
+| feedback.to | Comma separated list of email addresses | Feedback mails will be sent to this email addresses | user1@example.com,user2@example.com |
+| odr.cache.ice.active | Boolean | Whether or not aggressive caching will be used for ice resources. Activating this is highly recommended. Default value is false. | true |
+| odr.cache.ice.expiration | Integer | When _odr.cache.ice.active_ is set to true this property will be used to determine how long these files should be cached. Value in **seconds**. | 86400 |
+| odr.cache.resources.expiration | Integer | How long the static resources, i.e. images, CSS and JavaScript should be cached in **milliseconds**. | 86400000 |
+| odr.debug | Boolean | To activate the debug mode set this property to true. This will show a small button next to the _learn more_ link which provides some utility functionality for development. Fall-back is set to false. | false |
+| odr.retrieve.opr | URL | This URL should point to the OPR _retrieve pattern_ web service which is used in the decision wizard. | http://patternrepository.com/web-services/resources/pattern/ |
+| odr.search.opr | URL | This URL should point to the OPR _search pattern_ web service which is used in the decision wizard. | http://patternrepository.com/web-services/resources/search?q= |
+| opr.base.href | URL | The base url of the OPR. Will be used when rendering OPR wiki to html. | http://patternrepository.com |
+| odr.base.href | URL | The base url of the ODR. Will be used as the HTML base href. | http://decisionrepository.com |
